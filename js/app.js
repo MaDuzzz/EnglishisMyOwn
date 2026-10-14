@@ -15,7 +15,7 @@ class App {
     this.placementEngine = null;
     this.selectedHeatmapYear = new Date().getFullYear();
     this.showDemoHeatmap = false;
-    this.analyticsViewMode = "52weeks"; // "52weeks" | "12months"
+    this.analyticsViewMode = "12months"; // "12months" | "52weeks"
   }
 
   async init() {
@@ -686,33 +686,41 @@ class App {
       }
     });
 
-    // Dữ liệu mẫu (Demo) mô phỏng chính xác mật độ commit như ảnh GitHub của user
+    // Dữ liệu mẫu (Demo) mô phỏng chính xác Tháng 9 & Tháng 10 như ảnh người dùng cung cấp
     if (this.showDemoHeatmap) {
-      const today = new Date();
-      for (let i = 1; i <= 365; i++) {
-        const d = new Date(today);
-        d.setDate(d.getDate() - i);
-        const dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        if (!wordCountMap[dStr]) {
-          if (i <= 42) {
-            const r = i % 7;
-            if (r === 1) wordCountMap[dStr] = 10;
-            else if (r === 2 || r === 5) wordCountMap[dStr] = 18;
-            else if (r === 3 || r === 6) wordCountMap[dStr] = 26;
-            else if (r === 4) wordCountMap[dStr] = 38;
-          } else if (i % 19 === 0 || i % 31 === 0 || i % 47 === 0 || i % 67 === 0 || i % 83 === 0) {
-            wordCountMap[dStr] = (i % 2 === 0) ? 10 : 22;
-          }
-        }
-      }
+      const demoYear = year;
+      // Dữ liệu mẫu Tháng 9
+      wordCountMap[`${demoYear}-09-21`] = 25; // Level 3
+      wordCountMap[`${demoYear}-09-28`] = 18; // Level 2
+      wordCountMap[`${demoYear}-09-29`] = 35; // Level 4
+      wordCountMap[`${demoYear}-09-30`] = 32; // Level 4
+
+      // Dữ liệu mẫu Tháng 10
+      wordCountMap[`${demoYear}-10-01`] = 25; // Level 3
+      wordCountMap[`${demoYear}-10-02`] = 35; // Level 4
+      wordCountMap[`${demoYear}-10-03`] = 15; // Level 2
+      wordCountMap[`${demoYear}-10-04`] = 35; // Level 4
+      wordCountMap[`${demoYear}-10-05`] = 32; // Level 4
+      wordCountMap[`${demoYear}-10-06`] = 25; // Level 3
+      wordCountMap[`${demoYear}-10-07`] = 15; // Level 2
+      wordCountMap[`${demoYear}-10-08`] = 40; // Level 4
+      wordCountMap[`${demoYear}-10-11`] = 35; // Level 4
+      wordCountMap[`${demoYear}-10-12`] = 25; // Level 3
+      wordCountMap[`${demoYear}-10-18`] = 35; // Level 4
+
+      // Thêm vài ô rải rác ở các tháng khác
+      wordCountMap[`${demoYear}-02-14`] = 10;
+      wordCountMap[`${demoYear}-04-08`] = 15;
+      wordCountMap[`${demoYear}-06-21`] = 10;
+      wordCountMap[`${demoYear}-07-15`] = 25;
     }
 
     const now = new Date();
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
-    // Hàm phân loại Level màu chuẩn GitHub
+    // Hàm phân loại Level màu chuẩn GitHub (Dark to bright green)
     const getGitHubLevel = (count, isFuture) => {
-      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Ngày trong tương lai", badge: "Tương lai" };
+      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-40", label: "Ngày trong tương lai", badge: "Tương lai" };
       if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Không có từ vựng (0 từ)", badge: "Level 0 (0 từ)" };
       if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Level 1 - Hoàn thành nhiệm vụ)`, badge: `Level 1 (${count} từ)` };
       if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Level 2 - Khá)`, badge: `Level 2 (${count} từ)` };
@@ -810,33 +818,33 @@ class App {
 
         if (count > 0) monthActiveDays++;
 
-        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
+        const todayRing = isToday ? 'ring-1 ring-cyan-400 ring-offset-1 ring-offset-[#111a2e]' : '';
 
         cellsHtml += `
           <div 
-            class="aspect-square rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
+            class="aspect-square rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
             data-date="${dateStr}"
-            data-dayname="Ngày ${day}"
+            data-dayname="Ngày ${day}/${mIndex + 1}"
             data-count="${count}"
             data-label="${info.label}"
             data-badge="${info.badge}"
-            title="${dateStr}: ${info.label}"
+            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} (${dateStr})"
           ></div>
         `;
       }
 
       return `
-        <div class="gh-panel p-3.5 rounded-xl shadow-sm flex flex-col">
-          <div class="flex items-center justify-between mb-2">
+        <div class="gh-card p-4 rounded-2xl shadow-md flex flex-col">
+          <div class="flex items-center justify-between mb-2.5">
             <h4 class="text-xs font-bold text-slate-200">${mName}</h4>
-            <span class="text-[10px] font-semibold text-slate-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
+            <span class="text-[10px] font-semibold text-emerald-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
           </div>
           
-          <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold mb-1.5 text-slate-400">
+          <div class="grid grid-cols-7 gap-1.5 text-center text-[9px] font-bold mb-2 text-slate-400 select-none">
             <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span class="text-blue-400">T7</span><span class="text-rose-400">CN</span>
           </div>
 
-          <div class="grid grid-cols-7 gap-1 flex-1 items-start">
+          <div class="grid grid-cols-7 gap-1.5 flex-1 items-start">
             ${cellsHtml}
           </div>
         </div>
@@ -957,25 +965,38 @@ class App {
           </div>
         </div>
 
-        <!-- 🌟 YEARLY ACTIVITY HEATMAP (CHÍNH XÁC CHUẨN GITHUB) 🌟 -->
+        <!-- 🌟 YEARLY ACTIVITY HEATMAP (CHUẨN 12 THÁNG & GITHUB GREENS) 🌟 -->
         <div class="space-y-4">
           <!-- Controls Header -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div class="flex items-center space-x-2">
-              <span class="text-lg">🟩</span>
-              <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                GitHub Contribution Activity (365 Ngày)
-              </h3>
+            <div class="flex items-center space-x-3">
+              <span class="text-xl">🟩</span>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
+                    Yearly Activity & Focus Heatmap
+                  </h3>
+                  <!-- Year Switcher -->
+                  <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-xl text-xs font-bold">
+                    <button id="btn-heatmap-prev-year" class="px-1 py-0.5 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
+                    <span class="px-1 text-emerald-400 font-black">${year}</span>
+                    <button id="btn-heatmap-next-year" class="px-1 py-0.5 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Đo lường sự kiên trì trong cả năm với thang độ đậm xanh chuẩn GitHub.
+                </p>
+              </div>
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
               <!-- View Mode Toggle -->
               <div class="inline-flex rounded-xl p-1 bg-slate-200 dark:bg-slate-800 text-xs font-bold">
-                <button id="btn-view-52weeks" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
-                  52 Tuần (Chuẩn GitHub)
-                </button>
                 <button id="btn-view-12months" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
-                  12 Tháng (Lịch)
+                  📅 12 Tháng (Lưới)
+                </button>
+                <button id="btn-view-52weeks" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
+                  📊 52 Tuần (GitHub)
                 </button>
               </div>
 
@@ -1002,8 +1023,32 @@ class App {
           </div>
 
           <!-- Content based on View Mode -->
-          ${this.analyticsViewMode === '52weeks' ? `
-            <!-- AUTHENTIC GITHUB 52-WEEK GRAPH (EXACT MATCH USER IMAGE 1) -->
+          ${this.analyticsViewMode === '12months' ? `
+            <!-- 12-MONTH CALENDAR GRID (EXACT MATCH USER IMAGE 4x3) -->
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                ${monthsHtml}
+              </div>
+
+              <!-- Footer with GitHub Standard Legend -->
+              <div class="gh-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                <div class="flex items-center space-x-2 text-[11px]">
+                  <span>ℹ️</span>
+                  <span>Độ đậm màu xanh: Level 1 (10 từ) • Level 2 (11-20 từ) • Level 3 (21-30 từ) • Level 4 (>30 từ)</span>
+                </div>
+                <div class="flex items-center space-x-1.5 text-[11px]">
+                  <span class="text-slate-400">Less</span>
+                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-0" title="0 từ"></div>
+                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-1" title="10 từ (Level 1)"></div>
+                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-2" title="11-20 từ (Level 2)"></div>
+                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-3" title="21-30 từ (Level 3)"></div>
+                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-4" title=">30 từ (Level 4)"></div>
+                  <span class="text-slate-400">More</span>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <!-- AUTHENTIC GITHUB 52-WEEK GRAPH -->
             <div class="gh-panel rounded-2xl p-5 md:p-6 overflow-x-auto scrollbar-thin shadow-2xl">
               <div class="min-w-[760px]">
                 <!-- Month Labels Row -->
@@ -1034,11 +1079,10 @@ class App {
                   <div class="flex items-center space-x-2">
                     <span class="text-slate-400 text-[11px] flex items-center space-x-1 cursor-default">
                       <span>ℹ️</span>
-                      <span>Learn how we count contributions: Level 1 (10 từ) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
+                      <span>Level 1 (10 từ) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
                     </span>
                   </div>
 
-                  <!-- Legend -->
                   <div class="flex items-center space-x-1.5 text-[11px]">
                     <span class="text-slate-400">Less</span>
                     <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-0" title="0 từ"></div>
@@ -1050,11 +1094,6 @@ class App {
                   </div>
                 </div>
               </div>
-            </div>
-          ` : `
-            <!-- 12-MONTH CALENDAR VIEW (USING SAME GITHUB PALETTE) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              ${monthsHtml}
             </div>
           `}
         </div>
@@ -1074,14 +1113,25 @@ class App {
       </div>
     `;
 
-    // Gắn sự kiện chuyển chế độ xem (52 Tuần vs 12 Tháng)
+    // Gắn sự kiện chuyển chế độ xem (12 Tháng vs 52 Tuần)
+    container.querySelector('#btn-view-12months')?.addEventListener('click', () => {
+      this.analyticsViewMode = '12months';
+      this.renderAnalyticsPage(container);
+    });
+
     container.querySelector('#btn-view-52weeks')?.addEventListener('click', () => {
       this.analyticsViewMode = '52weeks';
       this.renderAnalyticsPage(container);
     });
 
-    container.querySelector('#btn-view-12months')?.addEventListener('click', () => {
-      this.analyticsViewMode = '12months';
+    // Gắn sự kiện chuyển năm
+    container.querySelector('#btn-heatmap-prev-year')?.addEventListener('click', () => {
+      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) - 1;
+      this.renderAnalyticsPage(container);
+    });
+
+    container.querySelector('#btn-heatmap-next-year')?.addEventListener('click', () => {
+      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) + 1;
       this.renderAnalyticsPage(container);
     });
 
