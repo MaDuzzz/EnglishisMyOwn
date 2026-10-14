@@ -30,18 +30,6 @@ export class CoursesEngine {
 
     this.container.innerHTML = `
       <div class="space-y-8 animate-fade-in">
-        <!-- Course Selector Bar -->
-        <div class="flex items-center space-x-3 overflow-x-auto pb-2 scrollbar-none">
-          ${COURSES_DATA.map(c => `
-            <button 
-              data-course-id="${c.id}"
-              class="course-tab-btn flex-shrink-0 px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 border ${c.id === this.selectedCourseId ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-500/20' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50'}">
-              <span class="text-xs px-2 py-0.5 rounded-md bg-white/20">${c.badge}</span>
-              <span>${c.title}</span>
-            </button>
-          `).join('')}
-        </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <!-- Cột Trái & Giữa: Video Player & AI Speaking & Quiz (2 cột) -->
           <div class="lg:col-span-2 space-y-8">
