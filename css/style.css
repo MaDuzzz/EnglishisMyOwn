@@ -14,6 +14,30 @@
   animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Logo Letter E: Quay 360 độ (0.7s) rồi nghỉ 2 giây (tổng 2.7s), lặp lại khi còn hover */
+@keyframes spin360ThenPause {
+  0% {
+    transform: rotate(0deg);
+  }
+  26% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo-letter-e {
+  display: inline-block;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.logo-brand-container:hover .logo-letter-e,
+.group:hover .logo-letter-e {
+  animation: spin360ThenPause 2.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 /* Custom Scrollbars */
 .scrollbar-none::-webkit-scrollbar {
   display: none;
