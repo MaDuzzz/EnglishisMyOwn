@@ -6,6 +6,14 @@ import { authInstance, dbInstance, isFirebaseLive } from './firebase-config.js';
 
 const STORAGE_KEY = "ENGLISH_IS_MY_OWN_STATE_V1";
 
+export const RANK_TIERS = {
+  "A1": { current: "A1", next: "A2", label: "A1 (Beginner)", nextLabel: "A2 (Elementary)", requiredXP: 100 },
+  "A2": { current: "A2", next: "B1", label: "A2 (Elementary)", nextLabel: "B1 (Intermediate)", requiredXP: 250 },
+  "B1": { current: "B1", next: "B2", label: "B1 (Intermediate)", nextLabel: "B2 (Upper-Intermediate)", requiredXP: 600 },
+  "B2": { current: "B2", next: "C1", label: "B2 (Upper-Intermediate)", nextLabel: "C1 (Advanced)", requiredXP: 1200 },
+  "C1": { current: "C1", next: "Master", label: "C1 (Advanced)", nextLabel: "Mastery", requiredXP: 2500 }
+};
+
 export class StateManager {
   constructor() {
     this.state = this.loadInitialState();
@@ -15,11 +23,15 @@ export class StateManager {
   loadInitialState() {
     const saved = localStorage.getItem(STORAGE_KEY);
     const today = this.getTodayString();
+    const yesterday = this.getYesterdayString();
 
     let defaultState = {
       user: null, // { uid, displayName, email, photoURL }
       cefrLevel: null, // "A1" | "A2" | "B1" | "B2"
+      rankXP: 0, // Điểm kinh nghiệm tích lũy của rank hiện tại
       lastActiveDate: null, // "YYYY-MM-DD"
+      lastPenaltyCheckDate: null, // Ngày kiểm tra phạt gần nhất
+      lastPenaltyNotice: null, // Thông báo phạt gần nhất
       streak: 0,
       learnedWords: [], // Array of { wordId, learnedDate, reviewCount, lastReviewedAt }
       dailyReviewDone: false,
@@ -46,6 +58,25 @@ export class StateManager {
     if (defaultState.dailyNewBatchDate !== today) {
       defaultState.dailyNewBatchDone = false;
       defaultState.dailyNewBatchDate = today;
+    }
+
+    // ÁP DỤNG HÌNH PHẠT TỤT PROGRESS x2 NẾU BỎ NGÀY HỌC (LOOSE STREAK)
+    if (defaultState.lastActiveDate && defaultState.lastActiveDate !== today && defaultState.lastActiveDate !== yesterday) {
+      if (defaultState.lastPenaltyCheckDate !== today) {
+        const lastDateObj = new Date(defaultState.lastActiveDate);
+        const todayDateObj = new Date(today);
+        const diffTime = Math.abs(todayDateObj - lastDateObj);
+        const missedDays = Math.max(1, Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1);
+        
+        // Bình thường 1 ngày tăng 25 XP (10 review + 15 batch mới).
+        // Bỏ 1 ngày bị phạt x2 phần tăng: 25 * 2 = 50 XP/ngày!
+        const penaltyXP = missedDays * 50;
+        const oldXP = defaultState.rankXP || 0;
+        defaultState.rankXP = Math.max(0, oldXP - penaltyXP);
+        defaultState.lastPenaltyNotice = `⚠️ Bạn đã bỏ lỡ ${missedDays} ngày! Bị trừ -${penaltyXP} XP (Phạt x2 phần tăng hàng ngày).`;
+        defaultState.lastPenaltyCheckDate = today;
+        defaultState.streak = 0; // Reset streak
+      }
     }
 
     return defaultState;
@@ -223,6 +254,9 @@ export class StateManager {
     this.state.dailyReviewDate = today;
     this.state.lastActiveDate = today;
 
+    // Tăng +10 XP cho bài Review
+    this.addXP(10);
+
     // Cập nhật streak nếu chưa cập nhật hôm nay
     this.updateStreak();
     this.saveState();
@@ -245,8 +279,49 @@ export class StateManager {
     this.state.dailyNewBatchDate = today;
     this.state.lastActiveDate = today;
 
+    // Tăng +15 XP cho việc nạp xong 10 từ mới
+    this.addXP(15);
+
     this.updateStreak();
     this.saveState();
+  }
+
+  addXP(amount) {
+    this.state.rankXP = (this.state.rankXP || 0) + amount;
+    this.checkLevelUp();
+  }
+
+  checkLevelUp() {
+    const current = this.state.cefrLevel || "A1";
+    const tier = RANK_TIERS[current];
+    if (!tier || !tier.next || tier.next === "Mastery" || tier.next === "C1+") return;
+
+    if (this.state.rankXP >= tier.requiredXP) {
+      this.state.rankXP -= tier.requiredXP;
+      this.state.cefrLevel = tier.next;
+      this.state.lastLevelUpNotice = `🎉 CHÚC MỪNG! Bạn đã thăng hạng lên ${tier.next}!`;
+    }
+  }
+
+  getRankProgress() {
+    const level = this.state.cefrLevel || "A1";
+    const tier = RANK_TIERS[level] || RANK_TIERS["A1"];
+    const currentXP = Math.max(0, this.state.rankXP || 0);
+    const requiredXP = tier.requiredXP;
+    const percent = Math.min(100, Math.round((currentXP / requiredXP) * 100));
+
+    return {
+      level,
+      nextLevel: tier.next,
+      currentLabel: tier.label,
+      nextLabel: tier.nextLabel,
+      currentXP,
+      requiredXP,
+      percent,
+      remainingXP: Math.max(0, requiredXP - currentXP),
+      penaltyNotice: this.state.lastPenaltyNotice,
+      levelUpNotice: this.state.lastLevelUpNotice
+    };
   }
 
   updateStreak() {
@@ -270,6 +345,7 @@ export class StateManager {
 
   setLevel(level) {
     this.state.cefrLevel = level;
+    this.state.rankXP = 0; // Reset XP khi làm lại bài test xếp lớp
     this.saveState();
   }
 

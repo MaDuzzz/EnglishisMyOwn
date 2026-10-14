@@ -133,22 +133,33 @@ class App {
     const level = appState.state.cefrLevel;
     const streak = appState.state.streak;
 
-    // Streak
+    // Streak with proper spacing
     const streakEl = document.getElementById('header-streak-badge');
     if (streakEl) {
-      streakEl.innerHTML = `🔥 <span class="font-bold">${streak}</span> ngày`;
+      streakEl.innerHTML = `<span>🔥</span><span class="mx-1 font-bold">${streak}</span><span>ngày</span>`;
     }
 
-    // Level Badge
+    // Level Badge with Mini Progress Bar
     const levelBtn = document.getElementById('btn-retake-placement-header');
     if (levelBtn) {
       if (level) {
-        levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-black tracking-wider bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-all flex items-center space-x-1";
-        levelBtn.innerHTML = `<span>Rank:</span><span class="font-extrabold text-sm underline">${level}</span>`;
-        levelBtn.title = "Click để làm lại bài test xếp lớp";
+        const rankProg = appState.getRankProgress();
+        levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all flex items-center space-x-2";
+        levelBtn.innerHTML = `
+          <div class="flex items-center space-x-1">
+            <span class="font-extrabold">${rankProg.level}</span>
+            <span class="text-slate-400 text-[10px]">➔</span>
+            <span class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.nextLevel}</span>
+          </div>
+          <div class="w-12 bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: ${rankProg.percent}%"></div>
+          </div>
+          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400">${rankProg.percent}%</span>
+        `;
+        levelBtn.title = `Tiến độ: ${rankProg.currentXP}/${rankProg.requiredXP} XP (${rankProg.percent}%). Click để làm lại bài test xếp lớp.`;
       } else {
         levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300 hover:opacity-80";
-        levelBtn.innerHTML = `⚠️ Chưa xếp lớp`;
+        levelBtn.innerHTML = `<span>⚠️ Chưa xếp lớp</span>`;
         levelBtn.title = "Làm bài test 10 câu để xếp lớp";
       }
     }
@@ -219,6 +230,7 @@ class App {
     const discipline = appState.calculateDisciplineStatus();
     const learnedCount = appState.state.learnedWords.length;
     const level = appState.state.cefrLevel;
+    const rankProg = appState.getRankProgress();
 
     mainContainer.innerHTML = `
       <div class="space-y-8 animate-fade-in max-w-5xl mx-auto">
@@ -249,6 +261,64 @@ class App {
           </div>
         </div>
 
+        <!-- 🌟 HÀNH TRÌNH NÂNG HẠNG (RANK PROGRESSION WIDGET) 🌟 -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">🏆</span>
+                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
+                  Lộ Trình Thăng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Càng lên trình độ cao, con đường càng gian nan và đòi hỏi sự kiên trì bền bỉ mỗi ngày.
+              </p>
+            </div>
+            <div class="text-right">
+              <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+              <span class="text-xs font-semibold text-slate-400 block">${rankProg.currentXP} / ${rankProg.requiredXP} XP</span>
+            </div>
+          </div>
+
+          <!-- Thanh Tiến Trình Lớn (Big Dynamic Progress Bar) -->
+          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden p-0.5 border border-slate-200 dark:border-slate-700">
+            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-500 relative" style="width: ${rankProg.percent}%">
+              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+            </div>
+          </div>
+
+          <!-- Các mốc Rank CEFR Roadmap -->
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-6 px-1">
+            <span class="${rankProg.level === 'A1' ? 'text-indigo-600 font-extrabold underline' : ''}">A1 (100 XP)</span>
+            <span>➔</span>
+            <span class="${rankProg.level === 'A2' ? 'text-indigo-600 font-extrabold underline' : ''}">A2 (250 XP)</span>
+            <span>➔</span>
+            <span class="${rankProg.level === 'B1' ? 'text-indigo-600 font-extrabold underline' : ''}">B1 (600 XP)</span>
+            <span>➔</span>
+            <span class="${rankProg.level === 'B2' ? 'text-indigo-600 font-extrabold underline' : ''}">B2 (1200 XP)</span>
+            <span>➔</span>
+            <span class="${rankProg.level === 'C1' ? 'text-indigo-600 font-extrabold underline' : ''}">C1 Master</span>
+          </div>
+
+          <!-- Quy Tắc Kỷ Luật Thăng Hạng & Phạt x2 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-start space-x-2.5">
+              <span class="text-base mt-0.5">📈</span>
+              <div>
+                <strong>Tăng trưởng mỗi ngày:</strong> +25 XP / ngày hoàn thành (Ôn tập +10 XP, Học 10 từ mới +15 XP).
+              </div>
+            </div>
+
+            <div class="p-3.5 bg-rose-50/70 dark:bg-rose-950/40 rounded-2xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-start space-x-2.5">
+              <span class="text-base mt-0.5">⚠️</span>
+              <div>
+                <strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc đứt streak $\rightarrow$ Bị trừ phạt gấp đôi: <strong>-50 XP / ngày</strong>!
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Notification Banner / Penalty Status -->
         ${discipline.isPenalized ? `
           <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border-2 border-rose-300 dark:border-rose-900 text-rose-900 dark:text-rose-100 shadow-sm animate-bounce-short">
@@ -257,6 +327,7 @@ class App {
               <div>
                 <h4 class="font-extrabold text-sm md:text-base">Áp Dụng Hình Phạt Vì Bỏ Lỡ ${discipline.missedDays} Ngày Học!</h4>
                 <p class="text-xs md:text-sm mt-1 opacity-90">${discipline.reason}</p>
+                ${rankProg.penaltyNotice ? `<p class="text-xs font-bold text-rose-600 dark:text-rose-300 mt-1">${rankProg.penaltyNotice}</p>` : ''}
               </div>
             </div>
           </div>
