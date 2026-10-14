@@ -2,7 +2,7 @@
 <html lang="vi" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>English is My Own - Nền Tảng Học Tiếng Anh & IT LMS Cá Nhân</title>
   <meta name="description" content="Nền tảng tự học tiếng Anh giao tiếp công việc và luyện chứng chỉ IT với AI & Kỷ luật Spaced Repetition">
 
@@ -39,10 +39,10 @@
 
   <link rel="stylesheet" href="./css/style.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-full flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-full flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white overscroll-y-none">
 
   <!-- ==================== HEADER THANH ĐIỀU HƯỚNG ==================== -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors pt-[env(safe-area-inset-top,0px)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
@@ -99,34 +99,18 @@
           </button>
         </div>
       </div>
-
-      <!-- Mobile Navigation Bar (Bottom on Mobile) -->
-      <div class="md:hidden flex items-center justify-around py-2 border-t border-slate-200 dark:border-slate-800">
-        <button data-tab="vocab" class="nav-tab-btn flex-1 py-1.5 text-center text-xs font-bold text-indigo-600 dark:text-indigo-400">
-          📇 Từ Vựng
-        </button>
-        <button data-tab="analytics" class="nav-tab-btn flex-1 py-1.5 text-center text-xs font-bold text-slate-500">
-          📊 Kỷ Luật
-        </button>
-        <button data-tab="courses" class="nav-tab-btn flex-1 py-1.5 text-center text-xs font-bold text-slate-500">
-          📚 Khoá Học
-        </button>
-        <button data-tab="dictionary" class="nav-tab-btn flex-1 py-1.5 text-center text-xs font-bold text-slate-500">
-          📖 Sổ Tay
-        </button>
-      </div>
     </div>
   </header>
 
   <!-- ==================== MAIN CONTENT AREA ==================== -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 md:py-8 pb-28 md:pb-8">
     <div id="main-content-area">
       <!-- Nội dung động sẽ được nạp qua js/app.js -->
     </div>
   </main>
 
   <!-- ==================== FOOTER ==================== -->
-  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 dark:text-slate-600">
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-400 dark:text-slate-600 mb-20 md:mb-0">
     <p>English is My Own • Static Web LMS Cá Nhân • Thiết kế cho Dân Kỹ Thuật IT</p>
   </footer>
 
@@ -183,6 +167,39 @@
       </div>
     </div>
   </div>
+
+  <!-- ==================== NATIVE iOS BOTTOM TAB BAR (iPhone 12 & 17 Pro Max) ==================== -->
+  <nav id="ios-bottom-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800/80 px-3 pt-1.5 pb-[max(14px,env(safe-area-inset-bottom,0px))] shadow-2xl transition-all">
+    <div class="flex items-center justify-around max-w-md mx-auto">
+      <button data-tab="vocab" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
+        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all bg-indigo-600/15 text-indigo-600 dark:text-indigo-400">
+          <span class="text-base group-active:scale-90 transition-transform">📇</span>
+        </div>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight text-indigo-600 dark:text-indigo-400">Từ Vựng</span>
+      </button>
+
+      <button data-tab="analytics" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
+        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
+          <span class="text-base group-active:scale-90 transition-transform">📊</span>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5 tracking-tight text-slate-500 dark:text-slate-400">Kỷ Luật</span>
+      </button>
+
+      <button data-tab="courses" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
+        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
+          <span class="text-base group-active:scale-90 transition-transform">📚</span>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5 tracking-tight text-slate-500 dark:text-slate-400">Khoá Học</span>
+      </button>
+
+      <button data-tab="dictionary" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
+        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
+          <span class="text-base group-active:scale-90 transition-transform">📖</span>
+        </div>
+        <span class="text-[10px] font-medium mt-0.5 tracking-tight text-slate-500 dark:text-slate-400">Sổ Tay</span>
+      </button>
+    </div>
+  </nav>
 
   <!-- PWA Service Worker Registration -->
   <script>

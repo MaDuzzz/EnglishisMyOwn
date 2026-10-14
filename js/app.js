@@ -60,10 +60,11 @@ class App {
   }
 
   bindGlobalEvents() {
-    // Chuyển Tab
-    document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+    // Chuyển Tab (cả Header và iOS Bottom Tab Bar)
+    document.querySelectorAll('.nav-tab-btn, .ios-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const tab = btn.getAttribute('data-tab');
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
         this.switchTab(tab);
       });
     });
@@ -201,7 +202,7 @@ class App {
   switchTab(tab) {
     this.currentTab = tab;
 
-    // Highlight active tab
+    // Highlight active desktop tab
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
       const t = btn.getAttribute('data-tab');
       if (t === tab) {
@@ -210,6 +211,24 @@ class App {
       } else {
         btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-500/20');
         btn.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+      }
+    });
+
+    // Highlight active iOS bottom tab bar
+    document.querySelectorAll('.ios-tab-btn').forEach(btn => {
+      const t = btn.getAttribute('data-tab');
+      const pill = btn.querySelector('.ios-tab-pill');
+      const label = btn.querySelector('span:last-child');
+      if (t === tab) {
+        pill?.classList.remove('text-slate-500', 'dark:text-slate-400');
+        pill?.classList.add('bg-indigo-600/15', 'text-indigo-600', 'dark:text-indigo-400', 'scale-105');
+        label?.classList.remove('font-medium', 'text-slate-500', 'dark:text-slate-400');
+        label?.classList.add('font-bold', 'text-indigo-600', 'dark:text-indigo-400');
+      } else {
+        pill?.classList.remove('bg-indigo-600/15', 'text-indigo-600', 'dark:text-indigo-400', 'scale-105');
+        pill?.classList.add('text-slate-500', 'dark:text-slate-400');
+        label?.classList.remove('font-bold', 'text-indigo-600', 'dark:text-indigo-400');
+        label?.classList.add('font-medium', 'text-slate-500', 'dark:text-slate-400');
       }
     });
 
@@ -820,21 +839,25 @@ class App {
 
         const todayRing = isToday ? 'ring-1 ring-cyan-400 ring-offset-1 ring-offset-[#111a2e]' : '';
 
+        const textColor = info.level === 4 
+          ? 'text-emerald-950 font-black' 
+          : (count > 0 ? 'text-white font-bold' : 'text-slate-400/80 dark:text-slate-500/80 font-medium');
+
         cellsHtml += `
           <div 
-            class="aspect-square rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
+            class="aspect-square gh-cell-tile rounded-lg sm:rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-110 active:scale-95 flex items-center justify-center text-[10px] select-none ${textColor}"
             data-date="${dateStr}"
             data-dayname="Ngày ${day}/${mIndex + 1}"
             data-count="${count}"
             data-label="${info.label}"
             data-badge="${info.badge}"
             title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} (${dateStr})"
-          ></div>
+          >${day}</div>
         `;
       }
 
       return `
-        <div class="gh-card p-4 rounded-2xl shadow-md flex flex-col">
+        <div id="month-card-${mIndex + 1}" class="gh-card p-4 rounded-2xl shadow-md flex flex-col scroll-mt-20 transition-all duration-300">
           <div class="flex items-center justify-between mb-2.5">
             <h4 class="text-xs font-bold text-slate-200">${mName}</h4>
             <span class="text-[10px] font-semibold text-emerald-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
@@ -1026,6 +1049,22 @@ class App {
           ${this.analyticsViewMode === '12months' ? `
             <!-- 12-MONTH CALENDAR GRID (EXACT MATCH USER IMAGE 4x3) -->
             <div class="space-y-4">
+              <!-- iOS Quick-Jump Month Bar (T1 - T12 Carousel for iPhone 12 & 17 Pro Max) -->
+              <div class="block sm:hidden -mx-4 px-4 overflow-x-auto scrollbar-none scroll-snap-x py-1">
+                <div class="flex items-center space-x-2 min-w-max">
+                  <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">Nhảy tháng:</span>
+                  ${monthFullNames.map((_, idx) => `
+                    <button 
+                      type="button" 
+                      data-jump-target="month-card-${idx + 1}"
+                      class="month-jump-pill px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-800/90 active:bg-indigo-600 text-slate-300 active:text-white border border-slate-700/80 shadow-sm"
+                    >
+                      T${idx + 1}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 ${monthsHtml}
               </div>
@@ -1141,6 +1180,22 @@ class App {
       this.renderAnalyticsPage(container);
     });
 
+    // Gắn sự kiện chạm nhanh nhảy đến tháng (iOS Month Quick-Jump Carousel)
+    container.querySelectorAll('.month-jump-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-jump-target');
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          if (window.navigator?.vibrate) window.navigator.vibrate(12);
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetEl.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2', 'ring-offset-slate-900');
+          setTimeout(() => {
+            targetEl.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2', 'ring-offset-slate-900');
+          }, 1500);
+        }
+      });
+    });
+
     // Gắn sự kiện Inspector tương tác khi rê chuột hoặc click ô
     const inspectorDate = container.querySelector('#inspector-date');
     const inspectorCount = container.querySelector('#inspector-count');
@@ -1148,6 +1203,7 @@ class App {
 
     container.querySelectorAll('[data-date]').forEach(cell => {
       const updateInspector = () => {
+        if (window.navigator?.vibrate) window.navigator.vibrate(8);
         const d = cell.getAttribute('data-date');
         const dayName = cell.getAttribute('data-dayname') || '';
         const cnt = cell.getAttribute('data-count');
