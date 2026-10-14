@@ -15,6 +15,7 @@ class App {
     this.placementEngine = null;
     this.selectedHeatmapYear = new Date().getFullYear();
     this.showDemoHeatmap = false;
+    this.analyticsViewMode = "52weeks"; // "52weeks" | "12months"
   }
 
   async init() {
@@ -677,7 +678,7 @@ class App {
     const discipline = appState.calculateDisciplineStatus();
     const year = this.selectedHeatmapYear || new Date().getFullYear();
 
-    // Bản đồ đếm số từ nạp theo từng ngày (YYYY-MM-DD -> word count)
+    // Map đếm số từ nạp theo từng ngày (YYYY-MM-DD -> count)
     const wordCountMap = {};
     (appState.state.learnedWords || []).forEach(w => {
       if (w.learnedDate) {
@@ -685,42 +686,112 @@ class App {
       }
     });
 
-    // Dữ liệu mẫu (Demo) để người dùng xem trước độ rực rỡ nếu bật chế độ Demo
+    // Dữ liệu mẫu (Demo) mô phỏng chính xác mật độ commit như ảnh GitHub của user
     if (this.showDemoHeatmap) {
       const today = new Date();
-      for (let i = 1; i <= 60; i++) {
+      for (let i = 1; i <= 365; i++) {
         const d = new Date(today);
         d.setDate(d.getDate() - i);
         const dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
         if (!wordCountMap[dStr]) {
-          const r = i % 7;
-          if (r === 0 || r === 5) wordCountMap[dStr] = 0; // Xám: bỏ lỡ
-          else if (r === 1 || r === 4) wordCountMap[dStr] = 10; // Cam: 10 từ (Hoàn thành nhiệm vụ)
-          else if (r === 2 || r === 6) wordCountMap[dStr] = 20; // Xanh lá: 20 từ (Hoàn thành tốt)
-          else if (r === 3) wordCountMap[dStr] = 35; // Gold shimmer: 35 từ (Hoàn thành xuất sắc)
+          if (i <= 42) {
+            const r = i % 7;
+            if (r === 1) wordCountMap[dStr] = 10;
+            else if (r === 2 || r === 5) wordCountMap[dStr] = 18;
+            else if (r === 3 || r === 6) wordCountMap[dStr] = 26;
+            else if (r === 4) wordCountMap[dStr] = 38;
+          } else if (i % 19 === 0 || i % 31 === 0 || i % 47 === 0 || i % 67 === 0 || i % 83 === 0) {
+            wordCountMap[dStr] = (i % 2 === 0) ? 10 : 22;
+          }
         }
       }
     }
 
-    const monthNames = [
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    // Hàm phân loại Level màu chuẩn GitHub
+    const getGitHubLevel = (count, isFuture) => {
+      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Ngày trong tương lai", badge: "Tương lai" };
+      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Không có từ vựng (0 từ)", badge: "Level 0 (0 từ)" };
+      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Level 1 - Hoàn thành nhiệm vụ)`, badge: `Level 1 (${count} từ)` };
+      if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Level 2 - Khá)`, badge: `Level 2 (${count} từ)` };
+      if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ vựng (Level 3 - Tốt)`, badge: `Level 3 (${count} từ)` };
+      return { level: 4, cellClass: "gh-cell-4", label: `${count} từ vựng (Level 4 - Xuất sắc ✨)`, badge: `Level 4 (${count} từ)` };
+    };
+
+    // Đếm tổng số ngày học thực tế
+    let totalActiveDaysInYear = 0;
+    Object.keys(wordCountMap).forEach(d => {
+      if (wordCountMap[d] > 0) totalActiveDaysInYear++;
+    });
+
+    // ==================== 1. XÂY DỰNG BIỂU ĐỒ 52 TUẦN LIÊN TỤC CHUẨN GITHUB ====================
+    const endSaturday = new Date(now);
+    endSaturday.setDate(now.getDate() + (6 - now.getDay())); // Đến Thứ Bảy tuần này
+    const startSunday = new Date(endSaturday);
+    startSunday.setDate(endSaturday.getDate() - (53 * 7 - 1)); // 53 tuần = 371 ngày
+
+    const monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayNames = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+
+    // Header tháng cho 53 tuần
+    let monthLabelsHtml = '';
+    let lastMonth = -1;
+    for (let w = 0; w < 53; w++) {
+      const colSunday = new Date(startSunday);
+      colSunday.setDate(startSunday.getDate() + (w * 7));
+      const colMonth = colSunday.getMonth();
+      if (colMonth !== lastMonth && colSunday.getDate() <= 7) {
+        monthLabelsHtml += `<span style="grid-column-start: ${w + 1}" class="text-[10px] text-slate-400 font-medium select-none">${monthShortNames[colMonth]}</span>`;
+        lastMonth = colMonth;
+      }
+    }
+
+    // 53 Cột x 7 Hàng
+    let columnsHtml = '';
+    for (let w = 0; w < 53; w++) {
+      let weekCellsHtml = '';
+      for (let d = 0; d < 7; d++) {
+        const cellDate = new Date(startSunday);
+        cellDate.setDate(startSunday.getDate() + (w * 7 + d));
+        const cYear = cellDate.getFullYear();
+        const cMonth = String(cellDate.getMonth() + 1).padStart(2, '0');
+        const cDay = String(cellDate.getDate()).padStart(2, '0');
+        const dateStr = `${cYear}-${cMonth}-${cDay}`;
+        const isToday = dateStr === todayStr;
+        const isFuture = dateStr > todayStr;
+        const count = wordCountMap[dateStr] || 0;
+        const info = getGitHubLevel(count, isFuture);
+
+        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
+
+        weekCellsHtml += `
+          <div 
+            class="w-[11px] h-[11px] rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
+            data-date="${dateStr}"
+            data-dayname="${dayNames[d]}"
+            data-count="${count}"
+            data-label="${info.label}"
+            data-badge="${info.badge}"
+            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} vào ${dayNames[d]}, ${dateStr}"
+          ></div>
+        `;
+      }
+      columnsHtml += `<div class="grid grid-rows-7 gap-[3px]">${weekCellsHtml}</div>`;
+    }
+
+    // ==================== 2. XÂY DỰNG LỊCH 12 THÁNG (VIEW MODE 2) ====================
+    const monthFullNames = [
       "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
       "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
       "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
     ];
 
-    const now = new Date();
-    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-
-    let totalActiveDaysInYear = 0;
-    let totalWordsInYear = 0;
-    let totalMissionDays = 0;
-    let totalGoodDays = 0;
-    let totalExcelDays = 0;
-
-    const monthsHtml = monthNames.map((mName, mIndex) => {
+    const monthsHtml = monthFullNames.map((mName, mIndex) => {
       const firstDay = new Date(year, mIndex, 1);
-      const dayOfWeek = firstDay.getDay(); // 0: CN, 1: T2...
-      const leadingBlanks = (dayOfWeek + 6) % 7; // T2 là 0, CN là 6
+      const dayOfWeek = firstDay.getDay();
+      const leadingBlanks = (dayOfWeek + 6) % 7; // T2 là 0
       const totalDays = new Date(year, mIndex + 1, 0).getDate();
 
       let monthActiveDays = 0;
@@ -735,87 +806,34 @@ class App {
         const isToday = dateStr === todayStr;
         const isFuture = dateStr > todayStr;
         const count = wordCountMap[dateStr] || 0;
+        const info = getGitHubLevel(count, isFuture);
 
-        let cellColorClass = "";
-        let statusLabel = "";
-        let statusBadge = "";
+        if (count > 0) monthActiveDays++;
 
-        if (isFuture) {
-          // Các ô trong tương lai thì màu trắng
-          cellColorClass = "bg-white dark:bg-white border border-slate-300 dark:border-white shadow-xs";
-          statusLabel = "Ngày trong tương lai";
-          statusBadge = "⚪ Tương lai";
-        } else if (count === 0) {
-          // Nếu hôm nào bỏ không học thì ô màu xám
-          cellColorClass = "bg-slate-300 dark:bg-slate-700/80 border border-slate-400/40 dark:border-slate-600/50";
-          statusLabel = "Bỏ lỡ / Chưa học (0 từ)";
-          statusBadge = "⚫ Bỏ lỡ (0 từ)";
-        } else if (count === 10) {
-          // Hôm nào học được 10 từ thì ô màu cam -> Hoàn thành nhiệm vụ
-          monthActiveDays++;
-          totalActiveDaysInYear++;
-          totalWordsInYear += count;
-          totalMissionDays++;
-          cellColorClass = "bg-orange-500 border border-orange-400 shadow-sm shadow-orange-500/30";
-          statusLabel = "Hoàn thành nhiệm vụ (10 từ)";
-          statusBadge = "🟠 Nhiệm vụ (10 từ)";
-        } else if (count > 10 && count <= 30) {
-          // Hôm nào học được > 10 từ < 30 từ thì ô màu xanh lá -> Hoàn thành tốt
-          monthActiveDays++;
-          totalActiveDaysInYear++;
-          totalWordsInYear += count;
-          totalGoodDays++;
-          cellColorClass = "bg-emerald-500 border border-emerald-400 shadow-sm shadow-emerald-500/30";
-          statusLabel = `Hoàn thành tốt (${count} từ)`;
-          statusBadge = `🟢 Hoàn thành tốt (${count} từ)`;
-        } else if (count > 30) {
-          // Hôm nào học > 30 từ thì ô màu vàng gold bóng lấp lánh --> Hoàn thành xuất sắc
-          monthActiveDays++;
-          totalActiveDaysInYear++;
-          totalWordsInYear += count;
-          totalExcelDays++;
-          cellColorClass = "gold-shimmer border border-amber-300 shadow-md shadow-amber-500/40";
-          statusLabel = `Hoàn thành xuất sắc (${count} từ) ✨`;
-          statusBadge = `✨ Xuất sắc (${count} từ)`;
-        } else {
-          // 1 đến 9 từ
-          monthActiveDays++;
-          totalActiveDaysInYear++;
-          totalWordsInYear += count;
-          cellColorClass = "bg-amber-400/80 border border-amber-300";
-          statusLabel = `Đã học ${count} từ (Chưa đủ 10 từ)`;
-          statusBadge = `🟡 Chưa đủ (${count}/10 từ)`;
-        }
-
-        const todayRing = isToday ? "ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-900" : "";
+        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
 
         cellsHtml += `
           <div 
-            class="aspect-square rounded-md transition-all duration-150 cursor-pointer ${cellColorClass} ${todayRing} hover:scale-125 hover:z-20"
+            class="aspect-square rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
             data-date="${dateStr}"
+            data-dayname="Ngày ${day}"
             data-count="${count}"
-            data-label="${statusLabel}"
-            data-badge="${statusBadge}"
-            title="${dateStr}: ${statusLabel}"
+            data-label="${info.label}"
+            data-badge="${info.badge}"
+            title="${dateStr}: ${info.label}"
           ></div>
         `;
       }
 
       return `
-        <div class="bg-slate-50 dark:bg-slate-900/90 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
-          <div class="flex items-center justify-between mb-2.5">
-            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">${mName}</h4>
+        <div class="gh-panel p-3.5 rounded-xl shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-slate-200">${mName}</h4>
             <span class="text-[10px] font-semibold text-slate-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
           </div>
           
-          <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold mb-1.5">
-            <span class="text-slate-400">T2</span>
-            <span class="text-slate-400">T3</span>
-            <span class="text-slate-400">T4</span>
-            <span class="text-slate-400">T5</span>
-            <span class="text-slate-400">T6</span>
-            <span class="text-blue-500 dark:text-blue-400">T7</span>
-            <span class="text-rose-500 dark:text-rose-400">CN</span>
+          <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold mb-1.5 text-slate-400">
+            <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span class="text-blue-400">T7</span><span class="text-rose-400">CN</span>
           </div>
 
           <div class="grid grid-cols-7 gap-1 flex-1 items-start">
@@ -825,28 +843,29 @@ class App {
       `;
     }).join('');
 
+    // ==================== RENDER FULL PAGE HTML ====================
     container.innerHTML = `
-      <div class="space-y-8 animate-fade-in max-w-6xl mx-auto">
+      <div class="space-y-6 animate-fade-in max-w-6xl mx-auto">
         <!-- Top Banner / Title -->
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden border border-slate-800">
+        <div class="gh-panel rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div class="inline-flex items-center space-x-2 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-xl text-xs font-bold text-indigo-300 mb-2">
-                <span>📊</span>
-                <span>Bảng Đo Lường Kỷ Luật & Mức Độ Chăm Chỉ</span>
+              <div class="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs font-bold text-emerald-400 mb-2">
+                <span>🌱</span>
+                <span>GitHub-Style Discipline Heatmap</span>
               </div>
-              <h1 class="text-2xl md:text-3xl font-black text-white">Thống Kê Hoạt Động & Kỷ Luật Cả Năm</h1>
-              <p class="text-xs md:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                Đo lường mức độ kiên trì 365 ngày (như GitHub commit graph). Mỗi ô màu phản ánh chính xác kỷ luật: Cam (10 từ), Xanh lá (11-30 từ) và Gold bóng lấp lánh (>30 từ).
+              <h1 class="text-2xl md:text-3xl font-black text-white">Thống Kê Hoạt Động & Kỷ Luật Học Tập</h1>
+              <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                Đo lường sự kiên trì trong 365 ngày qua bảng màu chuẩn GitHub (Level 0 đến Level 4). Kỷ luật mỗi ngày tạo nên nền tảng ngôn ngữ vững chắc.
               </p>
             </div>
 
             <div class="flex items-center space-x-3">
-              <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
-                <div class="text-[11px] text-slate-300">Tổng ngày học (${year})</div>
-                <div class="text-xl font-extrabold text-white">${totalActiveDaysInYear} ngày</div>
+              <div class="bg-white/5 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
+                <div class="text-[11px] text-slate-400">Ngày học tích lũy</div>
+                <div class="text-xl font-extrabold text-emerald-400">${totalActiveDaysInYear} ngày</div>
               </div>
-              <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
+              <div class="bg-white/5 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
                 <div class="text-[11px] text-amber-300">Chuỗi hiện tại</div>
                 <div class="text-xl font-extrabold text-amber-400">🔥 ${streak} ngày</div>
               </div>
@@ -855,7 +874,7 @@ class App {
         </div>
 
         <!-- 4 KPI Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 text-center">
           <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
             <div class="text-2xl">🔥</div>
             <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${streak} ngày</div>
@@ -885,11 +904,11 @@ class App {
               <div class="flex items-center space-x-2">
                 <span class="text-xl">🏆</span>
                 <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                  Lộ Trình Nâng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
+                  Lộ Trình Thăng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
                 </h3>
               </div>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong>. Càng lên cao hành trình càng gian nan và đòi hỏi ý chí thép.
+                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong>. Càng lên trình độ cao hành trình càng gian nan và đòi hỏi ý chí thép.
               </p>
             </div>
             <div class="text-right">
@@ -938,73 +957,106 @@ class App {
           </div>
         </div>
 
-        <!-- 🌟 YEARLY ACTIVITY & FOCUS HEATMAP (THE STAR SECTION) 🌟 -->
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
-          <!-- Heatmap Header & Controls -->
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-            <div>
-              <div class="flex items-center space-x-3">
-                <h2 class="text-xl md:text-2xl font-black text-slate-800 dark:text-white">
-                  Yearly Activity & Focus Heatmap
-                </h2>
-                <div class="inline-flex items-center space-x-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold">
-                  <button id="btn-heatmap-prev-year" class="p-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" title="Năm trước">◀</button>
-                  <span class="px-1 text-indigo-600 dark:text-indigo-400 font-black">${year}</span>
-                  <button id="btn-heatmap-next-year" class="p-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" title="Năm sau">▶</button>
-                </div>
-              </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Đo lường mức độ kiên trì và kỷ luật học tập trong cả năm (như GitHub commit graph).
-              </p>
+        <!-- 🌟 YEARLY ACTIVITY HEATMAP (CHÍNH XÁC CHUẨN GITHUB) 🌟 -->
+        <div class="space-y-4">
+          <!-- Controls Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center space-x-2">
+              <span class="text-lg">🟩</span>
+              <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
+                GitHub Contribution Activity (365 Ngày)
+              </h3>
             </div>
 
-            <!-- Legend bar matching user's exact requirements -->
-            <div class="flex flex-wrap items-center gap-3 text-xs bg-slate-50 dark:bg-slate-950/70 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800">
-              <div class="flex items-center space-x-1.5" title="Ngày chưa tới trong tương lai">
-                <div class="w-3.5 h-3.5 rounded bg-white dark:bg-white border border-slate-300 dark:border-white shadow-xs"></div>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Tương lai</span>
+            <div class="flex flex-wrap items-center gap-2">
+              <!-- View Mode Toggle -->
+              <div class="inline-flex rounded-xl p-1 bg-slate-200 dark:bg-slate-800 text-xs font-bold">
+                <button id="btn-view-52weeks" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
+                  52 Tuần (Chuẩn GitHub)
+                </button>
+                <button id="btn-view-12months" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
+                  12 Tháng (Lịch)
+                </button>
               </div>
-              <div class="flex items-center space-x-1.5" title="Bỏ lỡ không học">
-                <div class="w-3.5 h-3.5 rounded bg-slate-300 dark:bg-slate-700/80 border border-slate-400/50 dark:border-slate-600/60"></div>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">Bỏ lỡ (0 từ)</span>
-              </div>
-              <div class="flex items-center space-x-1.5" title="Hoàn thành nhiệm vụ ngày (10 từ)">
-                <div class="w-3.5 h-3.5 rounded bg-orange-500 border border-orange-400 shadow-sm shadow-orange-500/30"></div>
-                <span class="text-[11px] text-orange-600 dark:text-orange-400 font-bold">10 từ (Nhiệm vụ)</span>
-              </div>
-              <div class="flex items-center space-x-1.5" title="Hoàn thành tốt (>10 và <=30 từ)">
-                <div class="w-3.5 h-3.5 rounded bg-emerald-500 border border-emerald-400 shadow-sm shadow-emerald-500/30"></div>
-                <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">>10-30 từ (Tốt)</span>
-              </div>
-              <div class="flex items-center space-x-1.5" title="Hoàn thành xuất sắc (>30 từ)">
-                <div class="w-3.5 h-3.5 rounded gold-shimmer border border-amber-300 shadow-md"></div>
-                <span class="text-[11px] text-amber-600 dark:text-amber-400 font-bold">>30 từ (Xuất sắc ✨)</span>
-              </div>
-              <button id="btn-toggle-demo-heatmap" class="ml-auto px-2.5 py-1 text-[11px] font-bold rounded-lg border ${this.showDemoHeatmap ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700'} hover:opacity-80 transition-all">
+
+              <!-- Demo Data Toggle -->
+              <button id="btn-toggle-demo-heatmap" class="px-3 py-1.5 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-200'}">
                 ${this.showDemoHeatmap ? '🔄 Xem dữ liệu thật' : '🎲 Xem mẫu (Demo)'}
               </button>
             </div>
           </div>
 
-          <!-- Inspector Bar (Updated on hover/tap) -->
-          <div id="heatmap-cell-inspector" class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-950 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs mb-6">
+          <!-- Inspector Bar (Updated dynamically on hover/tap) -->
+          <div id="heatmap-cell-inspector" class="gh-panel p-3.5 rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs">
             <div class="flex items-center space-x-2">
               <span class="text-base">📍</span>
-              <span class="text-slate-600 dark:text-slate-300">Rê chuột hoặc bấm vào ô bất kỳ:</span>
-              <strong id="inspector-date" class="text-indigo-600 dark:text-indigo-400 font-black">Hôm nay (${todayStr})</strong>
+              <span class="text-slate-400">Rê chuột hoặc chạm vào ô vuông để soi chi tiết:</span>
+              <strong id="inspector-date" class="text-emerald-400 font-bold">Hôm nay (${todayStr})</strong>
             </div>
             <div class="flex items-center space-x-3">
-              <span id="inspector-count" class="font-bold text-slate-800 dark:text-white">Đã nạp: ${wordCountMap[todayStr] || 0} từ</span>
-              <span id="inspector-badge" class="px-2.5 py-1 rounded-full text-xs font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'}">
+              <span id="inspector-count" class="font-bold text-white">Đã nạp: ${wordCountMap[todayStr] || 0} từ</span>
+              <span id="inspector-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
                 ${(wordCountMap[todayStr] || 0) >= 10 ? 'Hoàn thành ngày ✅' : 'Đang học hôm nay ⏳'}
               </span>
             </div>
           </div>
 
-          <!-- 12-Month Grid (4 cols x 3 rows) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            ${monthsHtml}
-          </div>
+          <!-- Content based on View Mode -->
+          ${this.analyticsViewMode === '52weeks' ? `
+            <!-- AUTHENTIC GITHUB 52-WEEK GRAPH (EXACT MATCH USER IMAGE 1) -->
+            <div class="gh-panel rounded-2xl p-5 md:p-6 overflow-x-auto scrollbar-thin shadow-2xl">
+              <div class="min-w-[760px]">
+                <!-- Month Labels Row -->
+                <div class="grid grid-cols-[32px_repeat(53,11px)] gap-[3px] mb-1.5 items-center">
+                  <span></span>
+                  ${monthLabelsHtml}
+                </div>
+
+                <!-- Graph Body: Day labels + 53 columns -->
+                <div class="flex items-start space-x-[3px]">
+                  <div class="w-[32px] grid grid-rows-7 gap-[3px] text-[9px] text-slate-400 font-medium select-none pr-1">
+                    <span class="h-[11px] leading-[11px]"></span>
+                    <span class="h-[11px] leading-[11px]">Mon</span>
+                    <span class="h-[11px] leading-[11px]"></span>
+                    <span class="h-[11px] leading-[11px]">Wed</span>
+                    <span class="h-[11px] leading-[11px]"></span>
+                    <span class="h-[11px] leading-[11px]">Fri</span>
+                    <span class="h-[11px] leading-[11px]"></span>
+                  </div>
+
+                  <div class="flex space-x-[3px]">
+                    ${columnsHtml}
+                  </div>
+                </div>
+
+                <!-- Footer: Left description link + Right GitHub legend -->
+                <div class="mt-4 pt-3 border-t border-[#30363d]/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-slate-400 text-[11px] flex items-center space-x-1 cursor-default">
+                      <span>ℹ️</span>
+                      <span>Learn how we count contributions: Level 1 (10 từ) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
+                    </span>
+                  </div>
+
+                  <!-- Legend -->
+                  <div class="flex items-center space-x-1.5 text-[11px]">
+                    <span class="text-slate-400">Less</span>
+                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-0" title="0 từ"></div>
+                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-1" title="10 từ (Level 1)"></div>
+                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-2" title="11-20 từ (Level 2)"></div>
+                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-3" title="21-30 từ (Level 3)"></div>
+                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-4" title=">30 từ (Level 4)"></div>
+                    <span class="text-slate-400">More</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <!-- 12-MONTH CALENDAR VIEW (USING SAME GITHUB PALETTE) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              ${monthsHtml}
+            </div>
+          `}
         </div>
 
         <!-- Bottom Action Card: Placement Test Retake -->
@@ -1022,14 +1074,14 @@ class App {
       </div>
     `;
 
-    // Gắn sự kiện chuyển năm
-    container.querySelector('#btn-heatmap-prev-year')?.addEventListener('click', () => {
-      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) - 1;
+    // Gắn sự kiện chuyển chế độ xem (52 Tuần vs 12 Tháng)
+    container.querySelector('#btn-view-52weeks')?.addEventListener('click', () => {
+      this.analyticsViewMode = '52weeks';
       this.renderAnalyticsPage(container);
     });
 
-    container.querySelector('#btn-heatmap-next-year')?.addEventListener('click', () => {
-      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) + 1;
+    container.querySelector('#btn-view-12months')?.addEventListener('click', () => {
+      this.analyticsViewMode = '12months';
       this.renderAnalyticsPage(container);
     });
 
@@ -1047,14 +1099,13 @@ class App {
     container.querySelectorAll('[data-date]').forEach(cell => {
       const updateInspector = () => {
         const d = cell.getAttribute('data-date');
+        const dayName = cell.getAttribute('data-dayname') || '';
         const cnt = cell.getAttribute('data-count');
         const label = cell.getAttribute('data-label');
         const badge = cell.getAttribute('data-badge');
-        if (inspectorDate) inspectorDate.textContent = `Ngày ${d}`;
+        if (inspectorDate) inspectorDate.textContent = `${dayName}, ${d}`;
         if (inspectorCount) inspectorCount.textContent = `Đã nạp: ${cnt} từ`;
-        if (inspectorBadge) {
-          inspectorBadge.textContent = badge || label;
-        }
+        if (inspectorBadge) inspectorBadge.textContent = badge || label;
       };
 
       cell.addEventListener('mouseenter', updateInspector);
