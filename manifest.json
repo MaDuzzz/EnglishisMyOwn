@@ -1,0 +1,22 @@
+{
+  "name": "English is My Own - Học Tiếng Anh & IT LMS",
+  "short_name": "EnglishMyOwn",
+  "description": "Nền tảng tự học tiếng Anh giao tiếp công việc và chứng chỉ IT với AI & Kỷ luật Spaced Repetition",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
