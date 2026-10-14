@@ -34,6 +34,21 @@
   animation: autoSpin360ThenPause 5.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
+/* Gold glow shimmer animation cho ngày học >30 từ */
+@keyframes goldGlow {
+  0%, 100% {
+    box-shadow: 0 0 3px #fbbf24, 0 0 8px rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 7px #f59e0b, 0 0 14px rgba(251, 191, 36, 0.8);
+  }
+}
+
+.gold-shimmer {
+  background: linear-gradient(135deg, #f59e0b 0%, #fef08a 40%, #fbbf24 70%, #d97706 100%);
+  animation: goldGlow 2.5s infinite ease-in-out;
+}
+
 /* Custom Scrollbars */
 .scrollbar-none::-webkit-scrollbar {
   display: none;

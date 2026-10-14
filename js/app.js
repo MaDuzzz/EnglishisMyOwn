@@ -9,10 +9,12 @@ import { speechService } from './speech.js';
 
 class App {
   constructor() {
-    this.currentTab = "vocab"; // "vocab" | "courses" | "dictionary"
+    this.currentTab = "vocab"; // "vocab" | "analytics" | "courses" | "dictionary"
     this.vocabEngine = null;
     this.coursesEngine = null;
     this.placementEngine = null;
+    this.selectedHeatmapYear = new Date().getFullYear();
+    this.showDemoHeatmap = false;
   }
 
   async init() {
@@ -25,6 +27,9 @@ class App {
       this.updateHeaderUI();
       if (this.currentTab === "vocab") {
         this.renderVocabDashboard();
+      } else if (this.currentTab === "analytics") {
+        const mainContainer = document.getElementById('main-content-area');
+        if (mainContainer) this.renderAnalyticsPage(mainContainer);
       }
     });
 
@@ -81,19 +86,14 @@ class App {
       this.saveFirebaseSettings();
     });
 
-    // Nút Rank / Progress Bar trên header -> Mở Dashboard Phân Tích & Kỷ Luật
+    // Nút Rank / Progress Bar trên header -> Mở Màn hình Thống Kê & Kỷ Luật
     document.getElementById('btn-retake-placement-header')?.addEventListener('click', () => {
       if (!appState.state.cefrLevel) {
         this.switchTab("vocab");
         this.startPlacementTest();
       } else {
-        this.openAnalyticsModal();
+        this.switchTab("analytics");
       }
-    });
-
-    // Nút đóng Analytics Modal
-    document.getElementById('btn-close-analytics')?.addEventListener('click', () => {
-      document.getElementById('analytics-modal').classList.add('hidden');
     });
   }
 
@@ -165,7 +165,7 @@ class App {
           </div>
           <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400">${rankProg.percent}%</span>
         `;
-        levelBtn.title = `Tiến độ: ${rankProg.currentXP}/${rankProg.requiredXP} XP (${rankProg.percent}%). Click để làm lại bài test xếp lớp.`;
+        levelBtn.title = `Tiến độ: ${rankProg.currentXP}/${rankProg.requiredXP} XP (${rankProg.percent}%). Bấm để xem Bảng Kỷ Luật & Heatmap Cả Năm.`;
       } else {
         levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300 hover:opacity-80";
         levelBtn.innerHTML = `<span>⚠️ Chưa xếp lớp</span>`;
@@ -217,6 +217,8 @@ class App {
 
     if (tab === "vocab") {
       this.renderVocabDashboard();
+    } else if (tab === "analytics") {
+      this.renderAnalyticsPage(mainContainer);
     } else if (tab === "courses") {
       this.coursesEngine = new CoursesEngine(mainContainer);
       this.coursesEngine.render();
@@ -473,7 +475,7 @@ class App {
 
     // Gắn sự kiện Xem Phân Tích & Kỷ Luật
     document.getElementById('btn-view-analytics-dash')?.addEventListener('click', () => {
-      this.openAnalyticsModal();
+      this.switchTab("analytics");
     });
   }
 
@@ -642,127 +644,430 @@ class App {
     window.location.reload();
   }
 
-  // ==================== BẢNG PHÂN TÍCH & KỶ LUẬT HỌC TẬP ====================
+  // ==================== MÀN HÌNH BẢNG THỐNG KÊ & YEARLY FOCUS HEATMAP ====================
   openAnalyticsModal() {
-    const modal = document.getElementById('analytics-modal');
-    const contentArea = document.getElementById('analytics-modal-content');
-    if (!modal || !contentArea) return;
+    this.switchTab("analytics");
+  }
+
+  renderAnalyticsPage(container) {
+    if (!container) return;
+
+    if (!appState.state.cefrLevel) {
+      container.innerHTML = `
+        <div class="max-w-md mx-auto text-center py-16 animate-fade-in">
+          <div class="text-5xl mb-4">📊</div>
+          <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Chưa Có Dữ Liệu Xếp Lớp</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Hãy hoàn thành bài đánh giá năng lực CEFR 10 câu để mở khóa bảng thống kê và lộ trình thăng hạng.</p>
+          <button id="btn-start-placement-from-analytics" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
+            Bắt đầu bài Test Xếp Lớp (10 câu)
+          </button>
+        </div>
+      `;
+      container.querySelector('#btn-start-placement-from-analytics')?.addEventListener('click', () => {
+        this.switchTab("vocab");
+        this.startPlacementTest();
+      });
+      return;
+    }
 
     const rankProg = appState.getRankProgress();
     const streak = appState.state.streak || 0;
     const learnedCount = appState.state.learnedWords.length;
     const reviewCount = appState.state.learnedWords.reduce((sum, w) => sum + (w.reviewCount || 0), 0);
+    const discipline = appState.calculateDisciplineStatus();
+    const year = this.selectedHeatmapYear || new Date().getFullYear();
 
-    // Xây dựng mảng 7 ngày gần nhất để vẽ tracker chuyên cần
-    const last7Days = [];
-    const learnedDates = new Set(appState.state.learnedWords.map(w => w.learnedDate));
-    if (appState.state.dailyReviewDate && appState.state.dailyReviewDone) {
-      learnedDates.add(appState.state.dailyReviewDate);
-    }
-    if (appState.state.lastActiveDate) {
-      learnedDates.add(appState.state.lastActiveDate);
+    // Bản đồ đếm số từ nạp theo từng ngày (YYYY-MM-DD -> word count)
+    const wordCountMap = {};
+    (appState.state.learnedWords || []).forEach(w => {
+      if (w.learnedDate) {
+        wordCountMap[w.learnedDate] = (wordCountMap[w.learnedDate] || 0) + 1;
+      }
+    });
+
+    // Dữ liệu mẫu (Demo) để người dùng xem trước độ rực rỡ nếu bật chế độ Demo
+    if (this.showDemoHeatmap) {
+      const today = new Date();
+      for (let i = 1; i <= 60; i++) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        if (!wordCountMap[dStr]) {
+          const r = i % 7;
+          if (r === 0 || r === 5) wordCountMap[dStr] = 0; // Xám: bỏ lỡ
+          else if (r === 1 || r === 4) wordCountMap[dStr] = 10; // Cam: 10 từ (Hoàn thành nhiệm vụ)
+          else if (r === 2 || r === 6) wordCountMap[dStr] = 20; // Xanh lá: 20 từ (Hoàn thành tốt)
+          else if (r === 3) wordCountMap[dStr] = 35; // Gold shimmer: 35 từ (Hoàn thành xuất sắc)
+        }
+      }
     }
 
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      const dateStr = `${year}-${month}-${day}`;
-      const dayName = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][d.getDay()];
-      const isToday = i === 0;
-      const isActive = learnedDates.has(dateStr);
-      last7Days.push({ dayName, dateStr, isActive, isToday });
-    }
+    const monthNames = [
+      "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+      "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
+      "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+    ];
 
-    contentArea.innerHTML = `
-      <div class="space-y-6 animate-fade-in">
-        <!-- 1. Tiến Trình Thăng Hạng -->
-        <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <span class="px-2.5 py-1 bg-indigo-600 text-white font-extrabold text-xs rounded-lg">${rankProg.level}</span>
-              <span class="text-xs text-slate-400">➔</span>
-              <span class="px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 font-extrabold text-xs rounded-lg">${rankProg.nextLevel}</span>
-            </div>
-            <span class="text-xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    let totalActiveDaysInYear = 0;
+    let totalWordsInYear = 0;
+    let totalMissionDays = 0;
+    let totalGoodDays = 0;
+    let totalExcelDays = 0;
+
+    const monthsHtml = monthNames.map((mName, mIndex) => {
+      const firstDay = new Date(year, mIndex, 1);
+      const dayOfWeek = firstDay.getDay(); // 0: CN, 1: T2...
+      const leadingBlanks = (dayOfWeek + 6) % 7; // T2 là 0, CN là 6
+      const totalDays = new Date(year, mIndex + 1, 0).getDate();
+
+      let monthActiveDays = 0;
+      let cellsHtml = "";
+
+      for (let b = 0; b < leadingBlanks; b++) {
+        cellsHtml += `<div class="aspect-square opacity-0 pointer-events-none"></div>`;
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const dateStr = `${year}-${String(mIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const isToday = dateStr === todayStr;
+        const isFuture = dateStr > todayStr;
+        const count = wordCountMap[dateStr] || 0;
+
+        let cellColorClass = "";
+        let statusLabel = "";
+        let statusBadge = "";
+
+        if (isFuture) {
+          // Các ô trong tương lai thì màu trắng
+          cellColorClass = "bg-white dark:bg-white border border-slate-300 dark:border-white shadow-xs";
+          statusLabel = "Ngày trong tương lai";
+          statusBadge = "⚪ Tương lai";
+        } else if (count === 0) {
+          // Nếu hôm nào bỏ không học thì ô màu xám
+          cellColorClass = "bg-slate-300 dark:bg-slate-700/80 border border-slate-400/40 dark:border-slate-600/50";
+          statusLabel = "Bỏ lỡ / Chưa học (0 từ)";
+          statusBadge = "⚫ Bỏ lỡ (0 từ)";
+        } else if (count === 10) {
+          // Hôm nào học được 10 từ thì ô màu cam -> Hoàn thành nhiệm vụ
+          monthActiveDays++;
+          totalActiveDaysInYear++;
+          totalWordsInYear += count;
+          totalMissionDays++;
+          cellColorClass = "bg-orange-500 border border-orange-400 shadow-sm shadow-orange-500/30";
+          statusLabel = "Hoàn thành nhiệm vụ (10 từ)";
+          statusBadge = "🟠 Nhiệm vụ (10 từ)";
+        } else if (count > 10 && count <= 30) {
+          // Hôm nào học được > 10 từ < 30 từ thì ô màu xanh lá -> Hoàn thành tốt
+          monthActiveDays++;
+          totalActiveDaysInYear++;
+          totalWordsInYear += count;
+          totalGoodDays++;
+          cellColorClass = "bg-emerald-500 border border-emerald-400 shadow-sm shadow-emerald-500/30";
+          statusLabel = `Hoàn thành tốt (${count} từ)`;
+          statusBadge = `🟢 Hoàn thành tốt (${count} từ)`;
+        } else if (count > 30) {
+          // Hôm nào học > 30 từ thì ô màu vàng gold bóng lấp lánh --> Hoàn thành xuất sắc
+          monthActiveDays++;
+          totalActiveDaysInYear++;
+          totalWordsInYear += count;
+          totalExcelDays++;
+          cellColorClass = "gold-shimmer border border-amber-300 shadow-md shadow-amber-500/40";
+          statusLabel = `Hoàn thành xuất sắc (${count} từ) ✨`;
+          statusBadge = `✨ Xuất sắc (${count} từ)`;
+        } else {
+          // 1 đến 9 từ
+          monthActiveDays++;
+          totalActiveDaysInYear++;
+          totalWordsInYear += count;
+          cellColorClass = "bg-amber-400/80 border border-amber-300";
+          statusLabel = `Đã học ${count} từ (Chưa đủ 10 từ)`;
+          statusBadge = `🟡 Chưa đủ (${count}/10 từ)`;
+        }
+
+        const todayRing = isToday ? "ring-2 ring-indigo-500 ring-offset-1 dark:ring-offset-slate-900" : "";
+
+        cellsHtml += `
+          <div 
+            class="aspect-square rounded-md transition-all duration-150 cursor-pointer ${cellColorClass} ${todayRing} hover:scale-125 hover:z-20"
+            data-date="${dateStr}"
+            data-count="${count}"
+            data-label="${statusLabel}"
+            data-badge="${statusBadge}"
+            title="${dateStr}: ${statusLabel}"
+          ></div>
+        `;
+      }
+
+      return `
+        <div class="bg-slate-50 dark:bg-slate-900/90 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-2.5">
+            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200">${mName}</h4>
+            <span class="text-[10px] font-semibold text-slate-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
+          </div>
+          
+          <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold mb-1.5">
+            <span class="text-slate-400">T2</span>
+            <span class="text-slate-400">T3</span>
+            <span class="text-slate-400">T4</span>
+            <span class="text-slate-400">T5</span>
+            <span class="text-slate-400">T6</span>
+            <span class="text-blue-500 dark:text-blue-400">T7</span>
+            <span class="text-rose-500 dark:text-rose-400">CN</span>
           </div>
 
-          <!-- Progress Bar -->
-          <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 mb-2 overflow-hidden">
-            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-3 rounded-full transition-all duration-300" style="width: ${rankProg.percent}%"></div>
-          </div>
-
-          <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 font-medium">
-            <span>Đã tích lũy: <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.completedDays} / ${rankProg.minDays} ngày</strong> (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
-            <span class="text-slate-500 dark:text-slate-400">Còn ${rankProg.remainingDays} ngày nữa</span>
+          <div class="grid grid-cols-7 gap-1 flex-1 items-start">
+            ${cellsHtml}
           </div>
         </div>
+      `;
+    }).join('');
 
-        <!-- 2. Thẻ Chỉ Số Kỷ Luật & Chăm Chỉ -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-            <div class="text-lg">🔥</div>
-            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${streak} ngày</div>
-            <div class="text-[11px] text-slate-400">Chuỗi liên tục</div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-            <div class="text-lg">📚</div>
-            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${learnedCount}</div>
-            <div class="text-[11px] text-slate-400">Từ đã nạp</div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-            <div class="text-lg">🔄</div>
-            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${reviewCount}</div>
-            <div class="text-[11px] text-slate-400">Lượt ôn tập</div>
-          </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-            <div class="text-lg">⭐</div>
-            <div class="text-lg font-black text-amber-500 mt-1">${rankProg.currentXP}</div>
-            <div class="text-[11px] text-slate-400">Tổng điểm XP</div>
-          </div>
-        </div>
-
-        <!-- 3. Lịch Sử Chuyên Cần 7 Ngày Gần Nhất (7-Day Tracker) -->
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-          <div class="flex items-center justify-between mb-3">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-              Lịch sử chuyên cần 7 ngày qua:
-            </h4>
-            <span class="text-[11px] text-slate-400">Kỷ luật = Sức mạnh</span>
-          </div>
-          <div class="grid grid-cols-7 gap-1.5 text-center">
-            ${last7Days.map(d => `
-              <div class="p-2 rounded-xl border ${d.isActive ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'}">
-                <div class="text-[10px] font-bold ${d.isToday ? 'text-indigo-600 underline font-black' : ''}">${d.dayName}</div>
-                <div class="text-base my-1">${d.isActive ? '✅' : (d.isToday ? '⏳' : '⚪')}</div>
-                <div class="text-[9px] opacity-75">${d.dateStr.slice(5)}</div>
+    container.innerHTML = `
+      <div class="space-y-8 animate-fade-in max-w-6xl mx-auto">
+        <!-- Top Banner / Title -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden border border-slate-800">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div class="inline-flex items-center space-x-2 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-xl text-xs font-bold text-indigo-300 mb-2">
+                <span>📊</span>
+                <span>Bảng Đo Lường Kỷ Luật & Mức Độ Chăm Chỉ</span>
               </div>
-            `).join('')}
+              <h1 class="text-2xl md:text-3xl font-black text-white">Thống Kê Hoạt Động & Kỷ Luật Cả Năm</h1>
+              <p class="text-xs md:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                Đo lường mức độ kiên trì 365 ngày (như GitHub commit graph). Mỗi ô màu phản ánh chính xác kỷ luật: Cam (10 từ), Xanh lá (11-30 từ) và Gold bóng lấp lánh (>30 từ).
+              </p>
+            </div>
+
+            <div class="flex items-center space-x-3">
+              <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
+                <div class="text-[11px] text-slate-300">Tổng ngày học (${year})</div>
+                <div class="text-xl font-extrabold text-white">${totalActiveDaysInYear} ngày</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
+                <div class="text-[11px] text-amber-300">Chuỗi hiện tại</div>
+                <div class="text-xl font-extrabold text-amber-400">🔥 ${streak} ngày</div>
+              </div>
+            </div>
           </div>
-          <p class="text-[11px] text-slate-400 mt-3 text-center">
-            ⚠️ Chú ý: Bỏ quên 1 ngày sẽ bị trừ phạt x2 (-2 ngày tiến độ = -50 XP).
-          </p>
         </div>
 
-        <!-- 4. Footer & Tùy chọn kiểm tra lại Placement Test -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <span class="text-slate-400">Muốn đánh giá lại trình độ xuất phát?</span>
-          <button id="btn-retake-from-modal" class="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-semibold transition-colors">
-            Làm lại bài Placement Test (10 câu)
+        <!-- 4 KPI Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="text-2xl">🔥</div>
+            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${streak} ngày</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Chuỗi ngày liên tục</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="text-2xl">📚</div>
+            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${learnedCount} từ</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Từ vựng đã nạp</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="text-2xl">🔄</div>
+            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${reviewCount} lượt</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Lượt ôn củng cố</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="text-2xl">⭐</div>
+            <div class="text-xl font-black text-amber-500 mt-1">${rankProg.currentXP} XP</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400">Điểm kỷ luật tích luỹ</div>
+          </div>
+        </div>
+
+        <!-- Hành Trình Nâng Hạng (Rank Progression Card) -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">🏆</span>
+                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
+                  Lộ Trình Nâng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong>. Càng lên cao hành trình càng gian nan và đòi hỏi ý chí thép.
+              </p>
+            </div>
+            <div class="text-right">
+              <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+              <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+            </div>
+          </div>
+
+          <!-- Thanh Tiến Trình Lớn -->
+          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden p-0.5 border border-slate-200 dark:border-slate-700">
+            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-500 relative" style="width: ${rankProg.percent}%">
+              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+            </div>
+          </div>
+
+          <!-- 4 Tiers Roadmap -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-4">
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">A1 ➔ A2</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 15 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">A2 ➔ B1</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 30 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">B1 ➔ B2</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 60 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">B2 ➔ C1</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 90 ngày</div>
+            </div>
+          </div>
+
+          <!-- Quy tắc kỷ luật -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-start space-x-2">
+              <span>📈</span>
+              <div><strong>Tăng tốc kỷ luật:</strong> Hoàn thành 1 ngày đầy đủ (Review + 10 từ mới) $\rightarrow$ <strong>+1 ngày tiến độ (+25 XP)</strong>.</div>
+            </div>
+            <div class="p-3 bg-rose-50/70 dark:bg-rose-950/40 rounded-xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-start space-x-2">
+              <span>⚠️</span>
+              <div><strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc loose streak $\rightarrow$ <strong>-2 ngày tiến độ (-50 XP/ngày)</strong>!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🌟 YEARLY ACTIVITY & FOCUS HEATMAP (THE STAR SECTION) 🌟 -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+          <!-- Heatmap Header & Controls -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <div>
+              <div class="flex items-center space-x-3">
+                <h2 class="text-xl md:text-2xl font-black text-slate-800 dark:text-white">
+                  Yearly Activity & Focus Heatmap
+                </h2>
+                <div class="inline-flex items-center space-x-1 px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                  <button id="btn-heatmap-prev-year" class="p-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" title="Năm trước">◀</button>
+                  <span class="px-1 text-indigo-600 dark:text-indigo-400 font-black">${year}</span>
+                  <button id="btn-heatmap-next-year" class="p-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" title="Năm sau">▶</button>
+                </div>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Đo lường mức độ kiên trì và kỷ luật học tập trong cả năm (như GitHub commit graph).
+              </p>
+            </div>
+
+            <!-- Legend bar matching user's exact requirements -->
+            <div class="flex flex-wrap items-center gap-3 text-xs bg-slate-50 dark:bg-slate-950/70 p-2.5 rounded-2xl border border-slate-200 dark:border-slate-800">
+              <div class="flex items-center space-x-1.5" title="Ngày chưa tới trong tương lai">
+                <div class="w-3.5 h-3.5 rounded bg-white dark:bg-white border border-slate-300 dark:border-white shadow-xs"></div>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">Tương lai</span>
+              </div>
+              <div class="flex items-center space-x-1.5" title="Bỏ lỡ không học">
+                <div class="w-3.5 h-3.5 rounded bg-slate-300 dark:bg-slate-700/80 border border-slate-400/50 dark:border-slate-600/60"></div>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">Bỏ lỡ (0 từ)</span>
+              </div>
+              <div class="flex items-center space-x-1.5" title="Hoàn thành nhiệm vụ ngày (10 từ)">
+                <div class="w-3.5 h-3.5 rounded bg-orange-500 border border-orange-400 shadow-sm shadow-orange-500/30"></div>
+                <span class="text-[11px] text-orange-600 dark:text-orange-400 font-bold">10 từ (Nhiệm vụ)</span>
+              </div>
+              <div class="flex items-center space-x-1.5" title="Hoàn thành tốt (>10 và <=30 từ)">
+                <div class="w-3.5 h-3.5 rounded bg-emerald-500 border border-emerald-400 shadow-sm shadow-emerald-500/30"></div>
+                <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">>10-30 từ (Tốt)</span>
+              </div>
+              <div class="flex items-center space-x-1.5" title="Hoàn thành xuất sắc (>30 từ)">
+                <div class="w-3.5 h-3.5 rounded gold-shimmer border border-amber-300 shadow-md"></div>
+                <span class="text-[11px] text-amber-600 dark:text-amber-400 font-bold">>30 từ (Xuất sắc ✨)</span>
+              </div>
+              <button id="btn-toggle-demo-heatmap" class="ml-auto px-2.5 py-1 text-[11px] font-bold rounded-lg border ${this.showDemoHeatmap ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700'} hover:opacity-80 transition-all">
+                ${this.showDemoHeatmap ? '🔄 Xem dữ liệu thật' : '🎲 Xem mẫu (Demo)'}
+              </button>
+            </div>
+          </div>
+
+          <!-- Inspector Bar (Updated on hover/tap) -->
+          <div id="heatmap-cell-inspector" class="p-3.5 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-950 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs mb-6">
+            <div class="flex items-center space-x-2">
+              <span class="text-base">📍</span>
+              <span class="text-slate-600 dark:text-slate-300">Rê chuột hoặc bấm vào ô bất kỳ:</span>
+              <strong id="inspector-date" class="text-indigo-600 dark:text-indigo-400 font-black">Hôm nay (${todayStr})</strong>
+            </div>
+            <div class="flex items-center space-x-3">
+              <span id="inspector-count" class="font-bold text-slate-800 dark:text-white">Đã nạp: ${wordCountMap[todayStr] || 0} từ</span>
+              <span id="inspector-badge" class="px-2.5 py-1 rounded-full text-xs font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'}">
+                ${(wordCountMap[todayStr] || 0) >= 10 ? 'Hoàn thành ngày ✅' : 'Đang học hôm nay ⏳'}
+              </span>
+            </div>
+          </div>
+
+          <!-- 12-Month Grid (4 cols x 3 rows) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            ${monthsHtml}
+          </div>
+        </div>
+
+        <!-- Bottom Action Card: Placement Test Retake -->
+        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 class="text-sm font-bold text-slate-800 dark:text-white">Muốn Đánh Giá Lại Trình Độ Xuất Phát?</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Làm lại bài kiểm tra Placement Test 10 câu nếu bạn cảm thấy trình độ hiện tại chưa phản ánh đúng thực lực.
+            </p>
+          </div>
+          <button id="btn-retake-from-analytics" class="px-4 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-xs shadow-sm transition-all whitespace-nowrap">
+            🎯 Làm lại bài Placement Test
           </button>
         </div>
       </div>
     `;
 
-    document.getElementById('btn-retake-from-modal')?.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      this.switchTab("vocab");
-      this.startPlacementTest();
+    // Gắn sự kiện chuyển năm
+    container.querySelector('#btn-heatmap-prev-year')?.addEventListener('click', () => {
+      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) - 1;
+      this.renderAnalyticsPage(container);
     });
 
-    modal.classList.remove('hidden');
+    container.querySelector('#btn-heatmap-next-year')?.addEventListener('click', () => {
+      this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) + 1;
+      this.renderAnalyticsPage(container);
+    });
+
+    // Gắn sự kiện chuyển đổi Demo / Dữ liệu thực
+    container.querySelector('#btn-toggle-demo-heatmap')?.addEventListener('click', () => {
+      this.showDemoHeatmap = !this.showDemoHeatmap;
+      this.renderAnalyticsPage(container);
+    });
+
+    // Gắn sự kiện Inspector tương tác khi rê chuột hoặc click ô
+    const inspectorDate = container.querySelector('#inspector-date');
+    const inspectorCount = container.querySelector('#inspector-count');
+    const inspectorBadge = container.querySelector('#inspector-badge');
+
+    container.querySelectorAll('[data-date]').forEach(cell => {
+      const updateInspector = () => {
+        const d = cell.getAttribute('data-date');
+        const cnt = cell.getAttribute('data-count');
+        const label = cell.getAttribute('data-label');
+        const badge = cell.getAttribute('data-badge');
+        if (inspectorDate) inspectorDate.textContent = `Ngày ${d}`;
+        if (inspectorCount) inspectorCount.textContent = `Đã nạp: ${cnt} từ`;
+        if (inspectorBadge) {
+          inspectorBadge.textContent = badge || label;
+        }
+      };
+
+      cell.addEventListener('mouseenter', updateInspector);
+      cell.addEventListener('click', updateInspector);
+    });
+
+    // Gắn sự kiện làm lại bài test xếp lớp
+    container.querySelector('#btn-retake-from-analytics')?.addEventListener('click', () => {
+      if (confirm("Bạn có chắc chắn muốn làm lại bài Placement Test? Cấp bậc CEFR sẽ được đánh giá lại.")) {
+        this.switchTab("vocab");
+        this.startPlacementTest();
+      }
+    });
   }
 }
 
