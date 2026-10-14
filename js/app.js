@@ -272,12 +272,12 @@ class App {
                 </h3>
               </div>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Càng lên trình độ cao, con đường càng gian nan và đòi hỏi sự kiên trì bền bỉ mỗi ngày.
+                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong> học kỷ luật liên tục. Càng lên cao hành trình càng gian nan và đòi hỏi ý chí thép.
               </p>
             </div>
             <div class="text-right">
               <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
-              <span class="text-xs font-semibold text-slate-400 block">${rankProg.currentXP} / ${rankProg.requiredXP} XP</span>
+              <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
             </div>
           </div>
 
@@ -288,17 +288,24 @@ class App {
             </div>
           </div>
 
-          <!-- Các mốc Rank CEFR Roadmap -->
-          <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-6 px-1">
-            <span class="${rankProg.level === 'A1' ? 'text-indigo-600 font-extrabold underline' : ''}">A1 (100 XP)</span>
-            <span>➔</span>
-            <span class="${rankProg.level === 'A2' ? 'text-indigo-600 font-extrabold underline' : ''}">A2 (250 XP)</span>
-            <span>➔</span>
-            <span class="${rankProg.level === 'B1' ? 'text-indigo-600 font-extrabold underline' : ''}">B1 (600 XP)</span>
-            <span>➔</span>
-            <span class="${rankProg.level === 'B2' ? 'text-indigo-600 font-extrabold underline' : ''}">B2 (1200 XP)</span>
-            <span>➔</span>
-            <span class="${rankProg.level === 'C1' ? 'text-indigo-600 font-extrabold underline' : ''}">C1 Master</span>
+          <!-- Các mốc Rank CEFR Roadmap (Tối thiểu theo quy định) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-6">
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">A1 ➔ A2</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 15 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">A2 ➔ B1</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 30 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">B1 ➔ B2</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 60 ngày</div>
+            </div>
+            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
+              <div class="text-sm font-extrabold">B2 ➔ C1</div>
+              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 90 ngày</div>
+            </div>
           </div>
 
           <!-- Quy Tắc Kỷ Luật Thăng Hạng & Phạt x2 -->
@@ -306,14 +313,14 @@ class App {
             <div class="p-3.5 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-start space-x-2.5">
               <span class="text-base mt-0.5">📈</span>
               <div>
-                <strong>Tăng trưởng mỗi ngày:</strong> +25 XP / ngày hoàn thành (Ôn tập +10 XP, Học 10 từ mới +15 XP).
+                <strong>Tiến độ tích lũy:</strong> Hoàn thành 1 ngày đầy đủ (Review + 10 từ mới) $\rightarrow$ <strong>+1 ngày tiến độ (+25 XP)</strong>.
               </div>
             </div>
 
             <div class="p-3.5 bg-rose-50/70 dark:bg-rose-950/40 rounded-2xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-start space-x-2.5">
               <span class="text-base mt-0.5">⚠️</span>
               <div>
-                <strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc đứt streak $\rightarrow$ Bị trừ phạt gấp đôi: <strong>-50 XP / ngày</strong>!
+                <strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc đứt streak $\rightarrow$ Bị phạt tụt lùi gấp đôi: <strong>-2 ngày tiến độ (-50 XP/ngày)</strong>!
               </div>
             </div>
           </div>

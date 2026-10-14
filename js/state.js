@@ -7,11 +7,11 @@ import { authInstance, dbInstance, isFirebaseLive } from './firebase-config.js';
 const STORAGE_KEY = "ENGLISH_IS_MY_OWN_STATE_V1";
 
 export const RANK_TIERS = {
-  "A1": { current: "A1", next: "A2", label: "A1 (Beginner)", nextLabel: "A2 (Elementary)", requiredXP: 100 },
-  "A2": { current: "A2", next: "B1", label: "A2 (Elementary)", nextLabel: "B1 (Intermediate)", requiredXP: 250 },
-  "B1": { current: "B1", next: "B2", label: "B1 (Intermediate)", nextLabel: "B2 (Upper-Intermediate)", requiredXP: 600 },
-  "B2": { current: "B2", next: "C1", label: "B2 (Upper-Intermediate)", nextLabel: "C1 (Advanced)", requiredXP: 1200 },
-  "C1": { current: "C1", next: "Master", label: "C1 (Advanced)", nextLabel: "Mastery", requiredXP: 2500 }
+  "A1": { current: "A1", next: "A2", label: "A1 (Beginner)", nextLabel: "A2 (Elementary)", minDays: 15, requiredXP: 375 },
+  "A2": { current: "A2", next: "B1", label: "A2 (Elementary)", nextLabel: "B1 (Intermediate)", minDays: 30, requiredXP: 750 },
+  "B1": { current: "B1", next: "B2", label: "B1 (Intermediate)", nextLabel: "B2 (Upper-Intermediate)", minDays: 60, requiredXP: 1500 },
+  "B2": { current: "B2", next: "C1", label: "B2 (Upper-Intermediate)", nextLabel: "C1 (Advanced)", minDays: 90, requiredXP: 2250 },
+  "C1": { current: "C1", next: "Master", label: "C1 (Advanced)", nextLabel: "Mastery", minDays: 120, requiredXP: 3000 }
 };
 
 export class StateManager {
@@ -309,12 +309,16 @@ export class StateManager {
     const currentXP = Math.max(0, this.state.rankXP || 0);
     const requiredXP = tier.requiredXP;
     const percent = Math.min(100, Math.round((currentXP / requiredXP) * 100));
+    const completedDays = Math.min(tier.minDays, Math.floor(currentXP / 25));
 
     return {
       level,
       nextLevel: tier.next,
       currentLabel: tier.label,
       nextLabel: tier.nextLabel,
+      minDays: tier.minDays,
+      completedDays,
+      remainingDays: Math.max(0, tier.minDays - completedDays),
       currentXP,
       requiredXP,
       percent,
