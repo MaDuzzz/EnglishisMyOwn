@@ -81,10 +81,19 @@ class App {
       this.saveFirebaseSettings();
     });
 
-    // Nút Retake Placement Test trên header
+    // Nút Rank / Progress Bar trên header -> Mở Dashboard Phân Tích & Kỷ Luật
     document.getElementById('btn-retake-placement-header')?.addEventListener('click', () => {
-      this.switchTab("vocab");
-      this.startPlacementTest();
+      if (!appState.state.cefrLevel) {
+        this.switchTab("vocab");
+        this.startPlacementTest();
+      } else {
+        this.openAnalyticsModal();
+      }
+    });
+
+    // Nút đóng Analytics Modal
+    document.getElementById('btn-close-analytics')?.addEventListener('click', () => {
+      document.getElementById('analytics-modal').classList.add('hidden');
     });
   }
 
@@ -275,9 +284,15 @@ class App {
                 Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong> học kỷ luật liên tục. Càng lên cao hành trình càng gian nan và đòi hỏi ý chí thép.
               </p>
             </div>
-            <div class="text-right">
-              <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
-              <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+            <div class="flex items-center space-x-3">
+              <div class="text-right">
+                <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+                <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+              </div>
+              <button id="btn-view-analytics-dash" class="px-3 py-2 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold text-xs rounded-xl transition-all flex items-center space-x-1.5 shadow-sm" title="Xem phân tích chi tiết & kỷ luật">
+                <span>📊</span>
+                <span class="hidden sm:inline">Thống Kê</span>
+              </button>
             </div>
           </div>
 
@@ -455,6 +470,11 @@ class App {
       });
       this.vocabEngine.start();
     });
+
+    // Gắn sự kiện Xem Phân Tích & Kỷ Luật
+    document.getElementById('btn-view-analytics-dash')?.addEventListener('click', () => {
+      this.openAnalyticsModal();
+    });
   }
 
   startPlacementTest() {
@@ -620,6 +640,129 @@ class App {
     localStorage.setItem("APP_FIREBASE_CONFIG", JSON.stringify(config));
     alert("✅ Đã lưu cấu hình Firebase! Trang web sẽ tải lại để áp dụng kết nối mới.");
     window.location.reload();
+  }
+
+  // ==================== BẢNG PHÂN TÍCH & KỶ LUẬT HỌC TẬP ====================
+  openAnalyticsModal() {
+    const modal = document.getElementById('analytics-modal');
+    const contentArea = document.getElementById('analytics-modal-content');
+    if (!modal || !contentArea) return;
+
+    const rankProg = appState.getRankProgress();
+    const streak = appState.state.streak || 0;
+    const learnedCount = appState.state.learnedWords.length;
+    const reviewCount = appState.state.learnedWords.reduce((sum, w) => sum + (w.reviewCount || 0), 0);
+
+    // Xây dựng mảng 7 ngày gần nhất để vẽ tracker chuyên cần
+    const last7Days = [];
+    const learnedDates = new Set(appState.state.learnedWords.map(w => w.learnedDate));
+    if (appState.state.dailyReviewDate && appState.state.dailyReviewDone) {
+      learnedDates.add(appState.state.dailyReviewDate);
+    }
+    if (appState.state.lastActiveDate) {
+      learnedDates.add(appState.state.lastActiveDate);
+    }
+
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}`;
+      const dayName = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][d.getDay()];
+      const isToday = i === 0;
+      const isActive = learnedDates.has(dateStr);
+      last7Days.push({ dayName, dateStr, isActive, isToday });
+    }
+
+    contentArea.innerHTML = `
+      <div class="space-y-6 animate-fade-in">
+        <!-- 1. Tiến Trình Thăng Hạng -->
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <span class="px-2.5 py-1 bg-indigo-600 text-white font-extrabold text-xs rounded-lg">${rankProg.level}</span>
+              <span class="text-xs text-slate-400">➔</span>
+              <span class="px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 font-extrabold text-xs rounded-lg">${rankProg.nextLevel}</span>
+            </div>
+            <span class="text-xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 mb-2 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-3 rounded-full transition-all duration-300" style="width: ${rankProg.percent}%"></div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-300 font-medium">
+            <span>Đã tích lũy: <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.completedDays} / ${rankProg.minDays} ngày</strong> (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+            <span class="text-slate-500 dark:text-slate-400">Còn ${rankProg.remainingDays} ngày nữa</span>
+          </div>
+        </div>
+
+        <!-- 2. Thẻ Chỉ Số Kỷ Luật & Chăm Chỉ -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+            <div class="text-lg">🔥</div>
+            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${streak} ngày</div>
+            <div class="text-[11px] text-slate-400">Chuỗi liên tục</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+            <div class="text-lg">📚</div>
+            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${learnedCount}</div>
+            <div class="text-[11px] text-slate-400">Từ đã nạp</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+            <div class="text-lg">🔄</div>
+            <div class="text-lg font-black text-slate-800 dark:text-white mt-1">${reviewCount}</div>
+            <div class="text-[11px] text-slate-400">Lượt ôn tập</div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+            <div class="text-lg">⭐</div>
+            <div class="text-lg font-black text-amber-500 mt-1">${rankProg.currentXP}</div>
+            <div class="text-[11px] text-slate-400">Tổng điểm XP</div>
+          </div>
+        </div>
+
+        <!-- 3. Lịch Sử Chuyên Cần 7 Ngày Gần Nhất (7-Day Tracker) -->
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+              Lịch sử chuyên cần 7 ngày qua:
+            </h4>
+            <span class="text-[11px] text-slate-400">Kỷ luật = Sức mạnh</span>
+          </div>
+          <div class="grid grid-cols-7 gap-1.5 text-center">
+            ${last7Days.map(d => `
+              <div class="p-2 rounded-xl border ${d.isActive ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'}">
+                <div class="text-[10px] font-bold ${d.isToday ? 'text-indigo-600 underline font-black' : ''}">${d.dayName}</div>
+                <div class="text-base my-1">${d.isActive ? '✅' : (d.isToday ? '⏳' : '⚪')}</div>
+                <div class="text-[9px] opacity-75">${d.dateStr.slice(5)}</div>
+              </div>
+            `).join('')}
+          </div>
+          <p class="text-[11px] text-slate-400 mt-3 text-center">
+            ⚠️ Chú ý: Bỏ quên 1 ngày sẽ bị trừ phạt x2 (-2 ngày tiến độ = -50 XP).
+          </p>
+        </div>
+
+        <!-- 4. Footer & Tùy chọn kiểm tra lại Placement Test -->
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <span class="text-slate-400">Muốn đánh giá lại trình độ xuất phát?</span>
+          <button id="btn-retake-from-modal" class="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-semibold transition-colors">
+            Làm lại bài Placement Test (10 câu)
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('btn-retake-from-modal')?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      this.switchTab("vocab");
+      this.startPlacementTest();
+    });
+
+    modal.classList.remove('hidden');
   }
 }
 
