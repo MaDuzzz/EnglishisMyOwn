@@ -484,237 +484,217 @@ class App {
     const level = appState.state.cefrLevel;
     const rankProg = appState.getRankProgress();
 
-    mainContainer.innerHTML = `
-      <div class="space-y-8 animate-fade-in max-w-5xl mx-auto">
-        <!-- Dashboard Top Banner -->
-        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden">
-          <div class="relative z-10">
-            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-              <div>
-                <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-xs font-extrabold uppercase tracking-wider">
-                  Trình độ hiện tại: ${level}
-                </span>
-                <h1 class="text-2xl md:text-3xl font-black mt-2">Trung Tâm Luyện Từ Vựng & Phản Xạ</h1>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
-                  <div class="text-xs text-indigo-200">Đã tích luỹ</div>
-                  <div class="text-xl font-extrabold text-white">${learnedCount} từ</div>
-                </div>
-                <div class="bg-black/30 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
-                  <div class="text-xs text-amber-300">Chuỗi ngày</div>
-                  <div class="text-xl font-extrabold text-amber-400">🔥 ${appState.state.streak} ngày</div>
-                </div>
-              </div>
-            </div>
-            <p class="text-xs md:text-sm text-indigo-100 max-w-2xl leading-relaxed">
-              Mỗi ngày tối thiểu 1 batch (10 từ). Kỷ luật trước - kiến thức sau: bắt buộc hoàn thành bài ôn tập từ hôm trước để mở khoá từ mới!
-            </p>
-          </div>
-        </div>
+    const learnedWordIds = new Set(appState.state.learnedWords.map(w => w.wordId || w.id));
 
-        <!-- 🌟 HÀNH TRÌNH NÂNG HẠNG (RANK PROGRESSION WIDGET) 🌟 -->
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-            <div>
+    mainContainer.innerHTML = `
+      <div class="space-y-6 sm:space-y-7 animate-fade-in max-w-5xl mx-auto">
+        <!-- 1. COMPACT MODERN HERO COCKPIT -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-5 sm:p-7 text-white shadow-xl border border-indigo-500/20">
+          <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-16 -bottom-16 w-56 h-56 rounded-full bg-blue-500/10 blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+            <div class="space-y-1.5">
               <div class="flex items-center space-x-2">
-                <span class="text-xl">🏆</span>
-                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                  Lộ Trình Thăng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
-                </h3>
+                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-indigo-500/25 text-indigo-300 border border-indigo-400/30">
+                  Level ${level}
+                </span>
+                <span class="text-xs text-slate-400 font-medium">• ${rankProg.currentLabel}</span>
               </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong> học kỷ luật liên tục. Càng lên cao hành trình càng gian nan và đòi hỏi ý chí thép.
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white">
+                Luyện Phản Xạ Từ Vựng
+              </h1>
+              <p class="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+                Phương pháp Lặp lại ngắt quãng (Spaced Repetition) củng cố trí nhớ dài hạn và rèn phản xạ tức thì.
               </p>
             </div>
-            <div class="flex items-center space-x-3">
-              <div class="text-right">
-                <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
-                <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+
+            <!-- 3 Compact Metric Pills -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-3 shrink-0">
+              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px]">
+                <div class="text-[11px] text-amber-300/90 font-medium">Chuỗi ngày</div>
+                <div class="text-lg sm:text-xl font-black text-amber-400 mt-0.5">🔥 ${appState.state.streak}</div>
               </div>
-              <button id="btn-view-analytics-dash" class="px-3 py-2 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 font-bold text-xs rounded-xl transition-all flex items-center space-x-1.5 shadow-sm" title="Xem phân tích chi tiết & kỷ luật">
-                <span>📊</span>
-                <span class="hidden sm:inline">Thống Kê</span>
+
+              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px]">
+                <div class="text-[11px] text-indigo-200/90 font-medium">Đã nạp</div>
+                <div class="text-lg sm:text-xl font-black text-white mt-0.5">${learnedCount} <span class="text-[10px] text-slate-400 font-normal">/ ${VOCAB_BANK.length}</span></div>
+              </div>
+
+              <button id="btn-view-analytics-dash" class="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px] transition-all group active:scale-95" title="Bấm để xem Bảng Kỷ Luật & Heatmap">
+                <div class="text-[11px] text-emerald-300/90 font-medium flex items-center justify-center space-x-0.5">
+                  <span>Tiến độ</span>
+                  <span class="text-[9px] group-hover:translate-x-0.5 transition-transform">➔</span>
+                </div>
+                <div class="text-lg sm:text-xl font-black text-emerald-400 mt-0.5">${rankProg.percent}%</div>
               </button>
             </div>
           </div>
 
-          <!-- Thanh Tiến Trình Lớn (Big Dynamic Progress Bar) -->
-          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden p-0.5 border border-slate-200 dark:border-slate-700">
-            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-500 relative" style="width: ${rankProg.percent}%">
-              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+          <!-- Mini Progress Bar on Bottom of Hero -->
+          <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-white">${rankProg.currentLabel}</span>
+              <span class="text-slate-500 text-[10px]">➔</span>
+              <span class="font-bold text-indigo-300">${rankProg.nextLabel}</span>
             </div>
+            <span class="text-[11px] text-slate-400 font-medium">${rankProg.completedDays}/${rankProg.minDays} ngày (${rankProg.currentXP}/${rankProg.requiredXP} XP)</span>
           </div>
-
-          <!-- Các mốc Rank CEFR Roadmap (Tối thiểu theo quy định) -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-6">
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">A1 ➔ A2</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 15 ngày</div>
-            </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">A2 ➔ B1</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 30 ngày</div>
-            </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">B1 ➔ B2</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 60 ngày</div>
-            </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">B2 ➔ C1</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 90 ngày</div>
-            </div>
-          </div>
-
-          <!-- Quy Tắc Kỷ Luật Thăng Hạng & Phạt x2 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div class="p-3.5 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-start space-x-2.5">
-              <span class="text-base mt-0.5">📈</span>
-              <div>
-                <strong>Tiến độ tích lũy:</strong> Hoàn thành 1 ngày đầy đủ (Review + 10 từ mới) $\rightarrow$ <strong>+1 ngày tiến độ (+25 XP)</strong>.
-              </div>
-            </div>
-
-            <div class="p-3.5 bg-rose-50/70 dark:bg-rose-950/40 rounded-2xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-start space-x-2.5">
-              <span class="text-base mt-0.5">⚠️</span>
-              <div>
-                <strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc đứt streak $\rightarrow$ Bị phạt tụt lùi gấp đôi: <strong>-2 ngày tiến độ (-50 XP/ngày)</strong>!
-              </div>
-            </div>
+          <div class="w-full bg-white/10 rounded-full h-1.5 mt-2 overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${rankProg.percent}%"></div>
           </div>
         </div>
 
-        <!-- Notification Banner / Penalty Status -->
+        <!-- 2. PENALTY STATUS (Chỉ hiện khi bị gián đoạn/phạt) -->
         ${discipline.isPenalized ? `
-          <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border-2 border-rose-300 dark:border-rose-900 text-rose-900 dark:text-rose-100 shadow-sm animate-bounce-short">
-            <div class="flex items-start space-x-3">
-              <span class="text-2xl">⚠️</span>
-              <div>
-                <h4 class="font-extrabold text-sm md:text-base">Áp Dụng Hình Phạt Vì Bỏ Lỡ ${discipline.missedDays} Ngày Học!</h4>
-                <p class="text-xs md:text-sm mt-1 opacity-90">${discipline.reason}</p>
-                ${rankProg.penaltyNotice ? `<p class="text-xs font-bold text-rose-600 dark:text-rose-300 mt-1">${rankProg.penaltyNotice}</p>` : ''}
-              </div>
+          <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-200 shadow-sm flex items-center space-x-3 animate-fade-in">
+            <span class="text-2xl shrink-0">⚠️</span>
+            <div class="min-w-0 flex-1">
+              <h4 class="font-bold text-xs sm:text-sm">Áp dụng quy tắc kỷ luật vì bỏ lỡ ${discipline.missedDays} ngày</h4>
+              <p class="text-[11px] sm:text-xs opacity-90 mt-0.5">${discipline.reason}</p>
+              ${rankProg.penaltyNotice ? `<p class="text-[11px] font-bold text-rose-600 dark:text-rose-400 mt-0.5">${rankProg.penaltyNotice}</p>` : ''}
             </div>
           </div>
         ` : ''}
 
-        <!-- 2 KHỐI HÀNH ĐỘNG CHÍNH: ÔN TẬP & HỌC MỚI -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- CARD 1: ÔN TẬP KỶ LUẬT (Review Day T-1) -->
-          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between">
+        <!-- 3. DAILY MISSION COCKPIT (2 Bước Ôn tập & Nạp mới) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <!-- CARD BƯỚC 1: ÔN TẬP KỶ LUẬT (Review Day T-1) -->
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border ${discipline.needsReview ? 'border-amber-400/80 dark:border-amber-600/80 bg-gradient-to-b from-amber-500/[0.03] to-transparent ring-2 ring-amber-500/10' : 'border-slate-200/90 dark:border-slate-800'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
             <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl">🔄</span>
-                <span class="px-3 py-1 rounded-full text-xs font-bold ${discipline.needsReview ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'}">
-                  ${discipline.needsReview ? 'Bắt buộc hoàn thành' : 'Đã xong hôm nay ✅'}
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-xl ${discipline.needsReview ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'} flex items-center justify-center font-bold text-sm">
+                    ${discipline.needsReview ? '1' : '✓'}
+                  </div>
+                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bước 1</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${discipline.needsReview ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'}">
+                  ${discipline.needsReview ? 'Bắt buộc hôm nay' : 'Đã xong hôm nay ✅'}
                 </span>
               </div>
-              <h3 class="text-xl font-extrabold text-slate-800 dark:text-white mb-2">
-                1. Ôn Tập Kỷ Luật (Daily Review)
+
+              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                Ôn Tập Kỷ Luật (Day T-1)
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
-                  ? `Bạn có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.reviewWords.length} từ</strong> cần vượt qua 3 chế độ (Dịch - Nghe chính tả - Trắc nghiệm phản xạ).`
-                  : `Bạn đã ôn tập xong bài hôm nay! Trí nhớ dài hạn đã được củng cố vững chắc.`}
+                  ? `Có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.reviewWords.length} từ</strong> cần củng cố qua 3 chế độ (Dịch - Nghe chính tả - Phản xạ nhanh).`
+                  : 'Nhiệm vụ ôn tập hôm nay đã xong! Trí nhớ dài hạn được bảo toàn vững chắc.'}
               </p>
             </div>
 
-            <div>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
               ${discipline.needsReview ? `
-                <button id="btn-start-review" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center space-x-2">
+                <button id="btn-start-review" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-md shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs sm:text-sm">
                   <span>🚀</span>
                   <span>Bắt đầu Ôn Tập (${discipline.reviewWords.length} từ)</span>
                 </button>
               ` : `
-                <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-center text-xs font-semibold text-emerald-700 dark:text-emerald-300">
-                  🎉 Nhiệm vụ ôn tập đã hoàn tất!
+                <div class="py-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-center text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center space-x-1.5">
+                  <span>🎉</span>
+                  <span>Nhiệm vụ ôn tập đã hoàn tất!</span>
                 </div>
               `}
             </div>
           </div>
 
-          <!-- CARD 2: HỌC BATCH 10 TỪ MỚI HÔM NAY -->
-          <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between ${discipline.needsReview ? 'opacity-70 bg-slate-50 dark:bg-slate-950' : ''}">
+          <!-- CARD BƯỚC 2: HỌC BATCH 10 TỪ MỚI -->
+          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border ${discipline.needsReview ? 'border-slate-200/70 dark:border-slate-800/70 opacity-75' : 'border-indigo-400/80 dark:border-indigo-600/80 bg-gradient-to-b from-indigo-500/[0.03] to-transparent ring-2 ring-indigo-500/10'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
             <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl">${discipline.needsReview ? '🔒' : '✨'}</span>
-                <span class="px-3 py-1 rounded-full text-xs font-bold ${discipline.needsReview ? 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400' : 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'}">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-xl ${discipline.needsReview ? 'bg-slate-200 dark:bg-slate-800 text-slate-500' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'} flex items-center justify-center font-bold text-sm">
+                    ${discipline.needsReview ? '🔒' : '2'}
+                  </div>
+                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bước 2</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${discipline.needsReview ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
                   ${discipline.needsReview ? 'Đang bị khóa' : 'Sẵn sàng nạp'}
                 </span>
               </div>
-              <h3 class="text-xl font-extrabold text-slate-800 dark:text-white mb-2">
-                2. Nạp Batch 10 Từ Mới (${level})
+
+              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                Nạp Batch 10 Từ Mới (${level})
               </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
-                  ? '🔒 <strong>Quy tắc kỷ luật:</strong> Bạn phải hoàn thành việc ôn tập từ của ngày hôm trước thì hệ thống mới mở khoá 10 từ mới!'
-                  : 'Nạp thêm 10 từ vựng thực chiến chuẩn CEFR đúng trình độ của bạn để đa dạng hoá vốn từ giao tiếp.'}
+                  ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập từ hôm trước) để hệ thống mở khóa 10 từ mới.'
+                  : 'Nạp thêm 10 từ vựng thực chiến chuẩn CEFR đúng trình độ để đa dạng hoá vốn từ giao tiếp.'}
               </p>
             </div>
 
-            <div>
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
               ${discipline.needsReview ? `
-                <button disabled class="w-full py-3.5 bg-slate-200 dark:bg-slate-800 text-slate-400 font-bold rounded-xl cursor-not-allowed flex items-center justify-center space-x-2">
+                <button disabled class="w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-400 font-bold rounded-xl cursor-not-allowed flex items-center justify-center space-x-2 text-xs sm:text-sm">
                   <span>🔒</span>
-                  <span>Hoàn thành Ôn tập để mở khóa</span>
+                  <span>Hoàn thành Bước 1 để mở khóa</span>
                 </button>
               ` : `
-                <button id="btn-start-new-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2">
+                <button id="btn-start-new-batch" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs sm:text-sm">
                   <span>✨</span>
-                  <span>Bắt đầu Học 10 Từ Mới Ngay</span>
+                  <span>Bắt đầu Học 10 Từ Mới</span>
                 </button>
               `}
             </div>
           </div>
         </div>
 
-        <!-- 3 Chế độ học tập Info Box -->
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-3">
-            💡 3 Chế Độ Luyện Tập Chuẩn Phản Xạ Đa Chiều:
-          </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400">
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
-              <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Mode 1: Dịch Nghĩa & Gõ Từ</strong>
-              Hiện nghĩa tiếng Việt + số ký tự gợi ý $\rightarrow$ Tự gõ từ tiếng Anh để kích hoạt Active Recall.
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
-              <strong class="text-emerald-600 dark:text-emerald-400 block mb-1">Mode 2: Nghe & Chép Chính Tả</strong>
-              Phát âm chuẩn native giọng US. Có nút <strong>"Không thể nghe lúc này"</strong> để bỏ qua nếu đang ở nơi ồn/công sở.
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
-              <strong class="text-blue-600 dark:text-blue-400 block mb-1">Mode 3: Nhận Diện Phản Xạ</strong>
-              Hiện từ tiếng Anh và phiên âm $\rightarrow$ Bấm chọn 1 trong 4 nghĩa tiếng Việt trong 3-5 giây.
-            </div>
-          </div>
-        </div>
-
-        <!-- 🌟 KHÁM PHÁ CÁC CHỦ ĐỀ TỪ VỰNG THỰC CHIẾN (THEMATIC GROUPS) 🌟 -->
+        <!-- 4. KHÁM PHÁ CÁC CHỦ ĐỀ TỪ VỰNG THỰC CHIẾN -->
         <div class="space-y-4 pt-2">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <div class="flex items-center space-x-2">
                 <span class="text-xl">📚</span>
-                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                  Kho Chủ Đề Từ Vựng, Cụm Từ & Phản Xạ
+                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                  Kho Chủ Đề Thực Chiến
                 </h3>
+                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">
+                  22 nhóm • ${VOCAB_BANK.length} từ
+                </span>
               </div>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Các cụm từ (collocations), phrasal verbs thông dụng đời sống và môi trường làm việc/CNTT.
+                Các cụm từ (collocations), phrasal verbs thông dụng đời sống, Marketing và môi trường làm việc/CNTT.
               </p>
             </div>
+
             <!-- Category Filter Tabs -->
             <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dash-group-tabs">
-              <button data-cat="all" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">Tất cả</button>
-              <button data-cat="daily" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💬 Đời Sống</button>
-              <button data-cat="marketing" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">📢 Marketing</button>
-              <button data-cat="work" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💼 Công Sở</button>
-              <button data-cat="tech" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💻 Công Nghệ</button>
+              <button data-cat="all" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">Tất cả (22)</button>
+              <button data-cat="daily" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💬 Đời Sống (8)</button>
+              <button data-cat="marketing" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">📢 Marketing (3)</button>
+              <button data-cat="work" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💼 Công Sở (5)</button>
+              <button data-cat="tech" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💻 Công Nghệ (6)</button>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="dash-group-grid"></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="dash-group-grid"></div>
         </div>
+
+        <!-- 5. HƯỚNG DẪN 3 CHẾ ĐỘ LUYỆN TẬP (COLLAPSIBLE ACCORDION) -->
+        <details class="group bg-slate-100/70 dark:bg-slate-900/60 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 transition-all">
+          <summary class="flex items-center justify-between cursor-pointer list-none text-xs font-bold text-slate-700 dark:text-slate-300 select-none">
+            <div class="flex items-center space-x-2">
+              <span class="text-base">💡</span>
+              <span>Tìm hiểu 3 chế độ luyện phản xạ đa chiều (Dịch ngược • Nghe chép • Trắc nghiệm)</span>
+            </div>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-[10px]">▼</span>
+          </summary>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+              <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Mode 1: Dịch Nghĩa & Gõ Từ</strong>
+              Hiện nghĩa tiếng Việt + số ký tự gợi ý ➔ Tự gõ từ tiếng Anh để kích hoạt khả năng nhớ chủ động (Active Recall).
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+              <strong class="text-emerald-600 dark:text-emerald-400 block mb-1">Mode 2: Nghe & Chép Chính Tả</strong>
+              Phát âm chuẩn bản xứ US. Hỗ trợ nút <strong>"Không thể nghe lúc này"</strong> để bỏ qua nếu đang ở nơi ồn ào.
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+              <strong class="text-blue-600 dark:text-blue-400 block mb-1">Mode 3: Nhận Diện Phản Xạ</strong>
+              Nhìn từ tiếng Anh và phiên âm ➔ Bấm chọn 1 trong 4 nghĩa tiếng Việt trong 3–5 giây để rèn phản xạ nhận diện tức thì.
+            </div>
+          </div>
+        </details>
       </div>
     `;
 
@@ -733,41 +713,57 @@ class App {
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">💼 Công sở</span>`
           : `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">💻 Công nghệ</span>`;
 
-        const sampleWords = (g.words || []).slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
+        const groupWords = g.words || [];
+        const learnedInGroup = groupWords.filter(w => learnedWordIds.has(w.id)).length;
+        const percentInGroup = groupWords.length ? Math.round((learnedInGroup / groupWords.length) * 100) : 0;
+
+        const sampleWords = groupWords.slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
 
         return `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-2.5">
                 <div class="flex items-center space-x-2">
-                  <span class="text-2xl">${g.icon}</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${g.level}</span>
+                  <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
+                    ${g.icon}
+                  </div>
+                  <span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${g.level}</span>
                 </div>
                 ${catBadge}
               </div>
 
-              <h4 class="font-black text-slate-900 dark:text-white text-base mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              <h4 class="font-black text-slate-900 dark:text-white text-sm sm:text-base mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                 ${g.name}
               </h4>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 line-clamp-2 leading-relaxed">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-2.5 line-clamp-2 leading-relaxed">
                 ${g.description}
               </p>
 
-              <div class="mb-4">
-                <div class="text-[10px] uppercase font-bold text-slate-400 mb-1">Từ & Cụm từ tiêu biểu:</div>
+              <!-- Progress bar per group -->
+              <div class="mb-3">
+                <div class="flex items-center justify-between text-[10px] font-semibold text-slate-400 mb-1">
+                  <span>Tiến độ đã học</span>
+                  <span class="${learnedInGroup > 0 ? 'text-indigo-600 dark:text-indigo-400 font-bold' : ''}">${learnedInGroup}/${groupWords.length} (${percentInGroup}%)</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1 overflow-hidden">
+                  <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-full rounded-full transition-all duration-300" style="width: ${percentInGroup}%"></div>
+                </div>
+              </div>
+
+              <div class="mb-3">
                 <div class="flex flex-wrap gap-1">
                   ${sampleWords}
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
-              <span class="text-[11px] font-bold text-slate-400">${g.words?.length || 0} từ / cụm</span>
+            <div class="pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+              <span class="text-[11px] font-bold text-slate-400">${groupWords.length} từ</span>
               <div class="flex items-center space-x-1.5">
                 <button data-group-id="${g.groupId}" class="btn-group-dict px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all" title="Tra cứu trong từ điển">
-                  📖 Tra từ
+                  📖 Sổ tay
                 </button>
-                <button data-group-id="${g.groupId}" class="btn-group-practice px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all flex items-center space-x-1" title="Luyện tập phản xạ">
+                <button data-group-id="${g.groupId}" class="btn-group-practice px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center space-x-1" title="Luyện tập phản xạ">
                   <span>⚡ Luyện</span>
                 </button>
               </div>

@@ -84,23 +84,26 @@ export class VocabPracticeEngine {
 
     // Header chung cho tất cả các mode
     const headerHtml = `
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center justify-between mb-3.5">
         <div class="flex items-center space-x-2">
-          <span class="px-2.5 py-1 text-xs font-bold rounded-lg ${this.mode === 'review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300'}">
-            ${this.mode === 'review' ? '🔄 Ôn Tập Kỷ Luật' : '✨ Học Batch Mới'}
+          <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Tạm dừng phiên học">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+          <span class="px-2.5 py-0.5 text-[11px] font-black rounded-lg uppercase tracking-wider ${this.mode === 'review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
+            ${this.mode === 'review' ? '🔄 Ôn Tập' : '✨ Học Mới'}
           </span>
-          <span class="text-xs text-slate-400">Câu ${this.currentIndex + 1} / ${total}</span>
+          <span class="text-xs font-semibold text-slate-400">${this.currentIndex + 1} / ${total}</span>
         </div>
 
         <!-- Nút Trạng thái Loa (Bật/Tắt Audio) -->
-        <button id="btn-toggle-audio-status" title="${this.isAudioDisabledForSession ? 'Âm thanh đang tắt (Click để bật lại)' : 'Âm thanh đang bật'}" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-medium border ${this.isAudioDisabledForSession ? 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-900 text-red-600' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300'} hover:opacity-80 transition-all">
-          <span>${this.isAudioDisabledForSession ? '🔇 Đã tắt loa' : '🔊 Loa bật'}</span>
+        <button id="btn-toggle-audio-status" title="${this.isAudioDisabledForSession ? 'Âm thanh đang tắt (Click để bật lại)' : 'Âm thanh đang bật'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${this.isAudioDisabledForSession ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900 text-rose-600' : 'bg-slate-100 dark:bg-slate-800 border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300'} hover:opacity-80 transition-all">
+          <span>${this.isAudioDisabledForSession ? '🔇 Tắt loa' : '🔊 Loa bật'}</span>
         </button>
       </div>
 
-      <!-- Thanh tiến độ -->
-      <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 mb-6 overflow-hidden">
-        <div class="bg-gradient-to-r from-indigo-500 to-emerald-500 h-2 rounded-full transition-all duration-300" style="width: ${progress}%"></div>
+      <!-- Thanh tiến độ siêu mỏng, sắc nét -->
+      <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mb-5 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: ${progress}%"></div>
       </div>
     `;
 
@@ -117,7 +120,7 @@ export class VocabPracticeEngine {
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-2 sm:py-4 animate-fade-in">
         <div class="w-full max-w-xl mx-auto">
-          <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 backdrop-blur-xl">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-7 backdrop-blur-xl">
             ${headerHtml}
             ${contentHtml}
             <div id="feedback-area" class="mt-4 hidden"></div>
@@ -138,20 +141,20 @@ export class VocabPracticeEngine {
   renderMode1(word) {
     const hint = `${word.word[0]}${"_ ".repeat(word.word.length - 2)}${word.word[word.word.length - 1]}`;
     return `
-      <div class="text-center py-2">
-        <span class="text-xs uppercase tracking-wider font-semibold text-indigo-500 dark:text-indigo-400">
+      <div class="text-center py-1">
+        <span class="text-[11px] uppercase tracking-wider font-extrabold text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-md border border-indigo-200/60 dark:border-indigo-900/60">
           Chế độ 1: Dịch nghĩa & Điền từ
         </span>
         <div class="mt-4 mb-2">
-          <span class="text-sm font-medium text-slate-400 dark:text-slate-500">(${word.type})</span>
-          <h3 class="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-white mt-1">
+          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(${word.type})</span>
+          <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1 leading-snug">
             "${word.meaningVi}"
           </h3>
         </div>
         
-        <p class="text-xs text-slate-400 mb-6 font-mono tracking-widest">
+        <div class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 font-mono text-xs tracking-widest text-slate-600 dark:text-slate-300 mb-5">
           Gợi ý: ${hint} (${word.word.length} ký tự)
-        </p>
+        </div>
 
         <!-- Ô nhập liệu -->
         <div class="max-w-md mx-auto">
@@ -163,10 +166,10 @@ export class VocabPracticeEngine {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 transition-colors"
+            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-4 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
-            Kiểm tra đáp án
+          <button id="btn-submit-answer" class="w-full mt-3.5 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-sm">
+            Kiểm tra đáp án ➔
           </button>
         </div>
       </div>
@@ -176,14 +179,14 @@ export class VocabPracticeEngine {
   // MODE 2: Nghe Voice -> Gõ từ Tiếng Anh (Có nút "Không thể nghe lúc này")
   renderMode2(word) {
     return `
-      <div class="text-center py-2">
-        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-500 dark:text-emerald-400">
+      <div class="text-center py-1">
+        <span class="text-[11px] uppercase tracking-wider font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-md border border-emerald-200/60 dark:border-emerald-900/60">
           Chế độ 2: Nghe & Chép chính tả
         </span>
 
         <!-- Nút Loa Lớn để nghe lại -->
-        <div class="my-6">
-          <button id="btn-play-audio" class="w-20 h-20 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30 transition-transform active:scale-95 group">
+        <div class="my-5">
+          <button id="btn-play-audio" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25 transition-transform active:scale-95 group">
             <span class="text-3xl group-hover:scale-110 transition-transform">🔊</span>
           </button>
           <p class="text-xs text-slate-400 mt-2">Bấm vào biểu tượng loa để nghe lại</p>
@@ -199,18 +202,18 @@ export class VocabPracticeEngine {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
+            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-4 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all">
-            Kiểm tra đáp án
+          <button id="btn-submit-answer" class="w-full mt-3.5 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-sm">
+            Kiểm tra đáp án ➔
           </button>
         </div>
 
         <!-- NÚT ĐẶC BIỆT: KHÔNG THỂ NGHE LÚC NÀY -->
-        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800">
           <button id="btn-cant-listen-now" class="text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center mx-auto space-x-1.5 py-1 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             <span>🔇</span>
-            <span>Không thể nghe lúc này (Bỏ qua câu nghe)</span>
+            <span>Không thể nghe lúc này (Bỏ qua bài nghe)</span>
           </button>
         </div>
       </div>
@@ -235,23 +238,23 @@ export class VocabPracticeEngine {
     options = options.sort(() => 0.5 - Math.random());
 
     return `
-      <div class="py-2">
-        <div class="text-center mb-6">
-          <span class="text-xs uppercase tracking-wider font-semibold text-blue-500 dark:text-blue-400">
+      <div class="py-1">
+        <div class="text-center mb-5">
+          <span class="text-[11px] uppercase tracking-wider font-extrabold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-blue-200/60 dark:border-blue-900/60">
             Chế độ 3: Nhận diện phản xạ nhanh
           </span>
-          <div class="flex items-center justify-center space-x-3 mt-3">
-            <h3 class="text-3xl font-extrabold text-slate-800 dark:text-white">
+          <div class="flex items-center justify-center space-x-2.5 mt-3">
+            <h3 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
               ${word.word}
             </h3>
-            <button id="btn-play-word-audio" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" title="Phát âm">
+            <button id="btn-play-word-audio" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors" title="Phát âm">
               🔊
             </button>
           </div>
-          <p class="text-sm font-mono text-slate-400 mt-1">${word.ipa || ""}</p>
+          <p class="text-xs sm:text-sm font-mono text-slate-400 mt-1">${word.ipa || ""}</p>
         </div>
 
-        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3 text-center">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2.5 text-center">
           Chọn nghĩa Tiếng Việt chính xác nhất:
         </p>
 
@@ -260,11 +263,11 @@ export class VocabPracticeEngine {
           ${options.map((opt, idx) => `
             <button 
               data-option="${opt}"
-              class="vocab-choice-btn w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-blue-950/30 transition-all flex items-center space-x-3 text-slate-800 dark:text-slate-200 font-medium text-sm">
-              <span class="w-6 h-6 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 text-xs flex items-center justify-center font-bold">
+              class="vocab-choice-btn w-full text-left p-3.5 rounded-2xl border border-slate-200/90 dark:border-slate-800 hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 active:scale-[0.99] transition-all flex items-center space-x-3 text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm group">
+              <span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-indigo-600 group-hover:text-white text-slate-500 text-xs flex items-center justify-center font-bold transition-colors">
                 ${String.fromCharCode(65 + idx)}
               </span>
-              <span>${opt}</span>
+              <span class="flex-1">${opt}</span>
             </button>
           `).join('')}
         </div>
@@ -273,6 +276,10 @@ export class VocabPracticeEngine {
   }
 
   bindEvents(item) {
+    document.getElementById('btn-exit-practice')?.addEventListener('click', () => {
+      this.onCompleted();
+    });
+
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
     const cantListenBtn = document.getElementById('btn-cant-listen-now');
