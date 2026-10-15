@@ -209,39 +209,36 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
 
 /* Fluid spring physics for the floating bubble glider */
 #ios-bubble-glider {
-  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.38s cubic-bezier(0.28, 1.25, 0.45, 1);
   will-change: transform;
 }
 
-/* Micro-elastic squash/stretch animation on tap */
-@keyframes bubbleSquash {
-  0% { transform: scale(1); }
-  35% { transform: scale(1.06, 0.94); }
-  65% { transform: scale(0.97, 1.03); }
-  100% { transform: scale(1); }
+/* Micro-elastic squash/stretch animation on the inner pill (never touches glider's translateX) */
+#ios-bubble-glider-pill {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transform-origin: center center;
+  will-change: transform;
 }
 
-.bubble-pop {
-  animation: bubbleSquash 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+.glider-tap-bounce {
+  transform: scale(0.92, 0.92);
 }
 
 /* ==================== FLUID SCREEN TRANSITION ==================== */
 @keyframes screenEnter {
   0% {
     opacity: 0;
-    transform: translateY(10px) scale(0.99);
-    filter: blur(2px);
+    transform: translate3d(0, 10px, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0px);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-screen-enter {
-  animation: screenEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: opacity, transform, filter;
+  animation: screenEnter 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
 }
 
 /* On mobile iPhone (viewport <= 640px), ensure day cells are big enough for comfortable thumb tapping */

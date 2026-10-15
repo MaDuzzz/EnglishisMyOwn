@@ -200,6 +200,10 @@ class App {
   }
 
   switchTab(tab) {
+    if (this.currentTab === tab) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     this.currentTab = tab;
 
     // Highlight active desktop tab
@@ -214,15 +218,23 @@ class App {
       }
     });
 
-    // Translate iOS 27 Fluid Bubble Glider with Apple Spring Physics
+    // Translate iOS 27 Fluid Bubble Glider directly from current position with Apple Spring Physics
     const tabIndices = { vocab: 0, analytics: 1, courses: 2, dictionary: 3 };
     const tabIndex = tabIndices[tab] ?? 0;
     const glider = document.getElementById('ios-bubble-glider');
     if (glider) {
-      glider.style.transform = `translateX(${tabIndex * 100}%)`;
-      glider.classList.remove('bubble-pop');
-      void glider.offsetWidth;
-      glider.classList.add('bubble-pop');
+      glider.style.transform = `translate3d(${tabIndex * 100}%, 0, 0)`;
+    }
+
+    // Micro-bounce on inner pill only (never overrides glider's horizontal transform)
+    const pill = document.getElementById('ios-bubble-glider-pill');
+    if (pill) {
+      pill.classList.remove('glider-tap-bounce');
+      void pill.offsetWidth;
+      pill.classList.add('glider-tap-bounce');
+      setTimeout(() => {
+        pill.classList.remove('glider-tap-bounce');
+      }, 220);
     }
 
     // Highlight active iOS bottom tab bar icons & labels

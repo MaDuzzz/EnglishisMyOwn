@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=3.5">
+  <link rel="stylesheet" href="./css/style.css?v=3.6">
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-[100dvh] flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white overscroll-y-none">
 
@@ -176,8 +176,8 @@
     <div class="relative ios-bubble-capsule p-1.5 rounded-[26px] bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-2xl border border-slate-700/50 dark:border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
       
       <!-- Fluid Spring Bubble Glider -->
-      <div id="ios-bubble-glider" class="absolute top-1.5 bottom-1.5 pointer-events-none transition-transform" style="width: calc((100% - 12px) / 4); left: 6px; transform: translateX(0%);">
-        <div class="w-full h-full rounded-[20px] bg-gradient-to-tr from-indigo-500/25 via-indigo-600/20 to-purple-600/25 border border-indigo-400/40 shadow-[0_0_16px_rgba(99,102,241,0.3)]"></div>
+      <div id="ios-bubble-glider" class="absolute top-1.5 bottom-1.5 pointer-events-none" style="width: calc((100% - 12px) / 4); left: 6px; transform: translate3d(0%, 0, 0);">
+        <div id="ios-bubble-glider-pill" class="w-full h-full rounded-[20px] bg-gradient-to-tr from-indigo-500/25 via-indigo-600/20 to-purple-600/25 border border-indigo-400/40 shadow-[0_0_16px_rgba(99,102,241,0.3)]"></div>
       </div>
 
       <!-- Tab Buttons Grid -->
@@ -239,6 +239,6 @@
   </script>
 
   <!-- ES Modules Entrypoint -->
-  <script type="module" src="./js/app.js?v=3.5"></script>
+  <script type="module" src="./js/app.js?v=3.6"></script>
 </body>
 </html>
