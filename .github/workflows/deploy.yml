@@ -94,6 +94,22 @@ jobs:
               f.write(new_code)
           '
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Vocabulary & Sync to Cloud Firestore
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT || secrets.FIREBASE_ADMIN_CREDENTIALS || secrets.GCP_SA_KEY }}
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG || secrets.FIREBASECONFIG || secrets.firebaseConfig || secrets.FIREBASE_SECRET || secrets.FIREBASE }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY || secrets.API_KEY || secrets.apiKey }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID || secrets.PROJECT_ID || secrets.projectId }}
+          FIREBASE_ADMIN_EMAIL: ${{ secrets.FIREBASE_ADMIN_EMAIL }}
+          FIREBASE_ADMIN_PASSWORD: ${{ secrets.FIREBASE_ADMIN_PASSWORD }}
+        run: |
+          node scripts/sync-firestore.mjs
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 

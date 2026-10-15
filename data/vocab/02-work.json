@@ -1,0 +1,3073 @@
+[
+  {
+    "groupId": "office_teamwork_collab",
+    "name": "Làm Việc Nhóm, Họp Hành & Quản Lý",
+    "icon": "💼",
+    "category": "work",
+    "level": "B1",
+    "description": "Deadline, phối hợp đồng nghiệp, họp hành, phân chia nhiệm vụ, giải quyết xung đột và hiệu suất.",
+    "words": [
+      {
+        "id": "office_01",
+        "word": "meet the deadline",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/miːt ðə ˈded.laɪn/",
+        "meaningVi": "hoàn thành đúng hạn chót",
+        "collocations": "struggle to meet the deadline, ensure we meet the deadline, tight deadline",
+        "example": "The whole team worked hard to meet the client's deadline.",
+        "exampleVi": "Toàn bộ nhóm đã làm việc cật lực để kịp hạn chót của khách hàng.",
+        "optionsVi": [
+          "hoàn thành đúng hạn chót",
+          "bị trễ tiến độ",
+          "hủy bỏ dự án",
+          "xin gia hạn thêm thời gian"
+        ]
+      },
+      {
+        "id": "office_02",
+        "word": "collaborate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəˈlæb.ə.reɪt/",
+        "meaningVi": "hợp tác, phối hợp",
+        "collocations": "collaborate closely, collaborate on a project, collaborate with colleagues",
+        "example": "Designers and developers need to collaborate closely on this feature.",
+        "exampleVi": "Đội ngũ thiết kế và lập trình viên cần phối hợp chặt chẽ trong tính năng này.",
+        "optionsVi": [
+          "hợp tác, phối hợp",
+          "làm việc độc lập",
+          "cạnh tranh gay gắt",
+          "đổ lỗi cho nhau"
+        ]
+      },
+      {
+        "id": "office_03",
+        "word": "constructive feedback",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kənˈstrʌk.tɪv ˈfiːd.bæk/",
+        "meaningVi": "góp ý mang tính xây dựng",
+        "collocations": "provide constructive feedback, open to constructive feedback",
+        "example": "Constructive feedback from mentors helps junior engineers improve rapidly.",
+        "exampleVi": "Góp ý mang tính xây dựng từ người hướng dẫn giúp các kỹ sư trẻ tiến bộ rất nhanh.",
+        "optionsVi": [
+          "góp ý mang tính xây dựng",
+          "lời chỉ trích cay nghiệt",
+          "báo cáo đánh giá KPI",
+          "lời khen ngợi sáo rỗng"
+        ]
+      },
+      {
+        "id": "office_04",
+        "word": "prioritize",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/praɪˈɒr.ɪ.taɪz/",
+        "meaningVi": "ưu tiên xử lý trước",
+        "collocations": "prioritize urgent tasks, need to prioritize, prioritize customer satisfaction",
+        "example": "We should prioritize fixing security vulnerabilities before releasing the app.",
+        "exampleVi": "Chúng ta nên ưu tiên vá các lỗ hổng bảo mật trước khi phát hành ứng dụng.",
+        "optionsVi": [
+          "ưu tiên xử lý trước",
+          "trì hoãn vô thời hạn",
+          "làm ngơ, bỏ qua",
+          "chia đều thời gian"
+        ]
+      },
+      {
+        "id": "office_05",
+        "word": "delegate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈdel.ɪ.ɡeɪt/",
+        "meaningVi": "ủy quyền, giao phó",
+        "collocations": "delegate responsibilities, delegate tasks to team members",
+        "example": "A great leader knows how to delegate tasks effectively.",
+        "exampleVi": "Một người lãnh đạo giỏi là người biết cách giao việc cho cấp dưới hiệu quả.",
+        "optionsVi": [
+          "ủy quyền, giao phó",
+          "tự ôm đồm hết việc",
+          "né tránh trách nhiệm",
+          "thu hồi quyền hạn"
+        ]
+      },
+      {
+        "id": "office_06",
+        "word": "brainstorm",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈbreɪn.stɔːm/",
+        "meaningVi": "động não tìm ý tưởng",
+        "collocations": "brainstorm ideas, brainstorm solutions, brainstorming session",
+        "example": "Let's gather in the meeting room to brainstorm new marketing ideas.",
+        "exampleVi": "Hãy cùng vào phòng họp để cùng động não nghĩ ra các ý tưởng tiếp thị mới.",
+        "optionsVi": [
+          "động não tìm ý tưởng",
+          "nghỉ ngơi thư giãn",
+          "báo cáo tài chính",
+          "tranh luận cá nhân"
+        ]
+      },
+      {
+        "id": "office_07",
+        "word": "workload",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈwɜːk.ləʊd/",
+        "meaningVi": "khối lượng công việc",
+        "collocations": "heavy workload, manage workload, reduce the workload",
+        "example": "She has been feeling stressed recently because of a heavy workload.",
+        "exampleVi": "Gần đây cô ấy cảm thấy căng thẳng do khối lượng công việc quá nặng.",
+        "optionsVi": [
+          "khối lượng công việc",
+          "tiền lương làm thêm giờ",
+          "nơi làm việc",
+          "lịch trình công tác"
+        ]
+      },
+      {
+        "id": "office_08",
+        "word": "handle",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈhæn.dəl/",
+        "meaningVi": "xử lý, giải quyết",
+        "collocations": "handle pressure, handle customer complaints, handle requests",
+        "example": "Can you handle this support ticket while I am in the meeting?",
+        "exampleVi": "Bạn có thể xử lý phiếu hỗ trợ này giúp tôi trong lúc tôi đi họp không?",
+        "optionsVi": [
+          "xử lý, giải quyết",
+          "bỏ qua không làm",
+          "chuyển sang ngày mai",
+          "từ chối tiếp nhận"
+        ]
+      },
+      {
+        "id": "office_09",
+        "word": "agenda",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/əˈdʒen.də/",
+        "meaningVi": "chương trình cuộc họp",
+        "collocations": "meeting agenda, top item on the agenda, adhere to the agenda",
+        "example": "Please review the meeting agenda sent via email before joining the call.",
+        "exampleVi": "Vui lòng xem qua chương trình cuộc họp gửi qua email trước khi tham gia cuộc gọi.",
+        "optionsVi": [
+          "chương trình cuộc họp",
+          "biên bản xử phạt",
+          "bản báo cáo tài chính",
+          "danh sách khách mời"
+        ]
+      },
+      {
+        "id": "office_10",
+        "word": "minute taker",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈmɪn.ɪt ˌteɪ.kər/",
+        "meaningVi": "người ghi biên bản họp",
+        "collocations": "act as the minute taker, meeting minutes",
+        "example": "Who will be the minute taker for today's retrospective meeting?",
+        "exampleVi": "Ai sẽ là người ghi chép biên bản cho cuộc họp rút kinh nghiệm hôm nay?",
+        "optionsVi": [
+          "người ghi biên bản họp",
+          "người chủ trì cuộc họp",
+          "diễn giả chính",
+          "người bấm giờ cuộc họp"
+        ]
+      },
+      {
+        "id": "office_11",
+        "word": "align with",
+        "level": "B2",
+        "type": "phrasal verb",
+        "ipa": "/əˈlaɪn wɪð/",
+        "meaningVi": "thống nhất, ăn khớp với",
+        "collocations": "align with company goals, ensure team alignment",
+        "example": "Our quarterly development plan must strictly align with business objectives.",
+        "exampleVi": "Kế hoạch phát triển theo quý của chúng ta phải ăn khớp chặt chẽ với mục tiêu kinh doanh.",
+        "optionsVi": [
+          "thống nhất, ăn khớp với",
+          "đi ngược lại hoàn toàn",
+          "cạnh tranh trực tiếp",
+          "loại bỏ mục tiêu"
+        ]
+      },
+      {
+        "id": "office_12",
+        "word": "consensus",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈsen.səs/",
+        "meaningVi": "sự đồng thuận nhất trí",
+        "collocations": "reach a consensus, broad consensus, general consensus",
+        "example": "After two hours of intense debate, the board finally reached a consensus.",
+        "exampleVi": "Sau 2 giờ tranh luận gay gắt, ban giám đốc cuối cùng đã đạt được sự đồng thuận.",
+        "optionsVi": [
+          "sự đồng thuận nhất trí",
+          "sự bất đồng sâu sắc",
+          "quyết định đơn phương",
+          "việc bỏ phiếu kín"
+        ]
+      },
+      {
+        "id": "office_13",
+        "word": "stakeholder",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈsteɪkˌhəʊl.dər/",
+        "meaningVi": "bên liên quan dự án",
+        "collocations": "key stakeholders, stakeholder management, meet with stakeholders",
+        "example": "We held a demo session to collect feedback from key project stakeholders.",
+        "exampleVi": "Chúng tôi đã tổ chức buổi demo để thu thập phản hồi từ các bên liên quan trọng yếu của dự án.",
+        "optionsVi": [
+          "bên liên quan dự án",
+          "đối thủ cạnh tranh",
+          "người đứng ngoài cuộc",
+          "nhân viên bảo vệ tòa nhà"
+        ]
+      },
+      {
+        "id": "office_14",
+        "word": "milestone",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈmaɪl.stəʊn/",
+        "meaningVi": "cột mốc tiến độ quan trọng",
+        "collocations": "project milestone, reach a major milestone, milestone achieved",
+        "example": "Completing the database migration marks a critical milestone for our team.",
+        "exampleVi": "Hoàn thành việc chuyển đổi cơ sở dữ liệu đánh dấu một cột mốc quan trọng của đội ngũ.",
+        "optionsVi": [
+          "cột mốc tiến độ quan trọng",
+          "sự cố rủi ro",
+          "khoản chi phí phát sinh",
+          "cuộc họp khẩn"
+        ]
+      },
+      {
+        "id": "office_15",
+        "word": "deliverable",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈlɪv.ər.ə.bəl/",
+        "meaningVi": "sản phẩm bàn giao",
+        "collocations": "key deliverables, project deliverables, deliverable deadline",
+        "example": "The final deliverables include full API documentation and automated test suites.",
+        "exampleVi": "Các sản phẩm bàn giao cuối cùng gồm tài liệu API đầy đủ và các bộ kiểm thử tự động.",
+        "optionsVi": [
+          "sản phẩm bàn giao",
+          "hóa đơn thanh toán",
+          "kế hoạch dự toán ngân sách",
+          "đơn khiếu nại"
+        ]
+      },
+      {
+        "id": "office_16",
+        "word": "benchmark",
+        "level": "B2",
+        "type": "noun / verb",
+        "ipa": "/ˈbentʃ.mɑːk/",
+        "meaningVi": "tiêu chuẩn so chuẩn hiệu năng",
+        "collocations": "performance benchmark, benchmark against competitors",
+        "example": "We benchmarked our website loading speed against top e-commerce competitors.",
+        "exampleVi": "Chúng tôi đã đo chuẩn tốc độ tải trang web của mình so với các đối thủ thương mại điện tử hàng đầu.",
+        "optionsVi": [
+          "tiêu chuẩn so chuẩn hiệu năng",
+          "bản nháp sơ thảo",
+          "lỗi phát sinh",
+          "giá thành sản phẩm"
+        ]
+      },
+      {
+        "id": "office_17",
+        "word": "productivity",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌprɒd.ʌkˈtɪv.ə.ti/",
+        "meaningVi": "năng suất làm việc",
+        "collocations": "boost productivity, high productivity, employee productivity",
+        "example": "Dual monitor setups can boost programmer productivity by up to 25%.",
+        "exampleVi": "Thiết lập màn hình kép có thể tăng năng suất của lập trình viên lên tới 25%.",
+        "optionsVi": [
+          "năng suất làm việc",
+          "chi phí vận hành",
+          "sự mất tập trung",
+          "thời gian nghỉ giải lao"
+        ]
+      },
+      {
+        "id": "office_18",
+        "word": "efficiency",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪˈfɪʃ.ən.si/",
+        "meaningVi": "tính hiệu quả, hiệu suất",
+        "collocations": "improve efficiency, operational efficiency, cost efficiency",
+        "example": "Automating routine deployment tasks improved our overall team efficiency.",
+        "exampleVi": "Tự động hóa các tác vụ triển khai thông thường đã nâng cao hiệu suất tổng thể của nhóm.",
+        "optionsVi": [
+          "tính hiệu quả, hiệu suất",
+          "sự lãng phí tài nguyên",
+          "sự phức tạp rườm rà",
+          "tính bảo mật"
+        ]
+      },
+      {
+        "id": "office_19",
+        "word": "workflow",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈwɜːk.fləʊ/",
+        "meaningVi": "quy trình luồng làm việc",
+        "collocations": "smooth workflow, streamline workflow, workflow automation",
+        "example": "Using Jira and GitHub together creates a seamless engineering workflow.",
+        "exampleVi": "Sử dụng Jira kết hợp cùng GitHub tạo nên một quy trình làm việc kỹ thuật rất trơn tru.",
+        "optionsVi": [
+          "quy trình luồng làm việc",
+          "kế hoạch tài chính",
+          "nội quy kỷ luật",
+          "mức lương thưởng"
+        ]
+      },
+      {
+        "id": "office_20",
+        "word": "team player",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/ˈtiːm ˌpleɪ.ər/",
+        "meaningVi": "người có tinh thần đồng đội",
+        "collocations": "great team player, be a good team player",
+        "example": "He is not just a skilled programmer; he is also an exceptional team player.",
+        "exampleVi": "Anh ấy không chỉ là một lập trình viên giỏi mà còn là một đồng đội có tinh thần hợp tác tuyệt vời.",
+        "optionsVi": [
+          "người có tinh thần đồng đội",
+          "người làm việc ích kỷ",
+          "người quản lý khắt khe",
+          "người thích tranh cãi"
+        ]
+      },
+      {
+        "id": "office_21",
+        "word": "take the lead",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/teɪk ðə liːd/",
+        "meaningVi": "đứng ra dẫn dắt, chủ trì",
+        "collocations": "take the lead on this project, ready to take the lead",
+        "example": "Sarah volunteered to take the lead on redesigning the checkout funnel.",
+        "exampleVi": "Sarah đã xung phong đứng ra dẫn dắt việc thiết kế lại phễu thanh toán.",
+        "optionsVi": [
+          "đứng ra dẫn dắt, chủ trì",
+          "rút lui khỏi dự án",
+          "làm theo người khác",
+          "từ chối nhận việc"
+        ]
+      },
+      {
+        "id": "office_22",
+        "word": "multitask",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌmʌl.tiˈtɑːsk/",
+        "meaningVi": "làm nhiều việc cùng lúc",
+        "collocations": "ability to multitask, multitask effectively",
+        "example": "Trying to multitask while coding often leads to subtle logic errors.",
+        "exampleVi": "Cố gắng làm nhiều việc cùng lúc khi đang viết mã thường dẫn đến các lỗi logic tiềm ẩn.",
+        "optionsVi": [
+          "làm nhiều việc cùng lúc",
+          "tập trung vào một việc duy nhất",
+          "nghỉ ngơi thư giãn",
+          "giao việc cho người khác"
+        ]
+      },
+      {
+        "id": "office_23",
+        "word": "resolve conflict",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/rɪˈzɒlv ˈkɒn.flɪkt/",
+        "meaningVi": "giải quyết xung đột",
+        "collocations": "resolve conflicts peacefully, skills to resolve conflict",
+        "example": "A good manager knows how to resolve conflicts before they harm team morale.",
+        "exampleVi": "Một người quản lý giỏi biết cách tháo gỡ xung đột trước khi chúng làm tổn hại tinh thần nhóm.",
+        "optionsVi": [
+          "giải quyết xung đột",
+          "thổi bùng tranh cãi",
+          "đổ thêm dầu vào lửa",
+          "tránh né sự thật"
+        ]
+      },
+      {
+        "id": "office_24",
+        "word": "supervise",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈsuː.pə.vaɪz/",
+        "meaningVi": "giám sát, đôn đốc",
+        "collocations": "supervise employees, closely supervise, supervise the process",
+        "example": "Senior engineers supervise interns during their first three months.",
+        "exampleVi": "Các kỹ sư cấp cao sẽ theo dõi đôn đốc các bạn thực tập sinh trong 3 tháng đầu.",
+        "optionsVi": [
+          "giám sát, đôn đốc",
+          "bỏ mặc tự làm",
+          "học việc từ đầu",
+          "khiếu nại cấp trên"
+        ]
+      },
+      {
+        "id": "office_25",
+        "word": "proposal",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/prəˈpəʊ.zəl/",
+        "meaningVi": "bản đề xuất dự án",
+        "collocations": "submit a proposal, approve a proposal, project proposal",
+        "example": "The committee approved our proposal to migrate our services to Google Cloud.",
+        "exampleVi": "Hội đồng đã phê duyệt bản đề xuất chuyển đổi dịch vụ sang Google Cloud của chúng tôi.",
+        "optionsVi": [
+          "bản đề xuất dự án",
+          "hợp đồng thanh lý",
+          "quy định kỷ luật",
+          "bản báo cáo doanh thu"
+        ]
+      },
+      {
+        "id": "office_26",
+        "word": "follow up",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/ˈfɒl.əʊ ʌp/",
+        "meaningVi": "theo dõi tiếp tiến độ",
+        "collocations": "follow up on an issue, send a follow-up email",
+        "example": "I will follow up with the vendor tomorrow to ensure on-time delivery.",
+        "exampleVi": "Tôi sẽ liên hệ tiếp với nhà cung cấp vào ngày mai để đảm bảo giao hàng đúng hẹn.",
+        "optionsVi": [
+          "theo dõi tiếp tiến độ",
+          "bỏ qua không quan tâm",
+          "hủy bỏ thỏa thuận",
+          "bắt đầu từ con số không"
+        ]
+      },
+      {
+        "id": "office_27",
+        "word": "wrap up",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/ræp ʌp/",
+        "meaningVi": "gói gọn kết thúc cuộc họp",
+        "collocations": "wrap up the meeting, wrap up the discussion",
+        "example": "Let's wrap up this meeting so everyone can get back to their development tasks.",
+        "exampleVi": "Chúng ta hãy gói gọn cuộc họp ở đây để mọi người có thể quay lại với công việc lập trình.",
+        "optionsVi": [
+          "gói gọn kết thúc cuộc họp",
+          "bắt đầu tranh luận mới",
+          "kéo dài cuộc họp thêm giờ",
+          "hoãn cuộc họp sang hôm khác"
+        ]
+      },
+      {
+        "id": "office_28",
+        "word": "execute",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈek.sɪ.kjuːt/",
+        "meaningVi": "thi hành, triển khai thực tế",
+        "collocations": "execute a plan, execute strategies, execute with precision",
+        "example": "Having a great plan is useless unless the team can execute it flawlessly.",
+        "exampleVi": "Có một kế hoạch tuyệt vời cũng vô ích trừ khi cả nhóm có thể triển khai nó một cách chuẩn xác.",
+        "optionsVi": [
+          "thi hành, triển khai thực tế",
+          "vẽ kế hoạch trên giấy",
+          "hủy bỏ mục tiêu",
+          "trì hoãn vô thời hạn"
+        ]
+      },
+      {
+        "id": "office_29",
+        "word": "goal setting",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɡəʊl ˈset.ɪŋ/",
+        "meaningVi": "thiết lập mục tiêu",
+        "collocations": "effective goal setting, goal setting framework",
+        "example": "Effective goal setting helps software teams stay focused on delivering actual value.",
+        "exampleVi": "Thiết lập mục tiêu hiệu quả giúp các đội ngũ phần mềm duy trì tập trung vào việc tạo ra giá trị thực sự.",
+        "optionsVi": [
+          "thiết lập mục tiêu",
+          "đánh giá kỷ luật",
+          "khiếu nại quy trình",
+          "phân bổ ngân sách"
+        ]
+      },
+      {
+        "id": "office_30",
+        "word": "time management",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/taɪm ˈmæn.ɪdʒ.mənt/",
+        "meaningVi": "quản lý thời gian",
+        "collocations": "good time management, time management skills",
+        "example": "Good time management prevents burnout when dealing with multiple sprint tasks.",
+        "exampleVi": "Kỹ năng quản lý thời gian tốt giúp phòng tránh kiệt sức khi phải giải quyết nhiều đầu việc trong sprint.",
+        "optionsVi": [
+          "quản lý thời gian",
+          "tiết kiệm tiền bạc",
+          "quản lý nhân sự",
+          "chấm công vân tay"
+        ]
+      },
+      {
+        "id": "office_31",
+        "word": "assign task",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/əˈsaɪn tɑːsk/",
+        "meaningVi": "phân chia nhiệm vụ",
+        "collocations": "assign tasks to engineers, assign high-priority tasks",
+        "example": "The team lead assigns tasks based on each member's expertise.",
+        "exampleVi": "Trưởng nhóm phân chia nhiệm vụ dựa trên chuyên môn của từng thành viên.",
+        "optionsVi": [
+          "phân chia nhiệm vụ",
+          "tự làm hết mọi việc",
+          "hủy bỏ đầu việc",
+          "phạt lỗi nhân viên"
+        ]
+      },
+      {
+        "id": "office_32",
+        "word": "conference call",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈkɒn.fər.əns kɔːl/",
+        "meaningVi": "cuộc họp gọi trực tuyến",
+        "collocations": "join a conference call, set up a conference call",
+        "example": "We have an international conference call with our Australian partners at 2 PM.",
+        "exampleVi": "Chúng tôi có một cuộc gọi họp trực tuyến quốc tế với đối tác Úc lúc 2 giờ chiều.",
+        "optionsVi": [
+          "cuộc họp gọi trực tuyến",
+          "cuộc gọi điện thoại riêng",
+          "gửi tin nhắn tự động",
+          "bản thu âm podcast"
+        ]
+      },
+      {
+        "id": "office_33",
+        "word": "department head",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈpɑːt.mənt hed/",
+        "meaningVi": "trưởng phòng bộ phận",
+        "collocations": "meet the department head, report to department head",
+        "example": "Please obtain written approval from your department head before purchasing new software.",
+        "exampleVi": "Vui lòng xin phê duyệt bằng văn bản từ trưởng bộ phận của bạn trước khi mua phần mềm mới.",
+        "optionsVi": [
+          "trưởng phòng bộ phận",
+          "nhân viên học việc",
+          "khách hàng đối tác",
+          "chuyên viên tư vấn"
+        ]
+      },
+      {
+        "id": "office_34",
+        "word": "on the same page",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/ɒn ðə seɪm peɪdʒ/",
+        "meaningVi": "cùng hiểu chung một ý",
+        "collocations": "make sure we are on the same page, be on the same page",
+        "example": "Let's review the requirements once more to ensure everyone is on the same page.",
+        "exampleVi": "Hãy cùng xem lại các yêu cầu một lần nữa để đảm bảo mọi người đều hiểu chung một ý thống nhất.",
+        "optionsVi": [
+          "cùng hiểu chung một ý",
+          "đọc chung một cuốn sách",
+          "bất đồng quan điểm",
+          "tranh cãi dữ dội"
+        ]
+      },
+      {
+        "id": "office_35",
+        "word": "burnout",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbɜːn.aʊt/",
+        "meaningVi": "hội chứng kiệt quệ tinh thần",
+        "collocations": "suffer from burnout, prevent employee burnout, signs of burnout",
+        "example": "Constant overtime and unrealistic deadlines are leading causes of developer burnout.",
+        "exampleVi": "Liên tục làm thêm giờ và các hạn chót phi thực tế là nguyên nhân hàng đầu gây kiệt quệ cho lập trình viên.",
+        "optionsVi": [
+          "hội chứng kiệt quệ tinh thần",
+          "cháy nổ thiết bị",
+          "thăng tiến nhanh chóng",
+          "năng suất đỉnh cao"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "business_email_comm",
+    "name": "Viết Email & Chat Công Việc",
+    "icon": "✉️",
+    "category": "work",
+    "level": "B1",
+    "description": "Mẫu câu chuẩn chuyên nghiệp dùng khi gửi Email, viết tin nhắn Slack/Teams cho sếp và đối tác.",
+    "words": [
+      {
+        "id": "email_01",
+        "word": "reach out to",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/riːtʃ aʊt tuː/",
+        "meaningVi": "chủ động liên hệ, kết nối",
+        "collocations": "reach out to support, feel free to reach out, reach out to partners",
+        "example": "Feel free to reach out to me if you have any questions.",
+        "exampleVi": "Đừng ngần ngại liên hệ với tôi nếu bạn có bất kỳ câu hỏi nào nhé.",
+        "optionsVi": [
+          "chủ động liên hệ, kết nối",
+          "cắt đứt liên lạc",
+          "tránh mặt người khác",
+          "từ chối trả lời"
+        ]
+      },
+      {
+        "id": "email_02",
+        "word": "touch base",
+        "level": "B2",
+        "type": "business idiom",
+        "ipa": "/tʌtʃ beɪs/",
+        "meaningVi": "trao đổi nhanh, cập nhật tin",
+        "collocations": "touch base with someone, touch base next week, just wanted to touch base",
+        "example": "I just wanted to touch base with you regarding our project schedule.",
+        "exampleVi": "Tôi chỉ muốn trao đổi nhanh với bạn về tiến độ lịch trình dự án.",
+        "optionsVi": [
+          "trao đổi nhanh, cập nhật tin",
+          "ký kết hợp đồng lớn",
+          "hủy bỏ dự án",
+          "yêu cầu sa thải"
+        ]
+      },
+      {
+        "id": "email_03",
+        "word": "keep someone in the loop",
+        "level": "B2",
+        "type": "business idiom",
+        "ipa": "/kiːp sʌm.wʌn ɪn ðə luːp/",
+        "meaningVi": "luôn cập nhật thông tin cho biết",
+        "collocations": "please keep me in the loop, stay in the loop, loop someone in",
+        "example": "Please keep me in the loop on any major updates from the client.",
+        "exampleVi": "Vui lòng giữ tôi trong luồng thông tin nếu có bất kỳ cập nhật lớn nào từ khách hàng.",
+        "optionsVi": [
+          "luôn cập nhật thông tin cho biết",
+          "giấu kín thông tin",
+          "không cho ai tham gia",
+          "loại khỏi nhóm chat"
+        ]
+      },
+      {
+        "id": "email_04",
+        "word": "as per our discussion",
+        "level": "B2",
+        "type": "formal phrase",
+        "ipa": "/æz pɜːr aʊər dɪˈskʌʃ.ən/",
+        "meaningVi": "theo như đã thảo luận",
+        "collocations": "as per our phone call, as per our agreement, as per our conversation",
+        "example": "As per our discussion yesterday, I have attached the updated contract.",
+        "exampleVi": "Như chúng ta đã thống nhất hôm qua, tôi xin gửi đính kèm hợp đồng đã cập nhật.",
+        "optionsVi": [
+          "theo như đã thảo luận",
+          "trái ngược với cam kết",
+          "bỏ qua cuộc họp",
+          "không liên quan thảo luận"
+        ]
+      },
+      {
+        "id": "email_05",
+        "word": "look forward to",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/lʊk ˈfɔː.wəd tuː/",
+        "meaningVi": "rất mong đợi, trông ngóng",
+        "collocations": "look forward to hearing from you, look forward to seeing you",
+        "example": "I look forward to hearing from you soon.",
+        "exampleVi": "Tôi rất mong sớm nhận được phản hồi từ bạn.",
+        "optionsVi": [
+          "rất mong đợi, trông ngóng",
+          "lo sợ điều gì đó xảy ra",
+          "từ chối gặp mặt",
+          "kết thúc vĩnh viễn"
+        ]
+      },
+      {
+        "id": "email_06",
+        "word": "clarify",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈklær.ɪ.faɪ/",
+        "meaningVi": "làm rõ, giải thích tường minh",
+        "collocations": "clarify requirements, clarify the situation, seek clarification",
+        "example": "Could you please clarify what you mean by 'Phase 2 deliverables'?",
+        "exampleVi": "Bạn có thể vui lòng làm rõ ý bạn về 'các sản phẩm bàn giao ở Giai đoạn 2' không?",
+        "optionsVi": [
+          "làm rõ, giải thích tường minh",
+          "làm cho phức tạp hơn",
+          "giấu kín chi tiết",
+          "đoán mò ý kiến"
+        ]
+      },
+      {
+        "id": "email_07",
+        "word": "action item",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈæk.ʃən ˌaɪ.təm/",
+        "meaningVi": "đầu việc cụ thể cần làm",
+        "collocations": "assign action items, review action items, list of action items",
+        "example": "Here is the summary of the meeting along with key action items.",
+        "exampleVi": "Đây là tóm tắt cuộc họp kèm theo danh sách các đầu việc cụ thể cần làm.",
+        "optionsVi": [
+          "đầu việc cụ thể cần làm",
+          "mục giải trí ngoài giờ",
+          "ý kiến thảo luận lan man",
+          "quy định kỷ luật"
+        ]
+      },
+      {
+        "id": "email_08",
+        "word": "please find attached",
+        "level": "B1",
+        "type": "phrase",
+        "ipa": "/pliːz faɪnd əˈtætʃt/",
+        "meaningVi": "vui lòng xem tệp đính kèm",
+        "collocations": "please find attached the invoice, please find attached report",
+        "example": "Please find attached the financial report for the third quarter.",
+        "exampleVi": "Vui lòng xem bản báo cáo tài chính quý 3 được đính kèm trong thư.",
+        "optionsVi": [
+          "vui lòng xem tệp đính kèm",
+          "hãy xóa email này đi",
+          "vui lòng gửi thư giấy",
+          "không có tệp nào đính kèm"
+        ]
+      },
+      {
+        "id": "email_09",
+        "word": "for your information",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/fɔːr jɔːr ˌɪn.fəˈmeɪ.ʃən/",
+        "meaningVi": "gửi để bạn nắm thông tin",
+        "collocations": "sharing this FYI, just for your information",
+        "example": "I forwarded the client's email to you for your information (FYI).",
+        "exampleVi": "Tôi đã chuyển tiếp email của khách hàng cho bạn để bạn nắm thông tin.",
+        "optionsVi": [
+          "gửi để bạn nắm thông tin",
+          "yêu cầu bạn làm ngay",
+          "báo cáo tài chính bí mật",
+          "thư mời họp khẩn"
+        ]
+      },
+      {
+        "id": "email_10",
+        "word": "circle back",
+        "level": "B2",
+        "type": "business idiom",
+        "ipa": "/ˈsɜː.kəl bæk/",
+        "meaningVi": "quay lại bàn tiếp sau",
+        "collocations": "circle back next week, let's circle back on this later",
+        "example": "Let's circle back on this topic after we have the complete data.",
+        "exampleVi": "Chúng ta hãy quay lại bàn tiếp về chủ đề này sau khi có đủ số liệu hoàn chỉnh nhé.",
+        "optionsVi": [
+          "quay lại bàn tiếp sau",
+          "chấm dứt vĩnh viễn",
+          "đi vòng tròn quanh phòng",
+          "đồng ý thực hiện ngay"
+        ]
+      },
+      {
+        "id": "email_11",
+        "word": "kindly remind",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkaɪnd.li rɪˈmaɪnd/",
+        "meaningVi": "nhẹ nhàng nhắc nhở",
+        "collocations": "kindly remind you of the deadline, just a gentle reminder",
+        "example": "I would like to kindly remind you that timesheet submission closes at 5 PM.",
+        "exampleVi": "Tôi xin phép được nhắc nhở bạn rằng cổng nộp bảng chấm công sẽ đóng lúc 5 giờ chiều.",
+        "optionsVi": [
+          "nhẹ nhàng nhắc nhở",
+          "nghiêm khắc phê bình",
+          "thông báo thưởng nóng",
+          "yêu cầu hủy bỏ"
+        ]
+      },
+      {
+        "id": "email_12",
+        "word": "on behalf of",
+        "level": "B1",
+        "type": "phrase",
+        "ipa": "/ɒn bɪˈhɑːf əv/",
+        "meaningVi": "thay mặt, đại diện cho",
+        "collocations": "on behalf of our team, on behalf of the company",
+        "example": "On behalf of the entire engineering team, thank you for your wonderful support.",
+        "exampleVi": "Thay mặt cho toàn thể đội ngũ kỹ thuật, xin cảm ơn sự hỗ trợ tuyệt vời của bạn.",
+        "optionsVi": [
+          "thay mặt, đại diện cho",
+          "phản đối quyết định của",
+          "không liên quan tới",
+          "chỉ trích cá nhân"
+        ]
+      },
+      {
+        "id": "email_13",
+        "word": "reply promptly",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/rɪˈplaɪ ˈprɒmpt.li/",
+        "meaningVi": "phản hồi nhanh chóng",
+        "collocations": "appreciate your prompt reply, reply promptly to inquiries",
+        "example": "Thank you for replying so promptly to our urgent server alert.",
+        "exampleVi": "Cảm ơn bạn đã phản hồi rất nhanh chóng trước cảnh báo sự cố máy chủ khẩn cấp của chúng tôi.",
+        "optionsVi": [
+          "phản hồi nhanh chóng",
+          "chậm trễ nhiều ngày",
+          "từ chối trả lời",
+          "gửi nhầm người nhận"
+        ]
+      },
+      {
+        "id": "email_14",
+        "word": "CC someone",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/siː siː/",
+        "meaningVi": "đồng gửi email cho cùng đọc",
+        "collocations": "please CC me on this email, CC the project manager",
+        "example": "Please CC the project manager whenever you reply to the client.",
+        "exampleVi": "Vui lòng CC quản lý dự án bất cứ khi nào bạn trả lời email cho khách hàng nhé.",
+        "optionsVi": [
+          "đồng gửi email cho cùng đọc",
+          "gửi email ẩn danh",
+          "chặn người nhận",
+          "xóa địa chỉ thư"
+        ]
+      },
+      {
+        "id": "email_15",
+        "word": "out of office",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/aʊt əv ˈɒf.ɪs/",
+        "meaningVi": "nghỉ phép vắng mặt",
+        "collocations": "set out-of-office autoreply, I am out of office until Monday",
+        "example": "I will be out of office until next Monday with limited access to email.",
+        "exampleVi": "Tôi sẽ nghỉ phép vắng mặt cho đến thứ Hai tuần tới và hạn chế kiểm tra email.",
+        "optionsVi": [
+          "nghỉ phép vắng mặt",
+          "đang ngồi làm việc ở văn phòng",
+          "đã bị sa thải",
+          "tăng ca làm đêm"
+        ]
+      },
+      {
+        "id": "email_16",
+        "word": "at your earliest convenience",
+        "level": "B2",
+        "type": "formal phrase",
+        "ipa": "/æt jɔːr ˈɜː.li.ɪst kənˈviː.ni.əns/",
+        "meaningVi": "ngay khi thuận tiện nhất",
+        "collocations": "please review at your earliest convenience",
+        "example": "Could you please sign and return the NDA document at your earliest convenience?",
+        "exampleVi": "Bạn có thể vui lòng ký và gửi lại thỏa thuận bảo mật NDA ngay khi thuận tiện nhất được không?",
+        "optionsVi": [
+          "ngay khi thuận tiện nhất",
+          "đợi đến cuối năm",
+          "làm bất cứ lúc nào tùy thích",
+          "không cần làm"
+        ]
+      },
+      {
+        "id": "email_17",
+        "word": "apologize for the inconvenience",
+        "level": "B1",
+        "type": "formal phrase",
+        "ipa": "/əˈpɒl.ə.dʒaɪz fɔːr ðə ˌɪn.kənˈviː.ni.əns/",
+        "meaningVi": "xin lỗi vì sự bất tiện",
+        "collocations": "sincerely apologize for the inconvenience caused",
+        "example": "We sincerely apologize for any inconvenience caused by the scheduled maintenance.",
+        "exampleVi": "Chúng tôi thành thật xin lỗi vì bất kỳ sự bất tiện nào phát sinh do đợt bảo trì định kỳ.",
+        "optionsVi": [
+          "xin lỗi vì sự bất tiện",
+          "cảm ơn vì sự hợp tác",
+          "từ chối giải quyết lỗi",
+          "yêu cầu khách bồi thường"
+        ]
+      },
+      {
+        "id": "email_18",
+        "word": "best regards",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/best rɪˈɡɑːdz/",
+        "meaningVi": "lời chào trân trọng cuối thư",
+        "collocations": "best regards, kind regards, warm regards",
+        "example": "Best regards, Dung Tran - Lead Software Engineer.",
+        "exampleVi": "Trân trọng, Trần Dũng - Kỹ sư phần mềm trưởng.",
+        "optionsVi": [
+          "lời chào trân trọng cuối thư",
+          "lời mở đầu bức thư",
+          "chủ đề bức thư",
+          "tệp đính kèm thư"
+        ]
+      },
+      {
+        "id": "email_19",
+        "word": "recap",
+        "level": "B1",
+        "type": "verb / noun",
+        "ipa": "/ˈriː.kæp/",
+        "meaningVi": "tóm tắt điểm chính",
+        "collocations": "quick recap of the meeting, let's recap",
+        "example": "To recap our discussion: team A handles the frontend and team B builds the API.",
+        "exampleVi": "Để tóm tắt lại nội dung trao đổi: nhóm A phụ trách frontend và nhóm B xây dựng API.",
+        "optionsVi": [
+          "tóm tắt điểm chính",
+          "tranh luận chi tiết",
+          "hủy bỏ thỏa thuận",
+          "ký kết hợp đồng"
+        ]
+      },
+      {
+        "id": "email_20",
+        "word": "inquiry",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪnˈkwaɪə.ri/",
+        "meaningVi": "yêu cầu tìm hiểu thông tin",
+        "collocations": "customer inquiry, respond to inquiries, send an inquiry",
+        "example": "We received an inquiry regarding enterprise pricing for our cloud service.",
+        "exampleVi": "Chúng tôi vừa nhận được một yêu cầu tìm hiểu về bảng giá doanh nghiệp cho dịch vụ đám mây.",
+        "optionsVi": [
+          "yêu cầu tìm hiểu thông tin",
+          "đơn kiện chính thức",
+          "hóa đơn đòi nợ",
+          "thư khen ngợi dịch vụ"
+        ]
+      },
+      {
+        "id": "email_21",
+        "word": "draft",
+        "level": "A2",
+        "type": "noun / verb",
+        "ipa": "/drɑːft/",
+        "meaningVi": "bản nháp sơ bộ",
+        "collocations": "draft email, save as draft, initial draft",
+        "example": "I saved the announcement as a draft so my manager can review it first.",
+        "exampleVi": "Tôi đã lưu thông báo dưới dạng bản nháp để quản lý xem qua trước.",
+        "optionsVi": [
+          "bản nháp sơ bộ",
+          "bản in chính thức",
+          "hợp đồng đóng dấu",
+          "tài liệu mật"
+        ]
+      },
+      {
+        "id": "email_22",
+        "word": "subject line",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈsʌb.dʒɪkt laɪn/",
+        "meaningVi": "tiêu đề email",
+        "collocations": "clear subject line, catchy subject line",
+        "example": "A clear and concise subject line increases the email open rate dramatically.",
+        "exampleVi": "Một dòng tiêu đề rõ ràng súc tích sẽ làm tăng đáng kể tỷ lệ mở email.",
+        "optionsVi": [
+          "tiêu đề email",
+          "chữ ký cuối thư",
+          "địa chỉ người gửi",
+          "hộp thư rác spam"
+        ]
+      },
+      {
+        "id": "email_23",
+        "word": "bullet points",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈbʊl.ɪt pɔɪnts/",
+        "meaningVi": "dấu đầu dòng liệt kê ý",
+        "collocations": "use bullet points, summarized in bullet points",
+        "example": "Writing email updates in bullet points makes them much easier to scan.",
+        "exampleVi": "Viết email cập nhật bằng các dấu đầu dòng giúp người đọc lướt nhanh dễ dàng hơn nhiều.",
+        "optionsVi": [
+          "dấu đầu dòng liệt kê ý",
+          "đoạn văn dài dòng",
+          "chữ ký số điện tử",
+          "tiêu đề thư"
+        ]
+      },
+      {
+        "id": "email_24",
+        "word": "sign off",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/saɪn ɒf/",
+        "meaningVi": "kết thúc bức thư",
+        "collocations": "sign off an email, sign off with warm regards",
+        "example": "She usually signs off her professional emails with 'Kind regards'.",
+        "exampleVi": "Cô ấy thường kết thư email công việc của mình bằng lời chào 'Kind regards'.",
+        "optionsVi": [
+          "kết thúc bức thư",
+          "viết phần mở đầu",
+          "chuyển tiếp thư",
+          "xóa bức thư"
+        ]
+      },
+      {
+        "id": "email_25",
+        "word": "thank you in advance",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/θæŋk juː ɪn ədˈvɑːns/",
+        "meaningVi": "xin cảm ơn bạn trước",
+        "collocations": "thank you in advance for your cooperation",
+        "example": "Thank you in advance for your time and assistance with this request.",
+        "exampleVi": "Xin cảm ơn bạn trước vì đã dành thời gian và hỗ trợ cho yêu cầu này.",
+        "optionsVi": [
+          "xin cảm ơn bạn trước",
+          "từ chối sự giúp đỡ",
+          "không cần hỗ trợ",
+          "xin lỗi vì làm phiền"
+        ]
+      },
+      {
+        "id": "email_26",
+        "word": "further details",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈfɜː.ðər ˈdiː.teɪlz/",
+        "meaningVi": "thông tin chi tiết thêm",
+        "collocations": "for further details, provide further details upon request",
+        "example": "Please do not hesitate to contact us should you require any further details.",
+        "exampleVi": "Xin đừng ngần ngại liên hệ với chúng tôi nếu bạn cần thêm bất kỳ thông tin chi tiết nào.",
+        "optionsVi": [
+          "thông tin chi tiết thêm",
+          "kết luận chung chung",
+          "tài liệu mật không được xem",
+          "hóa đơn thanh toán"
+        ]
+      },
+      {
+        "id": "email_27",
+        "word": "confirm receipt",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/kənˈfɜːm rɪˈsiːt/",
+        "meaningVi": "xác nhận đã nhận được",
+        "collocations": "please confirm receipt of this email",
+        "example": "Could you please confirm receipt of the attached design files?",
+        "exampleVi": "Bạn có thể vui lòng gửi xác nhận đã nhận được các tệp thiết kế đính kèm được không?",
+        "optionsVi": [
+          "xác nhận đã nhận được",
+          "từ chối tiếp nhận",
+          "yêu cầu gửi lại",
+          "báo cáo tệp bị lỗi"
+        ]
+      },
+      {
+        "id": "email_28",
+        "word": "urgent matter",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈɜː.dʒənt ˈmæt.ər/",
+        "meaningVi": "việc khẩn cấp",
+        "collocations": "handle an urgent matter, this is an urgent matter",
+        "example": "I'm calling because we have an urgent matter that requires your immediate attention.",
+        "exampleVi": "Tôi gọi điện vì chúng ta có một việc khẩn cấp đòi hỏi bạn phải giải quyết ngay lập tức.",
+        "optionsVi": [
+          "việc khẩn cấp",
+          "công việc rảnh rỗi",
+          "kế hoạch sang năm",
+          "chuyện phiếm ngoài giờ"
+        ]
+      },
+      {
+        "id": "email_29",
+        "word": "schedule a call",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈskedʒ.uːl eɪ kɔːl/",
+        "meaningVi": "lên lịch cuộc gọi",
+        "collocations": "schedule a quick call, find time to schedule a call",
+        "example": "Are you available tomorrow afternoon to schedule a quick 15-minute call?",
+        "exampleVi": "Chiều mai bạn có rảnh để lên lịch một cuộc gọi nhanh 15 phút không?",
+        "optionsVi": [
+          "lên lịch cuộc gọi",
+          "hủy cuộc gọi",
+          "gọi điện làm phiền",
+          "tắt máy điện thoại"
+        ]
+      },
+      {
+        "id": "email_30",
+        "word": "brief overview",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/briːf ˈəʊ.və.vjuː/",
+        "meaningVi": "bản tóm lược ngắn gọn",
+        "collocations": "give a brief overview, provide a brief overview",
+        "example": "Here is a brief overview of our architectural migration plan.",
+        "exampleVi": "Dưới đây là bản tóm lược ngắn gọn về kế hoạch chuyển đổi kiến trúc hệ thống của chúng tôi.",
+        "optionsVi": [
+          "bản tóm lược ngắn gọn",
+          "bản đặc tả chi tiết 100 trang",
+          "khiếu nại kỹ thuật",
+          "hóa đơn chi phí"
+        ]
+      },
+      {
+        "id": "email_31",
+        "word": "reference number",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈref.ər.əns ˌnʌm.bər/",
+        "meaningVi": "mã số tham chiếu hồ sơ",
+        "collocations": "quote the reference number, ticket reference number",
+        "example": "Please quote this reference number in all future email correspondence.",
+        "exampleVi": "Vui lòng trích dẫn mã số tham chiếu này trong tất cả các thư trao đổi tiếp theo.",
+        "optionsVi": [
+          "mã số tham chiếu hồ sơ",
+          "mã số thuế cá nhân",
+          "số điện thoại bàn",
+          "mã giảm giá"
+        ]
+      },
+      {
+        "id": "email_32",
+        "word": "formal invitation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈfɔː.məl ˌɪn.vɪˈteɪ.ʃən/",
+        "meaningVi": "thư mời trang trọng",
+        "collocations": "send a formal invitation, receive a formal invitation",
+        "example": "We sent a formal invitation to the keynote speaker for our annual tech summit.",
+        "exampleVi": "Chúng tôi đã gửi thư mời chính thức tới diễn giả chính cho hội nghị thượng đỉnh công nghệ thường niên.",
+        "optionsVi": [
+          "thư mời trang trọng",
+          "thư từ chối nhận việc",
+          "thông báo kỷ luật",
+          "hóa đơn thu tiền"
+        ]
+      },
+      {
+        "id": "email_33",
+        "word": "take note of",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/teɪk nəʊt əv/",
+        "meaningVi": "chú ý ghi nhận",
+        "collocations": "please take note of the changes, take note that",
+        "example": "Please take note of the updated API authentication headers effective next week.",
+        "exampleVi": "Vui lòng chú ý ghi nhận các header xác thực API mới sẽ có hiệu lực từ tuần sau.",
+        "optionsVi": [
+          "chú ý ghi nhận",
+          "bỏ qua không đọc",
+          "tẩy xóa thông tin",
+          "phản bác ý kiến"
+        ]
+      },
+      {
+        "id": "email_34",
+        "word": "thread",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/θred/",
+        "meaningVi": "luồng tin nhắn thảo luận",
+        "collocations": "email thread, reply in thread, start a new thread",
+        "example": "Please reply in this Slack thread to keep the main channel tidy.",
+        "exampleVi": "Vui lòng trả lời trong luồng tin nhắn thread này để giữ kênh chat chính gọn gàng.",
+        "optionsVi": [
+          "luồng tin nhắn thảo luận",
+          "sợi chỉ may vá",
+          "bức ảnh đại diện",
+          "đường link độc hại"
+        ]
+      },
+      {
+        "id": "email_35",
+        "word": "mute notifications",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/mjuːt ˌnəʊ.tɪ.fɪˈkeɪ.ʃənz/",
+        "meaningVi": "tắt chuông thông báo",
+        "collocations": "mute notifications for 1 hour, mute chat channel",
+        "example": "I muted notifications on Teams during my deep focus coding session.",
+        "exampleVi": "Tôi đã tắt thông báo trên Teams trong lúc tập trung cao độ viết code.",
+        "optionsVi": [
+          "tắt chuông thông báo",
+          "bật loa ngoài",
+          "xóa tài khoản chat",
+          "gửi tin nhắn hàng loạt"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "job_interview_career",
+    "name": "Phỏng Vấn, Tuyển Dụng & Sự Nghiệp",
+    "icon": "🎯",
+    "category": "work",
+    "level": "B1",
+    "description": "CV, thư ứng tuyển, đàm phán lương, thử việc, phúc lợi, thăng tiến và phát triển năng lực.",
+    "words": [
+      {
+        "id": "career_01",
+        "word": "curriculum vitae",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˌrɪk.jə.ləm ˈviː.taɪ/",
+        "meaningVi": "sơ yếu lý lịch CV",
+        "collocations": "submit your CV, update curriculum vitae, tailored CV",
+        "example": "Make sure your curriculum vitae highlights your relevant engineering achievements.",
+        "exampleVi": "Hãy chắc chắn rằng sơ yếu lý lịch CV của bạn làm nổi bật các thành tích kỹ thuật liên quan.",
+        "optionsVi": [
+          "sơ yếu lý lịch CV",
+          "đơn xin nghỉ phép",
+          "bản kiểm điểm",
+          "hợp đồng bảo hiểm"
+        ]
+      },
+      {
+        "id": "career_02",
+        "word": "cover letter",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkʌv.ə ˌlet.ər/",
+        "meaningVi": "thư xin việc",
+        "collocations": "compelling cover letter, attach cover letter",
+        "example": "A personalized cover letter explains why you are the ideal fit for the position.",
+        "exampleVi": "Một bức thư xin việc mang dấu ấn cá nhân sẽ giải thích vì sao bạn là người phù hợp nhất cho vị trí đó.",
+        "optionsVi": [
+          "thư xin việc",
+          "thư từ chức",
+          "giấy giới thiệu",
+          "thư mời phỏng vấn"
+        ]
+      },
+      {
+        "id": "career_03",
+        "word": "job description",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈdʒɒb dɪˌskrɪp.ʃən/",
+        "meaningVi": "bản mô tả công việc (JD)",
+        "collocations": "read the job description carefully, match the JD",
+        "example": "Please read the job description carefully to understand key role responsibilities.",
+        "exampleVi": "Vui lòng đọc kỹ bản mô tả công việc JD để hiểu rõ các trách nhiệm chính của vị trí.",
+        "optionsVi": [
+          "bản mô tả công việc (JD)",
+          "hợp đồng lao động",
+          "bảng lương nhân viên",
+          "nội quy công ty"
+        ]
+      },
+      {
+        "id": "career_04",
+        "word": "hiring manager",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈhaɪə.rɪŋ ˌmæn.ɪ.dʒər/",
+        "meaningVi": "người quản lý tuyển dụng",
+        "collocations": "interview with the hiring manager, impress the hiring manager",
+        "example": "The final interview round will be conducted by the technical hiring manager.",
+        "exampleVi": "Vòng phỏng vấn cuối cùng sẽ được thực hiện bởi người quản lý tuyển dụng kỹ thuật.",
+        "optionsVi": [
+          "người quản lý tuyển dụng",
+          "chuyên viên thực tập",
+          "nhân viên hành chính",
+          "chủ tịch công đoàn"
+        ]
+      },
+      {
+        "id": "career_05",
+        "word": "candidate",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈkæn.dɪ.dət/",
+        "meaningVi": "ứng viên ứng tuyển",
+        "collocations": "ideal candidate, qualified candidates, shortlisted candidates",
+        "example": "They shortlisted five strong candidates for the senior frontend position.",
+        "exampleVi": "Họ đã chọn lọc được 5 ứng viên sáng giá vào danh sách rút gọn cho vị trí frontend senior.",
+        "optionsVi": [
+          "ứng viên ứng tuyển",
+          "nhân viên thử việc",
+          "người bị sa thải",
+          "khách hàng tiềm năng"
+        ]
+      },
+      {
+        "id": "career_06",
+        "word": "salary negotiation",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsæl.ər.i nɪˌɡəʊ.ʃiˈeɪ.ʃən/",
+        "meaningVi": "đàm phán lương",
+        "collocations": "successful salary negotiation, prepare for salary negotiation",
+        "example": "Do thorough research on market compensation rates before salary negotiation.",
+        "exampleVi": "Hãy nghiên cứu kỹ mức đãi ngộ trên thị trường trước khi bước vào đàm phán lương.",
+        "optionsVi": [
+          "đàm phán lương",
+          "trừ lương phạt",
+          "tính thuế thu nhập",
+          "thanh toán viện phí"
+        ]
+      },
+      {
+        "id": "career_07",
+        "word": "probation period",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/prəˈbeɪ.ʃən ˌpɪə.ri.əd/",
+        "meaningVi": "thời gian thử việc",
+        "collocations": "two-month probation period, pass the probation period",
+        "example": "New employees receive 85% of full salary during their 2-month probation period.",
+        "exampleVi": "Nhân viên mới nhận 85% lương chính thức trong thời gian 2 tháng thử việc.",
+        "optionsVi": [
+          "thời gian thử việc",
+          "thời gian nghỉ phép năm",
+          "hạn hợp đồng chính thức",
+          "thời gian thực tập không lương"
+        ]
+      },
+      {
+        "id": "career_08",
+        "word": "employee benefits",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪmˈplɔɪ.iː ˌben.ɪ.fɪts/",
+        "meaningVi": "chế độ phúc lợi nhân viên",
+        "collocations": "attractive employee benefits, full benefits package",
+        "example": "Their employee benefits include private health insurance and an annual gym stipend.",
+        "exampleVi": "Phúc lợi nhân viên của họ gồm bảo hiểm sức khỏe tư nhân và hỗ trợ phí tập gym hàng năm.",
+        "optionsVi": [
+          "chế độ phúc lợi nhân viên",
+          "mức phạt đi muộn",
+          "chi phí đào tạo",
+          "ngân sách phòng ban"
+        ]
+      },
+      {
+        "id": "career_09",
+        "word": "career path",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/kəˈrɪər pɑːθ/",
+        "meaningVi": "lộ trình sự nghiệp",
+        "collocations": "clear career path, choose a career path, tech career path",
+        "example": "The company offers a transparent dual career path: management or technical specialist.",
+        "exampleVi": "Công ty đưa ra lộ trình sự nghiệp kép minh bạch: theo hướng quản lý hoặc chuyên gia kỹ thuật.",
+        "optionsVi": [
+          "lộ trình sự nghiệp",
+          "bảng đánh giá KPI",
+          "hồ sơ nhân sự",
+          "chuyến đi công tác"
+        ]
+      },
+      {
+        "id": "career_10",
+        "word": "promotion",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/prəˈməʊ.ʃən/",
+        "meaningVi": "sự thăng chức đề bạt",
+        "collocations": "deserve a promotion, get promoted, promotion opportunities",
+        "example": "He received a well-deserved promotion to Tech Lead after delivering the banking platform.",
+        "exampleVi": "Anh ấy đã được thăng chức xứng đáng lên vị trí Tech Lead sau khi bàn giao nền tảng ngân hàng.",
+        "optionsVi": [
+          "sự thăng chức đề bạt",
+          "việc sa thải nhân viên",
+          "sự điều chuyển công tác",
+          "cắt giảm biên chế"
+        ]
+      },
+      {
+        "id": "career_11",
+        "word": "resign",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈzaɪn/",
+        "meaningVi": "từ chức, xin thôi việc",
+        "collocations": "tender your resignation, resign from your post",
+        "example": "She decided to resign and spend six months studying AI in Germany.",
+        "exampleVi": "Cô ấy quyết định nộp đơn xin thôi việc và dành 6 tháng sang Đức theo học về AI.",
+        "optionsVi": [
+          "từ chức, xin thôi việc",
+          "ký hợp đồng làm tiếp",
+          "khiếu nại quản lý",
+          "xin tăng lương"
+        ]
+      },
+      {
+        "id": "career_12",
+        "word": "offer letter",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɒf.ər ˌlet.ər/",
+        "meaningVi": "thư mời nhận việc",
+        "collocations": "receive an offer letter, sign the offer letter, accept an offer",
+        "example": "I was thrilled to receive a formal offer letter from a top tech company.",
+        "exampleVi": "Tôi vô cùng phấn khích khi nhận được thư mời làm việc chính thức từ công ty công nghệ hàng đầu.",
+        "optionsVi": [
+          "thư mời nhận việc",
+          "thư từ chối ứng tuyển",
+          "thư cảnh cáo kỷ luật",
+          "thông báo nghỉ lễ"
+        ]
+      },
+      {
+        "id": "career_13",
+        "word": "strengths and weaknesses",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/streŋθs ænd ˈwiːk.nəs.ɪz/",
+        "meaningVi": "điểm mạnh và điểm yếu",
+        "collocations": "discuss your strengths and weaknesses, analyze strengths",
+        "example": "'What are your biggest strengths and weaknesses?' is a classic interview question.",
+        "exampleVi": "'Điểm mạnh và điểm yếu lớn nhất của bạn là gì?' là một câu hỏi phỏng vấn kinh điển.",
+        "optionsVi": [
+          "điểm mạnh và điểm yếu",
+          "mức lương mong muốn",
+          "bằng cấp chuyên môn",
+          "mối quan hệ cá nhân"
+        ]
+      },
+      {
+        "id": "career_14",
+        "word": "working environment",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈwɜː.kɪŋ ɪnˌvaɪ.rən.mənt/",
+        "meaningVi": "môi trường làm việc",
+        "collocations": "friendly working environment, healthy work environment",
+        "example": "A flexible and supportive working environment attracts top software talent.",
+        "exampleVi": "Một môi trường làm việc linh hoạt và giàu tính tương trợ sẽ thu hút những nhân tài phần mềm hàng đầu.",
+        "optionsVi": [
+          "môi trường làm việc",
+          "khu dân cư sinh sống",
+          "thời tiết khí hậu",
+          "mạng lưới nội bộ"
+        ]
+      },
+      {
+        "id": "career_15",
+        "word": "professional development",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/prəˌfeʃ.ən.əl dɪˈvel.əp.mənt/",
+        "meaningVi": "phát triển chuyên môn nghề nghiệp",
+        "collocations": "invest in professional development, continuous professional development",
+        "example": "The company allocates $1,000 per employee each year for professional development courses.",
+        "exampleVi": "Công ty cấp 1.000 đô la cho mỗi nhân viên mỗi năm dành cho các khóa học phát triển chuyên môn.",
+        "optionsVi": [
+          "phát triển chuyên môn nghề nghiệp",
+          "hoạt động teambuilding",
+          "chăm sóc khách hàng",
+          "du lịch nghỉ dưỡng"
+        ]
+      },
+      {
+        "id": "career_16",
+        "word": "mentor",
+        "level": "B1",
+        "type": "noun / verb",
+        "ipa": "/ˈmen.tɔːr/",
+        "meaningVi": "người hướng dẫn dìu dắt",
+        "collocations": "career mentor, find a mentor, mentor junior staff",
+        "example": "Having a senior mentor helped me accelerate my programming growth immensely.",
+        "exampleVi": "Có một người hướng dẫn cấp cao đã giúp tôi đẩy nhanh sự tiến bộ lập trình vô cùng nhiều.",
+        "optionsVi": [
+          "người hướng dẫn dìu dắt",
+          "nhân viên cấp dưới",
+          "khách hàng khó tính",
+          "đối thủ cạnh tranh"
+        ]
+      },
+      {
+        "id": "career_17",
+        "word": "performance appraisal",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/pəˈfɔː.məns əˌpreɪ.zəl/",
+        "meaningVi": "kỳ đánh giá công việc định kỳ",
+        "collocations": "annual performance appraisal, performance appraisal criteria",
+        "example": "Your salary increment is heavily based on your year-end performance appraisal.",
+        "exampleVi": "Mức tăng lương của bạn phụ thuộc rất lớn vào kỳ đánh giá hiệu quả công việc cuối năm.",
+        "optionsVi": [
+          "kỳ đánh giá công việc định kỳ",
+          "kỳ thi tuyển dụng",
+          "buổi tiệc tất niên",
+          "khóa đào tạo nội bộ"
+        ]
+      },
+      {
+        "id": "career_18",
+        "word": "annual bonus",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈæn.ju.əl ˈbəʊ.nəs/",
+        "meaningVi": "tiền thưởng hàng năm",
+        "collocations": "receive an annual bonus, generous annual bonus",
+        "example": "Employees who exceed their KPIs receive a generous annual bonus.",
+        "exampleVi": "Những nhân viên vượt chỉ tiêu KPI sẽ nhận được một khoản thưởng hàng năm hậu hĩnh.",
+        "optionsVi": [
+          "tiền thưởng hàng năm",
+          "tiền bảo hiểm bắt buộc",
+          "khoản phạt vi phạm",
+          "thuế thu nhập trừ lương"
+        ]
+      },
+      {
+        "id": "career_19",
+        "word": "job opening",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈdʒɒb ˌəʊ.pən.ɪŋ/",
+        "meaningVi": "vị trí việc làm đang tuyển",
+        "collocations": "current job openings, job opening for backend developers",
+        "example": "We have three immediate job openings for experienced DevOps specialists.",
+        "exampleVi": "Chúng tôi đang có 3 vị trí việc làm tuyển dụng ngay cho các chuyên viên DevOps có kinh nghiệm.",
+        "optionsVi": [
+          "vị trí việc làm đang tuyển",
+          "sự cắt giảm nhân sự",
+          "hồ sơ nhân viên cũ",
+          "ngày lễ mở cửa"
+        ]
+      },
+      {
+        "id": "career_20",
+        "word": "referral",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/rɪˈfɜː.rəl/",
+        "meaningVi": "sự giới thiệu nhân sự",
+        "collocations": "employee referral, referral bonus, get hired via referral",
+        "example": "I got hired through an internal employee referral from my former university peer.",
+        "exampleVi": "Tôi đã được tuyển dụng nhờ sự giới thiệu nội bộ từ bạn học đại học cũ của mình.",
+        "optionsVi": [
+          "sự giới thiệu nhân sự",
+          "quảng cáo đại trà",
+          "hồ sơ xin việc tự do",
+          "đơn khiếu nại tuyển dụng"
+        ]
+      },
+      {
+        "id": "career_21",
+        "word": "onboarding",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɒnˌbɔː.dɪŋ/",
+        "meaningVi": "quy trình hội nhập nhân viên mới",
+        "collocations": "onboarding process, smooth onboarding, complete onboarding tasks",
+        "example": "A well-structured onboarding process helps new hires become productive much faster.",
+        "exampleVi": "Quy trình hội nhập bài bản giúp nhân viên mới bắt nhịp làm việc hiệu quả nhanh hơn nhiều.",
+        "optionsVi": [
+          "quy trình hội nhập nhân viên mới",
+          "thủ tục thanh lý hợp đồng",
+          "kỳ thi sát hạch cuối năm",
+          "buổi phỏng vấn xin việc"
+        ]
+      },
+      {
+        "id": "career_22",
+        "word": "remote work",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/rɪˈməʊt wɜːk/",
+        "meaningVi": "làm việc từ xa tại nhà",
+        "collocations": "work remotely, 100% remote work, remote work culture",
+        "example": "Remote work allows engineers to avoid stressful commutes and live in beautiful coastal towns.",
+        "exampleVi": "Làm việc từ xa giúp các kỹ sư tránh được cảnh kẹt xe mệt mỏi và có thể sống ở các thành phố biển xinh đẹp.",
+        "optionsVi": [
+          "làm việc từ xa tại nhà",
+          "làm việc tại văn phòng cố định",
+          "làm việc ngoài trời nắng",
+          "nghỉ việc không lương"
+        ]
+      },
+      {
+        "id": "career_23",
+        "word": "hybrid work",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈhaɪ.brɪd wɜːk/",
+        "meaningVi": "mô hình làm việc kết hợp",
+        "collocations": "hybrid work model, adopt hybrid work",
+        "example": "Our team operates under a hybrid work model: two days at the office and three days remote.",
+        "exampleVi": "Nhóm chúng tôi áp dụng mô hình làm việc kết hợp: 2 ngày lên công ty và 3 ngày làm từ xa.",
+        "optionsVi": [
+          "mô hình làm việc kết hợp",
+          "làm ca đêm liên tục",
+          "làm thêm giờ không lương",
+          "nghỉ hưu non"
+        ]
+      },
+      {
+        "id": "career_24",
+        "word": "soft skills",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈsɒft skɪlz/",
+        "meaningVi": "kỹ năng mềm",
+        "collocations": "essential soft skills, develop soft skills",
+        "example": "Technical excellence combined with strong soft skills produces world-class leaders.",
+        "exampleVi": "Chuyên môn kỹ thuật xuất sắc kết hợp cùng kỹ năng mềm vững vàng tạo nên những nhà lãnh đạo tầm cỡ.",
+        "optionsVi": [
+          "kỹ năng mềm",
+          "chuyên môn kỹ thuật",
+          "kỹ năng viết code",
+          "bằng lái xe"
+        ]
+      },
+      {
+        "id": "career_25",
+        "word": "hard skills",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈhɑːd skɪlz/",
+        "meaningVi": "kỹ năng cứng chuyên môn",
+        "collocations": "technical hard skills, learn hard skills",
+        "example": "Proficiency in Python and Cloud Architecture are in-demand hard skills today.",
+        "exampleVi": "Thành thạo Python và kiến trúc đám mây là những kỹ năng cứng rất được săn đón hiện nay.",
+        "optionsVi": [
+          "kỹ năng cứng chuyên môn",
+          "kỹ năng giao tiếp xã hội",
+          "sức khỏe thể lực",
+          "tính cách bẩm sinh"
+        ]
+      },
+      {
+        "id": "career_26",
+        "word": "severance pay",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈsev.ər.əns ˌpeɪ/",
+        "meaningVi": "trợ cấp thôi việc",
+        "collocations": "receive severance pay, generous severance package",
+        "example": "Laid-off workers received three months of severance pay and healthcare coverage.",
+        "exampleVi": "Những nhân sự bị cắt giảm đã nhận được 3 tháng trợ cấp thôi việc kèm bảo hiểm y tế.",
+        "optionsVi": [
+          "trợ cấp thôi việc",
+          "tiền thưởng tháng 13",
+          "tiền phạt vi phạm nội quy",
+          "lương ứng trước"
+        ]
+      },
+      {
+        "id": "career_27",
+        "word": "career advancement",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kəˈrɪər ədˌvɑːns.mənt/",
+        "meaningVi": "sự thăng tiến sự nghiệp",
+        "collocations": "opportunities for career advancement, rapid career advancement",
+        "example": "Young professionals prioritize companies that offer genuine opportunities for career advancement.",
+        "exampleVi": "Người trẻ ưu tiên các công ty mang lại những cơ hội thăng tiến sự nghiệp thực chất.",
+        "optionsVi": [
+          "sự thăng tiến sự nghiệp",
+          "việc đổi ngành nghề",
+          "nguy cơ thất nghiệp",
+          "việc chuyển công ty"
+        ]
+      },
+      {
+        "id": "career_28",
+        "word": "freelance",
+        "level": "A2",
+        "type": "adjective / verb",
+        "ipa": "/ˈfriː.lɑːns/",
+        "meaningVi": "làm nghề tự do",
+        "collocations": "freelance developer, freelance work, go freelance",
+        "example": "He decided to quit corporate life and work as a freelance mobile app developer.",
+        "exampleVi": "Anh ấy quyết định rời bỏ môi trường công sở để làm lập trình viên ứng dụng di động tự do.",
+        "optionsVi": [
+          "làm nghề tự do",
+          "nhân viên biên chế nhà nước",
+          "giám đốc điều hành",
+          "thực tập sinh không lương"
+        ]
+      },
+      {
+        "id": "career_29",
+        "word": "full-time contract",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌfʊl.taɪm ˈkɒn.trækt/",
+        "meaningVi": "hợp đồng toàn thời gian",
+        "collocations": "sign a full-time contract, offer a full-time contract",
+        "example": "After a successful internship, she was offered a permanent full-time contract.",
+        "exampleVi": "Sau kỳ thực tập thành công, cô ấy được đề nghị ký hợp đồng lao động toàn thời gian chính thức.",
+        "optionsVi": [
+          "hợp đồng toàn thời gian",
+          "hợp đồng cộng tác bán thời gian",
+          "hợp đồng thời vụ ngắn hạn",
+          "thỏa thuận bảo mật"
+        ]
+      },
+      {
+        "id": "career_30",
+        "word": "talent acquisition",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈtæl.ənt ˌæk.wɪˈzɪʃ.ən/",
+        "meaningVi": "chiến lược thu hút nhân tài",
+        "collocations": "head of talent acquisition, talent acquisition specialist",
+        "example": "Our talent acquisition team focuses on recruiting senior machine learning experts.",
+        "exampleVi": "Đội ngũ tuyển mộ nhân tài của chúng tôi tập trung săn đón các chuyên gia học máy cấp cao.",
+        "optionsVi": [
+          "chiến lược thu hút nhân tài",
+          "bộ phận đào tạo nội bộ",
+          "phòng hành chính kế toán",
+          "ban kiểm soát chất lượng"
+        ]
+      },
+      {
+        "id": "career_31",
+        "word": "lay off",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/leɪ ɒf/",
+        "meaningVi": "cắt giảm nhân sự vì kinh tế",
+        "collocations": "lay off workers, mass layoffs in tech",
+        "example": "Due to falling revenues, the company was forced to lay off 10% of its workforce.",
+        "exampleVi": "Do doanh thu sụt giảm, công ty buộc phải cắt giảm 10% lực lượng lao động.",
+        "optionsVi": [
+          "cắt giảm nhân sự vì kinh tế",
+          "thăng chức hàng loạt",
+          "tuyển dụng ồ ạt",
+          "khen thưởng cuối năm"
+        ]
+      },
+      {
+        "id": "career_32",
+        "word": "headhunter",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈhedˌhʌn.tər/",
+        "meaningVi": "chuyên gia săn đầu người",
+        "collocations": "contacted by a headhunter, executive headhunter",
+        "example": "A headhunter reached out to him on LinkedIn offering a director of engineering role.",
+        "exampleVi": "Một chuyên gia săn đầu người đã liên hệ với anh ấy trên LinkedIn mời vào vị trí giám đốc kỹ thuật.",
+        "optionsVi": [
+          "chuyên gia săn đầu người",
+          "nhân viên thử việc",
+          "thanh tra lao động",
+          "luật sư bảo vệ người lao động"
+        ]
+      },
+      {
+        "id": "career_33",
+        "word": "sick leave",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈsɪk ˌliːv/",
+        "meaningVi": "nghỉ phép ốm",
+        "collocations": "take sick leave, paid sick leave, on sick leave",
+        "example": "He is currently on paid sick leave recovering from back surgery.",
+        "exampleVi": "Hiện tại anh ấy đang trong đợt nghỉ phép ốm có lương để hồi phục sau ca phẫu thuật lưng.",
+        "optionsVi": [
+          "nghỉ phép ốm",
+          "nghỉ phép năm",
+          "nghỉ thai sản",
+          "nghỉ không lương"
+        ]
+      },
+      {
+        "id": "career_34",
+        "word": "KPI",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌkeɪ.piːˈaɪ/",
+        "meaningVi": "chỉ số đánh giá hiệu quả công việc",
+        "collocations": "meet your KPI, quarterly KPI, track KPIs",
+        "example": "Code quality and delivery speed are essential KPIs for our development squad.",
+        "exampleVi": "Chất lượng mã nguồn và tốc độ bàn giao là những chỉ số KPI thiết yếu của nhóm phát triển.",
+        "optionsVi": [
+          "chỉ số đánh giá hiệu quả công việc",
+          "quy định an toàn lao động",
+          "thời gian làm thêm giờ",
+          "chứng chỉ chuyên môn"
+        ]
+      },
+      {
+        "id": "career_35",
+        "word": "resignation letter",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌrez.ɪɡˈneɪ.ʃən ˌlet.ər/",
+        "meaningVi": "đơn xin thôi việc",
+        "collocations": "submit a resignation letter, hand in your resignation letter",
+        "example": "He submitted his formal resignation letter giving one month's notice.",
+        "exampleVi": "Anh ấy đã nộp đơn xin thôi việc chính thức kèm thông báo trước một tháng.",
+        "optionsVi": [
+          "đơn xin thôi việc",
+          "đơn xin nghỉ ốm",
+          "đơn đề xuất tăng lương",
+          "thư giới thiệu bản thân"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "business_finance_marketing",
+    "name": "Kinh Doanh, Marketing & Tài Chính",
+    "icon": "📈",
+    "category": "work",
+    "level": "B2",
+    "description": "Doanh thu, lợi nhuận, chiến dịch quảng cáo, đàm phán hợp đồng và dòng tiền doanh nghiệp.",
+    "words": [
+      {
+        "id": "biz_01",
+        "word": "revenue",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈrev.ən.juː/",
+        "meaningVi": "tổng doanh thu",
+        "collocations": "annual revenue, generate revenue, revenue growth",
+        "example": "The company's annual recurring revenue crossed 10 million dollars this quarter.",
+        "exampleVi": "Doanh thu định kỳ hàng năm của công ty đã vượt qua mốc 10 triệu đô la trong quý này.",
+        "optionsVi": [
+          "tổng doanh thu",
+          "tiền lỗ ròng",
+          "chi phí phát sinh",
+          "tiền lãi suất vay"
+        ]
+      },
+      {
+        "id": "biz_02",
+        "word": "profit margin",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈprɒf.ɪt ˌmɑː.dʒɪn/",
+        "meaningVi": "tỷ suất lợi nhuận",
+        "collocations": "high profit margin, improve profit margins, net profit margin",
+        "example": "Software companies usually enjoy very high profit margins compared to manufacturing.",
+        "exampleVi": "Các công ty phần mềm thường sở hữu tỷ suất lợi nhuận rất cao so với ngành sản xuất.",
+        "optionsVi": [
+          "tỷ suất lợi nhuận",
+          "chi phí nhân công",
+          "tiền đóng thuế",
+          "mức chiết khấu"
+        ]
+      },
+      {
+        "id": "biz_03",
+        "word": "return on investment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/rɪˈtɜːn ɒn ɪnˈvest.mənt/",
+        "meaningVi": "tỷ suất hoàn vốn đầu tư (ROI)",
+        "collocations": "positive return on investment, calculate ROI, high ROI",
+        "example": "Migrating to microservices yielded a massive return on investment in system reliability.",
+        "exampleVi": "Chuyển sang kiến trúc microservices mang lại tỷ suất hoàn vốn đầu tư khổng lồ về độ tin cậy hệ thống.",
+        "optionsVi": [
+          "tỷ suất hoàn vốn đầu tư (ROI)",
+          "khoản tiền vay thế chấp",
+          "chi phí bảo trì định kỳ",
+          "tiền đền bù rủi ro"
+        ]
+      },
+      {
+        "id": "biz_04",
+        "word": "market share",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmɑː.kɪt ʃeər/",
+        "meaningVi": "thị phần chiếm lĩnh",
+        "collocations": "gain market share, dominate market share, lose market share",
+        "example": "Our payment gateway captured 35% of the domestic market share within two years.",
+        "exampleVi": "Cổng thanh toán của chúng tôi đã chiếm lĩnh 35% thị phần nội địa trong vòng hai năm.",
+        "optionsVi": [
+          "thị phần chiếm lĩnh",
+          "giá cổ phiếu niêm yết",
+          "chi phí quảng cáo",
+          "vốn điều lệ"
+        ]
+      },
+      {
+        "id": "biz_05",
+        "word": "target audience",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈtɑː.ɡɪt ˈɔː.di.əns/",
+        "meaningVi": "đối tượng mục tiêu",
+        "collocations": "identify target audience, reach target audience",
+        "example": "Our target audience consists of young tech-savvy professionals aged 22 to 35.",
+        "exampleVi": "Khách hàng mục tiêu của chúng tôi gồm những người trẻ am hiểu công nghệ trong độ tuổi 22 đến 35.",
+        "optionsVi": [
+          "đối tượng mục tiêu",
+          "đối thủ cạnh tranh",
+          "cổ đông công ty",
+          "đại lý phân phối"
+        ]
+      },
+      {
+        "id": "biz_06",
+        "word": "brand awareness",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/brænd əˈweə.nəs/",
+        "meaningVi": "độ nhận diện thương hiệu",
+        "collocations": "build brand awareness, increase brand awareness",
+        "example": "Sponsoring hackathons is an effective tactic to boost brand awareness among coders.",
+        "exampleVi": "Tài trợ cho các cuộc thi hackathon là chiến thuật hiệu quả để nâng cao độ nhận diện thương hiệu với giới coder.",
+        "optionsVi": [
+          "độ nhận diện thương hiệu",
+          "chất lượng dịch vụ",
+          "giá bán sản phẩm",
+          "quy mô nhân sự"
+        ]
+      },
+      {
+        "id": "biz_07",
+        "word": "conversion rate",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈvɜː.ʒən reɪt/",
+        "meaningVi": "tỷ lệ chuyển đổi mua hàng",
+        "collocations": "high conversion rate, improve conversion rate, track conversion rates",
+        "example": "Redesigning the landing page increased our sign-up conversion rate by 18%.",
+        "exampleVi": "Thiết kế lại trang đích landing page đã làm tăng tỷ lệ chuyển đổi đăng ký lên 18%.",
+        "optionsVi": [
+          "tỷ lệ chuyển đổi mua hàng",
+          "tốc độ tải trang web",
+          "tỷ lệ thoát trang",
+          "chi phí cho mỗi lượt nhấp"
+        ]
+      },
+      {
+        "id": "biz_08",
+        "word": "customer retention",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkʌs.tə.mər rɪˈten.ʃən/",
+        "meaningVi": "việc giữ chân khách hàng",
+        "collocations": "customer retention rate, boost retention, customer retention strategy",
+        "example": "Providing proactive tech support is vital for maintaining high customer retention.",
+        "exampleVi": "Hỗ trợ kỹ thuật chủ động là điều tối quan trọng để duy trì tỷ lệ giữ chân khách hàng cao.",
+        "optionsVi": [
+          "việc giữ chân khách hàng",
+          "tìm kiếm khách hàng mới",
+          "thu hồi nợ xấu",
+          "thanh lý hợp đồng"
+        ]
+      },
+      {
+        "id": "biz_09",
+        "word": "cash flow",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkæʃ ˌfləʊ/",
+        "meaningVi": "dòng tiền lưu động",
+        "collocations": "positive cash flow, manage cash flow, healthy cash flow",
+        "example": "Maintaining a positive cash flow is essential for startups to survive early years.",
+        "exampleVi": "Duy trì dòng tiền dương là điều sống còn để các startup tồn tại trong những năm đầu.",
+        "optionsVi": [
+          "dòng tiền lưu động",
+          "tài sản cố định",
+          "khoản vay ngân hàng",
+          "vốn đầu tư mạo hiểm"
+        ]
+      },
+      {
+        "id": "biz_10",
+        "word": "budget allocation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbʌdʒ.ɪt ˌæl.əˈkeɪ.ʃən/",
+        "meaningVi": "phân bổ ngân sách",
+        "collocations": "annual budget allocation, approve budget allocation",
+        "example": "The executive committee approved a 30% budget allocation increase for R&D.",
+        "exampleVi": "Ban điều hành đã phê duyệt tăng 30% ngân sách phân bổ cho phòng Nghiên cứu & Phát triển.",
+        "optionsVi": [
+          "phân bổ ngân sách",
+          "cắt giảm chi phí",
+          "thanh tra tài chính",
+          "thu hồi công nợ"
+        ]
+      },
+      {
+        "id": "biz_11",
+        "word": "competitive advantage",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kəmˈpet.ɪ.tɪv ədˈvɑːn.tɪdʒ/",
+        "meaningVi": "lợi thế cạnh tranh",
+        "collocations": "gain competitive advantage, sustainable competitive advantage",
+        "example": "Proprietary AI algorithms provide our company with a strong competitive advantage.",
+        "exampleVi": "Các thuật toán AI độc quyền mang lại cho công ty chúng tôi một lợi thế cạnh tranh rất mạnh.",
+        "optionsVi": [
+          "lợi thế cạnh tranh",
+          "nguy cơ tụt hậu",
+          "chi phí sản xuất cao",
+          "rào cản gia nhập thị trường"
+        ]
+      },
+      {
+        "id": "biz_12",
+        "word": "pitch presentation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/pɪtʃ ˌprez.ənˈteɪ.ʃən/",
+        "meaningVi": "buổi thuyết trình gọi vốn",
+        "collocations": "deliver a pitch presentation, pitch deck, elevator pitch",
+        "example": "The founders delivered an inspiring pitch presentation that secured $2 million in seed funding.",
+        "exampleVi": "Những người sáng lập đã có buổi thuyết trình gọi vốn truyền cảm hứng giúp huy động thành công 2 triệu đô.",
+        "optionsVi": [
+          "buổi thuyết trình gọi vốn",
+          "buổi báo cáo nội bộ",
+          "kỳ thi tay nghề",
+          "cuộc họp kỷ luật"
+        ]
+      },
+      {
+        "id": "biz_13",
+        "word": "business model",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbɪz.nɪs ˌmɒd.əl/",
+        "meaningVi": "mô hình kinh doanh",
+        "collocations": "subscription business model, sustainable business model",
+        "example": "Switching from one-time license fees to a SaaS subscription business model doubled their valuation.",
+        "exampleVi": "Chuyển từ bán bản quyền trọn gói sang mô hình thuê bao SaaS đã tăng gấp đôi định giá công ty.",
+        "optionsVi": [
+          "mô hình kinh doanh",
+          "cơ cấu tổ chức nhân sự",
+          "dây chuyền sản xuất",
+          "chiến lược marketing"
+        ]
+      },
+      {
+        "id": "biz_14",
+        "word": "partnership",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpɑːt.nə.ʃɪp/",
+        "meaningVi": "quan hệ đối tác",
+        "collocations": "strategic partnership, form a partnership, partnership agreement",
+        "example": "Google announced a strategic partnership with university research labs.",
+        "exampleVi": "Google đã công bố mối quan hệ đối tác chiến lược với các phòng nghiên cứu trường đại học.",
+        "optionsVi": [
+          "quan hệ đối tác",
+          "sự thâu tóm đối thủ",
+          "cạnh tranh không lành mạnh",
+          "việc tách rời công ty"
+        ]
+      },
+      {
+        "id": "biz_15",
+        "word": "contract negotiation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkɒn.trækt nɪˌɡəʊ.ʃiˈeɪ.ʃən/",
+        "meaningVi": "đàm phán hợp đồng",
+        "collocations": "enter contract negotiations, tough contract negotiation",
+        "example": "After weeks of intense contract negotiations, both sides signed the multi-year SLA.",
+        "exampleVi": "Sau nhiều tuần đàm phán hợp đồng căng thẳng, cả hai bên đã ký cam kết chất lượng SLA nhiều năm.",
+        "optionsVi": [
+          "đàm phán hợp đồng",
+          "đơn phương chấm dứt hợp đồng",
+          "khởi kiện ra tòa",
+          "ký kết tự động"
+        ]
+      },
+      {
+        "id": "biz_16",
+        "word": "terms and conditions",
+        "level": "B1",
+        "type": "phrase",
+        "ipa": "/tɜːmz ænd kənˈdɪʃ.ənz/",
+        "meaningVi": "điều khoản và điều kiện",
+        "collocations": "agree to terms and conditions, read the terms and conditions",
+        "example": "Please read through all terms and conditions before confirming your subscription.",
+        "exampleVi": "Vui lòng đọc kỹ toàn bộ điều khoản và điều kiện trước khi xác nhận gói thuê bao.",
+        "optionsVi": [
+          "điều khoản và điều kiện",
+          "hướng dẫn cài đặt",
+          "bản báo giá sơ bộ",
+          "danh sách khách hàng"
+        ]
+      },
+      {
+        "id": "biz_17",
+        "word": "breach of contract",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/briːtʃ əv ˈkɒn.trækt/",
+        "meaningVi": "vi phạm hợp đồng",
+        "collocations": "sue for breach of contract, constitute a breach of contract",
+        "example": "Leaking proprietary client source code constitutes a severe breach of contract.",
+        "exampleVi": "Làm rò rỉ mã nguồn độc quyền của khách hàng cấu thành hành vi vi phạm hợp đồng nghiêm trọng.",
+        "optionsVi": [
+          "vi phạm hợp đồng",
+          "gia hạn hợp đồng",
+          "hoàn thành hợp đồng",
+          "thanh lý hợp đồng"
+        ]
+      },
+      {
+        "id": "biz_18",
+        "word": "mutual benefit",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈmjuː.tʃu.əl ˈben.ɪ.fɪt/",
+        "meaningVi": "đôi bên cùng có lợi (win-win)",
+        "collocations": "for mutual benefit, mutual benefit partnership",
+        "example": "We look forward to a fruitful collaboration for our mutual benefit.",
+        "exampleVi": "Chúng tôi rất mong đợi sự hợp tác thành công mang lại lợi ích chung cho cả hai bên.",
+        "optionsVi": [
+          "đôi bên cùng có lợi (win-win)",
+          "thiệt hại nặng nề",
+          "đơn phương hưởng lợi",
+          "cạnh tranh gay gắt"
+        ]
+      },
+      {
+        "id": "biz_19",
+        "word": "liability",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌlaɪ.əˈbɪl.ə.ti/",
+        "meaningVi": "trách nhiệm pháp lý",
+        "collocations": "legal liability, accept liability, limit liability",
+        "example": "The clause limits the cloud vendor's financial liability in case of unexpected service outages.",
+        "exampleVi": "Điều khoản này giới hạn trách nhiệm pháp lý tài chính của nhà cung cấp đám mây trong trường hợp sập mạng bất ngờ.",
+        "optionsVi": [
+          "trách nhiệm pháp lý",
+          "quyền sở hữu trí tuệ",
+          "khoản tiền thưởng",
+          "chứng nhận chất lượng"
+        ]
+      },
+      {
+        "id": "biz_20",
+        "word": "audit",
+        "level": "B2",
+        "type": "noun / verb",
+        "ipa": "/ˈɔː.dɪt/",
+        "meaningVi": "kiểm toán, kiểm tra độc lập",
+        "collocations": "security audit, financial audit, pass an audit",
+        "example": "All financial transactions must undergo a rigorous annual external audit.",
+        "exampleVi": "Mọi giao dịch tài chính đều phải trải qua đợt kiểm toán độc lập nghiêm ngặt hàng năm.",
+        "optionsVi": [
+          "kiểm toán, kiểm tra độc lập",
+          "đầu tư mạo hiểm",
+          "quảng cáo tiếp thị",
+          "sáp nhập doanh nghiệp"
+        ]
+      },
+      {
+        "id": "biz_21",
+        "word": "turnover",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈtɜːnˌəʊ.vər/",
+        "meaningVi": "doanh số / tỷ lệ nghỉ việc",
+        "collocations": "annual turnover, high staff turnover, employee turnover rate",
+        "example": "Improving company culture significantly reduced employee turnover last year.",
+        "exampleVi": "Cải thiện văn hóa công ty đã giúp giảm rõ rệt tỷ lệ nghỉ việc biến động nhân sự trong năm qua.",
+        "optionsVi": [
+          "doanh số / tỷ lệ nghỉ việc",
+          "tiền lương cơ bản",
+          "mức thưởng quý",
+          "chi phí thuê văn phòng"
+        ]
+      },
+      {
+        "id": "biz_22",
+        "word": "value proposition",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈvæl.juː ˌprɒp.əˈzɪʃ.ən/",
+        "meaningVi": "tuyên ngôn giá trị cốt lõi",
+        "collocations": "unique value proposition (UVP), clear value proposition",
+        "example": "Our value proposition is delivering enterprise-grade database security at one-tenth the cost.",
+        "exampleVi": "Tuyên ngôn giá trị của chúng tôi là mang lại độ bảo mật cơ sở dữ liệu cấp doanh nghiệp với chi phí chỉ bằng 1/10.",
+        "optionsVi": [
+          "tuyên ngôn giá trị cốt lõi",
+          "bảng báo giá chi tiết",
+          "điều khoản bảo hành",
+          "hợp đồng liên doanh"
+        ]
+      },
+      {
+        "id": "biz_23",
+        "word": "break-even point",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌbreɪkˈiː.vən pɔɪnt/",
+        "meaningVi": "điểm hòa vốn",
+        "collocations": "reach break-even point, calculate break-even",
+        "example": "The SaaS startup expects to reach its break-even point within eighteen months.",
+        "exampleVi": "Startup phần mềm SaaS kỳ vọng sẽ đạt điểm hòa vốn trong vòng 18 tháng.",
+        "optionsVi": [
+          "điểm hòa vốn",
+          "thời điểm phá sản",
+          "giai đoạn siêu lợi nhuận",
+          "lúc bắt đầu gọi vốn"
+        ]
+      },
+      {
+        "id": "biz_24",
+        "word": "expenditure",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪkˈspen.dɪ.tʃər/",
+        "meaningVi": "khoản chi tiêu, chi phí",
+        "collocations": "capital expenditure (CapEx), operational expenditure (OpEx), reduce expenditure",
+        "example": "Moving workloads to serverless architecture lowered our monthly operational expenditure.",
+        "exampleVi": "Chuyển các luồng công việc sang kiến trúc serverless đã làm giảm chi tiêu vận hành hàng tháng của chúng tôi.",
+        "optionsVi": [
+          "khoản chi tiêu, chi phí",
+          "tổng doanh thu bán hàng",
+          "tiền lãi ròng",
+          "vốn góp ban đầu"
+        ]
+      },
+      {
+        "id": "biz_25",
+        "word": "assets",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈæs.ets/",
+        "meaningVi": "tài sản doanh nghiệp",
+        "collocations": "total assets, liquid assets, intangible assets",
+        "example": "Patents and proprietary codebase are the company's most valuable intellectual assets.",
+        "exampleVi": "Các bằng sáng chế và mã nguồn độc quyền là tài sản trí tuệ có giá trị nhất của công ty.",
+        "optionsVi": [
+          "tài sản doanh nghiệp",
+          "khoản nợ phải trả",
+          "tiền thuế còn nợ",
+          "khoản chi phí hao hụt"
+        ]
+      },
+      {
+        "id": "biz_26",
+        "word": "dividend",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈdɪv.ɪ.dend/",
+        "meaningVi": "cổ tức chia cho cổ đông",
+        "collocations": "pay dividends, quarterly dividend, cash dividend",
+        "example": "The board voted to distribute a cash dividend of $1.50 per share to shareholders.",
+        "exampleVi": "Hội đồng quản trị đã bỏ phiếu thông qua việc chia cổ tức bằng tiền mặt 1,50 đô la mỗi cổ phiếu.",
+        "optionsVi": [
+          "cổ tức chia cho cổ đông",
+          "lãi suất vay ngân hàng",
+          "tiền lương nhân viên",
+          "phí phát hành cổ phiếu"
+        ]
+      },
+      {
+        "id": "biz_27",
+        "word": "supply chain",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/səˈplaɪ tʃeɪn/",
+        "meaningVi": "chuỗi cung ứng hàng hóa",
+        "collocations": "global supply chain, supply chain disruption, supply chain management",
+        "example": "Global chip shortages caused widespread disruptions across the automotive supply chain.",
+        "exampleVi": "Tình trạng thiếu hụt chip toàn cầu đã gây ra sự gián đoạn diện rộng trong chuỗi cung ứng ô tô.",
+        "optionsVi": [
+          "chuỗi cung ứng hàng hóa",
+          "dây chuyền lắp ráp",
+          "hệ thống bán lẻ",
+          "kênh thanh toán trực tuyến"
+        ]
+      },
+      {
+        "id": "biz_28",
+        "word": "procurement",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/prəˈkjʊə.mənt/",
+        "meaningVi": "mua sắm đấu thầu thiết bị",
+        "collocations": "procurement process, procurement department, public procurement",
+        "example": "The procurement department negotiates bulk server hardware discounts with Dell.",
+        "exampleVi": "Bộ phận mua sắm đấu thầu đang đàm phán giảm giá phần cứng máy chủ số lượng lớn với Dell.",
+        "optionsVi": [
+          "mua sắm đấu thầu thiết bị",
+          "quảng cáo bán hàng",
+          "tuyển dụng nhân sự",
+          "dịch vụ hậu mãi"
+        ]
+      },
+      {
+        "id": "biz_29",
+        "word": "logistics",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ləˈdʒɪs.tɪks/",
+        "meaningVi": "hậu cần vận chuyển kho bãi",
+        "collocations": "logistics network, third-party logistics, logistics costs",
+        "example": "Building an in-house logistics network enabled same-day delivery across the country.",
+        "exampleVi": "Xây dựng mạng lưới hậu cần logistics nội bộ đã cho phép giao hàng ngay trong ngày trên toàn quốc.",
+        "optionsVi": [
+          "hậu cần vận chuyển kho bãi",
+          "sản xuất chế tạo",
+          "marketing truyền thông",
+          "chăm sóc khách hàng"
+        ]
+      },
+      {
+        "id": "biz_30",
+        "word": "acquisition",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæk.wɪˈzɪʃ.ən/",
+        "meaningVi": "thương vụ mua lại công ty",
+        "collocations": "mergers and acquisitions (M&A), major acquisition",
+        "example": "Microsoft's acquisition of GitHub provided it with deep developer community ties.",
+        "exampleVi": "Thương vụ Microsoft mua lại GitHub đã mang lại cho hãng sự gắn kết sâu sắc với cộng đồng lập trình viên.",
+        "optionsVi": [
+          "thương vụ mua lại công ty",
+          "sự phá sản giải thể",
+          "chia tách doanh nghiệp",
+          "ký kết hợp đồng lao động"
+        ]
+      },
+      {
+        "id": "biz_31",
+        "word": "monetize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈmʌn.ɪ.taɪz/",
+        "meaningVi": "thương mại hóa kiếm tiền",
+        "collocations": "monetize an app, monetize traffic, ways to monetize content",
+        "example": "They started monetizing their free mobile app through non-intrusive in-app advertisements.",
+        "exampleVi": "Họ bắt đầu kiếm tiền từ ứng dụng di động miễn phí thông qua các quảng cáo không gây khó chịu.",
+        "optionsVi": [
+          "thương mại hóa kiếm tiền",
+          "miễn phí vĩnh viễn",
+          "xóa ứng dụng",
+          "chặn người dùng"
+        ]
+      },
+      {
+        "id": "biz_32",
+        "word": "launch campaign",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/lɔːntʃ kæmˈpeɪn/",
+        "meaningVi": "chiến dịch ra mắt sản phẩm",
+        "collocations": "product launch campaign, launch a marketing campaign",
+        "example": "We partnered with influential tech YouTubers for our nationwide launch campaign.",
+        "exampleVi": "Chúng tôi hợp tác với các YouTuber công nghệ có tầm ảnh hưởng cho chiến dịch ra mắt trên toàn quốc.",
+        "optionsVi": [
+          "chiến dịch ra mắt sản phẩm",
+          "kế hoạch đóng cửa dịch vụ",
+          "chiến dịch giảm biên chế",
+          "đợt thu hồi sản phẩm"
+        ]
+      },
+      {
+        "id": "biz_33",
+        "word": "niche market",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/niːʃ ˈmɑː.kɪt/",
+        "meaningVi": "thị trường ngách hẹp",
+        "collocations": "profitable niche market, target a niche market",
+        "example": "Targeting a specialized niche market allowed the small software firm to become profitable quickly.",
+        "exampleVi": "Nhắm vào một thị trường ngách chuyên biệt đã giúp công ty phần mềm nhỏ có lãi rất nhanh chóng.",
+        "optionsVi": [
+          "thị trường ngách hẹp",
+          "thị trường đại trà khổng lồ",
+          "chợ đen phi pháp",
+          "thị trường độc quyền nhà nước"
+        ]
+      },
+      {
+        "id": "biz_34",
+        "word": "churn rate",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/tʃɜːn reɪt/",
+        "meaningVi": "tỷ lệ rời bỏ dịch vụ",
+        "collocations": "low churn rate, reduce customer churn rate, monthly churn rate",
+        "example": "By improving product onboarding, we successfully reduced our monthly churn rate below 2%.",
+        "exampleVi": "Bằng cách cải thiện hướng dẫn làm quen sản phẩm, chúng tôi đã giảm thành công tỷ lệ rời bỏ dịch vụ hàng tháng xuống dưới 2%.",
+        "optionsVi": [
+          "tỷ lệ rời bỏ dịch vụ",
+          "tỷ lệ tăng trưởng doanh thu",
+          "tỷ lệ nhấp chuột",
+          "tỷ lệ lợi nhuận gộp"
+        ]
+      },
+      {
+        "id": "biz_35",
+        "word": "due diligence",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌdʒuː ˈdɪl.ɪ.dʒəns/",
+        "meaningVi": "thẩm định năng lực toàn diện",
+        "collocations": "conduct due diligence, due diligence process",
+        "example": "The venture capital firm conducted three months of technical and financial due diligence.",
+        "exampleVi": "Quỹ đầu tư mạo hiểm đã tiến hành thẩm định kỹ thuật và tài chính toàn diện trong suốt 3 tháng.",
+        "optionsVi": [
+          "thẩm định năng lực toàn diện",
+          "ký kết thỏa thuận sơ bộ",
+          "giao dịch chuyển khoản",
+          "từ chối giải quyết"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "core_tech_office",
+    "name": "Từ vựng Nền tảng Công sở & CNTT (Core Essentials)",
+    "description": "40 từ vựng cốt lõi A1 - B2 cho người đi làm và dân IT (bảo toàn dữ liệu lịch sử học)",
+    "level": "A1-B2",
+    "icon": "bi-award-fill",
+    "badge": "Core / Essential",
+    "words": [
+      {
+        "id": "a1_01",
+        "word": "schedule",
+        "level": "A1",
+        "ipa": "/ˈskedʒ.uːl/",
+        "type": "noun / verb",
+        "meaningVi": "lịch trình, thời gian biểu",
+        "collocations": "tight schedule, schedule a meeting, on schedule",
+        "example": "Let's check the team schedule for today.",
+        "optionsVi": [
+          "lịch trình, thời gian biểu",
+          "kế hoạch ngân sách",
+          "bản báo cáo tuần",
+          "hợp đồng làm việc"
+        ]
+      },
+      {
+        "id": "a1_02",
+        "word": "message",
+        "level": "A1",
+        "ipa": "/ˈmes.ɪdʒ/",
+        "type": "noun",
+        "meaningVi": "tin nhắn, thông điệp",
+        "collocations": "send a message, leave a message, instant message",
+        "example": "I will leave a message in our Slack channel.",
+        "optionsVi": [
+          "tin nhắn, thông điệp",
+          "thư mời làm việc",
+          "cuộc họp trực tuyến",
+          "tài liệu đính kèm"
+        ]
+      },
+      {
+        "id": "a1_03",
+        "word": "problem",
+        "level": "A1",
+        "ipa": "/ˈprɒb.ləm/",
+        "type": "noun",
+        "meaningVi": "vấn đề, trục trặc",
+        "collocations": "solve a problem, face a problem, technical problem",
+        "example": "We have a small connection problem right now.",
+        "optionsVi": [
+          "vấn đề, trục trặc",
+          "cơ hội mới",
+          "giải pháp phần mềm",
+          "quy trình vận hành"
+        ]
+      },
+      {
+        "id": "a1_04",
+        "word": "customer",
+        "level": "A1",
+        "ipa": "/ˈkʌs.tə.mər/",
+        "type": "noun",
+        "meaningVi": "khách hàng",
+        "collocations": "customer service, satisfy customers, loyal customer",
+        "example": "The customer is asking for an update on this feature.",
+        "optionsVi": [
+          "khách hàng",
+          "nhà phát triển",
+          "đối tác cung ứng",
+          "quản lý dự án"
+        ]
+      },
+      {
+        "id": "a1_05",
+        "word": "device",
+        "level": "A1",
+        "ipa": "/dɪˈvaɪs/",
+        "type": "noun",
+        "meaningVi": "thiết bị (điện tử, máy móc)",
+        "collocations": "mobile device, connect a device, input device",
+        "example": "Please test the app on different mobile devices.",
+        "optionsVi": [
+          "thiết bị (điện tử, máy móc)",
+          "phần mềm quản lý",
+          "mạng nội bộ",
+          "dây cáp kết nối"
+        ]
+      },
+      {
+        "id": "a1_06",
+        "word": "office",
+        "level": "A1",
+        "ipa": "/ˈɒf.ɪs/",
+        "type": "noun",
+        "meaningVi": "văn phòng làm việc",
+        "collocations": "office hours, work at the office, home office",
+        "example": "I usually arrive at the office at 8:30 AM.",
+        "optionsVi": [
+          "văn phòng làm việc",
+          "nhà kho",
+          "phòng thí nghiệm",
+          "khu vực ăn uống"
+        ]
+      },
+      {
+        "id": "a1_07",
+        "word": "share",
+        "level": "A1",
+        "ipa": "/ʃeər/",
+        "type": "verb",
+        "meaningVi": "chia sẻ (màn hình, tài liệu)",
+        "collocations": "share screen, share a link, share files",
+        "example": "Can you please share your screen with the team?",
+        "optionsVi": [
+          "chia sẻ (màn hình, tài liệu)",
+          "khoá màn hình",
+          "tải xuống",
+          "xoá bỏ"
+        ]
+      },
+      {
+        "id": "a1_08",
+        "word": "simple",
+        "level": "A1",
+        "ipa": "/ˈsɪm.pəl/",
+        "type": "adjective",
+        "meaningVi": "đơn giản, dễ hiểu",
+        "collocations": "simple solution, simple task, keep it simple",
+        "example": "We need a simple solution to fix this error.",
+        "optionsVi": [
+          "đơn giản, dễ hiểu",
+          "phức tạp, rắc rối",
+          "khẩn cấp",
+          "tốn kém"
+        ]
+      },
+      {
+        "id": "a1_09",
+        "word": "click",
+        "level": "A1",
+        "ipa": "/klɪk/",
+        "type": "verb / noun",
+        "meaningVi": "nhấp chuột, bấm nút",
+        "collocations": "click here, double click, right-click",
+        "example": "Click the blue button to submit your form.",
+        "optionsVi": [
+          "nhấp chuột, bấm nút",
+          "kéo thả",
+          "cuộn trang",
+          "gõ phím"
+        ]
+      },
+      {
+        "id": "a1_10",
+        "word": "finish",
+        "level": "A1",
+        "ipa": "/ˈfɪn.ɪʃ/",
+        "type": "verb",
+        "meaningVi": "hoàn thành, kết thúc",
+        "collocations": "finish a task, finish on time, almost finish",
+        "example": "I will finish this task before lunchtime.",
+        "optionsVi": [
+          "hoàn thành, kết thúc",
+          "bắt đầu, khởi tạo",
+          "tạm hoãn",
+          "thay đổi"
+        ]
+      },
+      {
+        "id": "a2_01",
+        "word": "deadline",
+        "level": "A2",
+        "ipa": "/ˈded.laɪn/",
+        "type": "noun",
+        "meaningVi": "hạn chót, thời hạn hoàn thành",
+        "collocations": "meet the deadline, miss the deadline, tight deadline",
+        "example": "We must work extra hours to meet the project deadline.",
+        "optionsVi": [
+          "hạn chót, thời hạn hoàn thành",
+          "mục tiêu dài hạn",
+          "cuộc họp khẩn",
+          "thời gian nghỉ"
+        ]
+      },
+      {
+        "id": "a2_02",
+        "word": "update",
+        "level": "A2",
+        "ipa": "/ʌpˈdeɪt/",
+        "type": "verb / noun",
+        "meaningVi": "cập nhật (thông tin, phiên bản)",
+        "collocations": "status update, update software, keep someone updated",
+        "example": "I will update the ticket as soon as I finish the code.",
+        "optionsVi": [
+          "cập nhật (thông tin, phiên bản)",
+          "khôi phục dữ liệu",
+          "xoá bỏ cài đặt",
+          "tạm dừng"
+        ]
+      },
+      {
+        "id": "a2_03",
+        "word": "confirm",
+        "level": "A2",
+        "ipa": "/kənˈfɜːm/",
+        "type": "verb",
+        "meaningVi": "xác nhận, khẳng định lại",
+        "collocations": "confirm an appointment, confirm the details, please confirm",
+        "example": "Please confirm your availability for tomorrow's demo.",
+        "optionsVi": [
+          "xác nhận, khẳng định lại",
+          "huỷ bỏ lịch hẹn",
+          "từ chối yêu cầu",
+          "thương lượng giá"
+        ]
+      },
+      {
+        "id": "a2_04",
+        "word": "feedback",
+        "level": "A2",
+        "ipa": "/ˈfiːd.bæk/",
+        "type": "noun",
+        "meaningVi": "ý kiến phản hồi, nhận xét",
+        "collocations": "positive feedback, give feedback, receive feedback",
+        "example": "The client gave us very positive feedback on the new design.",
+        "optionsVi": [
+          "ý kiến phản hồi, nhận xét",
+          "khiếu nại chính thức",
+          "báo cáo tài chính",
+          "hướng dẫn sử dụng"
+        ]
+      },
+      {
+        "id": "a2_05",
+        "word": "request",
+        "level": "A2",
+        "ipa": "/rɪˈkwest/",
+        "type": "noun / verb",
+        "meaningVi": "yêu cầu, đề nghị",
+        "collocations": "pull request, send a request, make a request",
+        "example": "I just created a pull request for the login module.",
+        "optionsVi": [
+          "yêu cầu, đề nghị",
+          "thông báo huỷ",
+          "khen thưởng",
+          "bản nháp"
+        ]
+      },
+      {
+        "id": "a2_06",
+        "word": "prepare",
+        "level": "A2",
+        "ipa": "/prɪˈpeər/",
+        "type": "verb",
+        "meaningVi": "chuẩn bị",
+        "collocations": "prepare for a meeting, prepare slides, prepare documentation",
+        "example": "He needs 15 minutes to prepare his presentation slides.",
+        "optionsVi": [
+          "chuẩn bị",
+          "trình bày",
+          "huỷ bỏ",
+          "sao chép"
+        ]
+      },
+      {
+        "id": "a2_07",
+        "word": "progress",
+        "level": "A2",
+        "ipa": "/ˈprəʊ.ɡres/",
+        "type": "noun",
+        "meaningVi": "tiến độ, sự tiến triển",
+        "collocations": "track progress, make progress, in progress",
+        "example": "Can you share the current progress of the sprint?",
+        "optionsVi": [
+          "tiến độ, sự tiến triển",
+          "nguồn lực",
+          "chi phí",
+          "nguy cơ tiềm ẩn"
+        ]
+      },
+      {
+        "id": "a2_08",
+        "word": "explain",
+        "level": "A2",
+        "ipa": "/ɪkˈspleɪn/",
+        "type": "verb",
+        "meaningVi": "giải thích, trình bày rõ",
+        "collocations": "explain clearly, explain the reason, explain how it works",
+        "example": "Could you please explain how this authentication flow works?",
+        "optionsVi": [
+          "giải thích, trình bày rõ",
+          "chỉ trích",
+          "thống kê",
+          "phê duyệt"
+        ]
+      },
+      {
+        "id": "a2_09",
+        "word": "backup",
+        "level": "A2",
+        "ipa": "/ˈbæk.ʌp/",
+        "type": "noun / verb",
+        "meaningVi": "sao lưu dự phòng",
+        "collocations": "backup data, automatic backup, create a backup",
+        "example": "Always create a database backup before running migrations.",
+        "optionsVi": [
+          "sao lưu dự phòng",
+          "dọn dẹp bộ nhớ",
+          "khởi động lại hệ thống",
+          "quét virus"
+        ]
+      },
+      {
+        "id": "a2_10",
+        "word": "attend",
+        "level": "A2",
+        "ipa": "/əˈtend/",
+        "type": "verb",
+        "meaningVi": "tham gia, có mặt (cuộc họp, sự kiện)",
+        "collocations": "attend a meeting, attend a workshop, unable to attend",
+        "example": "I won't be able to attend the standup meeting today.",
+        "optionsVi": [
+          "tham gia, có mặt (cuộc họp, sự kiện)",
+          "chủ trì, tổ chức",
+          "rời khỏi",
+          "hoãn lại"
+        ]
+      },
+      {
+        "id": "b1_01",
+        "word": "bottleneck",
+        "level": "B1",
+        "ipa": "/ˈbɒt.əl.nek/",
+        "type": "noun",
+        "meaningVi": "điểm nghẽn, nút thắt cổ chai",
+        "collocations": "performance bottleneck, clear a bottleneck, identify bottlenecks",
+        "example": "The database query is currently the main bottleneck in our system.",
+        "optionsVi": [
+          "điểm nghẽn, nút thắt cổ chai",
+          "băng thông mạng",
+          "cơ chế đồng bộ",
+          "lỗi cú pháp"
+        ]
+      },
+      {
+        "id": "b1_02",
+        "word": "resolve",
+        "level": "B1",
+        "ipa": "/rɪˈzɒlv/",
+        "type": "verb",
+        "meaningVi": "giải quyết, xử lý dứt điểm",
+        "collocations": "resolve an issue, resolve conflicts, resolve quickly",
+        "example": "We worked through the night to resolve the production outage.",
+        "optionsVi": [
+          "giải quyết, xử lý dứt điểm",
+          "trì hoãn xử lý",
+          "báo cáo cấp trên",
+          "tạo thêm sự cố"
+        ]
+      },
+      {
+        "id": "b1_03",
+        "word": "deploy",
+        "level": "B1",
+        "ipa": "/dɪˈplɔɪ/",
+        "type": "verb",
+        "meaningVi": "triển khai (hệ thống, phần mềm)",
+        "collocations": "deploy to production, deploy changes, automated deployment",
+        "example": "We plan to deploy the new microservice tonight at 10 PM.",
+        "optionsVi": [
+          "triển khai (hệ thống, phần mềm)",
+          "thu hồi bản vá",
+          "viết tài liệu",
+          "kiểm thử hồi quy"
+        ]
+      },
+      {
+        "id": "b1_04",
+        "word": "investigate",
+        "level": "B1",
+        "ipa": "/ɪnˈves.tɪ.ɡeɪt/",
+        "type": "verb",
+        "meaningVi": "điều tra, tìm hiểu nguyên nhân gốc rễ",
+        "collocations": "investigate a bug, investigate the root cause, investigate complaints",
+        "example": "The DevOps team is currently investigating the high CPU usage.",
+        "optionsVi": [
+          "điều tra, tìm hiểu nguyên nhân gốc rễ",
+          "thay thế phần cứng",
+          "chấp nhận lỗi",
+          "đóng vé hỗ trợ"
+        ]
+      },
+      {
+        "id": "b1_05",
+        "word": "collaborate",
+        "level": "B1",
+        "ipa": "/kəˈlæb.ə.reɪt/",
+        "type": "verb",
+        "meaningVi": "hợp tác, phối hợp làm việc",
+        "collocations": "collaborate with other teams, closely collaborate, collaborate remotely",
+        "example": "Developers and testers must collaborate closely during each sprint.",
+        "optionsVi": [
+          "hợp tác, phối hợp làm việc",
+          "cạnh tranh độc lập",
+          "giao phó hoàn toàn",
+          "tranh luận gay gắt"
+        ]
+      },
+      {
+        "id": "b1_06",
+        "word": "prioritize",
+        "level": "B1",
+        "ipa": "/praɪˈɒr.ɪ.taɪz/",
+        "type": "verb",
+        "meaningVi": "ưu tiên, sắp xếp theo thứ tự",
+        "collocations": "prioritize tasks, prioritize features, high priority",
+        "example": "We should prioritize fixing security vulnerabilities first.",
+        "optionsVi": [
+          "ưu tiên, sắp xếp theo thứ tự",
+          "loại bỏ khỏi danh sách",
+          "ủy quyền cho người khác",
+          "ghi nhận tạm thời"
+        ]
+      },
+      {
+        "id": "b1_07",
+        "word": "maintain",
+        "level": "B1",
+        "ipa": "/meɪnˈteɪn/",
+        "type": "verb",
+        "meaningVi": "duy trì, bảo trì hệ thống",
+        "collocations": "maintain code quality, maintain servers, maintain documentation",
+        "example": "It is essential to maintain clean code and clear documentation.",
+        "optionsVi": [
+          "duy trì, bảo trì hệ thống",
+          "nâng cấp toàn diện",
+          "tháo gỡ cài đặt",
+          "bỏ qua cảnh báo"
+        ]
+      },
+      {
+        "id": "b1_08",
+        "word": "postpone",
+        "level": "B1",
+        "ipa": "/pəʊstˈpəʊn/",
+        "type": "verb",
+        "meaningVi": "hoãn lại, dời sang thời điểm khác",
+        "collocations": "postpone the release, postpone a meeting, postpone indefinitely",
+        "example": "Due to server issues, we decided to postpone the release date.",
+        "optionsVi": [
+          "hoãn lại, dời sang thời điểm khác",
+          "đẩy nhanh tiến độ",
+          "công bố chính thức",
+          "phân tích dữ liệu"
+        ]
+      },
+      {
+        "id": "b1_09",
+        "word": "requirement",
+        "level": "B1",
+        "ipa": "/rɪˈkwaɪə.mənt/",
+        "type": "noun",
+        "meaningVi": "yêu cầu (kỹ thuật, nghiệp vụ)",
+        "collocations": "business requirements, technical requirements, satisfy requirements",
+        "example": "Make sure the implementation meets all client requirements.",
+        "optionsVi": [
+          "yêu cầu (kỹ thuật, nghiệp vụ)",
+          "ngân sách dự kiến",
+          "hạn chế thời gian",
+          "bản quyền phần mềm"
+        ]
+      },
+      {
+        "id": "b1_10",
+        "word": "implement",
+        "level": "B1",
+        "ipa": "/ˈɪm.plɪ.ment/",
+        "type": "verb",
+        "meaningVi": "thi hành, hiện thực hóa, viết code",
+        "collocations": "implement a feature, implement an algorithm, implement changes",
+        "example": "We need two days to implement OAuth 2.0 authentication.",
+        "optionsVi": [
+          "thi hành, hiện thực hóa, viết code",
+          "đánh giá thiết kế",
+          "bãi bỏ quy trình",
+          "tìm kiếm tài liệu"
+        ]
+      },
+      {
+        "id": "b2_01",
+        "word": "scalability",
+        "level": "B2",
+        "ipa": "/ˌskeɪ.ləˈbɪl.ə.ti/",
+        "type": "noun",
+        "meaningVi": "khả năng mở rộng (hệ thống chịu tải)",
+        "collocations": "system scalability, horizontal scalability, ensure scalability",
+        "example": "Kubernetes provides outstanding scalability for containerized workloads.",
+        "optionsVi": [
+          "khả năng mở rộng (hệ thống chịu tải)",
+          "tính bảo mật dữ liệu",
+          "chi phí vận hành",
+          "độ trễ đường truyền"
+        ]
+      },
+      {
+        "id": "b2_02",
+        "word": "redundancy",
+        "level": "B2",
+        "ipa": "/rɪˈdʌn.dən.si/",
+        "type": "noun",
+        "meaningVi": "tính dự phòng, nhân bản chống sập",
+        "collocations": "data redundancy, hardware redundancy, high availability and redundancy",
+        "example": "We configured multi-region redundancy to prevent single points of failure.",
+        "optionsVi": [
+          "tính dự phòng, nhân bản chống sập",
+          "sự dư thừa lãng phí",
+          "tốc độ xử lý",
+          "tính toàn vẹn"
+        ]
+      },
+      {
+        "id": "b2_03",
+        "word": "optimize",
+        "level": "B2",
+        "ipa": "/ˈɒp.tɪ.maɪz/",
+        "type": "verb",
+        "meaningVi": "tối ưu hóa (tốc độ, chi phí)",
+        "collocations": "optimize performance, optimize cloud costs, optimize queries",
+        "example": "Migrating to AWS Graviton processors helped optimize our cloud budget.",
+        "optionsVi": [
+          "tối ưu hóa (tốc độ, chi phí)",
+          "đơn giản hóa giao diện",
+          "nhân bản máy chủ",
+          "thay đổi kiến trúc"
+        ]
+      },
+      {
+        "id": "b2_04",
+        "word": "mitigate",
+        "level": "B2",
+        "ipa": "/ˈmɪt.ɪ.ɡeɪt/",
+        "type": "verb",
+        "meaningVi": "giảm thiểu rủi ro, xoa dịu thiệt hại",
+        "collocations": "mitigate risks, mitigate impact, mitigate security threats",
+        "example": "Deploying automated backups helps mitigate the risk of data loss.",
+        "optionsVi": [
+          "giảm thiểu rủi ro, xoa dịu thiệt hại",
+          "phát hiện kịp thời",
+          "đẩy nhanh sự cố",
+          "lập luận phản bác"
+        ]
+      },
+      {
+        "id": "b2_05",
+        "word": "comply",
+        "level": "B2",
+        "ipa": "/kəmˈplaɪ/",
+        "type": "verb",
+        "meaningVi": "tuân thủ theo quy định/tiêu chuẩn",
+        "collocations": "comply with regulations, comply with security standards, fail to comply",
+        "example": "All services must comply with GDPR privacy standards.",
+        "optionsVi": [
+          "tuân thủ theo quy định/tiêu chuẩn",
+          "phản đối quyết liệt",
+          "sửa đổi điều khoản",
+          "miễn trừ trách nhiệm"
+        ]
+      },
+      {
+        "id": "b2_06",
+        "word": "discrepancy",
+        "level": "B2",
+        "ipa": "/dɪˈskrep.ən.si/",
+        "type": "noun",
+        "meaningVi": "sự sai lệch, bất nhất",
+        "collocations": "data discrepancy, notice a discrepancy, resolve discrepancies",
+        "example": "There is a notable discrepancy between the logs and the database records.",
+        "optionsVi": [
+          "sự sai lệch, bất nhất",
+          "tính nhất quán cao",
+          "tốc độ tăng trưởng",
+          "mức độ tương thích"
+        ]
+      },
+      {
+        "id": "b2_07",
+        "word": "streamline",
+        "level": "B2",
+        "ipa": "/ˈstriːm.laɪn/",
+        "type": "verb",
+        "meaningVi": "tinh gọn hóa quy trình",
+        "collocations": "streamline the deployment, streamline workflow, streamline processes",
+        "example": "We built a CI/CD pipeline to streamline our release workflow.",
+        "optionsVi": [
+          "tinh gọn hóa quy trình",
+          "phân tán nguồn lực",
+          "tăng thêm bước kiểm duyệt",
+          "chấm dứt dự án"
+        ]
+      },
+      {
+        "id": "b2_08",
+        "word": "compromise",
+        "level": "B2",
+        "ipa": "/ˈkɒm.prə.maɪz/",
+        "type": "noun / verb",
+        "meaningVi": "làm tổn hại đến an ninh / thỏa hiệp",
+        "collocations": "reach a compromise, compromise security, compromised account",
+        "example": "Never compromise software security for the sake of speeding up delivery.",
+        "optionsVi": [
+          "làm tổn hại đến an ninh / thỏa hiệp",
+          "bảo đảm tuyệt đối",
+          "nâng cao chất lượng",
+          "thực hiện cam kết"
+        ]
+      },
+      {
+        "id": "b2_09",
+        "word": "feasibility",
+        "level": "B2",
+        "ipa": "/ˌfiː.zəˈbɪl.ə.ti/",
+        "type": "noun",
+        "meaningVi": "tính khả thi, tính thực tế",
+        "collocations": "feasibility study, check the feasibility, economic feasibility",
+        "example": "We conducted a feasibility study before adopting the new cloud framework.",
+        "optionsVi": [
+          "tính khả thi, tính thực tế",
+          "độ tin cậy",
+          "tính phức tạp",
+          "khả năng sinh lời"
+        ]
+      },
+      {
+        "id": "b2_10",
+        "word": "trade-off",
+        "level": "B2",
+        "ipa": "/ˈtreɪd.ɒf/",
+        "type": "noun",
+        "meaningVi": "sự đánh đổi (tốc độ, chi phí, bảo mật)",
+        "collocations": "architectural trade-offs, necessary trade-off, evaluate trade-offs",
+        "example": "In system design, choosing consistency over availability is a classic trade-off.",
+        "optionsVi": [
+          "sự đánh đổi (tốc độ, chi phí, bảo mật)",
+          "sự cân bằng hoàn hảo",
+          "thỏa thuận thương mại",
+          "lợi nhuận ròng"
+        ]
+      }
+    ],
+    "category": "work"
+  }
+]

@@ -1,0 +1,4162 @@
+[
+  {
+    "groupId": "daily_conversation",
+    "name": "Giao Tiếp Thường Nhật & Phản Xạ",
+    "icon": "💬",
+    "category": "daily",
+    "level": "A2",
+    "description": "Cụm từ cửa miệng, phrasal verbs và cách nói tự nhiên người bản xứ dùng mỗi ngày.",
+    "words": [
+      {
+        "id": "daily_01",
+        "word": "catch up",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/kætʃ ʌp/",
+        "meaningVi": "hàn huyên, cập nhật tin tức",
+        "collocations": "catch up with friends, catch up on news, grab a coffee and catch up",
+        "example": "Let's grab a coffee this Sunday and catch up!",
+        "exampleVi": "Chủ nhật này đi cà phê rồi hàn huyên tâm sự nhé!",
+        "optionsVi": [
+          "hàn huyên, cập nhật tin tức",
+          "bỏ cuộc giữa chừng",
+          "tranh cãi gay gắt",
+          "từ chối lời mời"
+        ]
+      },
+      {
+        "id": "daily_02",
+        "word": "run into",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/rʌn ˈɪn.tuː/",
+        "meaningVi": "tình cờ bắt gặp",
+        "collocations": "run into an old friend, run into trouble, unexpectedly run into",
+        "example": "I ran into my former classmate at the supermarket yesterday.",
+        "exampleVi": "Hôm qua tôi tình cờ gặp lại bạn học cũ ở siêu thị.",
+        "optionsVi": [
+          "tình cờ bắt gặp",
+          "chủ động hẹn gặp",
+          "tránh mặt ai đó",
+          "gọi điện thoại"
+        ]
+      },
+      {
+        "id": "daily_03",
+        "word": "make sense",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/meɪk sens/",
+        "meaningVi": "hợp lý, có lý, dễ hiểu",
+        "collocations": "that makes sense, make complete sense, doesn't make any sense",
+        "example": "That explanation makes a lot of sense to me.",
+        "exampleVi": "Lời giải thích đó đối với tôi rất hợp lý và dễ hiểu.",
+        "optionsVi": [
+          "hợp lý, có lý, dễ hiểu",
+          "vô lý, ngớ ngẩn",
+          "khó chấp nhận",
+          "gây hiểu lầm"
+        ]
+      },
+      {
+        "id": "daily_04",
+        "word": "figure out",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/ˈfɪɡ.jər aʊt/",
+        "meaningVi": "nghĩ ra, tìm ra cách giải quyết",
+        "collocations": "figure out a solution, figure out how it works, can't figure it out",
+        "example": "Don't worry, we will figure out a way together.",
+        "exampleVi": "Đừng lo, chúng ta sẽ cùng nhau tìm ra cách giải quyết.",
+        "optionsVi": [
+          "nghĩ ra, tìm ra cách giải quyết",
+          "lờ đi, bỏ qua",
+          "làm hỏng việc",
+          "trì hoãn xử lý"
+        ]
+      },
+      {
+        "id": "daily_05",
+        "word": "take your time",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/teɪk jɔːr taɪm/",
+        "meaningVi": "cứ từ từ, thong thả",
+        "collocations": "take your time doing it, no rush take your time",
+        "example": "There is no rush, please take your time to read the menu.",
+        "exampleVi": "Không vội đâu, bạn cứ thong thả xem thực đơn nhé.",
+        "optionsVi": [
+          "cứ từ từ, thong thả",
+          "làm gấp lên",
+          "hết giờ rồi",
+          "đừng làm nữa"
+        ]
+      },
+      {
+        "id": "daily_06",
+        "word": "keep in touch",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/kiːp ɪn tʌtʃ/",
+        "meaningVi": "giữ liên lạc",
+        "collocations": "keep in touch with someone, stay in touch, let's keep in touch",
+        "example": "It was great seeing you! Let's keep in touch via Zalo.",
+        "exampleVi": "Rất vui được gặp bạn! Hãy giữ liên lạc qua Zalo nhé.",
+        "optionsVi": [
+          "giữ liên lạc",
+          "cắt đứt quan hệ",
+          "chặn tin nhắn",
+          "quên mặt nhau"
+        ]
+      },
+      {
+        "id": "daily_07",
+        "word": "give a hand",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/ɡɪv eɪ hænd/",
+        "meaningVi": "giúp đỡ một tay",
+        "collocations": "give someone a hand, lend a helping hand, need a hand",
+        "example": "Can you give me a hand with moving this heavy desk?",
+        "exampleVi": "Bạn có thể phụ tôi một tay chuyển chiếc bàn nặng này không?",
+        "optionsVi": [
+          "giúp đỡ một tay",
+          "vỗ tay khen ngợi",
+          "bắt tay chào hỏi",
+          "từ chối giúp"
+        ]
+      },
+      {
+        "id": "daily_08",
+        "word": "by the way",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/baɪ ðə weɪ/",
+        "meaningVi": "nhân tiện, tiện thể",
+        "collocations": "by the way have you heard, by the way did you know",
+        "example": "By the way, do you know what time the movie starts tonight?",
+        "exampleVi": "Nhân tiện, bạn có biết tối nay phim bắt đầu lúc mấy giờ không?",
+        "optionsVi": [
+          "nhân tiện, tiện thể",
+          "tất nhiên rồi",
+          "ngoài ra",
+          "ngược lại hoàn toàn"
+        ]
+      },
+      {
+        "id": "daily_09",
+        "word": "appreciate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈpriː.ʃi.eɪt/",
+        "meaningVi": "trân trọng, cảm kích",
+        "collocations": "really appreciate your help, highly appreciate, I'd appreciate it if",
+        "example": "I truly appreciate your advice when I faced difficulties.",
+        "exampleVi": "Tôi thực sự cảm kích lời khuyên của bạn khi tôi gặp khó khăn.",
+        "optionsVi": [
+          "trân trọng, cảm kích",
+          "phàn nàn, chỉ trích",
+          "coi thường",
+          "lãng quên"
+        ]
+      },
+      {
+        "id": "daily_10",
+        "word": "hang out",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/hæŋ aʊt/",
+        "meaningVi": "đi chơi, tụ tập",
+        "collocations": "hang out with friends, hang out downtown, places to hang out",
+        "example": "Do you want to hang out after work this Friday evening?",
+        "exampleVi": "Tối thứ Sáu này tan làm bạn có muốn đi chơi tụ tập không?",
+        "optionsVi": [
+          "đi chơi, tụ tập",
+          "ở nhà làm thêm",
+          "đi công tác xa",
+          "ngủ một mình"
+        ]
+      },
+      {
+        "id": "daily_11",
+        "word": "cheer up",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/tʃɪər ʌp/",
+        "meaningVi": "phấn chấn lên, vui lên",
+        "collocations": "cheer someone up, cheer up everything will be fine",
+        "example": "Cheer up! Tomorrow is going to be a brand new day.",
+        "exampleVi": "Vui vẻ lên nào! Ngày mai sẽ là một ngày hoàn toàn mới.",
+        "optionsVi": [
+          "phấn chấn lên, vui lên",
+          "thất vọng tràn trề",
+          "tức giận",
+          "lo lắng tột độ"
+        ]
+      },
+      {
+        "id": "daily_12",
+        "word": "as soon as possible",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/æz suːn æz ˈpɒs.ə.bəl/",
+        "meaningVi": "càng sớm càng tốt",
+        "collocations": "please reply as soon as possible, finish ASAP",
+        "example": "Please call me back as soon as possible, it is quite urgent.",
+        "exampleVi": "Vui lòng gọi lại cho tôi càng sớm càng tốt, việc này khá gấp.",
+        "optionsVi": [
+          "càng sớm càng tốt",
+          "khi nào rảnh thì làm",
+          "không cần gấp",
+          "sang tuần sau"
+        ]
+      },
+      {
+        "id": "daily_13",
+        "word": "look forward to",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/lʊk ˈfɔː.wəd tuː/",
+        "meaningVi": "háo hức mong đợi",
+        "collocations": "look forward to seeing you, look forward to the weekend",
+        "example": "I really look forward to our upcoming summer trip.",
+        "exampleVi": "Tôi thực sự rất mong đợi chuyến du lịch hè sắp tới của chúng mình.",
+        "optionsVi": [
+          "háo hức mong đợi",
+          "lo sợ điều xảy ra",
+          "quên mất lịch hẹn",
+          "từ chối tham gia"
+        ]
+      },
+      {
+        "id": "daily_14",
+        "word": "get along with",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/ɡet əˈlɒŋ wɪð/",
+        "meaningVi": "hòa hợp, ăn ý",
+        "collocations": "get along well with someone, easily get along",
+        "example": "I get along very well with all my neighbors.",
+        "exampleVi": "Tôi rất hòa thuận và ăn ý với tất cả hàng xóm của mình.",
+        "optionsVi": [
+          "hòa hợp, ăn ý",
+          "xung đột cãi vã",
+          "tránh mặt hoàn toàn",
+          "cạnh tranh ganh đua"
+        ]
+      },
+      {
+        "id": "daily_15",
+        "word": "drop by",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/drɒp baɪ/",
+        "meaningVi": "tạt qua, ghé thăm",
+        "collocations": "drop by my place, feel free to drop by",
+        "example": "Feel free to drop by my house anytime you are in Hanoi.",
+        "exampleVi": "Cứ thoải mái tạt qua nhà tôi bất cứ lúc nào bạn ở Hà Nội nhé.",
+        "optionsVi": [
+          "tạt qua, ghé thăm",
+          "ở lại dài ngày",
+          "hủy chuyến đi",
+          "chuyển nhà đi nơi khác"
+        ]
+      },
+      {
+        "id": "daily_16",
+        "word": "never mind",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/ˈnev.ər maɪnd/",
+        "meaningVi": "đừng bận tâm, không sao",
+        "collocations": "never mind about that, it doesn't matter never mind",
+        "example": "Never mind, I already found my car keys under the sofa.",
+        "exampleVi": "Đừng bận tâm nữa, tôi đã tìm thấy chìa khóa xe dưới ghế sofa rồi.",
+        "optionsVi": [
+          "đừng bận tâm, không sao",
+          "chú ý cẩn thận",
+          "bắt buộc phải nhớ",
+          "rất quan trọng"
+        ]
+      },
+      {
+        "id": "daily_17",
+        "word": "make yourself at home",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/meɪk jɔːˈself æt həʊm/",
+        "meaningVi": "cứ tự nhiên như ở nhà",
+        "collocations": "please come in and make yourself at home",
+        "example": "Please come in, have a seat, and make yourself at home!",
+        "exampleVi": "Mời bạn vào nhà, ngồi xuống và cứ tự nhiên như ở nhà nhé!",
+        "optionsVi": [
+          "cứ tự nhiên như ở nhà",
+          "giữ khoảng cách phép tắc",
+          "dọn dẹp nhà cửa giúp",
+          "ra về sớm"
+        ]
+      },
+      {
+        "id": "daily_18",
+        "word": "hit the road",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/hɪt ðə rəʊd/",
+        "meaningVi": "lên đường, khởi hành",
+        "collocations": "time to hit the road, let's hit the road early",
+        "example": "It's already 6 AM, let's hit the road before the traffic gets heavy.",
+        "exampleVi": "Đã 6 giờ sáng rồi, chúng ta lên đường thôi kẻo tắc đường.",
+        "optionsVi": [
+          "lên đường, khởi hành",
+          "va chạm giao thông",
+          "quay xe trở về",
+          "dừng xe bên đường"
+        ]
+      },
+      {
+        "id": "daily_19",
+        "word": "so far so good",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/səʊ fɑːr səʊ ɡʊd/",
+        "meaningVi": "mọi việc đến giờ vẫn ổn",
+        "collocations": "how is it going? - so far so good",
+        "example": "How is your new job? - So far so good, thanks!",
+        "exampleVi": "Công việc mới thế nào rồi? - Đến giờ mọi thứ vẫn rất ổn, cảm ơn bạn!",
+        "optionsVi": [
+          "mọi việc đến giờ vẫn ổn",
+          "rất tồi tệ và bế tắc",
+          "quá xa xôi",
+          "không thể tiến bộ"
+        ]
+      },
+      {
+        "id": "daily_20",
+        "word": "call it a day",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/kɔːl ɪt eɪ deɪ/",
+        "meaningVi": "nghỉ tay kết thúc công việc",
+        "collocations": "let's call it a day, ready to call it a day",
+        "example": "We have achieved our goal today; let's call it a day!",
+        "exampleVi": "Hôm nay chúng ta đã đạt mục tiêu rồi; hãy nghỉ tay thôi nào!",
+        "optionsVi": [
+          "nghỉ tay kết thúc công việc",
+          "tiếp tục làm thêm ca đêm",
+          "bắt đầu ngày mới",
+          "lên lịch làm việc"
+        ]
+      },
+      {
+        "id": "daily_21",
+        "word": "under the weather",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/ˈʌn.dər ðə ˈweð.ər/",
+        "meaningVi": "hơi khó ở, không khỏe",
+        "collocations": "feel a bit under the weather, look under the weather",
+        "example": "I'm feeling a bit under the weather today, so I will stay home.",
+        "exampleVi": "Hôm nay tôi thấy trong người hơi khó ở nên tôi sẽ ở nhà nghỉ ngơi.",
+        "optionsVi": [
+          "hơi khó ở, không khỏe",
+          "thời tiết đẹp",
+          "tâm trạng hào hứng",
+          "chuẩn bị đi dã ngoại"
+        ]
+      },
+      {
+        "id": "daily_22",
+        "word": "keep an eye on",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/kiːp ən aɪ ɒn/",
+        "meaningVi": "để mắt tới, trông chừng",
+        "collocations": "keep an eye on my bag, keep an eye on the kids",
+        "example": "Could you please keep an eye on my laptop while I go to the restroom?",
+        "exampleVi": "Bạn có thể để mắt trông giúp laptop của tôi lúc tôi đi vệ sinh được không?",
+        "optionsVi": [
+          "để mắt tới, trông chừng",
+          "nhìn chằm chằm khiêu khích",
+          "mượn đồ dùng tạm",
+          "giấu đồ đi nơi khác"
+        ]
+      },
+      {
+        "id": "daily_23",
+        "word": "on the tip of my tongue",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/ɒn ðə tɪp əv maɪ tʌŋ/",
+        "meaningVi": "nhớ mang máng sắp nhớ ra",
+        "collocations": "his name is on the tip of my tongue",
+        "example": "Her name is on the tip of my tongue, but I can't quite remember it.",
+        "exampleVi": "Tên của cô ấy ngay trên đầu lưỡi tôi rồi mà chưa kịp nhớ ra.",
+        "optionsVi": [
+          "nhớ mang máng sắp nhớ ra",
+          "hoàn toàn không biết",
+          "không muốn nhắc tới",
+          "nói năng lưu loát"
+        ]
+      },
+      {
+        "id": "daily_24",
+        "word": "out of the blue",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/aʊt əv ðə bluː/",
+        "meaningVi": "bất ngờ, đột ngột",
+        "collocations": "call out of the blue, appeared out of the blue",
+        "example": "She called me yesterday completely out of the blue after three years.",
+        "exampleVi": "Hôm qua cô ấy bất ngờ gọi điện cho tôi sau suốt 3 năm bặt vô âm tín.",
+        "optionsVi": [
+          "bất ngờ, đột ngột",
+          "được lên lịch từ trước",
+          "chậm trễ nhiều ngày",
+          "trong dự đoán"
+        ]
+      },
+      {
+        "id": "daily_25",
+        "word": "bear in mind",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/beər ɪn maɪnd/",
+        "meaningVi": "ghi nhớ, lưu tâm",
+        "collocations": "bear in mind that, keep in mind, always bear in mind",
+        "example": "Please bear in mind that the museum closes at 5 PM on weekdays.",
+        "exampleVi": "Xin hãy ghi nhớ rằng bảo tàng đóng cửa lúc 5 giờ chiều vào các ngày trong tuần.",
+        "optionsVi": [
+          "ghi nhớ, lưu tâm",
+          "bỏ ngoài tai",
+          "nghi ngờ tính chính xác",
+          "quên đi nhanh chóng"
+        ]
+      },
+      {
+        "id": "daily_26",
+        "word": "ring a bell",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/rɪŋ eɪ bel/",
+        "meaningVi": "nghe quen quen, gợi nhớ",
+        "collocations": "that name rings a bell, does it ring a bell?",
+        "example": "The cafe's name rings a bell, but I don't remember visiting it.",
+        "exampleVi": "Tên quán cà phê đó nghe quen quen nhưng tôi không nhớ đã ghé chưa.",
+        "optionsVi": [
+          "nghe quen quen, gợi nhớ",
+          "rung chuông báo động",
+          "lạ lẫm hoàn toàn",
+          "ầm ĩ chói tai"
+        ]
+      },
+      {
+        "id": "daily_27",
+        "word": "safe and sound",
+        "level": "A2",
+        "type": "idiom",
+        "ipa": "/seɪf ænd saʊnd/",
+        "meaningVi": "bình an vô sự",
+        "collocations": "arrive home safe and sound, safe and sound",
+        "example": "We arrived at our hotel safe and sound after the stormy flight.",
+        "exampleVi": "Chúng tôi đã đến khách sạn bình an vô sự sau chuyến bay gặp bão.",
+        "optionsVi": [
+          "bình an vô sự",
+          "bị mất hết hành lý",
+          "bị ốm nặng",
+          "bị trễ chuyến"
+        ]
+      },
+      {
+        "id": "daily_28",
+        "word": "take it easy",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/teɪk ɪt ˈiː.zi/",
+        "meaningVi": "nghỉ ngơi thư giãn",
+        "collocations": "just take it easy, take it easy this weekend",
+        "example": "You have worked hard all week; just take it easy this Sunday.",
+        "exampleVi": "Bạn đã làm việc vất vả cả tuần rồi; chủ nhật này cứ nghỉ ngơi thư giãn đi nhé.",
+        "optionsVi": [
+          "nghỉ ngơi thư giãn",
+          "làm việc tăng ca",
+          "lo lắng tột độ",
+          "tập luyện quá sức"
+        ]
+      },
+      {
+        "id": "daily_29",
+        "word": "no wonder",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/nəʊ ˈwʌn.dər/",
+        "meaningVi": "thảo nào, hèn chi",
+        "collocations": "no wonder you are tired, no wonder it failed",
+        "example": "You didn't sleep all night? No wonder you look so exhausted!",
+        "exampleVi": "Bạn thức trắng cả đêm ư? Thảo nào trông bạn kiệt sức đến thế!",
+        "optionsVi": [
+          "thảo nào, hèn chi",
+          "thật là kỳ lạ",
+          "không thể tin nổi",
+          "hoàn toàn vô lý"
+        ]
+      },
+      {
+        "id": "daily_30",
+        "word": "speak of the devil",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/spiːk əv ðə ˈdev.əl/",
+        "meaningVi": "vừa nhắc tào tháo đến luôn",
+        "collocations": "speak of the devil, here he comes!",
+        "example": "We were just talking about David and, speak of the devil, here he comes!",
+        "exampleVi": "Chúng tôi vừa mới nhắc đến David thì vừa nhắc tào tháo, anh ấy đến luôn!",
+        "optionsVi": [
+          "vừa nhắc tào tháo đến luôn",
+          "nói xấu sau lưng",
+          "kể chuyện ma quỷ",
+          "tránh gặp mặt"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "social_dining_food",
+    "name": "Nhà Hàng, Ẩm Thực & Cà Phê",
+    "icon": "🍽️",
+    "category": "daily",
+    "level": "A1",
+    "description": "Gọi món, hương vị, thanh toán chia tiền và văn hóa giao tiếp bàn ăn.",
+    "words": [
+      {
+        "id": "dining_01",
+        "word": "split the bill",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/splɪt ðə bɪl/",
+        "meaningVi": "chia tiền hóa đơn",
+        "collocations": "split the bill evenly, let's split the bill, go Dutch",
+        "example": "The dinner was delicious! Shall we split the bill?",
+        "exampleVi": "Bữa tối ngon quá! Chúng mình chia đều tiền hóa đơn nhé?",
+        "optionsVi": [
+          "chia tiền hóa đơn",
+          "để tôi bao trọn",
+          "quên mang ví",
+          "xin giảm giá"
+        ]
+      },
+      {
+        "id": "dining_02",
+        "word": "recommend",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/ˌrek.əˈmend/",
+        "meaningVi": "gợi ý, tiến cử",
+        "collocations": "highly recommend, can you recommend a dish, recommend to someone",
+        "example": "What do you recommend for someone who loves spicy food?",
+        "exampleVi": "Bạn có gợi ý món nào cho người thích ăn cay không?",
+        "optionsVi": [
+          "gợi ý, tiến cử",
+          "cấm đoán",
+          "chê bai món ăn",
+          "từ chối phục vụ"
+        ]
+      },
+      {
+        "id": "dining_03",
+        "word": "takeaway",
+        "level": "A1",
+        "type": "noun / adjective",
+        "ipa": "/ˈteɪk.ə.weɪ/",
+        "meaningVi": "đồ ăn mang về",
+        "collocations": "order takeaway, takeaway food, for here or takeaway",
+        "example": "I am too tired to cook tonight, let's grab some takeaway pizza.",
+        "exampleVi": "Tối nay mệt quá không muốn nấu, mình mua bánh pizza mang về ăn đi.",
+        "optionsVi": [
+          "đồ ăn mang về",
+          "ăn tại quán",
+          "đồ ăn tự nấu",
+          "thực phẩm ôi thiu"
+        ]
+      },
+      {
+        "id": "dining_04",
+        "word": "receipt",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/rɪˈsiːt/",
+        "meaningVi": "hóa đơn, biên lai",
+        "collocations": "keep the receipt, sales receipt, receipt for payment",
+        "example": "Please keep your receipt in case you want an exchange.",
+        "exampleVi": "Vui lòng giữ lại biên lai để phòng khi bạn muốn đổi hàng.",
+        "optionsVi": [
+          "hóa đơn, biên lai",
+          "phiếu giảm giá",
+          "vé vào cửa",
+          "danh thiếp"
+        ]
+      },
+      {
+        "id": "dining_05",
+        "word": "out of stock",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/aʊt əv stɒk/",
+        "meaningVi": "hết hàng, hết kho",
+        "collocations": "item is out of stock, temporarily out of stock, back in stock",
+        "example": "I am sorry, this shirt size is currently out of stock.",
+        "exampleVi": "Rất tiếc, kích cỡ áo này hiện tại đang tạm hết hàng.",
+        "optionsVi": [
+          "hết hàng, hết kho",
+          "đang giảm giá mạnh",
+          "hàng mới về",
+          "hàng tồn kho lâu ngày"
+        ]
+      },
+      {
+        "id": "dining_06",
+        "word": "refund",
+        "level": "B1",
+        "type": "noun / verb",
+        "ipa": "/ˈriː.fʌnd/",
+        "meaningVi": "hoàn lại tiền",
+        "collocations": "full refund, request a refund, refund policy",
+        "example": "The store offered a full refund because the item was damaged.",
+        "exampleVi": "Cửa hàng đã hoàn lại toàn bộ tiền vì sản phẩm bị lỗi hỏng.",
+        "optionsVi": [
+          "hoàn lại tiền",
+          "phạt thêm tiền",
+          "thu thêm phí",
+          "đổi sang hàng đắt hơn"
+        ]
+      },
+      {
+        "id": "dining_07",
+        "word": "vegetarian",
+        "level": "A2",
+        "type": "noun / adjective",
+        "ipa": "/ˌvedʒ.ɪˈteə.ri.ən/",
+        "meaningVi": "món ăn chay",
+        "collocations": "vegetarian diet, vegetarian options, strictly vegetarian",
+        "example": "Does this Vietnamese restaurant have any vegetarian dishes?",
+        "exampleVi": "Nhà hàng Việt Nam này có món ăn chay nào không?",
+        "optionsVi": [
+          "món ăn chay",
+          "món thịt nướng",
+          "món hải sản tươi sống",
+          "món ăn cay nóng"
+        ]
+      },
+      {
+        "id": "dining_08",
+        "word": "discount",
+        "level": "A1",
+        "type": "noun / verb",
+        "ipa": "/ˈdɪs.kaʊnt/",
+        "meaningVi": "khoản giảm giá",
+        "collocations": "special discount, 20% discount, discount code",
+        "example": "Members get a 10% discount on all purchases today.",
+        "exampleVi": "Hội viên được giảm giá 10% cho tất cả đơn hàng hôm nay.",
+        "optionsVi": [
+          "khoản giảm giá",
+          "phí vận chuyển",
+          "tiền tip bồi bàn",
+          "giá niêm yết gốc"
+        ]
+      },
+      {
+        "id": "dining_09",
+        "word": "book a table",
+        "level": "A1",
+        "type": "collocation",
+        "ipa": "/bʊk eɪ ˈteɪ.bəl/",
+        "meaningVi": "đặt bàn trước",
+        "collocations": "book a table for four, reserve a table in advance",
+        "example": "I'd like to book a table for two tonight at 7:30 PM.",
+        "exampleVi": "Tôi muốn đặt một bàn cho 2 người tối nay vào lúc 7 giờ 30.",
+        "optionsVi": [
+          "đặt bàn trước",
+          "mua bàn ghế mới",
+          "dọn dẹp bàn ăn",
+          "hủy đơn đặt hàng"
+        ]
+      },
+      {
+        "id": "dining_10",
+        "word": "appetizer",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈæp.ə.taɪ.zər/",
+        "meaningVi": "món khai vị",
+        "collocations": "order an appetizer, popular appetizers, light appetizer",
+        "example": "We ordered spring rolls as an appetizer before the steak.",
+        "exampleVi": "Chúng tôi gọi nem cuốn làm món khai vị trước khi dùng món bò bít tết.",
+        "optionsVi": [
+          "món khai vị",
+          "món tráng miệng",
+          "nước ngọt giải khát",
+          "món ăn chính"
+        ]
+      },
+      {
+        "id": "dining_11",
+        "word": "main course",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/meɪn kɔːs/",
+        "meaningVi": "món ăn chính",
+        "collocations": "delicious main course, choose a main course",
+        "example": "For the main course, I will have grilled salmon with vegetables.",
+        "exampleVi": "Cho món chính, tôi sẽ dùng cá hồi nướng kèm rau củ.",
+        "optionsVi": [
+          "món ăn chính",
+          "đồ uống có cồn",
+          "bánh ngọt tráng miệng",
+          "súp khai vị"
+        ]
+      },
+      {
+        "id": "dining_12",
+        "word": "dessert",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/dɪˈzɜːt/",
+        "meaningVi": "món tráng miệng",
+        "collocations": "dessert menu, have dessert, chocolate dessert",
+        "example": "Would you like some ice cream or fruit for dessert?",
+        "exampleVi": "Bạn có muốn dùng kem hay hoa quả cho món tráng miệng không?",
+        "optionsVi": [
+          "món tráng miệng",
+          "sa mạc khô cằn",
+          "bữa ăn trưa",
+          "đồ ăn nhanh"
+        ]
+      },
+      {
+        "id": "dining_13",
+        "word": "on the house",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/ɒn ðə haʊs/",
+        "meaningVi": "quán chiêu đãi miễn phí",
+        "collocations": "drinks are on the house, dessert on the house",
+        "example": "Because it's your birthday, these two glasses of wine are on the house!",
+        "exampleVi": "Vì hôm nay là sinh nhật bạn, hai ly rượu vang này là nhà hàng chiêu đãi miễn phí!",
+        "optionsVi": [
+          "quán chiêu đãi miễn phí",
+          "tính thêm tiền dịch vụ",
+          "mang về nhà ăn",
+          "phải trả gấp đôi"
+        ]
+      },
+      {
+        "id": "dining_14",
+        "word": "beverage",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbev.ər.ɪdʒ/",
+        "meaningVi": "đồ uống, thức uống",
+        "collocations": "hot beverages, alcoholic beverage, beverage menu",
+        "example": "A wide variety of cold beverages is served at the pool bar.",
+        "exampleVi": "Rất nhiều loại thức uống mát lạnh được phục vụ tại quầy bar cạnh hồ bơi.",
+        "optionsVi": [
+          "đồ uống, thức uống",
+          "thức ăn nhanh",
+          "bàn ghế nội thất",
+          "khăn trải bàn"
+        ]
+      },
+      {
+        "id": "dining_15",
+        "word": "dine in",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/daɪn ɪn/",
+        "meaningVi": "ăn tại chỗ",
+        "collocations": "dine in or take away, prefer to dine in",
+        "example": "Will you be dining in or taking the food away?",
+        "exampleVi": "Bạn sẽ dùng bữa tại quán hay mang đồ ăn về ạ?",
+        "optionsVi": [
+          "ăn tại chỗ",
+          "mang về nhà",
+          "giao hàng tận nơi",
+          "tự nấu ăn"
+        ]
+      },
+      {
+        "id": "dining_16",
+        "word": "refill",
+        "level": "A2",
+        "type": "noun / verb",
+        "ipa": "/ˌriːˈfɪl/",
+        "meaningVi": "làm đầy lại, châm thêm",
+        "collocations": "free refill, get a refill, coffee refill",
+        "example": "Iced tea comes with free refills at this diner.",
+        "exampleVi": "Trà đá tại quán ăn này được châm thêm nước miễn phí.",
+        "optionsVi": [
+          "làm đầy lại, châm thêm",
+          "thanh toán hóa đơn",
+          "đổi loại nước khác",
+          "trả lại ly"
+        ]
+      },
+      {
+        "id": "dining_17",
+        "word": "savory",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈseɪ.vər.i/",
+        "meaningVi": "đậm đà, mặn mà",
+        "collocations": "savory snack, savory pies, sweet and savory",
+        "example": "I prefer savory dishes like garlic chicken over sweet pastries.",
+        "exampleVi": "Tôi thích các món mặn đậm đà như gà nướng tỏi hơn là bánh ngọt.",
+        "optionsVi": [
+          "đậm đà, mặn mà",
+          "ngọt lịm",
+          "đắng ngắt",
+          "nhạt nhẽo vô vị"
+        ]
+      },
+      {
+        "id": "dining_18",
+        "word": "spicy",
+        "level": "A1",
+        "type": "adjective",
+        "ipa": "/ˈspaɪ.si/",
+        "meaningVi": "cay nồng",
+        "collocations": "spicy soup, extremely spicy, not too spicy",
+        "example": "Can you make my noodle soup less spicy, please?",
+        "exampleVi": "Bạn có thể làm món phở của tôi bớt cay đi một chút được không?",
+        "optionsVi": [
+          "cay nồng",
+          "ngọt bùi",
+          "chua gắt",
+          "lạnh buốt"
+        ]
+      },
+      {
+        "id": "dining_19",
+        "word": "allergy",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈæl.ə.dʒi/",
+        "meaningVi": "sự dị ứng thực phẩm",
+        "collocations": "food allergy, allergic to seafood, peanut allergy",
+        "example": "Please let the server know if you have any peanut allergies.",
+        "exampleVi": "Xin vui lòng báo cho nhân viên phục vụ nếu bạn bị dị ứng đậu phộng.",
+        "optionsVi": [
+          "sự dị ứng thực phẩm",
+          "sở thích ăn uống",
+          "thói quen dùng bữa",
+          "chứng đói bụng"
+        ]
+      },
+      {
+        "id": "dining_20",
+        "word": "culinary",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈkʌl.ɪ.nər.i/",
+        "meaningVi": "thuộc ẩm thực, nấu nướng",
+        "collocations": "culinary skills, culinary arts, culinary experience",
+        "example": "Hue is widely famous for its rich and royal culinary traditions.",
+        "exampleVi": "Huế nổi tiếng rộng khắp với truyền thống ẩm thực cung đình phong phú.",
+        "optionsVi": [
+          "thuộc ẩm thực, nấu nướng",
+          "thuộc thể thao",
+          "nghệ thuật hội họa",
+          "kiến trúc cổ đại"
+        ]
+      },
+      {
+        "id": "dining_21",
+        "word": "sparkling water",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈspɑː.klɪŋ ˌwɔː.tər/",
+        "meaningVi": "nước khoáng có ga",
+        "collocations": "sparkling or still water, bottle of sparkling water",
+        "example": "Would you like still or sparkling water with your lunch?",
+        "exampleVi": "Bạn muốn dùng nước khoáng thường hay nước có ga cho bữa trưa?",
+        "optionsVi": [
+          "nước khoáng có ga",
+          "nước ép hoa quả",
+          "rượu vang đỏ",
+          "trà thảo mộc nóng"
+        ]
+      },
+      {
+        "id": "dining_22",
+        "word": "chef's special",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ʃefs ˈspeʃ.əl/",
+        "meaningVi": "món đặc biệt của bếp trưởng",
+        "collocations": "order the chef's special, today's chef special",
+        "example": "Tonight's chef special is pan-seared sea bass with saffron sauce.",
+        "exampleVi": "Món đặc biệt của bếp trưởng tối nay là cá vược áp chảo sốt nhụy nghệ tây.",
+        "optionsVi": [
+          "món đặc biệt của bếp trưởng",
+          "món ăn giá rẻ nhất",
+          "đồ ăn thừa của bếp",
+          "món ăn tự phục vụ"
+        ]
+      },
+      {
+        "id": "dining_23",
+        "word": "bill please",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/bɪl pliːz/",
+        "meaningVi": "cho xin hóa đơn tính tiền",
+        "collocations": "could we have the bill please?",
+        "example": "Excuse me, could we have the bill, please?",
+        "exampleVi": "Xin lỗi cho chúng tôi xin hóa đơn thanh toán nhé!",
+        "optionsVi": [
+          "cho xin hóa đơn tính tiền",
+          "cho xin thêm thực đơn",
+          "gọi thêm món nữa",
+          "yêu cầu gặp quản lý"
+        ]
+      },
+      {
+        "id": "dining_24",
+        "word": "tip the waiter",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/tɪp ðə ˈweɪ.tər/",
+        "meaningVi": "cho tiền boa nhân viên",
+        "collocations": "leave a tip, generous tip, tip 15 percent",
+        "example": "The service was wonderful, so we decided to tip the waiter generously.",
+        "exampleVi": "Dịch vụ quá tuyệt vời nên chúng tôi quyết định boa hậu hĩnh cho nhân viên.",
+        "optionsVi": [
+          "cho tiền boa nhân viên",
+          "khiếu nại nhân viên",
+          "yêu cầu hoàn tiền",
+          "bỏ trốn không trả tiền"
+        ]
+      },
+      {
+        "id": "dining_25",
+        "word": "mild",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/maɪld/",
+        "meaningVi": "cay nhẹ, dịu",
+        "collocations": "mild flavor, mild curry, mild chili",
+        "example": "If you don't like hot spices, choose the mild curry option.",
+        "exampleVi": "Nếu bạn không ăn được cay nồng, hãy chọn món cà ri vị cay nhẹ nhé.",
+        "optionsVi": [
+          "cay nhẹ, dịu",
+          "cay xé lưỡi",
+          "mặn chát",
+          "ngọt lịm"
+        ]
+      },
+      {
+        "id": "dining_26",
+        "word": "cutlery",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkʌt.lər.i/",
+        "meaningVi": "bộ dao thìa dĩa",
+        "collocations": "set of cutlery, stainless steel cutlery",
+        "example": "Could you bring us an extra set of cutlery, please?",
+        "exampleVi": "Bạn có thể mang cho chúng tôi thêm một bộ dao thìa dĩa được không?",
+        "optionsVi": [
+          "bộ dao thìa dĩa",
+          "ly uống rượu",
+          "khăn giấy ướt",
+          "khay đựng thức ăn"
+        ]
+      },
+      {
+        "id": "dining_27",
+        "word": "seasoning",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈsiː.zən.ɪŋ/",
+        "meaningVi": "gia vị nêm nếm",
+        "collocations": "add some seasoning, special seasoning, natural seasonings",
+        "example": "A little bit of black pepper seasoning enhances the soup's flavor.",
+        "exampleVi": "Nêm thêm một chút tiêu đen sẽ làm dậy hương vị của món súp.",
+        "optionsVi": [
+          "gia vị nêm nếm",
+          "thời tiết các mùa",
+          "dụng cụ làm bếp",
+          "nước đá lạnh"
+        ]
+      },
+      {
+        "id": "dining_28",
+        "word": "go Dutch",
+        "level": "B1",
+        "type": "idiom",
+        "ipa": "/ɡəʊ dʌtʃ/",
+        "meaningVi": "tiền ai nấy trả / cưa đôi",
+        "collocations": "let's go Dutch tonight",
+        "example": "When dining with colleagues, we usually go Dutch.",
+        "exampleVi": "Khi đi ăn cùng đồng nghiệp, chúng tôi thường cưa đôi ai nấy tự trả phần mình.",
+        "optionsVi": [
+          "tiền ai nấy trả / cưa đôi",
+          "nhờ một người bao",
+          "quán mời miễn phí",
+          "thanh toán bằng ngoại tệ"
+        ]
+      },
+      {
+        "id": "dining_29",
+        "word": "portion",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpɔː.ʃən/",
+        "meaningVi": "khẩu phần, suất ăn",
+        "collocations": "generous portion, small portion, portion size",
+        "example": "The portions at this family restaurant are very generous.",
+        "exampleVi": "Khẩu phần ăn tại nhà hàng gia đình này rất đầy đặn.",
+        "optionsVi": [
+          "khẩu phần, suất ăn",
+          "giá niêm yết",
+          "tên món ăn",
+          "cách chế biến"
+        ]
+      },
+      {
+        "id": "dining_30",
+        "word": "dietary restrictions",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈdaɪ.ə.tər.i rɪˈstrɪk.ʃənz/",
+        "meaningVi": "chế độ kiêng khem ăn uống",
+        "collocations": "have dietary restrictions, accommodate dietary restrictions",
+        "example": "Please inform our catering staff in advance if you have any dietary restrictions.",
+        "exampleVi": "Xin vui lòng thông báo trước cho đội ngũ bếp nếu bạn có chế độ kiêng khem ăn uống nào.",
+        "optionsVi": [
+          "chế độ kiêng khem ăn uống",
+          "thói quen ăn vặt",
+          "yêu cầu hóa đơn đỏ",
+          "dịch vụ giao hàng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "shopping_services",
+    "name": "Mua Sắm, Thanh Toán & Dịch Vụ",
+    "icon": "🛍️",
+    "category": "daily",
+    "level": "A2",
+    "description": "Giá cả, trả giá, đổi trả hàng, thanh toán online, thẻ tín dụng và dịch vụ khách hàng.",
+    "words": [
+      {
+        "id": "shop_01",
+        "word": "bargain",
+        "level": "B1",
+        "type": "noun / verb",
+        "ipa": "/ˈbɑː.ɡɪn/",
+        "meaningVi": "món hời giá rẻ / mặc cả",
+        "collocations": "real bargain, bargain hunter, bargain for a better price",
+        "example": "At only ten dollars, this leather jacket was a real bargain!",
+        "exampleVi": "Chỉ có 10 đô, chiếc áo khoác da này đúng là một món hời lớn!",
+        "optionsVi": [
+          "món hời giá rẻ / mặc cả",
+          "mặt hàng đắt đỏ",
+          "hàng kém chất lượng",
+          "hàng cấm nhập khẩu"
+        ]
+      },
+      {
+        "id": "shop_02",
+        "word": "warranty",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈwɒr.ən.ti/",
+        "meaningVi": "chế độ bảo hành",
+        "collocations": "two-year warranty, under warranty, extended warranty",
+        "example": "This smartphone comes with a 12-month manufacturer warranty.",
+        "exampleVi": "Chiếc điện thoại thông minh này đi kèm chế độ bảo hành 12 tháng từ nhà sản xuất.",
+        "optionsVi": [
+          "chế độ bảo hành",
+          "hướng dẫn lắp đặt",
+          "hóa đơn thanh toán",
+          "phí vận chuyển"
+        ]
+      },
+      {
+        "id": "shop_03",
+        "word": "customer service",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.tə.mər ˈsɜː.vɪs/",
+        "meaningVi": "chăm sóc khách hàng",
+        "collocations": "excellent customer service, contact customer service, customer service hotline",
+        "example": "Their customer service team resolved my issue within ten minutes.",
+        "exampleVi": "Đội ngũ chăm sóc khách hàng của họ đã giải quyết trục trặc của tôi trong vòng 10 phút.",
+        "optionsVi": [
+          "chăm sóc khách hàng",
+          "phòng kinh doanh",
+          "bộ phận kiểm toán",
+          "đội ngũ kỹ thuật viên"
+        ]
+      },
+      {
+        "id": "shop_04",
+        "word": "fitting room",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈfɪt.ɪŋ ˌruːm/",
+        "meaningVi": "phòng thử đồ",
+        "collocations": "where is the fitting room, try it on in the fitting room",
+        "example": "Excuse me, where are the fitting rooms located?",
+        "exampleVi": "Xin lỗi cho tôi hỏi phòng thử đồ nằm ở vị trí nào ạ?",
+        "optionsVi": [
+          "phòng thử đồ",
+          "quầy thanh toán",
+          "nhà kho chứa hàng",
+          "phòng nhân viên"
+        ]
+      },
+      {
+        "id": "shop_05",
+        "word": "exchange policy",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ɪksˈtʃeɪndʒ ˈpɒl.ə.si/",
+        "meaningVi": "chính sách đổi hàng",
+        "collocations": "store exchange policy, 30-day exchange policy",
+        "example": "According to their exchange policy, items can be exchanged within 14 days.",
+        "exampleVi": "Theo chính sách đổi hàng, các sản phẩm có thể được đổi trong vòng 14 ngày.",
+        "optionsVi": [
+          "chính sách đổi hàng",
+          "quy định giảm giá",
+          "điều khoản bảo mật",
+          "phương thức thanh toán"
+        ]
+      },
+      {
+        "id": "shop_06",
+        "word": "clearance sale",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈklɪə.rəns seɪl/",
+        "meaningVi": "đợt bán xả hàng",
+        "collocations": "massive clearance sale, end of season clearance",
+        "example": "I bought these designer shoes at 70% off during their clearance sale.",
+        "exampleVi": "Tôi đã mua đôi giày hàng hiệu này giảm 70% trong đợt bán xả kho.",
+        "optionsVi": [
+          "đợt bán xả hàng",
+          "hàng mới ra mắt",
+          "đợt tăng giá đồng loạt",
+          "hàng đấu giá đặc biệt"
+        ]
+      },
+      {
+        "id": "shop_07",
+        "word": "in stock",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ɪn stɒk/",
+        "meaningVi": "còn hàng sẵn",
+        "collocations": "currently in stock, check if in stock, plenty in stock",
+        "example": "We have this camera model in stock in both black and silver colors.",
+        "exampleVi": "Chúng tôi còn sẵn mẫu máy ảnh này trong kho ở cả hai màu đen và bạc.",
+        "optionsVi": [
+          "còn hàng sẵn",
+          "hết hàng hoàn toàn",
+          "ngừng sản xuất",
+          "đang bị thu hồi"
+        ]
+      },
+      {
+        "id": "shop_08",
+        "word": "cash on delivery",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/kæʃ ɒn dɪˈlɪv.ər.i/",
+        "meaningVi": "thanh toán khi nhận hàng (COD)",
+        "collocations": "pay via cash on delivery, choose COD option",
+        "example": "Many online shoppers in Vietnam still prefer cash on delivery.",
+        "exampleVi": "Nhiều người mua sắm trực tuyến ở Việt Nam vẫn chuộng hình thức trả tiền mặt khi nhận hàng.",
+        "optionsVi": [
+          "thanh toán khi nhận hàng (COD)",
+          "chuyển khoản trả trước",
+          "mua trả góp không lãi",
+          "thanh toán bằng ví điện tử"
+        ]
+      },
+      {
+        "id": "shop_09",
+        "word": "tracking number",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈtræk.ɪŋ ˌnʌm.bər/",
+        "meaningVi": "mã vận đơn tra cứu",
+        "collocations": "parcel tracking number, check tracking number online",
+        "example": "You can track the shipment status using this 10-digit tracking number.",
+        "exampleVi": "Bạn có thể theo dõi tình trạng kiện hàng bằng mã vận đơn gồm 10 chữ số này.",
+        "optionsVi": [
+          "mã vận đơn tra cứu",
+          "mã giảm giá voucher",
+          "số tài khoản ngân hàng",
+          "mã số thuế cá nhân"
+        ]
+      },
+      {
+        "id": "shop_10",
+        "word": "promotional code",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/prəˈməʊ.ʃən.əl kəʊd/",
+        "meaningVi": "mã khuyến mãi giảm giá",
+        "collocations": "apply promotional code, enter promo code at checkout",
+        "example": "Enter the promotional code 'SUMMER20' to get 20% off your cart.",
+        "exampleVi": "Nhập mã khuyến mãi 'SUMMER20' để được giảm 20% giỏ hàng của bạn.",
+        "optionsVi": [
+          "mã khuyến mãi giảm giá",
+          "mã bảo mật OTP",
+          "mật khẩu đăng nhập",
+          "mã số bưu điện"
+        ]
+      },
+      {
+        "id": "shop_11",
+        "word": "installment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈstɔːl.mənt/",
+        "meaningVi": "trả góp định kỳ",
+        "collocations": "monthly installment, pay in installments, zero interest installment",
+        "example": "I bought the MacBook through a 6-month zero-interest installment plan.",
+        "exampleVi": "Tôi đã mua chiếc MacBook thông qua chương trình trả góp 6 tháng lãi suất 0%.",
+        "optionsVi": [
+          "trả góp định kỳ",
+          "thanh toán toàn bộ một lần",
+          "đặt cọc giữ chỗ",
+          "vay mượn nợ xấu"
+        ]
+      },
+      {
+        "id": "shop_12",
+        "word": "checkout counter",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈtʃek.aʊt ˈkaʊn.tər/",
+        "meaningVi": "quầy thanh toán thu ngân",
+        "collocations": "head to checkout counter, line at the checkout counter",
+        "example": "Please bring your items to the checkout counter to pay.",
+        "exampleVi": "Xin vui lòng mang đồ của bạn ra quầy thu ngân để thanh toán.",
+        "optionsVi": [
+          "quầy thanh toán thu ngân",
+          "quầy thông tin",
+          "cửa thoát hiểm",
+          "khu vực bảo vệ"
+        ]
+      },
+      {
+        "id": "shop_13",
+        "word": "brand new",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/brænd njuː/",
+        "meaningVi": "mới toanh, nguyên kiện",
+        "collocations": "brand new car, 100% brand new, brand new condition",
+        "example": "She bought a brand new laptop for her university studies.",
+        "exampleVi": "Cô ấy đã mua một chiếc laptop mới toanh để phục vụ việc học đại học.",
+        "optionsVi": [
+          "mới toanh, nguyên kiện",
+          "đã qua sử dụng",
+          "hàng tồn kho cũ",
+          "hàng nhái thương hiệu"
+        ]
+      },
+      {
+        "id": "shop_14",
+        "word": "second-hand",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˌsek.əndˈhænd/",
+        "meaningVi": "đồ cũ đã qua sử dụng",
+        "collocations": "second-hand bookstore, buy second-hand, second-hand clothes",
+        "example": "You can save a lot of money by buying second-hand textbooks.",
+        "exampleVi": "Bạn có thể tiết kiệm rất nhiều tiền bằng cách mua sách giáo khoa cũ.",
+        "optionsVi": [
+          "đồ cũ đã qua sử dụng",
+          "hàng đắt tiền chính hãng",
+          "hàng sản xuất thủ công",
+          "đồ dùng bị cấm"
+        ]
+      },
+      {
+        "id": "shop_15",
+        "word": "counterfeit",
+        "level": "B2",
+        "type": "adjective / noun",
+        "ipa": "/ˈkaʊn.tə.fɪt/",
+        "meaningVi": "hàng giả, hàng nhái",
+        "collocations": "counterfeit goods, spot counterfeit products, beware of counterfeits",
+        "example": "Always buy from authorized retailers to avoid buying counterfeit goods.",
+        "exampleVi": "Hãy luôn mua từ các đại lý ủy quyền để tránh mua phải hàng giả hàng nhái.",
+        "optionsVi": [
+          "hàng giả, hàng nhái",
+          "hàng nhập khẩu chính ngạch",
+          "hàng xách tay",
+          "hàng thủ công mỹ nghệ"
+        ]
+      },
+      {
+        "id": "shop_16",
+        "word": "grocery store",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈɡrəʊ.sər.i stɔːr/",
+        "meaningVi": "cửa hàng tạp hóa",
+        "collocations": "local grocery store, run to the grocery store",
+        "example": "I need to stop by the grocery store to pick up milk and eggs.",
+        "exampleVi": "Tôi cần tạt qua cửa hàng tạp hóa để mua một ít sữa và trứng gà.",
+        "optionsVi": [
+          "cửa hàng tạp hóa",
+          "tiệm may quần áo",
+          "tiệm vàng bạc",
+          "hiệu thuốc tây"
+        ]
+      },
+      {
+        "id": "shop_17",
+        "word": "delivery fee",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/dɪˈlɪv.ər.i fiː/",
+        "meaningVi": "phí vận chuyển giao hàng",
+        "collocations": "free delivery fee, delivery fee included, standard delivery fee",
+        "example": "Orders over 500,000 VND enjoy free delivery fee nationwide.",
+        "exampleVi": "Đơn hàng trên 500.000 VNĐ được miễn phí giao hàng trên toàn quốc.",
+        "optionsVi": [
+          "phí vận chuyển giao hàng",
+          "tiền đóng bảo hiểm",
+          "thuế giá trị gia tăng",
+          "tiền phạt chậm nộp"
+        ]
+      },
+      {
+        "id": "shop_18",
+        "word": "loyalty points",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈlɔɪ.əl.ti pɔɪnts/",
+        "meaningVi": "điểm tích lũy thành viên",
+        "collocations": "accumulate loyalty points, redeem loyalty points",
+        "example": "You can redeem your loyalty points for a free movie ticket.",
+        "exampleVi": "Bạn có thể đổi điểm tích lũy thành viên để lấy một vé xem phim miễn phí.",
+        "optionsVi": [
+          "điểm tích lũy thành viên",
+          "khoản tiền phạt vi phạm",
+          "điểm tín nhiệm ngân hàng",
+          "tiền hoa hồng đại lý"
+        ]
+      },
+      {
+        "id": "shop_19",
+        "word": "retail price",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈriː.teɪl praɪs/",
+        "meaningVi": "giá bán lẻ niêm yết",
+        "collocations": "suggested retail price, below retail price",
+        "example": "The suggested retail price of the new gaming console is $499.",
+        "exampleVi": "Giá bán lẻ đề xuất của máy chơi game mới là 499 đô la.",
+        "optionsVi": [
+          "giá bán lẻ niêm yết",
+          "giá nhập buôn sỉ",
+          "chi phí sản xuất",
+          "thuế hải quan"
+        ]
+      },
+      {
+        "id": "shop_20",
+        "word": "wholesale",
+        "level": "B2",
+        "type": "noun / adjective",
+        "ipa": "/ˈhəʊl.seɪl/",
+        "meaningVi": "bán buôn, bán sỉ",
+        "collocations": "wholesale price, wholesale market, buy wholesale",
+        "example": "We purchase raw coffee beans at wholesale prices directly from Dak Lak farmers.",
+        "exampleVi": "Chúng tôi mua hạt cà phê thô theo giá bán buôn trực tiếp từ nông dân Đắk Lắk.",
+        "optionsVi": [
+          "bán buôn, bán sỉ",
+          "bán lẻ từng chiếc",
+          "bán thanh lý lỗ vốn",
+          "bán trả góp"
+        ]
+      },
+      {
+        "id": "shop_21",
+        "word": "department store",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/dɪˈpɑːt.mənt stɔːr/",
+        "meaningVi": "trung tâm thương mại",
+        "collocations": "luxury department store, shop at the department store",
+        "example": "Vincom Center is one of the largest department stores in the city.",
+        "exampleVi": "Vincom Center là một trong những trung tâm thương mại lớn nhất thành phố.",
+        "optionsVi": [
+          "trung tâm thương mại",
+          "chợ cóc dân sinh",
+          "tiệm đồ cũ",
+          "nhà kho hải quan"
+        ]
+      },
+      {
+        "id": "shop_22",
+        "word": "shopping cart",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈʃɒp.ɪŋ kɑːt/",
+        "meaningVi": "xe đẩy / giỏ hàng",
+        "collocations": "add to shopping cart, empty shopping cart, push a shopping cart",
+        "example": "Click the button to add this book to your digital shopping cart.",
+        "exampleVi": "Bấm nút để thêm cuốn sách này vào giỏ hàng trực tuyến của bạn.",
+        "optionsVi": [
+          "xe đẩy / giỏ hàng",
+          "phiếu thu tiền",
+          "quầy thanh toán",
+          "kệ trưng bày sản phẩm"
+        ]
+      },
+      {
+        "id": "shop_23",
+        "word": "cash back",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kæʃ bæk/",
+        "meaningVi": "tiền hoàn lại chi tiêu",
+        "collocations": "5% cash back, credit card with cash back",
+        "example": "This credit card gives you 3% cash back on all supermarket groceries.",
+        "exampleVi": "Chiếc thẻ tín dụng này hoàn tiền 3% cho mọi chi tiêu tại siêu thị.",
+        "optionsVi": [
+          "tiền hoàn lại chi tiêu",
+          "tiền phạt chậm nộp",
+          "phí rút tiền mặt",
+          "khoản vay tín chấp"
+        ]
+      },
+      {
+        "id": "shop_24",
+        "word": "transaction",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/trænˈzæk.ʃən/",
+        "meaningVi": "giao dịch thanh toán",
+        "collocations": "secure transaction, transaction history, complete the transaction",
+        "example": "Your transaction was successful; an email receipt has been sent.",
+        "exampleVi": "Giao dịch của bạn đã thành công; biên lai qua email đã được gửi.",
+        "optionsVi": [
+          "giao dịch thanh toán",
+          "khiếu nại bồi thường",
+          "báo cáo tài chính",
+          "hợp đồng thuê nhà"
+        ]
+      },
+      {
+        "id": "shop_25",
+        "word": "expired",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ɪkˈspaɪəd/",
+        "meaningVi": "hết hạn sử dụng",
+        "collocations": "expired product, expired coupon, passport has expired",
+        "example": "Do not drink this milk carton; the expiration date was last week.",
+        "exampleVi": "Đừng uống hộp sữa này; hạn sử dụng của nó đã hết từ tuần trước rồi.",
+        "optionsVi": [
+          "hết hạn sử dụng",
+          "vẫn còn mới toanh",
+          "đang được giảm giá",
+          "vừa mới sản xuất"
+        ]
+      },
+      {
+        "id": "shop_26",
+        "word": "try on",
+        "level": "A1",
+        "type": "phrasal verb",
+        "ipa": "/traɪ ɒn/",
+        "meaningVi": "mặc thử / đi thử",
+        "collocations": "try on a dress, can I try this on?",
+        "example": "May I try on these blue jeans in size 32, please?",
+        "exampleVi": "Tôi có thể mặc thử chiếc quần bò màu xanh cỡ 32 này được không ạ?",
+        "optionsVi": [
+          "mặc thử / đi thử",
+          "mua ngay không đắn đo",
+          "giặt sạch đồ",
+          "cắt sửa quần áo"
+        ]
+      },
+      {
+        "id": "shop_27",
+        "word": "window shopping",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈwɪn.dəʊ ˌʃɒp.ɪŋ/",
+        "meaningVi": "đi dạo ngắm đồ không mua",
+        "collocations": "go window shopping, enjoy window shopping",
+        "example": "We had no money to spend, so we just went window shopping downtown.",
+        "exampleVi": "Chúng tôi không có tiền tiêu nên chỉ đi dạo ngắm đồ qua cửa kính ở phố.",
+        "optionsVi": [
+          "đi dạo ngắm đồ không mua",
+          "mua sắm thả ga",
+          "lắp đặt cửa kính mới",
+          "dọn dẹp cửa hàng"
+        ]
+      },
+      {
+        "id": "shop_28",
+        "word": "invoice",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɪn.vɔɪs/",
+        "meaningVi": "hóa đơn tài chính VAT",
+        "collocations": "issue an invoice, pay the invoice, tax invoice",
+        "example": "Please issue a company tax invoice under this business tax ID.",
+        "exampleVi": "Vui lòng xuất hóa đơn thuế giá trị gia tăng theo mã số thuế doanh nghiệp này.",
+        "optionsVi": [
+          "hóa đơn tài chính VAT",
+          "phiếu bảo hành",
+          "hợp đồng thử việc",
+          "giấy chứng nhận xuất xứ"
+        ]
+      },
+      {
+        "id": "shop_29",
+        "word": "price tag",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈpraɪs tæɡ/",
+        "meaningVi": "mác giá, tem giá",
+        "collocations": "check the price tag, remove the price tag",
+        "example": "I liked the handbag until I saw its hefty $800 price tag.",
+        "exampleVi": "Tôi rất thích chiếc túi xách đó cho đến khi nhìn thấy mác giá đắt đỏ 800 đô la.",
+        "optionsVi": [
+          "mác giá, tem giá",
+          "nhãn hiệu thời trang",
+          "thẻ giảm giá",
+          "phiếu thu tiền"
+        ]
+      },
+      {
+        "id": "shop_30",
+        "word": "overpriced",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌəʊ.vəˈpraɪst/",
+        "meaningVi": "quá đắt đỏ, bị đẩy giá",
+        "collocations": "grossly overpriced, overpriced coffee, avoid overpriced tourist traps",
+        "example": "Ten dollars for a simple bottle of water at the airport is totally overpriced.",
+        "exampleVi": "Mười đô la cho một chai nước lọc ở sân bay là mức giá quá đắt đỏ bất hợp lý.",
+        "optionsVi": [
+          "quá đắt đỏ, bị đẩy giá",
+          "giá rẻ bất ngờ",
+          "chất lượng vượt trội",
+          "được giảm giá mạnh"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "travel_transit_directions",
+    "name": "Du Lịch, Di Chuyển & Hỏi Đường",
+    "icon": "✈️",
+    "category": "daily",
+    "level": "A2",
+    "description": "Sân bay, ga tàu, đặt phòng khách sạn, taxi và các mẫu câu hỏi chỉ đường tự tin.",
+    "words": [
+      {
+        "id": "travel_01",
+        "word": "boarding pass",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈbɔː.dɪŋ ˌpɑːs/",
+        "meaningVi": "thẻ lên máy bay",
+        "collocations": "print boarding pass, show your boarding pass, digital boarding pass",
+        "example": "Please have your passport and boarding pass ready at the gate.",
+        "exampleVi": "Vui lòng chuẩn bị sẵn hộ chiếu và thẻ lên máy bay tại cửa khởi hành.",
+        "optionsVi": [
+          "thẻ lên máy bay",
+          "hóa đơn mua vé",
+          "bảo hiểm du lịch",
+          "thẻ căn cước công dân"
+        ]
+      },
+      {
+        "id": "travel_02",
+        "word": "book in advance",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/bʊk ɪn ədˈvɑːns/",
+        "meaningVi": "đặt chỗ trước",
+        "collocations": "book tickets in advance, strongly advised to book in advance",
+        "example": "Hotel rooms fill up quickly in peak season, so book in advance.",
+        "exampleVi": "Phòng khách sạn kín rất nhanh vào mùa cao điểm, vì vậy hãy đặt trước.",
+        "optionsVi": [
+          "đặt chỗ trước",
+          "đến nơi mới mua vé",
+          "hủy chuyến đi",
+          "trả phòng trễ"
+        ]
+      },
+      {
+        "id": "travel_03",
+        "word": "go straight ahead",
+        "level": "A1",
+        "type": "phrase",
+        "ipa": "/ɡəʊ streɪt əˈhed/",
+        "meaningVi": "đi thẳng về phía trước",
+        "collocations": "go straight ahead for 200 meters, then turn left",
+        "example": "Go straight ahead until you see the bank on your left side.",
+        "exampleVi": "Cứ đi thẳng về phía trước cho đến khi bạn thấy ngân hàng ở bên tay trái.",
+        "optionsVi": [
+          "đi thẳng về phía trước",
+          "quay đầu xe lại",
+          "rẽ phải ngay lập tức",
+          "dừng xe bên đường"
+        ]
+      },
+      {
+        "id": "travel_04",
+        "word": "delay",
+        "level": "A2",
+        "type": "noun / verb",
+        "ipa": "/dɪˈleɪ/",
+        "meaningVi": "trì hoãn, chậm trễ",
+        "collocations": "flight delay, delayed by two hours, without delay",
+        "example": "Our flight to Tokyo was delayed due to heavy storms.",
+        "exampleVi": "Chuyến bay tới Tokyo của chúng tôi bị hoãn do bão lớn.",
+        "optionsVi": [
+          "trì hoãn, chậm trễ",
+          "khởi hành sớm hơn",
+          "hạ cánh an toàn",
+          "bay đúng giờ"
+        ]
+      },
+      {
+        "id": "travel_05",
+        "word": "luggage",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈlʌɡ.ɪdʒ/",
+        "meaningVi": "hành lý xách tay / vali",
+        "collocations": "carry-on luggage, check-in luggage, lost luggage",
+        "example": "You are allowed one piece of carry-on luggage inside the cabin.",
+        "exampleVi": "Bạn được phép mang một kiện hành lý xách tay vào khoang máy bay.",
+        "optionsVi": [
+          "hành lý xách tay / vali",
+          "hàng cứu trợ",
+          "giấy tờ xuất nhập cảnh",
+          "quà lưu niệm"
+        ]
+      },
+      {
+        "id": "travel_06",
+        "word": "check in",
+        "level": "A1",
+        "type": "phrasal verb",
+        "ipa": "/tʃek ɪn/",
+        "meaningVi": "làm thủ tục nhận phòng",
+        "collocations": "check in online, hotel check-in time, check in at the desk",
+        "example": "We can check in to our hotel room starting at 2:00 PM.",
+        "exampleVi": "Chúng tôi có thể làm thủ tục nhận phòng khách sạn bắt đầu từ 2 giờ chiều.",
+        "optionsVi": [
+          "làm thủ tục nhận phòng",
+          "thanh toán trả phòng",
+          "đặt cọc giữ chỗ",
+          "gọi dịch vụ dọn phòng"
+        ]
+      },
+      {
+        "id": "travel_07",
+        "word": "destination",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌdes.tɪˈneɪ.ʃən/",
+        "meaningVi": "điểm đến",
+        "collocations": "final destination, tourist destination, reach the destination",
+        "example": "Da Nang is one of the most popular travel destinations in Vietnam.",
+        "exampleVi": "Đà Nẵng là một trong những điểm đến du lịch nổi tiếng nhất ở Việt Nam.",
+        "optionsVi": [
+          "điểm đến",
+          "nơi xuất phát ban đầu",
+          "trạm trung chuyển",
+          "bản đồ chỉ đường"
+        ]
+      },
+      {
+        "id": "travel_08",
+        "word": "take off",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/teɪk ɒf/",
+        "meaningVi": "cất cánh bay lên",
+        "collocations": "plane takes off, take off on time, ready for take off",
+        "example": "The aircraft is scheduled to take off at 9:15 AM sharp.",
+        "exampleVi": "Máy bay dự kiến sẽ cất cánh đúng vào lúc 9 giờ 15 phút sáng.",
+        "optionsVi": [
+          "cất cánh bay lên",
+          "hạ cánh khẩn cấp",
+          "quay đầu hạ cánh",
+          "bị hủy chuyến"
+        ]
+      },
+      {
+        "id": "travel_09",
+        "word": "landing",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈlæn.dɪŋ/",
+        "meaningVi": "sự hạ cánh tiếp đất",
+        "collocations": "smooth landing, emergency landing, landing gear",
+        "example": "The pilot made a remarkably smooth landing despite the crosswinds.",
+        "exampleVi": "Cơ trưởng đã thực hiện cú hạ cánh êm ái đáng kinh ngạc dù có gió tạt ngang.",
+        "optionsVi": [
+          "sự hạ cánh tiếp đất",
+          "lúc cất cánh",
+          "bay qua vùng nhiễu động",
+          "quá cảnh sân bay"
+        ]
+      },
+      {
+        "id": "travel_10",
+        "word": "transfer",
+        "level": "B1",
+        "type": "verb / noun",
+        "ipa": "/trænsˈfɜːr/",
+        "meaningVi": "chuyển tuyến / nối chuyến",
+        "collocations": "transfer flights, transfer to Line 2, airport transfer",
+        "example": "We have to transfer to the central subway line at City Hall Station.",
+        "exampleVi": "Chúng tôi phải đổi sang tuyến tàu điện ngầm trung tâm tại ga City Hall.",
+        "optionsVi": [
+          "chuyển tuyến / nối chuyến",
+          "xuống ga cuối cùng",
+          "mua thêm vé mới",
+          "ngồi yên trên tàu"
+        ]
+      },
+      {
+        "id": "travel_11",
+        "word": "subway station",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈsʌb.weɪ ˌsteɪ.ʃən/",
+        "meaningVi": "ga tàu điện ngầm",
+        "collocations": "nearest subway station, subway station entrance",
+        "example": "My apartment is just a 3-minute walk from the nearest subway station.",
+        "exampleVi": "Căn hộ của tôi chỉ cách ga tàu điện ngầm gần nhất 3 phút đi bộ.",
+        "optionsVi": [
+          "ga tàu điện ngầm",
+          "bến xe buýt liên tỉnh",
+          "sân bay quốc tế",
+          "bến cảng phà"
+        ]
+      },
+      {
+        "id": "travel_12",
+        "word": "platform",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈplæt.fɔːm/",
+        "meaningVi": "sân ga chờ tàu",
+        "collocations": "platform 3, wait on the platform, mind the gap between the train and platform",
+        "example": "The express train to Osaka departs from platform number 4.",
+        "exampleVi": "Chuyến tàu tốc hành đi Osaka sẽ khởi hành từ sân ga số 4.",
+        "optionsVi": [
+          "sân ga chờ tàu",
+          "phòng bán vé",
+          "khu vực gửi đồ",
+          "quán cà phê ga"
+        ]
+      },
+      {
+        "id": "travel_13",
+        "word": "round trip",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌraʊnd ˈtrɪp/",
+        "meaningVi": "vé / chuyến đi khứ hồi",
+        "collocations": "round-trip ticket, round-trip flight, cost of round trip",
+        "example": "A round-trip ticket to Singapore is usually cheaper than two one-way tickets.",
+        "exampleVi": "Vé khứ hồi đi Singapore thường rẻ hơn mua hai chiếc vé một chiều.",
+        "optionsVi": [
+          "vé / chuyến đi khứ hồi",
+          "vé đi một chiều",
+          "chuyến tham quan vòng tròn",
+          "chuyến bay thuê riêng"
+        ]
+      },
+      {
+        "id": "travel_14",
+        "word": "one-way ticket",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌwʌn.weɪ ˈtɪk.ɪt/",
+        "meaningVi": "vé một chiều",
+        "collocations": "buy a one-way ticket, single one-way ticket",
+        "example": "He bought a one-way ticket to London to start his master's degree.",
+        "exampleVi": "Anh ấy đã mua vé một chiều đến Luân Đôn để bắt đầu khóa học thạc sĩ.",
+        "optionsVi": [
+          "vé một chiều",
+          "vé khứ hồi cả về",
+          "vé xem phim",
+          "vé tháng xe buýt"
+        ]
+      },
+      {
+        "id": "travel_15",
+        "word": "lost and found",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌlɒst ænd ˈfaʊnd/",
+        "meaningVi": "bộ phận đồ thất lạc",
+        "collocations": "lost and found office, check the lost and found",
+        "example": "If you forgot your backpack on the train, check with the lost and found office.",
+        "exampleVi": "Nếu bạn để quên ba lô trên tàu hỏa, hãy liên hệ phòng tiếp nhận đồ thất lạc nhé.",
+        "optionsVi": [
+          "bộ phận đồ thất lạc",
+          "quầy bán đồ lưu niệm",
+          "phòng cấp cứu y tế",
+          "phòng an ninh sân bay"
+        ]
+      },
+      {
+        "id": "travel_16",
+        "word": "customs clearance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.təmz ˌklɪə.rəns/",
+        "meaningVi": "thủ tục thông quan hải quan",
+        "collocations": "pass customs clearance, customs clearance inspection",
+        "example": "All international passengers must undergo customs clearance upon arrival.",
+        "exampleVi": "Tất cả hành khách quốc tế đều phải làm thủ tục thông quan hải quan khi hạ cánh.",
+        "optionsVi": [
+          "thủ tục thông quan hải quan",
+          "kiểm tra vé máy bay",
+          "lấy hành lý ký gửi",
+          "đổi ngoại tệ"
+        ]
+      },
+      {
+        "id": "travel_17",
+        "word": "baggage claim",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈbæɡ.ɪdʒ kleɪm/",
+        "meaningVi": "khu vực lấy hành lý",
+        "collocations": "baggage claim area, carousel at baggage claim",
+        "example": "Proceed to baggage claim carousel 3 to pick up your suitcases.",
+        "exampleVi": "Xin mời di chuyển đến băng chuyền số 3 tại khu vực lấy hành lý để nhận vali.",
+        "optionsVi": [
+          "khu vực lấy hành lý",
+          "cửa kiểm tra an ninh",
+          "quầy bán vé máy bay",
+          "khu vực miễn thuế"
+        ]
+      },
+      {
+        "id": "travel_18",
+        "word": "traffic jam",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈtræf.ɪk dʒæm/",
+        "meaningVi": "ùn tắc giao thông",
+        "collocations": "stuck in a traffic jam, heavy traffic jam, avoid traffic jams",
+        "example": "Sorry I'm late; I got completely stuck in a terrible traffic jam.",
+        "exampleVi": "Xin lỗi tôi đến muộn; tôi bị kẹt cứng trong một vụ tắc đường kinh hoàng.",
+        "optionsVi": [
+          "ùn tắc giao thông",
+          "tai nạn xe cộ",
+          "sửa chữa đường xá",
+          "đèn tín hiệu giao thông"
+        ]
+      },
+      {
+        "id": "travel_19",
+        "word": "roundabout",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈraʊnd.ə.baʊt/",
+        "meaningVi": "vòng xuyến, bùng binh",
+        "collocations": "take the second exit at the roundabout, enter the roundabout",
+        "example": "At the roundabout, take the third exit towards the city center.",
+        "exampleVi": "Tại vòng xuyến, hãy đi theo lối ra thứ ba hướng về phía trung tâm thành phố.",
+        "optionsVi": [
+          "vòng xuyến, bùng binh",
+          "ngã tư có đèn đỏ",
+          "hầm chui dân sinh",
+          "cầu vượt vượt sông"
+        ]
+      },
+      {
+        "id": "travel_20",
+        "word": "intersection",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌɪn.təˈsek.ʃən/",
+        "meaningVi": "ngã tư, giao lộ",
+        "collocations": "busy intersection, turn right at the next intersection",
+        "example": "Turn left at the next intersection, right past the post office.",
+        "exampleVi": "Hãy rẽ trái ở ngã tư tiếp theo, ngay sau khi đi qua bưu điện.",
+        "optionsVi": [
+          "ngã tư, giao lộ",
+          "đường cụt",
+          "đường một chiều",
+          "trạm thu phí"
+        ]
+      },
+      {
+        "id": "travel_21",
+        "word": "pedestrian crossing",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/pəˈdes.tri.ən ˌkrɒs.ɪŋ/",
+        "meaningVi": "vạch kẻ qua đường cho người đi bộ",
+        "collocations": "use the pedestrian crossing, zebra crossing",
+        "example": "Drivers in this country always stop for people waiting at pedestrian crossings.",
+        "exampleVi": "Tài xế ở quốc gia này luôn dừng xe nhường đường cho người ở vạch đi bộ.",
+        "optionsVi": [
+          "vạch kẻ qua đường cho người đi bộ",
+          "vỉa hè đi dạo",
+          "lối thoát hiểm",
+          "cầu thang cuốn"
+        ]
+      },
+      {
+        "id": "travel_22",
+        "word": "sightseeing",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈsaɪtˌsiː.ɪŋ/",
+        "meaningVi": "đi tham quan ngắm cảnh",
+        "collocations": "go sightseeing, sightseeing tour, popular sightseeing spots",
+        "example": "We spent the entire afternoon sightseeing around the ancient town of Hoi An.",
+        "exampleVi": "Chúng tôi dành trọn cả buổi chiều để đi ngắm cảnh quanh phố cổ Hội An.",
+        "optionsVi": [
+          "đi tham quan ngắm cảnh",
+          "nghỉ dưỡng trong phòng",
+          "mua sắm đồ gia dụng",
+          "dọn dẹp hành lý"
+        ]
+      },
+      {
+        "id": "travel_23",
+        "word": "tour guide",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈtʊə ˌɡaɪd/",
+        "meaningVi": "hướng dẫn viên du lịch",
+        "collocations": "licensed tour guide, follow the tour guide, experienced tour guide",
+        "example": "Our local tour guide shared captivating stories about the temple's history.",
+        "exampleVi": "Người hướng dẫn viên địa phương đã kể những câu chuyện lịch sử hấp dẫn về ngôi đền.",
+        "optionsVi": [
+          "hướng dẫn viên du lịch",
+          "tài xế lái xe buýt",
+          "nhân viên hải quan",
+          "lễ tân khách sạn"
+        ]
+      },
+      {
+        "id": "travel_24",
+        "word": "itinerary",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/aɪˈtɪn.ər.ər.i/",
+        "meaningVi": "lịch trình chuyến đi",
+        "collocations": "travel itinerary, detailed itinerary, plan an itinerary",
+        "example": "The travel agency sent us a detailed day-by-day itinerary for Japan.",
+        "exampleVi": "Công ty du lịch đã gửi cho chúng tôi lịch trình chi tiết từng ngày cho chuyến đi Nhật.",
+        "optionsVi": [
+          "lịch trình chuyến đi",
+          "hợp đồng bảo hiểm",
+          "bản đồ địa lý",
+          "hóa đơn khách sạn"
+        ]
+      },
+      {
+        "id": "travel_25",
+        "word": "flight attendant",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈflaɪt əˌten.dənt/",
+        "meaningVi": "tiếp viên hàng không",
+        "collocations": "ask the flight attendant, polite flight attendant",
+        "example": "The flight attendant kindly offered me a warm blanket and a glass of water.",
+        "exampleVi": "Cô tiếp viên hàng không ân cần mang cho tôi một chiếc chăn ấm và một ly nước.",
+        "optionsVi": [
+          "tiếp viên hàng không",
+          "phi công lái máy bay",
+          "nhân viên kiểm soát vé",
+          "bảo vệ sân bay"
+        ]
+      },
+      {
+        "id": "travel_26",
+        "word": "passport control",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈpɑːs.pɔːt kənˌtrəʊl/",
+        "meaningVi": "kiểm soát hộ chiếu xuất nhập cảnh",
+        "collocations": "queue at passport control, passport control officer",
+        "example": "There was a very long queue at passport control upon landing at Heathrow.",
+        "exampleVi": "Có một hàng dài người xếp hàng tại quầy kiểm tra hộ chiếu khi hạ cánh tại Heathrow.",
+        "optionsVi": [
+          "kiểm soát hộ chiếu xuất nhập cảnh",
+          "quầy làm thủ tục bay",
+          "cửa lên máy bay",
+          "khu vực đổi ngoại tệ"
+        ]
+      },
+      {
+        "id": "travel_27",
+        "word": "detour",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈdiː.tʊər/",
+        "meaningVi": "đường vòng tránh",
+        "collocations": "make a detour, detour route, road closed take detour",
+        "example": "Because the bridge was under repair, we had to take a 10-mile detour.",
+        "exampleVi": "Vì cây cầu đang được sửa chữa, chúng tôi phải đi đường vòng mất 10 dặm.",
+        "optionsVi": [
+          "đường vòng tránh",
+          "đường cao tốc thẳng",
+          "lối đi tắt nhanh nhất",
+          "cầu cạn trên cao"
+        ]
+      },
+      {
+        "id": "travel_28",
+        "word": "rent a car",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/rent eɪ kɑːr/",
+        "meaningVi": "thuê xe tự lái",
+        "collocations": "car rental agency, rent a car for three days",
+        "example": "We decided to rent a car so we could explore the countryside flexibly.",
+        "exampleVi": "Chúng tôi quyết định thuê một chiếc ô tô tự lái để khám phá vùng nông thôn linh hoạt.",
+        "optionsVi": [
+          "thuê xe tự lái",
+          "mua xe trả góp",
+          "đi nhờ xe người khác",
+          "gọi xe taxi"
+        ]
+      },
+      {
+        "id": "travel_29",
+        "word": "taxi fare",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈtæk.si feər/",
+        "meaningVi": "tiền cước xe taxi",
+        "collocations": "calculate taxi fare, estimated taxi fare, split the taxi fare",
+        "example": "How much is the approximate taxi fare from the airport to downtown?",
+        "exampleVi": "Tiền cước taxi từ sân bay về trung tâm thành phố ước tính khoảng bao nhiêu?",
+        "optionsVi": [
+          "tiền cước xe taxi",
+          "tiền tip tài xế",
+          "tiền phạt giao thông",
+          "phí giữ xe qua đêm"
+        ]
+      },
+      {
+        "id": "travel_30",
+        "word": "check out",
+        "level": "A1",
+        "type": "phrasal verb",
+        "ipa": "/tʃek aʊt/",
+        "meaningVi": "trả phòng khách sạn",
+        "collocations": "check-out time is 12 PM, check out of the hotel",
+        "example": "Hotel check-out time is at noon; remember to return the key card.",
+        "exampleVi": "Giờ trả phòng khách sạn là 12 giờ trưa; nhớ gửi lại thẻ khóa phòng nhé.",
+        "optionsVi": [
+          "trả phòng khách sạn",
+          "nhận phòng vào ở",
+          "đặt cọc giữ phòng",
+          "gọi phục vụ phòng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "daily_routines_home",
+    "name": "Đời Sống, Nhà Cửa & Thói Quen",
+    "icon": "🏠",
+    "category": "daily",
+    "level": "A1",
+    "description": "Thói quen sinh hoạt, việc nhà, thuê phòng, hóa đơn tiện ích và đời sống đô thị.",
+    "words": [
+      {
+        "id": "home_01",
+        "word": "morning routine",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈmɔː.nɪŋ ruːˈtiːn/",
+        "meaningVi": "thói quen sinh hoạt buổi sáng",
+        "collocations": "healthy morning routine, daily morning routine",
+        "example": "My morning routine includes ten minutes of stretching and a cup of warm water.",
+        "exampleVi": "Thói quen buổi sáng của tôi gồm 10 phút giãn cơ và một cốc nước ấm.",
+        "optionsVi": [
+          "thói quen sinh hoạt buổi sáng",
+          "bữa ăn trưa công sở",
+          "lịch họp đầu giờ",
+          "thói quen trước khi ngủ"
+        ]
+      },
+      {
+        "id": "home_02",
+        "word": "commute",
+        "level": "B1",
+        "type": "verb / noun",
+        "ipa": "/kəˈmjuːt/",
+        "meaningVi": "việc đi lại đi làm hàng ngày",
+        "collocations": "daily commute, long commute, commute by train",
+        "example": "I have a 45-minute daily commute by motorbike through crowded streets.",
+        "exampleVi": "Hằng ngày tôi mất 45 phút đi làm bằng xe máy qua các con phố đông đúc.",
+        "optionsVi": [
+          "việc đi lại đi làm hàng ngày",
+          "chuyến du lịch nghỉ dưỡng",
+          "chuyển hẳn chỗ ở",
+          "đi bộ thể dục"
+        ]
+      },
+      {
+        "id": "home_03",
+        "word": "do laundry",
+        "level": "A1",
+        "type": "collocation",
+        "ipa": "/duː ˈlɔːn.dri/",
+        "meaningVi": "giặt giũ quần áo",
+        "collocations": "do the laundry on weekends, laundry detergent",
+        "example": "I usually do the laundry every Saturday morning.",
+        "exampleVi": "Tôi thường giặt giũ quần áo vào mỗi sáng thứ Bảy.",
+        "optionsVi": [
+          "giặt giũ quần áo",
+          "rửa bát chén",
+          "lau dọn sàn nhà",
+          "nấu bữa tối"
+        ]
+      },
+      {
+        "id": "home_04",
+        "word": "wash the dishes",
+        "level": "A1",
+        "type": "collocation",
+        "ipa": "/wɒʃ ðə ˈdɪʃ.ɪz/",
+        "meaningVi": "rửa bát đĩa",
+        "collocations": "take turns washing the dishes, wash the dishes by hand",
+        "example": "My roommate cooks dinner and I wash the dishes.",
+        "exampleVi": "Bạn cùng phòng của tôi nấu bữa tối còn tôi sẽ rửa bát.",
+        "optionsVi": [
+          "rửa bát đĩa",
+          "đi chợ mua thức ăn",
+          "lau bàn ăn",
+          "đổ rác"
+        ]
+      },
+      {
+        "id": "home_05",
+        "word": "tidy up",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/ˈtaɪ.di ʌp/",
+        "meaningVi": "dọn dẹp ngăn nắp",
+        "collocations": "tidy up the room, tidy up your desk",
+        "example": "Let's tidy up the living room before our guests arrive.",
+        "exampleVi": "Chúng ta hãy dọn dẹp phòng khách cho gọn gàng trước khi khách tới nhé.",
+        "optionsVi": [
+          "dọn dẹp ngăn nắp",
+          "bày bừa ra sàn",
+          "sơn lại phòng",
+          "chuyển đồ đạc đi"
+        ]
+      },
+      {
+        "id": "home_06",
+        "word": "vacuum",
+        "level": "A2",
+        "type": "verb / noun",
+        "ipa": "/ˈvæk.juːm/",
+        "meaningVi": "hút bụi sàn nhà",
+        "collocations": "vacuum the carpet, robot vacuum",
+        "example": "I bought a robot vacuum to clean the apartment floors automatically.",
+        "exampleVi": "Tôi đã mua một con robot hút bụi để tự động quét dọn sàn căn hộ.",
+        "optionsVi": [
+          "hút bụi sàn nhà",
+          "lau sàn bằng nước",
+          "quét sơn tường",
+          "sửa bóng đèn"
+        ]
+      },
+      {
+        "id": "home_07",
+        "word": "apartment rent",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/əˈpɑːt.mənt rent/",
+        "meaningVi": "tiền thuê căn hộ",
+        "collocations": "pay apartment rent, monthly rent",
+        "example": "Our monthly apartment rent is due on the 5th of each month.",
+        "exampleVi": "Tiền thuê căn hộ hàng tháng của chúng tôi đến hạn vào ngày 5 hàng tháng.",
+        "optionsVi": [
+          "tiền thuê căn hộ",
+          "tiền mua nội thất",
+          "phí gửi xe máy",
+          "tiền điện sinh hoạt"
+        ]
+      },
+      {
+        "id": "home_08",
+        "word": "household chores",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈhaʊs.həʊld tʃɔːz/",
+        "meaningVi": "công việc nhà nội trợ",
+        "collocations": "share household chores, do household chores",
+        "example": "Sharing household chores equally makes marriage much happier.",
+        "exampleVi": "Chia sẻ việc nhà một cách bình đẳng giúp cuộc sống hôn nhân hạnh phúc hơn nhiều.",
+        "optionsVi": [
+          "công việc nhà nội trợ",
+          "khoản chi tiêu gia đình",
+          "quy tắc ứng xử",
+          "đồ dùng trong bếp"
+        ]
+      },
+      {
+        "id": "home_09",
+        "word": "roommate",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈruːm.meɪt/",
+        "meaningVi": "bạn cùng phòng",
+        "collocations": "find a roommate, college roommate, friendly roommate",
+        "example": "I'm looking for a quiet roommate to share a two-bedroom apartment.",
+        "exampleVi": "Tôi đang tìm một bạn cùng phòng yên tĩnh để cùng share căn hộ 2 phòng ngủ.",
+        "optionsVi": [
+          "bạn cùng phòng",
+          "chủ nhà cho thuê",
+          "người hàng xóm",
+          "đồng nghiệp công ty"
+        ]
+      },
+      {
+        "id": "home_10",
+        "word": "landlord",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈlænd.lɔːd/",
+        "meaningVi": "chủ nhà cho thuê",
+        "collocations": "contact the landlord, landlord-tenant agreement",
+        "example": "Our landlord was very kind and agreed to fix the leaking pipe promptly.",
+        "exampleVi": "Chủ nhà của chúng tôi rất tốt bụng và đã đồng ý sửa ống nước rò rỉ ngay lập tức.",
+        "optionsVi": [
+          "chủ nhà cho thuê",
+          "người đi thuê nhà",
+          "môi giới bất động sản",
+          "nhân viên bảo vệ"
+        ]
+      },
+      {
+        "id": "home_11",
+        "word": "utility bills",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/juːˈtɪl.ə.ti bɪlz/",
+        "meaningVi": "hóa đơn điện nước sinh hoạt",
+        "collocations": "pay utility bills, utility bills included in rent",
+        "example": "During hot summer months, our electricity utility bill doubles.",
+        "exampleVi": "Trong những tháng hè nóng bức, hóa đơn tiền điện tiện ích của chúng tôi tăng gấp đôi.",
+        "optionsVi": [
+          "hóa đơn điện nước sinh hoạt",
+          "tiền thuế thu nhập",
+          "tiền bảo hiểm y tế",
+          "hóa đơn ăn uống"
+        ]
+      },
+      {
+        "id": "home_12",
+        "word": "neighborhood",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈneɪ.bə.hʊd/",
+        "meaningVi": "khu dân cư, khu phố",
+        "collocations": "quiet neighborhood, friendly neighborhood, safe neighborhood",
+        "example": "I love living here because the neighborhood is peaceful and safe.",
+        "exampleVi": "Tôi rất thích sống ở đây vì khu phố xung quanh rất yên tĩnh và an ninh.",
+        "optionsVi": [
+          "khu dân cư, khu phố",
+          "trung tâm thương mại",
+          "cơ quan làm việc",
+          "khu công nghiệp"
+        ]
+      },
+      {
+        "id": "home_13",
+        "word": "convenience store",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/kənˈviː.ni.əns stɔːr/",
+        "meaningVi": "cửa hàng tiện lợi",
+        "collocations": "24-hour convenience store, grab food at a convenience store",
+        "example": "There is a 24-hour convenience store right downstairs from my apartment.",
+        "exampleVi": "Có một cửa hàng tiện lợi mở 24/7 ngay dưới chân tòa chung cư của tôi.",
+        "optionsVi": [
+          "cửa hàng tiện lợi",
+          "chợ đầu mối",
+          "tiệm may đo",
+          "nhà hàng cao cấp"
+        ]
+      },
+      {
+        "id": "home_14",
+        "word": "home appliances",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/həʊm əˈplaɪ.ən.sɪz/",
+        "meaningVi": "thiết bị đồ gia dụng",
+        "collocations": "kitchen home appliances, modern home appliances",
+        "example": "The apartment comes fully furnished with modern home appliances.",
+        "exampleVi": "Căn hộ được trang bị đầy đủ nội thất cùng các thiết bị gia dụng hiện đại.",
+        "optionsVi": [
+          "thiết bị đồ gia dụng",
+          "vật dụng thể thao",
+          "dụng cụ làm vườn",
+          "văn phòng phẩm"
+        ]
+      },
+      {
+        "id": "home_15",
+        "word": "balcony",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈbæl.kə.ni/",
+        "meaningVi": "ban công",
+        "collocations": "stand on the balcony, balcony view, grow plants on the balcony",
+        "example": "I enjoy drinking my morning coffee on the balcony overlooking the park.",
+        "exampleVi": "Tôi thích nhâm nhi cà phê sáng ngoài ban công nhìn ra công viên.",
+        "optionsVi": [
+          "ban công",
+          "phòng tắm",
+          "tầng hầm để xe",
+          "hành lang chung"
+        ]
+      },
+      {
+        "id": "home_16",
+        "word": "air conditioner",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈeə kənˌdɪʃ.ən.ər/",
+        "meaningVi": "máy điều hòa nhiệt độ",
+        "collocations": "turn on the air conditioner, AC remote control",
+        "example": "Please turn off the air conditioner when you leave the bedroom.",
+        "exampleVi": "Vui lòng tắt máy điều hòa khi bạn rời khỏi phòng ngủ.",
+        "optionsVi": [
+          "máy điều hòa nhiệt độ",
+          "máy sấy tóc",
+          "máy giặt đồ",
+          "quạt thông gió"
+        ]
+      },
+      {
+        "id": "home_17",
+        "word": "power outage",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpaʊ.ər ˌaʊ.tɪdʒ/",
+        "meaningVi": "sự cố mất điện / cúp điện",
+        "collocations": "sudden power outage, electricity power outage",
+        "example": "A thunderstorm caused a citywide power outage for over two hours.",
+        "exampleVi": "Cơn bão kèm sấm sét đã gây ra sự cố mất điện toàn thành phố trong hơn 2 giờ.",
+        "optionsVi": [
+          "sự cố mất điện / cúp điện",
+          "rò rỉ nước sinh hoạt",
+          "hỏa hoạn cháy nổ",
+          "mất sóng điện thoại"
+        ]
+      },
+      {
+        "id": "home_18",
+        "word": "garbage disposal",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɡɑː.bɪdʒ dɪˌspəʊ.zəl/",
+        "meaningVi": "xử lý / đổ rác thải",
+        "collocations": "garbage disposal area, garbage disposal rules",
+        "example": "Residents must sort recyclable waste according to garbage disposal rules.",
+        "exampleVi": "Cư dân phải phân loại rác tái chế theo đúng quy định xử lý rác thải.",
+        "optionsVi": [
+          "xử lý / đổ rác thải",
+          "dịch vụ dọn vệ sinh",
+          "nước thải sinh hoạt",
+          "khu vực để xe"
+        ]
+      },
+      {
+        "id": "home_19",
+        "word": "lock the door",
+        "level": "A1",
+        "type": "collocation",
+        "ipa": "/lɒk ðə dɔːr/",
+        "meaningVi": "khóa cửa cẩn thận",
+        "collocations": "remember to lock the door, double lock the door",
+        "example": "Always remember to lock the door when leaving the apartment.",
+        "exampleVi": "Hãy luôn nhớ khóa cửa cẩn thận khi rời khỏi căn hộ.",
+        "optionsVi": [
+          "khóa cửa cẩn thận",
+          "mở toang cửa sổ",
+          "thay khóa mới",
+          "gõ cửa gọi người"
+        ]
+      },
+      {
+        "id": "home_20",
+        "word": "daily routine",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˌdeɪ.li ruːˈtiːn/",
+        "meaningVi": "nếp sinh hoạt thường ngày",
+        "collocations": "stick to a daily routine, establish a daily routine",
+        "example": "Having a consistent daily routine helps improve focus and productivity.",
+        "exampleVi": "Có một nếp sinh hoạt thường nhật đều đặn giúp tăng cường sự tập trung và hiệu suất.",
+        "optionsVi": [
+          "nếp sinh hoạt thường ngày",
+          "chuyến đi công tác xa",
+          "kế hoạch cuối tuần",
+          "lịch thi cử"
+        ]
+      },
+      {
+        "id": "home_21",
+        "word": "sleep in",
+        "level": "A2",
+        "type": "phrasal verb",
+        "ipa": "/sliːp ɪn/",
+        "meaningVi": "ngủ nướng dậy muộn",
+        "collocations": "sleep in on Sundays, love to sleep in",
+        "example": "On Sunday mornings, I love to sleep in until 9 AM.",
+        "exampleVi": "Vào các sáng Chủ nhật, tôi rất thích được ngủ nướng đến tận 9 giờ sáng.",
+        "optionsVi": [
+          "ngủ nướng dậy muộn",
+          "thức trắng đêm",
+          "ngủ gật trong giờ",
+          "dậy thật sớm"
+        ]
+      },
+      {
+        "id": "home_22",
+        "word": "furnished",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈfɜː.nɪʃt/",
+        "meaningVi": "đã đủ đồ nội thất",
+        "collocations": "fully furnished apartment, semi-furnished",
+        "example": "The studio apartment is fully furnished with a bed, desk, and sofa.",
+        "exampleVi": "Căn hộ studio đã có đầy đủ nội thất bao gồm giường, bàn làm việc và ghế sofa.",
+        "optionsVi": [
+          "đã đủ đồ nội thất",
+          "nhà trống không đồ",
+          "căn nhà đang xây",
+          "bị hư hỏng nặng"
+        ]
+      },
+      {
+        "id": "home_23",
+        "word": "renovate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈren.ə.veɪt/",
+        "meaningVi": "cải tạo tu sửa nhà",
+        "collocations": "renovate the kitchen, recently renovated, renovate an old house",
+        "example": "They hired an architect to renovate their 20-year-old townhouse.",
+        "exampleVi": "Họ đã thuê một kiến trúc sư để cải tạo lại ngôi nhà phố 20 năm tuổi.",
+        "optionsVi": [
+          "cải tạo tu sửa nhà",
+          "phá dỡ hoàn toàn",
+          "bán gấp bất động sản",
+          "xây tường rào mới"
+        ]
+      },
+      {
+        "id": "home_24",
+        "word": "spacious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈspeɪ.ʃəs/",
+        "meaningVi": "rộng rãi thoáng đãng",
+        "collocations": "spacious living room, bright and spacious",
+        "example": "The new apartment has a spacious kitchen with plenty of natural light.",
+        "exampleVi": "Căn hộ mới có một phòng bếp rộng rãi với rất nhiều ánh sáng tự nhiên.",
+        "optionsVi": [
+          "rộng rãi thoáng đãng",
+          "chật chội bí bách",
+          "ẩm thấp tối tăm",
+          "cũ kỹ bừa bộn"
+        ]
+      },
+      {
+        "id": "home_25",
+        "word": "cramped",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kræmpt/",
+        "meaningVi": "chật chội tù túng",
+        "collocations": "cramped room, feel cramped, cramped quarters",
+        "example": "Sharing a single bedroom with three people felt very cramped.",
+        "exampleVi": "Ở chung một phòng ngủ với 3 người cảm thấy rất chật chội và tù túng.",
+        "optionsVi": [
+          "chật chội tù túng",
+          "rộng rãi bao la",
+          "sang trọng quý phái",
+          "ấm cúng dễ chịu"
+        ]
+      },
+      {
+        "id": "home_26",
+        "word": "tap water",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈtæp ˌwɔː.tər/",
+        "meaningVi": "nước máy từ vòi",
+        "collocations": "drink tap water, boil tap water, filter tap water",
+        "example": "In many European cities, it is completely safe to drink tap water directly.",
+        "exampleVi": "Ở nhiều thành phố châu Âu, việc uống trực tiếp nước máy từ vòi là hoàn toàn an toàn.",
+        "optionsVi": [
+          "nước máy từ vòi",
+          "nước khoáng đóng chai",
+          "nước ngọt có ga",
+          "nước mưa tự nhiên"
+        ]
+      },
+      {
+        "id": "home_27",
+        "word": "water leak",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈwɔː.tər liːk/",
+        "meaningVi": "rò rỉ nước",
+        "collocations": "fix a water leak, serious water leak in the bathroom",
+        "example": "We called a plumber right away because of a water leak under the sink.",
+        "exampleVi": "Chúng tôi đã gọi thợ sửa ống nước ngay lập tức vì rò rỉ nước dưới bồn rửa.",
+        "optionsVi": [
+          "rò rỉ nước",
+          "mất nước sinh hoạt",
+          "ngập lụt do mưa",
+          "nước nhiễm phèn"
+        ]
+      },
+      {
+        "id": "home_28",
+        "word": "neighbor",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈneɪ.bər/",
+        "meaningVi": "người hàng xóm",
+        "collocations": "next-door neighbor, friendly neighbors, noisy neighbors",
+        "example": "Our next-door neighbor always helps water our plants when we travel.",
+        "exampleVi": "Người hàng xóm bên cạnh luôn giúp chúng tôi tưới cây mỗi khi chúng tôi đi vắng.",
+        "optionsVi": [
+          "người hàng xóm",
+          "người họ hàng",
+          "đồng nghiệp công ty",
+          "khách vãng lai"
+        ]
+      },
+      {
+        "id": "home_29",
+        "word": "elevator",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈel.ɪ.veɪ.tər/",
+        "meaningVi": "thang máy",
+        "collocations": "take the elevator, elevator is out of order",
+        "example": "Let's take the elevator up to the 18th floor.",
+        "exampleVi": "Chúng mình cùng đi thang máy lên tầng 18 nhé.",
+        "optionsVi": [
+          "thang máy",
+          "cầu thang bộ",
+          "thang cuốn siêu thị",
+          "lối thoát hiểm"
+        ]
+      },
+      {
+        "id": "home_30",
+        "word": "stairs",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/steəz/",
+        "meaningVi": "cầu thang bộ",
+        "collocations": "take the stairs, walk up the stairs, climb the stairs",
+        "example": "Taking the stairs instead of the elevator is an easy way to stay active.",
+        "exampleVi": "Đi cầu thang bộ thay vì đi thang máy là một cách đơn giản để rèn luyện sức khỏe.",
+        "optionsVi": [
+          "cầu thang bộ",
+          "thang máy",
+          "bậc thềm cửa",
+          "hành lang"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "health_wellness_medical",
+    "name": "Sức Khỏe, Thể Thao & Y Tế",
+    "icon": "🏥",
+    "category": "daily",
+    "level": "A2",
+    "description": "Bệnh tật thường gặp, mua thuốc tại hiệu thuốc, khám bác sĩ, tập gym và lối sống lành mạnh.",
+    "words": [
+      {
+        "id": "health_01",
+        "word": "headache",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈhed.eɪk/",
+        "meaningVi": "cơn đau đầu",
+        "collocations": "have a terrible headache, headache relief, splitting headache",
+        "example": "I've had a bad headache since morning because of staring at screens too long.",
+        "exampleVi": "Tôi bị đau đầu từ sáng do nhìn vào màn hình máy tính quá lâu.",
+        "optionsVi": [
+          "cơn đau đầu",
+          "đau bụng cồn cào",
+          "đau răng",
+          "đau lưng mỏi gối"
+        ]
+      },
+      {
+        "id": "health_02",
+        "word": "sore throat",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌsɔː ˈθrəʊt/",
+        "meaningVi": "đau rát cổ họng / viêm họng",
+        "collocations": "have a sore throat, sore throat lozenges",
+        "example": "Drinking warm ginger tea with honey helps soothe a sore throat.",
+        "exampleVi": "Uống trà gừng ấm với mật ong giúp làm dịu cổ họng đau rát.",
+        "optionsVi": [
+          "đau rát cổ họng / viêm họng",
+          "chảy máu cam",
+          "khó thở tức ngực",
+          "nghẹt mũi dị ứng"
+        ]
+      },
+      {
+        "id": "health_03",
+        "word": "prescription",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/prɪˈskrɪp.ʃən/",
+        "meaningVi": "đơn thuốc của bác sĩ",
+        "collocations": "doctor's prescription, fill a prescription, prescription drugs",
+        "example": "You cannot buy these antibiotics without a valid doctor's prescription.",
+        "exampleVi": "Bạn không thể mua loại thuốc kháng sinh này nếu không có đơn thuốc của bác sĩ.",
+        "optionsVi": [
+          "đơn thuốc của bác sĩ",
+          "hóa đơn viện phí",
+          "phiếu xét nghiệm máu",
+          "bảo hiểm y tế"
+        ]
+      },
+      {
+        "id": "health_04",
+        "word": "pharmacy",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈfɑː.mə.si/",
+        "meaningVi": "hiệu thuốc tây",
+        "collocations": "local pharmacy, 24-hour pharmacy, go to the pharmacy",
+        "example": "Is there an all-night pharmacy near this neighborhood?",
+        "exampleVi": "Có hiệu thuốc tây mở thâu đêm nào gần khu vực này không?",
+        "optionsVi": [
+          "hiệu thuốc tây",
+          "phòng nha khoa",
+          "bệnh viện đa khoa",
+          "trạm cấp cứu"
+        ]
+      },
+      {
+        "id": "health_05",
+        "word": "fever",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈfiː.vər/",
+        "meaningVi": "cơn sốt cao",
+        "collocations": "run a high fever, reduce a fever, fever thermometer",
+        "example": "The little boy has a high fever of 39 degrees Celsius.",
+        "exampleVi": "Cậu bé đang bị sốt cao lên tới 39 độ C.",
+        "optionsVi": [
+          "cơn sốt cao",
+          "cơn ớn lạnh",
+          "chóng mặt hoa mắt",
+          "buồn nôn"
+        ]
+      },
+      {
+        "id": "health_06",
+        "word": "painkiller",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈpeɪnˌkɪl.ər/",
+        "meaningVi": "thuốc giảm đau",
+        "collocations": "take a painkiller, mild painkiller, strong painkillers",
+        "example": "She took a painkiller to ease her toothache before seeing the dentist.",
+        "exampleVi": "Cô ấy đã uống một viên thuốc giảm đau để làm dịu cơn đau răng trước khi đi khám nha sĩ.",
+        "optionsVi": [
+          "thuốc giảm đau",
+          "thuốc kháng sinh",
+          "thuốc an thần",
+          "vitamin tổng hợp"
+        ]
+      },
+      {
+        "id": "health_07",
+        "word": "appointment",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/əˈpɔɪnt.mənt/",
+        "meaningVi": "cuộc hẹn khám",
+        "collocations": "doctor's appointment, make an appointment, cancel an appointment",
+        "example": "I have an appointment with my dentist tomorrow morning at 9 AM.",
+        "exampleVi": "Tôi có một cuộc hẹn khám với nha sĩ vào 9 giờ sáng ngày mai.",
+        "optionsVi": [
+          "cuộc hẹn khám",
+          "lịch tiêm phòng",
+          "buổi tư vấn tâm lý",
+          "bảng kết quả xét nghiệm"
+        ]
+      },
+      {
+        "id": "health_08",
+        "word": "workout",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈwɜːk.aʊt/",
+        "meaningVi": "buổi tập thể dục",
+        "collocations": "morning workout, intense workout, daily workout routine",
+        "example": "A 30-minute cardio workout every day boosts your energy levels significantly.",
+        "exampleVi": "Một buổi tập cardio 30 phút mỗi ngày giúp tăng cường năng lượng đáng kể.",
+        "optionsVi": [
+          "buổi tập thể dục",
+          "ngày nghỉ phép",
+          "buổi khám tổng quát",
+          "chế độ ăn kiêng"
+        ]
+      },
+      {
+        "id": "health_09",
+        "word": "stay hydrated",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/steɪ haɪˈdreɪ.tɪd/",
+        "meaningVi": "uống đủ nước",
+        "collocations": "remember to stay hydrated, essential to stay hydrated",
+        "example": "Remember to stay hydrated by drinking at least two liters of water daily.",
+        "exampleVi": "Hãy nhớ uống đủ nước bằng cách uống tối thiểu 2 lít nước mỗi ngày.",
+        "optionsVi": [
+          "uống đủ nước",
+          "ăn nhiều rau xanh",
+          "ngủ đủ giấc",
+          "hạn chế đồ ngọt"
+        ]
+      },
+      {
+        "id": "health_10",
+        "word": "balanced diet",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈbæl.ənst ˈdaɪ.ət/",
+        "meaningVi": "chế độ ăn cân bằng dinh dưỡng",
+        "collocations": "maintain a balanced diet, eat a balanced diet",
+        "example": "A balanced diet rich in vegetables and proteins prevents many chronic diseases.",
+        "exampleVi": "Một chế độ ăn uống cân bằng giàu rau xanh và chất đạm giúp phòng tránh nhiều bệnh mãn tính.",
+        "optionsVi": [
+          "chế độ ăn cân bằng dinh dưỡng",
+          "chế độ nhịn ăn gián đoạn",
+          "chế độ ăn kiêng chất béo",
+          "chế độ ăn thuần chay"
+        ]
+      },
+      {
+        "id": "health_11",
+        "word": "relieve stress",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/rɪˈliːv stres/",
+        "meaningVi": "giải tỏa căng thẳng áp lực",
+        "collocations": "effective ways to relieve stress, relieve work stress",
+        "example": "Practicing yoga and meditation is a great way to relieve stress.",
+        "exampleVi": "Tập yoga và thiền là phương pháp tuyệt vời để giải tỏa căng thẳng.",
+        "optionsVi": [
+          "giải tỏa căng thẳng áp lực",
+          "tăng thêm âu lo",
+          "làm việc quá tải",
+          "mất ngủ kéo dài"
+        ]
+      },
+      {
+        "id": "health_12",
+        "word": "insomnia",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈsɒm.ni.ə/",
+        "meaningVi": "chứng mất ngủ",
+        "collocations": "suffer from insomnia, chronic insomnia, cure insomnia",
+        "example": "Drinking coffee late in the evening can easily trigger insomnia.",
+        "exampleVi": "Uống cà phê vào buổi tối muộn có thể dễ dàng gây ra chứng mất ngủ.",
+        "optionsVi": [
+          "chứng mất ngủ",
+          "chứng ngủ nhiều",
+          "bệnh mộng du",
+          "chứng hay quên"
+        ]
+      },
+      {
+        "id": "health_13",
+        "word": "blood pressure",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈblʌd ˌpreʃ.ər/",
+        "meaningVi": "huyết áp",
+        "collocations": "high blood pressure, check blood pressure, normal blood pressure",
+        "example": "Regular physical exercise helps keep your blood pressure at healthy levels.",
+        "exampleVi": "Tập thể dục đều đặn giúp giữ huyết áp của bạn ở mức khỏe mạnh bình thường.",
+        "optionsVi": [
+          "huyết áp",
+          "nhịp tim đập",
+          "chỉ số đường huyết",
+          "lượng mỡ trong máu"
+        ]
+      },
+      {
+        "id": "health_14",
+        "word": "emergency room",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ɪˈmɜː.dʒən.si ˌruːm/",
+        "meaningVi": "phòng cấp cứu",
+        "collocations": "rush to the emergency room, emergency room doctor",
+        "example": "He was rushed directly to the emergency room after the traffic accident.",
+        "exampleVi": "Anh ấy đã được đưa gấp thẳng tới phòng cấp cứu sau tai nạn giao thông.",
+        "optionsVi": [
+          "phòng cấp cứu",
+          "phòng mổ cách ly",
+          "nhà thuốc bệnh viện",
+          "khu hồi sức sau mổ"
+        ]
+      },
+      {
+        "id": "health_15",
+        "word": "first aid kit",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌfɜːst ˈeɪd ˌkɪt/",
+        "meaningVi": "hộp dụng cụ sơ cứu",
+        "collocations": "keep a first aid kit at home, emergency first aid kit",
+        "example": "Every household and car should have a well-equipped first aid kit.",
+        "exampleVi": "Mỗi gia đình và xe hơi đều nên trang bị một bộ dụng cụ sơ cứu đầy đủ.",
+        "optionsVi": [
+          "hộp dụng cụ sơ cứu",
+          "túi đựng mỹ phẩm",
+          "hộp sửa chữa xe",
+          "vali đựng quần áo"
+        ]
+      },
+      {
+        "id": "health_16",
+        "word": "immune system",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪˈmjuːn ˌsɪs.təm/",
+        "meaningVi": "hệ thống miễn dịch",
+        "collocations": "boost immune system, weak immune system, strengthen immunity",
+        "example": "Vitamin C and good sleep play a key role in boosting your immune system.",
+        "exampleVi": "Vitamin C và giấc ngủ ngon đóng vai trò quan trọng trong việc tăng cường hệ miễn dịch.",
+        "optionsVi": [
+          "hệ thống miễn dịch",
+          "hệ thống tuần hoàn máu",
+          "hệ tiêu hóa",
+          "hệ thần kinh trung ương"
+        ]
+      },
+      {
+        "id": "health_17",
+        "word": "symptom",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈsɪmp.təm/",
+        "meaningVi": "triệu chứng bệnh",
+        "collocations": "common symptoms, flu symptoms, early symptoms",
+        "example": "A high temperature and persistent dry cough are key symptoms of the flu.",
+        "exampleVi": "Sốt cao và ho khan dai dẳng là những triệu chứng chính của bệnh cảm cúm.",
+        "optionsVi": [
+          "triệu chứng bệnh",
+          "phương pháp điều trị",
+          "nguyên nhân di truyền",
+          "đơn thuốc kê toa"
+        ]
+      },
+      {
+        "id": "health_18",
+        "word": "catch a cold",
+        "level": "A1",
+        "type": "collocation",
+        "ipa": "/kætʃ eɪ kəʊld/",
+        "meaningVi": "bị cảm lạnh",
+        "collocations": "easy to catch a cold in winter, catch a bad cold",
+        "example": "Put on a warm jacket, or you will catch a cold outside!",
+        "exampleVi": "Mặc áo khoác ấm vào đi, không là bạn sẽ bị cảm lạnh ngoài trời đấy!",
+        "optionsVi": [
+          "bị cảm lạnh",
+          "bị bỏng nhiệt",
+          "bị say nắng",
+          "bị trẹo khớp chân"
+        ]
+      },
+      {
+        "id": "health_19",
+        "word": "gym membership",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/dʒɪm ˈmem.bə.ʃɪp/",
+        "meaningVi": "thẻ tập gym",
+        "collocations": "annual gym membership, renew gym membership",
+        "example": "I signed up for a 1-year gym membership to motivate myself to exercise.",
+        "exampleVi": "Tôi đã đăng ký thẻ tập gym 1 năm để tự tạo động lực rèn luyện thân thể.",
+        "optionsVi": [
+          "thẻ tập gym",
+          "thẻ bảo hiểm",
+          "vé vào bể bơi",
+          "thẻ thành viên siêu thị"
+        ]
+      },
+      {
+        "id": "health_20",
+        "word": "recovery",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/rɪˈkʌv.ər.i/",
+        "meaningVi": "sự hồi phục sức khỏe",
+        "collocations": "full recovery, speedy recovery, wish you a speedy recovery",
+        "example": "The doctor says he will make a full recovery in about two weeks.",
+        "exampleVi": "Bác sĩ cho biết anh ấy sẽ hồi phục hoàn toàn trong khoảng 2 tuần nữa.",
+        "optionsVi": [
+          "sự hồi phục sức khỏe",
+          "tình trạng bệnh tái phát",
+          "chấn thương nặng thêm",
+          "thời gian nằm viện"
+        ]
+      },
+      {
+        "id": "health_21",
+        "word": "check-up",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈtʃek.ʌp/",
+        "meaningVi": "khám sức khỏe định kỳ",
+        "collocations": "annual health check-up, medical check-up",
+        "example": "It is strongly recommended to get a routine check-up once a year.",
+        "exampleVi": "Mọi người được khuyến cáo nên đi kiểm tra sức khỏe định kỳ mỗi năm một lần.",
+        "optionsVi": [
+          "khám sức khỏe định kỳ",
+          "phẫu thuật khẩn cấp",
+          "cấp cứu lưu động",
+          "mua thuốc bổ"
+        ]
+      },
+      {
+        "id": "health_22",
+        "word": "stomachache",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈstʌm.ək.eɪk/",
+        "meaningVi": "đau bụng / đau dạ dày",
+        "collocations": "have a stomachache, severe stomachache",
+        "example": "Eating too much spicy street food gave him a bad stomachache.",
+        "exampleVi": "Ăn quá nhiều đồ ăn đường phố cay nóng khiến anh ấy bị đau bụng dữ dội.",
+        "optionsVi": [
+          "đau bụng / đau dạ dày",
+          "đau khớp tay",
+          "chóng mặt",
+          "đau nhức răng"
+        ]
+      },
+      {
+        "id": "health_23",
+        "word": "mental health",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈmen.təl helθ/",
+        "meaningVi": "sức khỏe tinh thần",
+        "collocations": "look after your mental health, mental health awareness",
+        "example": "Taking breaks from social media can do wonders for your mental health.",
+        "exampleVi": "Tạm rời xa mạng xã hội có thể mang lại lợi ích tuyệt vời cho sức khỏe tinh thần của bạn.",
+        "optionsVi": [
+          "sức khỏe tinh thần",
+          "sức mạnh cơ bắp",
+          "thể lực dẻo dai",
+          "chế độ dinh dưỡng"
+        ]
+      },
+      {
+        "id": "health_24",
+        "word": "sprain",
+        "level": "B1",
+        "type": "verb / noun",
+        "ipa": "/spreɪn/",
+        "meaningVi": "bong gân, trẹo khớp",
+        "collocations": "sprain an ankle, wrist sprain",
+        "example": "He sprained his left ankle while playing basketball yesterday.",
+        "exampleVi": "Anh ấy bị bong gân mắt cá chân trái khi chơi bóng rổ hôm qua.",
+        "optionsVi": [
+          "bong gân, trẹo khớp",
+          "gãy xương",
+          "bỏng da",
+          "trầy xước nhẹ"
+        ]
+      },
+      {
+        "id": "health_25",
+        "word": "sneeze",
+        "level": "A2",
+        "type": "verb / noun",
+        "ipa": "/sniːz/",
+        "meaningVi": "hắt hơi",
+        "collocations": "sneeze repeatedly, bless you after a sneeze",
+        "example": "Flower pollen during springtime makes her sneeze constantly.",
+        "exampleVi": "Phấn hoa vào mùa xuân khiến cô ấy hắt hơi liên tục.",
+        "optionsVi": [
+          "hắt hơi",
+          "ho khan",
+          "nấc cụt",
+          "ngáp ngủ"
+        ]
+      },
+      {
+        "id": "health_26",
+        "word": "cough",
+        "level": "A1",
+        "type": "verb / noun",
+        "ipa": "/kɒf/",
+        "meaningVi": "ho, cơn ho",
+        "collocations": "dry cough, persistent cough, cough syrup",
+        "example": "Take this herbal cough syrup three times a day after meals.",
+        "exampleVi": "Hãy uống siro ho thảo dược này 3 lần một ngày sau bữa ăn.",
+        "optionsVi": [
+          "ho, cơn ho",
+          "sốt cao",
+          "ngứa da",
+          "chảy nước mắt"
+        ]
+      },
+      {
+        "id": "health_27",
+        "word": "antibiotics",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæn.ti.baɪˈɒt.ɪks/",
+        "meaningVi": "thuốc kháng sinh",
+        "collocations": "course of antibiotics, take antibiotics, antibiotic resistance",
+        "example": "Make sure you finish the entire course of antibiotics as prescribed.",
+        "exampleVi": "Hãy đảm bảo rằng bạn uống hết toàn bộ liều kháng sinh theo đúng chỉ định.",
+        "optionsVi": [
+          "thuốc kháng sinh",
+          "thuốc cảm cúm thông thường",
+          "vitamin làm đẹp",
+          "thuốc sát trùng ngoài da"
+        ]
+      },
+      {
+        "id": "health_28",
+        "word": "dentist",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈden.tɪst/",
+        "meaningVi": "bác sĩ nha khoa",
+        "collocations": "visit the dentist, dentist clinic, fear of the dentist",
+        "example": "You should visit the dentist every six months for teeth cleaning.",
+        "exampleVi": "Bạn nên đi khám nha sĩ 6 tháng một lần để lấy cao răng và kiểm tra.",
+        "optionsVi": [
+          "bác sĩ nha khoa",
+          "bác sĩ nhãn khoa",
+          "dược sĩ bán thuốc",
+          "bác sĩ phẫu thuật"
+        ]
+      },
+      {
+        "id": "health_29",
+        "word": "treatment",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈtriːt.mənt/",
+        "meaningVi": "phác đồ điều trị",
+        "collocations": "medical treatment, undergo treatment, response to treatment",
+        "example": "Early diagnosis allows for much more effective medical treatment.",
+        "exampleVi": "Chẩn đoán sớm cho phép quá trình điều trị y tế đạt hiệu quả cao hơn nhiều.",
+        "optionsVi": [
+          "phác đồ điều trị",
+          "bảo hiểm bồi thường",
+          "nguyên nhân gây bệnh",
+          "sự chuẩn đoán nhầm"
+        ]
+      },
+      {
+        "id": "health_30",
+        "word": "exhausted",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ɪɡˈzɔː.stɪd/",
+        "meaningVi": "kiệt sức, mệt lả",
+        "collocations": "completely exhausted, physically exhausted",
+        "example": "After running the 21km half-marathon, she felt totally exhausted but happy.",
+        "exampleVi": "Sau khi chạy xong giải bán marathon 21km, cô ấy cảm thấy hoàn toàn kiệt sức nhưng rất vui.",
+        "optionsVi": [
+          "kiệt sức, mệt lả",
+          "tràn đầy năng lượng",
+          "tỉnh táo khỏe khoắn",
+          "hồi hộp lo lắng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "emotions_personality",
+    "name": "Cảm Xúc, Tính Cách & Mối Quan Hệ",
+    "icon": "💡",
+    "category": "daily",
+    "level": "B1",
+    "description": "Diễn đạt tâm trạng, tính cách con người, đồng cảm, bất đồng và kết nối các mối quan hệ.",
+    "words": [
+      {
+        "id": "emo_01",
+        "word": "reliable",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/rɪˈlaɪ.ə.bəl/",
+        "meaningVi": "đáng tin cậy",
+        "collocations": "reliable person, highly reliable, reliable source of information",
+        "example": "He is a reliable teammate; he always delivers his promises on time.",
+        "exampleVi": "Anh ấy là một đồng đội đáng tin cậy; anh ấy luôn giữ đúng lời hứa đúng hạn.",
+        "optionsVi": [
+          "đáng tin cậy",
+          "thất thường khó đoán",
+          "thiếu trung thực",
+          "lười biếng"
+        ]
+      },
+      {
+        "id": "emo_02",
+        "word": "frustrated",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/frʌsˈtreɪ.tɪd/",
+        "meaningVi": "bực bội, bất lực, ức chế",
+        "collocations": "feel frustrated, frustrated with delays, deeply frustrated",
+        "example": "I felt frustrated when the internet connection kept dropping during my presentation.",
+        "exampleVi": "Tôi cảm thấy rất bực bội khi mạng internet liên tục bị mất lúc tôi đang thuyết trình.",
+        "optionsVi": [
+          "bực bội, bất lực, ức chế",
+          "vui sướng hân hoan",
+          "bình thản thư giãn",
+          "ngạc nhiên thú vị"
+        ]
+      },
+      {
+        "id": "emo_03",
+        "word": "in my opinion",
+        "level": "A2",
+        "type": "phrase",
+        "ipa": "/ɪn maɪ əˈpɪn.jən/",
+        "meaningVi": "theo ý kiến của tôi",
+        "collocations": "in my honest opinion, in my humble opinion (IMHO)",
+        "example": "In my opinion, we should focus on user experience before marketing.",
+        "exampleVi": "Theo quan điểm của tôi, chúng ta nên tập trung vào trải nghiệm người dùng trước khi tiếp thị.",
+        "optionsVi": [
+          "theo ý kiến của tôi",
+          "mọi người đều nghĩ rằng",
+          "chắc chắn là sai",
+          "theo số đông"
+        ]
+      },
+      {
+        "id": "emo_04",
+        "word": "confident",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈkɒn.fɪ.dənt/",
+        "meaningVi": "tự tin",
+        "collocations": "feel confident, confident about the interview, highly confident",
+        "example": "Practicing English every day makes me feel much more confident when speaking.",
+        "exampleVi": "Luyện tiếng Anh mỗi ngày giúp tôi cảm thấy tự tin hơn rất nhiều khi nói.",
+        "optionsVi": [
+          "tự tin",
+          "rụt rè, e ngại",
+          "chủ quan khinh địch",
+          "lo sợ thất bại"
+        ]
+      },
+      {
+        "id": "emo_05",
+        "word": "deal with",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/diːl wɪð/",
+        "meaningVi": "đối phó, xử lý, đương đầu",
+        "collocations": "deal with pressure, deal with difficult clients, how to deal with stress",
+        "example": "Learning how to deal with unexpected bugs is an essential engineering skill.",
+        "exampleVi": "Học cách đương đầu với những lỗi phần mềm bất ngờ là một kỹ năng quan trọng của kỹ sư.",
+        "optionsVi": [
+          "đối phó, xử lý, đương đầu",
+          "trốn tránh thực tế",
+          "bỏ cuộc sớm",
+          "khiếu nại lên cấp trên"
+        ]
+      },
+      {
+        "id": "emo_06",
+        "word": "flexible",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈflek.sə.bəl/",
+        "meaningVi": "linh hoạt, dễ thích nghi",
+        "collocations": "flexible working hours, flexible mindset, highly flexible",
+        "example": "Our company offers flexible working hours for software engineers.",
+        "exampleVi": "Công ty của chúng tôi áp dụng thời gian làm việc linh hoạt cho các kỹ sư phần mềm.",
+        "optionsVi": [
+          "linh hoạt, dễ thích nghi",
+          "cứng nhắc, bảo thủ",
+          "nghiêm khắc kỷ luật",
+          "bắt buộc cố định"
+        ]
+      },
+      {
+        "id": "emo_07",
+        "word": "ambitious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/æmˈbɪʃ.əs/",
+        "meaningVi": "có hoài bão khát vọng",
+        "collocations": "ambitious plan, highly ambitious, ambitious goals",
+        "example": "She is an ambitious engineer who dreams of founding her own AI startup.",
+        "exampleVi": "Cô ấy là một kỹ sư đầy hoài bão luôn mơ ước tự thành lập startup AI của riêng mình.",
+        "optionsVi": [
+          "có hoài bão khát vọng",
+          "an phận thủ thường",
+          "lười biếng thụ động",
+          "nhút nhát sợ sệt"
+        ]
+      },
+      {
+        "id": "emo_08",
+        "word": "open-minded",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌəʊ.pənˈmaɪn.dɪd/",
+        "meaningVi": "cởi mở, dễ tiếp thu",
+        "collocations": "stay open-minded, open-minded attitude",
+        "example": "Being open-minded helps you learn faster from different viewpoints.",
+        "exampleVi": "Giữ tư duy cởi mở giúp bạn học hỏi nhanh hơn từ các góc nhìn khác nhau.",
+        "optionsVi": [
+          "cởi mở, dễ tiếp thu",
+          "hẹp hòi, bảo thủ",
+          "vô tâm thờ ơ",
+          "dễ bị kích động"
+        ]
+      },
+      {
+        "id": "emo_09",
+        "word": "enthusiastic",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪnˌθjuː.ziˈæs.tɪk/",
+        "meaningVi": "nhiệt huyết, hăng hái",
+        "collocations": "enthusiastic about the project, show enthusiasm",
+        "example": "The whole team was enthusiastic about building the new mobile app.",
+        "exampleVi": "Cả nhóm đều rất nhiệt huyết và hào hứng với việc xây dựng ứng dụng di động mới.",
+        "optionsVi": [
+          "nhiệt huyết, hăng hái",
+          "thờ ơ lạnh nhạt",
+          "mệt mỏi chán chường",
+          "miễn cưỡng làm việc"
+        ]
+      },
+      {
+        "id": "emo_10",
+        "word": "generous",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈdʒen.ər.əs/",
+        "meaningVi": "hào phóng, rộng lượng",
+        "collocations": "generous offer, generous donation, very generous of you",
+        "example": "It was very generous of him to pay for everyone's dinner.",
+        "exampleVi": "Anh ấy thật hào phóng khi đã trả tiền bữa tối cho tất cả mọi người.",
+        "optionsVi": [
+          "hào phóng, rộng lượng",
+          "keo kiệt bủn xỉn",
+          "nghi ngờ cảnh giác",
+          "tự cao tự đại"
+        ]
+      },
+      {
+        "id": "emo_11",
+        "word": "patient",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈpeɪ.ʃənt/",
+        "meaningVi": "kiên nhẫn, nhẫn nại",
+        "collocations": "be patient with someone, have patience, highly patient",
+        "example": "Our senior mentor is always patient when explaining complex code to interns.",
+        "exampleVi": "Người hướng dẫn cấp cao luôn kiên nhẫn khi giảng giải code phức tạp cho thực tập sinh.",
+        "optionsVi": [
+          "kiên nhẫn, nhẫn nại",
+          "nóng nảy vội vàng",
+          "nghiêm khắc gay gắt",
+          "lơ đãng mất tập trung"
+        ]
+      },
+      {
+        "id": "emo_12",
+        "word": "stubborn",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈstʌb.ən/",
+        "meaningVi": "bướng bỉnh, cứng đầu",
+        "collocations": "stubborn attitude, as stubborn as a mule",
+        "example": "He was too stubborn to admit that his architectural approach had flaws.",
+        "exampleVi": "Anh ấy quá bướng bỉnh cứng đầu đến mức không chịu thừa nhận cách tiếp cận kiến trúc của mình có lỗ hổng.",
+        "optionsVi": [
+          "bướng bỉnh, cứng đầu",
+          "khiêm tốn biết lắng nghe",
+          "dễ tính xuề xòa",
+          "nhút nhát sợ hãi"
+        ]
+      },
+      {
+        "id": "emo_13",
+        "word": "easygoing",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌiː.ziˈɡəʊ.ɪŋ/",
+        "meaningVi": "dễ tính, hòa nhã",
+        "collocations": "easygoing personality, easygoing manager",
+        "example": "Our new engineering manager has a relaxed and easygoing personality.",
+        "exampleVi": "Quản lý kỹ thuật mới của chúng tôi có tính cách rất thoải mái và dễ tính.",
+        "optionsVi": [
+          "dễ tính, hòa nhã",
+          "khó tính khắt khe",
+          "nóng nảy cáu gắt",
+          "nghiêm trang cứng nhắc"
+        ]
+      },
+      {
+        "id": "emo_14",
+        "word": "optimistic",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌɒp.tɪˈmɪs.tɪk/",
+        "meaningVi": "lạc quan yêu đời",
+        "collocations": "optimistic about the future, remain optimistic",
+        "example": "Despite the market downturn, our CEO remains deeply optimistic about our growth.",
+        "exampleVi": "Dù thị trường suy thoái, CEO của chúng tôi vẫn giữ thái độ vô cùng lạc quan về sự tăng trưởng.",
+        "optionsVi": [
+          "lạc quan yêu đời",
+          "bi quan thất vọng",
+          "lo âu thấp thỏm",
+          "nghi ngờ dè chừng"
+        ]
+      },
+      {
+        "id": "emo_15",
+        "word": "pessimistic",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌpes.ɪˈmɪs.tɪk/",
+        "meaningVi": "bi quan, nhìn nhận tiêu cực",
+        "collocations": "pessimistic view, overly pessimistic",
+        "example": "Don't be so pessimistic; we still have two weeks before the final release.",
+        "exampleVi": "Đừng bi quan như vậy; chúng ta vẫn còn tới hai tuần nữa trước ngày ra mắt chính thức mà.",
+        "optionsVi": [
+          "bi quan, nhìn nhận tiêu cực",
+          "lạc quan tin tưởng",
+          "hào hứng đón nhận",
+          "bình thản ung dung"
+        ]
+      },
+      {
+        "id": "emo_16",
+        "word": "trustworthy",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈtrʌstˌwɜː.ði/",
+        "meaningVi": "đáng tin cậy, giữ chữ tín",
+        "collocations": "trustworthy partner, highly trustworthy, trustworthy friend",
+        "example": "She is a trustworthy friend; you can safely tell her any secret.",
+        "exampleVi": "Cô ấy là một người bạn rất đáng tin cậy; bạn có thể yên tâm chia sẻ bất kỳ bí mật nào.",
+        "optionsVi": [
+          "đáng tin cậy, giữ chữ tín",
+          "dễ phản bội",
+          "nguy hiểm lừa lọc",
+          "thất hứa thường xuyên"
+        ]
+      },
+      {
+        "id": "emo_17",
+        "word": "overwhelmed",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌəʊ.vəˈwelmd/",
+        "meaningVi": "quá tải, choáng ngợp",
+        "collocations": "feel overwhelmed, overwhelmed by work, emotionally overwhelmed",
+        "example": "I felt overwhelmed by the hundreds of unread emails waiting in my inbox.",
+        "exampleVi": "Tôi cảm thấy choáng ngợp và quá tải trước hàng trăm email chưa đọc trong hộp thư.",
+        "optionsVi": [
+          "quá tải, choáng ngợp",
+          "rảnh rỗi thảnh thơi",
+          "vui vẻ phấn chấn",
+          "hài lòng tuyệt đối"
+        ]
+      },
+      {
+        "id": "emo_18",
+        "word": "thrilled",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/θrɪld/",
+        "meaningVi": "vô cùng phấn khích",
+        "collocations": "thrilled to announce, absolutely thrilled",
+        "example": "We are thrilled to announce that our app reached 100,000 active users.",
+        "exampleVi": "Chúng tôi vô cùng phấn khích thông báo ứng dụng đã cán mốc 100.000 người dùng tích cực.",
+        "optionsVi": [
+          "vô cùng phấn khích",
+          "thất vọng tột cùng",
+          "sợ hãi kinh hoàng",
+          "nghi ngờ hoang mang"
+        ]
+      },
+      {
+        "id": "emo_19",
+        "word": "anxious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈæŋk.ʃəs/",
+        "meaningVi": "lo lắng bồn chồn",
+        "collocations": "feel anxious, anxious about exam, reduce anxiety",
+        "example": "It is completely natural to feel anxious before a major job interview.",
+        "exampleVi": "Cảm thấy bồn chồn lo lắng trước một buổi phỏng vấn xin việc quan trọng là điều hoàn toàn tự nhiên.",
+        "optionsVi": [
+          "lo lắng bồn chồn",
+          "bình thản tự tin",
+          "phấn khởi hào hứng",
+          "vô tâm không màng"
+        ]
+      },
+      {
+        "id": "emo_20",
+        "word": "awkward",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈɔː.kwəd/",
+        "meaningVi": "ngượng ngùng, khó xử",
+        "collocations": "awkward silence, awkward situation, feel awkward",
+        "example": "There was an awkward silence when no one could answer the director's question.",
+        "exampleVi": "Đã có một sự im lặng ngượng ngùng khó xử khi không ai trả lời được câu hỏi của giám đốc.",
+        "optionsVi": [
+          "ngượng ngùng, khó xử",
+          "thoải mái tự nhiên",
+          "hài hước dí dỏm",
+          "nghiêm túc trang trọng"
+        ]
+      },
+      {
+        "id": "emo_21",
+        "word": "embarrassed",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪmˈbær.əst/",
+        "meaningVi": "xấu hổ đỏ mặt",
+        "collocations": "feel embarrassed, deeply embarrassed, embarrassed by mistakes",
+        "example": "He felt embarrassed when he forgot his mic was still unmuted during the all-hands meeting.",
+        "exampleVi": "Anh ấy cảm thấy xấu hổ đỏ mặt khi quên chưa tắt mic trong cuộc họp toàn thể công ty.",
+        "optionsVi": [
+          "xấu hổ đỏ mặt",
+          "tự hào kiêu hãnh",
+          "tức giận bùng nổ",
+          "thờ ơ không quan tâm"
+        ]
+      },
+      {
+        "id": "emo_22",
+        "word": "empathetic",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌem.pəˈθet.ɪk/",
+        "meaningVi": "biết thấu cảm đồng cảm",
+        "collocations": "empathetic listener, empathetic leader",
+        "example": "An empathetic leader always listens attentively to their team's struggles.",
+        "exampleVi": "Một nhà lãnh đạo biết thấu cảm luôn chăm chú lắng nghe những khó khăn của đội ngũ.",
+        "optionsVi": [
+          "biết thấu cảm đồng cảm",
+          "lạnh lùng vô cảm",
+          "ích kỷ hẹp hòi",
+          "nịnh bợ lấy lòng"
+        ]
+      },
+      {
+        "id": "emo_23",
+        "word": "proud of",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/praʊd əv/",
+        "meaningVi": "tự hào hãnh diện",
+        "collocations": "proud of your achievements, be proud of yourself",
+        "example": "Your parents must be exceptionally proud of your graduation honors.",
+        "exampleVi": "Bố mẹ bạn ắt hẳn phải vô cùng tự hào về thành tích tốt nghiệp xuất sắc của bạn.",
+        "optionsVi": [
+          "tự hào hãnh diện",
+          "thất vọng chán nản",
+          "lo lắng thấp thỏm",
+          "ghen tị đố kỵ"
+        ]
+      },
+      {
+        "id": "emo_24",
+        "word": "disappointed",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˌdɪs.əˈpɔɪn.tɪd/",
+        "meaningVi": "thất vọng hụt hẫng",
+        "collocations": "deeply disappointed, disappointed with results",
+        "example": "We were deeply disappointed that our favorite coffee shop closed down.",
+        "exampleVi": "Chúng tôi đã rất hụt hẫng thất vọng khi quán cà phê yêu thích của mình đóng cửa.",
+        "optionsVi": [
+          "thất vọng hụt hẫng",
+          "vui mừng bất ngờ",
+          "tự tin ngút ngàn",
+          "không quan tâm"
+        ]
+      },
+      {
+        "id": "emo_25",
+        "word": "curious",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈkjʊə.ri.əs/",
+        "meaningVi": "tò mò, ham tìm tòi",
+        "collocations": "curious about technology, stay curious, naturally curious",
+        "example": "Great engineers remain curious about how underlying systems actually work.",
+        "exampleVi": "Những kỹ sư giỏi luôn giữ tính tò mò muốn biết cách các hệ thống bên dưới thực sự vận hành.",
+        "optionsVi": [
+          "tò mò, ham tìm tòi",
+          "thờ ơ buông xuôi",
+          "tự mãn kiêu ngạo",
+          "ngại học hỏi"
+        ]
+      },
+      {
+        "id": "emo_26",
+        "word": "jealous",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈdʒel.əs/",
+        "meaningVi": "ghen tị đố kỵ",
+        "collocations": "feel jealous of someone, jealous behavior",
+        "example": "Instead of feeling jealous of others' success, learn from their habits.",
+        "exampleVi": "Thay vì ghen tị với thành công của người khác, hãy học hỏi từ các thói quen của họ.",
+        "optionsVi": [
+          "ghen tị đố kỵ",
+          "ngưỡng mộ chân thành",
+          "chia vui thật lòng",
+          "ủng hộ nhiệt tình"
+        ]
+      },
+      {
+        "id": "emo_27",
+        "word": "supportive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/səˈpɔː.tɪv/",
+        "meaningVi": "luôn ủng hộ giúp đỡ",
+        "collocations": "supportive family, highly supportive environment",
+        "example": "Having a supportive partner makes overcoming career obstacles much easier.",
+        "exampleVi": "Có một người bạn đời luôn ủng hộ giúp việc vượt qua các trở ngại sự nghiệp dễ dàng hơn nhiều.",
+        "optionsVi": [
+          "luôn ủng hộ giúp đỡ",
+          "cản trở phá hoại",
+          "chỉ trích cay nghiệt",
+          "bỏ rơi lúc khó khăn"
+        ]
+      },
+      {
+        "id": "emo_28",
+        "word": "introverted",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈɪn.trə.vɜː.tɪd/",
+        "meaningVi": "hướng nội",
+        "collocations": "introverted person, recharge alone as an introvert",
+        "example": "Many gifted software developers are naturally introverted and thrive in quiet focus.",
+        "exampleVi": "Nhiều lập trình viên tài năng có tính cách hướng nội bẩm sinh và làm việc rất tốt khi tập trung yên tĩnh.",
+        "optionsVi": [
+          "hướng nội",
+          "hướng ngoại thích tiệc tùng",
+          "nói nhiều ba hoa",
+          "thích gây chú ý"
+        ]
+      },
+      {
+        "id": "emo_29",
+        "word": "extroverted",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈek.strə.vɜː.tɪd/",
+        "meaningVi": "hướng ngoại",
+        "collocations": "extroverted personality, outgoing and extroverted",
+        "example": "Sales representatives are typically extroverted people who love meeting strangers.",
+        "exampleVi": "Đại diện bán hàng thường là những người hướng ngoại rất thích gặp gỡ người lạ.",
+        "optionsVi": [
+          "hướng ngoại",
+          "hướng nội trầm lắng",
+          "nhút nhát sợ giao tiếp",
+          "thích ở một mình"
+        ]
+      },
+      {
+        "id": "emo_30",
+        "word": "sensitive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈsen.sɪ.tɪv/",
+        "meaningVi": "nhạy cảm, tế nhị",
+        "collocations": "sensitive topic, highly sensitive, sensitive skin",
+        "example": "Salary discussion is often considered a sensitive topic in Asian cultures.",
+        "exampleVi": "Thảo luận về tiền lương thường được coi là một chủ đề tế nhị nhạy cảm trong văn hóa châu Á.",
+        "optionsVi": [
+          "nhạy cảm, tế nhị",
+          "vô tâm bộc trực",
+          "thô lỗ cộc cằn",
+          "bình thường hiển nhiên"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "leisure_hobbies_entertainment",
+    "name": "Sở Thích, Giải Trí & Nghệ Thuật",
+    "icon": "🎨",
+    "category": "daily",
+    "level": "A2",
+    "description": "Phim ảnh, âm nhạc, cắm trại dã ngoại, sách, thể thao điện tử và nghệ thuật cuối tuần.",
+    "words": [
+      {
+        "id": "leisure_01",
+        "word": "binge-watch",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈbɪndʒ wɒtʃ/",
+        "meaningVi": "cày phim liên tục nhiều tập",
+        "collocations": "binge-watch a series on Netflix, weekend binge-watching",
+        "example": "I binge-watched the entire season of Stranger Things in one weekend.",
+        "exampleVi": "Tôi đã cày sạch cả mùa phim Stranger Things chỉ trong một dịp cuối tuần.",
+        "optionsVi": [
+          "cày phim liên tục nhiều tập",
+          "tắt tivi đi ngủ sớm",
+          "xem tin tức thời sự",
+          "xóa tài khoản xem phim"
+        ]
+      },
+      {
+        "id": "leisure_02",
+        "word": "streaming service",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈstriː.mɪŋ ˌsɜː.vɪs/",
+        "meaningVi": "dịch vụ phát trực tuyến",
+        "collocations": "subscribe to a streaming service, popular streaming services",
+        "example": "Most households now subscribe to at least one streaming service for movies.",
+        "exampleVi": "Hầu hết các gia đình hiện nay đều đăng ký ít nhất một dịch vụ phát trực tuyến để xem phim.",
+        "optionsVi": [
+          "dịch vụ phát trực tuyến",
+          "đài truyền hình cáp cũ",
+          "đầu đĩa CD truyền thống",
+          "dịch vụ bưu chính"
+        ]
+      },
+      {
+        "id": "leisure_03",
+        "word": "blockbuster",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈblɒkˌbʌs.tər/",
+        "meaningVi": "bom tấn điện ảnh ăn khách",
+        "collocations": "Hollywood blockbuster, summer blockbuster movie",
+        "example": "Avatar was an international blockbuster that shattered box office records.",
+        "exampleVi": "Avatar là một bom tấn quốc tế đã phá vỡ mọi kỷ lục phòng vé.",
+        "optionsVi": [
+          "bom tấn điện ảnh ăn khách",
+          "bộ phim tài liệu ngắn",
+          "bộ phim bị cấm chiếu",
+          "phim hoạt hình thiếu nhi"
+        ]
+      },
+      {
+        "id": "leisure_04",
+        "word": "soundtrack",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈsaʊnd.træk/",
+        "meaningVi": "nhạc phim",
+        "collocations": "original motion picture soundtrack, listen to the soundtrack",
+        "example": "The emotional soundtrack contributed greatly to the movie's success.",
+        "exampleVi": "Nhạc phim đầy cảm xúc đã đóng góp rất lớn vào thành công của bộ phim.",
+        "optionsVi": [
+          "nhạc phim",
+          "lời thoại kịch bản",
+          "hình ảnh kỹ xảo",
+          "danh sách diễn viên"
+        ]
+      },
+      {
+        "id": "leisure_05",
+        "word": "live concert",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/laɪv ˈkɒn.sət/",
+        "meaningVi": "buổi hòa nhạc trực tiếp",
+        "collocations": "attend a live concert, stadium live concert, buy concert tickets",
+        "example": "Experiencing the electric atmosphere of a live concert is unforgettable.",
+        "exampleVi": "Trải nghiệm bầu không khí bùng nổ của một buổi hòa nhạc trực tiếp là không thể nào quên.",
+        "optionsVi": [
+          "buổi hòa nhạc trực tiếp",
+          "phòng thu âm kín",
+          "chương trình radio",
+          "lớp học thanh nhạc"
+        ]
+      },
+      {
+        "id": "leisure_06",
+        "word": "go hiking",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ɡəʊ ˈhaɪ.kɪŋ/",
+        "meaningVi": "đi leo núi dã ngoại",
+        "collocations": "go hiking in the mountains, hiking trail, hiking gear",
+        "example": "We are planning to go hiking in Sapa to admire the terraced rice fields.",
+        "exampleVi": "Chúng tôi đang lên kế hoạch đi leo núi dã ngoại ở Sa Pa để ngắm ruộng bậc thang.",
+        "optionsVi": [
+          "đi leo núi dã ngoại",
+          "đi bơi ngoài biển",
+          "đi mua sắm phố xá",
+          "ngồi cà phê trò chuyện"
+        ]
+      },
+      {
+        "id": "leisure_07",
+        "word": "board games",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈbɔːd ˌɡeɪmz/",
+        "meaningVi": "trò chơi cờ bàn",
+        "collocations": "play board games with friends, board game cafe",
+        "example": "Playing board games with friends on a rainy evening is our favorite pastime.",
+        "exampleVi": "Chơi board game cùng bạn bè trong một buổi tối mưa là trò tiêu khiển yêu thích của chúng tôi.",
+        "optionsVi": [
+          "trò chơi cờ bàn",
+          "game đối kháng trên điện thoại",
+          "trò chơi mạo hiểm",
+          "môn thể thao ngoài trời"
+        ]
+      },
+      {
+        "id": "leisure_08",
+        "word": "photography",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/fəˈtɒɡ.rə.fi/",
+        "meaningVi": "bộ môn nhiếp ảnh",
+        "collocations": "landscape photography, passion for photography, amateur photography",
+        "example": "He took up street photography as a creative hobby during college.",
+        "exampleVi": "Anh ấy đã bắt đầu theo đuổi môn nhiếp ảnh đường phố như một sở thích sáng tạo thời đại học.",
+        "optionsVi": [
+          "bộ môn nhiếp ảnh",
+          "nghệ thuật điêu khắc",
+          "viết văn sáng tạo",
+          "khiêu vũ thể thao"
+        ]
+      },
+      {
+        "id": "leisure_09",
+        "word": "exhibition",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌek.sɪˈbɪʃ.ən/",
+        "meaningVi": "cuộc triển lãm nghệ thuật",
+        "collocations": "art exhibition, photo exhibition, visit an exhibition",
+        "example": "The contemporary art exhibition attracted thousands of young visitors this weekend.",
+        "exampleVi": "Triển lãm nghệ thuật đương đại đã thu hút hàng nghìn bạn trẻ ghé thăm cuối tuần này.",
+        "optionsVi": [
+          "cuộc triển lãm nghệ thuật",
+          "buổi chiếu phim miễn phí",
+          "hội chợ nông sản",
+          "cuộc thi chạy bộ"
+        ]
+      },
+      {
+        "id": "leisure_10",
+        "word": "pastime",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpɑːs.taɪm/",
+        "meaningVi": "thú vui tiêu khiển lúc rảnh",
+        "collocations": "favorite pastime, popular pastime, outdoor pastimes",
+        "example": "Reading mystery novels by the fireplace is my favorite winter pastime.",
+        "exampleVi": "Đọc tiểu thuyết trinh thám bên lò sưởi là thú tiêu khiển yêu thích nhất vào mùa đông của tôi.",
+        "optionsVi": [
+          "thú vui tiêu khiển lúc rảnh",
+          "công việc chính kiếm sống",
+          "bổn phận gia đình",
+          "nhiệm vụ bắt buộc"
+        ]
+      },
+      {
+        "id": "leisure_11",
+        "word": "genre",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈʒɑ̃ː.rə/",
+        "meaningVi": "thể loại phim / nhạc / sách",
+        "collocations": "musical genre, literary genre, favorite film genre",
+        "example": "Science fiction is undoubtedly my favorite movie genre.",
+        "exampleVi": "Khoa học viễn tưởng chắc chắn là thể loại phim yêu thích nhất của tôi.",
+        "optionsVi": [
+          "thể loại phim / nhạc / sách",
+          "tên tác giả sáng tác",
+          "thời lượng phát sóng",
+          "giải thưởng nghệ thuật"
+        ]
+      },
+      {
+        "id": "leisure_12",
+        "word": "artwork",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɑːt.wɜːk/",
+        "meaningVi": "tác phẩm nghệ thuật",
+        "collocations": "original artwork, display artwork, priceless artworks",
+        "example": "The Louvre museum houses thousands of priceless historic artworks.",
+        "exampleVi": "Bảo tàng Louvre lưu giữ hàng nghìn tác phẩm nghệ thuật lịch sử vô giá.",
+        "optionsVi": [
+          "tác phẩm nghệ thuật",
+          "văn phòng phẩm",
+          "bản thiết kế kỹ thuật",
+          "vật tư xây dựng"
+        ]
+      },
+      {
+        "id": "leisure_13",
+        "word": "outdoor activity",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˌaʊtˈdɔːr ækˈtɪv.ə.ti/",
+        "meaningVi": "hoạt động ngoài trời",
+        "collocations": "enjoy outdoor activities, outdoor activity gear",
+        "example": "Kayaking and camping are exciting outdoor activities for youth.",
+        "exampleVi": "Chèo thuyền kayak và cắm trại là những hoạt động ngoài trời đầy hào hứng cho giới trẻ.",
+        "optionsVi": [
+          "hoạt động ngoài trời",
+          "trò chơi trong nhà",
+          "học tập trực tuyến",
+          "nghỉ ngơi tĩnh dưỡng"
+        ]
+      },
+      {
+        "id": "leisure_14",
+        "word": "sports fan",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/spɔːts fæn/",
+        "meaningVi": "người hâm mộ thể thao",
+        "collocations": "passionate sports fan, huge soccer fan",
+        "example": "He is a die-hard sports fan who never misses a Manchester United match.",
+        "exampleVi": "Anh ấy là một người hâm mộ thể thao cuồng nhiệt không bao giờ bỏ lỡ trận đấu nào của Man United.",
+        "optionsVi": [
+          "người hâm mộ thể thao",
+          "vận động viên chuyên nghiệp",
+          "trọng tài điều khiển trận đấu",
+          "huấn luyện viên trưởng"
+        ]
+      },
+      {
+        "id": "leisure_15",
+        "word": "amateur",
+        "level": "B1",
+        "type": "adjective / noun",
+        "ipa": "/ˈæm.ə.tər/",
+        "meaningVi": "nghiệp dư, không chuyên",
+        "collocations": "amateur photographer, amateur tournament",
+        "example": "Although he is just an amateur painter, his oil portraits are breathtaking.",
+        "exampleVi": "Dù chỉ là một họa sĩ nghiệp dư nhưng những bức tranh chân dung sơn dầu của anh ấy đẹp đến nghẹt thở.",
+        "optionsVi": [
+          "nghiệp dư, không chuyên",
+          "chuyên nghiệp đỉnh cao",
+          "giảng viên đại học",
+          "người mới học việc"
+        ]
+      },
+      {
+        "id": "leisure_16",
+        "word": "recreation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌrek.riˈeɪ.ʃən/",
+        "meaningVi": "sự giải trí phục hồi sức",
+        "collocations": "parks and recreation, recreation center, outdoor recreation",
+        "example": "The community recreation center offers swimming, badminton, and yoga classes.",
+        "exampleVi": "Trung tâm sinh hoạt giải trí cộng đồng cung cấp các lớp bơi lội, cầu lông và yoga.",
+        "optionsVi": [
+          "sự giải trí phục hồi sức",
+          "lao động công ích",
+          "nghiên cứu khoa học",
+          "khám chữa bệnh"
+        ]
+      },
+      {
+        "id": "leisure_17",
+        "word": "play an instrument",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/pleɪ ən ˈɪn.strə.mənt/",
+        "meaningVi": "chơi một nhạc cụ",
+        "collocations": "learn to play an instrument, musical instrument",
+        "example": "Learning to play a musical instrument stimulates brain development.",
+        "exampleVi": "Học chơi một nhạc cụ giúp kích thích phát triển trí não rất tốt.",
+        "optionsVi": [
+          "chơi một nhạc cụ",
+          "hát karaoke",
+          "nghe nhạc qua tai nghe",
+          "khiêu vũ theo nhạc"
+        ]
+      },
+      {
+        "id": "leisure_18",
+        "word": "audience",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈɔː.di.əns/",
+        "meaningVi": "khán giả, người xem",
+        "collocations": "cheering audience, huge audience, audience applause",
+        "example": "The entire audience stood up and applauded loudly at the end of the play.",
+        "exampleVi": "Toàn bộ khán giả đã đứng dậy vỗ tay vang dội khi vở kịch kết thúc.",
+        "optionsVi": [
+          "khán giả, người xem",
+          "diễn viên trên sân khấu",
+          "nhân viên hậu đài",
+          "ban tổ chức sự kiện"
+        ]
+      },
+      {
+        "id": "leisure_19",
+        "word": "creative",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/kriˈeɪ.tɪv/",
+        "meaningVi": "sáng tạo, mới mẻ",
+        "collocations": "creative thinking, creative ideas, highly creative",
+        "example": "Cooking without following strict recipes encourages you to be more creative.",
+        "exampleVi": "Nấu ăn mà không rập khuôn theo công thức gò bó sẽ khuyến khích bạn sáng tạo hơn.",
+        "optionsVi": [
+          "sáng tạo, mới mẻ",
+          "rập khuôn cứng nhắc",
+          "bắt chước sao chép",
+          "nhàm chán đơn điệu"
+        ]
+      },
+      {
+        "id": "leisure_20",
+        "word": "relaxing",
+        "level": "A1",
+        "type": "adjective",
+        "ipa": "/rɪˈlæk.sɪŋ/",
+        "meaningVi": "thư giãn, dễ chịu",
+        "collocations": "relaxing music, relaxing weekend, deeply relaxing",
+        "example": "Listening to instrumental jazz is a deeply relaxing experience after work.",
+        "exampleVi": "Nghe nhạc jazz không lời là một trải nghiệm vô cùng thư giãn sau giờ làm.",
+        "optionsVi": [
+          "thư giãn, dễ chịu",
+          "căng thẳng mệt mỏi",
+          "ồn ào náo loạn",
+          "áp lực nặng nề"
+        ]
+      },
+      {
+        "id": "leisure_21",
+        "word": "gallery",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈɡæl.ər.i/",
+        "meaningVi": "phòng tranh triển lãm",
+        "collocations": "art gallery, visit a gallery, contemporary gallery",
+        "example": "We visited an independent art gallery showcasing paintings by young Hanoi artists.",
+        "exampleVi": "Chúng tôi đã ghé thăm một phòng trưng bày nghệ thuật độc lập trưng bày tranh của các nghệ sĩ trẻ Hà Nội.",
+        "optionsVi": [
+          "phòng tranh triển lãm",
+          "rạp chiếu phim",
+          "sân vận động thể thao",
+          "trung tâm hội nghị"
+        ]
+      },
+      {
+        "id": "leisure_22",
+        "word": "festival",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈfes.tɪ.vəl/",
+        "meaningVi": "lễ hội, liên hoan",
+        "collocations": "music festival, film festival, annual festival",
+        "example": "Da Nang International Fireworks Festival attracts hundreds of thousands of tourists annually.",
+        "exampleVi": "Lễ hội pháo hoa quốc tế Đà Nẵng thu hút hàng trăm nghìn du khách hàng năm.",
+        "optionsVi": [
+          "lễ hội, liên hoan",
+          "kỳ thi sát hạch",
+          "buổi hội thảo khoa học",
+          "cuộc họp nội bộ"
+        ]
+      },
+      {
+        "id": "leisure_23",
+        "word": "camping",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈkæm.pɪŋ/",
+        "meaningVi": "đi cắm trại",
+        "collocations": "go camping, camping tent, camping gear",
+        "example": "We set up our camping tent near the lake and grilled food over the campfire.",
+        "exampleVi": "Chúng tôi dựng lều cắm trại gần hồ và nướng đồ ăn bên bếp lửa trại.",
+        "optionsVi": [
+          "đi cắm trại",
+          "nghỉ tại khách sạn 5 sao",
+          "đi xem ca nhạc",
+          "ở nhà ngủ nghỉ"
+        ]
+      },
+      {
+        "id": "leisure_24",
+        "word": "passion",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpæʃ.ən/",
+        "meaningVi": "niềm đam mê cháy bỏng",
+        "collocations": "pursue your passion, lifelong passion, have a passion for",
+        "example": "He left his corporate banking job to pursue his lifelong passion for baking.",
+        "exampleVi": "Anh ấy đã từ bỏ công việc ngân hàng để theo đuổi niềm đam mê làm bánh suốt đời của mình.",
+        "optionsVi": [
+          "niềm đam mê cháy bỏng",
+          "nỗi sợ hãi ám ảnh",
+          "sự ép buộc miễn cưỡng",
+          "thói quen vô thức"
+        ]
+      },
+      {
+        "id": "leisure_25",
+        "word": "pottery",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpɒt.ər.i/",
+        "meaningVi": "nghề làm gốm sứ",
+        "collocations": "pottery workshop, handmade pottery, pottery making",
+        "example": "Taking a weekend pottery workshop in Bat Trang village was deeply therapeutic.",
+        "exampleVi": "Tham gia workshop làm gốm cuối tuần ở làng Bát Tràng giúp chữa lành tâm hồn rất tốt.",
+        "optionsVi": [
+          "nghề làm gốm sứ",
+          "nghề dệt vải",
+          "nghề mộc thủ công",
+          "nghề rèn kim loại"
+        ]
+      },
+      {
+        "id": "leisure_26",
+        "word": "cinema ticket",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈsɪn.ə.mə ˈtɪk.ɪt/",
+        "meaningVi": "vé vào rạp xem phim",
+        "collocations": "book cinema tickets online, buy two cinema tickets",
+        "example": "You can book cinema tickets in advance via mobile banking apps.",
+        "exampleVi": "Bạn có thể đặt vé xem phim trước qua các ứng dụng ngân hàng di động.",
+        "optionsVi": [
+          "vé vào rạp xem phim",
+          "vé máy bay",
+          "vé tàu hỏa",
+          "vé giữ xe"
+        ]
+      },
+      {
+        "id": "leisure_27",
+        "word": "video game",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/ˈvɪd.i.əʊ ɡeɪm/",
+        "meaningVi": "trò chơi điện tử",
+        "collocations": "play video games, video game console",
+        "example": "Playing multiplayer video games online keeps me connected with high school friends.",
+        "exampleVi": "Chơi game trực tuyến nhiều người giúp tôi giữ kết nối với bạn bè thời cấp ba.",
+        "optionsVi": [
+          "trò chơi điện tử",
+          "phim hoạt hình",
+          "chương trình truyền hình",
+          "video ca nhạc"
+        ]
+      },
+      {
+        "id": "leisure_28",
+        "word": "talent",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈtæl.ənt/",
+        "meaningVi": "tài năng thiên bẩm",
+        "collocations": "natural talent, musical talent, show your talent",
+        "example": "She has a natural talent for playing the acoustic guitar without formal training.",
+        "exampleVi": "Cô ấy có năng khiếu thiên bẩm chơi đàn guitar acoustic dù không qua trường lớp đào tạo.",
+        "optionsVi": [
+          "tài năng thiên bẩm",
+          "sự may mắn ngẫu nhiên",
+          "tiền bạc của cải",
+          "tấm bằng khen"
+        ]
+      },
+      {
+        "id": "leisure_29",
+        "word": "read novels",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/riːd ˈnɒv.əlz/",
+        "meaningVi": "đọc tiểu thuyết văn học",
+        "collocations": "love to read novels, mystery novels",
+        "example": "Reading novels before sleeping helps calm your racing thoughts.",
+        "exampleVi": "Đọc tiểu thuyết trước khi đi ngủ giúp làm dịu những suy nghĩ miên man trong đầu.",
+        "optionsVi": [
+          "đọc tiểu thuyết văn học",
+          "đọc báo tài chính",
+          "lướt mạng xã hội",
+          "viết nhật ký"
+        ]
+      },
+      {
+        "id": "leisure_30",
+        "word": "museum",
+        "level": "A1",
+        "type": "noun",
+        "ipa": "/mjuːˈziː.əm/",
+        "meaningVi": "bảo tàng lịch sử",
+        "collocations": "visit a museum, national museum, history museum",
+        "example": "Vietnam Museum of Ethnology is a must-visit cultural attraction in Hanoi.",
+        "exampleVi": "Bảo tàng Dân tộc học Việt Nam là một điểm đến văn hóa không thể bỏ qua tại Hà Nội.",
+        "optionsVi": [
+          "bảo tàng lịch sử",
+          "công viên giải trí",
+          "trung tâm thể thao",
+          "rạp xiếc thành phố"
+        ]
+      }
+    ]
+  }
+]

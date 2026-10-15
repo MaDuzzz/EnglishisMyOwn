@@ -1,0 +1,3011 @@
+[
+  {
+    "groupId": "it_agile_scrum",
+    "name": "Agile, Scrum & Quản Lý Dự Án IT",
+    "icon": "🏃",
+    "category": "tech",
+    "level": "B1",
+    "description": "Daily standup, Sprint, Backlog, Blocker, Retrospective, User Story và quản trị phân kỳ sản phẩm.",
+    "words": [
+      {
+        "id": "agile_01",
+        "word": "blocker",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈblɒk.ər/",
+        "meaningVi": "vướng mắc, rào cản tiến độ",
+        "collocations": "hit a blocker, resolve blockers, any blockers today",
+        "example": "I don't have any blockers today; I am working on the payment screen.",
+        "exampleVi": "Hôm nay tôi không gặp vướng mắc gì; tôi đang làm tiếp màn hình thanh toán.",
+        "optionsVi": [
+          "vướng mắc, rào cản tiến độ",
+          "mục tiêu hoàn thành",
+          "người hỗ trợ kỹ thuật",
+          "tài liệu hướng dẫn"
+        ]
+      },
+      {
+        "id": "agile_02",
+        "word": "backlog",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbæk.lɒɡ/",
+        "meaningVi": "danh sách công việc tồn đọng",
+        "collocations": "product backlog, backlog grooming, prioritize the backlog",
+        "example": "The Product Owner is refining user stories in the product backlog.",
+        "exampleVi": "Product Owner đang rà soát và làm rõ các user story trong danh sách backlog.",
+        "optionsVi": [
+          "danh sách công việc tồn đọng",
+          "mã nguồn đã xóa",
+          "nhật ký lỗi hệ thống",
+          "báo cáo tài chính"
+        ]
+      },
+      {
+        "id": "agile_03",
+        "word": "sprint",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/sprɪnt/",
+        "meaningVi": "chu kỳ phát triển 1-2 tuần",
+        "collocations": "two-week sprint, sprint planning, sprint goal, end of sprint",
+        "example": "Our main sprint goal is to deliver the biometric login feature.",
+        "exampleVi": "Mục tiêu sprint chính lần này là bàn giao tính năng đăng nhập sinh trắc học.",
+        "optionsVi": [
+          "chu kỳ phát triển 1-2 tuần",
+          "chạy bộ đường dài",
+          "dự án kéo dài cả năm",
+          "hợp đồng thử việc"
+        ]
+      },
+      {
+        "id": "agile_04",
+        "word": "retrospective",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌret.rəˈspek.tɪv/",
+        "meaningVi": "buổi họp nhìn lại, rút kinh nghiệm",
+        "collocations": "sprint retrospective, action items from retrospective",
+        "example": "In the retrospective, we discussed how to improve our code review quality.",
+        "exampleVi": "Trong buổi họp rút kinh nghiệm, chúng tôi thảo luận cách cải thiện chất lượng review code.",
+        "optionsVi": [
+          "buổi họp nhìn lại, rút kinh nghiệm",
+          "buổi phỏng vấn tuyển dụng",
+          "lễ ra mắt sản phẩm",
+          "kỳ thi sát hạch"
+        ]
+      },
+      {
+        "id": "agile_05",
+        "word": "acceptance criteria",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/əkˈsep.təns kraɪˈtɪə.ri.ə/",
+        "meaningVi": "tiêu chí nghiệm thu tính năng",
+        "collocations": "meet acceptance criteria, define acceptance criteria",
+        "example": "Make sure all acceptance criteria are covered by automated tests.",
+        "exampleVi": "Hãy đảm bảo tất cả các tiêu chí nghiệm thu đều được kiểm thử tự động bao phủ.",
+        "optionsVi": [
+          "tiêu chí nghiệm thu tính năng",
+          "hồ sơ xin việc",
+          "điều khoản thanh toán",
+          "quy tắc bảo mật"
+        ]
+      },
+      {
+        "id": "agile_06",
+        "word": "impediment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪmˈped.ɪ.mənt/",
+        "meaningVi": "trở ngại, khó khăn cản trở",
+        "collocations": "remove impediments, face serious impediments",
+        "example": "The Scrum Master is responsible for removing team impediments.",
+        "exampleVi": "Scrum Master có trách nhiệm tháo gỡ các trở ngại cho cả nhóm phát triển.",
+        "optionsVi": [
+          "trở ngại, khó khăn cản trở",
+          "cơ hội thăng tiến",
+          "phần thưởng thành tích",
+          "kế hoạch tương lai"
+        ]
+      },
+      {
+        "id": "agile_07",
+        "word": "daily standup",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˌdeɪ.li ˈstænd.ʌp/",
+        "meaningVi": "buổi họp nhanh 15 phút đầu ngày",
+        "collocations": "join daily standup, 15-minute daily standup",
+        "example": "In our daily standup, each member shares what they did yesterday, what they plan today, and any blockers.",
+        "exampleVi": "Trong buổi họp daily standup, mỗi người chia sẻ việc đã làm hôm qua, việc dự định làm hôm nay và vướng mắc nếu có.",
+        "optionsVi": [
+          "buổi họp nhanh 15 phút đầu ngày",
+          "buổi tiệc sinh nhật",
+          "họp kỷ luật nhân viên",
+          "khóa đào tạo chuyên sâu"
+        ]
+      },
+      {
+        "id": "agile_08",
+        "word": "sprint planning",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/sprɪnt ˈplæn.ɪŋ/",
+        "meaningVi": "họp lập kế hoạch sprint",
+        "collocations": "conduct sprint planning, sprint planning session",
+        "example": "During sprint planning, the squad selects tickets from the backlog and commits to a sprint goal.",
+        "exampleVi": "Trong buổi lập kế hoạch sprint, nhóm chọn các ticket từ backlog và cam kết mục tiêu sprint.",
+        "optionsVi": [
+          "họp lập kế hoạch sprint",
+          "buổi tổng kết cuối năm",
+          "phỏng vấn nhân sự mới",
+          "lập dự toán ngân sách"
+        ]
+      },
+      {
+        "id": "agile_09",
+        "word": "user story",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈjuː.zər ˌstɔː.ri/",
+        "meaningVi": "yêu cầu tính năng theo góc nhìn người dùng",
+        "collocations": "write a user story, user story format, acceptance criteria for user story",
+        "example": "A standard user story follows: 'As a user, I want X so that I can achieve Y.'",
+        "exampleVi": "Một user story tiêu chuẩn có cấu trúc: 'Là người dùng, tôi muốn X để tôi có thể đạt được Y.'",
+        "optionsVi": [
+          "yêu cầu tính năng theo góc nhìn người dùng",
+          "truyện ngắn hư cấu",
+          "lịch sử tài khoản cá nhân",
+          "bản báo cáo lỗi phần mềm"
+        ]
+      },
+      {
+        "id": "agile_10",
+        "word": "story points",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈstɔː.ri pɔɪnts/",
+        "meaningVi": "điểm ước lượng độ khó công việc",
+        "collocations": "estimate story points, Fibonacci story points, 5 story points",
+        "example": "We estimated this complex authentication refactor at eight story points.",
+        "exampleVi": "Chúng tôi ước lượng việc tái cấu trúc xác thực phức tạp này ở mức 8 story points.",
+        "optionsVi": [
+          "điểm ước lượng độ khó công việc",
+          "điểm thi trắc nghiệm",
+          "điểm tích lũy mua hàng",
+          "điểm xếp hạng nhân viên"
+        ]
+      },
+      {
+        "id": "agile_11",
+        "word": "definition of done",
+        "level": "B2",
+        "type": "phrase",
+        "ipa": "/ˌdef.ɪˈnɪʃ.ən əv dʌn/",
+        "meaningVi": "định nghĩa hoàn thành tính năng",
+        "collocations": "meet the definition of done (DoD), clear definition of done",
+        "example": "Our Definition of Done includes unit tests, peer review, and deployment to staging.",
+        "exampleVi": "Định nghĩa hoàn thành (DoD) của chúng tôi bao gồm kiểm thử unit test, review code đồng nghiệp và triển khai lên staging.",
+        "optionsVi": [
+          "định nghĩa hoàn thành tính năng",
+          "kết thúc hợp đồng lao động",
+          "thời điểm nghỉ hưu",
+          "quy định hủy bỏ dự án"
+        ]
+      },
+      {
+        "id": "agile_12",
+        "word": "velocity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/vəˈlɒs.ə.ti/",
+        "meaningVi": "tốc độ hoàn thành công việc",
+        "collocations": "team velocity, average sprint velocity, track velocity",
+        "example": "Our squad maintains a stable velocity of around 40 story points per sprint.",
+        "exampleVi": "Đội ngũ của chúng tôi duy trì một tốc độ làm việc ổn định khoảng 40 story points mỗi sprint.",
+        "optionsVi": [
+          "tốc độ hoàn thành công việc",
+          "tốc độ đường truyền mạng",
+          "vận tốc máy chủ",
+          "thời gian chạy máy"
+        ]
+      },
+      {
+        "id": "agile_13",
+        "word": "scrum master",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/skrʌm ˈmɑː.stər/",
+        "meaningVi": "người điều phối quy trình Scrum",
+        "collocations": "certified scrum master, scrum master facilitates meetings",
+        "example": "The Scrum Master facilitated the retrospective and helped remove road blocks.",
+        "exampleVi": "Scrum Master đã điều phối buổi họp retrospective và giúp tháo gỡ các vướng mắc của nhóm.",
+        "optionsVi": [
+          "người điều phối quy trình Scrum",
+          "giám đốc điều hành",
+          "kỹ sư trưởng lập trình",
+          "chuyên viên kiểm thử"
+        ]
+      },
+      {
+        "id": "agile_14",
+        "word": "product owner",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈprɒd.ʌkt ˌəʊ.nər/",
+        "meaningVi": "chủ sở hữu sản phẩm (PO)",
+        "collocations": "consult the product owner, product owner clarifies requirements",
+        "example": "The Product Owner decided to postpone the dark mode feature to the next release.",
+        "exampleVi": "Product Owner đã quyết định lùi tính năng giao diện tối sang đợt phát hành kế tiếp.",
+        "optionsVi": [
+          "chủ sở hữu sản phẩm (PO)",
+          "người mua cổ phần",
+          "nhân viên thiết kế đồ họa",
+          "kỹ sư bảo trì máy chủ"
+        ]
+      },
+      {
+        "id": "agile_15",
+        "word": "kanban board",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈkæn.bæn bɔːd/",
+        "meaningVi": "bảng Kanban theo dõi việc",
+        "collocations": "move cards on Kanban board, digital Kanban board",
+        "example": "We track development progress by dragging task cards across the Kanban board.",
+        "exampleVi": "Chúng tôi theo dõi tiến độ phát triển bằng cách kéo các thẻ nhiệm vụ trên bảng Kanban.",
+        "optionsVi": [
+          "bảng Kanban theo dõi việc",
+          "bảng đen lớp học",
+          "bảng mạch điện tử",
+          "bảng thông báo nội bộ"
+        ]
+      },
+      {
+        "id": "agile_16",
+        "word": "work in progress",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/wɜːk ɪn ˈprəʊ.ɡres/",
+        "meaningVi": "công việc đang làm dở (WIP)",
+        "collocations": "limit work in progress, WIP limit on Kanban",
+        "example": "To avoid multitasking burnout, we set a Work in Progress (WIP) limit of three tasks per dev.",
+        "exampleVi": "Để tránh kiệt sức vì đa nhiệm, chúng tôi đặt giới hạn công việc đang làm (WIP) tối đa 3 đầu việc mỗi người.",
+        "optionsVi": [
+          "công việc đang làm dở (WIP)",
+          "công việc đã hoàn thành",
+          "nhiệm vụ bị hủy bỏ",
+          "đầu việc chưa bắt đầu"
+        ]
+      },
+      {
+        "id": "agile_17",
+        "word": "release notes",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/rɪˈliːs nəʊts/",
+        "meaningVi": "bản ghi chú cập nhật phiên bản",
+        "collocations": "publish release notes, read the release notes",
+        "example": "Always publish detailed release notes so users know what bugs were fixed.",
+        "exampleVi": "Hãy luôn công bố bản ghi chú phát hành chi tiết để người dùng nắm được những lỗi nào đã được sửa.",
+        "optionsVi": [
+          "bản ghi chú cập nhật phiên bản",
+          "hướng dẫn bảo hành",
+          "hóa đơn mua phần mềm",
+          "quy định sử dụng"
+        ]
+      },
+      {
+        "id": "agile_18",
+        "word": "epic",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈep.ɪk/",
+        "meaningVi": "nhóm tính năng lớn (Epic)",
+        "collocations": "break down an epic, complex epic, deliver an epic",
+        "example": "The 'Payment Overhaul' epic was broken down into twelve smaller user stories.",
+        "exampleVi": "Nhóm tính năng lớn 'Cải tổ Hệ thống Thanh toán' đã được chia nhỏ thành 12 user story.",
+        "optionsVi": [
+          "nhóm tính năng lớn (Epic)",
+          "bài thơ sử thi cổ đại",
+          "lỗi hệ thống nghiêm trọng",
+          "buổi ra mắt sản phẩm"
+        ]
+      },
+      {
+        "id": "agile_19",
+        "word": "task breakdown",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/tɑːsk ˈbreɪk.daʊn/",
+        "meaningVi": "chia nhỏ nhiệm vụ",
+        "collocations": "detailed task breakdown, conduct task breakdown",
+        "example": "A granular task breakdown helps engineers estimate technical effort accurately.",
+        "exampleVi": "Việc phân chia nhiệm vụ chi tiết giúp các kỹ sư ước lượng khối lượng kỹ thuật chính xác.",
+        "optionsVi": [
+          "chia nhỏ nhiệm vụ",
+          "bỏ qua các bước",
+          "gộp tất cả làm một",
+          "hủy bỏ nhiệm vụ"
+        ]
+      },
+      {
+        "id": "agile_20",
+        "word": "spike",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/spaɪk/",
+        "meaningVi": "nhiệm vụ nghiên cứu thử nghiệm",
+        "collocations": "technical spike, conduct a spike, timebox a spike",
+        "example": "We created a 2-day technical spike to evaluate if GraphQL fits our mobile app.",
+        "exampleVi": "Chúng tôi đã tạo một nhiệm vụ spike nghiên cứu 2 ngày để đánh giá xem GraphQL có phù hợp với ứng dụng di động không.",
+        "optionsVi": [
+          "nhiệm vụ nghiên cứu thử nghiệm",
+          "lỗi sập máy chủ",
+          "tăng đột biến lưu lượng",
+          "bài kiểm tra tuyển dụng"
+        ]
+      },
+      {
+        "id": "agile_21",
+        "word": "scope creep",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/skəʊp kriːp/",
+        "meaningVi": "phình to phạm vi dự án ngoài kế hoạch",
+        "collocations": "prevent scope creep, suffer from scope creep",
+        "example": "Constantly adding unapproved client requests led to massive scope creep and delayed the launch.",
+        "exampleVi": "Liên tục thêm vào các yêu cầu chưa được duyệt từ khách hàng dẫn đến phình to phạm vi dự án và làm chậm ngày ra mắt.",
+        "optionsVi": [
+          "phình to phạm vi dự án ngoài kế hoạch",
+          "thu hẹp dự án",
+          "hoàn thành đúng hạn",
+          "tiết kiệm chi phí"
+        ]
+      },
+      {
+        "id": "agile_22",
+        "word": "burndown chart",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbɜːn.daʊn tʃɑːt/",
+        "meaningVi": "biểu đồ tiến độ công việc còn lại",
+        "collocations": "inspect burndown chart, ideal burndown line",
+        "example": "The sprint burndown chart clearly showed that the team was ahead of schedule.",
+        "exampleVi": "Biểu đồ burndown của sprint đã cho thấy rõ ràng rằng cả nhóm đang vượt tiến độ đề ra.",
+        "optionsVi": [
+          "biểu đồ tiến độ công việc còn lại",
+          "báo cáo tài chính lỗ lãi",
+          "sơ đồ cấu trúc mạng",
+          "bảng lương nhân viên"
+        ]
+      },
+      {
+        "id": "agile_23",
+        "word": "demo session",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈdem.əʊ ˌseʃ.ən/",
+        "meaningVi": "buổi trình diễn sản phẩm (Demo)",
+        "collocations": "host a demo session, sprint demo session",
+        "example": "We showcased the new biometric checkout flow during the Friday sprint demo session.",
+        "exampleVi": "Chúng tôi đã trình diễn luồng thanh toán sinh trắc học mới trong buổi demo sprint chiều thứ Sáu.",
+        "optionsVi": [
+          "buổi trình diễn sản phẩm (Demo)",
+          "buổi phỏng vấn xin việc",
+          "cuộc họp kỷ luật",
+          "kỳ thi lý thuyết"
+        ]
+      },
+      {
+        "id": "agile_24",
+        "word": "timebox",
+        "level": "B2",
+        "type": "verb / noun",
+        "ipa": "/ˈtaɪm.bɒks/",
+        "meaningVi": "giới hạn thời gian cố định",
+        "collocations": "timebox the discussion to 15 minutes, strict timebox",
+        "example": "Let's timebox our architectural debate to thirty minutes so we can make a timely decision.",
+        "exampleVi": "Chúng ta hãy giới hạn thời gian tranh luận kiến trúc trong 30 phút để đưa ra quyết định kịp thời.",
+        "optionsVi": [
+          "giới hạn thời gian cố định",
+          "kéo dài vô thời hạn",
+          "hủy bỏ lịch hẹn",
+          "chia đều thời gian cho cả năm"
+        ]
+      },
+      {
+        "id": "agile_25",
+        "word": "iteration",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌɪt.ərˈeɪ.ʃən/",
+        "meaningVi": "vòng lặp cải tiến",
+        "collocations": "next iteration, rapid iterations, iterative development",
+        "example": "Agile software engineering relies on rapid iterations based on user feedback.",
+        "exampleVi": "Kỹ thuật phần mềm Agile dựa trên các vòng lặp cải tiến nhanh dựa trên phản hồi của người dùng.",
+        "optionsVi": [
+          "vòng lặp cải tiến",
+          "sự chấm dứt vĩnh viễn",
+          "sự sao chép mã nguồn",
+          "lỗi vòng lặp vô tận"
+        ]
+      },
+      {
+        "id": "agile_26",
+        "word": "continuous feedback",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kənˈtɪn.ju.əs ˈfiːd.bæk/",
+        "meaningVi": "sự phản hồi liên tục",
+        "collocations": "embrace continuous feedback, continuous feedback loop",
+        "example": "Establishing a continuous feedback loop between QA and developers eliminates release defects.",
+        "exampleVi": "Thiết lập luồng phản hồi liên tục giữa QA và lập trình viên giúp loại bỏ các lỗi khi phát hành.",
+        "optionsVi": [
+          "sự phản hồi liên tục",
+          "đánh giá một lần duy nhất",
+          "sự im lặng tuyệt đối",
+          "khiếu nại chính thức"
+        ]
+      },
+      {
+        "id": "agile_27",
+        "word": "roadmap",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈrəʊd.mæp/",
+        "meaningVi": "lộ trình phát triển sản phẩm",
+        "collocations": "product roadmap, technology roadmap, quarterly roadmap",
+        "example": "The CPO unveiled the 2027 product roadmap highlighting generative AI features.",
+        "exampleVi": "Giám đốc Sản phẩm đã công bố lộ trình sản phẩm 2027 với điểm nhấn là các tính năng GenAI.",
+        "optionsVi": [
+          "lộ trình phát triển sản phẩm",
+          "bản đồ chỉ đường giao thông",
+          "sơ đồ mặt bằng văn phòng",
+          "hướng dẫn cài đặt"
+        ]
+      },
+      {
+        "id": "agile_28",
+        "word": "refinement",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/rɪˈfaɪn.mənt/",
+        "meaningVi": "buổi rà soát làm rõ backlog",
+        "collocations": "backlog refinement session, continuous refinement",
+        "example": "During backlog refinement, engineers ask clarifying questions on acceptance criteria.",
+        "exampleVi": "Trong buổi rà soát backlog, các kỹ sư đặt câu hỏi làm rõ các tiêu chí nghiệm thu.",
+        "optionsVi": [
+          "buổi rà soát làm rõ backlog",
+          "buổi kiểm tra an ninh",
+          "lễ khánh thành dự án",
+          "buổi tiệc công ty"
+        ]
+      },
+      {
+        "id": "agile_29",
+        "word": "increment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈɪŋ.krə.mənt/",
+        "meaningVi": "phần sản phẩm gia tăng hoàn chỉnh",
+        "collocations": "shippable product increment, deliver an increment",
+        "example": "Each sprint must culminate in a usable, thoroughly tested product increment.",
+        "exampleVi": "Mỗi sprint phải mang lại một phần sản phẩm gia tăng có thể sử dụng được và đã qua kiểm thử kỹ lưỡng.",
+        "optionsVi": [
+          "phần sản phẩm gia tăng hoàn chỉnh",
+          "bản báo cáo lý thuyết",
+          "đoạn code chưa chạy được",
+          "kế hoạch trên giấy"
+        ]
+      },
+      {
+        "id": "agile_30",
+        "word": "standup update",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/ˈstænd.ʌp ʌpˌdeɪt/",
+        "meaningVi": "báo cáo nhanh trong họp standup",
+        "collocations": "give standup update, concise standup update",
+        "example": "Keep your standup update concise: focus on achievements, plan, and obstacles.",
+        "exampleVi": "Hãy giữ báo cáo standup thật ngắn gọn: tập trung vào kết quả đã làm, kế hoạch và trở ngại.",
+        "optionsVi": [
+          "báo cáo nhanh trong họp standup",
+          "báo cáo tài chính quý",
+          "bản đề xuất lương",
+          "đơn khiếu nại khách hàng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "it_software_dev",
+    "name": "Lập Trình & Phát Triển Phần Mềm",
+    "icon": "💻",
+    "category": "tech",
+    "level": "B1",
+    "description": "Viết mã, Debug, Code Review, Refactor, Clean Code, giải thuật và các mẫu thiết kế hướng đối tượng.",
+    "words": [
+      {
+        "id": "dev_01",
+        "word": "debug",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/diːˈbʌɡ/",
+        "meaningVi": "tìm và sửa lỗi mã nguồn",
+        "collocations": "debug the code, debugging tool, spend hours debugging",
+        "example": "I spent all morning debugging a weird memory leak issue.",
+        "exampleVi": "Tôi đã dành cả buổi sáng để tìm và sửa một lỗi rò rỉ bộ nhớ kỳ lạ.",
+        "optionsVi": [
+          "tìm và sửa lỗi mã nguồn",
+          "viết thêm mã độc",
+          "xóa cơ sở dữ liệu",
+          "thiết kế giao diện"
+        ]
+      },
+      {
+        "id": "dev_02",
+        "word": "refactor",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌriːˈfæk.tər/",
+        "meaningVi": "tái cấu trúc mã nguồn",
+        "collocations": "refactor legacy code, refactor for performance, continuous refactoring",
+        "example": "We should refactor this function to make it easier to test.",
+        "exampleVi": "Chúng ta nên tái cấu trúc lại hàm này để dễ viết unit test hơn.",
+        "optionsVi": [
+          "tái cấu trúc mã nguồn",
+          "xóa bỏ hoàn toàn dự án",
+          "chuyển sang ngôn ngữ khác",
+          "tạo thêm lỗi mới"
+        ]
+      },
+      {
+        "id": "dev_03",
+        "word": "pull request",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/pʊl rɪˈkwest/",
+        "meaningVi": "yêu cầu gộp mã nguồn (PR)",
+        "collocations": "open a pull request, review a PR, merge the pull request",
+        "example": "I have created a pull request; could you please take a look?",
+        "exampleVi": "Tôi đã tạo một pull request rồi; bạn vui lòng vào xem qua giúp tôi nhé?",
+        "optionsVi": [
+          "yêu cầu gộp mã nguồn (PR)",
+          "yêu cầu xin nghỉ phép",
+          "khiếu nại khách hàng",
+          "báo cáo tài chính"
+        ]
+      },
+      {
+        "id": "dev_04",
+        "word": "deprecated",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈdep.rə.keɪ.tɪd/",
+        "meaningVi": "lỗi thời, không khuyên dùng",
+        "collocations": "deprecated API, deprecated library, mark as deprecated",
+        "example": "This method is deprecated in version 3.0 and will be removed soon.",
+        "exampleVi": "Phương thức này đã bị coi là lỗi thời ở phiên bản 3.0 và sẽ sớm bị xóa bỏ.",
+        "optionsVi": [
+          "lỗi thời, không khuyên dùng",
+          "mới cập nhật hiện đại",
+          "tốc độ nhanh nhất",
+          "bắt buộc phải dùng"
+        ]
+      },
+      {
+        "id": "dev_05",
+        "word": "reproduce",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌriː.prəˈdjuːs/",
+        "meaningVi": "tái hiện lại lỗi",
+        "collocations": "reproduce the bug, steps to reproduce, hard to reproduce",
+        "example": "Can you provide the exact steps to reproduce this crash on Android?",
+        "exampleVi": "Bạn có thể cung cấp các bước chính xác để tái hiện lại lỗi văng ứng dụng này trên Android không?",
+        "optionsVi": [
+          "tái hiện lại lỗi",
+          "che giấu lỗi phần mềm",
+          "sửa lỗi tức thì",
+          "báo cáo lên giám đốc"
+        ]
+      },
+      {
+        "id": "dev_06",
+        "word": "endpoint",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈend.pɔɪnt/",
+        "meaningVi": "điểm cuối API",
+        "collocations": "RESTful endpoint, secure endpoint, API endpoint documentation",
+        "example": "The frontend sends a POST request to the authentication endpoint.",
+        "exampleVi": "Phía frontend gửi một yêu cầu POST tới endpoint xác thực người dùng.",
+        "optionsVi": [
+          "điểm cuối API",
+          "dây cáp mạng",
+          "điểm kết thúc dự án",
+          "hạn chót bàn giao"
+        ]
+      },
+      {
+        "id": "dev_07",
+        "word": "seamless",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈsiːm.ləs/",
+        "meaningVi": "liền mạch, mượt mà trơn tru",
+        "collocations": "seamless user experience, seamless integration, seamless transition",
+        "example": "The update provides a seamless user experience across all devices.",
+        "exampleVi": "Bản cập nhật mang đến trải nghiệm người dùng liền mạch trên mọi thiết bị.",
+        "optionsVi": [
+          "liền mạch, mượt mà trơn tru",
+          "chắp vá, gián đoạn",
+          "chậm chạp, giật lag",
+          "phức tạp khó dùng"
+        ]
+      },
+      {
+        "id": "dev_08",
+        "word": "algorithm",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈæl.ɡə.rɪ.ðəm/",
+        "meaningVi": "thuật toán logic",
+        "collocations": "sorting algorithm, efficient algorithm, machine learning algorithm",
+        "example": "The recommendation algorithm suggests movies tailored to your past preferences.",
+        "exampleVi": "Thuật toán gợi ý sẽ đề xuất những bộ phim phù hợp với sở thích trước đây của bạn.",
+        "optionsVi": [
+          "thuật toán logic",
+          "ngôn ngữ lập trình",
+          "bảng cơ sở dữ liệu",
+          "thiết bị phần cứng"
+        ]
+      },
+      {
+        "id": "dev_09",
+        "word": "repository",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/rɪˈpɒz.ɪ.tər.i/",
+        "meaningVi": "kho lưu trữ mã nguồn (Repo)",
+        "collocations": "Git repository, clone a repository, public repository",
+        "example": "Clone the GitHub repository to your local computer to start developing.",
+        "exampleVi": "Hãy sao chép (clone) kho mã nguồn GitHub về máy tính cá nhân để bắt đầu lập trình.",
+        "optionsVi": [
+          "kho lưu trữ mã nguồn (Repo)",
+          "nhà kho chứa thiết bị",
+          "hộp thư điện tử",
+          "thư mục ảnh"
+        ]
+      },
+      {
+        "id": "dev_10",
+        "word": "merge conflict",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/mɜːdʒ ˈkɒn.flɪkt/",
+        "meaningVi": "xung đột mã nguồn khi gộp",
+        "collocations": "resolve merge conflicts, avoid merge conflicts",
+        "example": "I spent thirty minutes resolving a tricky merge conflict in the config file.",
+        "exampleVi": "Tôi đã mất 30 phút để tháo gỡ một xung đột merge conflict hóc búa trong file cấu hình.",
+        "optionsVi": [
+          "xung đột mã nguồn khi gộp",
+          "sự cố mất mạng",
+          "lỗi cú pháp biên dịch",
+          "xung đột tính cách đồng nghiệp"
+        ]
+      },
+      {
+        "id": "dev_11",
+        "word": "code review",
+        "level": "A2",
+        "type": "collocation",
+        "ipa": "/kəʊd rɪˈvjuː/",
+        "meaningVi": "kiểm duyệt mã nguồn (Code Review)",
+        "collocations": "conduct a code review, thorough code review, code review guidelines",
+        "example": "Careful code review prevents security flaws from reaching production environments.",
+        "exampleVi": "Rà soát code cẩn thận giúp ngăn ngừa các lỗ hổng bảo mật lọt vào môi trường thực tế.",
+        "optionsVi": [
+          "kiểm duyệt mã nguồn (Code Review)",
+          "viết tài liệu kỹ thuật",
+          "chấm điểm nhân viên",
+          "thử việc lập trình viên"
+        ]
+      },
+      {
+        "id": "dev_12",
+        "word": "asynchronous",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/eɪˈsɪŋ.krə.nəs/",
+        "meaningVi": "bất đồng bộ (Async)",
+        "collocations": "asynchronous programming, async await, asynchronous HTTP request",
+        "example": "JavaScript uses an event loop to handle asynchronous I/O operations smoothly.",
+        "exampleVi": "JavaScript sử dụng event loop để xử lý các tác vụ vào/ra bất đồng bộ một cách mượt mà.",
+        "optionsVi": [
+          "bất đồng bộ (Async)",
+          "đồng bộ tuần tự",
+          "xử lý song song bằng CPU",
+          "chạy đơn luồng bị khóa"
+        ]
+      },
+      {
+        "id": "dev_13",
+        "word": "middleware",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmɪd.əl.weər/",
+        "meaningVi": "phần mềm trung gian (Middleware)",
+        "collocations": "authentication middleware, logging middleware, custom middleware",
+        "example": "We added an authentication middleware to verify JWT tokens on every incoming API request.",
+        "exampleVi": "Chúng tôi đã thêm một middleware xác thực để kiểm tra JWT token trên mọi request API gửi tới.",
+        "optionsVi": [
+          "phần mềm trung gian (Middleware)",
+          "phần mềm độc hại",
+          "hệ điều hành máy chủ",
+          "trình duyệt web"
+        ]
+      },
+      {
+        "id": "dev_14",
+        "word": "dependency",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈpen.dən.si/",
+        "meaningVi": "thư viện phụ thuộc (Dependency)",
+        "collocations": "install dependencies, update dependencies, circular dependency",
+        "example": "Run 'npm install' to download all project dependencies specified in package.json.",
+        "exampleVi": "Chạy lệnh 'npm install' để tải về tất cả các thư viện phụ thuộc được chỉ định trong package.json.",
+        "optionsVi": [
+          "thư viện phụ thuộc (Dependency)",
+          "mã nguồn tự viết",
+          "cơ sở dữ liệu",
+          "bản vá bảo mật"
+        ]
+      },
+      {
+        "id": "dev_15",
+        "word": "memory leak",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmem.ər.i liːk/",
+        "meaningVi": "lỗi rò rỉ bộ nhớ RAM",
+        "collocations": "detect memory leaks, fix memory leak, cause a memory leak",
+        "example": "Unclosed database connections caused a severe memory leak that crashed the server.",
+        "exampleVi": "Các kết nối cơ sở dữ liệu không được đóng đã gây rò rỉ bộ nhớ nghiêm trọng làm sập máy chủ.",
+        "optionsVi": [
+          "lỗi rò rỉ bộ nhớ RAM",
+          "mất nguồn điện máy chủ",
+          "cháy chip xử lý",
+          "hỏng ổ đĩa cứng"
+        ]
+      },
+      {
+        "id": "dev_16",
+        "word": "clean code",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kliːn kəʊd/",
+        "meaningVi": "mã nguồn sạch dễ đọc",
+        "collocations": "write clean code, clean code principles, readable and clean code",
+        "example": "Writing clean code is a sign of professionalism and respect for your teammates.",
+        "exampleVi": "Viết mã nguồn sạch là dấu hiệu của sự chuyên nghiệp và tôn trọng đồng nghiệp.",
+        "optionsVi": [
+          "mã nguồn sạch dễ đọc",
+          "mã nguồn đã bị xóa",
+          "mã được mã hóa bí mật",
+          "mã độc không chứa virus"
+        ]
+      },
+      {
+        "id": "dev_17",
+        "word": "design pattern",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈzaɪn ˌpæt.ən/",
+        "meaningVi": "mẫu thiết kế kiến trúc phần mềm",
+        "collocations": "Singleton design pattern, Factory pattern, implement design patterns",
+        "example": "The Observer design pattern is widely used in event-driven user interfaces.",
+        "exampleVi": "Mẫu thiết kế Observer được sử dụng rộng rãi trong các giao diện người dùng hướng sự kiện.",
+        "optionsVi": [
+          "mẫu thiết kế kiến trúc phần mềm",
+          "giao diện đồ họa người dùng",
+          "mẫu hoa văn trang trí",
+          "bản vẽ kỹ thuật"
+        ]
+      },
+      {
+        "id": "dev_18",
+        "word": "inheritance",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈher.ɪ.təns/",
+        "meaningVi": "tính kế thừa trong OOP",
+        "collocations": "class inheritance, multiple inheritance, object-oriented inheritance",
+        "example": "Inheritance allows a subclass to reuse properties and methods from a parent class.",
+        "exampleVi": "Tính kế thừa cho phép một lớp con tái sử dụng các thuộc tính và phương thức từ lớp cha.",
+        "optionsVi": [
+          "tính kế thừa trong OOP",
+          "tính bao đóng dữ liệu",
+          "tính đa hình",
+          "sự phân tán dữ liệu"
+        ]
+      },
+      {
+        "id": "dev_19",
+        "word": "encapsulation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˌkæp.sjʊˈleɪ.ʃən/",
+        "meaningVi": "tính bao đóng giấu dữ liệu",
+        "collocations": "data encapsulation, principle of encapsulation",
+        "example": "Encapsulation prevents unauthorized external access to an object's internal state.",
+        "exampleVi": "Tính bao đóng ngăn chặn sự truy cập trái phép từ bên ngoài vào trạng thái nội bộ của đối tượng.",
+        "optionsVi": [
+          "tính bao đóng giấu dữ liệu",
+          "tính kế thừa thuộc tính",
+          "thuật toán đệ quy",
+          "cơ chế bất đồng bộ"
+        ]
+      },
+      {
+        "id": "dev_20",
+        "word": "polymorphism",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌpɒl.iˈmɔː.fɪ.zəm/",
+        "meaningVi": "tính đa hình trong OOP",
+        "collocations": "runtime polymorphism, compile-time polymorphism",
+        "example": "Polymorphism enables us to treat different drawing shapes uniformly in the canvas code.",
+        "exampleVi": "Tính đa hình cho phép chúng tôi xử lý các hình vẽ khác nhau theo cách đồng nhất trong mã canvas.",
+        "optionsVi": [
+          "tính đa hình trong OOP",
+          "tính đơn luồng",
+          "tính năng mở rộng",
+          "tính bảo mật cấp cao"
+        ]
+      },
+      {
+        "id": "dev_21",
+        "word": "boilerplate code",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbɔɪ.lə.pleɪt kəʊd/",
+        "meaningVi": "mã soạn sẵn lặp lại",
+        "collocations": "reduce boilerplate code, eliminate boilerplate, framework boilerplate",
+        "example": "Modern frameworks like Next.js significantly reduce boilerplate code for routing.",
+        "exampleVi": "Các framework hiện đại như Next.js giúp giảm bớt rất nhiều mã soạn sẵn rườm rà cho phần định tuyến.",
+        "optionsVi": [
+          "mã soạn sẵn lặp lại",
+          "mã nguồn độc quyền",
+          "thuật toán phức tạp",
+          "mã đã bị lỗi thời"
+        ]
+      },
+      {
+        "id": "dev_22",
+        "word": "syntax error",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈsɪn.tæks ˌer.ər/",
+        "meaningVi": "lỗi cú pháp câu lệnh",
+        "collocations": "fix syntax error, unexpected syntax error, syntax error at line 42",
+        "example": "The compiler stopped execution due to a missing semicolon syntax error on line 42.",
+        "exampleVi": "Trình biên dịch đã ngừng thực thi do một lỗi cú pháp thiếu dấu chấm phẩy ở dòng 42.",
+        "optionsVi": [
+          "lỗi cú pháp câu lệnh",
+          "lỗi logic nghiệp vụ",
+          "lỗi sập máy chủ",
+          "lỗi mạng không phản hồi"
+        ]
+      },
+      {
+        "id": "dev_23",
+        "word": "compile",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəmˈpaɪl/",
+        "meaningVi": "biên dịch mã nguồn",
+        "collocations": "compile TypeScript into JavaScript, compile successfully",
+        "example": "The project compiles in less than two seconds thanks to the Rust-based bundler.",
+        "exampleVi": "Dự án biên dịch chưa đến 2 giây nhờ vào bộ đóng gói viết bằng ngôn ngữ Rust.",
+        "optionsVi": [
+          "biên dịch mã nguồn",
+          "giải mã bảo mật",
+          "xóa tệp tin rác",
+          "chạy kiểm thử tự động"
+        ]
+      },
+      {
+        "id": "dev_24",
+        "word": "runtime error",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈrʌn.taɪm ˌer.ər/",
+        "meaningVi": "lỗi khi đang chạy chương trình",
+        "collocations": "catch runtime errors, unexpected runtime error",
+        "example": "Null pointer exceptions are the most frequent runtime error in legacy Java applications.",
+        "exampleVi": "Lỗi ngoại lệ con trỏ rỗng là lỗi thời gian chạy thường gặp nhất trong các ứng dụng Java cũ.",
+        "optionsVi": [
+          "lỗi khi đang chạy chương trình",
+          "lỗi cú pháp khi viết code",
+          "lỗi mất kết nối mạng",
+          "lỗi phần cứng máy tính"
+        ]
+      },
+      {
+        "id": "dev_25",
+        "word": "commit message",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/kəˈmɪt ˌmes.ɪdʒ/",
+        "meaningVi": "thông điệp mô tả commit",
+        "collocations": "meaningful commit message, write clear commit messages",
+        "example": "Always write meaningful commit messages following the Conventional Commits specification.",
+        "exampleVi": "Hãy luôn viết thông điệp commit có ý nghĩa rõ ràng theo chuẩn Conventional Commits.",
+        "optionsVi": [
+          "thông điệp mô tả commit",
+          "tin nhắn trò chuyện nội bộ",
+          "email báo cáo lỗi",
+          "tiêu đề bản cập nhật"
+        ]
+      },
+      {
+        "id": "dev_26",
+        "word": "branch",
+        "level": "A2",
+        "type": "noun / verb",
+        "ipa": "/brɑːntʃ/",
+        "meaningVi": "nhánh mã nguồn (Git Branch)",
+        "collocations": "feature branch, switch to a new branch, merge branch",
+        "example": "Create a new feature branch before making any changes to the authentication logic.",
+        "exampleVi": "Hãy tạo một nhánh tính năng mới trước khi thực hiện bất kỳ sửa đổi nào đối với logic xác thực.",
+        "optionsVi": [
+          "nhánh mã nguồn (Git Branch)",
+          "thư mục máy tính",
+          "kho dữ liệu đám mây",
+          "đường dẫn URL"
+        ]
+      },
+      {
+        "id": "dev_27",
+        "word": "naming convention",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈneɪ.mɪŋ kənˌven.ʃən/",
+        "meaningVi": "quy ước đặt tên",
+        "collocations": "follow naming conventions, consistent naming convention",
+        "example": "Following consistent naming conventions makes a shared codebase intuitive to navigate.",
+        "exampleVi": "Tuân thủ các quy ước đặt tên nhất quán giúp kho mã nguồn chung dễ hiểu và dễ điều hướng hơn.",
+        "optionsVi": [
+          "quy ước đặt tên",
+          "quy định bảo mật",
+          "tiêu chuẩn kiểm thử",
+          "hướng dẫn cài đặt"
+        ]
+      },
+      {
+        "id": "dev_28",
+        "word": "parameter",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/pəˈræm.ɪ.tər/",
+        "meaningVi": "tham số đầu vào của hàm",
+        "collocations": "function parameter, optional parameters, pass parameters",
+        "example": "This helper function accepts two parameters: the user ID and the target role.",
+        "exampleVi": "Hàm trợ giúp này nhận hai tham số đầu vào: mã định danh người dùng và vai trò mục tiêu.",
+        "optionsVi": [
+          "tham số đầu vào của hàm",
+          "giá trị trả về của hàm",
+          "tên biến cục bộ",
+          "lỗi logic vòng lặp"
+        ]
+      },
+      {
+        "id": "dev_29",
+        "word": "return value",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/rɪˈtɜːn ˌvæl.juː/",
+        "meaningVi": "giá trị trả về của hàm",
+        "collocations": "expected return value, check the return value",
+        "example": "The return value of the validatePassword function is a boolean true or false.",
+        "exampleVi": "Giá trị trả về của hàm validatePassword là một giá trị boolean đúng (true) hoặc sai (false).",
+        "optionsVi": [
+          "giá trị trả về của hàm",
+          "tham số đầu vào",
+          "biến môi trường hệ thống",
+          "thông báo lỗi cú pháp"
+        ]
+      },
+      {
+        "id": "dev_30",
+        "word": "event loop",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪˈvent luːp/",
+        "meaningVi": "vòng lặp sự kiện (Event Loop)",
+        "collocations": "block the event loop, understanding event loop",
+        "example": "Never run CPU-heavy computational algorithms on the main Node.js event loop thread.",
+        "exampleVi": "Không bao giờ được chạy các thuật toán tính toán nặng ngốn CPU trên luồng event loop chính của Node.js.",
+        "optionsVi": [
+          "vòng lặp sự kiện (Event Loop)",
+          "vòng lặp for thông thường",
+          "hàm đệ quy gọi chính nó",
+          "luồng xử lý đa luồng"
+        ]
+      },
+      {
+        "id": "dev_31",
+        "word": "payload",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpeɪ.ləʊd/",
+        "meaningVi": "phần dữ liệu thực của gói tin",
+        "collocations": "JSON payload, request payload, payload size limit",
+        "example": "Ensure the JSON payload sent in the POST request includes all required profile fields.",
+        "exampleVi": "Hãy đảm bảo gói dữ liệu payload JSON gửi trong request POST chứa đầy đủ các trường hồ sơ bắt buộc.",
+        "optionsVi": [
+          "phần dữ liệu thực của gói tin",
+          "tiêu đề gói tin header",
+          "mã trạng thái status code",
+          "địa chỉ IP máy chủ"
+        ]
+      },
+      {
+        "id": "dev_32",
+        "word": "legacy code",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈleɡ.ə.si kəʊd/",
+        "meaningVi": "mã nguồn cũ kế thừa",
+        "collocations": "maintain legacy code, migrate legacy code to TypeScript",
+        "example": "A large portion of the banking system is still powered by COBOL legacy code.",
+        "exampleVi": "Một phần lớn hệ thống ngân hàng hiện vẫn đang được vận hành bởi mã nguồn cũ kỹ COBOL.",
+        "optionsVi": [
+          "mã nguồn cũ kế thừa",
+          "mã nguồn viết mới tinh",
+          "mã nguồn mở miễn phí",
+          "thư viện thương mại"
+        ]
+      },
+      {
+        "id": "dev_33",
+        "word": "concurrency",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈkʌr.ən.si/",
+        "meaningVi": "tính đồng thời xử lý",
+        "collocations": "high concurrency, concurrency control, handle concurrency",
+        "example": "Go's goroutines provide lightweight primitives to handle thousands of concurrent requests.",
+        "exampleVi": "Các goroutine của Go cung cấp cơ chế siêu nhẹ để xử lý hàng nghìn yêu cầu đồng thời.",
+        "optionsVi": [
+          "tính đồng thời xử lý",
+          "tính đơn luồng tuần tự",
+          "sự sao chép dữ liệu",
+          "khả năng tương thích"
+        ]
+      },
+      {
+        "id": "dev_34",
+        "word": "idempotent",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/aɪˈdem.pəʊ.tənt/",
+        "meaningVi": "tính chất luân đẳng (idempotent)",
+        "collocations": "idempotent API, idempotent PUT request, ensure idempotency",
+        "example": "Payment webhooks must be idempotent to prevent charging users multiple times upon retry.",
+        "exampleVi": "Webhook thanh toán phải có tính luân đẳng để tránh việc trừ tiền khách nhiều lần khi gửi lại.",
+        "optionsVi": [
+          "tính chất luân đẳng (idempotent)",
+          "tính bất biến",
+          "tính bảo mật cao",
+          "tính ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "dev_35",
+        "word": "thread-safe",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈθred.seɪf/",
+        "meaningVi": "an toàn đa luồng",
+        "collocations": "thread-safe data structure, ensure thread safety",
+        "example": "ConcurrentHashMap is a thread-safe collection designed for multi-threaded Java systems.",
+        "exampleVi": "ConcurrentHashMap là một cấu trúc dữ liệu an toàn đa luồng được thiết kế cho các hệ thống Java nhiều thread.",
+        "optionsVi": [
+          "an toàn đa luồng",
+          "chạy đơn luồng",
+          "khóa toàn bộ máy chủ",
+          "không an toàn dữ liệu"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "it_testing_qa",
+    "name": "Kiểm thử & Đảm bảo chất lượng (QA & Testing)",
+    "description": "25 thuật ngữ kiểm thử phần mềm, kịch bản test, bẫy lỗi và đảm bảo chất lượng hệ thống",
+    "level": "B1-B2",
+    "icon": "bi-bug-fill",
+    "badge": "QA / Testing",
+    "words": [
+      {
+        "id": "qa_01",
+        "word": "regression testing",
+        "level": "B1",
+        "ipa": "/rɪˈɡreʃ.ən ˌtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử hồi quy",
+        "collocations": "automated regression testing, regression test suite, run regression testing",
+        "example": "We run automated regression testing before every major release to catch unintended bugs.",
+        "optionsVi": [
+          "kiểm thử hồi quy",
+          "kiểm thử tải cao",
+          "kiểm tra phần cứng",
+          "cài đặt cơ sở dữ liệu"
+        ]
+      },
+      {
+        "id": "qa_02",
+        "word": "unit test",
+        "level": "A2",
+        "ipa": "/ˈjuː.nɪt ˌtest/",
+        "type": "noun",
+        "meaningVi": "kiểm thử đơn vị",
+        "collocations": "write unit tests, pass unit tests, unit test coverage",
+        "example": "Each developer must write unit tests for their helper functions before opening a PR.",
+        "optionsVi": [
+          "kiểm thử đơn vị",
+          "hướng dẫn người dùng",
+          "biên dịch dự án",
+          "họp đánh giá code"
+        ]
+      },
+      {
+        "id": "qa_03",
+        "word": "integration test",
+        "level": "B1",
+        "ipa": "/ˌɪn.tɪˈɡreɪ.ʃən ˌtest/",
+        "type": "noun",
+        "meaningVi": "kiểm thử tích hợp",
+        "collocations": "run integration tests, database integration test, continuous integration test",
+        "example": "Integration tests verify that our payment gateway communicates properly with third-party APIs.",
+        "optionsVi": [
+          "kiểm thử tích hợp",
+          "thiết kế giao diện",
+          "quét virus định kỳ",
+          "tối ưu hóa bộ nhớ"
+        ]
+      },
+      {
+        "id": "qa_04",
+        "word": "bug triage",
+        "level": "B2",
+        "ipa": "/bʌɡ ˈtriː.ɑːʒ/",
+        "type": "noun",
+        "meaningVi": "sàng lọc và phân loại lỗi",
+        "collocations": "bug triage meeting, daily triage, triage incoming defects",
+        "example": "The QA lead conducts a daily bug triage to prioritize high-severity tickets for the sprint.",
+        "optionsVi": [
+          "sàng lọc và phân loại lỗi",
+          "xóa toàn bộ log",
+          "đổi tên nhánh git",
+          "sao chép mã nguồn"
+        ]
+      },
+      {
+        "id": "qa_05",
+        "word": "reproduce",
+        "level": "B1",
+        "ipa": "/ˌriː.prəˈdʒuːs/",
+        "type": "verb",
+        "meaningVi": "tái hiện lỗi",
+        "collocations": "reproduce a bug, steps to reproduce, easily reproduced",
+        "example": "Please provide detailed steps to reproduce the crash on iOS 16 devices.",
+        "optionsVi": [
+          "tái hiện lỗi",
+          "bỏ qua sự cố",
+          "cấp chứng chỉ số",
+          "triển khai máy chủ"
+        ]
+      },
+      {
+        "id": "qa_06",
+        "word": "test case",
+        "level": "A2",
+        "ipa": "/ˈtest ˌkeɪs/",
+        "type": "noun",
+        "meaningVi": "ca kiểm thử, kịch bản thử",
+        "collocations": "write test cases, execute test cases, negative test case",
+        "example": "Make sure you include negative test cases to check how the system handles invalid input.",
+        "optionsVi": [
+          "ca kiểm thử, kịch bản thử",
+          "hợp đồng bản quyền",
+          "thư mời họp",
+          "khóa bảo mật"
+        ]
+      },
+      {
+        "id": "qa_07",
+        "word": "assertion",
+        "level": "B1",
+        "ipa": "/əˈsɜː.ʃən/",
+        "type": "noun",
+        "meaningVi": "câu lệnh khẳng định kỳ vọng",
+        "collocations": "assertion failed, assert equal, test assertions",
+        "example": "The test failed because the assertion expected HTTP 200 but received HTTP 500.",
+        "optionsVi": [
+          "câu lệnh khẳng định kỳ vọng",
+          "hàm lặp vô hạn",
+          "lệnh thoát khẩn cấp",
+          "tài khoản thử nghiệm"
+        ]
+      },
+      {
+        "id": "qa_08",
+        "word": "mock",
+        "level": "B1",
+        "ipa": "/mɒk/",
+        "type": "noun / verb",
+        "meaningVi": "giả lập đối tượng / dữ liệu",
+        "collocations": "mock API response, mock object, mock server",
+        "example": "We mock the payment provider API so we can test checkout flows without charging real credit cards.",
+        "optionsVi": [
+          "giả lập đối tượng / dữ liệu",
+          "kích hoạt giao dịch thật",
+          "xóa bản ghi",
+          "nén tệp tin"
+        ]
+      },
+      {
+        "id": "qa_09",
+        "word": "code coverage",
+        "level": "B2",
+        "ipa": "/kəʊd ˈkʌv.ər.ɪdʒ/",
+        "type": "noun",
+        "meaningVi": "độ bao phủ kiểm thử mã",
+        "collocations": "80% code coverage, measure code coverage, branch coverage",
+        "example": "Our CI pipeline requires at least 85% code coverage before any PR can be merged.",
+        "optionsVi": [
+          "độ bao phủ kiểm thử mã",
+          "dung lượng tệp nhị phân",
+          "tốc độ tải trang",
+          "số lượng lập trình viên"
+        ]
+      },
+      {
+        "id": "qa_10",
+        "word": "edge case",
+        "level": "B1",
+        "ipa": "/edʒ keɪs/",
+        "type": "noun",
+        "meaningVi": "trường hợp biên hiếm gặp",
+        "collocations": "handle edge cases, rare edge case, overlook an edge case",
+        "example": "Handling edge cases like leap years or timezone shifts prevents unexpected server failures.",
+        "optionsVi": [
+          "trường hợp biên hiếm gặp",
+          "lộ trình sản phẩm",
+          "giao diện người dùng",
+          "thư mục mặc định"
+        ]
+      },
+      {
+        "id": "qa_11",
+        "word": "flaky test",
+        "level": "B2",
+        "ipa": "/ˈfleɪ.ki test/",
+        "type": "noun",
+        "meaningVi": "kiểm thử chập chờn thất thường",
+        "collocations": "eliminate flaky tests, identify flaky tests, flaky test suite",
+        "example": "A flaky test passed on local machines but failed randomly on the build server due to network timing.",
+        "optionsVi": [
+          "kiểm thử chập chờn thất thường",
+          "kiểm thử tải cao",
+          "kiểm thử giao diện",
+          "kiểm thử bảo mật"
+        ]
+      },
+      {
+        "id": "qa_12",
+        "word": "smoke test",
+        "level": "B1",
+        "ipa": "/sməʊk test/",
+        "type": "noun",
+        "meaningVi": "kiểm tra nhanh tính năng cốt lõi",
+        "collocations": "perform a smoke test, automated smoke test, post-deployment smoke test",
+        "example": "After deploying to staging, we run a quick smoke test to verify basic login and navigation work.",
+        "optionsVi": [
+          "kiểm tra nhanh tính năng cốt lõi",
+          "kiểm thử xâm nhập sâu",
+          "kiểm toán tài chính",
+          "hồi phục dữ liệu cũ"
+        ]
+      },
+      {
+        "id": "qa_13",
+        "word": "sanity check",
+        "level": "B1",
+        "ipa": "/ˈsæn.ə.ti tʃek/",
+        "type": "noun",
+        "meaningVi": "kiểm tra nhanh tính hợp lý",
+        "collocations": "quick sanity check, do a sanity check, basic sanity check",
+        "example": "Let's do a quick sanity check on the calculated totals before sending the report to the CEO.",
+        "optionsVi": [
+          "kiểm tra nhanh tính hợp lý",
+          "kiểm tra tải trọng nặng",
+          "đổi mật khẩu quản trị",
+          "thay đổi cấu trúc bảng"
+        ]
+      },
+      {
+        "id": "qa_14",
+        "word": "load testing",
+        "level": "B2",
+        "ipa": "/ləʊd ˈtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử khả năng chịu tải",
+        "collocations": "conduct load testing, peak load testing, load testing tool",
+        "example": "We performed load testing simulating 50,000 concurrent users ahead of Black Friday sales.",
+        "optionsVi": [
+          "kiểm thử khả năng chịu tải",
+          "kiểm thử chính tả",
+          "kiểm tra kiểu dữ liệu",
+          "thiết kế sơ đồ lớp"
+        ]
+      },
+      {
+        "id": "qa_15",
+        "word": "test harness",
+        "level": "B2",
+        "ipa": "/test ˈhɑː.nəs/",
+        "type": "noun",
+        "meaningVi": "khung môi trường chạy kiểm thử",
+        "collocations": "automated test harness, configure the test harness, test harness framework",
+        "example": "The test harness automates test execution and compiles summary metrics into our dashboard.",
+        "optionsVi": [
+          "khung môi trường chạy kiểm thử",
+          "dây cáp kết nối mạng",
+          "bàn phím cơ lập trình",
+          "tài khoản người dùng VIP"
+        ]
+      },
+      {
+        "id": "qa_16",
+        "word": "false positive",
+        "level": "B2",
+        "ipa": "/fɔːls ˈpɒz.ə.tɪv/",
+        "type": "noun",
+        "meaningVi": "báo động giả, cảnh báo sai",
+        "collocations": "false positive alert, reduce false positives, distinguish false positives",
+        "example": "The security scanner flagged a false positive on our internal logging library.",
+        "optionsVi": [
+          "báo động giả, cảnh báo sai",
+          "kết quả chính xác 100%",
+          "thành công ngoài dự kiến",
+          "lỗi nghiêm trọng mức 1"
+        ]
+      },
+      {
+        "id": "qa_17",
+        "word": "user acceptance testing",
+        "level": "B1",
+        "ipa": "/ˌjuː.zər əkˈsep.təns ˌtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử chấp nhận người dùng",
+        "collocations": "UAT phase, conduct UAT, sign off on UAT",
+        "example": "The banking client completed UAT and officially signed off on the release candidate.",
+        "optionsVi": [
+          "kiểm thử chấp nhận người dùng",
+          "kiểm tra mã nguồn tự động",
+          "bảo trì phần cứng",
+          "cài đặt hệ điều hành"
+        ]
+      },
+      {
+        "id": "qa_18",
+        "word": "end-to-end testing",
+        "level": "B2",
+        "ipa": "/ˌend.tuːˈend ˌtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử toàn trình E2E",
+        "collocations": "E2E testing suite, automated end-to-end testing, Cypress E2E testing",
+        "example": "End-to-end testing with Playwright verifies the entire journey from cart checkout to order confirmation.",
+        "optionsVi": [
+          "kiểm thử toàn trình E2E",
+          "kiểm tra hàm đơn lẻ",
+          "quét cổng mạng",
+          "nén video trực tuyến"
+        ]
+      },
+      {
+        "id": "qa_19",
+        "word": "defect density",
+        "level": "B2",
+        "ipa": "/ˈdiː.fekt ˌden.sə.ti/",
+        "type": "noun",
+        "meaningVi": "mật độ lỗi trên lượng mã",
+        "collocations": "measure defect density, low defect density, defects per KLOC",
+        "example": "Our defect density dropped significantly after introducing strict peer code reviews.",
+        "optionsVi": [
+          "mật độ lỗi trên lượng mã",
+          "tốc độ đường truyền",
+          "mức tiêu hao pin",
+          "thời gian chạy vòng lặp"
+        ]
+      },
+      {
+        "id": "qa_20",
+        "word": "boundary value",
+        "level": "B1",
+        "ipa": "/ˈbaʊn.dər.i ˌvæl.juː/",
+        "type": "noun",
+        "meaningVi": "giá trị biên trong kiểm thử",
+        "collocations": "boundary value analysis, test boundary values, upper boundary",
+        "example": "Boundary value analysis checks how the input field behaves with 0, 1, 99, and 100 characters.",
+        "optionsVi": [
+          "giá trị biên trong kiểm thử",
+          "giá trị trung bình cộng",
+          "khoảng cách vật lý",
+          "tần số quét màn hình"
+        ]
+      },
+      {
+        "id": "qa_21",
+        "word": "test suite",
+        "level": "A2",
+        "ipa": "/test swiːt/",
+        "type": "noun",
+        "meaningVi": "bộ bài kiểm thử phần mềm",
+        "collocations": "comprehensive test suite, run the test suite, green test suite",
+        "example": "The complete test suite takes approximately twelve minutes to run in Docker containers.",
+        "optionsVi": [
+          "bộ bài kiểm thử phần mềm",
+          "phòng khách sạn cao cấp",
+          "bộ công cụ thiết kế đồ họa",
+          "danh sách bảng dữ liệu"
+        ]
+      },
+      {
+        "id": "qa_22",
+        "word": "test automation",
+        "level": "B1",
+        "ipa": "/test ˌɔː.təˈmeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tự động hóa kiểm thử",
+        "collocations": "test automation engineer, implement test automation, test automation framework",
+        "example": "Investing in test automation freed our QA team to focus on exploratory testing.",
+        "optionsVi": [
+          "tự động hóa kiểm thử",
+          "hỗ trợ khách hàng 24/7",
+          "tự động sao lưu đĩa cứng",
+          "biên tập video tự động"
+        ]
+      },
+      {
+        "id": "qa_23",
+        "word": "black-box testing",
+        "level": "B2",
+        "ipa": "/ˈblæk.bɒks ˌtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử hộp đen",
+        "collocations": "black-box testing technique, functional black-box testing, conduct black-box tests",
+        "example": "Black-box testing focuses purely on inputs and expected outputs without inspecting the internal source code.",
+        "optionsVi": [
+          "kiểm thử hộp đen",
+          "kiểm thử hộp trắng",
+          "kiểm tra bộ nhớ RAM",
+          "dò tìm cáp quang đứt"
+        ]
+      },
+      {
+        "id": "qa_24",
+        "word": "stub",
+        "level": "B2",
+        "ipa": "/stʌb/",
+        "type": "noun",
+        "meaningVi": "đối tượng giả trả về kết quả cố định",
+        "collocations": "create a stub, stub methods, test stub",
+        "example": "We used a test stub to return hardcoded user profiles whenever the user service was invoked.",
+        "optionsVi": [
+          "đối tượng giả trả về kết quả cố định",
+          "hàm đệ quy phức tạp",
+          "lệnh xóa cơ sở dữ liệu",
+          "khóa công khai"
+        ]
+      },
+      {
+        "id": "qa_25",
+        "word": "benchmark",
+        "level": "B2",
+        "ipa": "/ˈbentʃ.mɑːk/",
+        "type": "noun / verb",
+        "meaningVi": "đo đạc đối chuẩn hiệu năng",
+        "collocations": "performance benchmark, benchmark results, set a benchmark",
+        "example": "The engineers ran benchmarks comparing PostgreSQL against SQLite under concurrent write workloads.",
+        "optionsVi": [
+          "đo đạc đối chuẩn hiệu năng",
+          "chấm dứt hợp đồng lao động",
+          "thay đổi địa chỉ IP",
+          "khóa tài khoản người dùng"
+        ]
+      }
+    ],
+    "category": "tech"
+  },
+  {
+    "groupId": "it_devops_cloud",
+    "name": "DevOps & Điện toán đám mây (DevOps & Cloud)",
+    "description": "30 thuật ngữ CI/CD, hạ tầng đám mây AWS/GCP, Docker, Kubernetes và giám sát hệ thống",
+    "level": "B1-B2",
+    "icon": "bi-cloud-check-fill",
+    "badge": "DevOps / Cloud",
+    "words": [
+      {
+        "id": "devops_01",
+        "word": "continuous integration",
+        "level": "B1",
+        "ipa": "/kənˈtɪn.ju.əs ˌɪn.tɪˈɡreɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tích hợp liên tục (CI)",
+        "collocations": "CI server, practice continuous integration, GitHub Actions CI",
+        "example": "Continuous integration automatically builds and tests code commits every time someone pushes to GitHub.",
+        "optionsVi": [
+          "tích hợp liên tục (CI)",
+          "triển khai thủ công",
+          "bảo mật phần cứng",
+          "sao lưu cơ sở dữ liệu"
+        ]
+      },
+      {
+        "id": "devops_02",
+        "word": "continuous delivery",
+        "level": "B1",
+        "ipa": "/kənˈtɪn.ju.əs dɪˈlɪv.ər.i/",
+        "type": "noun",
+        "meaningVi": "chuyển giao liên tục (CD)",
+        "collocations": "CI/CD pipeline, continuous delivery workflow, automated delivery",
+        "example": "Continuous delivery ensures that code passing automated tests is immediately ready for deployment.",
+        "optionsVi": [
+          "chuyển giao liên tục (CD)",
+          "bán hàng trực tuyến",
+          "họp nội bộ hàng ngày",
+          "đổi tên máy chủ"
+        ]
+      },
+      {
+        "id": "devops_03",
+        "word": "pipeline",
+        "level": "B1",
+        "ipa": "/ˈpaɪp.laɪn/",
+        "type": "noun",
+        "meaningVi": "đường ống tự động hóa CI/CD",
+        "collocations": "build pipeline, deployment pipeline, pipeline failed",
+        "example": "The deployment pipeline triggered automatically when the PR was merged into the main branch.",
+        "optionsVi": [
+          "đường ống tự động hóa CI/CD",
+          "đường ống dẫn nước",
+          "dây cáp mạng",
+          "hàng đợi cuộc gọi"
+        ]
+      },
+      {
+        "id": "devops_04",
+        "word": "containerization",
+        "level": "B2",
+        "ipa": "/kənˌteɪ.nər.aɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "đóng gói ứng dụng vào container",
+        "collocations": "app containerization, Docker containerization, benefits of containerization",
+        "example": "Containerization allows our application to run identically across development, staging, and production servers.",
+        "optionsVi": [
+          "đóng gói ứng dụng vào container",
+          "đóng thùng carton",
+          "lắp ráp máy tính bàn",
+          "nén file zip"
+        ]
+      },
+      {
+        "id": "devops_05",
+        "word": "Docker image",
+        "level": "B1",
+        "ipa": "/ˈdɒk.ər ˈɪm.ɪdʒ/",
+        "type": "noun",
+        "meaningVi": "ảnh môi trường Docker",
+        "collocations": "build a Docker image, lightweight Docker image, base image",
+        "example": "We used an Alpine Linux base image to keep our Docker image size under 50 megabytes.",
+        "optionsVi": [
+          "ảnh môi trường Docker",
+          "hình chụp màn hình",
+          "ảnh biểu tượng ứng dụng",
+          "tập tin đồ họa vector"
+        ]
+      },
+      {
+        "id": "devops_06",
+        "word": "Kubernetes cluster",
+        "level": "B2",
+        "ipa": "/ˌkuː.bərˈne.tiːz ˈklʌs.tər/",
+        "type": "noun",
+        "meaningVi": "cụm máy chủ điều phối Kubernetes",
+        "collocations": "manage a Kubernetes cluster, multi-node cluster, Kubernetes pod",
+        "example": "Our production workload runs across a managed Kubernetes cluster on Google Cloud Platform.",
+        "optionsVi": [
+          "cụm máy chủ điều phối Kubernetes",
+          "mạng máy in văn phòng",
+          "danh sách email nội bộ",
+          "ổ đĩa cứng gắn ngoài"
+        ]
+      },
+      {
+        "id": "devops_07",
+        "word": "orchestration",
+        "level": "B2",
+        "ipa": "/ˌɔː.kɪˈstreɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "điều phối tự động container",
+        "collocations": "container orchestration, service orchestration, orchestration platform",
+        "example": "Kubernetes is the industry standard for container orchestration at scale.",
+        "optionsVi": [
+          "điều phối tự động container",
+          "hòa âm phối khí nhạc",
+          "sắp xếp lịch công tác",
+          "lắp ráp vi mạch"
+        ]
+      },
+      {
+        "id": "devops_08",
+        "word": "infrastructure as code",
+        "level": "B2",
+        "ipa": "/ˈɪn.frəˌstrʌk.tʃər æz kəʊd/",
+        "type": "noun",
+        "meaningVi": "hạ tầng quản lý bằng mã nguồn",
+        "collocations": "adopt IaC, Terraform infrastructure as code, IaC templates",
+        "example": "With infrastructure as code tools like Terraform, spinning up an entire cloud VPC takes minutes.",
+        "optionsVi": [
+          "hạ tầng quản lý bằng mã nguồn",
+          "hướng dẫn lắp đặt dây cáp",
+          "mã độc tống tiền",
+          "bảng báo giá thiết bị"
+        ]
+      },
+      {
+        "id": "devops_09",
+        "word": "provisioning",
+        "level": "B2",
+        "ipa": "/prəˈvɪʒ.ən.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "cấp phát tài nguyên máy chủ",
+        "collocations": "server provisioning, cloud provisioning, automated provisioning",
+        "example": "Ansible automates server provisioning, installing all necessary packages without manual intervention.",
+        "optionsVi": [
+          "cấp phát tài nguyên máy chủ",
+          "mua sắm văn phòng phẩm",
+          "thanh toán lương tháng",
+          "thu hồi thẻ ra vào"
+        ]
+      },
+      {
+        "id": "devops_10",
+        "word": "serverless",
+        "level": "B1",
+        "ipa": "/ˈsɜː.və.ləs/",
+        "type": "adjective",
+        "meaningVi": "kiến trúc không máy chủ",
+        "collocations": "serverless architecture, serverless functions, AWS Lambda serverless",
+        "example": "Going serverless enabled the startup to scale effortlessly without maintaining physical or virtual servers.",
+        "optionsVi": [
+          "kiến trúc không máy chủ",
+          "không có mạng internet",
+          "thiết bị không dây",
+          "phần mềm mã nguồn đóng"
+        ]
+      },
+      {
+        "id": "devops_11",
+        "word": "load balancer",
+        "level": "B1",
+        "ipa": "/ləʊd ˈbæl.ən.sər/",
+        "type": "noun",
+        "meaningVi": "bộ cân bằng tải",
+        "collocations": "configure a load balancer, distribute traffic via load balancer, Application Load Balancer",
+        "example": "The load balancer distributes incoming HTTPS traffic evenly across five EC2 instances.",
+        "optionsVi": [
+          "bộ cân bằng tải",
+          "đồng hồ đo điện thế",
+          "bộ lưu điện UPS",
+          "cục phát sóng WiFi"
+        ]
+      },
+      {
+        "id": "devops_12",
+        "word": "reverse proxy",
+        "level": "B2",
+        "ipa": "/rɪˈvɜːs ˈprɒk.si/",
+        "type": "noun",
+        "meaningVi": "máy chủ ủy nhiệm ngược",
+        "collocations": "Nginx reverse proxy, setup reverse proxy, forward requests through reverse proxy",
+        "example": "Nginx acts as a reverse proxy, handling SSL termination and caching static assets.",
+        "optionsVi": [
+          "máy chủ ủy nhiệm ngược",
+          "phần mềm diệt virus",
+          "cổng giao tiếp USB",
+          "bàn điều khiển trung tâm"
+        ]
+      },
+      {
+        "id": "devops_13",
+        "word": "auto-scaling",
+        "level": "B2",
+        "ipa": "/ˈɔː.təʊ ˌskeɪ.lɪŋ/",
+        "type": "noun",
+        "meaningVi": "tự động co giãn tài nguyên",
+        "collocations": "auto-scaling group, enable auto-scaling, horizontal auto-scaling",
+        "example": "During flash sales, auto-scaling automatically adds more server nodes to handle peak traffic.",
+        "optionsVi": [
+          "tự động co giãn tài nguyên",
+          "tự động thu nhỏ ảnh",
+          "tự cân chỉnh góc quay",
+          "tự cập nhật hệ điều hành"
+        ]
+      },
+      {
+        "id": "devops_14",
+        "word": "high availability",
+        "level": "B2",
+        "ipa": "/haɪ əˌveɪ.ləˈbɪl.ə.ti/",
+        "type": "noun",
+        "meaningVi": "tính sẵn sàng cao",
+        "collocations": "ensure high availability, HA architecture, 99.99% high availability",
+        "example": "Our banking system is engineered for high availability with 99.99% guaranteed uptime.",
+        "optionsVi": [
+          "tính sẵn sàng cao",
+          "tính bảo mật cấp cao",
+          "tốc độ xử lý đỉnh cao",
+          "tính dễ sử dụng"
+        ]
+      },
+      {
+        "id": "devops_15",
+        "word": "disaster recovery",
+        "level": "B2",
+        "ipa": "/dɪˈzɑː.stər rɪˌkʌv.ər.i/",
+        "type": "noun",
+        "meaningVi": "khắc phục thảm họa sau sự cố",
+        "collocations": "disaster recovery plan, DR drill, disaster recovery site",
+        "example": "The disaster recovery plan ensures business continuity even if an entire AWS datacenter goes offline.",
+        "optionsVi": [
+          "khắc phục thảm họa sau sự cố",
+          "cứu hỏa khẩn cấp",
+          "phục hồi mật khẩu",
+          "sửa chữa điện lưới"
+        ]
+      },
+      {
+        "id": "devops_16",
+        "word": "blue-green deployment",
+        "level": "B2",
+        "ipa": "/bluː ɡriːn dɪˈplɔɪ.mənt/",
+        "type": "noun",
+        "meaningVi": "triển khai xanh - lam không gián đoạn",
+        "collocations": "switch traffic in blue-green deployment, zero-downtime blue-green deployment",
+        "example": "Blue-green deployment minimizes risk by routing traffic to the new green environment only after thorough validation.",
+        "optionsVi": [
+          "triển khai xanh - lam không gián đoạn",
+          "phối màu giao diện",
+          "tiết kiệm năng lượng",
+          "quét mã độc phần mềm"
+        ]
+      },
+      {
+        "id": "devops_17",
+        "word": "canary release",
+        "level": "B2",
+        "ipa": "/kəˈneə.ri rɪˌliːs/",
+        "type": "noun",
+        "meaningVi": "phát hành thử nghiệm cho nhóm nhỏ",
+        "collocations": "canary deployment, roll out a canary release, monitor canary metrics",
+        "example": "We deployed a canary release to 5% of active users to verify there were no memory leaks.",
+        "optionsVi": [
+          "phát hành thử nghiệm cho nhóm nhỏ",
+          "nuôi chim cảnh",
+          "công bố phần mềm hoàn chỉnh",
+          "chạy thử nghiệm trong phòng lab"
+        ]
+      },
+      {
+        "id": "devops_18",
+        "word": "rollback",
+        "level": "B1",
+        "ipa": "/ˈrəʊl.bæk/",
+        "type": "noun / verb",
+        "meaningVi": "quay lui phiên bản trước",
+        "collocations": "perform a rollback, instant rollback, rollback release",
+        "example": "When the error rate spiked past 2%, the DevOps engineer executed an immediate rollback.",
+        "optionsVi": [
+          "quay lui phiên bản trước",
+          "tiến hành nâng cấp",
+          "đóng băng tài khoản",
+          "lưu trữ vĩnh viễn"
+        ]
+      },
+      {
+        "id": "devops_19",
+        "word": "telemetry",
+        "level": "B2",
+        "ipa": "/təˈlem.ə.tri/",
+        "type": "noun",
+        "meaningVi": "dữ liệu đo lường từ xa",
+        "collocations": "collect telemetry, telemetry data, OpenTelemetry standard",
+        "example": "OpenTelemetry helps capture traces and metrics across all our microservices.",
+        "optionsVi": [
+          "dữ liệu đo lường từ xa",
+          "kính viễn vọng quang học",
+          "đài truyền hình vệ tinh",
+          "thiết bị đo nhiệt độ"
+        ]
+      },
+      {
+        "id": "devops_20",
+        "word": "latency",
+        "level": "B1",
+        "ipa": "/ˈleɪ.tən.si/",
+        "type": "noun",
+        "meaningVi": "độ trễ phản hồi",
+        "collocations": "low latency, network latency, reduce latency",
+        "example": "Deploying our API closer to users via Cloudflare Workers cut server latency to under 20 milliseconds.",
+        "optionsVi": [
+          "độ trễ phản hồi",
+          "tốc độ tải lên",
+          "băng thông tối đa",
+          "độ phân giải màn hình"
+        ]
+      },
+      {
+        "id": "devops_21",
+        "word": "throughput",
+        "level": "B2",
+        "ipa": "/ˈθruː.pʊt/",
+        "type": "noun",
+        "meaningVi": "thông lượng xử lý",
+        "collocations": "high throughput, transaction throughput, maximize throughput",
+        "example": "The payment engine achieves a peak throughput of 10,000 transactions per second.",
+        "optionsVi": [
+          "thông lượng xử lý",
+          "dung lượng ổ cứng",
+          "thời gian chờ rảnh",
+          "khoảng cách vật lý"
+        ]
+      },
+      {
+        "id": "devops_22",
+        "word": "monitoring",
+        "level": "A2",
+        "ipa": "/ˈmɒn.ɪ.tər.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "giám sát hoạt động hệ thống",
+        "collocations": "server monitoring, real-time monitoring, monitoring tool",
+        "example": "Datadog provides real-time monitoring and sends Slack alerts when memory usage exceeds 90%.",
+        "optionsVi": [
+          "giám sát hoạt động hệ thống",
+          "điều khiển từ xa",
+          "lắp ráp máy tính",
+          "thu thập ý kiến khách hàng"
+        ]
+      },
+      {
+        "id": "devops_23",
+        "word": "alert threshold",
+        "level": "B2",
+        "ipa": "/əˈlɜːt ˈθreʃ.həʊld/",
+        "type": "noun",
+        "meaningVi": "ngưỡng kích hoạt cảnh báo",
+        "collocations": "set alert threshold, exceed alert threshold, trigger alert threshold",
+        "example": "We set an alert threshold to notify on-call engineers if API error rates exceed 1%.",
+        "optionsVi": [
+          "ngưỡng kích hoạt cảnh báo",
+          "giá trần chứng khoán",
+          "hạn mức chi tiêu thẻ",
+          "tốc độ quạt tản nhiệt"
+        ]
+      },
+      {
+        "id": "devops_24",
+        "word": "log aggregation",
+        "level": "B2",
+        "ipa": "/lɒɡ ˌæɡ.rɪˈɡeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tập hợp và gom log tập trung",
+        "collocations": "centralized log aggregation, log aggregation pipeline, ELK log aggregation",
+        "example": "Log aggregation tools like Elasticsearch and Grafana Loki allow us to search millions of log lines instantly.",
+        "optionsVi": [
+          "tập hợp và gom log tập trung",
+          "xóa nhật ký truy cập",
+          "ghi âm cuộc gọi",
+          "khóa cổng mạng"
+        ]
+      },
+      {
+        "id": "devops_25",
+        "word": "virtual machine",
+        "level": "A2",
+        "ipa": "/ˌvɜː.tʃu.əl məˈʃiːn/",
+        "type": "noun",
+        "meaningVi": "máy ảo (VM)",
+        "collocations": "provision a virtual machine, cloud virtual machine, VM instance",
+        "example": "Developers spin up a Linux virtual machine to test code in an isolated environment.",
+        "optionsVi": [
+          "máy ảo (VM)",
+          "kính thực tế ảo",
+          "máy in 3D",
+          "máy bán hàng tự động"
+        ]
+      },
+      {
+        "id": "devops_26",
+        "word": "multi-region",
+        "level": "B2",
+        "ipa": "/ˈmʌl.ti ˈriː.dʒən/",
+        "type": "adjective",
+        "meaningVi": "đa vùng địa lý",
+        "collocations": "multi-region deployment, multi-region replication, multi-region failover",
+        "example": "A multi-region database setup ensures lightning-fast queries for users in both Asia and North America.",
+        "optionsVi": [
+          "đa vùng địa lý",
+          "nội hạt thành phố",
+          "chỉ dành cho khách nội địa",
+          "không có kết nối ngoài"
+        ]
+      },
+      {
+        "id": "devops_27",
+        "word": "zero downtime",
+        "level": "B2",
+        "ipa": "/ˈzɪə.rəʊ ˈdaʊn.taɪm/",
+        "type": "noun",
+        "meaningVi": "không thời gian chết / không gián đoạn",
+        "collocations": "zero downtime deployment, achieve zero downtime, zero downtime migration",
+        "example": "Rolling deployments allow us to release new updates with zero downtime for active users.",
+        "optionsVi": [
+          "không thời gian chết / không gián đoạn",
+          "tắt máy bảo dưỡng",
+          "ngừng hoạt động hoàn toàn",
+          "chậm tiến độ dự án"
+        ]
+      },
+      {
+        "id": "devops_28",
+        "word": "secret management",
+        "level": "B2",
+        "ipa": "/ˈsiː.krət ˈmæn.ɪdʒ.mənt/",
+        "type": "noun",
+        "meaningVi": "quản lý khóa bí mật và chứng chỉ",
+        "collocations": "cloud secret management, HashiCorp Vault secret management, rotate secrets",
+        "example": "Never commit API keys to Git; always use a secret management service like AWS Secrets Manager.",
+        "optionsVi": [
+          "quản lý khóa bí mật và chứng chỉ",
+          "giấu thông tin nội bộ",
+          "điều tra nhân viên",
+          "bảo vệ bản quyền phần mềm"
+        ]
+      },
+      {
+        "id": "devops_29",
+        "word": "health check",
+        "level": "B1",
+        "ipa": "/helθ tʃek/",
+        "type": "noun",
+        "meaningVi": "thăm dò trạng thái sống còn dịch vụ",
+        "collocations": "HTTP health check, health check endpoint, failing health check",
+        "example": "The load balancer removes any pod that fails three consecutive HTTP health checks.",
+        "optionsVi": [
+          "thăm dò trạng thái sống còn dịch vụ",
+          "khám sức khỏe định kỳ",
+          "kiểm tra pin máy tính",
+          "đo nhiệt độ phòng máy"
+        ]
+      },
+      {
+        "id": "devops_30",
+        "word": "artifact repository",
+        "level": "B2",
+        "ipa": "/ˈɑː.tɪ.fækt rɪˈpɒz.ɪ.tər.i/",
+        "type": "noun",
+        "meaningVi": "kho lưu trữ gói phần mềm biên dịch",
+        "collocations": "publish to artifact repository, Nexus artifact repository, container artifact repository",
+        "example": "Compiled JAR files and npm packages are pushed to our private artifact repository during the build.",
+        "optionsVi": [
+          "kho lưu trữ gói phần mềm biên dịch",
+          "bảo tàng đồ cổ",
+          "thùng rác hệ thống",
+          "thư mục ảnh người dùng"
+        ]
+      }
+    ],
+    "category": "tech"
+  },
+  {
+    "groupId": "it_database_system_design",
+    "name": "Cơ sở dữ liệu & Thiết kế hệ thống (Database & System Design)",
+    "description": "30 thuật ngữ cơ sở dữ liệu quan hệ/NoSQL, tối ưu truy vấn, caching và kiến trúc phân tán",
+    "level": "B1-B2",
+    "icon": "bi-diagram-3-fill",
+    "badge": "Database / Architecture",
+    "words": [
+      {
+        "id": "db_01",
+        "word": "relational database",
+        "level": "B1",
+        "ipa": "/rɪˈleɪ.ʃən.əl ˈdeɪ.tə.beɪs/",
+        "type": "noun",
+        "meaningVi": "cơ sở dữ liệu quan hệ",
+        "collocations": "relational database management system, SQL relational database",
+        "example": "PostgreSQL and MySQL are two of the most popular open-source relational databases in production.",
+        "optionsVi": [
+          "cơ sở dữ liệu quan hệ",
+          "kho lưu file ảnh",
+          "hệ điều hành mạng",
+          "bộ nhớ tạm RAM"
+        ]
+      },
+      {
+        "id": "db_02",
+        "word": "NoSQL",
+        "level": "B1",
+        "ipa": "/nəʊ ˈes kjuː el/",
+        "type": "noun",
+        "meaningVi": "cơ sở dữ liệu phi quan hệ",
+        "collocations": "NoSQL database, MongoDB NoSQL, document-based NoSQL",
+        "example": "We chose a NoSQL database to store flexible, unstructured JSON documents with high write velocity.",
+        "optionsVi": [
+          "cơ sở dữ liệu phi quan hệ",
+          "không có câu lệnh truy vấn",
+          "ngôn ngữ lập trình mới",
+          "phần cứng máy chủ"
+        ]
+      },
+      {
+        "id": "db_03",
+        "word": "schema migration",
+        "level": "B2",
+        "ipa": "/ˈskiː.mə maɪˈɡreɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "nâng cấp cấu trúc lược đồ dữ liệu",
+        "collocations": "run schema migrations, database migration tool, migration rollback",
+        "example": "Always test schema migrations on a staging replica before running them in production.",
+        "optionsVi": [
+          "nâng cấp cấu trúc lược đồ dữ liệu",
+          "chuyển văn phòng làm việc",
+          "xuất file PDF",
+          "cài đặt trình duyệt"
+        ]
+      },
+      {
+        "id": "db_04",
+        "word": "indexing",
+        "level": "B1",
+        "ipa": "/ˈɪn.deks.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "đánh chỉ mục dữ liệu",
+        "collocations": "database indexing, B-tree indexing, proper indexing",
+        "example": "Proper indexing on the email column reduced query execution time from 800ms down to 4ms.",
+        "optionsVi": [
+          "đánh chỉ mục dữ liệu",
+          "đếm số trang sách",
+          "sắp xếp thư mục máy tính",
+          "đặt tên biến ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "db_05",
+        "word": "query optimization",
+        "level": "B2",
+        "ipa": "/ˈkwɪə.ri ˌɒp.tɪ.maɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tối ưu hóa câu lệnh truy vấn",
+        "collocations": "SQL query optimization, query execution plan, optimize slow queries",
+        "example": "Through query optimization and removing unnecessary JOINs, we cut database CPU load in half.",
+        "optionsVi": [
+          "tối ưu hóa câu lệnh truy vấn",
+          "tăng số lượng bảng",
+          "xóa toàn bộ cơ sở dữ liệu",
+          "khóa quyền truy cập"
+        ]
+      },
+      {
+        "id": "db_06",
+        "word": "primary key",
+        "level": "A2",
+        "ipa": "/ˈpraɪ.mər.i kiː/",
+        "type": "noun",
+        "meaningVi": "khóa chính định danh bản ghi",
+        "collocations": "unique primary key, auto-incrementing primary key, composite primary key",
+        "example": "Every table in our database must have a unique UUID as its primary key.",
+        "optionsVi": [
+          "khóa chính định danh bản ghi",
+          "mật khẩu quản trị",
+          "khóa phòng máy chủ",
+          "khóa mã hóa tệp tin"
+        ]
+      },
+      {
+        "id": "db_07",
+        "word": "foreign key",
+        "level": "A2",
+        "ipa": "/ˈfɒr.ən kiː/",
+        "type": "noun",
+        "meaningVi": "khóa ngoại liên kết bảng",
+        "collocations": "foreign key constraint, define a foreign key, cascade delete foreign key",
+        "example": "The foreign key in the orders table references the primary key in the users table.",
+        "optionsVi": [
+          "khóa ngoại liên kết bảng",
+          "chìa khóa dự phòng",
+          "mã truy cập quốc tế",
+          "mã vùng điện thoại"
+        ]
+      },
+      {
+        "id": "db_08",
+        "word": "transaction",
+        "level": "B1",
+        "ipa": "/trænˈzæk.ʃən/",
+        "type": "noun",
+        "meaningVi": "giao dịch cơ sở dữ liệu",
+        "collocations": "database transaction, rollback transaction, commit transaction",
+        "example": "If either the debit or credit operation fails, the entire transaction is immediately rolled back.",
+        "optionsVi": [
+          "giao dịch cơ sở dữ liệu",
+          "buôn bán chứng khoán",
+          "hợp đồng thương mại",
+          "hóa đơn bán lẻ"
+        ]
+      },
+      {
+        "id": "db_09",
+        "word": "ACID properties",
+        "level": "B2",
+        "ipa": "/ˈæs.ɪd ˈprɒp.ə.tiz/",
+        "type": "noun",
+        "meaningVi": "thuộc tính bảo đảm giao dịch ACID",
+        "collocations": "ACID compliance, ACID transactions, relational ACID guarantees",
+        "example": "Financial institutions require ACID compliance to guarantee data integrity during money transfers.",
+        "optionsVi": [
+          "thuộc tính bảo đảm giao dịch ACID",
+          "nồng độ axit hóa chất",
+          "chỉ số độ bền cơ học",
+          "tiêu chuẩn bảo vệ môi trường"
+        ]
+      },
+      {
+        "id": "db_10",
+        "word": "eventual consistency",
+        "level": "B2",
+        "ipa": "/ɪˈven.tʃu.əl kənˈsɪs.tən.si/",
+        "type": "noun",
+        "meaningVi": "tính nhất quán cuối cùng",
+        "collocations": "guarantee eventual consistency, eventual consistency model, strong vs eventual consistency",
+        "example": "In distributed databases like Cassandra, eventual consistency means replicas sync up after a short propagation delay.",
+        "optionsVi": [
+          "tính nhất quán cuối cùng",
+          "tính nhất quán tức thì",
+          "lỗi mất dữ liệu vĩnh viễn",
+          "sự cố xung đột phần cứng"
+        ]
+      },
+      {
+        "id": "db_11",
+        "word": "CAP theorem",
+        "level": "B2",
+        "ipa": "/kæp ˈθɪə.rəm/",
+        "type": "noun",
+        "meaningVi": "định lý CAP trong hệ phân tán",
+        "collocations": "CAP theorem trade-offs, explain CAP theorem, CAP theorem constraints",
+        "example": "The CAP theorem states that a distributed data store can simultaneously provide at most two out of three guarantees.",
+        "optionsVi": [
+          "định lý CAP trong hệ phân tán",
+          "quy tắc viết hoa ký tự",
+          "tiêu chuẩn giới hạn băng thông",
+          "nguyên lý nhiệt động lực học"
+        ]
+      },
+      {
+        "id": "db_12",
+        "word": "sharding",
+        "level": "B2",
+        "ipa": "/ˈʃɑː.dɪŋ/",
+        "type": "noun",
+        "meaningVi": "phân mảnh dữ liệu ngang",
+        "collocations": "database sharding, horizontal sharding, sharding key",
+        "example": "We implemented database sharding based on customer region to keep query latency low at immense scale.",
+        "optionsVi": [
+          "phân mảnh dữ liệu ngang",
+          "chia nhỏ màn hình",
+          "cắt tỉa mã nguồn",
+          "chia sẻ tài nguyên dùng chung"
+        ]
+      },
+      {
+        "id": "db_13",
+        "word": "replication",
+        "level": "B1",
+        "ipa": "/ˌrep.lɪˈkeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "nhân bản dữ liệu",
+        "collocations": "database replication, master-slave replication, real-time replication",
+        "example": "Asynchronous replication keeps our standby database updated within seconds of primary writes.",
+        "optionsVi": [
+          "nhân bản dữ liệu",
+          "tái chế phần cứng",
+          "sao chép tài liệu giấy",
+          "khôi phục hệ thống"
+        ]
+      },
+      {
+        "id": "db_14",
+        "word": "read replica",
+        "level": "B2",
+        "ipa": "/riːd ˈrep.lɪ.kə/",
+        "type": "noun",
+        "meaningVi": "bản sao chỉ dùng để đọc",
+        "collocations": "create a read replica, route queries to read replica, read replica lag",
+        "example": "Heavy reporting queries are routed to read replicas to avoid locking tables on the master database.",
+        "optionsVi": [
+          "bản sao chỉ dùng để đọc",
+          "mô hình đồ chơi",
+          "tập tin văn bản sao chép",
+          "máy chủ ghi dữ liệu chính"
+        ]
+      },
+      {
+        "id": "db_15",
+        "word": "connection pool",
+        "level": "B2",
+        "ipa": "/kəˈnek.ʃən puːl/",
+        "type": "noun",
+        "meaningVi": "hồ kết nối dùng chung",
+        "collocations": "database connection pool, pool size, exhausted connection pool",
+        "example": "Using a connection pool prevents the overhead of establishing a new TCP connection on every API request.",
+        "optionsVi": [
+          "hồ kết nối dùng chung",
+          "bể bơi cơ quan",
+          "mạng cáp nội bộ",
+          "nhóm hỗ trợ khách hàng"
+        ]
+      },
+      {
+        "id": "db_16",
+        "word": "caching",
+        "level": "B1",
+        "ipa": "/ˈkæʃ.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "lưu trữ bộ nhớ đệm",
+        "collocations": "in-memory caching, caching layer, Redis caching",
+        "example": "Adding a Redis caching layer reduced load on our SQL database by more than 70%.",
+        "optionsVi": [
+          "lưu trữ bộ nhớ đệm",
+          "thanh toán bằng tiền mặt",
+          "dọn dẹp ổ đĩa",
+          "xóa tài khoản vĩnh viễn"
+        ]
+      },
+      {
+        "id": "db_17",
+        "word": "cache invalidation",
+        "level": "B2",
+        "ipa": "/kæʃ ɪnˌvæl.ɪˈdeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "vô hiệu hóa bộ đệm",
+        "collocations": "cache invalidation strategy, purge cache, invalidation problem",
+        "example": "There are only two hard things in Computer Science: cache invalidation and naming things.",
+        "optionsVi": [
+          "vô hiệu hóa bộ đệm",
+          "hết hạn thẻ tín dụng",
+          "tắt máy chủ khẩn cấp",
+          "cấp phát địa chỉ mới"
+        ]
+      },
+      {
+        "id": "db_18",
+        "word": "message queue",
+        "level": "B1",
+        "ipa": "/ˈmes.ɪdʒ kjuː/",
+        "type": "noun",
+        "meaningVi": "hàng đợi tin nhắn bất đồng bộ",
+        "collocations": "RabbitMQ message queue, asynchronous message queue, consume message queue",
+        "example": "When a customer places an order, the event is pushed to a message queue for async invoice generation.",
+        "optionsVi": [
+          "hàng đợi tin nhắn bất đồng bộ",
+          "danh sách người xếp hàng",
+          "tin nhắn chưa đọc",
+          "lịch sử gửi email"
+        ]
+      },
+      {
+        "id": "db_19",
+        "word": "pub/sub pattern",
+        "level": "B2",
+        "ipa": "/pʌb sʌb ˈpæt.ən/",
+        "type": "noun",
+        "meaningVi": "mô hình xuất bản - nhận tin",
+        "collocations": "implement pub/sub pattern, publish messages, topic subscribers",
+        "example": "Google Cloud Pub/Sub enables decoupled microservices to broadcast and receive events seamlessly.",
+        "optionsVi": [
+          "mô hình xuất bản - nhận tin",
+          "đăng ký báo giấy",
+          "mua phần mềm bản quyền",
+          "kênh quảng cáo công khai"
+        ]
+      },
+      {
+        "id": "db_20",
+        "word": "event-driven architecture",
+        "level": "B2",
+        "ipa": "/ɪˈvent ˌdrɪv.ən ˈɑː.kɪ.tek.tʃər/",
+        "type": "noun",
+        "meaningVi": "kiến trúc hệ thống hướng sự kiện",
+        "collocations": "adopt event-driven architecture, event-driven microservices, event streaming",
+        "example": "An event-driven architecture with Apache Kafka allows multiple services to react to user actions independently.",
+        "optionsVi": [
+          "kiến trúc hệ thống hướng sự kiện",
+          "tổ chức sự kiện công ty",
+          "lịch trình diễn kịch",
+          "thiết kế giao diện sự kiện"
+        ]
+      },
+      {
+        "id": "db_21",
+        "word": "distributed system",
+        "level": "B2",
+        "ipa": "/dɪˈstrɪb.juː.tɪd ˈsɪs.təm/",
+        "type": "noun",
+        "meaningVi": "hệ thống phân tán",
+        "collocations": "design distributed systems, distributed consensus, fault-tolerant distributed system",
+        "example": "Building a reliable distributed system requires handling network partitions and clock drift gracefully.",
+        "optionsVi": [
+          "hệ thống phân tán",
+          "mạng phân phối hàng hóa",
+          "bảng phân công công việc",
+          "hệ điều hành đơn nhân"
+        ]
+      },
+      {
+        "id": "db_22",
+        "word": "rate limiting",
+        "level": "B1",
+        "ipa": "/reɪt ˈlɪm.ɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "giới hạn tần suất gọi API",
+        "collocations": "API rate limiting, rate limiting algorithm, token bucket rate limiting",
+        "example": "We enforce rate limiting of 100 requests per minute per IP to protect our login endpoint from abuse.",
+        "optionsVi": [
+          "giới hạn tần suất gọi API",
+          "hạn chế tốc độ xe cộ",
+          "hạn ngạch nhập khẩu",
+          "giới hạn thời gian làm việc"
+        ]
+      },
+      {
+        "id": "db_23",
+        "word": "circuit breaker",
+        "level": "B2",
+        "ipa": "/ˈsɜː.kɪt ˌbreɪ.kər/",
+        "type": "noun",
+        "meaningVi": "ngắt mạch chống sập dây chuyền",
+        "collocations": "circuit breaker pattern, trip the circuit breaker, circuit breaker open",
+        "example": "The circuit breaker tripped when third-party SMS service timeouts climbed, preventing our app from freezing.",
+        "optionsVi": [
+          "ngắt mạch chống sập dây chuyền",
+          "cầu dao điện trong nhà",
+          "cắt đứt đường truyền cáp quang",
+          "phanh xe khẩn cấp"
+        ]
+      },
+      {
+        "id": "db_24",
+        "word": "idempotency",
+        "level": "B2",
+        "ipa": "/ˌaɪ.dəmˈpəʊ.tən.si/",
+        "type": "noun",
+        "meaningVi": "tính lũy đẳng (kết quả không đổi khi gọi lại)",
+        "collocations": "ensure idempotency, idempotency key, idempotent API design",
+        "example": "Stripe uses an idempotency key so that retrying a payment request will never double-charge the client.",
+        "optionsVi": [
+          "tính lũy đẳng (kết quả không đổi khi gọi lại)",
+          "tính bảo mật nhiều lớp",
+          "tính ngẫu nhiên của khóa",
+          "tính tương thích ngược"
+        ]
+      },
+      {
+        "id": "db_25",
+        "word": "normalization",
+        "level": "B1",
+        "ipa": "/ˌnɔː.məl.aɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "chuẩn hóa dữ liệu giảm trùng lặp",
+        "collocations": "database normalization, 3rd normal form, avoid data duplication",
+        "example": "Database normalization breaks large tables into smaller related tables to eliminate redundant data.",
+        "optionsVi": [
+          "chuẩn hóa dữ liệu giảm trùng lặp",
+          "bình thường hóa quan hệ ngoại giao",
+          "tiêu chuẩn hóa thiết bị",
+          "khôi phục dữ liệu ban đầu"
+        ]
+      },
+      {
+        "id": "db_26",
+        "word": "denormalization",
+        "level": "B2",
+        "ipa": "/diːˌnɔː.məl.aɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "phi chuẩn hóa tăng tốc đọc",
+        "collocations": "denormalization for read performance, strategic denormalization",
+        "example": "We applied deliberate denormalization to our product catalog table to avoid costly joins during high-traffic sales.",
+        "optionsVi": [
+          "phi chuẩn hóa tăng tốc đọc",
+          "phá hoại cơ sở dữ liệu",
+          "làm sai lệch số liệu",
+          "xóa định dạng văn bản"
+        ]
+      },
+      {
+        "id": "db_27",
+        "word": "partition key",
+        "level": "B2",
+        "ipa": "/pɑːˈtɪʃ.ən kiː/",
+        "type": "noun",
+        "meaningVi": "khóa phân vùng dữ liệu",
+        "collocations": "choose a partition key, uniform partition key, partition key skew",
+        "example": "Choosing the right partition key in DynamoDB ensures data is evenly distributed across physical storage nodes.",
+        "optionsVi": [
+          "khóa phân vùng dữ liệu",
+          "vách ngăn văn phòng",
+          "chìa khóa tủ đựng hồ sơ",
+          "mã phân chia công việc"
+        ]
+      },
+      {
+        "id": "db_28",
+        "word": "deadlock",
+        "level": "B2",
+        "ipa": "/ˈded.lɒk/",
+        "type": "noun",
+        "meaningVi": "khóa chết / bế tắc tiến trình",
+        "collocations": "database deadlock, detect deadlocks, resolve a deadlock",
+        "example": "The database detected a deadlock when two concurrent transactions were each waiting for the other's lock to release.",
+        "optionsVi": [
+          "khóa chết / bế tắc tiến trình",
+          "ổ khóa cửa bị kẹt",
+          "mất kết nối internet",
+          "hết pin máy tính"
+        ]
+      },
+      {
+        "id": "db_29",
+        "word": "write-ahead log",
+        "level": "B2",
+        "ipa": "/raɪt əˈhed lɒɡ/",
+        "type": "noun",
+        "meaningVi": "nhật ký ghi trước đảm bảo phục hồi (WAL)",
+        "collocations": "PostgreSQL WAL, write-ahead logging mechanism, replay WAL files",
+        "example": "Changes are recorded in the write-ahead log on disk before being applied to in-memory pages.",
+        "optionsVi": [
+          "nhật ký ghi trước đảm bảo phục hồi (WAL)",
+          "sổ đăng ký khách ra vào",
+          "nhật ký công tác hàng ngày",
+          "bảng kế hoạch tuần"
+        ]
+      },
+      {
+        "id": "db_30",
+        "word": "data warehouse",
+        "level": "B1",
+        "ipa": "/ˈdeɪ.tə ˌweə.haʊs/",
+        "type": "noun",
+        "meaningVi": "kho dữ liệu phân tích tập trung",
+        "collocations": "cloud data warehouse, Snowflake data warehouse, query data warehouse",
+        "example": "Transactional data is extracted every midnight and loaded into the BigQuery data warehouse for BI reporting.",
+        "optionsVi": [
+          "kho dữ liệu phân tích tập trung",
+          "nhà kho chứa thiết bị vi tính",
+          "tủ hồ sơ lưu trữ",
+          "cửa hàng bán linh kiện"
+        ]
+      }
+    ],
+    "category": "tech"
+  },
+  {
+    "groupId": "it_cybersecurity_network",
+    "name": "An toàn thông tin & Mạng máy tính (Security & Networking)",
+    "description": "30 thuật ngữ an ninh mạng, xác thực OAuth/JWT, mã hóa dữ liệu và phòng chống tấn công",
+    "level": "B1-B2",
+    "icon": "bi-shield-lock-fill",
+    "badge": "Security / Network",
+    "words": [
+      {
+        "id": "sec_01",
+        "word": "authentication",
+        "level": "B1",
+        "ipa": "/ɔːˌθen.tɪˈkeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "xác thực danh tính",
+        "collocations": "user authentication, biometric authentication, authentication failed",
+        "example": "Authentication verifies the identity of a user before granting access to internal resources.",
+        "optionsVi": [
+          "xác thực danh tính",
+          "phân quyền truy cập",
+          "mã hóa đường truyền",
+          "khóa tài khoản"
+        ]
+      },
+      {
+        "id": "sec_02",
+        "word": "authorization",
+        "level": "B1",
+        "ipa": "/ˌɔː.θər.aɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "cấp quyền truy cập",
+        "collocations": "authorization header, access authorization, unauthorized access",
+        "example": "Once authenticated, authorization rules dictate whether the user can edit or merely view documents.",
+        "optionsVi": [
+          "cấp quyền truy cập",
+          "kiểm tra mật khẩu",
+          "sao lưu dữ liệu",
+          "kích hoạt tài khoản"
+        ]
+      },
+      {
+        "id": "sec_03",
+        "word": "multi-factor authentication",
+        "level": "B1",
+        "ipa": "/ˌmʌl.ti ˈfæk.tər ɔːˌθen.tɪˈkeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "xác thực đa yếu tố (MFA)",
+        "collocations": "enable MFA, mandatory multi-factor authentication, MFA token",
+        "example": "Our company requires multi-factor authentication with an authenticator app for all VPN logins.",
+        "optionsVi": [
+          "xác thực đa yếu tố (MFA)",
+          "đổi mật khẩu thường xuyên",
+          "quét vân tay ra vào",
+          "xác minh giấy tờ tùy thân"
+        ]
+      },
+      {
+        "id": "sec_04",
+        "word": "OAuth token",
+        "level": "B1",
+        "ipa": "/əʊ ˈɔːθ ˈtəʊ.kən/",
+        "type": "noun",
+        "meaningVi": "mã thông báo ủy quyền OAuth",
+        "collocations": "OAuth access token, refresh token, revoke OAuth token",
+        "example": "The mobile app sends an OAuth token in the Authorization header with every request.",
+        "optionsVi": [
+          "mã thông báo ủy quyền OAuth",
+          "thẻ nhân viên điện tử",
+          "mã giảm giá dịch vụ",
+          "số tài khoản ngân hàng"
+        ]
+      },
+      {
+        "id": "sec_05",
+        "word": "JSON Web Token",
+        "level": "B1",
+        "ipa": "/ˈdʒeɪ.sən web ˈtəʊ.kən/",
+        "type": "noun",
+        "meaningVi": "chuỗi mã hóa phiên làm việc (JWT)",
+        "collocations": "sign a JWT, verify JWT signature, JWT expiration",
+        "example": "A JWT contains cryptographically signed claims verifying the user's role and expiration timestamp.",
+        "optionsVi": [
+          "chuỗi mã hóa phiên làm việc (JWT)",
+          "file văn bản ghi nhớ",
+          "ảnh đại diện người dùng",
+          "chứng chỉ tiếng Anh"
+        ]
+      },
+      {
+        "id": "sec_06",
+        "word": "encryption",
+        "level": "B1",
+        "ipa": "/ɪnˈkrɪp.ʃən/",
+        "type": "noun",
+        "meaningVi": "mã hóa dữ liệu",
+        "collocations": "end-to-end encryption, 256-bit encryption, data encryption at rest",
+        "example": "All credit card numbers must be stored using strong AES-256 encryption at rest.",
+        "optionsVi": [
+          "mã hóa dữ liệu",
+          "xóa vĩnh viễn tệp tin",
+          "sao chép sang ổ cứng",
+          "nén tệp dung lượng lớn"
+        ]
+      },
+      {
+        "id": "sec_07",
+        "word": "decryption",
+        "level": "B1",
+        "ipa": "/diːˈkrɪp.ʃən/",
+        "type": "noun",
+        "meaningVi": "giải mã dữ liệu",
+        "collocations": "decryption key, automatic decryption, decrypt the payload",
+        "example": "Only the recipient possessing the corresponding private key can perform decryption.",
+        "optionsVi": [
+          "giải mã dữ liệu",
+          "khóa thiết bị",
+          "tạo mật khẩu mới",
+          "truyền file qua mạng"
+        ]
+      },
+      {
+        "id": "sec_08",
+        "word": "public key",
+        "level": "B1",
+        "ipa": "/ˈpʌb.lɪk kiː/",
+        "type": "noun",
+        "meaningVi": "khóa công khai",
+        "collocations": "public key cryptography, share public key, public and private key pair",
+        "example": "You can freely distribute your public key to anyone who needs to send you encrypted messages.",
+        "optionsVi": [
+          "khóa công khai",
+          "chìa khóa cổng công cộng",
+          "mật mã chung của phòng",
+          "tài khoản dùng thử"
+        ]
+      },
+      {
+        "id": "sec_09",
+        "word": "SSL/TLS handshake",
+        "level": "B2",
+        "ipa": "/ˌes.esˈel tiː.elˈes ˈhænd.ʃeɪk/",
+        "type": "noun",
+        "meaningVi": "quá trình bắt tay thiết lập kênh bảo mật TLS",
+        "collocations": "TLS handshake failure, secure handshake, complete TLS handshake",
+        "example": "During the TLS handshake, client and server negotiate cipher suites and verify server certificates.",
+        "optionsVi": [
+          "quá trình bắt tay thiết lập kênh bảo mật TLS",
+          "ký kết hợp đồng kinh doanh",
+          "bắt tay chào hỏi xã giao",
+          "kiểm tra đường dây cáp"
+        ]
+      },
+      {
+        "id": "sec_10",
+        "word": "firewall",
+        "level": "A2",
+        "ipa": "/ˈfaɪə.wɔːl/",
+        "type": "noun",
+        "meaningVi": "tường lửa kiểm soát mạng",
+        "collocations": "configure firewall, firewall rules, block by firewall",
+        "example": "The corporate firewall blocks all incoming connections except port 443 and 80.",
+        "optionsVi": [
+          "tường lửa kiểm soát mạng",
+          "vách ngăn chống cháy",
+          "cửa thoát hiểm",
+          "bình chữa cháy"
+        ]
+      },
+      {
+        "id": "sec_11",
+        "word": "vulnerability",
+        "level": "B1",
+        "ipa": "/ˌvʌl.nər.əˈbɪl.ə.ti/",
+        "type": "noun",
+        "meaningVi": "lỗ hổng bảo mật",
+        "collocations": "security vulnerability, patch a vulnerability, critical vulnerability",
+        "example": "A critical vulnerability was discovered in the third-party PDF rendering library.",
+        "optionsVi": [
+          "lỗ hổng bảo mật",
+          "tính dễ vỡ của kính",
+          "điểm yếu tâm lý",
+          "sai sót hóa đơn"
+        ]
+      },
+      {
+        "id": "sec_12",
+        "word": "penetration testing",
+        "level": "B2",
+        "ipa": "/ˌpen.ɪˈtreɪ.ʃən ˌtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "kiểm thử xâm nhập bảo mật (Pen-test)",
+        "collocations": "conduct penetration testing, pen-test report, third-party pen testing",
+        "example": "We hired ethical hackers to perform penetration testing against our web portals prior to launch.",
+        "optionsVi": [
+          "kiểm thử xâm nhập bảo mật (Pen-test)",
+          "đo độ sâu mũi khoan",
+          "thử nghiệm vật liệu chịu lực",
+          "kiểm tra độ dẫn điện"
+        ]
+      },
+      {
+        "id": "sec_13",
+        "word": "cross-site scripting",
+        "level": "B2",
+        "ipa": "/krɒs saɪt ˈskrɪp.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tấn công chèn mã độc XSS",
+        "collocations": "stored XSS, prevent cross-site scripting, XSS vulnerability",
+        "example": "Sanitizing all user input before rendering it in the DOM effectively prevents cross-site scripting attacks.",
+        "optionsVi": [
+          "tấn công chèn mã độc XSS",
+          "viết kịch bản phim",
+          "dịch kịch bản sang ngôn ngữ khác",
+          "tạo liên kết ngoài"
+        ]
+      },
+      {
+        "id": "sec_14",
+        "word": "SQL injection",
+        "level": "B1",
+        "ipa": "/ˌes.kjuːˈel ɪnˈdʒek.ʃən/",
+        "type": "noun",
+        "meaningVi": "tấn công chèn mã SQL độc hại",
+        "collocations": "prevent SQL injection, parameterized queries avoid SQL injection, SQL injection vulnerability",
+        "example": "Using parameterized queries completely protects the application against SQL injection attempts.",
+        "optionsVi": [
+          "tấn công chèn mã SQL độc hại",
+          "tiêm vắc xin định kỳ",
+          "chèn thêm cột vào bảng",
+          "sao chép câu lệnh truy vấn"
+        ]
+      },
+      {
+        "id": "sec_15",
+        "word": "brute force attack",
+        "level": "B1",
+        "ipa": "/bruːt fɔːs əˈtæk/",
+        "type": "noun",
+        "meaningVi": "tấn công dò quét vét cạn mật khẩu",
+        "collocations": "mitigate brute force attacks, password brute forcing, brute force protection",
+        "example": "Account lockouts and CAPTCHA challenges stop automated brute force attacks on the login page.",
+        "optionsVi": [
+          "tấn công dò quét vét cạn mật khẩu",
+          "tấn công bằng vũ lực",
+          "phá hoại máy chủ vật lý",
+          "tập kích bất ngờ"
+        ]
+      },
+      {
+        "id": "sec_16",
+        "word": "denial of service",
+        "level": "B1",
+        "ipa": "/dɪˈnaɪ.əl əv ˈsɜː.vɪs/",
+        "type": "noun",
+        "meaningVi": "tấn công từ chối dịch vụ",
+        "collocations": "Distributed Denial of Service (DDoS), DDoS mitigation, withstand DoS attack",
+        "example": "Cloudflare absorbs distributed denial of service attacks by filtering bad bot traffic at edge nodes.",
+        "optionsVi": [
+          "tấn công từ chối dịch vụ",
+          "từ chối phục vụ khách hàng",
+          "chấm dứt hợp đồng dịch vụ",
+          "hết hạn bảo hành sản phẩm"
+        ]
+      },
+      {
+        "id": "sec_17",
+        "word": "phishing",
+        "level": "A2",
+        "ipa": "/ˈfɪʃ.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "lừa đảo giả mạo trực tuyến",
+        "collocations": "phishing email, victim of phishing, phishing simulation",
+        "example": "Never enter your corporate password on links received via suspicious phishing emails.",
+        "optionsVi": [
+          "lừa đảo giả mạo trực tuyến",
+          "câu cá giải trí",
+          "bắt thủy hải sản",
+          "quảng cáo bán hàng"
+        ]
+      },
+      {
+        "id": "sec_18",
+        "word": "malware",
+        "level": "A2",
+        "ipa": "/ˈmæl.weər/",
+        "type": "noun",
+        "meaningVi": "phần mềm độc hại",
+        "collocations": "infected by malware, scan for malware, malware detection",
+        "example": "Endpoint protection software detected and quarantined the malware before it could encrypt files.",
+        "optionsVi": [
+          "phần mềm độc hại",
+          "linh kiện điện tử",
+          "phần cứng bị hỏng",
+          "quần áo thời trang"
+        ]
+      },
+      {
+        "id": "sec_19",
+        "word": "zero-day exploit",
+        "level": "B2",
+        "ipa": "/ˌzɪə.rəʊ deɪ ˈek.splɔɪt/",
+        "type": "noun",
+        "meaningVi": "khai thác lỗ hổng chưa có bản vá",
+        "collocations": "zero-day vulnerability, patched against zero-day exploits, zero-day threat",
+        "example": "Security researchers uncovered an actively exploited zero-day vulnerability in popular web browsers.",
+        "optionsVi": [
+          "khai thác lỗ hổng chưa có bản vá",
+          "ngày nghỉ phép đầu tiên",
+          "ngày khai trương dự án",
+          "hạn chót ngày hôm nay"
+        ]
+      },
+      {
+        "id": "sec_20",
+        "word": "access control list",
+        "level": "B2",
+        "ipa": "/ˈæk.ses kənˈtrəʊl lɪst/",
+        "type": "noun",
+        "meaningVi": "danh sách kiểm soát quyền truy cập",
+        "collocations": "configure ACL, network access control list, S3 bucket ACL",
+        "example": "The storage bucket's access control list was misconfigured, briefly leaving public read permissions enabled.",
+        "optionsVi": [
+          "danh sách kiểm soát quyền truy cập",
+          "danh sách khách mời hội thảo",
+          "danh mục sản phẩm giảm giá",
+          "bảng điểm danh nhân viên"
+        ]
+      },
+      {
+        "id": "sec_21",
+        "word": "role-based access control",
+        "level": "B2",
+        "ipa": "/rəʊl beɪst ˈæk.ses kənˈtrəʊl/",
+        "type": "noun",
+        "meaningVi": "kiểm soát quyền theo vai trò",
+        "collocations": "implement RBAC, RBAC permissions, role-based security model",
+        "example": "With role-based access control, only users assigned the Admin role can access billing settings.",
+        "optionsVi": [
+          "kiểm soát quyền theo vai trò",
+          "phân công diễn viên kịch",
+          "chia đội thi đấu thể thao",
+          "tổ chức bầu cử nội bộ"
+        ]
+      },
+      {
+        "id": "sec_22",
+        "word": "data breach",
+        "level": "B1",
+        "ipa": "/ˈdeɪ.tə briːtʃ/",
+        "type": "noun",
+        "meaningVi": "sự cố rò rỉ dữ liệu nhạy cảm",
+        "collocations": "suffer a data breach, report a data breach, massive data breach",
+        "example": "The company was fined under GDPR after failing to promptly disclose a customer data breach.",
+        "optionsVi": [
+          "sự cố rò rỉ dữ liệu nhạy cảm",
+          "mất nguồn điện dự phòng",
+          "vỡ đường ống dẫn nước",
+          "thất bại trong đàm phán"
+        ]
+      },
+      {
+        "id": "sec_23",
+        "word": "security patch",
+        "level": "B1",
+        "ipa": "/sɪˈkjʊə.rə.ti pætʃ/",
+        "type": "noun",
+        "meaningVi": "bản vá an ninh phần mềm",
+        "collocations": "apply security patches, release a security patch, critical security patch",
+        "example": "System administrators applied the critical security patch across all production servers over the weekend.",
+        "optionsVi": [
+          "bản vá an ninh phần mềm",
+          "miếng dán vết thương",
+          "phù hiệu bảo vệ",
+          "chứng nhận tham dự khóa học"
+        ]
+      },
+      {
+        "id": "sec_24",
+        "word": "hash function",
+        "level": "B2",
+        "ipa": "/hæʃ ˈfʌŋk.ʃən/",
+        "type": "noun",
+        "meaningVi": "hàm băm mã hóa một chiều",
+        "collocations": "cryptographic hash function, SHA-256 hash function, hash collision",
+        "example": "Passwords must never be stored in plain text; always use a salted, cryptographic hash function like bcrypt.",
+        "optionsVi": [
+          "hàm băm mã hóa một chiều",
+          "hàm tính tổng thông thường",
+          "hàm vẽ đồ thị",
+          "lệnh xóa bản ghi"
+        ]
+      },
+      {
+        "id": "sec_25",
+        "word": "digital signature",
+        "level": "B1",
+        "ipa": "/ˌdɪdʒ.ɪ.təl ˈsɪɡ.nə.tʃər/",
+        "type": "noun",
+        "meaningVi": "chữ ký số điện tử",
+        "collocations": "verify digital signature, sign with digital signature, digital certificate and signature",
+        "example": "The operating system refuses to install device drivers lacking a valid digital signature.",
+        "optionsVi": [
+          "chữ ký số điện tử",
+          "chữ ký tay trên giấy",
+          "dấu vân tay quét mực",
+          "con dấu tròn doanh nghiệp"
+        ]
+      },
+      {
+        "id": "sec_26",
+        "word": "session hijacking",
+        "level": "B2",
+        "ipa": "/ˈseʃ.ən ˌhaɪ.dʒæk.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "chiếm đoạt phiên đăng nhập",
+        "collocations": "prevent session hijacking, cookie theft and session hijacking, session hijacking vulnerability",
+        "example": "Using HttpOnly and Secure cookie flags helps protect users against session hijacking via XSS.",
+        "optionsVi": [
+          "chiếm đoạt phiên đăng nhập",
+          "không tặc cướp máy bay",
+          "lấy trộm điện thoại",
+          "hủy cuộc họp giữa chừng"
+        ]
+      },
+      {
+        "id": "sec_27",
+        "word": "IP spoofing",
+        "level": "B2",
+        "ipa": "/aɪ ˈpiː ˌspuː.fɪŋ/",
+        "type": "noun",
+        "meaningVi": "giả mạo địa chỉ IP nguồn",
+        "collocations": "IP spoofing attack, detect IP spoofing, block IP spoofing",
+        "example": "Attackers used IP spoofing to disguise their true location while launching network reflection attacks.",
+        "optionsVi": [
+          "giả mạo địa chỉ IP nguồn",
+          "đổi nhà mạng cung cấp",
+          "cấp phát IP động",
+          "chia sẻ mạng WiFi"
+        ]
+      },
+      {
+        "id": "sec_28",
+        "word": "DNS lookup",
+        "level": "B1",
+        "ipa": "/diː.enˈes ˈlʊk.ʌp/",
+        "type": "noun",
+        "meaningVi": "tra cứu phân giải tên miền DNS",
+        "collocations": "DNS lookup time, perform DNS lookup, reverse DNS lookup",
+        "example": "A slow DNS lookup can delay page rendering even before the browser connects to the web server.",
+        "optionsVi": [
+          "tra cứu phân giải tên miền DNS",
+          "tìm kiếm danh bạ điện thoại",
+          "tra cứu mã bưu chính",
+          "xem bản đồ vệ tinh"
+        ]
+      },
+      {
+        "id": "sec_29",
+        "word": "subnet mask",
+        "level": "B2",
+        "ipa": "/ˈsʌb.net mɑːsk/",
+        "type": "noun",
+        "meaningVi": "mặt nạ mạng phân tách dải IP",
+        "collocations": "default subnet mask, configure subnet mask, calculate subnet mask",
+        "example": "The subnet mask 255.255.255.0 defines the boundary between the network ID and host ID.",
+        "optionsVi": [
+          "mặt nạ mạng phân tách dải IP",
+          "khẩu trang y tế phòng dịch",
+          "mặt nạ dưỡng da",
+          "kính chống chói màn hình"
+        ]
+      },
+      {
+        "id": "sec_30",
+        "word": "least privilege",
+        "level": "B2",
+        "ipa": "/liːst ˈprɪv.əl.ɪdʒ/",
+        "type": "noun",
+        "meaningVi": "nguyên tắc trao quyền tối thiểu",
+        "collocations": "principle of least privilege, enforce least privilege, least privilege access model",
+        "example": "Applying the principle of least privilege ensures services only have access to resources strictly necessary for their function.",
+        "optionsVi": [
+          "nguyên tắc trao quyền tối thiểu",
+          "chế độ đãi ngộ thấp nhất",
+          "quyền ưu tiên khẩn cấp",
+          "miễn trừ trách nhiệm hình sự"
+        ]
+      }
+    ],
+    "category": "tech"
+  }
+]

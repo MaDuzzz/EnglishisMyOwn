@@ -1,0 +1,1635 @@
+[
+  {
+    "groupId": "marketing_digital_performance",
+    "name": "Digital Marketing & Quảng cáo Hiệu suất (Performance Marketing)",
+    "description": "35 thuật ngữ chuyên sâu B1-B2 về chuyển đổi số, SEO/SEM, quảng cáo Ads, CPA/ROAS và tối ưu phễu",
+    "level": "B1-B2",
+    "icon": "bi-graph-up-arrow",
+    "badge": "Digital / Performance",
+    "category": "marketing",
+    "words": [
+      {
+        "id": "mkt_perf_01",
+        "word": "conversion rate",
+        "level": "B1",
+        "ipa": "/kənˈvɜː.ʒən reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ chuyển đổi khách hàng",
+        "collocations": "boost conversion rate, high conversion rate, e-commerce conversion rate",
+        "example": "Redesigning the checkout page improved our conversion rate from 1.8% to 3.2%.",
+        "optionsVi": [
+          "tỷ lệ chuyển đổi khách hàng",
+          "tỷ lệ hoàn trả hàng",
+          "chi phí quảng cáo",
+          "lượng truy cập tự nhiên"
+        ]
+      },
+      {
+        "id": "mkt_perf_02",
+        "word": "click-through rate",
+        "level": "B1",
+        "ipa": "/klɪk θruː reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ nhấp chuột vào quảng cáo",
+        "collocations": "average click-through rate, improve CTR, CTR benchmark",
+        "example": "The catchy video thumbnail doubled our click-through rate on YouTube Ads.",
+        "optionsVi": [
+          "tỷ lệ nhấp chuột vào quảng cáo",
+          "chi phí trên mỗi lượt nhấp",
+          "tổng số lượt xem trang",
+          "thời gian người dùng ở lại"
+        ]
+      },
+      {
+        "id": "mkt_perf_03",
+        "word": "cost per click",
+        "level": "B1",
+        "ipa": "/kɒst pɜː klɪk/",
+        "type": "noun",
+        "meaningVi": "chi phí mỗi lượt nhấp chuột",
+        "collocations": "lower cost per click, high CPC keyword, average CPC",
+        "example": "Targeting long-tail keywords helped the agency reduce the average cost per click significantly.",
+        "optionsVi": [
+          "chi phí mỗi lượt nhấp chuột",
+          "tỷ lệ chuyển đổi đơn hàng",
+          "tổng ngân sách chiến dịch",
+          "số lượt hiển thị quảng cáo"
+        ]
+      },
+      {
+        "id": "mkt_perf_04",
+        "word": "cost per acquisition",
+        "level": "B2",
+        "ipa": "/kɒst pɜː ˌæk.wɪˈzɪʃ.ən/",
+        "type": "noun",
+        "meaningVi": "chi phí để có một khách hàng",
+        "collocations": "target cost per acquisition, acceptable CPA, reduce CPA",
+        "example": "Our primary goal for this quarter is keeping cost per acquisition under 15 dollars per subscriber.",
+        "optionsVi": [
+          "chi phí để có một khách hàng",
+          "giá bán buôn sản phẩm",
+          "thu nhập trung bình người dùng",
+          "tiền hoa hồng đại lý"
+        ]
+      },
+      {
+        "id": "mkt_perf_05",
+        "word": "return on ad spend",
+        "level": "B2",
+        "ipa": "/rɪˈtɜːn ɒn æd spend/",
+        "type": "noun",
+        "meaningVi": "tỷ suất lợi nhuận trên chi tiêu quảng cáo",
+        "collocations": "target ROAS, calculate ROAS, generate 4x ROAS",
+        "example": "The Black Friday campaign delivered a 500% return on ad spend for our e-commerce client.",
+        "optionsVi": [
+          "tỷ suất lợi nhuận trên chi tiêu quảng cáo",
+          "tổng doanh số bán hàng",
+          "khoản chi phí hoa hồng",
+          "thuế giá trị gia tăng"
+        ]
+      },
+      {
+        "id": "mkt_perf_06",
+        "word": "bounce rate",
+        "level": "B1",
+        "ipa": "/baʊns reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ thoát trang ngay khi vào",
+        "collocations": "high bounce rate, decrease bounce rate, analyze bounce rate",
+        "example": "A slow loading speed was the main culprit behind the homepage's 75% bounce rate.",
+        "optionsVi": [
+          "tỷ lệ thoát trang ngay khi vào",
+          "tỷ lệ khách hàng mua lại",
+          "số lượng chia sẻ bài viết",
+          "tỷ lệ gửi email thành công"
+        ]
+      },
+      {
+        "id": "mkt_perf_07",
+        "word": "retargeting",
+        "level": "B1",
+        "ipa": "/riːˈtɑː.ɡɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị nhắm lại người đã truy cập",
+        "collocations": "retargeting campaign, Facebook retargeting, dynamic retargeting",
+        "example": "We launched a retargeting campaign offering a 10% discount to shoppers who abandoned their carts.",
+        "optionsVi": [
+          "tiếp thị nhắm lại người đã truy cập",
+          "tiếp thị qua người ảnh hưởng",
+          "khảo sát thị trường mới",
+          "bán hàng trực tiếp tại quầy"
+        ]
+      },
+      {
+        "id": "mkt_perf_08",
+        "word": "A/B testing",
+        "level": "B1",
+        "ipa": "/eɪ biː ˈtes.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "thử nghiệm phân tách đối chứng",
+        "collocations": "conduct A/B testing, A/B testing headline, statistically significant A/B testing",
+        "example": "Through rigorous A/B testing, we proved that green CTA buttons outperformed red ones by 14%.",
+        "optionsVi": [
+          "thử nghiệm phân tách đối chứng",
+          "kiểm tra độ bền sản phẩm",
+          "phỏng vấn nhân viên mới",
+          "định giá sản phẩm"
+        ]
+      },
+      {
+        "id": "mkt_perf_09",
+        "word": "landing page",
+        "level": "B1",
+        "ipa": "/ˈlæn.dɪŋ peɪdʒ/",
+        "type": "noun",
+        "meaningVi": "trang đích chuyển đổi khách hàng",
+        "collocations": "optimize landing page, high-converting landing page, responsive landing page",
+        "example": "A dedicated landing page with clear benefits converts visitors far better than sending them to the homepage.",
+        "optionsVi": [
+          "trang đích chuyển đổi khách hàng",
+          "bảng điều khiển quản trị",
+          "trang danh bạ công ty",
+          "thông báo lỗi máy chủ"
+        ]
+      },
+      {
+        "id": "mkt_perf_10",
+        "word": "call to action",
+        "level": "B1",
+        "ipa": "/kɔːl tuː ˈæk.ʃən/",
+        "type": "noun",
+        "meaningVi": "lời kêu gọi hành động (CTA)",
+        "collocations": "compelling call to action, clear CTA button, placement of call to action",
+        "example": "Every promotional email must feature a prominent call to action above the fold.",
+        "optionsVi": [
+          "lời kêu gọi hành động (CTA)",
+          "bản hợp đồng kinh tế",
+          "biên bản cuộc họp",
+          "lời chào mừng khách hàng"
+        ]
+      },
+      {
+        "id": "mkt_perf_11",
+        "word": "organic reach",
+        "level": "B2",
+        "ipa": "/ɔːˈɡæn.ɪk riːtʃ/",
+        "type": "noun",
+        "meaningVi": "lượng tiếp cận tự nhiên không trả tiền",
+        "collocations": "decline in organic reach, maximize organic reach, organic reach on social media",
+        "example": "Publishing insightful technical articles helped boost our organic reach on LinkedIn.",
+        "optionsVi": [
+          "lượng tiếp cận tự nhiên không trả tiền",
+          "lượng tiếp cận qua quảng cáo",
+          "số người theo dõi ảo",
+          "chi phí tiếp thị truyền thống"
+        ]
+      },
+      {
+        "id": "mkt_perf_12",
+        "word": "search engine optimization",
+        "level": "B1",
+        "ipa": "/sɜːtʃ ˈen.dʒɪn ˌɒp.tɪ.maɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tối ưu hóa công cụ tìm kiếm",
+        "collocations": "on-page SEO, invest in search engine optimization, technical SEO",
+        "example": "Effective search engine optimization allows our blog posts to rank on the first page of Google.",
+        "optionsVi": [
+          "tối ưu hóa công cụ tìm kiếm",
+          "lắp ráp máy chủ web",
+          "thiết kế logo công ty",
+          "quản trị hệ cơ sở dữ liệu"
+        ]
+      },
+      {
+        "id": "mkt_perf_13",
+        "word": "search engine marketing",
+        "level": "B1",
+        "ipa": "/sɜːtʃ ˈen.dʒɪn ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị tìm kiếm có trả phí",
+        "collocations": "Google Ads SEM, SEM campaign budget, integrate SEO and SEM",
+        "example": "While SEO takes months to yield results, search engine marketing brings immediate qualified traffic.",
+        "optionsVi": [
+          "tiếp thị tìm kiếm có trả phí",
+          "viết bài cộng tác báo chí",
+          "tổ chức sự kiện ra mắt",
+          "tiếp thị truyền miệng"
+        ]
+      },
+      {
+        "id": "mkt_perf_14",
+        "word": "lead generation",
+        "level": "B2",
+        "ipa": "/liːd ˌdʒen.əˈreɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "thu hút khách hàng tiềm năng",
+        "collocations": "B2B lead generation, lead generation strategy, qualified lead generation",
+        "example": "Offering a free e-book download is an established lead generation tactic for SaaS companies.",
+        "optionsVi": [
+          "thu hút khách hàng tiềm năng",
+          "tuyển dụng nhân sự cấp cao",
+          "sản xuất hàng loạt",
+          "thanh lý hàng tồn kho"
+        ]
+      },
+      {
+        "id": "mkt_perf_15",
+        "word": "impression",
+        "level": "B1",
+        "ipa": "/ɪmˈpreʃ.ən/",
+        "type": "noun",
+        "meaningVi": "lượt hiển thị quảng cáo",
+        "collocations": "ad impressions, cost per thousand impressions, generate impressions",
+        "example": "Our banner campaign generated over 2 million impressions across top tech publications.",
+        "optionsVi": [
+          "lượt hiển thị quảng cáo",
+          "lượt bấm vào giỏ hàng",
+          "ấn tượng phỏng vấn",
+          "đánh giá sao sản phẩm"
+        ]
+      },
+      {
+        "id": "mkt_perf_16",
+        "word": "attribution model",
+        "level": "B2",
+        "ipa": "/ˌæt.rɪˈbjuː.ʃən ˈmɒd.əl/",
+        "type": "noun",
+        "meaningVi": "mô hình quy kết chuyển đổi",
+        "collocations": "first-click attribution model, multi-touch attribution model, data-driven attribution",
+        "example": "Switching to a multi-touch attribution model gave us visibility into how display ads assist Google Search conversions.",
+        "optionsVi": [
+          "mô hình quy kết chuyển đổi",
+          "mô hình thiết kế sản phẩm",
+          "quy tắc thanh toán lương",
+          "sơ đồ cấu trúc tổ chức"
+        ]
+      },
+      {
+        "id": "mkt_perf_17",
+        "word": "pixel tracking",
+        "level": "B2",
+        "ipa": "/ˈpɪk.səl ˈtræk.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "mã pixel theo dõi hành vi",
+        "collocations": "install pixel tracking, Meta pixel tracking, cookie-based pixel tracking",
+        "example": "The Meta pixel tracking snippet records purchases and feeds conversion data back to Ads Manager.",
+        "optionsVi": [
+          "mã pixel theo dõi hành vi",
+          "độ phân giải camera",
+          "vẽ biểu đồ pixel",
+          "chỉnh sửa ảnh đại diện"
+        ]
+      },
+      {
+        "id": "mkt_perf_18",
+        "word": "sales funnel",
+        "level": "B1",
+        "ipa": "/seɪlz ˈfʌn.əl/",
+        "type": "noun",
+        "meaningVi": "phễu bán hàng đa giai đoạn",
+        "collocations": "top of the sales funnel, move prospects down the sales funnel, leaky sales funnel",
+        "example": "The marketing team guides leads through the sales funnel from brand awareness to final purchase.",
+        "optionsVi": [
+          "phễu bán hàng đa giai đoạn",
+          "bảng kế hoạch doanh thu",
+          "ống xả dầu khí",
+          "dây chuyền đóng gói"
+        ]
+      },
+      {
+        "id": "mkt_perf_19",
+        "word": "lookalike audience",
+        "level": "B2",
+        "ipa": "/ˈlʊk.ə.laɪk ˈɔː.di.əns/",
+        "type": "noun",
+        "meaningVi": "tệp đối tượng có hành vi tương tự",
+        "collocations": "create lookalike audience, 1% lookalike audience, high-value lookalike audience",
+        "example": "We uploaded our top 1,000 customers to generate a 1% lookalike audience on Facebook Ads.",
+        "optionsVi": [
+          "tệp đối tượng có hành vi tương tự",
+          "khán giả xem trực tiếp",
+          "nhóm diễn viên đóng thế",
+          "người dùng thử nghiệm"
+        ]
+      },
+      {
+        "id": "mkt_perf_20",
+        "word": "ad fatigue",
+        "level": "B2",
+        "ipa": "/æd fəˈtiːɡ/",
+        "type": "noun",
+        "meaningVi": "sự nhàm chán quảng cáo vì xem nhiều",
+        "collocations": "suffer from ad fatigue, combat ad fatigue, ad fatigue indicators",
+        "example": "When frequency reached 5.2 and CTR began dropping, we refreshed our banners to combat ad fatigue.",
+        "optionsVi": [
+          "sự nhàm chán quảng cáo vì xem nhiều",
+          "sự mệt mỏi của nhân viên",
+          "lỗi quá tải máy chủ",
+          "thời gian hết hạn hợp đồng"
+        ]
+      },
+      {
+        "id": "mkt_perf_21",
+        "word": "cost per mille",
+        "level": "B2",
+        "ipa": "/kɒst pɜː ˈmɪl/",
+        "type": "noun",
+        "meaningVi": "chi phí cho 1.000 lượt hiển thị",
+        "collocations": "average CPM, bidding on CPM basis, competitive CPM rates",
+        "example": "Brand awareness campaigns are usually measured by cost per mille rather than individual clicks.",
+        "optionsVi": [
+          "chi phí cho 1.000 lượt hiển thị",
+          "giá một gói sản phẩm",
+          "phí vận chuyển bưu điện",
+          "thuế xuất nhập khẩu"
+        ]
+      },
+      {
+        "id": "mkt_perf_22",
+        "word": "inbound marketing",
+        "level": "B1",
+        "ipa": "/ˈɪn.baʊnd ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị thu hút khách hàng tự tìm đến",
+        "collocations": "inbound marketing methodology, inbound leads, content-driven inbound marketing",
+        "example": "Inbound marketing focuses on attracting customers through valuable content, blogs, and tutorials.",
+        "optionsVi": [
+          "tiếp thị thu hút khách hàng tự tìm đến",
+          "quảng cáo gọi điện chào mời",
+          "bán hàng tận nhà",
+          "gửi thư quảng cáo rác"
+        ]
+      },
+      {
+        "id": "mkt_perf_23",
+        "word": "outbound marketing",
+        "level": "B1",
+        "ipa": "/ˈaʊt.baʊnd ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị chủ động gửi thông điệp ra ngoài",
+        "collocations": "outbound marketing channels, cold calling outbound marketing, outbound email sequence",
+        "example": "Traditional outbound marketing includes TV commercials, billboards, and cold telemarketing calls.",
+        "optionsVi": [
+          "tiếp thị chủ động gửi thông điệp ra ngoài",
+          "khách hàng tự giới thiệu",
+          "tối ưu hóa bài viết blog",
+          "tiếp thị truyền miệng"
+        ]
+      },
+      {
+        "id": "mkt_perf_24",
+        "word": "conversion funnel",
+        "level": "B2",
+        "ipa": "/kənˈvɜː.ʒən ˈfʌn.əl/",
+        "type": "noun",
+        "meaningVi": "phễu theo dõi chuyển đổi từng bước",
+        "collocations": "analyze conversion funnel, drop-off in conversion funnel, streamline conversion funnel",
+        "example": "Analyzing the conversion funnel revealed that 40% of users dropped off on the payment details page.",
+        "optionsVi": [
+          "phễu theo dõi chuyển đổi từng bước",
+          "hộp lọc nước thải",
+          "bình chiết hóa chất",
+          "sơ đồ mạch điện tử"
+        ]
+      },
+      {
+        "id": "mkt_perf_25",
+        "word": "programmatic advertising",
+        "level": "B2",
+        "ipa": "/ˌprəʊ.ɡræmˈæt.ɪk ˈæd.və.taɪ.zɪŋ/",
+        "type": "noun",
+        "meaningVi": "quảng cáo tự động đấu thầu",
+        "collocations": "programmatic advertising platform, real-time programmatic advertising, programmatic DSP",
+        "example": "Programmatic advertising automatically purchases digital ad inventory across thousands of websites in milliseconds.",
+        "optionsVi": [
+          "quảng cáo tự động đấu thầu",
+          "lập trình phần mềm ứng dụng",
+          "in ấn tờ rơi truyền thống",
+          "bảo trì hệ thống máy in"
+        ]
+      },
+      {
+        "id": "mkt_perf_26",
+        "word": "lead nurturing",
+        "level": "B2",
+        "ipa": "/liːd ˈnɜː.tʃər.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "nuôi dưỡng khách hàng tiềm năng",
+        "collocations": "automated lead nurturing, email lead nurturing campaign, lead nurturing workflow",
+        "example": "Automated drip email sequences play a pivotal role in lead nurturing for high-ticket enterprise software.",
+        "optionsVi": [
+          "nuôi dưỡng khách hàng tiềm năng",
+          "chăm sóc trẻ sơ sinh",
+          "đào tạo nhân viên tập sự",
+          "gây quỹ từ thiện"
+        ]
+      },
+      {
+        "id": "mkt_perf_27",
+        "word": "customer acquisition cost",
+        "level": "B2",
+        "ipa": "/ˈkʌs.tə.mər ˌæk.wɪˈzɪʃ.ən kɒst/",
+        "type": "noun",
+        "meaningVi": "chi phí để có khách hàng mới (CAC)",
+        "collocations": "sustainable customer acquisition cost, lower CAC, CAC to LTV ratio",
+        "example": "Investors examine the ratio between customer acquisition cost and lifetime value to gauge business health.",
+        "optionsVi": [
+          "chi phí để có khách hàng mới (CAC)",
+          "chi phí bảo hành sản phẩm",
+          "lương nhân viên bán hàng",
+          "tiền thuê mặt bằng kinh doanh"
+        ]
+      },
+      {
+        "id": "mkt_perf_28",
+        "word": "customer lifetime value",
+        "level": "B2",
+        "ipa": "/ˈkʌs.tə.mər ˈlaɪf.taɪm ˈvæl.juː/",
+        "type": "noun",
+        "meaningVi": "giá trị trọn đời của khách hàng (LTV)",
+        "collocations": "maximize customer lifetime value, calculate LTV, high customer lifetime value",
+        "example": "Subscription-based software models strive to extend customer lifetime value through excellent support and upselling.",
+        "optionsVi": [
+          "giá trị trọn đời của khách hàng (LTV)",
+          "tuổi thọ thiết bị máy móc",
+          "thời hạn bảo hiểm nhân thọ",
+          "khoản vay ngân hàng dài hạn"
+        ]
+      },
+      {
+        "id": "mkt_perf_29",
+        "word": "keyword bidding",
+        "level": "B1",
+        "ipa": "/ˈkiː.wɜːd ˈbɪd.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "đấu thầu từ khóa quảng cáo",
+        "collocations": "automated keyword bidding, competitive keyword bidding, keyword bidding strategy",
+        "example": "Smart keyword bidding on Google Ads dynamically adjusts bids based on device, location, and time of day.",
+        "optionsVi": [
+          "đấu thầu từ khóa quảng cáo",
+          "đấu giá tranh nghệ thuật",
+          "đặt tên cho thương hiệu",
+          "dịch từ điển chuyên ngành"
+        ]
+      },
+      {
+        "id": "mkt_perf_30",
+        "word": "churn rate",
+        "level": "B2",
+        "ipa": "/tʃɜːn reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ khách hàng rời bỏ dịch vụ",
+        "collocations": "reduce churn rate, monthly customer churn rate, acceptable churn rate",
+        "example": "Lowering our monthly churn rate from 5% to 2% had a dramatic compounding effect on annual revenue.",
+        "optionsVi": [
+          "tỷ lệ khách hàng rời bỏ dịch vụ",
+          "tốc độ quay của máy ly tâm",
+          "tỷ lệ nhân viên nghỉ ốm",
+          "tỷ lệ hoàn thành nhiệm vụ"
+        ]
+      },
+      {
+        "id": "mkt_perf_31",
+        "word": "open rate",
+        "level": "B1",
+        "ipa": "/ˈəʊ.pən reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ mở thư email tiếp thị",
+        "collocations": "email open rate, 25% open rate, factors affecting open rate",
+        "example": "Personalizing the subject line with the recipient's first name raised our email open rate by 22%.",
+        "optionsVi": [
+          "tỷ lệ mở thư email tiếp thị",
+          "tỷ lệ mở cửa hàng bán lẻ",
+          "thời gian làm việc của công ty",
+          "lượng người đến tham quan"
+        ]
+      },
+      {
+        "id": "mkt_perf_32",
+        "word": "click-to-open rate",
+        "level": "B2",
+        "ipa": "/klɪk tuː ˈəʊ.pən reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ nhấp trên số email đã mở",
+        "collocations": "measure CTOR, strong click-to-open rate, CTOR vs CTR",
+        "example": "While open rate reflects subject line appeal, click-to-open rate directly measures how compelling your email body is.",
+        "optionsVi": [
+          "tỷ lệ nhấp trên số email đã mở",
+          "tổng số thư gửi thành công",
+          "tỷ lệ thư bị rơi vào hòm rác",
+          "thời gian đọc trung bình"
+        ]
+      },
+      {
+        "id": "mkt_perf_33",
+        "word": "traffic source",
+        "level": "B1",
+        "ipa": "/ˈtræf.ɪk sɔːs/",
+        "type": "noun",
+        "meaningVi": "nguồn gốc lưu lượng truy cập",
+        "collocations": "top traffic sources, direct traffic source, referral traffic source",
+        "example": "Google Analytics breaks down visitor traffic sources into Organic Search, Direct, Social, and Paid Referral.",
+        "optionsVi": [
+          "nguồn gốc lưu lượng truy cập",
+          "nguồn điện cung cấp cho máy chủ",
+          "tuyến đường giao thông chính",
+          "địa điểm đặt văn phòng"
+        ]
+      },
+      {
+        "id": "mkt_perf_34",
+        "word": "opt-in",
+        "level": "B1",
+        "ipa": "/ɒpt ɪn/",
+        "type": "noun / verb",
+        "meaningVi": "đồng ý nhận thông tin tiếp thị",
+        "collocations": "double opt-in, opt-in subscriber list, opt-in rate",
+        "example": "Using a double opt-in confirmation protects our email sender reputation from spam complaints.",
+        "optionsVi": [
+          "đồng ý nhận thông tin tiếp thị",
+          "từ chối nhận tin nhắn",
+          "đổi mật khẩu đăng nhập",
+          "xóa tài khoản cá nhân"
+        ]
+      },
+      {
+        "id": "mkt_perf_35",
+        "word": "unsubscribe rate",
+        "level": "B2",
+        "ipa": "/ˌʌn.səbˈskraɪb reɪt/",
+        "type": "noun",
+        "meaningVi": "tỷ lệ hủy đăng ký nhận bản tin",
+        "collocations": "low unsubscribe rate, monitor unsubscribe rate, spike in unsubscribe rate",
+        "example": "If your unsubscribe rate exceeds 0.5%, your email content is likely irrelevant or sent too frequently.",
+        "optionsVi": [
+          "tỷ lệ hủy đăng ký nhận bản tin",
+          "tỷ lệ thanh toán đúng hạn",
+          "số lượng đánh giá tích cực",
+          "tỷ lệ hoàn trả tiền hàng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "marketing_brand_content",
+    "name": "Chiến lược Thương hiệu & Tiếp thị Nội dung (Brand & Content)",
+    "description": "35 thuật ngữ B1-B2 về định vị thương hiệu, USP, Buyer Persona, nghệ thuật Storytelling và PR truyền thông",
+    "level": "B1-B2",
+    "icon": "bi-megaphone-fill",
+    "badge": "Brand / Content",
+    "category": "marketing",
+    "words": [
+      {
+        "id": "mkt_brand_01",
+        "word": "brand equity",
+        "level": "B2",
+        "ipa": "/brænd ˈek.wɪ.ti/",
+        "type": "noun",
+        "meaningVi": "tài sản và giá trị thương hiệu",
+        "collocations": "build brand equity, strong brand equity, measure brand equity",
+        "example": "Apple commands premium prices across its product lineup largely due to immense brand equity.",
+        "optionsVi": [
+          "tài sản và giá trị thương hiệu",
+          "vốn điều lệ công ty",
+          "giá trị cổ phiếu lưu hành",
+          "bản quyền tác giả phần mềm"
+        ]
+      },
+      {
+        "id": "mkt_brand_02",
+        "word": "brand identity",
+        "level": "B1",
+        "ipa": "/brænd aɪˈden.tɪ.ti/",
+        "type": "noun",
+        "meaningVi": "bộ nhận diện thương hiệu",
+        "collocations": "consistent brand identity, visual brand identity, establish brand identity",
+        "example": "The design studio revamped our brand identity with a modern color palette, minimalist logo, and clean typography.",
+        "optionsVi": [
+          "bộ nhận diện thương hiệu",
+          "chứng minh nhân dân giám đốc",
+          "giấy phép kinh doanh",
+          "bằng sáng chế độc quyền"
+        ]
+      },
+      {
+        "id": "mkt_brand_03",
+        "word": "brand positioning",
+        "level": "B2",
+        "ipa": "/brænd pəˈzɪʃ.ən.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "định vị thương hiệu trong tâm trí",
+        "collocations": "clear brand positioning, strategic brand positioning, brand positioning statement",
+        "example": "Tesla established distinct brand positioning as an innovative pioneer in sustainable electric luxury.",
+        "optionsVi": [
+          "định vị thương hiệu trong tâm trí",
+          "vị trí địa lý của cửa hàng",
+          "chức vụ trong ban giám đốc",
+          "thứ hạng tìm kiếm website"
+        ]
+      },
+      {
+        "id": "mkt_brand_04",
+        "word": "unique selling proposition",
+        "level": "B2",
+        "ipa": "/juːˈniːk ˈsel.ɪŋ ˌprɒp.əˈzɪʃ.ən/",
+        "type": "noun",
+        "meaningVi": "điểm bán hàng độc nhất (USP)",
+        "collocations": "define your USP, competitive unique selling proposition, compelling USP",
+        "example": "Domino's Pizza rose to fame with its memorable USP: 'Fresh hot pizza delivered in 30 minutes or it's free.'",
+        "optionsVi": [
+          "điểm bán hàng độc nhất (USP)",
+          "bảng giá sản phẩm trọn gói",
+          "chính sách đổi trả hàng hóa",
+          "hóa đơn giá trị gia tăng"
+        ]
+      },
+      {
+        "id": "mkt_brand_05",
+        "word": "buyer persona",
+        "level": "B1",
+        "ipa": "/ˈbaɪ.ər pəˈsəʊ.nə/",
+        "type": "noun",
+        "meaningVi": "chân dung khách hàng mục tiêu",
+        "collocations": "create buyer personas, detailed buyer persona, target buyer persona",
+        "example": "Our marketing copy is tailored specifically to 'Tech-Savvy Tina', a buyer persona representing startup CTOs.",
+        "optionsVi": [
+          "chân dung khách hàng mục tiêu",
+          "hồ sơ nhân sự công ty",
+          "diễn viên đại diện thương hiệu",
+          "danh sách khách hàng nợ tiền"
+        ]
+      },
+      {
+        "id": "mkt_brand_06",
+        "word": "tone of voice",
+        "level": "B1",
+        "ipa": "/təʊn əv vɔɪs/",
+        "type": "noun",
+        "meaningVi": "văn phong và giọng điệu thương hiệu",
+        "collocations": "brand tone of voice, friendly tone of voice, consistent tone of voice",
+        "example": "Mailchimp maintains a playful, empathetic tone of voice across all its user interface copy and blogs.",
+        "optionsVi": [
+          "văn phong và giọng điệu thương hiệu",
+          "âm lượng loa thông báo",
+          "giọng hát của ca sĩ",
+          "âm điệu trong phòng họp"
+        ]
+      },
+      {
+        "id": "mkt_brand_07",
+        "word": "brand awareness",
+        "level": "B1",
+        "ipa": "/brænd əˈweə.nəs/",
+        "type": "noun",
+        "meaningVi": "mức độ nhận biết thương hiệu",
+        "collocations": "increase brand awareness, brand awareness campaign, high brand awareness",
+        "example": "Sponsoring international esports tournaments boosted our brand awareness among Generation Z consumers.",
+        "optionsVi": [
+          "mức độ nhận biết thương hiệu",
+          "hiểu biết pháp luật kinh doanh",
+          "trách nhiệm xã hội doanh nghiệp",
+          "chứng nhận tiêu chuẩn chất lượng"
+        ]
+      },
+      {
+        "id": "mkt_brand_08",
+        "word": "content marketing",
+        "level": "B1",
+        "ipa": "/ˈkɒn.tent ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị nội dung mang giá trị",
+        "collocations": "content marketing strategy, ROI of content marketing, content marketing agency",
+        "example": "Content marketing builds trust over time by solving customer problems rather than pitching products directly.",
+        "optionsVi": [
+          "tiếp thị nội dung mang giá trị",
+          "bán tài liệu in ấn",
+          "biên tập viên xuất bản sách",
+          "dịch vụ photocopy"
+        ]
+      },
+      {
+        "id": "mkt_brand_09",
+        "word": "thought leadership",
+        "level": "B2",
+        "ipa": "/θɔːt ˈliː.də.ʃɪp/",
+        "type": "noun",
+        "meaningVi": "dẫn dắt tư tưởng chuyên môn",
+        "collocations": "establish thought leadership, thought leadership content, industry thought leadership",
+        "example": "Publishing proprietary research reports positioned the consulting firm as a recognized thought leader.",
+        "optionsVi": [
+          "dẫn dắt tư tưởng chuyên môn",
+          "lãnh đạo tinh thần tôn giáo",
+          "huấn luyện kỹ năng mềm",
+          "quản trị nhân sự nội bộ"
+        ]
+      },
+      {
+        "id": "mkt_brand_10",
+        "word": "storytelling",
+        "level": "B1",
+        "ipa": "/ˈstɔː.riˌtel.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "nghệ thuật kể chuyện truyền cảm",
+        "collocations": "brand storytelling, emotional storytelling, master storytelling",
+        "example": "Nike ads rarely mention shoe specifications; they focus entirely on compelling human storytelling about grit and triumph.",
+        "optionsVi": [
+          "nghệ thuật kể chuyện truyền cảm",
+          "kể chuyện cổ tích thiếu nhi",
+          "viết kịch bản phim hài",
+          "thuyết trình báo cáo kỹ thuật"
+        ]
+      },
+      {
+        "id": "mkt_brand_11",
+        "word": "user-generated content",
+        "level": "B2",
+        "ipa": "/ˌjuː.zər ˈdʒen.ə.reɪ.tɪd ˈkɒn.tent/",
+        "type": "noun",
+        "meaningVi": "nội dung do người dùng tự tạo (UGC)",
+        "collocations": "leverage user-generated content, encourage UGC, UGC on Instagram",
+        "example": "GoPro built its entire brand community by reposting incredible user-generated content recorded by extreme athletes.",
+        "optionsVi": [
+          "nội dung do người dùng tự tạo (UGC)",
+          "phần mềm do kỹ sư lập trình",
+          "bài viết thuê chuyên gia",
+          "thông cáo nội bộ nhân viên"
+        ]
+      },
+      {
+        "id": "mkt_brand_12",
+        "word": "viral marketing",
+        "level": "B1",
+        "ipa": "/ˈvaɪə.rəl ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị lan truyền nhanh chóng",
+        "collocations": "viral marketing campaign, go viral, elements of viral marketing",
+        "example": "The Dollar Shave Club launch video is a legendary example of low-budget, humorous viral marketing.",
+        "optionsVi": [
+          "tiếp thị lan truyền nhanh chóng",
+          "phần mềm gián điệp độc hại",
+          "chiến dịch phòng chống dịch bệnh",
+          "tiếp thị truyền miệng truyền thống"
+        ]
+      },
+      {
+        "id": "mkt_brand_13",
+        "word": "influencer marketing",
+        "level": "B1",
+        "ipa": "/ˈɪn.flu.ən.sər ˈmɑː.kɪ.tɪŋ/",
+        "type": "noun",
+        "meaningVi": "tiếp thị qua người có ảnh hưởng",
+        "collocations": "micro-influencer marketing, influencer marketing platform, sponsored influencer marketing",
+        "example": "Partnering with micro-influencers in the specialty coffee niche yielded a higher engagement rate than celebrity endorsements.",
+        "optionsVi": [
+          "tiếp thị qua người có ảnh hưởng",
+          "tuyển dụng nhân vật nổi tiếng",
+          "vận động hành lang chính sách",
+          "quảng cáo trên truyền hình"
+        ]
+      },
+      {
+        "id": "mkt_brand_14",
+        "word": "brand advocacy",
+        "level": "B2",
+        "ipa": "/brænd ˈæd.və.kə.si/",
+        "type": "noun",
+        "meaningVi": "sự ủng hộ tự nguyện cho thương hiệu",
+        "collocations": "foster brand advocacy, customer brand advocacy, employee brand advocacy",
+        "example": "Delighting customers turns satisfied buyers into passionate advocates who champion your brand online for free.",
+        "optionsVi": [
+          "sự ủng hộ tự nguyện cho thương hiệu",
+          "dịch vụ tư vấn pháp luật",
+          "hoạt động từ thiện công ty",
+          "khiếu nại người tiêu dùng"
+        ]
+      },
+      {
+        "id": "mkt_brand_15",
+        "word": "editorial calendar",
+        "level": "B1",
+        "ipa": "/ˌed.ɪˈtɔː.ri.əl ˈkæl.ən.dər/",
+        "type": "noun",
+        "meaningVi": "lịch biên tập và kế hoạch nội dung",
+        "collocations": "maintain an editorial calendar, quarterly editorial calendar, plan content with editorial calendar",
+        "example": "Our content team plans blog articles, social posts, and newsletter themes two months in advance using Notion's editorial calendar.",
+        "optionsVi": [
+          "lịch biên tập và kế hoạch nội dung",
+          "lịch công tác của ban giám đốc",
+          "lịch nghỉ lễ hàng năm",
+          "thời gian biểu lớp học"
+        ]
+      },
+      {
+        "id": "mkt_brand_16",
+        "word": "press release",
+        "level": "B1",
+        "ipa": "/pres rɪˈliːs/",
+        "type": "noun",
+        "meaningVi": "thông cáo báo chí truyền thông",
+        "collocations": "issue a press release, official press release, distribute a press release",
+        "example": "The PR agency issued a formal press release announcing the company's 50-million-dollar Series B funding.",
+        "optionsVi": [
+          "thông cáo báo chí truyền thông",
+          "hợp đồng in ấn báo giấy",
+          "buổi họp báo trực tiếp",
+          "bản tin nội bộ công đoàn"
+        ]
+      },
+      {
+        "id": "mkt_brand_17",
+        "word": "public relations",
+        "level": "B1",
+        "ipa": "/ˌpʌb.lɪk rɪˈleɪ.ʃənz/",
+        "type": "noun",
+        "meaningVi": "quan hệ công chúng (PR)",
+        "collocations": "public relations campaign, corporate public relations, PR firm",
+        "example": "Effective public relations manages the spread of information to shape a positive public perception of the brand.",
+        "optionsVi": [
+          "quan hệ công chúng (PR)",
+          "quan hệ đối ngoại nhà nước",
+          "tuyển dụng nhân sự",
+          "chăm sóc khách hàng VIP"
+        ]
+      },
+      {
+        "id": "mkt_brand_18",
+        "word": "brand loyalty",
+        "level": "B1",
+        "ipa": "/brænd ˈlɔɪ.əl.ti/",
+        "type": "noun",
+        "meaningVi": "lòng trung thành với thương hiệu",
+        "collocations": "build brand loyalty, customer brand loyalty, foster brand loyalty",
+        "example": "Strong brand loyalty prevents customers from defecting to competitors even when cheaper alternatives emerge.",
+        "optionsVi": [
+          "lòng trung thành với thương hiệu",
+          "nghĩa vụ của người lao động",
+          "hợp đồng bảo hiểm trọn đời",
+          "thỏa thuận giữ bí mật"
+        ]
+      },
+      {
+        "id": "mkt_brand_19",
+        "word": "brand guideline",
+        "level": "B1",
+        "ipa": "/brænd ˈɡaɪd.laɪn/",
+        "type": "noun",
+        "meaningVi": "cẩm nang quy chuẩn thương hiệu",
+        "collocations": "follow brand guidelines, comprehensive brand guidelines, corporate brand guideline",
+        "example": "The brand guideline specifies exact logo clearance zones, primary hex colors, and permitted font weights.",
+        "optionsVi": [
+          "cẩm nang quy chuẩn thương hiệu",
+          "luật cạnh tranh thương mại",
+          "hướng dẫn bảo vệ môi trường",
+          "nội quy lao động cơ quan"
+        ]
+      },
+      {
+        "id": "mkt_brand_20",
+        "word": "brand narrative",
+        "level": "B2",
+        "ipa": "/brænd ˈnær.ə.tɪv/",
+        "type": "noun",
+        "meaningVi": "câu chuyện xuyên suốt thương hiệu",
+        "collocations": "craft a brand narrative, authentic brand narrative, core brand narrative",
+        "example": "Airbnb’s brand narrative revolves around the universal desire to 'Belong Anywhere'.",
+        "optionsVi": [
+          "câu chuyện xuyên suốt thương hiệu",
+          "kịch bản phim tài liệu",
+          "tiểu thuyết tự truyện",
+          "lời dẫn chương trình sự kiện"
+        ]
+      },
+      {
+        "id": "mkt_brand_21",
+        "word": "content syndication",
+        "level": "B2",
+        "ipa": "/ˈkɒn.tent ˌsɪn.dɪˈkeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tái phân phối nội dung qua đối tác",
+        "collocations": "content syndication partner, B2B content syndication, content syndication network",
+        "example": "Content syndication on Medium and TechCrunch helped amplify our white paper to an audience of half a million tech leaders.",
+        "optionsVi": [
+          "tái phân phối nội dung qua đối tác",
+          "sao chép tài liệu trái phép",
+          "mua bản quyền sách dịch",
+          "in ấn tạp chí định kỳ"
+        ]
+      },
+      {
+        "id": "mkt_brand_22",
+        "word": "evergreen content",
+        "level": "B2",
+        "ipa": "/ˈev.ə.ɡriːn ˈkɒn.tent/",
+        "type": "noun",
+        "meaningVi": "nội dung có giá trị lâu dài",
+        "collocations": "create evergreen content, evergreen content strategy, evergreen blog posts",
+        "example": "How-to guides and fundamental tutorials represent evergreen content that continuously drives organic search traffic for years.",
+        "optionsVi": [
+          "nội dung có giá trị lâu dài",
+          "bài viết về môi trường xanh",
+          "tin tức thời sự nóng hổi",
+          "quảng cáo theo mùa lễ hội"
+        ]
+      },
+      {
+        "id": "mkt_brand_23",
+        "word": "infographic",
+        "level": "B1",
+        "ipa": "/ˈɪn.fəʊˌɡræf.ɪk/",
+        "type": "noun",
+        "meaningVi": "đồ họa thông tin trực quan",
+        "collocations": "design an infographic, viral infographic, informative infographic",
+        "example": "Readers shared the visual cybersecurity infographic over 10,000 times on social platforms.",
+        "optionsVi": [
+          "đồ họa thông tin trực quan",
+          "bản vẽ kỹ thuật kiến trúc",
+          "bản đồ địa lý vệ tinh",
+          "ảnh chụp phong cảnh nghệ thuật"
+        ]
+      },
+      {
+        "id": "mkt_brand_24",
+        "word": "case study",
+        "level": "B1",
+        "ipa": "/keɪs ˈstʌd.i/",
+        "type": "noun",
+        "meaningVi": "nghiên cứu tình huống thực tế",
+        "collocations": "client case study, publish a case study, compelling B2B case study",
+        "example": "The marketing case study highlighted how a fintech startup achieved 300% user growth within six months using our platform.",
+        "optionsVi": [
+          "nghiên cứu tình huống thực tế",
+          "bài kiểm tra học kỳ",
+          "bản án tòa án kinh tế",
+          "đề tài luận văn tốt nghiệp"
+        ]
+      },
+      {
+        "id": "mkt_brand_25",
+        "word": "white paper",
+        "level": "B2",
+        "ipa": "/waɪt ˈpeɪ.pər/",
+        "type": "noun",
+        "meaningVi": "báo cáo kỹ thuật chuyên sâu",
+        "collocations": "download the white paper, technical white paper, publish an industry white paper",
+        "example": "B2B enterprise buyers often review a comprehensive white paper before scheduling a demo with sales engineers.",
+        "optionsVi": [
+          "báo cáo kỹ thuật chuyên sâu",
+          "giấy trắng viết tay thông thường",
+          "tờ rơi quảng cáo phát tờ",
+          "hợp đồng bảo hiểm trắng"
+        ]
+      },
+      {
+        "id": "mkt_brand_26",
+        "word": "rebranding",
+        "level": "B2",
+        "ipa": "/riːˈbræn.dɪŋ/",
+        "type": "noun",
+        "meaningVi": "tái cấu trúc làm mới thương hiệu",
+        "collocations": "undergo a rebranding, complete rebranding effort, rebranding campaign",
+        "example": "The corporate rebranding from Facebook to Meta signaled a strategic pivot toward spatial computing.",
+        "optionsVi": [
+          "tái cấu trúc làm mới thương hiệu",
+          "đổi tên miền trang web",
+          "thay đổi người đại diện pháp luật",
+          "thanh lý tài sản cố định"
+        ]
+      },
+      {
+        "id": "mkt_brand_27",
+        "word": "brand association",
+        "level": "B2",
+        "ipa": "/brænd əˌsəʊ.siˈeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "liên tưởng trong tâm trí người dùng",
+        "collocations": "positive brand association, build strong brand associations, brand association map",
+        "example": "Volvo has successfully built an unbreakable brand association with automotive safety for over half a century.",
+        "optionsVi": [
+          "liên tưởng trong tâm trí người dùng",
+          "hiệp hội các nhà sản xuất",
+          "câu lạc bộ khách hàng thân thiết",
+          "hợp tác kinh doanh liên doanh"
+        ]
+      },
+      {
+        "id": "mkt_brand_28",
+        "word": "co-branding",
+        "level": "B2",
+        "ipa": "/kəʊ ˈbræn.dɪŋ/",
+        "type": "noun",
+        "meaningVi": "hợp tác liên danh giữa 2 thương hiệu",
+        "collocations": "co-branding partnership, successful co-branding campaign, co-branding agreement",
+        "example": "The Nike and Apple Watch collaboration represents one of the most lucrative co-branding partnerships in tech history.",
+        "optionsVi": [
+          "hợp tác liên danh giữa 2 thương hiệu",
+          "cạnh tranh không lành mạnh",
+          "mua lại và sáp nhập doanh nghiệp",
+          "nhượng quyền thương mại"
+        ]
+      },
+      {
+        "id": "mkt_brand_29",
+        "word": "brand touchpoint",
+        "level": "B2",
+        "ipa": "/brænd ˈtʌtʃ.pɔɪnt/",
+        "type": "noun",
+        "meaningVi": "điểm chạm thương hiệu với khách",
+        "collocations": "every brand touchpoint, digital brand touchpoint, optimize touchpoints",
+        "example": "From packaging design to customer service calls, every single brand touchpoint shapes public perception.",
+        "optionsVi": [
+          "điểm chạm thương hiệu với khách",
+          "màn hình cảm ứng thiết bị",
+          "nút bấm trên điều khiển",
+          "trạm sạc xe điện công cộng"
+        ]
+      },
+      {
+        "id": "mkt_brand_30",
+        "word": "crisis communication",
+        "level": "B2",
+        "ipa": "/ˈkraɪ.sɪs kəˌmjuː.nɪˈkeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "truyền thông xử lý khủng hoảng",
+        "collocations": "crisis communication plan, execute crisis communication, expert in crisis communication",
+        "example": "A swift and transparent crisis communication response prevented the product recall from destroying the airline's reputation.",
+        "optionsVi": [
+          "truyền thông xử lý khủng hoảng",
+          "đường dây nóng cấp cứu",
+          "hệ thống báo cháy tự động",
+          "bảo hiểm rủi ro kinh doanh"
+        ]
+      },
+      {
+        "id": "mkt_brand_31",
+        "word": "key message",
+        "level": "B1",
+        "ipa": "/kiː ˈmes.ɪdʒ/",
+        "type": "noun",
+        "meaningVi": "thông điệp truyền thông then chốt",
+        "collocations": "deliver key messages, core key message, memorable key message",
+        "example": "The marketing team aligned on three key messages before launching the international campaign tour.",
+        "optionsVi": [
+          "thông điệp truyền thông then chốt",
+          "mã khóa giải mã tin nhắn",
+          "mật khẩu hộp thư điện tử",
+          "chìa khóa phòng họp"
+        ]
+      },
+      {
+        "id": "mkt_brand_32",
+        "word": "call-out",
+        "level": "B1",
+        "ipa": "/kɔːl aʊt/",
+        "type": "noun",
+        "meaningVi": "đoạn trích điểm nhấn nổi bật",
+        "collocations": "visual call-out, customer quote call-out, stat call-out",
+        "example": "Use visual call-outs and stat boxes to make long-form blog articles scannable for mobile readers.",
+        "optionsVi": [
+          "đoạn trích điểm nhấn nổi bật",
+          "cuộc gọi điện thoại ra ngoài",
+          "lệnh triệu tập khẩn cấp",
+          "chuông báo thức buổi sáng"
+        ]
+      },
+      {
+        "id": "mkt_brand_33",
+        "word": "curated content",
+        "level": "B2",
+        "ipa": "/kjʊəˈreɪ.tɪd ˈkɒn.tent/",
+        "type": "noun",
+        "meaningVi": "nội dung chọn lọc từ nhiều nguồn",
+        "collocations": "share curated content, curated content newsletter, high-quality curated content",
+        "example": "Our weekly newsletter delivers curated content highlighting the ten best AI developments from across the web.",
+        "optionsVi": [
+          "nội dung chọn lọc từ nhiều nguồn",
+          "tác phẩm nghệ thuật bảo tàng",
+          "nội dung tự động tạo bởi bot",
+          "bài viết tự sáng tác"
+        ]
+      },
+      {
+        "id": "mkt_brand_34",
+        "word": "brand resonance",
+        "level": "B2",
+        "ipa": "/brænd ˈrez.ən.əns/",
+        "type": "noun",
+        "meaningVi": "sự gắn kết cộng hưởng sâu sắc",
+        "collocations": "achieve brand resonance, level of brand resonance, building brand resonance",
+        "example": "True brand resonance occurs when customers feel a profound personal and emotional attachment to the brand.",
+        "optionsVi": [
+          "sự gắn kết cộng hưởng sâu sắc",
+          "độ vang âm thanh trong phòng",
+          "tần số sóng radio phát thanh",
+          "chấn động địa chấn mặt đất"
+        ]
+      },
+      {
+        "id": "mkt_brand_35",
+        "word": "sponsorship",
+        "level": "B1",
+        "ipa": "/ˈspɒn.sə.ʃɪp/",
+        "type": "noun",
+        "meaningVi": "tài trợ thương hiệu cho sự kiện",
+        "collocations": "corporate sponsorship, sports sponsorship, secure a sponsorship deal",
+        "example": "Red Bull leverages extreme sports sponsorship to establish an energetic and adventurous brand image worldwide.",
+        "optionsVi": [
+          "tài trợ thương hiệu cho sự kiện",
+          "bảo lãnh vay vốn ngân hàng",
+          "chứng nhận người giám hộ",
+          "hợp đồng bảo hiểm trách nhiệm"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "marketing_consumer_analytics",
+    "name": "Nghiên cứu Thị trường & Phân tích Khách hàng (Analytics & Insights)",
+    "description": "30 thuật ngữ B1-B2 về Target Audience, phân khúc thị trường, phân tích hành vi người tiêu dùng và chỉ số NPS",
+    "level": "B1-B2",
+    "icon": "bi-pie-chart-fill",
+    "badge": "Research / Analytics",
+    "category": "marketing",
+    "words": [
+      {
+        "id": "mkt_anal_01",
+        "word": "target audience",
+        "level": "B1",
+        "ipa": "/ˈtɑː.ɡɪt ˈɔː.di.əns/",
+        "type": "noun",
+        "meaningVi": "đối tượng công chúng mục tiêu",
+        "collocations": "define target audience, reach target audience, tailor content to target audience",
+        "example": "Understanding your target audience's daily habits is the foundation of any effective advertising strategy.",
+        "optionsVi": [
+          "đối tượng công chúng mục tiêu",
+          "khán giả xem buổi hòa nhạc",
+          "ban giám khảo chấm thi",
+          "hội đồng cổ đông công ty"
+        ]
+      },
+      {
+        "id": "mkt_anal_02",
+        "word": "market segmentation",
+        "level": "B2",
+        "ipa": "/ˈmɑː.kɪt ˌseɡ.menˈteɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "phân khúc thị trường",
+        "collocations": "geographic market segmentation, behavioral market segmentation, demographic segmentation",
+        "example": "Market segmentation enables the brand to customize product messaging for different age and income brackets.",
+        "optionsVi": [
+          "phân khúc thị trường",
+          "sự chia cắt địa lý hành chính",
+          "phân tán tài sản đầu tư",
+          "chia tách phòng ban nội bộ"
+        ]
+      },
+      {
+        "id": "mkt_anal_03",
+        "word": "demographic profiling",
+        "level": "B2",
+        "ipa": "/ˌdem.əˈɡræf.ɪk ˈprəʊ.faɪl.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "hồ sơ phân tích nhân khẩu học",
+        "collocations": "detailed demographic profiling, customer demographic profile, analyze demographics",
+        "example": "Demographic profiling revealed that 68% of our app users are urban professionals aged 25 to 34.",
+        "optionsVi": [
+          "hồ sơ phân tích nhân khẩu học",
+          "sổ hộ khẩu gia đình",
+          "hồ sơ y tế khám sức khỏe",
+          "lý lịch tư pháp cá nhân"
+        ]
+      },
+      {
+        "id": "mkt_anal_04",
+        "word": "customer journey",
+        "level": "B1",
+        "ipa": "/ˈkʌs.tə.mər ˈdʒɜː.ni/",
+        "type": "noun",
+        "meaningVi": "hành trình trải nghiệm của khách",
+        "collocations": "map the customer journey, customer journey touchpoints, friction in customer journey",
+        "example": "Mapping the customer journey helped the UX team eliminate friction points between registration and checkout.",
+        "optionsVi": [
+          "hành trình trải nghiệm của khách",
+          "chuyến du lịch của khách hàng",
+          "lộ trình giao hàng vận chuyển",
+          "vé máy bay khứ hồi"
+        ]
+      },
+      {
+        "id": "mkt_anal_05",
+        "word": "pain point",
+        "level": "B1",
+        "ipa": "/peɪn pɔɪnt/",
+        "type": "noun",
+        "meaningVi": "nỗi đau / vấn đề khó khăn của khách",
+        "collocations": "identify customer pain points, address pain points, solve a major pain point",
+        "example": "Our software directly solves the pain point of spending four hours weekly on manual invoice reconciliations.",
+        "optionsVi": [
+          "nỗi đau / vấn đề khó khăn của khách",
+          "vết thương thể chất người bệnh",
+          "điểm yếu trong cấu trúc nhà",
+          "điểm số thấp trong bài thi"
+        ]
+      },
+      {
+        "id": "mkt_anal_06",
+        "word": "Net Promoter Score",
+        "level": "B2",
+        "ipa": "/net prəˈməʊ.tər skɔːr/",
+        "type": "noun",
+        "meaningVi": "chỉ số đo lường hài lòng khách (NPS)",
+        "collocations": "calculate Net Promoter Score, industry NPS benchmark, improve our NPS",
+        "example": "With a Net Promoter Score of +72, the enterprise CRM product ranks in the top tier of customer satisfaction.",
+        "optionsVi": [
+          "chỉ số đo lường hài lòng khách (NPS)",
+          "điểm số tín dụng ngân hàng",
+          "điểm trung bình thi đại học",
+          "thang đo động đất"
+        ]
+      },
+      {
+        "id": "mkt_anal_07",
+        "word": "customer retention",
+        "level": "B2",
+        "ipa": "/ˈkʌs.tə.mər rɪˈten.ʃən/",
+        "type": "noun",
+        "meaningVi": "duy trì giữ chân khách hàng",
+        "collocations": "customer retention rate, retention strategy, improve customer retention",
+        "example": "Acquiring a new client costs five times more than investing in customer retention programs.",
+        "optionsVi": [
+          "duy trì giữ chân khách hàng",
+          "giữ lại tiền đặt cọc",
+          "giam giữ tài sản thế chấp",
+          "khóa tài khoản tạm thời"
+        ]
+      },
+      {
+        "id": "mkt_anal_08",
+        "word": "market penetration",
+        "level": "B2",
+        "ipa": "/ˈmɑː.kɪt ˌpen.ɪˈtreɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "mức độ thâm nhập thị trường",
+        "collocations": "achieve market penetration, rapid market penetration, market penetration strategy",
+        "example": "Aggressive promotional pricing allowed the delivery app to achieve deep market penetration within six months.",
+        "optionsVi": [
+          "mức độ thâm nhập thị trường",
+          "sự xâm nhập mạng máy tính",
+          "độ thấm nước của vải",
+          "đào sâu công trình ngầm"
+        ]
+      },
+      {
+        "id": "mkt_anal_09",
+        "word": "competitive analysis",
+        "level": "B1",
+        "ipa": "/kəmˈpet.ɪ.tɪv əˈnæl.ə.sɪs/",
+        "type": "noun",
+        "meaningVi": "phân tích đối thủ cạnh tranh",
+        "collocations": "conduct competitive analysis, thorough competitive analysis, competitive intelligence",
+        "example": "The competitive analysis revealed a glaring gap in the market for budget-friendly project management tools.",
+        "optionsVi": [
+          "phân tích đối thủ cạnh tranh",
+          "thi đua khen thưởng nhân viên",
+          "bốc thăm chia bảng thi đấu",
+          "kiểm tra chất lượng định kỳ"
+        ]
+      },
+      {
+        "id": "mkt_anal_10",
+        "word": "SWOT analysis",
+        "level": "B1",
+        "ipa": "/swɒt əˈnæl.ə.sɪs/",
+        "type": "noun",
+        "meaningVi": "ma trận phân tích SWOT",
+        "collocations": "conduct a SWOT analysis, SWOT matrix, strategic SWOT framework",
+        "example": "Before launching our flagship model, we prepared a comprehensive SWOT analysis to evaluate market threats.",
+        "optionsVi": [
+          "ma trận phân tích SWOT",
+          "đội đặc nhiệm cảnh sát",
+          "phân tích hóa học mẫu nước",
+          "thử nghiệm tốc độ mạng"
+        ]
+      },
+      {
+        "id": "mkt_anal_11",
+        "word": "focus group",
+        "level": "B1",
+        "ipa": "/ˈfəʊ.kəs ɡruːp/",
+        "type": "noun",
+        "meaningVi": "nhóm phỏng vấn thảo luận tập trung",
+        "collocations": "run a focus group, consumer focus group, focus group feedback",
+        "example": "Feedback gathered from our consumer focus group led to significant revisions in our new beverage packaging.",
+        "optionsVi": [
+          "nhóm phỏng vấn thảo luận tập trung",
+          "nhóm bạn bè thân thiết",
+          "nhóm chat công việc",
+          "đội ngũ kỹ thuật viên"
+        ]
+      },
+      {
+        "id": "mkt_anal_12",
+        "word": "qualitative research",
+        "level": "B2",
+        "ipa": "/ˈkwɒl.ɪ.tə.tɪv rɪˈsɜːtʃ/",
+        "type": "noun",
+        "meaningVi": "nghiên cứu định tính về động cơ",
+        "collocations": "qualitative research method, qualitative data, conduct qualitative research",
+        "example": "Qualitative research such as in-depth interviews uncovered subtle psychological motivations behind luxury purchases.",
+        "optionsVi": [
+          "nghiên cứu định tính về động cơ",
+          "đo lường khối lượng hàng",
+          "nghiên cứu định lượng con số",
+          "kiểm định chất lượng nước"
+        ]
+      },
+      {
+        "id": "mkt_anal_13",
+        "word": "quantitative research",
+        "level": "B2",
+        "ipa": "/ˈkwɒn.tɪ.tə.tɪv rɪˈsɜːtʃ/",
+        "type": "noun",
+        "meaningVi": "nghiên cứu định lượng số liệu",
+        "collocations": "quantitative research findings, quantitative surveys, statistically valid quantitative research",
+        "example": "Our quantitative research surveyed 5,000 respondents across five cities to validate market demand.",
+        "optionsVi": [
+          "nghiên cứu định lượng số liệu",
+          "phỏng vấn tâm lý cá nhân",
+          "nghiên cứu lịch sử phát triển",
+          "đánh giá cảm quan màu sắc"
+        ]
+      },
+      {
+        "id": "mkt_anal_14",
+        "word": "sentiment analysis",
+        "level": "B2",
+        "ipa": "/ˈsen.tɪ.mənt əˈnæl.ə.sɪs/",
+        "type": "noun",
+        "meaningVi": "phân tích cảm xúc người dùng",
+        "collocations": "social media sentiment analysis, positive sentiment, sentiment analysis tool",
+        "example": "Using natural language processing for sentiment analysis revealed that 85% of tweets about the product launch were positive.",
+        "optionsVi": [
+          "phân tích cảm xúc người dùng",
+          "phân tích tài chính kế toán",
+          "đo nhịp tim huyết áp",
+          "kiểm tra trắc nghiệm tính cách"
+        ]
+      },
+      {
+        "id": "mkt_anal_15",
+        "word": "consumer behavior",
+        "level": "B1",
+        "ipa": "/kənˈsjuː.mər bɪˈheɪ.vjər/",
+        "type": "noun",
+        "meaningVi": "hành vi và thói quen người tiêu dùng",
+        "collocations": "shifts in consumer behavior, study consumer behavior, consumer behavior trends",
+        "example": "The pandemic caused long-lasting shifts in consumer behavior toward contactless delivery and remote shopping.",
+        "optionsVi": [
+          "hành vi và thói quen người tiêu dùng",
+          "cách cư xử nơi công cộng",
+          "luật bảo vệ quyền lợi người tiêu dùng",
+          "đạo đức kinh doanh thương mại"
+        ]
+      },
+      {
+        "id": "mkt_anal_16",
+        "word": "omnichannel",
+        "level": "B2",
+        "ipa": "/ˈɒm.nɪˌtʃæn.əl/",
+        "type": "adjective / noun",
+        "meaningVi": "tiếp thị đa kênh hợp nhất",
+        "collocations": "omnichannel customer experience, omnichannel retail, seamless omnichannel strategy",
+        "example": "An omnichannel approach allows customers to browse items on their smartphone and pick them up at a brick-and-mortar store.",
+        "optionsVi": [
+          "tiếp thị đa kênh hợp nhất",
+          "kênh truyền hình cáp",
+          "đường thủy nội địa",
+          "bán hàng tại một điểm duy nhất"
+        ]
+      },
+      {
+        "id": "mkt_anal_17",
+        "word": "market share",
+        "level": "B1",
+        "ipa": "/ˈmɑː.kɪt ʃeər/",
+        "type": "noun",
+        "meaningVi": "thị phần doanh nghiệp chiếm lĩnh",
+        "collocations": "gain market share, dominant market share, market share leader",
+        "example": "Through aggressive innovation, the brand captured a 28% market share in the smart wearable sector.",
+        "optionsVi": [
+          "thị phần doanh nghiệp chiếm lĩnh",
+          "cổ phần trong công ty",
+          "giá cổ phiếu niêm yết",
+          "chia sẻ mặt bằng bán hàng"
+        ]
+      },
+      {
+        "id": "mkt_anal_18",
+        "word": "cross-selling",
+        "level": "B1",
+        "ipa": "/krɒs ˈsel.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "bán chéo sản phẩm liên quan",
+        "collocations": "effective cross-selling, cross-selling strategy, cross-selling opportunities",
+        "example": "Amazon’s 'Customers who bought this also bought' widget is a classic example of automated cross-selling.",
+        "optionsVi": [
+          "bán chéo sản phẩm liên quan",
+          "bán phá giá thị trường",
+          "bán hàng xuyên biên giới",
+          "bán đấu giá tài sản"
+        ]
+      },
+      {
+        "id": "mkt_anal_19",
+        "word": "upselling",
+        "level": "B1",
+        "ipa": "/ʌp ˈsel.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "bán gói sản phẩm cao cấp hơn",
+        "collocations": "upselling technique, encourage upselling, upselling to premium tiers",
+        "example": "The hotel desk clerk mastered upselling by offering guests ocean-view suite upgrades for a modest additional fee.",
+        "optionsVi": [
+          "bán gói sản phẩm cao cấp hơn",
+          "tăng giá hàng loạt",
+          "bán tháo hàng tồn kho",
+          "bán hàng đa cấp"
+        ]
+      },
+      {
+        "id": "mkt_anal_20",
+        "word": "product-market fit",
+        "level": "B2",
+        "ipa": "/ˈprɒd.ʌkt ˈmɑː.kɪt fɪt/",
+        "type": "noun",
+        "meaningVi": "sự phù hợp giữa sản phẩm và thị trường",
+        "collocations": "achieve product-market fit, reach product-market fit, signs of product-market fit",
+        "example": "Startups should avoid scaling aggressive marketing until they have validated authentic product-market fit.",
+        "optionsVi": [
+          "sự phù hợp giữa sản phẩm và thị trường",
+          "kích thước bao bì sản phẩm",
+          "hạn sử dụng của hàng hóa",
+          "tiêu chuẩn vệ sinh an toàn thực phẩm"
+        ]
+      },
+      {
+        "id": "mkt_anal_21",
+        "word": "value proposition",
+        "level": "B2",
+        "ipa": "/ˈvæl.juː ˌprɒp.əˈzɪʃ.ən/",
+        "type": "noun",
+        "meaningVi": "tuyên bố giá trị cho khách hàng",
+        "collocations": "compelling value proposition, clear value proposition, customer value proposition",
+        "example": "Slack’s initial value proposition promised to make team communication simpler, more pleasant, and more productive than email.",
+        "optionsVi": [
+          "tuyên bố giá trị cho khách hàng",
+          "đề xuất tăng vốn đầu tư",
+          "báo giá chi phí sản xuất",
+          "bảng định giá bất động sản"
+        ]
+      },
+      {
+        "id": "mkt_anal_22",
+        "word": "go-to-market strategy",
+        "level": "B2",
+        "ipa": "/ɡəʊ tuː ˈmɑː.kɪt ˈstræt.ə.dʒi/",
+        "type": "noun",
+        "meaningVi": "chiến lược tung sản phẩm ra thị trường",
+        "collocations": "comprehensive go-to-market strategy, B2B GTM strategy, execute GTM plan",
+        "example": "Our go-to-market strategy outlines our target segments, direct sales channels, and promotional pricing structure.",
+        "optionsVi": [
+          "chiến lược tung sản phẩm ra thị trường",
+          "đường đi đến chợ đầu mối",
+          "kế hoạch mua sắm siêu thị",
+          "hướng dẫn xuất khẩu hàng hóa"
+        ]
+      },
+      {
+        "id": "mkt_anal_23",
+        "word": "growth hacking",
+        "level": "B2",
+        "ipa": "/ɡrəʊθ ˈhæk.ɪŋ/",
+        "type": "noun",
+        "meaningVi": "chiến thuật tăng trưởng chi phí thấp",
+        "collocations": "growth hacking experiment, viral growth hacking, growth hacking mindset",
+        "example": "Dropbox used a famous growth hacking mechanism offering 500MB of free bonus storage for every friend referred.",
+        "optionsVi": [
+          "chiến thuật tăng trưởng chi phí thấp",
+          "hành vi xâm nhập đánh cắp dữ liệu",
+          "kỹ thuật trồng cây nhanh lớn",
+          "chương trình bẻ khóa phần mềm"
+        ]
+      },
+      {
+        "id": "mkt_anal_24",
+        "word": "conversion rate optimization",
+        "level": "B2",
+        "ipa": "/kənˈvɜː.ʒən reɪt ˌɒp.tɪ.maɪˈzeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "tối ưu hóa tỷ lệ chuyển đổi",
+        "collocations": "CRO agency, conversion rate optimization process, implement CRO",
+        "example": "Investing in conversion rate optimization doubles your revenue from existing web traffic without spending more on ads.",
+        "optionsVi": [
+          "tối ưu hóa tỷ lệ chuyển đổi",
+          "chuyển đổi ngoại tệ ngân hàng",
+          "thay đổi định dạng tệp tin",
+          "nâng cấp hệ điều hành"
+        ]
+      },
+      {
+        "id": "mkt_anal_25",
+        "word": "cohort analysis",
+        "level": "B2",
+        "ipa": "/ˈkəʊ.hɔːt əˈnæl.ə.sɪs/",
+        "type": "noun",
+        "meaningVi": "phân tích nhóm người dùng theo thời gian",
+        "collocations": "monthly cohort analysis, cohort retention, conduct cohort analysis",
+        "example": "A cohort analysis showed that users acquired during the June campaign maintained a 40% higher retention rate than January signups.",
+        "optionsVi": [
+          "phân tích nhóm người dùng theo thời gian",
+          "báo cáo tài chính quý",
+          "điểm danh lớp học",
+          "dự báo thời tiết dài hạn"
+        ]
+      },
+      {
+        "id": "mkt_anal_26",
+        "word": "customer lifetime",
+        "level": "B1",
+        "ipa": "/ˈkʌs.tə.mər ˈlaɪf.taɪm/",
+        "type": "noun",
+        "meaningVi": "thời gian đồng hành của khách hàng",
+        "collocations": "average customer lifetime, extend customer lifetime, customer lifetime stages",
+        "example": "Providing proactive onboarding support extends the average customer lifetime by over eight months.",
+        "optionsVi": [
+          "thời gian đồng hành của khách hàng",
+          "tuổi thọ con người trung bình",
+          "thời hạn hợp đồng lao động",
+          "thời gian sử dụng pin"
+        ]
+      },
+      {
+        "id": "mkt_anal_27",
+        "word": "market saturation",
+        "level": "B2",
+        "ipa": "/ˈmɑː.kɪt ˌsætʃ.ərˈeɪ.ʃən/",
+        "type": "noun",
+        "meaningVi": "sự bão hòa của thị trường",
+        "collocations": "reach market saturation, signs of market saturation, overcome market saturation",
+        "example": "Facing market saturation in domestic cities, the ridesharing company expanded aggressively into Southeast Asia.",
+        "optionsVi": [
+          "sự bão hòa của thị trường",
+          "nước ngập úng mùa mưa",
+          "độ ẩm không khí cao",
+          "thị trường chứng khoán giảm sâu"
+        ]
+      },
+      {
+        "id": "mkt_anal_28",
+        "word": "heatmap",
+        "level": "B1",
+        "ipa": "/ˈhiːt.mæp/",
+        "type": "noun",
+        "meaningVi": "bản đồ nhiệt theo dõi thao tác người dùng",
+        "collocations": "website heatmap, analyze user heatmap, click heatmap",
+        "example": "The Hotjar heatmap showed that 80% of clicks congregated on the top-right pricing button.",
+        "optionsVi": [
+          "bản đồ nhiệt theo dõi thao tác người dùng",
+          "bản đồ dự báo nhiệt độ thời tiết",
+          "sơ đồ hệ thống lò sưởi",
+          "đo nhiệt độ cơ thể"
+        ]
+      },
+      {
+        "id": "mkt_anal_29",
+        "word": "customer advocacy",
+        "level": "B2",
+        "ipa": "/ˈkʌs.tə.mər ˈæd.və.kə.si/",
+        "type": "noun",
+        "meaningVi": "sự ủng hộ giới thiệu của khách",
+        "collocations": "customer advocacy program, driving customer advocacy, turn loyalty into advocacy",
+        "example": "Strong customer advocacy generates the highest-converting organic leads through word-of-mouth recommendations.",
+        "optionsVi": [
+          "sự ủng hộ giới thiệu của khách",
+          "luật sư bảo vệ thân chủ",
+          "chương trình từ thiện xã hội",
+          "giải quyết tranh chấp thương mại"
+        ]
+      },
+      {
+        "id": "mkt_anal_30",
+        "word": "benchmark comparison",
+        "level": "B2",
+        "ipa": "/ˈbentʃ.mɑːk kəmˈpær.ɪ.sən/",
+        "type": "noun",
+        "meaningVi": "so sánh đối chuẩn với chỉ số ngành",
+        "collocations": "industry benchmark comparison, benchmark your metrics, competitive benchmark",
+        "example": "Our 4.2% email CTR looks impressive when compared against the SaaS industry benchmark comparison of 2.1%.",
+        "optionsVi": [
+          "so sánh đối chuẩn với chỉ số ngành",
+          "so sánh chiều cao cân nặng",
+          "kiểm tra đồng hồ đo điện",
+          "đối chiếu sổ sách kế toán"
+        ]
+      }
+    ]
+  }
+]

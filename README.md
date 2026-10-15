@@ -89,6 +89,52 @@ Nếu bạn muốn bật tính năng **Đăng nhập Google** và **Đồng bộ
    - File ID: `1a2b3c4d5e6f7g8h`
 4. Mở file `js/data/courses-data.js` và thêm bài học với `videoDriveId: "1a2b3c4d5e6f7g8h"`.
 
+## 📚 Cách Thêm & Cập Nhật Từ Vựng Mới (Tự Động Đồng Bộ)
+
+Dữ liệu từ vựng được phân tách thành các file dạng JSON/JS theo từng chủ đề trong thư mục `data/vocab/`:
+- `01-daily.json`: Giao tiếp hàng ngày, ăn uống, du lịch, thói quen (8 nhóm, 240 từ)
+- `02-work.json`: Công sở, phỏng vấn, email, teamwork (5 nhóm, 180 từ)
+- `03-tech.json`: Lập trình, DevOps, QA, Cloud, System Design (6 nhóm, 180 từ)
+- `04-marketing.json`: Digital Marketing, Brand, Analytics (3 nhóm, 100 từ)
+
+### 👉 Thêm chủ đề mới cực kỳ đơn giản:
+1. Tạo một file `.json` mới trong `data/vocab/` (ví dụ: `05-finance.json` hoặc `ielts.json`).
+2. Định dạng file:
+```json
+[
+  {
+    "groupId": "finance_banking",
+    "name": "Tài chính & Ngân hàng",
+    "icon": "💳",
+    "category": "work",
+    "level": "B2",
+    "description": "Thuật ngữ thanh toán, ngân hàng và tài chính doanh nghiệp",
+    "words": [
+      {
+        "id": "fin_01",
+        "word": "liquidity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/lɪˈkwɪd.ə.ti/",
+        "meaningVi": "tính thanh khoản",
+        "collocations": "maintain liquidity, liquidity crisis",
+        "example": "The bank maintains high liquidity to handle withdrawals.",
+        "exampleVi": "Ngân hàng duy trì tính thanh khoản cao để đáp ứng các khoản rút tiền.",
+        "optionsVi": [
+          "tính thanh khoản",
+          "lãi suất vay",
+          "thua lỗ kéo dài",
+          "đầu cơ bất động sản"
+        ]
+      }
+    ]
+  }
+]
+```
+3. Commit và `git push` lên GitHub:
+   - **GitHub Actions** sẽ tự động biên dịch, tối ưu gói offline PWA.
+   - Nếu bạn đã thêm Secret `FIREBASE_SERVICE_ACCOUNT` trên GitHub, workflow sẽ **tự động nạp thẳng dữ liệu lên Cloud Firestore** mà bạn không cần phải bấm bất kỳ nút nào!
+
 ---
 
 ## 📱 Cài Đặt Lên Màn Hình Điện Thoại (PWA)
