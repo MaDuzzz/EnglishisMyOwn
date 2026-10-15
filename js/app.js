@@ -214,26 +214,45 @@ class App {
       }
     });
 
-    // Highlight active iOS bottom tab bar
+    // Translate iOS 27 Fluid Bubble Glider with Apple Spring Physics
+    const tabIndices = { vocab: 0, analytics: 1, courses: 2, dictionary: 3 };
+    const tabIndex = tabIndices[tab] ?? 0;
+    const glider = document.getElementById('ios-bubble-glider');
+    if (glider) {
+      glider.style.transform = `translateX(${tabIndex * 100}%)`;
+      glider.classList.remove('bubble-pop');
+      void glider.offsetWidth;
+      glider.classList.add('bubble-pop');
+    }
+
+    // Highlight active iOS bottom tab bar icons & labels
     document.querySelectorAll('.ios-tab-btn').forEach(btn => {
       const t = btn.getAttribute('data-tab');
-      const pill = btn.querySelector('.ios-tab-pill');
-      const label = btn.querySelector('span:last-child');
+      const iconWrap = btn.querySelector('.tab-icon-wrap');
+      const label = btn.querySelector('.tab-label');
       if (t === tab) {
-        pill?.classList.remove('text-slate-500', 'dark:text-slate-400');
-        pill?.classList.add('bg-indigo-600/15', 'text-indigo-600', 'dark:text-indigo-400', 'scale-105');
-        label?.classList.remove('font-medium', 'text-slate-500', 'dark:text-slate-400');
-        label?.classList.add('font-bold', 'text-indigo-600', 'dark:text-indigo-400');
+        iconWrap?.classList.remove('text-slate-400');
+        iconWrap?.classList.add('text-indigo-400', 'scale-105', '-translate-y-0.5');
+        label?.classList.remove('font-medium', 'text-slate-400');
+        label?.classList.add('font-bold', 'text-indigo-400');
       } else {
-        pill?.classList.remove('bg-indigo-600/15', 'text-indigo-600', 'dark:text-indigo-400', 'scale-105');
-        pill?.classList.add('text-slate-500', 'dark:text-slate-400');
-        label?.classList.remove('font-bold', 'text-indigo-600', 'dark:text-indigo-400');
-        label?.classList.add('font-medium', 'text-slate-500', 'dark:text-slate-400');
+        iconWrap?.classList.remove('text-indigo-400', 'scale-105', '-translate-y-0.5');
+        iconWrap?.classList.add('text-slate-400');
+        label?.classList.remove('font-bold', 'text-indigo-400');
+        label?.classList.add('font-medium', 'text-slate-400');
       }
     });
 
     const mainContainer = document.getElementById('main-content-area');
     if (!mainContainer) return;
+
+    // Trigger Silky Smooth Screen Enter Transition
+    mainContainer.classList.remove('animate-screen-enter');
+    void mainContainer.offsetWidth; // Force reflow
+    mainContainer.classList.add('animate-screen-enter');
+
+    // Instant top scroll to avoid weird scroll offset when changing views
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     if (tab === "vocab") {
       this.renderVocabDashboard();

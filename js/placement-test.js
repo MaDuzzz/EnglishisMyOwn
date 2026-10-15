@@ -80,11 +80,6 @@ export class PlacementTestEngine {
               </button>
             `).join('')}
           </div>
-
-          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500 text-center flex items-center justify-center space-x-1.5">
-            <span>💡</span>
-            <span>Chọn đáp án phản xạ tự nhiên của bạn để xếp lớp chính xác nhất</span>
-          </div>
         </div>
       </div>
     `;

@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=3.2">
+  <link rel="stylesheet" href="./css/style.css?v=3.5">
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-[100dvh] flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white overscroll-y-none">
 
@@ -171,45 +171,59 @@
     </div>
   </div>
 
-  <!-- ==================== NATIVE iOS BOTTOM TAB BAR (iPhone 12 & 17 Pro Max) ==================== -->
-  <nav id="ios-bottom-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-slate-800/80 px-2 pt-2 ios-tab-bar shadow-2xl transition-all" style="padding-bottom: max(env(safe-area-inset-bottom, 0px), 24px);">
-    <div class="flex items-center justify-around max-w-md mx-auto">
-      <button data-tab="vocab" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
-        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all bg-indigo-600/15 text-indigo-600 dark:text-indigo-400">
-          <svg class="w-5 h-5 transition-transform group-active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <rect x="3" y="4" width="18" height="15" rx="3" />
-            <path d="M7 8h10M7 12h6" stroke-linecap="round" />
-          </svg>
-        </div>
-        <span class="text-[10px] font-bold mt-1 tracking-tight text-indigo-600 dark:text-indigo-400">Từ Vựng</span>
-      </button>
+  <!-- ==================== iOS 27 FLUID BUBBLE FLOATING DOCK ==================== -->
+  <nav id="ios-bottom-bar" class="md:hidden fixed z-50 left-3 right-3 max-w-md mx-auto ios-floating-dock-container" style="bottom: calc(max(env(safe-area-inset-bottom, 0px), 12px) + 8px);">
+    <div class="relative ios-bubble-capsule p-1.5 rounded-[26px] bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-2xl border border-slate-700/50 dark:border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.45)]">
+      
+      <!-- Fluid Spring Bubble Glider -->
+      <div id="ios-bubble-glider" class="absolute top-1.5 bottom-1.5 pointer-events-none transition-transform" style="width: calc((100% - 12px) / 4); left: 6px; transform: translateX(0%);">
+        <div class="w-full h-full rounded-[20px] bg-gradient-to-tr from-indigo-500/25 via-indigo-600/20 to-purple-600/25 border border-indigo-400/40 shadow-[0_0_16px_rgba(99,102,241,0.3)]"></div>
+      </div>
 
-      <button data-tab="analytics" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
-        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
-          <svg class="w-5 h-5 transition-transform group-active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-          </svg>
-        </div>
-        <span class="text-[10px] font-medium mt-1 tracking-tight text-slate-500 dark:text-slate-400">Kỷ Luật</span>
-      </button>
+      <!-- Tab Buttons Grid -->
+      <div class="relative z-10 grid grid-cols-4 items-center">
+        <!-- Vocab Tab -->
+        <button data-tab="vocab" data-tab-index="0" class="ios-tab-btn flex flex-col items-center justify-center py-1.5 group select-none">
+          <div class="tab-icon-wrap transition-all duration-300 transform text-indigo-400 scale-105 -translate-y-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
+              <rect x="3" y="4" width="18" height="15" rx="3" />
+              <path d="M7 8h10M7 12h6" stroke-linecap="round" />
+            </svg>
+          </div>
+          <span class="tab-label text-[10px] font-bold mt-1 tracking-tight transition-colors text-indigo-400">Từ Vựng</span>
+        </button>
 
-      <button data-tab="courses" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
-        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
-          <svg class="w-5 h-5 transition-transform group-active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
-          </svg>
-        </div>
-        <span class="text-[10px] font-medium mt-1 tracking-tight text-slate-500 dark:text-slate-400">Khoá Học</span>
-      </button>
+        <!-- Analytics Tab -->
+        <button data-tab="analytics" data-tab-index="1" class="ios-tab-btn flex flex-col items-center justify-center py-1.5 group select-none">
+          <div class="tab-icon-wrap transition-all duration-300 transform text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+            </svg>
+          </div>
+          <span class="tab-label text-[10px] font-medium mt-1 tracking-tight transition-colors text-slate-400">Kỷ Luật</span>
+        </button>
 
-      <button data-tab="dictionary" class="ios-tab-btn flex-1 flex flex-col items-center justify-center py-1 group">
-        <div class="ios-tab-pill w-12 h-7 rounded-full flex items-center justify-center transition-all text-slate-500 dark:text-slate-400">
-          <svg class="w-5 h-5 transition-transform group-active:scale-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-          </svg>
-        </div>
-        <span class="text-[10px] font-medium mt-1 tracking-tight text-slate-500 dark:text-slate-400">Sổ Tay</span>
-      </button>
+        <!-- Courses Tab -->
+        <button data-tab="courses" data-tab-index="2" class="ios-tab-btn flex flex-col items-center justify-center py-1.5 group select-none">
+          <div class="tab-icon-wrap transition-all duration-300 transform text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
+            </svg>
+          </div>
+          <span class="tab-label text-[10px] font-medium mt-1 tracking-tight transition-colors text-slate-400">Khoá Học</span>
+        </button>
+
+        <!-- Dictionary Tab -->
+        <button data-tab="dictionary" data-tab-index="3" class="ios-tab-btn flex flex-col items-center justify-center py-1.5 group select-none">
+          <div class="tab-icon-wrap transition-all duration-300 transform text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <span class="tab-label text-[10px] font-medium mt-1 tracking-tight transition-colors text-slate-400">Sổ Tay</span>
+        </button>
+      </div>
+
     </div>
   </nav>
 
@@ -225,6 +239,6 @@
   </script>
 
   <!-- ES Modules Entrypoint -->
-  <script type="module" src="./js/app.js?v=3.2"></script>
+  <script type="module" src="./js/app.js?v=3.5"></script>
 </body>
 </html>

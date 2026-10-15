@@ -183,6 +183,67 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   scroll-snap-align: start;
 }
 
+/* ==================== iOS 27 FLUID BUBBLE FLOATING DOCK ==================== */
+.ios-floating-dock-container {
+  will-change: transform;
+}
+
+.ios-bubble-capsule {
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Specular bevel gloss on top edge */
+.ios-bubble-capsule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  pointer-events: none;
+}
+
+/* Fluid spring physics for the floating bubble glider */
+#ios-bubble-glider {
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+/* Micro-elastic squash/stretch animation on tap */
+@keyframes bubbleSquash {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.06, 0.94); }
+  65% { transform: scale(0.97, 1.03); }
+  100% { transform: scale(1); }
+}
+
+.bubble-pop {
+  animation: bubbleSquash 0.36s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==================== FLUID SCREEN TRANSITION ==================== */
+@keyframes screenEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-screen-enter {
+  animation: screenEnter 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform, filter;
+}
+
 /* On mobile iPhone (viewport <= 640px), ensure day cells are big enough for comfortable thumb tapping */
 @media (max-width: 640px) {
   .gh-card {
@@ -195,4 +256,5 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
     border-radius: 0.5rem !important;
   }
 }
+
 
