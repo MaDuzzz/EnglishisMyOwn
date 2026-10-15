@@ -1,0 +1,84 @@
+name: Deploy to GitHub Pages with Firestore Secrets
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Inject Firebase Secrets into Configuration
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        run: |
+          python3 -c "
+          import os, json, re
+
+          raw_cfg = os.environ.get('FIREBASE_CONFIG', '').strip()
+          cfg = {}
+          if raw_cfg:
+              try:
+                  cfg = json.loads(raw_cfg)
+                  print('✅ Đã nạp thành công biến bí mật FIREBASE_CONFIG dạng JSON.')
+              except Exception as e:
+                  print('⚠️ Không thể parse FIREBASE_CONFIG JSON, chuyển sang đọc từng biến đơn lẻ:', e)
+
+          if not cfg or not cfg.get('apiKey'):
+              cfg = {
+                  'apiKey': os.environ.get('FIREBASE_API_KEY', '').strip(),
+                  'authDomain': os.environ.get('FIREBASE_AUTH_DOMAIN', '').strip(),
+                  'projectId': os.environ.get('FIREBASE_PROJECT_ID', '').strip(),
+                  'storageBucket': os.environ.get('FIREBASE_STORAGE_BUCKET', '').strip(),
+                  'messagingSenderId': os.environ.get('FIREBASE_MESSAGING_SENDER_ID', '').strip(),
+                  'appId': os.environ.get('FIREBASE_APP_ID', '').strip()
+              }
+              if cfg.get('apiKey'):
+                  print('✅ Đã nạp thành công các biến bí mật FIREBASE_* đơn lẻ.')
+              else:
+                  print('ℹ️ Chưa phát hiện secrets Firebase. Ứng dụng sẽ chạy ở chế độ chờ kết nối.')
+
+          filepath = 'js/firebase-config.js'
+          with open(filepath, 'r', encoding='utf-8') as f:
+              code = f.read()
+
+          replacement = f'export const FIREBASE_CONFIG = {json.dumps(cfg, indent=2)};'
+          new_code = re.sub(r'export const FIREBASE_CONFIG = \{.*?\};', replacement, code, flags=re.DOTALL)
+
+          with open(filepath, 'w', encoding='utf-8') as f:
+              f.write(new_code)
+          "
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy Artifact to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

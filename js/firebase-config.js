@@ -1,14 +1,14 @@
 // Cấu hình Firebase Authentication (Google Login) và Cloud Firestore
-// Hỗ trợ tự động chuyển sang chế độ LocalStorage an toàn nếu chưa cấu hình API key
+// Tự động nhận biến cấu hình được inject từ GitHub Actions Secrets khi deploy lên GitHub Pages
+// Hoàn toàn không lưu cấu hình hoặc dữ liệu vào LocalStorage.
 
-// Bạn có thể dán thông tin Firebase Web App của bạn vào đây:
-export const DEFAULT_FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+export const FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 let authInstance = null;
@@ -17,12 +17,10 @@ let googleProviderInstance = null;
 let isFirebaseLive = false;
 
 export async function initFirebase() {
-  // Kiểm tra cấu hình lưu trong localStorage hoặc mặc định
-  const savedConfig = localStorage.getItem("APP_FIREBASE_CONFIG");
-  const config = savedConfig ? JSON.parse(savedConfig) : DEFAULT_FIREBASE_CONFIG;
+  const config = FIREBASE_CONFIG;
 
   if (!config.apiKey || config.apiKey === "YOUR_API_KEY") {
-    console.log("ℹ️ Đang chạy ở chế độ Local Mode (dữ liệu lưu trên LocalStorage). Để bật Firebase Google Auth, hãy nhập thông tin cấu hình vào phần Cài đặt.");
+    console.warn("⚠️ Firebase chưa được cấu hình. Vui lòng thêm biến Secret trên GitHub Repository (FIREBASE_CONFIG hoặc FIREBASE_API_KEY...) để kích hoạt Cloud Firestore & Google Login.");
     return { isLive: false, auth: null, db: null };
   }
 
@@ -37,10 +35,10 @@ export async function initFirebase() {
     googleProviderInstance = new GoogleAuthProvider();
     isFirebaseLive = true;
 
-    console.log("✅ Firebase đã được kết nối thành công!");
+    console.log("✅ Kết nối Cloud Firestore & Google Auth thành công!");
     return { isLive: true, auth: authInstance, db: dbInstance, provider: googleProviderInstance };
   } catch (error) {
-    console.warn("⚠️ Không thể kết nối Firebase, chuyển về chế độ Local:", error);
+    console.error("❌ Lỗi khi khởi tạo Firebase:", error);
     isFirebaseLive = false;
     return { isLive: false, auth: null, db: null };
   }

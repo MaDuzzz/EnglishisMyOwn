@@ -1,10 +1,8 @@
 // Quản lý trạng thái ứng dụng (State Management)
-// Hỗ trợ đồng bộ đa chiều (Firebase Firestore + LocalStorage)
+// Hoàn toàn không dùng LocalStorage - Lưu trữ và đồng bộ trực tiếp với Cloud Firestore
 
 import { VOCAB_BANK } from './data/vocab-bank.js';
 import { authInstance, dbInstance, isFirebaseLive } from './firebase-config.js';
-
-const STORAGE_KEY = "ENGLISH_IS_MY_OWN_STATE_V1";
 
 export const RANK_TIERS = {
   "A1": { current: "A1", next: "A2", label: "A1 (Beginner)", nextLabel: "A2 (Elementary)", minDays: 15, requiredXP: 375 },
@@ -16,17 +14,14 @@ export const RANK_TIERS = {
 
 export class StateManager {
   constructor() {
-    this.state = this.loadInitialState();
+    this.state = this.getDefaultState();
     this.listeners = [];
   }
 
-  loadInitialState() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+  getDefaultState(user = null) {
     const today = this.getTodayString();
-    const yesterday = this.getYesterdayString();
-
-    let defaultState = {
-      user: null, // { uid, displayName, email, photoURL }
+    return {
+      user: user, // { uid, displayName, email, photoURL }
       cefrLevel: null, // "A1" | "A2" | "B1" | "B2"
       rankXP: 0, // Điểm kinh nghiệm tích lũy của rank hiện tại
       lastActiveDate: null, // "YYYY-MM-DD"
@@ -35,35 +30,75 @@ export class StateManager {
       streak: 0,
       learnedWords: [], // Array of { wordId, learnedDate, reviewCount, lastReviewedAt }
       dailyReviewDone: false,
-      dailyReviewDate: null,
+      dailyReviewDate: today,
       dailyNewBatchDone: false,
-      dailyNewBatchDate: null,
-      audioEnabled: true // Điều khiển âm thanh toàn cục (hỗ trợ "Không thể nghe lúc này")
+      dailyNewBatchDate: today,
+      audioEnabled: true // Điều khiển âm thanh toàn cục
     };
+  }
 
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        defaultState = { ...defaultState, ...parsed };
-      } catch (e) {
-        console.error("Lỗi khi đọc state từ localStorage:", e);
+  // Tải dữ liệu người dùng từ Cloud Firestore
+  async loadUserFromFirestore(uid) {
+    if (!isFirebaseLive || !dbInstance || !uid) return;
+    try {
+      const { doc, getDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      const userRef = doc(dbInstance, "users", uid);
+      const snap = await getDoc(userRef);
+
+      if (snap.exists()) {
+        const remoteData = snap.data();
+        this.state = {
+          ...this.getDefaultState(this.state.user),
+          ...remoteData,
+          user: this.state.user // Đảm bảo giữ user auth hiện tại
+        };
+        // Kiểm tra reset ngày mới và hình phạt
+        this.applyDailyCheck();
+        // Cập nhật lại Firestore nếu có thay đổi từ kiểm tra ngày
+        await this.syncToFirestore();
+      } else {
+        // Tạo profile mới trên Firestore nếu lần đầu đăng nhập
+        const initialDoc = {
+          displayName: this.state.user?.displayName || "",
+          email: this.state.user?.email || "",
+          photoURL: this.state.user?.photoURL || "",
+          createdAt: new Date().toISOString(),
+          cefrLevel: null,
+          rankXP: 0,
+          streak: 0,
+          learnedWords: [],
+          dailyReviewDone: false,
+          dailyReviewDate: this.getTodayString(),
+          dailyNewBatchDone: false,
+          dailyNewBatchDate: this.getTodayString(),
+          audioEnabled: true
+        };
+        await setDoc(userRef, initialDoc, { merge: true });
       }
+      this.notify();
+    } catch (err) {
+      console.error("❌ Lỗi khi tải dữ liệu từ Firestore:", err);
+    }
+  }
+
+  // Kiểm tra ngày mới và áp dụng hình phạt kỷ luật
+  applyDailyCheck() {
+    const today = this.getTodayString();
+    const yesterday = this.getYesterdayString();
+
+    if (this.state.dailyReviewDate !== today) {
+      this.state.dailyReviewDone = false;
+      this.state.dailyReviewDate = today;
+    }
+    if (this.state.dailyNewBatchDate !== today) {
+      this.state.dailyNewBatchDone = false;
+      this.state.dailyNewBatchDate = today;
     }
 
-    // Reset trạng thái theo ngày mới
-    if (defaultState.dailyReviewDate !== today) {
-      defaultState.dailyReviewDone = false;
-      defaultState.dailyReviewDate = today;
-    }
-    if (defaultState.dailyNewBatchDate !== today) {
-      defaultState.dailyNewBatchDone = false;
-      defaultState.dailyNewBatchDate = today;
-    }
-
-    // ÁP DỤNG HÌNH PHẠT TỤT PROGRESS x2 NẾU BỎ NGÀY HỌC (LOOSE STREAK)
-    if (defaultState.lastActiveDate && defaultState.lastActiveDate !== today && defaultState.lastActiveDate !== yesterday) {
-      if (defaultState.lastPenaltyCheckDate !== today) {
-        const lastDateObj = new Date(defaultState.lastActiveDate);
+    // ÁP DỤNG HÌNH PHẠT TỤT PROGRESS x2 NẾU BỎ NGÀY HỌC (LOSE STREAK)
+    if (this.state.lastActiveDate && this.state.lastActiveDate !== today && this.state.lastActiveDate !== yesterday) {
+      if (this.state.lastPenaltyCheckDate !== today) {
+        const lastDateObj = new Date(this.state.lastActiveDate);
         const todayDateObj = new Date(today);
         const diffTime = Math.abs(todayDateObj - lastDateObj);
         const missedDays = Math.max(1, Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1);
@@ -71,43 +106,46 @@ export class StateManager {
         // Bình thường 1 ngày tăng 25 XP (10 review + 15 batch mới).
         // Bỏ 1 ngày bị phạt x2 phần tăng: 25 * 2 = 50 XP/ngày!
         const penaltyXP = missedDays * 50;
-        const oldXP = defaultState.rankXP || 0;
-        defaultState.rankXP = Math.max(0, oldXP - penaltyXP);
-        defaultState.lastPenaltyNotice = `⚠️ Bạn đã bỏ lỡ ${missedDays} ngày! Bị trừ -${penaltyXP} XP (Phạt x2 phần tăng hàng ngày).`;
-        defaultState.lastPenaltyCheckDate = today;
-        defaultState.streak = 0; // Reset streak
+        const oldXP = this.state.rankXP || 0;
+        this.state.rankXP = Math.max(0, oldXP - penaltyXP);
+        this.state.lastPenaltyNotice = `⚠️ Bạn đã bỏ lỡ ${missedDays} ngày! Bị trừ -${penaltyXP} XP (Phạt x2 phần tăng hàng ngày).`;
+        this.state.lastPenaltyCheckDate = today;
+        this.state.streak = 0; // Reset streak
       }
     }
-
-    return defaultState;
   }
 
+  // Lưu trạng thái: Không dùng localStorage, cập nhật UI và đẩy trực tiếp lên Cloud Firestore
   saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
     this.notify();
     this.syncToFirestore();
   }
 
   async syncToFirestore() {
-    if (!isFirebaseLive || !dbInstance || !this.state.user) return;
+    if (!isFirebaseLive || !dbInstance || !this.state.user?.uid) return;
     try {
       const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
       const userRef = doc(dbInstance, "users", this.state.user.uid);
       await setDoc(userRef, {
-        displayName: this.state.user.displayName,
-        email: this.state.user.email,
-        cefrLevel: this.state.cefrLevel,
-        lastActiveDate: this.state.lastActiveDate,
-        streak: this.state.streak,
-        learnedWords: this.state.learnedWords,
-        dailyReviewDone: this.state.dailyReviewDone,
-        dailyReviewDate: this.state.dailyReviewDate,
-        dailyNewBatchDone: this.state.dailyNewBatchDone,
-        dailyNewBatchDate: this.state.dailyNewBatchDate,
+        displayName: this.state.user.displayName || "",
+        email: this.state.user.email || "",
+        photoURL: this.state.user.photoURL || "",
+        cefrLevel: this.state.cefrLevel || null,
+        rankXP: this.state.rankXP || 0,
+        lastActiveDate: this.state.lastActiveDate || null,
+        lastPenaltyCheckDate: this.state.lastPenaltyCheckDate || null,
+        lastPenaltyNotice: this.state.lastPenaltyNotice || null,
+        streak: this.state.streak || 0,
+        learnedWords: this.state.learnedWords || [],
+        dailyReviewDone: this.state.dailyReviewDone || false,
+        dailyReviewDate: this.state.dailyReviewDate || this.getTodayString(),
+        dailyNewBatchDone: this.state.dailyNewBatchDone || false,
+        dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
+        audioEnabled: this.state.audioEnabled ?? true,
         updatedAt: new Date().toISOString()
       }, { merge: true });
     } catch (err) {
-      console.warn("Lỗi khi đồng bộ Firestore:", err);
+      console.warn("⚠️ Lỗi khi đồng bộ Firestore:", err);
     }
   }
 
@@ -181,7 +219,7 @@ export class StateManager {
     let isPenalized = false;
 
     if (missedDays > 0) {
-      // ⚠️ Có vi phạm (Bỏ quên ngày học): Phạt = Từ chưa review hôm trước + 10 từ random trong quá khứ
+      // Có vi phạm: Phạt = Từ chưa review hôm trước + 10 từ random trong quá khứ
       isPenalized = true;
       const unreviewed = this.state.learnedWords.filter(w => w.learnedDate === lastActive);
       const historicalPool = this.state.learnedWords.filter(w => w.learnedDate !== lastActive);
@@ -192,7 +230,7 @@ export class StateManager {
       
       reviewWords = [...unreviewed, ...penaltyWords];
     } else {
-      // Học đều đặn: Review các từ học từ phiên gần nhất (ngày hôm qua hoặc ngày cuối cùng học)
+      // Học đều đặn: Review các từ học từ phiên gần nhất
       reviewWords = this.state.learnedWords.filter(w => w.learnedDate === (lastActive || yesterday));
       if (reviewWords.length === 0) {
         // Fallback: nếu phiên trước không có, lấy 10 từ có reviewCount thấp nhất
@@ -342,9 +380,18 @@ export class StateManager {
     }
   }
 
-  setUser(user) {
+  async setUser(user) {
     this.state.user = user;
-    this.saveState();
+    if (user && user.uid) {
+      await this.loadUserFromFirestore(user.uid);
+    } else {
+      this.notify();
+    }
+  }
+
+  clearUser() {
+    this.state = this.getDefaultState(null);
+    this.notify();
   }
 
   setLevel(level) {

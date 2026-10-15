@@ -69,23 +69,15 @@ class App {
       });
     });
 
-    // Nút Đăng nhập Google
-    const authBtn = document.getElementById('btn-auth-action');
-    if (authBtn) {
-      authBtn.addEventListener('click', () => this.handleAuthClick());
-    }
-
-    // Nút Cài đặt Firebase
-    document.getElementById('btn-open-settings')?.addEventListener('click', () => {
-      this.openSettingsModal();
-    });
-
-    document.getElementById('btn-close-settings')?.addEventListener('click', () => {
-      document.getElementById('settings-modal').classList.add('hidden');
-    });
-
-    document.getElementById('btn-save-settings')?.addEventListener('click', () => {
-      this.saveFirebaseSettings();
+    // Sự kiện Đăng nhập & Đăng xuất Google
+    document.getElementById('auth-container')?.addEventListener('click', (e) => {
+      const logoutBtn = e.target.closest('#btn-auth-logout');
+      const loginBtn = e.target.closest('#btn-auth-action');
+      if (logoutBtn) {
+        this.handleLogout();
+      } else if (loginBtn) {
+        this.handleAuthClick();
+      }
     });
 
     // Nút Rank / Progress Bar trên header -> Mở Màn hình Thống Kê & Kỷ Luật
@@ -100,42 +92,34 @@ class App {
   }
 
   async handleAuthClick() {
-    if (appState.state.user) {
-      // Đăng xuất
-      if (isFirebaseLive && authInstance) {
-        const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
-        await signOut(authInstance);
-      }
-      appState.setUser(null);
-    } else {
-      // Đăng nhập
-      if (isFirebaseLive && authInstance && googleProviderInstance) {
-        const { signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
-        try {
-          const res = await signInWithPopup(authInstance, googleProviderInstance);
-          appState.setUser({
-            uid: res.user.uid,
-            displayName: res.user.displayName,
-            email: res.user.email,
-            photoURL: res.user.photoURL
-          });
-        } catch (e) {
-          console.error("Lỗi Google Sign-in:", e);
+    if (isFirebaseLive && authInstance && googleProviderInstance) {
+      const { signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      try {
+        const res = await signInWithPopup(authInstance, googleProviderInstance);
+        await appState.setUser({
+          uid: res.user.uid,
+          displayName: res.user.displayName,
+          email: res.user.email,
+          photoURL: res.user.photoURL
+        });
+        this.updateHeaderUI();
+      } catch (e) {
+        console.error("Lỗi Google Sign-in:", e);
+        if (e.code !== 'auth/popup-closed-by-user') {
           alert("Không thể đăng nhập Google: " + e.message);
         }
-      } else {
-        // Đăng nhập Demo Account tức thì khi chạy Local Mode
-        const name = prompt("Bạn đang chạy Local Mode. Nhập tên của bạn để đăng nhập:", "Dung TM");
-        if (name) {
-          appState.setUser({
-            uid: "local_user_" + Date.now(),
-            displayName: name,
-            email: "dungtm@local.dev",
-            photoURL: null
-          });
-        }
       }
+    } else {
+      alert("⚠️ Ứng dụng chưa được cấu hình Firebase Secret trên GitHub Repository!\n\nVui lòng vào GitHub: Settings -> Secrets and variables -> Actions và thêm biến bí mật FIREBASE_CONFIG (hoặc các biến FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN...) để tự động kết nối Cloud Firestore.");
     }
+  }
+
+  async handleLogout() {
+    if (isFirebaseLive && authInstance) {
+      const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      await signOut(authInstance);
+    }
+    appState.clearUser();
     this.updateHeaderUI();
   }
 
@@ -173,28 +157,37 @@ class App {
       }
     }
 
-    // Auth Button
-    const authBtn = document.getElementById('btn-auth-action');
-    if (authBtn) {
+    // Auth Container Rendering
+    const authContainer = document.getElementById('auth-container');
+    if (authContainer) {
       if (user) {
-        authBtn.innerHTML = `
-          <div class="flex items-center space-x-1.5">
-            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-xs shadow-sm">
-              ${(user.displayName || "U")[0].toUpperCase()}
-            </span>
-            <span class="hidden sm:inline text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[100px] truncate">${user.displayName}</span>
-            <span class="hidden md:inline text-xs text-rose-500 font-bold ml-1">(Đăng xuất)</span>
+        authContainer.innerHTML = `
+          <div class="flex items-center space-x-1.5 sm:space-x-2">
+            <div class="flex items-center space-x-1.5 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+              ${user.photoURL 
+                ? `<img src="${user.photoURL}" alt="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover">` 
+                : `<span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-[11px] sm:text-xs">${(user.displayName || "U")[0].toUpperCase()}</span>`
+              }
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[90px] sm:max-w-[120px] truncate hidden sm:inline">${user.displayName || user.email.split('@')[0]}</span>
+            </div>
+            <button id="btn-auth-logout" class="px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900 transition-all shrink-0" title="Đăng xuất khỏi Firebase">
+              <span class="hidden sm:inline">Đăng xuất</span>
+              <span class="sm:hidden">✕</span>
+            </button>
           </div>
         `;
-        authBtn.title = `Tài khoản: ${user.displayName || user.email} (Bấm để đăng xuất)`;
       } else {
-        authBtn.innerHTML = `
-          <div class="flex items-center space-x-1 text-xs font-bold text-indigo-600 dark:text-indigo-400">
-            <span class="text-sm">👤</span>
-            <span class="hidden sm:inline">Đăng nhập</span>
-          </div>
+        authContainer.innerHTML = `
+          <button id="btn-auth-action" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center space-x-1.5 active:scale-95 shrink-0" title="Đăng nhập Google để đồng bộ dữ liệu Cloud Firestore">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Đăng nhập</span>
+          </button>
         `;
-        authBtn.title = "Đăng nhập Google để đồng bộ dữ liệu";
       }
     }
   }
@@ -283,7 +276,33 @@ class App {
     const mainContainer = document.getElementById('main-content-area');
     if (!mainContainer) return;
 
-    // Kiểm tra: nếu chưa làm Placement Test thì bắt buộc làm test
+    // Kiểm tra 1: Yêu cầu đăng nhập Google để đồng bộ Cloud Firestore
+    if (!appState.state.user) {
+      mainContainer.innerHTML = `
+        <div class="my-auto w-full max-w-md mx-auto py-8 px-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl animate-fade-in text-center">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm text-indigo-600 dark:text-indigo-400">
+            🔐
+          </div>
+          <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2">Đăng Nhập Để Bắt Đầu</h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+            Hệ thống lưu trữ và đồng bộ hóa toàn bộ tiến độ, cấp bậc CEFR và chuỗi kỷ luật học tập trực tiếp trên <strong>Cloud Firestore</strong>.
+          </p>
+          <button id="btn-login-vocab-banner" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 active:scale-98 transition-all flex items-center justify-center space-x-2.5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Đăng nhập với Google</span>
+          </button>
+        </div>
+      `;
+      mainContainer.querySelector('#btn-login-vocab-banner')?.addEventListener('click', () => this.handleAuthClick());
+      return;
+    }
+
+    // Kiểm tra 2: nếu chưa làm Placement Test thì bắt buộc làm test
     if (!appState.state.cefrLevel) {
       this.startPlacementTest();
       return;
@@ -661,40 +680,6 @@ class App {
     });
   }
 
-  // ==================== CÀI ĐẶT FIREBASE ====================
-  openSettingsModal() {
-    const modal = document.getElementById('settings-modal');
-    if (!modal) return;
-    const saved = localStorage.getItem("APP_FIREBASE_CONFIG");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        document.getElementById('cfg-api-key').value = parsed.apiKey || "";
-        document.getElementById('cfg-auth-domain').value = parsed.authDomain || "";
-        document.getElementById('cfg-project-id').value = parsed.projectId || "";
-        document.getElementById('cfg-storage-bucket').value = parsed.storageBucket || "";
-        document.getElementById('cfg-messaging-sender-id').value = parsed.messagingSenderId || "";
-        document.getElementById('cfg-app-id').value = parsed.appId || "";
-      } catch (e) {}
-    }
-    modal.classList.remove('hidden');
-  }
-
-  saveFirebaseSettings() {
-    const config = {
-      apiKey: document.getElementById('cfg-api-key').value.trim(),
-      authDomain: document.getElementById('cfg-auth-domain').value.trim(),
-      projectId: document.getElementById('cfg-project-id').value.trim(),
-      storageBucket: document.getElementById('cfg-storage-bucket').value.trim(),
-      messagingSenderId: document.getElementById('cfg-messaging-sender-id').value.trim(),
-      appId: document.getElementById('cfg-app-id').value.trim()
-    };
-
-    localStorage.setItem("APP_FIREBASE_CONFIG", JSON.stringify(config));
-    alert("✅ Đã lưu cấu hình Firebase! Trang web sẽ tải lại để áp dụng kết nối mới.");
-    window.location.reload();
-  }
-
   // ==================== MÀN HÌNH BẢNG THỐNG KÊ & YEARLY FOCUS HEATMAP ====================
   openAnalyticsModal() {
     this.switchTab("analytics");
@@ -702,6 +687,34 @@ class App {
 
   renderAnalyticsPage(container) {
     if (!container) return;
+
+    // Kiểm tra 1: Yêu cầu đăng nhập Google để tải dữ liệu từ Cloud Firestore
+    if (!appState.state.user) {
+      container.innerHTML = `
+        <div class="w-full max-w-md mx-auto my-auto text-center py-8 px-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl animate-fade-in flex flex-col items-center justify-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm text-indigo-600 dark:text-indigo-400">
+            📊
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-2">Đăng Nhập Để Xem Thống Kê</h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs mx-auto leading-relaxed">
+            Lịch sử học tập, chuỗi streak và Heatmap cả năm được lưu trữ an toàn trên <strong>Cloud Firestore</strong>.
+          </p>
+          <button id="btn-login-from-analytics" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-2.5">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Đăng nhập với Google</span>
+          </button>
+        </div>
+      `;
+      container.querySelector('#btn-login-from-analytics')?.addEventListener('click', () => {
+        this.handleAuthClick();
+      });
+      return;
+    }
 
     if (!appState.state.cefrLevel) {
       container.innerHTML = `
