@@ -33,7 +33,8 @@ export class StateManager {
       dailyReviewDate: today,
       dailyNewBatchDone: false,
       dailyNewBatchDate: today,
-      audioEnabled: true // Điều khiển âm thanh toàn cục
+      audioEnabled: true, // Điều khiển âm thanh toàn cục
+      theme: "dark" // "dark" | "light"
     };
   }
 
@@ -142,6 +143,7 @@ export class StateManager {
         dailyNewBatchDone: this.state.dailyNewBatchDone || false,
         dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
         audioEnabled: this.state.audioEnabled ?? true,
+        theme: this.state.theme || "dark",
         updatedAt: new Date().toISOString()
       }, { merge: true });
     } catch (err) {
@@ -390,7 +392,9 @@ export class StateManager {
   }
 
   clearUser() {
+    const currentTheme = this.state.theme || "dark";
     this.state = this.getDefaultState(null);
+    this.state.theme = currentTheme;
     this.notify();
   }
 
@@ -402,6 +406,11 @@ export class StateManager {
 
   setAudioEnabled(enabled) {
     this.state.audioEnabled = enabled;
+    this.saveState();
+  }
+
+  setTheme(theme) {
+    this.state.theme = theme;
     this.saveState();
   }
 }

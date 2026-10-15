@@ -16,15 +16,22 @@ class App {
     this.selectedHeatmapYear = new Date().getFullYear();
     this.showDemoHeatmap = false;
     this.analyticsViewMode = "12months"; // "12months" | "52weeks"
+    this.isUserMenuOpen = false;
   }
 
   async init() {
+    // Khởi tạo Theme
+    this.initTheme();
+
     // Khởi tạo Firebase / Local Fallback
     await initFirebase();
     this.setupAuthListener();
 
     // Lắng nghe thay đổi trạng thái
     appState.subscribe(() => {
+      if (appState.state.theme) {
+        this.applyTheme(appState.state.theme);
+      }
       this.updateHeaderUI();
       if (this.currentTab === "vocab") {
         this.renderVocabDashboard();
@@ -39,6 +46,28 @@ class App {
     this.switchTab("vocab");
   }
 
+  initTheme() {
+    const savedTheme = appState.state.theme || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    this.applyTheme(savedTheme);
+  }
+
+  applyTheme(theme) {
+    appState.state.theme = theme;
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  toggleTheme() {
+    const currentTheme = appState.state.theme === 'light' ? 'light' : 'dark';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    this.applyTheme(nextTheme);
+    appState.setTheme(nextTheme);
+    this.updateHeaderUI();
+  }
+
   setupAuthListener() {
     if (isFirebaseLive && authInstance) {
       import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ onAuthStateChanged }) => {
@@ -49,11 +78,16 @@ class App {
               displayName: user.displayName || user.email.split('@')[0],
               email: user.email,
               photoURL: user.photoURL
+            }).then(() => {
+              if (appState.state.theme) {
+                this.applyTheme(appState.state.theme);
+              }
+              this.updateHeaderUI();
             });
           } else {
             appState.setUser(null);
+            this.updateHeaderUI();
           }
-          this.updateHeaderUI();
         });
       });
     }
@@ -69,17 +103,6 @@ class App {
       });
     });
 
-    // Sự kiện Đăng nhập & Đăng xuất Google
-    document.getElementById('auth-container')?.addEventListener('click', (e) => {
-      const logoutBtn = e.target.closest('#btn-auth-logout');
-      const loginBtn = e.target.closest('#btn-auth-action');
-      if (logoutBtn) {
-        this.handleLogout();
-      } else if (loginBtn) {
-        this.handleAuthClick();
-      }
-    });
-
     // Nút Rank / Progress Bar trên header -> Mở Màn hình Thống Kê & Kỷ Luật
     document.getElementById('btn-retake-placement-header')?.addEventListener('click', () => {
       if (!appState.state.cefrLevel) {
@@ -87,6 +110,60 @@ class App {
         this.startPlacementTest();
       } else {
         this.switchTab("analytics");
+      }
+    });
+
+    // Sự kiện Click toàn cục cho Header, Dropdown & Auth
+    document.addEventListener('click', (e) => {
+      // Toggle User Menu Dropdown
+      const userMenuBtn = e.target.closest('#btn-user-menu');
+      if (userMenuBtn) {
+        this.isUserMenuOpen = !this.isUserMenuOpen;
+        this.updateHeaderUI();
+        return;
+      }
+
+      // Toggle Theme trong Dropdown
+      const dropdownThemeBtn = e.target.closest('#btn-toggle-theme');
+      if (dropdownThemeBtn) {
+        this.toggleTheme();
+        return;
+      }
+
+      // Theme toggle cho khách (khi chưa login)
+      const headerThemeBtn = e.target.closest('#btn-header-theme');
+      if (headerThemeBtn) {
+        this.toggleTheme();
+        return;
+      }
+
+      // Đăng xuất từ dropdown
+      const dropdownLogoutBtn = e.target.closest('#btn-dropdown-logout');
+      if (dropdownLogoutBtn) {
+        this.isUserMenuOpen = false;
+        this.handleLogout();
+        return;
+      }
+
+      // Đăng nhập Google
+      const loginBtn = e.target.closest('#btn-auth-action');
+      if (loginBtn) {
+        this.handleAuthClick();
+        return;
+      }
+
+      // Click ra ngoài dropdown -> tự động đóng
+      if (this.isUserMenuOpen && !e.target.closest('#auth-container')) {
+        this.isUserMenuOpen = false;
+        this.updateHeaderUI();
+      }
+    });
+
+    // Bấm phím ESC để đóng dropdown
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isUserMenuOpen) {
+        this.isUserMenuOpen = false;
+        this.updateHeaderUI();
       }
     });
   }
@@ -119,6 +196,7 @@ class App {
   }
 
   async handleLogout() {
+    this.isUserMenuOpen = false;
     if (isFirebaseLive && authInstance) {
       const { signOut } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
       await signOut(authInstance);
@@ -131,6 +209,7 @@ class App {
     const user = appState.state.user;
     const level = appState.state.cefrLevel;
     const streak = appState.state.streak;
+    const isDark = (appState.state.theme || 'dark') === 'dark';
 
     // Streak with proper spacing
     const streakEl = document.getElementById('header-streak-badge');
@@ -166,31 +245,94 @@ class App {
     if (authContainer) {
       if (user) {
         authContainer.innerHTML = `
-          <div class="flex items-center space-x-1.5 sm:space-x-2">
-            <div class="flex items-center space-x-1.5 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+          <div class="relative">
+            <button id="btn-user-menu" type="button" class="flex items-center space-x-1.5 sm:space-x-2 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-200/90 dark:border-slate-700/80 shadow-sm transition-all focus:outline-none select-none active:scale-95" aria-expanded="${this.isUserMenuOpen}" title="Tài khoản & Cài đặt">
               ${user.photoURL 
-                ? `<img src="${user.photoURL}" alt="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover">` 
-                : `<span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-[11px] sm:text-xs">${(user.displayName || "U")[0].toUpperCase()}</span>`
+                ? `<img src="${user.photoURL}" alt="" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover ring-1 ring-indigo-500/40">` 
+                : `<span class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center font-black text-[11px] sm:text-xs">${(user.displayName || "U")[0].toUpperCase()}</span>`
               }
-              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[90px] sm:max-w-[120px] truncate hidden sm:inline">${user.displayName || user.email.split('@')[0]}</span>
-            </div>
-            <button id="btn-auth-logout" class="px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-semibold text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-900 transition-all shrink-0" title="Đăng xuất khỏi Firebase">
-              <span class="hidden sm:inline">Đăng xuất</span>
-              <span class="sm:hidden">✕</span>
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[80px] sm:max-w-[120px] truncate hidden sm:inline">${user.displayName || user.email.split('@')[0]}</span>
+              <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-400 transition-transform duration-200 ${this.isUserMenuOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
+
+            ${this.isUserMenuOpen ? `
+              <div id="user-dropdown-menu" class="absolute right-0 top-full mt-2 w-64 sm:w-72 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/90 shadow-2xl shadow-black/20 z-50 overflow-hidden animate-fade-in divide-y divide-slate-100 dark:divide-slate-800/80">
+                <!-- User Info Header -->
+                <div class="p-3.5 flex items-center space-x-3 bg-slate-50/50 dark:bg-slate-800/30">
+                  ${user.photoURL 
+                    ? `<img src="${user.photoURL}" alt="" class="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/40 shrink-0">` 
+                    : `<span class="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center font-black text-sm shrink-0 shadow-inner">${(user.displayName || "U")[0].toUpperCase()}</span>`
+                  }
+                  <div class="min-w-0 flex-1">
+                    <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">${user.displayName || "Học viên"}</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">${user.email || ""}</p>
+                    <div class="flex items-center space-x-1.5 mt-1">
+                      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Cloud Firestore đồng bộ</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dropdown Actions -->
+                <div class="p-1.5 space-y-1">
+                  <!-- Toggle Dark/Light Mode -->
+                  <button id="btn-toggle-theme" type="button" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-left group">
+                    <div class="flex items-center space-x-2.5">
+                      <div class="w-7 h-7 rounded-lg flex items-center justify-center ${isDark ? 'bg-amber-500/15 text-amber-400' : 'bg-indigo-500/15 text-indigo-600'}">
+                        ${isDark 
+                          ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`
+                          : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>`
+                        }
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200">Giao diện ${isDark ? 'Tối' : 'Sáng'}</p>
+                        <p class="text-[10px] text-slate-400">${isDark ? 'Chạm để đổi sang Sáng' : 'Chạm để đổi sang Tối'}</p>
+                      </div>
+                    </div>
+                    <!-- Switch Visual Indicator -->
+                    <div class="w-9 h-5 rounded-full p-0.5 transition-colors ${isDark ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}">
+                      <div class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform ${isDark ? 'translate-x-4' : 'translate-x-0'}"></div>
+                    </div>
+                  </button>
+
+                  <!-- Log Out Option -->
+                  <button id="btn-dropdown-logout" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 transition-colors text-left group">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-rose-500/15 text-rose-600 dark:text-rose-400">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-rose-600 dark:text-rose-400">Đăng xuất</p>
+                      <p class="text-[10px] text-rose-400/80">Thoát phiên đăng nhập Google</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            ` : ''}
           </div>
         `;
       } else {
         authContainer.innerHTML = `
-          <button id="btn-auth-action" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center space-x-1.5 active:scale-95 shrink-0" title="Đăng nhập Google để đồng bộ dữ liệu Cloud Firestore">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-            </svg>
-            <span>Đăng nhập</span>
-          </button>
+          <div class="flex items-center space-x-1.5 sm:space-x-2">
+            <button id="btn-header-theme" type="button" class="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-200/80 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 transition-colors" title="Chuyển chế độ Sáng / Tối">
+              ${isDark 
+                ? `<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`
+                : `<svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>`
+              }
+            </button>
+            <button id="btn-auth-action" type="button" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center space-x-1.5 active:scale-95 shrink-0" title="Đăng nhập Google để đồng bộ dữ liệu Cloud Firestore">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Đăng nhập</span>
+            </button>
+          </div>
         `;
       }
     }
