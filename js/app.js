@@ -513,68 +513,68 @@ class App {
     const countTech = groups.filter(g => g.category === 'tech').length;
 
     mainContainer.innerHTML = `
-      <div class="space-y-6 sm:space-y-7 animate-fade-in max-w-5xl mx-auto">
+      <div class="space-y-4 sm:space-y-6 animate-fade-in max-w-5xl mx-auto w-full overflow-x-hidden">
         <!-- 1. COMPACT MODERN HERO COCKPIT -->
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-5 sm:p-7 text-white shadow-xl border border-indigo-500/20">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-4 sm:p-6 text-white shadow-xl border border-indigo-500/20 w-full">
           <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none"></div>
           <div class="absolute -left-16 -bottom-16 w-56 h-56 rounded-full bg-blue-500/10 blur-3xl pointer-events-none"></div>
 
-          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
-            <div class="space-y-1.5">
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="space-y-1">
               <div class="flex items-center space-x-2">
-                <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-indigo-500/25 text-indigo-300 border border-indigo-400/30">
+                <span class="px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-black uppercase tracking-wider bg-indigo-500/25 text-indigo-300 border border-indigo-400/30">
                   Level ${level}
                 </span>
                 <span class="text-xs text-slate-400 font-medium">• ${rankProg.currentLabel}</span>
               </div>
-              <h1 class="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white">
+              <h1 class="text-lg sm:text-2xl md:text-3xl font-black tracking-tight text-white">
                 Luyện Phản Xạ Từ Vựng
               </h1>
-              <p class="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+              <p class="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-none">
                 Phương pháp Lặp lại ngắt quãng (Spaced Repetition) củng cố trí nhớ dài hạn và rèn phản xạ tức thì.
               </p>
             </div>
 
-            <!-- 3 Compact Metric Pills -->
-            <div class="grid grid-cols-3 gap-2 sm:gap-3 shrink-0">
-              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px]">
-                <div class="text-[11px] text-amber-300/90 font-medium">Chuỗi ngày</div>
-                <div class="text-lg sm:text-xl font-black text-amber-400 mt-0.5">🔥 ${appState.state.streak}</div>
+            <!-- 3 Compact Metric Pills (100% fluid, no fixed min-w) -->
+            <div class="grid grid-cols-3 gap-2 w-full md:w-auto md:min-w-[320px] mt-1 md:mt-0">
+              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-2 sm:p-3 text-center">
+                <div class="text-[10px] sm:text-[11px] text-amber-300/90 font-medium">Chuỗi ngày</div>
+                <div class="text-base sm:text-xl font-black text-amber-400 mt-0.5">🔥 ${appState.state.streak}</div>
               </div>
 
-              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px]">
-                <div class="text-[11px] text-indigo-200/90 font-medium">Đã nạp</div>
-                <div class="text-lg sm:text-xl font-black text-white mt-0.5">${learnedCount} <span class="text-[10px] text-slate-400 font-normal">/ ${VOCAB_BANK.length}</span></div>
+              <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-2 sm:p-3 text-center">
+                <div class="text-[10px] sm:text-[11px] text-indigo-200/90 font-medium">Đã nạp</div>
+                <div class="text-base sm:text-xl font-black text-white mt-0.5">${learnedCount} <span class="text-[10px] text-slate-400 font-normal">/ ${VOCAB_BANK.length}</span></div>
               </div>
 
-              <button id="btn-view-analytics-dash" class="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-2.5 sm:p-3 text-center min-w-[85px] sm:min-w-[100px] transition-all group active:scale-95" title="Bấm để xem Bảng Kỷ Luật & Heatmap">
-                <div class="text-[11px] text-emerald-300/90 font-medium flex items-center justify-center space-x-0.5">
+              <button id="btn-view-analytics-dash" class="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-xl p-2 sm:p-3 text-center transition-all active:scale-95" title="Bấm để xem Bảng Kỷ Luật & Heatmap">
+                <div class="text-[10px] sm:text-[11px] text-emerald-300/90 font-medium flex items-center justify-center space-x-0.5">
                   <span>Tiến độ</span>
-                  <span class="text-[9px] group-hover:translate-x-0.5 transition-transform">➔</span>
+                  <span class="text-[9px]">➔</span>
                 </div>
-                <div class="text-lg sm:text-xl font-black text-emerald-400 mt-0.5">${rankProg.percent}%</div>
+                <div class="text-base sm:text-xl font-black text-emerald-400 mt-0.5">${rankProg.percent}%</div>
               </button>
             </div>
           </div>
 
           <!-- Mini Progress Bar on Bottom of Hero -->
-          <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-            <div class="flex items-center space-x-2">
-              <span class="font-bold text-white">${rankProg.currentLabel}</span>
+          <div class="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
+            <div class="flex items-center space-x-1.5 truncate pr-2">
+              <span class="font-bold text-white text-[11px] sm:text-xs truncate">${rankProg.currentLabel}</span>
               <span class="text-slate-500 text-[10px]">➔</span>
-              <span class="font-bold text-indigo-300">${rankProg.nextLabel}</span>
+              <span class="font-bold text-indigo-300 text-[11px] sm:text-xs truncate">${rankProg.nextLabel}</span>
             </div>
-            <span class="text-[11px] text-slate-400 font-medium">${rankProg.completedDays}/${rankProg.minDays} ngày (${rankProg.currentXP}/${rankProg.requiredXP} XP)</span>
+            <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium shrink-0">${rankProg.completedDays}/${rankProg.minDays} ngày (${rankProg.currentXP}/${rankProg.requiredXP} XP)</span>
           </div>
-          <div class="w-full bg-white/10 rounded-full h-1.5 mt-2 overflow-hidden">
+          <div class="w-full bg-white/10 rounded-full h-1.5 mt-1.5 overflow-hidden">
             <div class="bg-gradient-to-r from-indigo-400 via-blue-400 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${rankProg.percent}%"></div>
           </div>
         </div>
 
         <!-- 2. PENALTY STATUS (Chỉ hiện khi bị gián đoạn/phạt) -->
         ${discipline.isPenalized ? `
-          <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-200 shadow-sm flex items-center space-x-3 animate-fade-in">
-            <span class="text-2xl shrink-0">⚠️</span>
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-200 shadow-sm flex items-center space-x-3 animate-fade-in w-full">
+            <span class="text-xl shrink-0">⚠️</span>
             <div class="min-w-0 flex-1">
               <h4 class="font-bold text-xs sm:text-sm">Áp dụng quy tắc kỷ luật vì bỏ lỡ ${discipline.missedDays} ngày</h4>
               <p class="text-[11px] sm:text-xs opacity-90 mt-0.5">${discipline.reason}</p>
@@ -584,40 +584,40 @@ class App {
         ` : ''}
 
         <!-- 3. DAILY MISSION COCKPIT (2 Bước Ôn tập & Nạp mới) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 w-full">
           <!-- CARD BƯỚC 1: ÔN TẬP KỶ LUẬT (Review Day T-1) -->
-          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border ${discipline.needsReview ? 'border-amber-400/80 dark:border-amber-600/80 bg-gradient-to-b from-amber-500/[0.03] to-transparent ring-2 ring-amber-500/10' : 'border-slate-200/90 dark:border-slate-800'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border ${discipline.needsReview ? 'border-amber-400/80 dark:border-amber-600/80 bg-gradient-to-b from-amber-500/[0.03] to-transparent ring-2 ring-amber-500/10' : 'border-slate-200/90 dark:border-slate-800'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between w-full">
             <div>
-              <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center space-x-2">
-                  <div class="w-8 h-8 rounded-xl ${discipline.needsReview ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'} flex items-center justify-center font-bold text-sm">
+                  <div class="w-7 h-7 rounded-lg ${discipline.needsReview ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'} flex items-center justify-center font-bold text-xs">
                     ${discipline.needsReview ? '1' : '✓'}
                   </div>
-                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bước 1</span>
+                  <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bước 1</span>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${discipline.needsReview ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'}">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${discipline.needsReview ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'}">
                   ${discipline.needsReview ? 'Bắt buộc hôm nay' : 'Đã xong hôm nay ✅'}
                 </span>
               </div>
 
-              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+              <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white">
                 Ôn Tập Kỷ Luật (Day T-1)
-              </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+              </h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 ${discipline.needsReview ? 'line-clamp-2 leading-relaxed' : 'line-clamp-1'}">
                 ${discipline.needsReview 
                   ? `Có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.reviewWords.length} từ</strong> cần củng cố qua 3 chế độ (Dịch - Nghe chính tả - Phản xạ nhanh).`
                   : 'Nhiệm vụ ôn tập hôm nay đã xong! Trí nhớ dài hạn được bảo toàn vững chắc.'}
               </p>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+            <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80">
               ${discipline.needsReview ? `
-                <button id="btn-start-review" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-md shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs sm:text-sm">
+                <button id="btn-start-review" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-md shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>🚀</span>
                   <span>Bắt đầu Ôn Tập (${discipline.reviewWords.length} từ)</span>
                 </button>
               ` : `
-                <div class="py-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-center text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center space-x-1.5">
+                <div class="py-2 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-center text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center space-x-1.5">
                   <span>🎉</span>
                   <span>Nhiệm vụ ôn tập đã hoàn tất!</span>
                 </div>
@@ -626,38 +626,38 @@ class App {
           </div>
 
           <!-- CARD BƯỚC 2: HỌC BATCH 10 TỪ MỚI -->
-          <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border ${discipline.needsReview ? 'border-slate-200/70 dark:border-slate-800/70 opacity-75' : 'border-indigo-400/80 dark:border-indigo-600/80 bg-gradient-to-b from-indigo-500/[0.03] to-transparent ring-2 ring-indigo-500/10'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border ${discipline.needsReview ? 'border-slate-200/70 dark:border-slate-800/70 opacity-75' : 'border-indigo-400/80 dark:border-indigo-600/80 bg-gradient-to-b from-indigo-500/[0.03] to-transparent ring-2 ring-indigo-500/10'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between w-full">
             <div>
-              <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center space-x-2">
-                  <div class="w-8 h-8 rounded-xl ${discipline.needsReview ? 'bg-slate-200 dark:bg-slate-800 text-slate-500' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'} flex items-center justify-center font-bold text-sm">
+                  <div class="w-7 h-7 rounded-lg ${discipline.needsReview ? 'bg-slate-200 dark:bg-slate-800 text-slate-500' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'} flex items-center justify-center font-bold text-xs">
                     ${discipline.needsReview ? '🔒' : '2'}
                   </div>
-                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Bước 2</span>
+                  <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bước 2</span>
                 </div>
-                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${discipline.needsReview ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${discipline.needsReview ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
                   ${discipline.needsReview ? 'Đang bị khóa' : 'Sẵn sàng nạp'}
                 </span>
               </div>
 
-              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+              <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white">
                 Nạp Batch 10 Từ Mới (${level})
-              </h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+              </h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
                   ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập từ hôm trước) để hệ thống mở khóa 10 từ mới.'
                   : 'Nạp thêm 10 từ vựng thực chiến chuẩn CEFR đúng trình độ để đa dạng hoá vốn từ giao tiếp.'}
               </p>
             </div>
 
-            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+            <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80">
               ${discipline.needsReview ? `
-                <button disabled class="w-full py-3 bg-slate-100 dark:bg-slate-800 text-slate-400 font-bold rounded-xl cursor-not-allowed flex items-center justify-center space-x-2 text-xs sm:text-sm">
+                <button disabled class="w-full py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-400 font-bold rounded-xl cursor-not-allowed flex items-center justify-center space-x-2 text-xs sm:text-sm">
                   <span>🔒</span>
                   <span>Hoàn thành Bước 1 để mở khóa</span>
                 </button>
               ` : `
-                <button id="btn-start-new-batch" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs sm:text-sm">
+                <button id="btn-start-new-batch" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>✨</span>
                   <span>Bắt đầu Học 10 Từ Mới</span>
                 </button>
@@ -667,98 +667,73 @@ class App {
         </div>
 
         <!-- 4. KHÁM PHÁ CÁC CHỦ ĐỀ TỪ VỰNG THỰC CHIẾN -->
-        <div class="space-y-3 pt-1">
+        <div class="space-y-3 pt-1 w-full overflow-hidden">
           <!-- Header: Title, Count, Controls -->
-          <div class="flex items-center justify-between gap-2 flex-wrap">
-            <div class="flex items-center space-x-2">
-              <span class="text-xl">📚</span>
-              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+          <div class="flex items-center justify-between gap-2 w-full">
+            <div class="flex items-center space-x-1.5 min-w-0">
+              <span class="text-lg shrink-0">📚</span>
+              <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white truncate">
                 Kho Chủ Đề Thực Chiến
               </h3>
-              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">
-                ${countAll} nhóm • ${VOCAB_BANK.length} từ
+              <span class="text-[10px] sm:text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800 shrink-0">
+                ${countAll} nhóm
               </span>
             </div>
 
-            <!-- View Controls (Slide arrows + View Switch) -->
-            <div class="flex items-center gap-1.5 ml-auto">
+            <!-- View Controls -->
+            <div class="flex items-center gap-1.5 shrink-0">
               <!-- Slide Navigation Buttons -->
-              <div id="dash-slide-nav" class="${this.groupViewMode === 'slide' ? 'flex' : 'hidden'} items-center gap-1">
+              <div id="dash-slide-nav" class="${this.groupViewMode === 'slide' ? 'flex' : 'hidden'} items-center gap-0.5">
                 <button id="btn-slide-prev" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs transition-all active:scale-90" title="Chủ đề trước">‹</button>
-                <span id="dash-slide-counter" class="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-mono px-1 min-w-[38px] text-center">1/${countAll}</span>
+                <span id="dash-slide-counter" class="text-[10px] font-bold text-slate-500 dark:text-slate-400 font-mono px-0.5 min-w-[32px] text-center">1/${countAll}</span>
                 <button id="btn-slide-next" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs transition-all active:scale-90" title="Chủ đề sau">›</button>
               </div>
 
-              <!-- View Switch Toggle (Slide vs Lưới) -->
+              <!-- View Switch Toggle -->
               <div class="flex items-center p-0.5 bg-slate-100 dark:bg-slate-800/90 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
-                <button id="btn-view-slide" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${this.groupViewMode === 'slide' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
+                <button id="btn-view-slide" class="px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all ${this.groupViewMode === 'slide' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
                   🎠 Slide
                 </button>
-                <button id="btn-view-grid" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${this.groupViewMode === 'grid' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
+                <button id="btn-view-grid" class="px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all ${this.groupViewMode === 'grid' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
                   ⊞ Lưới
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Category Filter Tabs (Single row, never wraps, beautiful pills) -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 scrollbar-none no-scrollbar -mx-1 px-1 w-full" id="dash-group-tabs">
-            <button data-cat="all" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+          <!-- Category Filter Tabs (Single row, never wraps, bounded within w-full) -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 scrollbar-none no-scrollbar w-full" id="dash-group-tabs">
+            <button data-cat="all" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>Tất cả</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countAll}</span>
             </button>
-            <button data-cat="daily" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'daily' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+            <button data-cat="daily" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'daily' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>💬 Đời Sống</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'daily' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countDaily}</span>
             </button>
-            <button data-cat="marketing" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'marketing' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+            <button data-cat="marketing" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'marketing' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>📢 Marketing</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'marketing' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countMarketing}</span>
             </button>
-            <button data-cat="work" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'work' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+            <button data-cat="work" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'work' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>💼 Công Sở</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'work' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countWork}</span>
             </button>
-            <button data-cat="tech" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'tech' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+            <button data-cat="tech" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'tech' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>💻 Công Nghệ</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'tech' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countTech}</span>
             </button>
           </div>
 
           <!-- Cards Wrapper -->
-          <div id="dash-group-wrapper" class="relative">
-            <div id="dash-group-grid"></div>
+          <div id="dash-group-wrapper" class="w-full overflow-hidden">
+            <div id="dash-group-grid" class="w-full"></div>
             <!-- Grid Pagination Controls -->
             <div id="dash-grid-pagination" class="hidden"></div>
             <!-- Slide Dots Indicator -->
             <div id="dash-slide-dots" class="hidden"></div>
           </div>
         </div>
-
-        <!-- 5. HƯỚNG DẪN 3 CHẾ ĐỘ LUYỆN TẬP (COLLAPSIBLE ACCORDION) -->
-        <details class="group bg-slate-100/70 dark:bg-slate-900/60 rounded-2xl p-4 border border-slate-200/80 dark:border-slate-800 transition-all">
-          <summary class="flex items-center justify-between cursor-pointer list-none text-xs font-bold text-slate-700 dark:text-slate-300 select-none">
-            <div class="flex items-center space-x-2">
-              <span class="text-base">💡</span>
-              <span>Tìm hiểu 3 chế độ luyện phản xạ đa chiều (Dịch ngược • Nghe chép • Trắc nghiệm)</span>
-            </div>
-            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-[10px]">▼</span>
-          </summary>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
-            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
-              <strong class="text-indigo-600 dark:text-indigo-400 block mb-1">Mode 1: Dịch Nghĩa & Gõ Từ</strong>
-              Hiện nghĩa tiếng Việt + số ký tự gợi ý ➔ Tự gõ từ tiếng Anh để kích hoạt khả năng nhớ chủ động (Active Recall).
-            </div>
-            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
-              <strong class="text-emerald-600 dark:text-emerald-400 block mb-1">Mode 2: Nghe & Chép Chính Tả</strong>
-              Phát âm chuẩn bản xứ US. Hỗ trợ nút <strong>"Không thể nghe lúc này"</strong> để bỏ qua nếu đang ở nơi ồn ào.
-            </div>
-            <div class="p-3 bg-white dark:bg-slate-800/60 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
-              <strong class="text-blue-600 dark:text-blue-400 block mb-1">Mode 3: Nhận Diện Phản Xạ</strong>
-              Nhìn từ tiếng Anh và phiên âm ➔ Bấm chọn 1 trong 4 nghĩa tiếng Việt trong 3–5 giây để rèn phản xạ nhận diện tức thì.
-            </div>
-          </div>
-        </details>
       </div>
     `;
 
@@ -779,15 +754,15 @@ class App {
       const isSlide = this.groupViewMode === 'slide';
 
       if (isSlide) {
-        grid.className = "flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 scrollbar-none no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth";
-        if (slideNav) slideNav.className = "flex items-center gap-1";
+        grid.className = "flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 scrollbar-none no-scrollbar w-full scroll-smooth";
+        if (slideNav) slideNav.className = "flex items-center gap-0.5";
         if (gridPagination) {
           gridPagination.className = "hidden";
           gridPagination.innerHTML = "";
         }
         if (slideDots) slideDots.className = "flex items-center justify-center gap-1.5 pt-2";
       } else {
-        grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4";
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 w-full";
         if (slideNav) slideNav.className = "hidden";
         if (slideDots) {
           slideDots.className = "hidden";
@@ -833,8 +808,8 @@ class App {
         const sampleWords = groupWords.slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
 
         const cardItemClass = isSlide
-          ? "group-card-item w-[84vw] sm:w-[350px] shrink-0 snap-center bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
-          : "group-card-item bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between group";
+          ? "group-card-item w-[calc(100%-28px)] sm:w-[340px] shrink-0 snap-center bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+          : "group-card-item w-full bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between group";
 
         return `
           <div class="${cardItemClass}" data-card-index="${idx}">
