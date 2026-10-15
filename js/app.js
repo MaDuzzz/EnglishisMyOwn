@@ -674,12 +674,16 @@ class App {
 
     if (!appState.state.cefrLevel) {
       container.innerHTML = `
-        <div class="max-w-md mx-auto text-center py-16 animate-fade-in">
-          <div class="text-5xl mb-4">📊</div>
-          <h2 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Chưa Có Dữ Liệu Xếp Lớp</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Hãy hoàn thành bài đánh giá năng lực CEFR 10 câu để mở khóa bảng thống kê và lộ trình thăng hạng.</p>
-          <button id="btn-start-placement-from-analytics" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all">
-            Bắt đầu bài Test Xếp Lớp (10 câu)
+        <div class="w-full max-w-md mx-auto my-auto text-center py-6 px-4 animate-fade-in flex flex-col items-center justify-center">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm">
+            📊
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-2">Chưa Có Dữ Liệu Xếp Lớp</h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs mx-auto leading-relaxed">
+            Hoàn thành bài đánh giá năng lực CEFR 10 câu để mở khóa bảng thống kê và lộ trình thăng hạng.
+          </p>
+          <button id="btn-start-placement-from-analytics" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all">
+            🚀 Bắt đầu bài Test Xếp Lớp (10 câu)
           </button>
         </div>
       `;

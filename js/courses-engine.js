@@ -35,15 +35,26 @@ export class CoursesEngine {
           <div class="lg:col-span-2 space-y-8">
             <!-- 📺 1. VIDEO PLAYER (Google Drive Preview) -->
             <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl">
-              <div class="aspect-video w-full bg-slate-950 relative">
-                <!-- Google Drive Preview Embed -->
-                <iframe 
-                  id="drive-video-frame"
-                  src="https://drive.google.com/file/d/${currentLesson.videoDriveId}/preview" 
-                  class="w-full h-full border-0" 
-                  allow="autoplay; encrypted-media" 
-                  allowfullscreen>
-                </iframe>
+              <div class="aspect-video w-full bg-slate-950 relative flex items-center justify-center">
+                ${(currentLesson.videoDriveId && !currentLesson.videoDriveId.includes('D_R_I_V_E')) ? `
+                  <!-- Google Drive Preview Embed -->
+                  <iframe 
+                    id="drive-video-frame"
+                    src="https://drive.google.com/file/d/${currentLesson.videoDriveId}/preview" 
+                    class="w-full h-full border-0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+                  </iframe>
+                ` : `
+                  <!-- Clean Interactive Player Preview -->
+                  <div class="flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-xl shadow-indigo-500/30 mb-2 cursor-pointer hover:scale-105 active:scale-95 transition-transform">
+                      ▶️
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-200">Video Bài Giảng Tương Tác</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Sẵn sàng học bài • Thời lượng: ${currentLesson.duration}</span>
+                  </div>
+                `}
               </div>
 
               <div class="p-6">
