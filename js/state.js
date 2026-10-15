@@ -164,7 +164,7 @@ export class StateManager {
       const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
       const groupsCol = collection(dbInstance, "vocab_groups");
       const snap = await getDocs(groupsCol);
-      if (!snap.empty) {
+      if (!snap.empty && snap.docs.length >= VOCAB_GROUPS.length) {
         const remoteGroups = [];
         snap.forEach(docSnap => {
           remoteGroups.push({ groupId: docSnap.id, ...docSnap.data() });
@@ -174,6 +174,10 @@ export class StateManager {
           this.notify();
           console.log(`✅ Đã tải ${remoteGroups.length} nhóm từ vựng từ Cloud Firestore.`);
         }
+      } else {
+        // Tự động nâng cấp và đồng bộ đầy đủ 19 nhóm (600 từ) lên Cloud Firestore
+        console.log("☁️ Cập nhật/khởi tạo đầy đủ 19 nhóm từ vựng (600 từ) lên Cloud Firestore...");
+        await this.syncVocabGroupsToFirestore();
       }
     } catch (err) {
       console.warn("⚠️ Không thể tải vocab_groups từ Firestore (đang dùng kho từ cục bộ):", err);

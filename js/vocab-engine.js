@@ -219,16 +219,20 @@ export class VocabPracticeEngine {
 
   // MODE 3: Nhìn từ Tiếng Anh -> Chọn nghĩa Tiếng Việt (Trắc nghiệm 4 đáp án)
   renderMode3(word) {
-    // Lấy 4 options (1 đúng + 3 distractors từ vocab bank hoặc optionsVi)
-    let options = word.optionsVi || [word.meaningVi];
+    const correctAnswer = (word.optionsVi && word.optionsVi.length > 0) ? word.optionsVi[0] : word.meaningVi;
+    let options = (word.optionsVi && word.optionsVi.length >= 4)
+      ? [...word.optionsVi]
+      : [correctAnswer];
     if (options.length < 4) {
       const distractors = VOCAB_BANK
         .filter(w => w.id !== word.id)
         .map(w => w.meaningVi)
         .sort(() => 0.5 - Math.random())
         .slice(0, 3);
-      options = [word.meaningVi, ...distractors].sort(() => 0.5 - Math.random());
+      options = [correctAnswer, ...distractors];
     }
+    // Xáo trộn thứ tự 4 lựa chọn để đáp án đúng không cố định ở vị trí A
+    options = options.sort(() => 0.5 - Math.random());
 
     return `
       <div class="py-2">
@@ -417,14 +421,15 @@ export class VocabPracticeEngine {
 
   // Xử lý đáp án dạng chọn trắc nghiệm (Mode 3)
   handleChoiceAnswer(selectedOption, word, clickedBtn) {
-    const isCorrect = selectedOption === word.meaningVi;
+    const correctAnswer = (word.optionsVi && word.optionsVi.length > 0) ? word.optionsVi[0] : word.meaningVi;
+    const isCorrect = (selectedOption === correctAnswer) || (selectedOption === word.meaningVi);
     const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
 
     // Highlight các nút đúng/sai
     choiceBtns.forEach(btn => {
       btn.disabled = true;
       const opt = btn.getAttribute('data-option');
-      if (opt === word.meaningVi) {
+      if (opt === correctAnswer || opt === word.meaningVi) {
         btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'dark:bg-emerald-950', 'dark:text-emerald-100');
       } else if (btn === clickedBtn && !isCorrect) {
         btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900', 'dark:bg-rose-950', 'dark:text-rose-100');
