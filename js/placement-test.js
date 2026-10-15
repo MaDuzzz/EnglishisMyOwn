@@ -1,5 +1,5 @@
-// Trình điều khiển bài Placement Test 10 câu phân loại trình độ CEFR
-import { PLACEMENT_QUESTIONS, calculateLevel } from './data/placement-questions.js';
+// Trình điều khiển bài Placement Test phân loại trình độ CEFR ngẫu nhiên từ ngân hàng câu hỏi
+import { getRandomPlacementQuestions, calculateLevel } from './data/placement-questions.js';
 import { appState } from './state.js';
 
 export class PlacementTestEngine {
@@ -7,18 +7,21 @@ export class PlacementTestEngine {
     this.container = containerElement;
     this.onCompleted = onCompletedCallback;
     this.currentIndex = 0;
-    this.userAnswers = []; // { questionId, selectedIndex, isCorrect }
+    this.userAnswers = [];
+    this.questions = [];
   }
 
   start() {
     this.currentIndex = 0;
     this.userAnswers = [];
+    // Rút ngẫu nhiên 3 câu cho mỗi cấp độ A1, A2, B1, B2 (tổng 12 câu) và xáo trộn vị trí đáp án A/B/C/D
+    this.questions = getRandomPlacementQuestions(3);
     this.renderQuestion();
   }
 
   renderQuestion() {
-    const q = PLACEMENT_QUESTIONS[this.currentIndex];
-    const total = PLACEMENT_QUESTIONS.length;
+    const q = this.questions[this.currentIndex];
+    const total = this.questions.length;
     const progressPercent = Math.round(((this.currentIndex) / total) * 100);
 
     const formattedQuestion = q.question.replace(
@@ -36,7 +39,7 @@ export class PlacementTestEngine {
             <div class="flex items-center justify-between mb-2.5">
               <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
                 <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                <span>🎯 Placement Test</span>
+                <span>🎯 Kiểm Tra Trình Độ</span>
               </div>
               <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black">
                 Câu ${this.currentIndex + 1} / ${total}
@@ -48,11 +51,14 @@ export class PlacementTestEngine {
             </div>
           </div>
 
-          <!-- Question Badge & Text -->
+          <!-- Question Category & Text (Độ khó A1/A2/B1/B2 ẩn trong lúc thi để đảm bảo khách quan) -->
           <div class="mb-6">
-            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center space-x-1.5">
-              <span>Độ khó mục tiêu:</span>
-              <span class="text-indigo-600 dark:text-indigo-400 font-black">${q.level}</span>
+            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center space-x-2">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-semibold text-[10px]">
+                🏷️ ${q.category || 'Trắc nghiệm phản xạ'}
+              </span>
+              <span class="text-slate-300 dark:text-slate-600">•</span>
+              <span>Chọn đáp án chính xác nhất</span>
             </div>
             <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white leading-relaxed">
               ${formattedQuestion}
@@ -89,7 +95,7 @@ export class PlacementTestEngine {
     // Gắn sự kiện chọn đáp án
     const optionBtns = this.container.querySelectorAll('.test-option-btn');
     optionBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', () => {
         if (window.navigator?.vibrate) window.navigator.vibrate(10);
         const selectedIndex = parseInt(btn.getAttribute('data-index'), 10);
         this.handleSelect(selectedIndex);
@@ -98,16 +104,22 @@ export class PlacementTestEngine {
   }
 
   handleSelect(selectedIndex) {
-    const q = PLACEMENT_QUESTIONS[this.currentIndex];
+    const q = this.questions[this.currentIndex];
     const isCorrect = selectedIndex === q.correctIndex;
 
     this.userAnswers.push({
       questionId: q.id,
+      question: q.question,
       selectedIndex,
-      isCorrect
+      selectedText: q.options[selectedIndex],
+      correctIndex: q.correctIndex,
+      correctText: q.options[q.correctIndex],
+      isCorrect,
+      explanation: q.explanation,
+      category: q.category
     });
 
-    if (this.currentIndex < PLACEMENT_QUESTIONS.length - 1) {
+    if (this.currentIndex < this.questions.length - 1) {
       this.currentIndex++;
       this.renderQuestion();
     } else {
@@ -116,8 +128,9 @@ export class PlacementTestEngine {
   }
 
   showResult() {
+    const total = this.questions.length;
     const correctCount = this.userAnswers.filter(a => a.isCorrect).length;
-    const result = calculateLevel(correctCount);
+    const result = calculateLevel(correctCount, total);
 
     // Lưu cấp độ vào state
     appState.setLevel(result.level);
@@ -134,7 +147,7 @@ export class PlacementTestEngine {
               Kết Quả Xếp Lớp CEFR
             </h2>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
-              Bạn đã trả lời đúng <span class="font-extrabold text-indigo-600 dark:text-indigo-400 text-base">${correctCount} / 10</span> câu hỏi.
+              Bạn đã trả lời đúng <span class="font-extrabold text-indigo-600 dark:text-indigo-400 text-base">${correctCount} / ${total}</span> câu hỏi (${result.percent}%).
             </p>
 
             <!-- Rank Card -->
@@ -152,12 +165,44 @@ export class PlacementTestEngine {
               </p>
             </div>
 
+            <!-- Accordion xem chi tiết đáp án & giải thích -->
+            <details class="text-left mb-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 overflow-hidden group">
+              <summary class="p-4 cursor-pointer font-bold text-xs sm:text-sm text-slate-700 dark:text-slate-200 flex items-center justify-between select-none hover:bg-slate-100/80 dark:hover:bg-slate-800 transition-colors">
+                <span class="flex items-center space-x-2">
+                  <span>📋</span>
+                  <span>Xem chi tiết đáp án & giải thích (${this.userAnswers.length} câu)</span>
+                </span>
+                <span class="text-indigo-600 dark:text-indigo-400 text-xs font-semibold group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div class="p-4 pt-1 space-y-4 max-h-[380px] overflow-y-auto divide-y divide-slate-200/70 dark:divide-slate-700/60 text-xs sm:text-sm">
+                ${this.userAnswers.map((ans, idx) => `
+                  <div class="pt-3.5 first:pt-1">
+                    <div class="flex items-start justify-between gap-2 mb-1.5">
+                      <span class="font-extrabold text-slate-900 dark:text-slate-100 leading-snug">
+                        Câu ${idx + 1}: ${ans.question}
+                      </span>
+                      <span class="shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold ${ans.isCorrect ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400' : 'bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400'}">
+                        ${ans.isCorrect ? '✓ Đúng' : '✗ Chưa đúng'}
+                      </span>
+                    </div>
+                    <div class="space-y-1 mb-2 text-slate-600 dark:text-slate-300">
+                      <p>Lựa chọn của bạn: <span class="font-bold ${ans.isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${ans.selectedText}</span></p>
+                      ${!ans.isCorrect ? `<p>Đáp án chính xác: <span class="font-bold text-emerald-600 dark:text-emerald-400">${ans.correctText}</span></p>` : ''}
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-100/60 dark:border-indigo-900/40 text-[11px] sm:text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed">
+                      💡 <span class="font-semibold">Giải thích:</span> ${ans.explanation}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
               <button id="btn-start-learning" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all">
                 🚀 Bắt đầu học Batch 10 từ đầu tiên!
               </button>
               <button id="btn-retake-test" class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-2xl transition-colors">
-                Làm lại bài test
+                🔄 Làm lại bài test (Đề mới)
               </button>
             </div>
           </div>
