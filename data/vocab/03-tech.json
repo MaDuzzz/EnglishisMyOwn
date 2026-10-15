@@ -1129,7 +1129,7 @@
     "name": "Kiểm thử & Đảm bảo chất lượng (QA & Testing)",
     "description": "25 thuật ngữ kiểm thử phần mềm, kịch bản test, bẫy lỗi và đảm bảo chất lượng hệ thống",
     "level": "B1-B2",
-    "icon": "bi-bug-fill",
+    "icon": "🧪",
     "badge": "QA / Testing",
     "words": [
       {
@@ -1540,7 +1540,7 @@
     "name": "DevOps & Điện toán đám mây (DevOps & Cloud)",
     "description": "30 thuật ngữ CI/CD, hạ tầng đám mây AWS/GCP, Docker, Kubernetes và giám sát hệ thống",
     "level": "B1-B2",
-    "icon": "bi-cloud-check-fill",
+    "icon": "☁️",
     "badge": "DevOps / Cloud",
     "words": [
       {
@@ -2031,7 +2031,7 @@
     "name": "Cơ sở dữ liệu & Thiết kế hệ thống (Database & System Design)",
     "description": "30 thuật ngữ cơ sở dữ liệu quan hệ/NoSQL, tối ưu truy vấn, caching và kiến trúc phân tán",
     "level": "B1-B2",
-    "icon": "bi-diagram-3-fill",
+    "icon": "🗄️",
     "badge": "Database / Architecture",
     "words": [
       {
@@ -2522,7 +2522,7 @@
     "name": "An toàn thông tin & Mạng máy tính (Security & Networking)",
     "description": "30 thuật ngữ an ninh mạng, xác thực OAuth/JWT, mã hóa dữ liệu và phòng chống tấn công",
     "level": "B1-B2",
-    "icon": "bi-shield-lock-fill",
+    "icon": "🛡️",
     "badge": "Security / Network",
     "words": [
       {

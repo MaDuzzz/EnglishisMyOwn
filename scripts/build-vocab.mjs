@@ -16,6 +16,24 @@ const rootDir = path.resolve(__dirname, '..');
 const vocabDir = path.join(rootDir, 'data', 'vocab');
 const targetFile = path.join(rootDir, 'js', 'data', 'vocab-groups-data.js');
 
+const ICON_FALLBACK_MAP = {
+  'bi-bug-fill': '🧪',
+  'bi-cloud-check-fill': '☁️',
+  'bi-diagram-3-fill': '🗄️',
+  'bi-shield-lock-fill': '🛡️',
+  'bi-graph-up-arrow': '🚀',
+  'bi-megaphone-fill': '📢',
+  'bi-pie-chart-fill': '📊',
+  'bi-award-fill': '⭐'
+};
+
+function sanitizeIcon(icon) {
+  if (!icon) return '📚';
+  if (ICON_FALLBACK_MAP[icon]) return ICON_FALLBACK_MAP[icon];
+  if (typeof icon === 'string' && icon.startsWith('bi-')) return '📚';
+  return icon;
+}
+
 export async function buildVocabulary() {
   if (!fs.existsSync(vocabDir)) {
     console.error(`❌ Thư mục không tồn tại: ${vocabDir}`);
@@ -69,7 +87,7 @@ export async function buildVocabulary() {
       // Chuẩn hoá thuộc tính nhóm
       group.category = group.category || (group.groupId.startsWith('it_') ? 'tech' : 'daily');
       group.level = group.level || 'B1';
-      group.icon = group.icon || '📚';
+      group.icon = sanitizeIcon(group.icon);
       group.words = group.words || [];
 
       // Kiểm tra và chuẩn hoá từ vựng

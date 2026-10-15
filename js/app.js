@@ -6,6 +6,23 @@ import { VocabPracticeEngine } from './vocab-engine.js';
 import { CoursesEngine } from './courses-engine.js';
 import { VOCAB_BANK, VOCAB_GROUPS } from './data/vocab-bank.js';
 import { speechService } from './speech.js';
+const ICON_FALLBACK_MAP = {
+  'bi-bug-fill': '🧪',
+  'bi-cloud-check-fill': '☁️',
+  'bi-diagram-3-fill': '🗄️',
+  'bi-shield-lock-fill': '🛡️',
+  'bi-graph-up-arrow': '🚀',
+  'bi-megaphone-fill': '📢',
+  'bi-pie-chart-fill': '📊',
+  'bi-award-fill': '⭐'
+};
+
+function getGroupIcon(icon) {
+  if (!icon) return '📚';
+  if (ICON_FALLBACK_MAP[icon]) return ICON_FALLBACK_MAP[icon];
+  if (typeof icon === 'string' && icon.startsWith('bi-')) return '📚';
+  return icon;
+}
 
 class App {
   constructor() {
@@ -725,7 +742,7 @@ class App {
               <div class="flex items-center justify-between mb-2.5">
                 <div class="flex items-center space-x-2">
                   <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
-                    ${g.icon}
+                    ${getGroupIcon(g.icon)}
                   </div>
                   <span class="px-1.5 py-0.5 rounded text-[10px] font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${g.level}</span>
                 </div>
@@ -890,7 +907,7 @@ class App {
           activeGroupBanner.className = "flex items-center justify-between p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200 text-xs";
           activeGroupBanner.innerHTML = `
             <div class="flex items-center space-x-2">
-              <span class="text-base">${grp?.icon || '📁'}</span>
+              <span class="text-base">${getGroupIcon(grp?.icon)}</span>
               <span>Đang lọc theo chủ đề: <strong>${grp?.name || activeGroupId}</strong> (${filtered.length} mục)</span>
             </div>
             <button id="btn-clear-group-filter" class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 rounded-lg text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors">
@@ -925,7 +942,7 @@ class App {
         const isLearned = learnedIds.has(w.id);
         const groupInfo = allGroups.find(g => g.groupId === w.groupId);
         const groupBadge = groupInfo 
-          ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 flex items-center space-x-1"><span class="text-xs">${groupInfo.icon}</span> <span class="truncate max-w-[120px]">${groupInfo.name}</span></span>`
+          ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 flex items-center space-x-1"><span class="text-xs">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate max-w-[120px]">${groupInfo.name}</span></span>`
           : '';
 
         return `

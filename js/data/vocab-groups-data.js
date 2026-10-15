@@ -6591,7 +6591,7 @@ export const VOCAB_GROUPS = [
     "name": "Từ vựng Nền tảng Công sở & CNTT (Core Essentials)",
     "description": "40 từ vựng cốt lõi A1 - B2 cho người đi làm và dân IT (bảo toàn dữ liệu lịch sử học)",
     "level": "A1-B2",
-    "icon": "bi-award-fill",
+    "icon": "⭐",
     "badge": "Core / Essential",
     "words": [
       {
@@ -8407,7 +8407,7 @@ export const VOCAB_GROUPS = [
     "name": "Kiểm thử & Đảm bảo chất lượng (QA & Testing)",
     "description": "25 thuật ngữ kiểm thử phần mềm, kịch bản test, bẫy lỗi và đảm bảo chất lượng hệ thống",
     "level": "B1-B2",
-    "icon": "bi-bug-fill",
+    "icon": "🧪",
     "badge": "QA / Testing",
     "words": [
       {
@@ -8843,7 +8843,7 @@ export const VOCAB_GROUPS = [
     "name": "DevOps & Điện toán đám mây (DevOps & Cloud)",
     "description": "30 thuật ngữ CI/CD, hạ tầng đám mây AWS/GCP, Docker, Kubernetes và giám sát hệ thống",
     "level": "B1-B2",
-    "icon": "bi-cloud-check-fill",
+    "icon": "☁️",
     "badge": "DevOps / Cloud",
     "words": [
       {
@@ -9364,7 +9364,7 @@ export const VOCAB_GROUPS = [
     "name": "Cơ sở dữ liệu & Thiết kế hệ thống (Database & System Design)",
     "description": "30 thuật ngữ cơ sở dữ liệu quan hệ/NoSQL, tối ưu truy vấn, caching và kiến trúc phân tán",
     "level": "B1-B2",
-    "icon": "bi-diagram-3-fill",
+    "icon": "🗄️",
     "badge": "Database / Architecture",
     "words": [
       {
@@ -9885,7 +9885,7 @@ export const VOCAB_GROUPS = [
     "name": "An toàn thông tin & Mạng máy tính (Security & Networking)",
     "description": "30 thuật ngữ an ninh mạng, xác thực OAuth/JWT, mã hóa dữ liệu và phòng chống tấn công",
     "level": "B1-B2",
-    "icon": "bi-shield-lock-fill",
+    "icon": "🛡️",
     "badge": "Security / Network",
     "words": [
       {
@@ -10406,7 +10406,7 @@ export const VOCAB_GROUPS = [
     "name": "Digital Marketing & Quảng cáo Hiệu suất (Performance Marketing)",
     "description": "35 thuật ngữ chuyên sâu B1-B2 về chuyển đổi số, SEO/SEM, quảng cáo Ads, CPA/ROAS và tối ưu phễu",
     "level": "B1-B2",
-    "icon": "bi-graph-up-arrow",
+    "icon": "🚀",
     "badge": "Digital / Performance",
     "category": "marketing",
     "words": [
@@ -11012,7 +11012,7 @@ export const VOCAB_GROUPS = [
     "name": "Chiến lược Thương hiệu & Tiếp thị Nội dung (Brand & Content)",
     "description": "35 thuật ngữ B1-B2 về định vị thương hiệu, USP, Buyer Persona, nghệ thuật Storytelling và PR truyền thông",
     "level": "B1-B2",
-    "icon": "bi-megaphone-fill",
+    "icon": "📢",
     "badge": "Brand / Content",
     "category": "marketing",
     "words": [
@@ -11618,7 +11618,7 @@ export const VOCAB_GROUPS = [
     "name": "Nghiên cứu Thị trường & Phân tích Khách hàng (Analytics & Insights)",
     "description": "30 thuật ngữ B1-B2 về Target Audience, phân khúc thị trường, phân tích hành vi người tiêu dùng và chỉ số NPS",
     "level": "B1-B2",
-    "icon": "bi-pie-chart-fill",
+    "icon": "📊",
     "badge": "Research / Analytics",
     "category": "marketing",
     "words": [
