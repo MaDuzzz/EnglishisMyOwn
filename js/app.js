@@ -35,6 +35,9 @@ class App {
     this.analyticsViewMode = "12months"; // "12months" | "52weeks"
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
+    this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
+    this.groupCurrentPage = 1;
+    this.groupActiveCat = "all";
   }
 
   async init() {
@@ -502,6 +505,12 @@ class App {
     const rankProg = appState.getRankProgress();
 
     const learnedWordIds = new Set(appState.state.learnedWords.map(w => w.wordId || w.id));
+    const groups = appState.getVocabGroups();
+    const countAll = groups.length;
+    const countDaily = groups.filter(g => g.category === 'daily').length;
+    const countMarketing = groups.filter(g => g.category === 'marketing').length;
+    const countWork = groups.filter(g => g.category === 'work').length;
+    const countTech = groups.filter(g => g.category === 'tech').length;
 
     mainContainer.innerHTML = `
       <div class="space-y-6 sm:space-y-7 animate-fade-in max-w-5xl mx-auto">
@@ -658,34 +667,72 @@ class App {
         </div>
 
         <!-- 4. KHÁM PHÁ CÁC CHỦ ĐỀ TỪ VỰNG THỰC CHIẾN -->
-        <div class="space-y-4 pt-2">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xl">📚</span>
-                <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
-                  Kho Chủ Đề Thực Chiến
-                </h3>
-                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">
-                  22 nhóm • ${VOCAB_BANK.length} từ
-                </span>
-              </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Các cụm từ (collocations), phrasal verbs thông dụng đời sống, Marketing và môi trường làm việc/CNTT.
-              </p>
+        <div class="space-y-3 pt-1">
+          <!-- Header: Title, Count, Controls -->
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">📚</span>
+              <h3 class="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                Kho Chủ Đề Thực Chiến
+              </h3>
+              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">
+                ${countAll} nhóm • ${VOCAB_BANK.length} từ
+              </span>
             </div>
 
-            <!-- Category Filter Tabs -->
-            <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dash-group-tabs">
-              <button data-cat="all" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">Tất cả (22)</button>
-              <button data-cat="daily" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💬 Đời Sống (8)</button>
-              <button data-cat="marketing" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">📢 Marketing (3)</button>
-              <button data-cat="work" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💼 Công Sở (5)</button>
-              <button data-cat="tech" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💻 Công Nghệ (6)</button>
+            <!-- View Controls (Slide arrows + View Switch) -->
+            <div class="flex items-center gap-1.5 ml-auto">
+              <!-- Slide Navigation Buttons -->
+              <div id="dash-slide-nav" class="${this.groupViewMode === 'slide' ? 'flex' : 'hidden'} items-center gap-1">
+                <button id="btn-slide-prev" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs transition-all active:scale-90" title="Chủ đề trước">‹</button>
+                <span id="dash-slide-counter" class="text-[11px] font-bold text-slate-500 dark:text-slate-400 font-mono px-1 min-w-[38px] text-center">1/${countAll}</span>
+                <button id="btn-slide-next" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-bold text-xs transition-all active:scale-90" title="Chủ đề sau">›</button>
+              </div>
+
+              <!-- View Switch Toggle (Slide vs Lưới) -->
+              <div class="flex items-center p-0.5 bg-slate-100 dark:bg-slate-800/90 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+                <button id="btn-view-slide" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${this.groupViewMode === 'slide' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
+                  🎠 Slide
+                </button>
+                <button id="btn-view-grid" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all ${this.groupViewMode === 'grid' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400'}">
+                  ⊞ Lưới
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="dash-group-grid"></div>
+          <!-- Category Filter Tabs (Single row, never wraps, beautiful pills) -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 scrollbar-none no-scrollbar -mx-1 px-1 w-full" id="dash-group-tabs">
+            <button data-cat="all" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>Tất cả</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countAll}</span>
+            </button>
+            <button data-cat="daily" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'daily' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>💬 Đời Sống</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'daily' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countDaily}</span>
+            </button>
+            <button data-cat="marketing" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'marketing' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>📢 Marketing</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'marketing' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countMarketing}</span>
+            </button>
+            <button data-cat="work" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'work' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>💼 Công Sở</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'work' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countWork}</span>
+            </button>
+            <button data-cat="tech" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'tech' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>💻 Công Nghệ</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'tech' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countTech}</span>
+            </button>
+          </div>
+
+          <!-- Cards Wrapper -->
+          <div id="dash-group-wrapper" class="relative">
+            <div id="dash-group-grid"></div>
+            <!-- Grid Pagination Controls -->
+            <div id="dash-grid-pagination" class="hidden"></div>
+            <!-- Slide Dots Indicator -->
+            <div id="dash-slide-dots" class="hidden"></div>
+          </div>
         </div>
 
         <!-- 5. HƯỚNG DẪN 3 CHẾ ĐỘ LUYỆN TẬP (COLLAPSIBLE ACCORDION) -->
@@ -715,13 +762,62 @@ class App {
       </div>
     `;
 
-    // Render danh sách Group Cards
-    const groups = appState.getVocabGroups();
-    const renderGroupCards = (cat = "all") => {
+    // Render danh sách Group Cards (Hỗ trợ Slide Carousel & Lưới phân trang)
+    const renderGroupCards = () => {
       const grid = document.getElementById('dash-group-grid');
+      const slideNav = document.getElementById('dash-slide-nav');
+      const gridPagination = document.getElementById('dash-grid-pagination');
+      const slideDots = document.getElementById('dash-slide-dots');
+      const slideCounter = document.getElementById('dash-slide-counter');
+
       if (!grid) return;
-      const filteredGroups = cat === "all" ? groups : groups.filter(g => g.category === cat);
-      grid.innerHTML = filteredGroups.map(g => {
+
+      const filteredGroups = this.groupActiveCat === "all" 
+        ? groups 
+        : groups.filter(g => g.category === this.groupActiveCat);
+
+      const isSlide = this.groupViewMode === 'slide';
+
+      if (isSlide) {
+        grid.className = "flex overflow-x-auto snap-x snap-mandatory gap-3 pb-3 pt-1 scrollbar-none no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth";
+        if (slideNav) slideNav.className = "flex items-center gap-1";
+        if (gridPagination) {
+          gridPagination.className = "hidden";
+          gridPagination.innerHTML = "";
+        }
+        if (slideDots) slideDots.className = "flex items-center justify-center gap-1.5 pt-2";
+      } else {
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4";
+        if (slideNav) slideNav.className = "hidden";
+        if (slideDots) {
+          slideDots.className = "hidden";
+          slideDots.innerHTML = "";
+        }
+        if (gridPagination) gridPagination.className = "flex items-center justify-center gap-1.5 pt-3";
+      }
+
+      let displayedGroups = filteredGroups;
+      let totalPages = 1;
+      const itemsPerPage = window.innerWidth < 640 ? 4 : 6;
+
+      if (!isSlide) {
+        totalPages = Math.ceil(filteredGroups.length / itemsPerPage) || 1;
+        this.groupCurrentPage = Math.min(totalPages, Math.max(1, this.groupCurrentPage));
+        const start = (this.groupCurrentPage - 1) * itemsPerPage;
+        displayedGroups = filteredGroups.slice(start, start + itemsPerPage);
+      }
+
+      if (displayedGroups.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400">
+            <span class="text-3xl block mb-2">🔍</span>
+            <p class="text-sm font-semibold">Chưa có nhóm nào trong danh mục này.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = displayedGroups.map((g, idx) => {
         const catBadge = g.category === "daily" 
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">💬 Đời sống</span>`
           : g.category === "marketing"
@@ -736,8 +832,12 @@ class App {
 
         const sampleWords = groupWords.slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
 
+        const cardItemClass = isSlide
+          ? "group-card-item w-[84vw] sm:w-[350px] shrink-0 snap-center bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+          : "group-card-item bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between group";
+
         return `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between group">
+          <div class="${cardItemClass}" data-card-index="${idx}">
             <div>
               <div class="flex items-center justify-between mb-2.5">
                 <div class="flex items-center space-x-2">
@@ -789,6 +889,105 @@ class App {
         `;
       }).join('');
 
+      // Wire up Slide dots & counter
+      if (isSlide) {
+        if (slideCounter) slideCounter.textContent = `1/${filteredGroups.length}`;
+        grid.scrollLeft = 0;
+
+        const updateDots = (activeIndex) => {
+          if (!slideDots) return;
+          if (filteredGroups.length <= 1) {
+            slideDots.innerHTML = '';
+            return;
+          }
+          if (filteredGroups.length <= 10) {
+            slideDots.innerHTML = filteredGroups.map((_, i) => `
+              <button data-idx="${i}" class="dash-slide-dot h-2 rounded-full transition-all ${i === activeIndex ? 'w-5 bg-indigo-600 dark:bg-indigo-400' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400'}"></button>
+            `).join('');
+            slideDots.querySelectorAll('.dash-slide-dot').forEach(dot => {
+              dot.addEventListener('click', () => {
+                const targetIdx = Number(dot.getAttribute('data-idx'));
+                const card = grid.querySelector(`[data-card-index="${targetIdx}"]`);
+                if (card) {
+                  card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+              });
+            });
+          } else {
+            const pct = Math.round(((activeIndex + 1) / filteredGroups.length) * 100);
+            slideDots.innerHTML = `
+              <div class="w-28 bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-indigo-600 dark:bg-indigo-400 h-full rounded-full transition-all duration-200" style="width: ${pct}%"></div>
+              </div>
+            `;
+          }
+        };
+
+        updateDots(0);
+
+        grid.onscroll = () => {
+          const firstCard = grid.querySelector('.group-card-item');
+          if (!firstCard) return;
+          const cardWidth = firstCard.offsetWidth + 12;
+          const activeIdx = Math.min(filteredGroups.length - 1, Math.max(0, Math.round(grid.scrollLeft / cardWidth)));
+          if (slideCounter) slideCounter.textContent = `${activeIdx + 1}/${filteredGroups.length}`;
+          updateDots(activeIdx);
+        };
+      }
+
+      // Wire up Grid Pagination
+      if (!isSlide && gridPagination) {
+        if (totalPages <= 1) {
+          gridPagination.className = "hidden";
+          gridPagination.innerHTML = "";
+        } else {
+          gridPagination.className = "flex items-center justify-center gap-1.5 pt-3";
+          let pagesHtml = '';
+          for (let p = 1; p <= totalPages; p++) {
+            pagesHtml += `
+              <button data-page="${p}" class="dash-page-btn w-8 h-8 rounded-xl text-xs font-bold transition-all ${p === this.groupCurrentPage ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">
+                ${p}
+              </button>
+            `;
+          }
+          gridPagination.innerHTML = `
+            <button id="btn-page-prev" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed" ${this.groupCurrentPage === 1 ? 'disabled' : ''}>
+              ‹ Trước
+            </button>
+            <div class="flex items-center gap-1">
+              ${pagesHtml}
+            </div>
+            <button id="btn-page-next" class="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed" ${this.groupCurrentPage === totalPages ? 'disabled' : ''}>
+              Sau ›
+            </button>
+          `;
+
+          gridPagination.querySelectorAll('.dash-page-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              this.groupCurrentPage = Number(btn.getAttribute('data-page'));
+              renderGroupCards();
+              grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+          });
+
+          document.getElementById('btn-page-prev')?.addEventListener('click', () => {
+            if (this.groupCurrentPage > 1) {
+              this.groupCurrentPage--;
+              renderGroupCards();
+              grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+
+          document.getElementById('btn-page-next')?.addEventListener('click', () => {
+            if (this.groupCurrentPage < totalPages) {
+              this.groupCurrentPage++;
+              renderGroupCards();
+              grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+        }
+      }
+
       // Gắn sự kiện Luyện tập riêng nhóm này
       grid.querySelectorAll('.btn-group-practice').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -814,17 +1013,80 @@ class App {
       });
     };
 
-    renderGroupCards("all");
+    renderGroupCards();
 
-    // Sự kiện chuyển tab danh mục ở Dashboard
+    // Slide Next/Prev controls
+    document.getElementById('btn-slide-prev')?.addEventListener('click', () => {
+      const grid = document.getElementById('dash-group-grid');
+      const firstCard = grid?.querySelector('.group-card-item');
+      if (grid && firstCard) {
+        grid.scrollBy({ left: -(firstCard.offsetWidth + 12), behavior: 'smooth' });
+      }
+    });
+
+    document.getElementById('btn-slide-next')?.addEventListener('click', () => {
+      const grid = document.getElementById('dash-group-grid');
+      const firstCard = grid?.querySelector('.group-card-item');
+      if (grid && firstCard) {
+        grid.scrollBy({ left: firstCard.offsetWidth + 12, behavior: 'smooth' });
+      }
+    });
+
+    // View Mode Toggle (Slide vs Lưới)
+    const btnViewSlide = document.getElementById('btn-view-slide');
+    const btnViewGrid = document.getElementById('btn-view-grid');
+
+    const updateViewButtons = () => {
+      if (this.groupViewMode === 'slide') {
+        btnViewSlide?.classList.add('bg-white', 'dark:bg-slate-700', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs');
+        btnViewSlide?.classList.remove('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400');
+        btnViewGrid?.classList.remove('bg-white', 'dark:bg-slate-700', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs');
+        btnViewGrid?.classList.add('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400');
+      } else {
+        btnViewGrid?.classList.add('bg-white', 'dark:bg-slate-700', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs');
+        btnViewGrid?.classList.remove('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400');
+        btnViewSlide?.classList.remove('bg-white', 'dark:bg-slate-700', 'text-indigo-600', 'dark:text-indigo-400', 'shadow-xs');
+        btnViewSlide?.classList.add('text-slate-500', 'hover:text-slate-700', 'dark:text-slate-400');
+      }
+    };
+
+    btnViewSlide?.addEventListener('click', () => {
+      if (this.groupViewMode !== 'slide') {
+        this.groupViewMode = 'slide';
+        updateViewButtons();
+        renderGroupCards();
+      }
+    });
+
+    btnViewGrid?.addEventListener('click', () => {
+      if (this.groupViewMode !== 'grid') {
+        this.groupViewMode = 'grid';
+        this.groupCurrentPage = 1;
+        updateViewButtons();
+        renderGroupCards();
+      }
+    });
+
+    // Category Tabs Switch
     document.querySelectorAll('.dash-cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.dash-cat-btn').forEach(b => {
-          b.className = "dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all";
-        });
-        btn.className = "dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm";
         const cat = btn.getAttribute('data-cat');
-        renderGroupCards(cat);
+        this.groupActiveCat = cat;
+        this.groupCurrentPage = 1;
+
+        document.querySelectorAll('.dash-cat-btn').forEach(b => {
+          const isAct = b.getAttribute('data-cat') === cat;
+          const countBadge = b.querySelector('.cat-count');
+          if (isAct) {
+            b.className = "dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs bg-indigo-600 text-white active:scale-95";
+            if (countBadge) countBadge.className = "cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-white/20 text-white";
+          } else {
+            b.className = "dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60 active:scale-95";
+            if (countBadge) countBadge.className = "cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300";
+          }
+        });
+
+        renderGroupCards();
       });
     });
 
