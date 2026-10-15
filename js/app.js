@@ -744,6 +744,7 @@ class App {
             <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dash-group-tabs">
               <button data-cat="all" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">Tất cả</button>
               <button data-cat="daily" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💬 Đời Sống</button>
+              <button data-cat="marketing" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">📢 Marketing</button>
               <button data-cat="work" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💼 Công Sở</button>
               <button data-cat="tech" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💻 Công Nghệ</button>
             </div>
@@ -763,6 +764,8 @@ class App {
       grid.innerHTML = filteredGroups.map(g => {
         const catBadge = g.category === "daily" 
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">💬 Đời sống</span>`
+          : g.category === "marketing"
+          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">📢 Marketing</span>`
           : g.category === "work"
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">💼 Công sở</span>`
           : `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">💻 Công nghệ</span>`;
@@ -1053,6 +1056,7 @@ class App {
           <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dict-cat-filters">
             <button data-cat="all" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'all' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">🌐 Toàn bộ chủ đề</button>
             <button data-cat="daily" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'daily' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💬 Giao tiếp Hàng ngày</button>
+            <button data-cat="marketing" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'marketing' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">📢 Marketing & Growth</button>
             <button data-cat="work" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'work' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💼 Công sở & Teamwork</button>
             <button data-cat="tech" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'tech' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💻 Công nghệ & CNTT</button>
           </div>
