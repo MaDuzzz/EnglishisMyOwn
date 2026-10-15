@@ -174,18 +174,29 @@
     </div>
   </nav>
 
-  <!-- PWA Service Worker Registration -->
+  <!-- PWA Service Worker Registration with Instant Auto-Update -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('✅ ServiceWorker đã sẵn sàng:', reg.scope))
+          .then(reg => {
+            reg.update();
+            console.log('✅ ServiceWorker đã sẵn sàng:', reg.scope);
+          })
           .catch(err => console.log('ServiceWorker lỗi:', err));
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
       });
     }
   </script>
 
   <!-- ES Modules Entrypoint -->
-  <script type="module" src="./js/app.js?v=4.9"></script>
+  <script type="module" src="./js/app.js?v=5.0"></script>
 </body>
 </html>
