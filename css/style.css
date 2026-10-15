@@ -141,12 +141,18 @@ body {
 
 /* iOS Header safe area - Guaranteed clearance under Dynamic Island (iPhone 17 Pro Max) & Notch (iPhone 12 Pro Max) */
 .ios-header {
-  padding-top: max(env(safe-area-inset-top, 0px), 12px);
+  padding-top: 0px;
 }
 
 @media (max-width: 768px) {
   .ios-header {
-    padding-top: max(env(safe-area-inset-top, 0px), 52px) !important;
+    padding-top: calc(max(env(safe-area-inset-top, 0px), 54px) + 14px) !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .ios-header {
+    padding-top: 0px !important;
   }
 }
 
