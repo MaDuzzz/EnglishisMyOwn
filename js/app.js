@@ -147,7 +147,7 @@ class App {
     // Streak with proper spacing
     const streakEl = document.getElementById('header-streak-badge');
     if (streakEl) {
-      streakEl.innerHTML = `<span>🔥</span><span class="mx-1 font-bold">${streak}</span><span>ngày</span>`;
+      streakEl.innerHTML = `<span>🔥</span><span class="mx-0.5 font-bold">${streak}</span><span class="hidden sm:inline ml-1 font-semibold text-slate-500 dark:text-slate-400">ngày</span>`;
     }
 
     // Level Badge with Mini Progress Bar
@@ -155,21 +155,19 @@ class App {
     if (levelBtn) {
       if (level) {
         const rankProg = appState.getRankProgress();
-        levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all flex items-center space-x-2";
+        levelBtn.className = "flex px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all items-center space-x-1 sm:space-x-2 shrink-0";
         levelBtn.innerHTML = `
-          <div class="flex items-center space-x-1">
-            <span class="font-extrabold">${rankProg.level}</span>
-            <span class="text-slate-400 text-[10px]">➔</span>
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.nextLevel}</span>
-          </div>
-          <div class="w-12 bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+          <span class="font-black text-indigo-600 dark:text-indigo-400">${rankProg.level}</span>
+          <span class="hidden sm:inline text-slate-400 text-[10px]">➔</span>
+          <span class="hidden sm:inline text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.nextLevel}</span>
+          <div class="hidden sm:block w-10 sm:w-12 bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
             <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-1.5 rounded-full transition-all duration-300" style="width: ${rankProg.percent}%"></div>
           </div>
           <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400">${rankProg.percent}%</span>
         `;
         levelBtn.title = `Tiến độ: ${rankProg.currentXP}/${rankProg.requiredXP} XP (${rankProg.percent}%). Bấm để xem Bảng Kỷ Luật & Heatmap Cả Năm.`;
       } else {
-        levelBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300 hover:opacity-80";
+        levelBtn.className = "hidden sm:flex px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300 hover:opacity-80 shrink-0";
         levelBtn.innerHTML = `<span>⚠️ Chưa xếp lớp</span>`;
         levelBtn.title = "Làm bài test 10 câu để xếp lớp";
       }
@@ -180,21 +178,23 @@ class App {
     if (authBtn) {
       if (user) {
         authBtn.innerHTML = `
-          <div class="flex items-center space-x-2">
-            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-xs shadow-sm">
               ${(user.displayName || "U")[0].toUpperCase()}
             </span>
-            <span class="hidden sm:inline text-xs font-semibold text-slate-700 dark:text-slate-300">${user.displayName}</span>
-            <span class="text-xs text-rose-500 font-bold ml-1">(Đăng xuất)</span>
+            <span class="hidden sm:inline text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-[100px] truncate">${user.displayName}</span>
+            <span class="hidden md:inline text-xs text-rose-500 font-bold ml-1">(Đăng xuất)</span>
           </div>
         `;
+        authBtn.title = `Tài khoản: ${user.displayName || user.email} (Bấm để đăng xuất)`;
       } else {
         authBtn.innerHTML = `
-          <div class="flex items-center space-x-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400">
-            <span>🔑</span>
-            <span>Đăng nhập Google</span>
+          <div class="flex items-center space-x-1 text-xs font-bold text-indigo-600 dark:text-indigo-400">
+            <span class="text-sm">👤</span>
+            <span class="hidden sm:inline">Đăng nhập</span>
           </div>
         `;
+        authBtn.title = "Đăng nhập Google để đồng bộ dữ liệu";
       }
     }
   }

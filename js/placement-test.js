@@ -21,47 +21,70 @@ export class PlacementTestEngine {
     const total = PLACEMENT_QUESTIONS.length;
     const progressPercent = Math.round(((this.currentIndex) / total) * 100);
 
+    const formattedQuestion = q.question.replace(
+      /_{3,}/g, 
+      '<span class="inline-block px-3 py-0.5 mx-1 border-b-2 border-indigo-500 bg-indigo-50/80 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-lg font-black tracking-widest">______</span>'
+    );
+
     this.container.innerHTML = `
-      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 max-w-2xl mx-auto transition-all animate-fade-in">
-        <!-- Progress Bar -->
-        <div class="mb-6">
-          <div class="flex items-center justify-between text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 mb-2">
-            <span>Bài Đánh Giá Xếp Lớp (Placement Test)</span>
-            <span class="text-indigo-600 dark:text-indigo-400 font-bold">Câu ${this.currentIndex + 1} / ${total}</span>
-          </div>
-          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
-            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: ${progressPercent}%"></div>
-          </div>
-        </div>
-
-        <!-- Question Badge & Text -->
-        <div class="mb-6">
-          <span class="inline-block px-2.5 py-1 text-xs font-semibold rounded-md bg-indigo-50 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 mb-3">
-            Độ khó mục tiêu: ${q.level}
-          </span>
-          <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white leading-relaxed">
-            ${q.question}
-          </h3>
-        </div>
-
-        <!-- Options List -->
-        <div class="space-y-3 mb-6" id="test-options-container">
-          ${q.options.map((opt, idx) => `
-            <button 
-              data-index="${idx}"
-              class="test-option-btn w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/30 transition-all flex items-center justify-between group focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <span class="flex items-center space-x-3">
-                <span class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center font-bold text-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                  ${String.fromCharCode(65 + idx)}
-                </span>
-                <span class="text-slate-800 dark:text-slate-200 font-medium">${opt}</span>
+      <div class="my-auto w-full max-w-xl mx-auto py-2 sm:py-6 animate-fade-in flex flex-col justify-center">
+        <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl shadow-indigo-500/5 border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 backdrop-blur-xl transition-all">
+          
+          <!-- Top Header & Progress -->
+          <div class="mb-5 sm:mb-6">
+            <div class="flex items-center justify-between mb-2.5">
+              <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
+                <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                <span>🎯 Placement Test</span>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-black">
+                Câu ${this.currentIndex + 1} / ${total}
               </span>
-            </button>
-          `).join('')}
-        </div>
+            </div>
 
-        <div class="text-xs text-slate-400 dark:text-slate-500 text-center">
-          💡 Chọn đáp án phản xạ tự nhiên nhất của bạn để có kết quả xếp lớp chuẩn xác nhất.
+            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-700/60">
+              <div class="bg-gradient-to-r from-blue-500 via-indigo-600 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: ${progressPercent}%"></div>
+            </div>
+          </div>
+
+          <!-- Question Badge & Text -->
+          <div class="mb-6">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center space-x-1.5">
+              <span>Độ khó mục tiêu:</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-black">${q.level}</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white leading-relaxed">
+              ${formattedQuestion}
+            </h3>
+          </div>
+
+          <!-- Options List -->
+          <div class="space-y-3 mb-6" id="test-options-container">
+            ${q.options.map((opt, idx) => `
+              <button 
+                data-index="${idx}"
+                class="test-option-btn w-full text-left p-4 sm:p-4.5 rounded-2xl border-2 border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/40 active:scale-[0.98] transition-all flex items-center justify-between group shadow-sm">
+                <div class="flex items-center space-x-3.5">
+                  <span class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 group-hover:bg-indigo-600 group-hover:text-white transition-colors flex items-center justify-center font-black text-sm shrink-0 shadow-inner">
+                    ${String.fromCharCode(65 + idx)}
+                  </span>
+                  <span class="text-base sm:text-lg font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    ${opt}
+                  </span>
+                </div>
+                <div class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-700 group-hover:border-indigo-600 group-hover:bg-indigo-600 flex items-center justify-center transition-all shrink-0">
+                  <svg class="w-3.5 h-3.5 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400 dark:text-slate-500 text-center flex items-center justify-center space-x-1.5">
+            <span>💡</span>
+            <span>Chọn đáp án phản xạ tự nhiên của bạn để xếp lớp chính xác nhất</span>
+          </div>
         </div>
       </div>
     `;
@@ -70,6 +93,7 @@ export class PlacementTestEngine {
     const optionBtns = this.container.querySelectorAll('.test-option-btn');
     optionBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
         const selectedIndex = parseInt(btn.getAttribute('data-index'), 10);
         this.handleSelect(selectedIndex);
       });
@@ -102,40 +126,42 @@ export class PlacementTestEngine {
     appState.setLevel(result.level);
 
     this.container.innerHTML = `
-      <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-8 max-w-2xl mx-auto text-center animate-fade-in">
-        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-emerald-400 to-indigo-600 flex items-center justify-center text-white text-3xl shadow-lg">
-          🎉
-        </div>
-
-        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
-          Kết Quả Xếp Lớp Của Bạn
-        </h2>
-        <p class="text-slate-500 dark:text-slate-400 mb-6">
-          Bạn đã trả lời đúng <span class="font-bold text-indigo-600 dark:text-indigo-400">${correctCount} / 10</span> câu hỏi.
-        </p>
-
-        <!-- Rank Card -->
-        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-6 mb-8 text-left">
-          <div class="flex items-center space-x-4 mb-3">
-            <span class="px-3 py-1 bg-indigo-600 text-white font-extrabold rounded-lg text-lg tracking-wider">
-              ${result.level}
-            </span>
-            <h4 class="text-xl font-bold text-slate-800 dark:text-white">
-              ${result.label}
-            </h4>
+      <div class="my-auto w-full max-w-xl mx-auto py-4 animate-fade-in flex flex-col justify-center">
+        <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 text-center">
+          <div class="w-20 h-20 mx-auto mb-5 rounded-2xl bg-gradient-to-tr from-emerald-400 to-indigo-600 flex items-center justify-center text-white text-4xl shadow-lg shadow-indigo-500/25">
+            🎉
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            ${result.description}
-          </p>
-        </div>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button id="btn-start-learning" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform hover:-translate-y-0.5">
-            🚀 Bắt đầu học Batch 10 từ đầu tiên!
-          </button>
-          <button id="btn-retake-test" class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors">
-            Làm lại bài test
-          </button>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-2">
+            Kết Quả Xếp Lớp CEFR
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
+            Bạn đã trả lời đúng <span class="font-extrabold text-indigo-600 dark:text-indigo-400 text-base">${correctCount} / 10</span> câu hỏi.
+          </p>
+
+          <!-- Rank Card -->
+          <div class="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800/80 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl p-5 sm:p-6 mb-6 text-left">
+            <div class="flex items-center space-x-3 mb-2.5">
+              <span class="px-3.5 py-1.5 bg-indigo-600 text-white font-black rounded-xl text-lg tracking-wider shadow-sm">
+                ${result.level}
+              </span>
+              <h4 class="text-lg sm:text-xl font-black text-slate-800 dark:text-white">
+                ${result.label}
+              </h4>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              ${result.description}
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button id="btn-start-learning" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all">
+              🚀 Bắt đầu học Batch 10 từ đầu tiên!
+            </button>
+            <button id="btn-retake-test" class="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-2xl transition-colors">
+              Làm lại bài test
+            </button>
+          </div>
         </div>
       </div>
     `;

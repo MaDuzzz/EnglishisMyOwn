@@ -54,13 +54,15 @@ export class VocabPracticeEngine {
 
   renderEmptyState() {
     this.container.innerHTML = `
-      <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 text-center max-w-lg mx-auto border border-slate-200 dark:border-slate-800 shadow-xl">
-        <div class="text-4xl mb-4">🎉</div>
-        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Không còn từ nào cần ôn tập!</h3>
-        <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã hoàn thành xuất sắc các mục tiêu từ vựng của hôm nay.</p>
-        <button id="btn-empty-back" class="px-6 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
-          Quay lại Bảng Điều Khiển
-        </button>
+      <div class="my-auto w-full max-w-lg mx-auto py-6 animate-fade-in flex flex-col justify-center">
+        <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border border-slate-200/90 dark:border-slate-800 shadow-xl">
+          <div class="text-4xl mb-4">🎉</div>
+          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Không còn từ nào cần ôn tập!</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã hoàn thành xuất sắc các mục tiêu từ vựng của hôm nay.</p>
+          <button id="btn-empty-back" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25">
+            Quay lại Bảng Điều Khiển
+          </button>
+        </div>
       </div>
     `;
     document.getElementById('btn-empty-back')?.addEventListener('click', () => {
@@ -111,10 +113,12 @@ export class VocabPracticeEngine {
     }
 
     this.container.innerHTML = `
-      <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 max-w-xl mx-auto animate-fade-in">
-        ${headerHtml}
-        ${contentHtml}
-        <div id="feedback-area" class="mt-4 hidden"></div>
+      <div class="my-auto w-full max-w-xl mx-auto py-2 sm:py-6 animate-fade-in flex flex-col justify-center">
+        <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 backdrop-blur-xl">
+          ${headerHtml}
+          ${contentHtml}
+          <div id="feedback-area" class="mt-4 hidden"></div>
+        </div>
       </div>
     `;
 
