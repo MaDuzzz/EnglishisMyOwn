@@ -140,13 +140,6 @@ class App {
         return;
       }
 
-      // Đồng bộ từ vựng lên Firestore từ dropdown
-      const syncVocabBtn = e.target.closest('#btn-sync-vocab-firestore');
-      if (syncVocabBtn) {
-        this.handleSyncVocabFirestore();
-        return;
-      }
-
       // Đăng xuất từ dropdown
       const dropdownLogoutBtn = e.target.closest('#btn-dropdown-logout');
       if (dropdownLogoutBtn) {
@@ -176,23 +169,6 @@ class App {
         this.updateHeaderUI();
       }
     });
-  }
-
-  async handleSyncVocabFirestore() {
-    this.isUserMenuOpen = false;
-    this.updateHeaderUI();
-    try {
-      const res = await appState.syncVocabGroupsToFirestore();
-      alert(`☁️ Đồng bộ Kho từ lên Cloud Firestore thành công!\n\n• Số nhóm chủ đề: ${res.groupCount}\n• Tổng số từ & cụm từ: ${res.wordCount}\n\nDữ liệu đã được lưu trữ an toàn trong collection "vocab_groups" trên Cloud Firestore.`);
-    } catch (err) {
-      console.error("Lỗi đồng bộ vocab lên Firestore:", err);
-      const errMsg = err?.message || String(err);
-      if (errMsg.includes("permission") || errMsg.includes("insufficient")) {
-        alert("⚠️ Lỗi phân quyền Cloud Firestore (Missing or insufficient permissions)!\n\nNguyên nhân: Firebase Console chưa mở quyền Ghi (Write) cho collection 'vocab_groups'.\n\n👉 Cách xử lý (chỉ mất 30 giây):\n1. Vào Firebase Console -> Project của bạn\n2. Mở Firestore Database -> Chọn tab 'Rules'\n3. Thêm cấu hình cho vocab_groups:\n\nmatch /vocab_groups/{groupId} {\n  allow read: if true;\n  allow write: if request.auth != null;\n}\n\n4. Bấm nút 'Publish' (Xuất bản) là xong!");
-      } else {
-        alert("⚠️ Lỗi đồng bộ lên Cloud Firestore:\n" + errMsg);
-      }
-    }
   }
 
   async handleAuthClick() {
@@ -321,19 +297,6 @@ class App {
                     <!-- Switch Visual Indicator -->
                     <div class="w-9 h-5 rounded-full p-0.5 transition-colors ${isDark ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}">
                       <div class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform ${isDark ? 'translate-x-4' : 'translate-x-0'}"></div>
-                    </div>
-                  </button>
-
-                  <!-- Sync Vocab to Cloud Firestore -->
-                  <button id="btn-sync-vocab-firestore" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 transition-colors text-left group">
-                    <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Đồng bộ Kho từ lên Cloud</p>
-                      <p class="text-[10px] text-slate-400">Lưu chủ đề & từ mới vào Firestore</p>
                     </div>
                   </button>
 

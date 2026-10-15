@@ -157,7 +157,7 @@ export class StateManager {
     return this.state.vocabGroups || VOCAB_GROUPS;
   }
 
-  // Tải các nhóm từ vựng từ Cloud Firestore
+  // Tải các nhóm từ vựng từ Cloud Firestore (Chỉ đọc ngầm nếu có bản cập nhật từ server)
   async loadVocabGroupsFromFirestore() {
     if (!isFirebaseLive || !dbInstance) return;
     try {
@@ -174,17 +174,9 @@ export class StateManager {
           this.notify();
           console.log(`✅ Đã tải ${remoteGroups.length} nhóm từ vựng từ Cloud Firestore.`);
         }
-      } else {
-        // Tự động nâng cấp và đồng bộ đầy đủ 19 nhóm (600 từ) lên Cloud Firestore
-        try {
-          console.log("☁️ Cập nhật/khởi tạo đầy đủ 19 nhóm từ vựng (600 từ) lên Cloud Firestore...");
-          await this.syncVocabGroupsToFirestore();
-        } catch (syncErr) {
-          console.warn("ℹ️ Firestore chưa cấp quyền write cho 'vocab_groups', ứng dụng tiếp tục dùng kho 600 từ cục bộ:", syncErr.message || syncErr);
-        }
       }
     } catch (err) {
-      console.warn("⚠️ Không thể tải vocab_groups từ Firestore (đang dùng kho từ cục bộ):", err);
+      console.log("ℹ️ Đang sử dụng kho 700 từ vựng chuẩn tích hợp (PWA Offline Bundle).");
     }
   }
 
