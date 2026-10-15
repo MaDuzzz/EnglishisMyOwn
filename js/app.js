@@ -105,7 +105,11 @@ class App {
         this.updateHeaderUI();
       } catch (e) {
         console.error("Lỗi Google Sign-in:", e);
-        if (e.code !== 'auth/popup-closed-by-user') {
+        if (e.code === 'auth/operation-not-allowed') {
+          alert("⚠️ Bạn chưa Bật (Enable) đăng nhập Google trên Firebase Console!\n\nCách xử lý (Chỉ 30 giây):\n1. Vào Firebase Console -> Project 'englishismyown'\n2. Vào Authentication -> Tab 'Sign-in method'\n3. Chọn 'Google' -> Gạt sang 'Enable' (Bật) -> Chọn email hỗ trợ -> Bấm Lưu (Save).");
+        } else if (e.code === 'auth/unauthorized-domain') {
+          alert("⚠️ Domain maduzzz.github.io chưa được thêm vào Authorized Domains!\n\nCách xử lý:\n1. Vào Firebase Console -> Authentication -> Settings -> Authorized domains\n2. Bấm 'Add domain' và nhập: maduzzz.github.io");
+        } else if (e.code !== 'auth/popup-closed-by-user') {
           alert("Không thể đăng nhập Google: " + e.message);
         }
       }
