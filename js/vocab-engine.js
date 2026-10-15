@@ -54,14 +54,16 @@ export class VocabPracticeEngine {
 
   renderEmptyState() {
     this.container.innerHTML = `
-      <div class="my-auto w-full max-w-lg mx-auto py-6 animate-fade-in flex flex-col justify-center">
-        <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border border-slate-200/90 dark:border-slate-800 shadow-xl">
-          <div class="text-4xl mb-4">🎉</div>
-          <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Không còn từ nào cần ôn tập!</h3>
-          <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã hoàn thành xuất sắc các mục tiêu từ vựng của hôm nay.</p>
-          <button id="btn-empty-back" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25">
-            Quay lại Bảng Điều Khiển
-          </button>
+      <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
+        <div class="w-full max-w-lg mx-auto">
+          <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border border-slate-200/90 dark:border-slate-800 shadow-xl">
+            <div class="text-4xl mb-4">🎉</div>
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Không còn từ nào cần ôn tập!</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã hoàn thành xuất sắc các mục tiêu từ vựng của hôm nay.</p>
+            <button id="btn-empty-back" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25">
+              Quay lại Bảng Điều Khiển
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -113,11 +115,13 @@ export class VocabPracticeEngine {
     }
 
     this.container.innerHTML = `
-      <div class="my-auto w-full max-w-xl mx-auto py-2 sm:py-6 animate-fade-in flex flex-col justify-center">
-        <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 backdrop-blur-xl">
-          ${headerHtml}
-          ${contentHtml}
-          <div id="feedback-area" class="mt-4 hidden"></div>
+      <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-2 sm:py-4 animate-fade-in">
+        <div class="w-full max-w-xl mx-auto">
+          <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 backdrop-blur-xl">
+            ${headerHtml}
+            ${contentHtml}
+            <div id="feedback-area" class="mt-4 hidden"></div>
+          </div>
         </div>
       </div>
     `;
@@ -473,34 +477,38 @@ export class VocabPracticeEngine {
     }
 
     this.container.innerHTML = `
-      <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 p-8 max-w-lg mx-auto text-center animate-fade-in">
-        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-500 flex items-center justify-center text-white text-3xl shadow-lg">
-          🏆
-        </div>
+      <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
+        <div class="w-full max-w-lg mx-auto">
+          <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 text-center">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-500 flex items-center justify-center text-white text-3xl shadow-lg">
+              🏆
+            </div>
 
-        <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2">
-          ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Batch 10 Từ Mới!'}
-        </h2>
-        <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">
-          Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${totalQuestions} câu)
-        </p>
+            <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2">
+              ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Batch 10 Từ Mới!'}
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">
+              Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${totalQuestions} câu)
+            </p>
 
-        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-6 text-left">
-          <div class="flex items-center justify-between text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
-            <span class="text-slate-500">Chuỗi ngày kiên trì (Streak):</span>
-            <span class="font-extrabold text-amber-500 flex items-center space-x-1">
-              <span>🔥 ${appState.state.streak} ngày</span>
-            </span>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-6 text-left">
+              <div class="flex items-center justify-between text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
+                <span class="text-slate-500">Chuỗi ngày kiên trì (Streak):</span>
+                <span class="font-extrabold text-amber-500 flex items-center space-x-1">
+                  <span>🔥 ${appState.state.streak} ngày</span>
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-sm py-1.5">
+                <span class="text-slate-500">Tổng vốn từ đã nạp:</span>
+                <span class="font-bold text-slate-800 dark:text-white">${appState.state.learnedWords.length} từ</span>
+              </div>
+            </div>
+
+            <button id="btn-complete-session" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all">
+              Quay lại Bảng Điều Khiển
+            </button>
           </div>
-          <div class="flex items-center justify-between text-sm py-1.5">
-            <span class="text-slate-500">Tổng vốn từ đã nạp:</span>
-            <span class="font-bold text-slate-800 dark:text-white">${appState.state.learnedWords.length} từ</span>
-          </div>
         </div>
-
-        <button id="btn-complete-session" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all">
-          Quay lại Bảng Điều Khiển
-        </button>
       </div>
     `;
 
