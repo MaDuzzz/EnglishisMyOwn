@@ -1,7 +1,7 @@
 // Quản lý trạng thái ứng dụng (State Management)
 // Hoàn toàn không dùng LocalStorage - Lưu trữ và đồng bộ trực tiếp với Cloud Firestore
 
-import { VOCAB_BANK } from './data/vocab-bank.js';
+import { VOCAB_BANK, VOCAB_GROUPS } from './data/vocab-bank.js';
 import { authInstance, dbInstance, isFirebaseLive } from './firebase-config.js';
 
 export const RANK_TIERS = {
@@ -34,7 +34,8 @@ export class StateManager {
       dailyNewBatchDone: false,
       dailyNewBatchDate: today,
       audioEnabled: true, // Điều khiển âm thanh toàn cục
-      theme: "dark" // "dark" | "light"
+      theme: "dark", // "dark" | "light"
+      vocabGroups: VOCAB_GROUPS // Danh sách nhóm từ vựng (hỗ trợ sync với Firestore)
     };
   }
 
@@ -149,6 +150,66 @@ export class StateManager {
     } catch (err) {
       console.warn("⚠️ Lỗi khi đồng bộ Firestore:", err);
     }
+  }
+
+  // Lấy danh mục các nhóm từ vựng
+  getVocabGroups() {
+    return this.state.vocabGroups || VOCAB_GROUPS;
+  }
+
+  // Tải các nhóm từ vựng từ Cloud Firestore
+  async loadVocabGroupsFromFirestore() {
+    if (!isFirebaseLive || !dbInstance) return;
+    try {
+      const { collection, getDocs } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      const groupsCol = collection(dbInstance, "vocab_groups");
+      const snap = await getDocs(groupsCol);
+      if (!snap.empty) {
+        const remoteGroups = [];
+        snap.forEach(docSnap => {
+          remoteGroups.push({ groupId: docSnap.id, ...docSnap.data() });
+        });
+        if (remoteGroups.length > 0) {
+          this.state.vocabGroups = remoteGroups;
+          this.notify();
+          console.log(`✅ Đã tải ${remoteGroups.length} nhóm từ vựng từ Cloud Firestore.`);
+        }
+      }
+    } catch (err) {
+      console.warn("⚠️ Không thể tải vocab_groups từ Firestore (đang dùng kho từ cục bộ):", err);
+    }
+  }
+
+  // Đồng bộ toàn bộ các nhóm từ vựng lên Cloud Firestore (1 doc / nhóm để tối ưu quota)
+  async syncVocabGroupsToFirestore() {
+    if (!isFirebaseLive || !dbInstance) {
+      throw new Error("Chưa kết nối Firebase! Vui lòng kiểm tra cấu hình secret trên GitHub.");
+    }
+    const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const groups = this.state.vocabGroups || VOCAB_GROUPS;
+    let totalWords = 0;
+
+    for (const group of groups) {
+      const groupRef = doc(dbInstance, "vocab_groups", group.groupId);
+      const payload = {
+        groupId: group.groupId,
+        name: group.name,
+        icon: group.icon,
+        category: group.category || "daily",
+        level: group.level || "A2",
+        description: group.description || "",
+        words: group.words || [],
+        updatedAt: new Date().toISOString()
+      };
+      await setDoc(groupRef, payload, { merge: true });
+      totalWords += (group.words || []).length;
+    }
+
+    return {
+      success: true,
+      groupCount: groups.length,
+      wordCount: totalWords
+    };
   }
 
   subscribe(listener) {

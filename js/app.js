@@ -4,7 +4,7 @@ import { initFirebase, authInstance, googleProviderInstance, isFirebaseLive } fr
 import { PlacementTestEngine } from './placement-test.js';
 import { VocabPracticeEngine } from './vocab-engine.js';
 import { CoursesEngine } from './courses-engine.js';
-import { VOCAB_BANK } from './data/vocab-bank.js';
+import { VOCAB_BANK, VOCAB_GROUPS } from './data/vocab-bank.js';
 import { speechService } from './speech.js';
 
 class App {
@@ -17,6 +17,7 @@ class App {
     this.showDemoHeatmap = false;
     this.analyticsViewMode = "12months"; // "12months" | "52weeks"
     this.isUserMenuOpen = false;
+    this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
   }
 
   async init() {
@@ -84,6 +85,7 @@ class App {
                 this.applyTheme(appState.state.theme);
               }
               this.updateHeaderUI();
+              appState.loadVocabGroupsFromFirestore();
             });
           } else {
             appState.setUser(null);
@@ -138,6 +140,13 @@ class App {
         return;
       }
 
+      // Đồng bộ từ vựng lên Firestore từ dropdown
+      const syncVocabBtn = e.target.closest('#btn-sync-vocab-firestore');
+      if (syncVocabBtn) {
+        this.handleSyncVocabFirestore();
+        return;
+      }
+
       // Đăng xuất từ dropdown
       const dropdownLogoutBtn = e.target.closest('#btn-dropdown-logout');
       if (dropdownLogoutBtn) {
@@ -167,6 +176,18 @@ class App {
         this.updateHeaderUI();
       }
     });
+  }
+
+  async handleSyncVocabFirestore() {
+    this.isUserMenuOpen = false;
+    this.updateHeaderUI();
+    try {
+      const res = await appState.syncVocabGroupsToFirestore();
+      alert(`☁️ Đồng bộ Kho từ lên Cloud Firestore thành công!\n\n• Số nhóm chủ đề: ${res.groupCount}\n• Tổng số từ & cụm từ: ${res.wordCount}\n\nDữ liệu đã được lưu trữ an toàn trong collection "vocab_groups" trên Cloud Firestore.`);
+    } catch (err) {
+      console.error("Lỗi đồng bộ vocab lên Firestore:", err);
+      alert("⚠️ Lỗi đồng bộ lên Cloud Firestore:\n" + (err.message || err));
+    }
   }
 
   async handleAuthClick() {
@@ -298,6 +319,19 @@ class App {
                     </div>
                   </button>
 
+                  <!-- Sync Vocab to Cloud Firestore -->
+                  <button id="btn-sync-vocab-firestore" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 transition-colors text-left group">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Đồng bộ Kho từ lên Cloud</p>
+                      <p class="text-[10px] text-slate-400">Lưu chủ đề & từ mới vào Firestore</p>
+                    </div>
+                  </button>
+
                   <!-- Log Out Option -->
                   <button id="btn-dropdown-logout" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 transition-colors text-left group">
                     <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-rose-500/15 text-rose-600 dark:text-rose-400">
@@ -339,8 +373,17 @@ class App {
     }
   }
 
-  switchTab(tab) {
+  switchTab(tab, options = {}) {
+    if (tab === "dictionary" && options && Object.keys(options).length > 0) {
+      this.dictionaryFilterState = { ...this.dictionaryFilterState, ...options };
+    }
+
     if (this.currentTab === tab) {
+      // Nếu tab hiện tại là dictionary và có options mới truyền vào, render lại dictionary
+      if (tab === "dictionary" && options && Object.keys(options).length > 0) {
+        const mainContainer = document.getElementById('main-content-area');
+        if (mainContainer) this.renderDictionary(mainContainer);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       // Micro-bounce on active icon when re-tapped
       const activeIcon = document.querySelector(`.ios-tab-btn[data-tab="${tab}"] .tab-icon-wrap`);
@@ -673,8 +716,129 @@ class App {
             </div>
           </div>
         </div>
+
+        <!-- 🌟 KHÁM PHÁ CÁC CHỦ ĐỀ TỪ VỰNG THỰC CHIẾN (THEMATIC GROUPS) 🌟 -->
+        <div class="space-y-4 pt-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">📚</span>
+                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
+                  Kho Chủ Đề Từ Vựng, Cụm Từ & Phản Xạ
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Các cụm từ (collocations), phrasal verbs thông dụng đời sống và môi trường làm việc/CNTT.
+              </p>
+            </div>
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dash-group-tabs">
+              <button data-cat="all" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm">Tất cả</button>
+              <button data-cat="daily" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💬 Đời Sống</button>
+              <button data-cat="work" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💼 Công Sở</button>
+              <button data-cat="tech" class="dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">💻 Công Nghệ</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="dash-group-grid"></div>
+        </div>
       </div>
     `;
+
+    // Render danh sách Group Cards
+    const groups = appState.getVocabGroups();
+    const renderGroupCards = (cat = "all") => {
+      const grid = document.getElementById('dash-group-grid');
+      if (!grid) return;
+      const filteredGroups = cat === "all" ? groups : groups.filter(g => g.category === cat);
+      grid.innerHTML = filteredGroups.map(g => {
+        const catBadge = g.category === "daily" 
+          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">💬 Đời sống</span>`
+          : g.category === "work"
+          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">💼 Công sở</span>`
+          : `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">💻 Công nghệ</span>`;
+
+        const sampleWords = (g.words || []).slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
+
+        return `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-2.5">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl">${g.icon}</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${g.level}</span>
+                </div>
+                ${catBadge}
+              </div>
+
+              <h4 class="font-black text-slate-900 dark:text-white text-base mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                ${g.name}
+              </h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 line-clamp-2 leading-relaxed">
+                ${g.description}
+              </p>
+
+              <div class="mb-4">
+                <div class="text-[10px] uppercase font-bold text-slate-400 mb-1">Từ & Cụm từ tiêu biểu:</div>
+                <div class="flex flex-wrap gap-1">
+                  ${sampleWords}
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+              <span class="text-[11px] font-bold text-slate-400">${g.words?.length || 0} từ / cụm</span>
+              <div class="flex items-center space-x-1.5">
+                <button data-group-id="${g.groupId}" class="btn-group-dict px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all" title="Tra cứu trong từ điển">
+                  📖 Tra từ
+                </button>
+                <button data-group-id="${g.groupId}" class="btn-group-practice px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all flex items-center space-x-1" title="Luyện tập phản xạ">
+                  <span>⚡ Luyện</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Gắn sự kiện Luyện tập riêng nhóm này
+      grid.querySelectorAll('.btn-group-practice').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const groupId = btn.getAttribute('data-group-id');
+          const grp = groups.find(g => g.groupId === groupId);
+          if (grp && grp.words && grp.words.length > 0) {
+            this.vocabEngine = new VocabPracticeEngine(mainContainer, {
+              mode: "new_batch",
+              words: grp.words,
+              onCompleted: () => this.renderVocabDashboard()
+            });
+            this.vocabEngine.start();
+          }
+        });
+      });
+
+      // Gắn sự kiện Tra cứu từ nhóm này trong Dictionary
+      grid.querySelectorAll('.btn-group-dict').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const groupId = btn.getAttribute('data-group-id');
+          this.switchTab("dictionary", { groupId: groupId, category: "all", level: "all" });
+        });
+      });
+    };
+
+    renderGroupCards("all");
+
+    // Sự kiện chuyển tab danh mục ở Dashboard
+    document.querySelectorAll('.dash-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.dash-cat-btn').forEach(b => {
+          b.className = "dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all";
+        });
+        btn.className = "dash-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white transition-all shadow-sm";
+        const cat = btn.getAttribute('data-cat');
+        renderGroupCards(cat);
+      });
+    });
 
     // Gắn sự kiện Bắt đầu Ôn tập
     document.getElementById('btn-start-review')?.addEventListener('click', () => {
@@ -716,58 +880,122 @@ class App {
   // ==================== TỪ ĐIỂN / SỔ TAY ĐÃ HỌC ====================
   renderDictionary(container) {
     const learnedIds = new Set(appState.state.learnedWords.map(w => w.wordId));
-    let filter = "all"; // "all" | "learned" | "A1" | "A2" | "B1" | "B2"
+    const allGroups = appState.getVocabGroups();
+    
+    let levelFilter = this.dictionaryFilterState?.level || "all";
+    let catFilter = this.dictionaryFilterState?.category || "all";
+    let activeGroupId = this.dictionaryFilterState?.groupId || null;
 
-    const renderList = (currentFilter, searchKeyword = "") => {
+    const renderList = (searchKeyword = "") => {
       let filtered = VOCAB_BANK.filter(w => {
-        if (currentFilter === "learned") return learnedIds.has(w.id);
-        if (["A1", "A2", "B1", "B2"].includes(currentFilter)) return w.level === currentFilter;
+        // Lọc theo level
+        if (levelFilter === "learned" && !learnedIds.has(w.id)) return false;
+        if (["A1", "A2", "B1", "B2"].includes(levelFilter) && w.level !== levelFilter) return false;
+
+        // Lọc theo group cụ thể nếu có
+        if (activeGroupId && w.groupId !== activeGroupId) return false;
+
+        // Lọc theo category
+        if (catFilter !== "all" && w.category !== catFilter) return false;
+
         return true;
       });
 
       if (searchKeyword.trim()) {
         const kw = searchKeyword.toLowerCase();
-        filtered = filtered.filter(w => w.word.toLowerCase().includes(kw) || w.meaningVi.toLowerCase().includes(kw));
+        filtered = filtered.filter(w => 
+          w.word.toLowerCase().includes(kw) || 
+          w.meaningVi.toLowerCase().includes(kw) ||
+          (w.collocations && w.collocations.toLowerCase().includes(kw))
+        );
       }
 
       const listContainer = document.getElementById('vocab-card-grid');
+      const activeGroupBanner = document.getElementById('active-group-banner');
+      
+      if (activeGroupBanner) {
+        if (activeGroupId) {
+          const grp = allGroups.find(g => g.groupId === activeGroupId);
+          activeGroupBanner.className = "flex items-center justify-between p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200 text-xs";
+          activeGroupBanner.innerHTML = `
+            <div class="flex items-center space-x-2">
+              <span class="text-base">${grp?.icon || '📁'}</span>
+              <span>Đang lọc theo chủ đề: <strong>${grp?.name || activeGroupId}</strong> (${filtered.length} mục)</span>
+            </div>
+            <button id="btn-clear-group-filter" class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 rounded-lg text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors">
+              ✕ Xoá lọc chủ đề
+            </button>
+          `;
+          document.getElementById('btn-clear-group-filter')?.addEventListener('click', () => {
+            activeGroupId = null;
+            this.dictionaryFilterState.groupId = null;
+            renderList(document.getElementById('vocab-search-box')?.value || "");
+          });
+        } else {
+          activeGroupBanner.className = "hidden";
+          activeGroupBanner.innerHTML = "";
+        }
+      }
+
       if (!listContainer) return;
 
       if (filtered.length === 0) {
-        listContainer.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400 text-sm">Không tìm thấy từ vựng phù hợp.</div>`;
+        listContainer.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400">
+            <div class="text-3xl mb-2">🔍</div>
+            <p class="text-sm font-semibold">Không tìm thấy từ vựng hoặc cụm từ phù hợp.</p>
+            <p class="text-xs text-slate-500 mt-1">Hãy thử đổi bộ lọc trình độ, chủ đề hoặc từ khóa tìm kiếm.</p>
+          </div>
+        `;
         return;
       }
 
       listContainer.innerHTML = filtered.map(w => {
         const isLearned = learnedIds.has(w.id);
+        const groupInfo = allGroups.find(g => g.groupId === w.groupId);
+        const groupBadge = groupInfo 
+          ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 flex items-center space-x-1"><span class="text-xs">${groupInfo.icon}</span> <span class="truncate max-w-[120px]">${groupInfo.name}</span></span>`
+          : '';
+
         return `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow relative group">
-            <div class="flex items-start justify-between mb-2">
-              <span class="px-2 py-0.5 rounded text-[11px] font-bold ${w.level === 'A1' ? 'bg-blue-100 text-blue-800' : w.level === 'A2' ? 'bg-cyan-100 text-cyan-800' : w.level === 'B1' ? 'bg-amber-100 text-amber-800' : 'bg-purple-100 text-purple-800'}">
-                ${w.level}
-              </span>
-              <button data-word="${w.word}" class="btn-play-sound p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-indigo-600 transition-colors" title="Phát âm">
-                🔊
-              </button>
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow relative group flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="px-2 py-0.5 rounded text-[11px] font-bold ${w.level === 'A1' ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' : w.level === 'A2' ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300' : w.level === 'B1' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300'}">
+                    ${w.level}
+                  </span>
+                  ${groupBadge}
+                </div>
+                <button data-word="${w.word}" class="btn-play-sound p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-indigo-600 transition-colors" title="Phát âm tiếng Anh">
+                  🔊
+                </button>
+              </div>
+
+              <h4 class="text-xl font-black text-slate-900 dark:text-white mb-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                ${w.word}
+              </h4>
+              <div class="text-xs font-mono text-slate-400 mb-2">
+                ${w.ipa || ''} ${w.type ? `• <span class="italic text-indigo-600 dark:text-indigo-400 font-semibold">${w.type}</span>` : ''}
+              </div>
+              <p class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">${w.meaningVi}</p>
+              
+              ${w.collocations ? `
+                <div class="text-[11px] text-indigo-700 dark:text-indigo-300 bg-indigo-50/80 dark:bg-indigo-950/50 p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/50 mb-3 leading-relaxed">
+                  <strong class="text-indigo-600 dark:text-indigo-400 block mb-0.5 uppercase text-[10px]">Cụm từ hay gặp:</strong>
+                  ${w.collocations}
+                </div>
+              ` : ''}
+
+              <div class="text-xs text-slate-600 dark:text-slate-400 italic bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                <p>"${w.example}"</p>
+                ${w.exampleVi ? `<p class="text-slate-400 dark:text-slate-500 not-italic text-[11px] mt-1">➔ ${w.exampleVi}</p>` : ''}
+              </div>
             </div>
 
-            <h4 class="text-xl font-extrabold text-slate-900 dark:text-white mb-0.5">
-              ${w.word}
-            </h4>
-            <div class="text-xs font-mono text-slate-400 mb-2">${w.ipa} • <span class="italic text-slate-500">${w.type}</span></div>
-            <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">${w.meaningVi}</p>
-            
-            ${w.collocations ? `
-              <div class="text-[11px] text-indigo-600 dark:text-indigo-400 bg-indigo-50/60 dark:bg-indigo-950/40 p-2 rounded-lg mb-2">
-                <strong>Cụm từ:</strong> ${w.collocations}
-              </div>
-            ` : ''}
-
-            <p class="text-xs text-slate-500 italic">"${w.example}"</p>
-
             ${isLearned ? `
-              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px] text-emerald-600 font-bold flex items-center space-x-1">
-                <span>✅ Đã học</span>
+              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center space-x-1">
+                <span>✅ Đã học thuộc</span>
               </div>
             ` : ''}
           </div>
@@ -786,53 +1014,80 @@ class App {
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 class="text-2xl font-black text-slate-900 dark:text-white">Kho Từ Vựng & Sổ Tay</h2>
-            <p class="text-xs text-slate-500">Tra cứu nhanh từ vựng, phát âm và các collocations thực tế.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Tra cứu nhanh ${VOCAB_BANK.length} từ vựng, phrasal verbs, collocations và phát âm chuẩn bản xứ.</p>
           </div>
 
           <!-- Ô tìm kiếm -->
-          <div class="relative w-full sm:w-64">
+          <div class="relative w-full sm:w-72">
             <input 
               type="text" 
               id="vocab-search-box" 
-              placeholder="Tìm từ tiếng Anh / nghĩa..." 
+              placeholder="Tìm từ tiếng Anh, cụm từ, nghĩa..." 
               class="w-full text-xs py-2.5 pl-8 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:border-indigo-500"
             />
             <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
           </div>
         </div>
 
-        <!-- Filter Pills -->
-        <div class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none" id="dict-filters">
-          <button data-filter="all" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white">Tất cả (${VOCAB_BANK.length})</button>
-          <button data-filter="learned" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Đã học (${learnedIds.size})</button>
-          <button data-filter="A1" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Level A1</button>
-          <button data-filter="A2" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Level A2</button>
-          <button data-filter="B1" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Level B1</button>
-          <button data-filter="B2" class="dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Level B2</button>
+        <!-- Filter Level Row -->
+        <div class="space-y-2">
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dict-level-filters">
+            <button data-level="all" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Tất cả (${VOCAB_BANK.length})</button>
+            <button data-level="learned" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'learned' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Đã học (${learnedIds.size})</button>
+            <button data-level="A1" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'A1' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level A1</button>
+            <button data-level="A2" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'A2' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level A2</button>
+            <button data-level="B1" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'B1' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level B1</button>
+            <button data-level="B2" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'B2' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level B2</button>
+          </div>
+
+          <!-- Filter Category Row -->
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dict-cat-filters">
+            <button data-cat="all" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'all' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">🌐 Toàn bộ chủ đề</button>
+            <button data-cat="daily" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'daily' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💬 Giao tiếp Hàng ngày</button>
+            <button data-cat="work" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'work' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💼 Công sở & Teamwork</button>
+            <button data-cat="tech" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'tech' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💻 Công nghệ & CNTT</button>
+          </div>
         </div>
+
+        <!-- Banner Lọc theo nhóm chủ đề cụ thể (nếu có) -->
+        <div id="active-group-banner" class="hidden"></div>
 
         <!-- Grid Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="vocab-card-grid"></div>
       </div>
     `;
 
-    renderList("all");
+    renderList();
 
-    // Filter event
-    container.querySelectorAll('.dict-filter-btn').forEach(btn => {
+    // Event Lọc Level
+    container.querySelectorAll('.dict-lvl-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        container.querySelectorAll('.dict-filter-btn').forEach(b => {
-          b.className = "dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
+        container.querySelectorAll('.dict-lvl-btn').forEach(b => {
+          b.className = "dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
         });
-        btn.className = "dict-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white";
-        filter = btn.getAttribute('data-filter');
-        const kw = document.getElementById('vocab-search-box')?.value || "";
-        renderList(filter, kw);
+        btn.className = "dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white";
+        levelFilter = btn.getAttribute('data-level');
+        this.dictionaryFilterState.level = levelFilter;
+        renderList(document.getElementById('vocab-search-box')?.value || "");
       });
     });
 
+    // Event Lọc Category
+    container.querySelectorAll('.dict-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        container.querySelectorAll('.dict-cat-btn').forEach(b => {
+          b.className = "dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
+        });
+        btn.className = "dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900";
+        catFilter = btn.getAttribute('data-cat');
+        this.dictionaryFilterState.category = catFilter;
+        renderList(document.getElementById('vocab-search-box')?.value || "");
+      });
+    });
+
+    // Event Tìm kiếm ô search
     document.getElementById('vocab-search-box')?.addEventListener('input', (e) => {
-      renderList(filter, e.target.value);
+      renderList(e.target.value);
     });
   }
 
