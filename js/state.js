@@ -176,8 +176,12 @@ export class StateManager {
         }
       } else {
         // Tự động nâng cấp và đồng bộ đầy đủ 19 nhóm (600 từ) lên Cloud Firestore
-        console.log("☁️ Cập nhật/khởi tạo đầy đủ 19 nhóm từ vựng (600 từ) lên Cloud Firestore...");
-        await this.syncVocabGroupsToFirestore();
+        try {
+          console.log("☁️ Cập nhật/khởi tạo đầy đủ 19 nhóm từ vựng (600 từ) lên Cloud Firestore...");
+          await this.syncVocabGroupsToFirestore();
+        } catch (syncErr) {
+          console.warn("ℹ️ Firestore chưa cấp quyền write cho 'vocab_groups', ứng dụng tiếp tục dùng kho 600 từ cục bộ:", syncErr.message || syncErr);
+        }
       }
     } catch (err) {
       console.warn("⚠️ Không thể tải vocab_groups từ Firestore (đang dùng kho từ cục bộ):", err);

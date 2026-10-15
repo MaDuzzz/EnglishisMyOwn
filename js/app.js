@@ -186,7 +186,12 @@ class App {
       alert(`☁️ Đồng bộ Kho từ lên Cloud Firestore thành công!\n\n• Số nhóm chủ đề: ${res.groupCount}\n• Tổng số từ & cụm từ: ${res.wordCount}\n\nDữ liệu đã được lưu trữ an toàn trong collection "vocab_groups" trên Cloud Firestore.`);
     } catch (err) {
       console.error("Lỗi đồng bộ vocab lên Firestore:", err);
-      alert("⚠️ Lỗi đồng bộ lên Cloud Firestore:\n" + (err.message || err));
+      const errMsg = err?.message || String(err);
+      if (errMsg.includes("permission") || errMsg.includes("insufficient")) {
+        alert("⚠️ Lỗi phân quyền Cloud Firestore (Missing or insufficient permissions)!\n\nNguyên nhân: Firebase Console chưa mở quyền Ghi (Write) cho collection 'vocab_groups'.\n\n👉 Cách xử lý (chỉ mất 30 giây):\n1. Vào Firebase Console -> Project của bạn\n2. Mở Firestore Database -> Chọn tab 'Rules'\n3. Thêm cấu hình cho vocab_groups:\n\nmatch /vocab_groups/{groupId} {\n  allow read: if true;\n  allow write: if request.auth != null;\n}\n\n4. Bấm nút 'Publish' (Xuất bản) là xong!");
+      } else {
+        alert("⚠️ Lỗi đồng bộ lên Cloud Firestore:\n" + errMsg);
+      }
     }
   }
 
@@ -476,8 +481,8 @@ class App {
     // Kiểm tra 1: Yêu cầu đăng nhập Google để đồng bộ Cloud Firestore
     if (!appState.state.user) {
       mainContainer.innerHTML = `
-        <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
-          <div class="w-full max-w-md mx-auto py-8 px-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-2xl text-center">
+        <div class="flex-1 flex flex-col items-center justify-center w-full py-6 sm:py-10 my-auto animate-fade-in">
+          <div class="w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-2xl text-center">
             <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm text-indigo-600 dark:text-indigo-400">
               🔐
             </div>
@@ -494,10 +499,14 @@ class App {
               </svg>
               <span>Đăng nhập với Google</span>
             </button>
+            <button id="btn-guest-explore" type="button" class="mt-4 text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors block mx-auto">
+              Hoặc trải nghiệm kiểm tra trình độ & học thử ➔
+            </button>
           </div>
         </div>
       `;
       mainContainer.querySelector('#btn-login-vocab-banner')?.addEventListener('click', () => this.handleAuthClick());
+      mainContainer.querySelector('#btn-guest-explore')?.addEventListener('click', () => this.startPlacementTest());
       return;
     }
 
@@ -1687,8 +1696,14 @@ class App {
   }
 }
 
-// Khởi chạy App
-document.addEventListener('DOMContentLoaded', () => {
+// Khởi chạy App an toàn (hỗ trợ cả khi DOM đã sẵn sàng trước khi module hoàn tất load)
+function bootApp() {
   const app = new App();
   app.init();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootApp);
+} else {
+  bootApp();
+}
