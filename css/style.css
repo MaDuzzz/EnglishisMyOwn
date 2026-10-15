@@ -183,7 +183,7 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   scroll-snap-align: start;
 }
 
-/* ==================== iOS 27 FLUID BUBBLE FLOATING DOCK ==================== */
+/* ==================== iOS GITHUB MOBILE FLUID FLOATING DOCK ==================== */
 .ios-floating-dock-container {
   will-change: transform;
 }
@@ -195,33 +195,51 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   overflow: hidden;
 }
 
-/* Specular bevel gloss on top edge */
+/* Subtle specular highlight on top edge like iOS native docks */
 .ios-bubble-capsule::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 8%;
-  right: 8%;
+  left: 12%;
+  right: 12%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
   pointer-events: none;
 }
 
-/* Fluid spring physics for the floating bubble glider */
+/* Authentic iOS fluid spring physics for the floating glider */
 #ios-bubble-glider {
-  transition: transform 0.38s cubic-bezier(0.28, 1.25, 0.45, 1);
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
-/* Micro-elastic squash/stretch animation on the inner pill (never touches glider's translateX) */
+/* Micro-elastic squash/stretch animation on the inner pill */
 #ios-bubble-glider-pill {
-  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease;
   transform-origin: center center;
   will-change: transform;
 }
 
 .glider-tap-bounce {
-  transform: scale(0.92, 0.92);
+  transform: scale(0.94, 0.94);
+}
+
+/* Micro-bounce on active icon when tapped */
+@keyframes iconTapBounce {
+  0% {
+    transform: scale(0.88);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1.06);
+  }
+}
+
+.ios-icon-tap-bounce {
+  animation: iconTapBounce 0.28s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
+  will-change: transform;
 }
 
 /* ==================== FLUID SCREEN TRANSITION ==================== */

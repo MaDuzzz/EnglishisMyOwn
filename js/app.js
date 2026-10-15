@@ -342,6 +342,13 @@ class App {
   switchTab(tab) {
     if (this.currentTab === tab) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Micro-bounce on active icon when re-tapped
+      const activeIcon = document.querySelector(`.ios-tab-btn[data-tab="${tab}"] .tab-icon-wrap`);
+      if (activeIcon) {
+        activeIcon.classList.remove('ios-icon-tap-bounce');
+        void activeIcon.offsetWidth;
+        activeIcon.classList.add('ios-icon-tap-bounce');
+      }
       return;
     }
     this.currentTab = tab;
@@ -358,7 +365,7 @@ class App {
       }
     });
 
-    // Translate iOS 27 Fluid Bubble Glider directly from current position with Apple Spring Physics
+    // Translate iOS GitHub Mobile Glider with authentic Spring Physics
     const tabIndices = { vocab: 0, analytics: 1, courses: 2, dictionary: 3 };
     const tabIndex = tabIndices[tab] ?? 0;
     const glider = document.getElementById('ios-bubble-glider');
@@ -366,7 +373,7 @@ class App {
       glider.style.transform = `translate3d(${tabIndex * 100}%, 0, 0)`;
     }
 
-    // Micro-bounce on inner pill only (never overrides glider's horizontal transform)
+    // Micro-bounce on inner pill only
     const pill = document.getElementById('ios-bubble-glider-pill');
     if (pill) {
       pill.classList.remove('glider-tap-bounce');
@@ -374,7 +381,7 @@ class App {
       pill.classList.add('glider-tap-bounce');
       setTimeout(() => {
         pill.classList.remove('glider-tap-bounce');
-      }, 220);
+      }, 180);
     }
 
     // Highlight active iOS bottom tab bar icons & labels
@@ -383,15 +390,15 @@ class App {
       const iconWrap = btn.querySelector('.tab-icon-wrap');
       const label = btn.querySelector('.tab-label');
       if (t === tab) {
-        iconWrap?.classList.remove('text-slate-400');
-        iconWrap?.classList.add('text-indigo-400', 'scale-105', '-translate-y-0.5');
-        label?.classList.remove('font-medium', 'text-slate-400');
-        label?.classList.add('font-bold', 'text-indigo-400');
+        iconWrap?.classList.remove('text-slate-500', 'dark:text-[#8b949e]');
+        iconWrap?.classList.add('text-indigo-600', 'dark:text-[#58a6ff]', 'scale-105', 'ios-icon-tap-bounce');
+        label?.classList.remove('font-medium', 'text-slate-500', 'dark:text-[#8b949e]');
+        label?.classList.add('font-bold', 'text-indigo-600', 'dark:text-[#58a6ff]');
       } else {
-        iconWrap?.classList.remove('text-indigo-400', 'scale-105', '-translate-y-0.5');
-        iconWrap?.classList.add('text-slate-400');
-        label?.classList.remove('font-bold', 'text-indigo-400');
-        label?.classList.add('font-medium', 'text-slate-400');
+        iconWrap?.classList.remove('text-indigo-600', 'dark:text-[#58a6ff]', 'scale-105', 'ios-icon-tap-bounce');
+        iconWrap?.classList.add('text-slate-500', 'dark:text-[#8b949e]');
+        label?.classList.remove('font-bold', 'text-indigo-600', 'dark:text-[#58a6ff]');
+        label?.classList.add('font-medium', 'text-slate-500', 'dark:text-[#8b949e]');
       }
     });
 
