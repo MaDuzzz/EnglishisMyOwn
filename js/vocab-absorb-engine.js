@@ -10,11 +10,13 @@
 
 import { speechService } from './speech.js';
 import { appState } from './state.js';
+import { VocabPracticeEngine } from './vocab-engine.js';
 
 export class VocabAbsorbEngine {
   constructor(containerElement, options = {}) {
     this.container = containerElement;
     this.onCompleted = options.onCompleted || (() => {});
+    this.onStartPractice = options.onStartPractice || null;
     this.targetCount = options.targetCount || 10;
     this.candidates = options.candidates || [];
     this.acceptedWords = [];
@@ -540,55 +542,59 @@ export class VocabAbsorbEngine {
     // Lưu trạng thái: Cả 10 từ mới và các từ đã biết đều được xếp lịch ôn T+1
     appState.markNewBatchComplete(acceptedIds, skippedIds);
 
+    const practiceWords = this.acceptedWords.length > 0 
+      ? this.acceptedWords 
+      : this.candidates.slice(0, 10);
+
+    // Chuyển sang màn hình chuyển tiếp Giai đoạn 2: Luyện tập phản xạ ghi nhớ
+    this.renderStageTransitionScreen(practiceWords);
+  }
+
+  renderStageTransitionScreen(practiceWords) {
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-200px)] md:min-h-[520px] w-full py-4 px-3 sm:px-4 animate-fade-in">
         <div class="w-full max-w-lg mx-auto">
           <div class="bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-8 text-center backdrop-blur-xl">
             
-            <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-indigo-600 flex items-center justify-center text-white text-3xl sm:text-4xl shadow-lg shadow-emerald-500/25">
-              🎉
+            <!-- Milestone Badge -->
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/80 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-black mb-3 shadow-xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>✅ Giai đoạn 1 Hoàn Tất: Thẩm thấu từ mới</span>
             </div>
 
             <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-2 leading-tight">
-              Hoàn Thành Thẩm Thấu!
+              Sẵn Sàng Cho Giai Đoạn 2!
             </h2>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-5">
-              Bạn đã thẩm thấu và công nhận thành công <span class="font-extrabold text-emerald-600 dark:text-emerald-400 text-base">${this.acceptedWords.length} từ mới</span> hôm nay.
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+              Bạn đã chọn <span class="font-extrabold text-emerald-600 dark:text-emerald-400 text-base">${practiceWords.length} từ mới</span>. Bây giờ hãy củng cố ghi nhớ dài hạn qua <strong>3 kỹ năng phản xạ thực chiến</strong>:
             </p>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-3 mb-5 text-left">
-              <div class="p-3.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/50">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Từ mới đã chọn</span>
-                <p class="text-2xl font-black text-emerald-950 dark:text-emerald-200 mt-0.5">
-                  ${this.acceptedWords.length} <span class="text-xs font-normal text-emerald-600 dark:text-emerald-400">từ</span>
-                </p>
+            <!-- 3 Skill Types Pillars -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-3 mb-5 text-left">
+              <div class="p-3 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-center">
+                <span class="text-xl block mb-1">✍️</span>
+                <span class="text-xs font-black text-indigo-900 dark:text-indigo-200 block">Dịch Nghĩa</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Điền từ</span>
               </div>
-              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">Đã biết trước</span>
-                <p class="text-2xl font-black text-slate-800 dark:text-slate-200 mt-0.5">
-                  ${this.skippedWords.length} <span class="text-xs font-normal text-slate-500">từ</span>
-                </p>
+              <div class="p-3 rounded-2xl bg-teal-50/70 dark:bg-teal-950/40 border border-teal-100 dark:border-teal-900/50 text-center">
+                <span class="text-xl block mb-1">🎧</span>
+                <span class="text-xs font-black text-teal-900 dark:text-teal-200 block">Nghe Voice</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Chép chính tả</span>
+              </div>
+              <div class="p-3 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 text-center">
+                <span class="text-xl block mb-1">⚡</span>
+                <span class="text-xs font-black text-blue-900 dark:text-blue-200 block">Phản Xạ</span>
+                <span class="text-[10px] text-slate-500 dark:text-slate-400">Trắc nghiệm</span>
               </div>
             </div>
 
-            <!-- Notice Kỷ luật T+1 -->
-            <div class="p-3.5 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-left mb-5">
-              <div class="flex items-center space-x-2 text-indigo-700 dark:text-indigo-300 font-bold text-xs mb-1">
-                <span>🗓️ Lịch Ôn Tập Kỷ Luật (T+1):</span>
-              </div>
-              <p class="text-xs text-indigo-950 dark:text-indigo-200 leading-relaxed">
-                Tất cả <strong>${this.acceptedWords.length} từ mới</strong> và <strong>${this.skippedWords.length} từ đã biết</strong> đều đã được xếp vào lịch ôn tập ngắt quãng vào ngày mai.
-              </p>
-            </div>
-
-            <!-- Danh sách 10 từ vừa thẩm thấu (Gallery) -->
+            <!-- Danh sách từ mới sẽ luyện tập -->
             <div class="text-left mb-6">
               <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                📋 Danh sách từ mới vừa nạp (${this.acceptedWords.length} từ):
+                📋 Danh sách ${practiceWords.length} từ mới sẽ luyện tập:
               </span>
-              <div class="max-h-[220px] overflow-y-auto space-y-2 pr-1 divide-y divide-slate-100 dark:divide-slate-800">
-                ${this.acceptedWords.map((w, idx) => `
+              <div class="max-h-[160px] overflow-y-auto space-y-2 pr-1 divide-y divide-slate-100 dark:divide-slate-800">
+                ${practiceWords.map((w, idx) => `
                   <div class="pt-2 first:pt-0 flex items-center justify-between gap-2">
                     <div class="min-w-0">
                       <div class="flex items-center space-x-2">
@@ -606,9 +612,16 @@ export class VocabAbsorbEngine {
               </div>
             </div>
 
-            <!-- Action Button -->
-            <button id="btn-finish-absorb" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all text-sm sm:text-base">
-              🚀 Hoàn tất & Về Trang Chủ
+            <!-- Action Button: Start Stage 2 -->
+            <button id="btn-start-stage-2" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white font-black rounded-2xl shadow-xl shadow-indigo-500/25 active:scale-[0.98] transition-all text-sm sm:text-base flex items-center justify-center space-x-2">
+              <span>⚡</span>
+              <span>Bắt Đầu Giai Đoạn 2: Luyện Tập (3 Dạng Bài)</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </button>
+
+            <!-- Secondary: Để sau -->
+            <button id="btn-finish-absorb-later" class="mt-3 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-semibold transition-colors">
+              Để sau, tôi sẽ luyện tập tiếp (Về Bảng Điều Khiển)
             </button>
           </div>
         </div>
@@ -622,9 +635,28 @@ export class VocabAbsorbEngine {
       });
     });
 
-    this.container.querySelector('#btn-finish-absorb')?.addEventListener('click', () => {
+    this.container.querySelector('#btn-start-stage-2')?.addEventListener('click', () => {
+      this.startStage2Practice(practiceWords);
+    });
+
+    this.container.querySelector('#btn-finish-absorb-later')?.addEventListener('click', () => {
       this.onCompleted();
     });
+  }
+
+  startStage2Practice(practiceWords) {
+    if (this.onStartPractice) {
+      this.onStartPractice(practiceWords);
+      return;
+    }
+    const practiceEngine = new VocabPracticeEngine(this.container, {
+      mode: "new_batch",
+      words: practiceWords,
+      onCompleted: () => {
+        this.onCompleted();
+      }
+    });
+    practiceEngine.start();
   }
 
   cleanup() {

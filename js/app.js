@@ -961,7 +961,7 @@ class App {
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
                   ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập từ hôm trước) để hệ thống mở khóa 10 từ mới.'
-                  : 'Giai đoạn 1: Thẩm thấu Flashcard (Vuốt trái bỏ qua từ đã biết, vuốt phải công nhận từ mới) & lên lịch ôn T+1.'}
+                  : 'Quy trình 2 giai đoạn: Giai đoạn 1 (Thẩm thấu qua Flashcard cử chỉ) ➔ Giai đoạn 2 (Luyện tập thực chiến 3 kỹ năng phản xạ).'}
               </p>
             </div>
 
@@ -974,7 +974,7 @@ class App {
               ` : `
                 <button id="btn-start-new-batch" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>✨</span>
-                  <span>Bắt đầu Thẩm Thấu 10 Từ Mới</span>
+                  <span>Bắt đầu Nạp & Luyện Tập 10 Từ Mới</span>
                 </button>
               `}
             </div>
@@ -1407,7 +1407,15 @@ class App {
   startNewBatchAbsorb() {
     const mainContainer = document.getElementById('main-content-area');
     this.absorbEngine = new VocabAbsorbEngine(mainContainer, {
-      onCompleted: () => this.renderVocabDashboard()
+      onCompleted: () => this.renderVocabDashboard(),
+      onStartPractice: (acceptedWords) => {
+        this.vocabEngine = new VocabPracticeEngine(mainContainer, {
+          mode: "new_batch",
+          words: acceptedWords,
+          onCompleted: () => this.renderVocabDashboard()
+        });
+        this.vocabEngine.start();
+      }
     });
     this.absorbEngine.start();
   }

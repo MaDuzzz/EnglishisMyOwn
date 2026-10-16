@@ -90,7 +90,7 @@ export class VocabPracticeEngine {
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
           <span class="px-2.5 py-0.5 text-[11px] font-black rounded-lg uppercase tracking-wider ${this.mode === 'review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
-            ${this.mode === 'review' ? '🔄 Ôn Tập' : '✨ Học Mới'}
+            ${this.mode === 'review' ? '🔄 Ôn Tập Kỷ Luật' : '⚡ Luyện Tập: 10 Từ Mới (Giai đoạn 2)'}
           </span>
           <span class="text-xs font-semibold text-slate-400">${this.currentIndex + 1} / ${total}</span>
         </div>
@@ -485,7 +485,11 @@ export class VocabPracticeEngine {
     if (this.mode === "review") {
       appState.markReviewComplete(wordIds);
     } else {
-      appState.markNewBatchComplete(wordIds);
+      const practiceBonusXP = this.correctCount * 2;
+      if (practiceBonusXP > 0) {
+        appState.addXP(practiceBonusXP);
+        appState.saveState();
+      }
     }
 
     this.container.innerHTML = `
@@ -497,9 +501,10 @@ export class VocabPracticeEngine {
             </div>
 
             <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2">
-              ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Batch 10 Từ Mới!'}
+              ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Toàn Bộ Batch 10 Từ Mới!'}
             </h2>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
+              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc hoàn thành cả 2 Giai đoạn: Thẩm thấu & Luyện tập phản xạ 3 dạng bài.'}<br/>
               Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${totalQuestions} câu)
             </p>
 
