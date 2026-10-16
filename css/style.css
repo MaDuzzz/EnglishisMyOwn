@@ -149,7 +149,7 @@ body {
 
 @media (max-width: 768px) {
   .ios-header {
-    padding-top: max(env(safe-area-inset-top, 0px), 48px) !important;
+    padding-top: max(calc(env(safe-area-inset-top, 0px) + 10px), 54px) !important;
   }
 }
 

@@ -1,5 +1,5 @@
 // Service Worker cho PWA Offline Support
-const CACHE_NAME = 'english-is-my-own-v28';
+const CACHE_NAME = 'english-is-my-own-v29';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();

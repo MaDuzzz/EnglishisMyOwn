@@ -65,11 +65,10 @@ export class VocabAbsorbEngine {
 
   renderFrame() {
     this.container.innerHTML = `
-      <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-200px)] md:min-h-[520px] w-full py-2 px-3 sm:px-4 animate-fade-in">
-        <div class="w-full max-w-md mx-auto flex flex-col">
-          
-          <!-- Top Control Header (Gọn gàng, tinh tế) -->
-          <div class="mb-3">
+      <div class="flex-1 flex flex-col w-full max-w-md mx-auto px-1 sm:px-4 animate-fade-in">
+        
+        <!-- Top Control Header (Hình 2: Đặt ngay sát header chính Hình 1, không nằm trên card) -->
+        <div class="w-full pt-0.5 pb-2">
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-2">
                 <button id="btn-exit-absorb" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên học">
@@ -103,16 +102,17 @@ export class VocabAbsorbEngine {
             <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-700/60">
               <div id="absorb-progress-bar" class="bg-gradient-to-r from-blue-500 via-indigo-600 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
-          </div>
+        </div>
 
-          <!-- Khu vực chứa Flashcard (Slot) -->
-          <div id="flashcard-slot" class="relative w-full min-h-[460px] sm:min-h-[480px] flex items-center justify-center my-1">
+        <!-- Khu vực chứa Flashcard: Căn giữa tự nhiên ở không gian còn lại bên dưới -->
+        <div class="flex-1 flex items-center justify-center w-full min-h-[460px] sm:min-h-[480px] my-auto py-2">
+          <div id="flashcard-slot" class="relative w-full flex items-center justify-center">
             <!-- Thẻ Flashcard động sẽ được chèn vào đây -->
           </div>
-
-          <!-- Toast Feedback Container -->
-          <div id="absorb-toast-container" class="fixed bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center gap-1.5"></div>
         </div>
+
+        <!-- Toast Feedback Container -->
+        <div id="absorb-toast-container" class="fixed bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center gap-1.5"></div>
       </div>
     `;
 
