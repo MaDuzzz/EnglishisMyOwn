@@ -363,19 +363,48 @@ export class StateManager {
     this.saveState();
   }
 
-  // Đánh dấu hoàn thành học Batch 10 từ mới
-  markNewBatchComplete(newWordIds) {
-    const today = this.getTodayString();
+  // Lấy danh sách ứng viên từ mới phong phú cho phiên thẩm thấu Giai đoạn 1
+  getNewBatchCandidates() {
+    const level = this.state.cefrLevel || "A1";
+    const learnedIds = new Set((this.state.learnedWords || []).map(w => w.wordId));
     
-    const newItems = newWordIds.map(id => ({
-      wordId: id,
-      learnedDate: today,
-      reviewCount: 0,
-      lastReviewedAt: new Date().toISOString()
-    }));
+    const unlearned = VOCAB_BANK.filter(w => !learnedIds.has(w.id));
+    const primary = unlearned.filter(w => w.level === level);
+    const secondary = unlearned.filter(w => w.level !== level);
 
-    // Thêm các từ mới vào danh sách đã học
-    this.state.learnedWords.push(...newItems);
+    const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+    return [...shuffle(primary), ...shuffle(secondary)];
+  }
+
+  // Đánh dấu hoàn thành học Batch 10 từ mới (kèm danh sách từ đã biết bỏ qua)
+  markNewBatchComplete(newWordIds, skippedKnownWordIds = []) {
+    const today = this.getTodayString();
+    const existingIds = new Set((this.state.learnedWords || []).map(w => w.wordId));
+    
+    // 10 từ mới cần học (status: "learning")
+    const newItems = newWordIds
+      .filter(id => !existingIds.has(id))
+      .map(id => ({
+        wordId: id,
+        learnedDate: today,
+        reviewCount: 0,
+        status: "learning",
+        lastReviewedAt: new Date().toISOString()
+      }));
+
+    // Các từ đã biết (bỏ qua khi thẩm thấu), cũng lưu vào để review T+1 (status: "known")
+    const knownItems = skippedKnownWordIds
+      .filter(id => !existingIds.has(id) && !newWordIds.includes(id))
+      .map(id => ({
+        wordId: id,
+        learnedDate: today,
+        reviewCount: 1,
+        status: "known",
+        lastReviewedAt: new Date().toISOString()
+      }));
+
+    // Thêm cả 2 nhóm vào danh sách để lên lịch ôn tập T+1 vào ngày mai
+    this.state.learnedWords.push(...newItems, ...knownItems);
     this.state.dailyNewBatchDone = true;
     this.state.dailyNewBatchDate = today;
     this.state.lastActiveDate = today;

@@ -275,4 +275,40 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   }
 }
 
+/* ==================== FLASHCARD ABSORPTION SWIPE (GIAI ĐOẠN 1) ==================== */
+.flashcard-card {
+  user-select: none;
+  touch-action: pan-y;
+  will-change: transform, opacity;
+  transform-origin: 50% 100%;
+}
+
+@keyframes cardEnterPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-card-pop {
+  animation: cardEnterPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pulseSpeaker {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.speaker-pulsing {
+  animation: pulseSpeaker 0.6s infinite ease-in-out;
+}
+
 

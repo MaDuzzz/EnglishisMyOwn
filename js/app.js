@@ -3,6 +3,7 @@ import { appState } from './state.js';
 import { initFirebase, authInstance, googleProviderInstance, isFirebaseLive } from './firebase-config.js';
 import { PlacementTestEngine } from './placement-test.js';
 import { VocabPracticeEngine } from './vocab-engine.js';
+import { VocabAbsorbEngine } from './vocab-absorb-engine.js';
 import { CoursesEngine } from './courses-engine.js';
 import { VOCAB_BANK, VOCAB_GROUPS } from './data/vocab-bank.js';
 import { speechService } from './speech.js';
@@ -646,7 +647,7 @@ class App {
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
                   ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập từ hôm trước) để hệ thống mở khóa 10 từ mới.'
-                  : 'Nạp thêm 10 từ vựng thực chiến chuẩn CEFR đúng trình độ để đa dạng hoá vốn từ giao tiếp.'}
+                  : 'Giai đoạn 1: Thẩm thấu Flashcard (Vuốt trái bỏ qua từ đã biết, vuốt phải công nhận từ mới) & lên lịch ôn T+1.'}
               </p>
             </div>
 
@@ -659,7 +660,7 @@ class App {
               ` : `
                 <button id="btn-start-new-batch" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>✨</span>
-                  <span>Bắt đầu Học 10 Từ Mới</span>
+                  <span>Bắt đầu Thẩm Thấu 10 Từ Mới</span>
                 </button>
               `}
             </div>
@@ -1077,15 +1078,9 @@ class App {
       this.vocabEngine.start();
     });
 
-    // Gắn sự kiện Học Batch 10 từ mới
+    // Gắn sự kiện Nạp Batch 10 từ mới (Giai đoạn 1: Thẩm thấu Flashcard vuốt trái/phải)
     document.getElementById('btn-start-new-batch')?.addEventListener('click', () => {
-      const newWords = appState.getNewBatchWords();
-      this.vocabEngine = new VocabPracticeEngine(mainContainer, {
-        mode: "new_batch",
-        words: newWords,
-        onCompleted: () => this.renderVocabDashboard()
-      });
-      this.vocabEngine.start();
+      this.startNewBatchAbsorb();
     });
 
     // Gắn sự kiện Xem Phân Tích & Kỷ Luật
@@ -1094,10 +1089,19 @@ class App {
     });
   }
 
+  // Khởi động Giai đoạn 1: Thẩm thấu & Sàng lọc Batch 10 từ mới
+  startNewBatchAbsorb() {
+    const mainContainer = document.getElementById('main-content-area');
+    this.absorbEngine = new VocabAbsorbEngine(mainContainer, {
+      onCompleted: () => this.renderVocabDashboard()
+    });
+    this.absorbEngine.start();
+  }
+
   startPlacementTest() {
     const mainContainer = document.getElementById('main-content-area');
     this.placementEngine = new PlacementTestEngine(mainContainer, (level) => {
-      this.renderVocabDashboard();
+      this.startNewBatchAbsorb();
     });
     this.placementEngine.start();
   }
