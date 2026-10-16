@@ -110,9 +110,6 @@ export class VocabAbsorbEngine {
             <!-- Thẻ Flashcard động sẽ được chèn vào đây -->
           </div>
         </div>
-
-        <!-- Toast Feedback Container -->
-        <div id="absorb-toast-container" class="fixed bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center gap-1.5"></div>
       </div>
     `;
 
@@ -480,11 +477,9 @@ export class VocabAbsorbEngine {
     if (direction === 'left') {
       // Vuốt trái = ĐỒNG Ý HỌC TỪ MỚI
       this.acceptedWords.push(word);
-      this.showToast(`✨ Nhận từ mới: "${word.word}"`, 'emerald');
     } else {
       // Vuốt phải = ĐÃ BIẾT RỒI
       this.skippedWords.push(word);
-      this.showToast(`✓ Đã biết: "${word.word}" (sẽ ôn T+1)`, 'slate');
     }
 
     this.updateProgressUI();
@@ -519,27 +514,6 @@ export class VocabAbsorbEngine {
     if (progressBar) progressBar.style.width = `${percent}%`;
   }
 
-  showToast(message, color = 'emerald') {
-    const container = this.container.querySelector('#absorb-toast-container');
-    if (!container) return;
-
-    const toast = document.createElement('div');
-    const isEmerald = color === 'emerald';
-    toast.className = `px-3.5 py-1.5 rounded-full text-xs font-bold shadow-lg animate-fade-in ${
-      isEmerald 
-        ? 'bg-emerald-600 text-white shadow-emerald-500/30' 
-        : 'bg-slate-800 text-slate-200 border border-slate-700 shadow-slate-900/40'
-    }`;
-    toast.textContent = message;
-
-    container.appendChild(toast);
-    setTimeout(() => {
-      toast.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateY(-8px)';
-      setTimeout(() => toast.remove(), 260);
-    }, 1000);
-  }
 
   handleExitPrompt() {
     if (this.acceptedWords.length === 0) {

@@ -534,9 +534,6 @@ class App {
             <span class="text-emerald-600 dark:text-emerald-400">👈 Vuốt trái: Học từ này</span>
             <span class="text-rose-600 dark:text-rose-400">Vuốt phải: Đã biết 👉</span>
           </div>
-
-          <!-- Toast for Demo -->
-          <div id="portal-demo-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center gap-1.5"></div>
         </div>
 
         <!-- 3. THREE CORE PILLARS (3 TRỤ CỘT ĐỘT PHÁ) -->
@@ -696,22 +693,6 @@ class App {
     const edgeRight = cardElement.querySelector('.edge-indicator-right');
     const fadeOverlay = cardElement.querySelector('.swipe-fade-overlay');
 
-    const showPortalToast = (message, color = 'emerald') => {
-      const container = document.getElementById('portal-demo-toast');
-      if (!container) return;
-      const toast = document.createElement('div');
-      toast.className = `px-3.5 py-1.5 rounded-full text-xs font-bold shadow-lg animate-fade-in ${
-        color === 'emerald' ? 'bg-emerald-600 text-white shadow-emerald-500/30' : 'bg-slate-800 text-slate-200 border border-slate-700 shadow-slate-900/40'
-      }`;
-      toast.textContent = message;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-8px)';
-        setTimeout(() => toast.remove(), 260);
-      }, 1200);
-    };
 
     const onStart = (clientX, clientY) => {
       if (isAnimating) return;
@@ -776,7 +757,6 @@ class App {
         cardElement.style.transform = 'translate(-120vw, 20px) rotate(-22deg)';
         cardElement.style.opacity = '0';
         cardElement.style.boxShadow = '-30px 0 50px rgba(16, 185, 129, 0.75)';
-        showPortalToast('✨ Bạn vừa chọn nhận từ mới! Đăng nhập để lưu tiến độ nhé.', 'emerald');
         setTimeout(() => onNextCallback(), 260);
       } else if (dx > 65) {
         isAnimating = true;
@@ -784,7 +764,6 @@ class App {
         cardElement.style.transform = 'translate(120vw, 20px) rotate(22deg)';
         cardElement.style.opacity = '0';
         cardElement.style.boxShadow = '30px 0 50px rgba(244, 63, 94, 0.75)';
-        showPortalToast('✓ Đã biết từ này! Hệ thống sẽ xếp vào lịch ôn T+1.', 'slate');
         setTimeout(() => onNextCallback(), 260);
       } else {
         cardElement.style.transition = 'transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease';
