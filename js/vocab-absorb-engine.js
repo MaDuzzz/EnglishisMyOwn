@@ -171,10 +171,10 @@ export class VocabAbsorbEngine {
       <div id="active-flashcard" class="flashcard-card animate-card-pop relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between select-none overflow-hidden transition-[border-color,box-shadow]">
         
         <!-- Dải phát sáng bên trái: XANH LÁ (Vuốt Trái = ĐỒNG Ý HỌC TỪ MỚI) -->
-        <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-2.5 bg-emerald-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+        <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-3 sm:w-3.5 bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-400 opacity-0 pointer-events-none transition-opacity duration-75 shadow-[0_0_20px_rgba(16,185,129,0.9)]"></div>
 
         <!-- Dải phát sáng bên phải: ĐỎ (Vuốt Phải = ĐÃ BIẾT RỒI) -->
-        <div class="edge-indicator-right absolute right-0 top-0 bottom-0 w-2.5 bg-rose-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+        <div class="edge-indicator-right absolute right-0 top-0 bottom-0 w-3 sm:w-3.5 bg-gradient-to-l from-rose-600 via-rose-500 to-rose-400 opacity-0 pointer-events-none transition-opacity duration-75 shadow-[0_0_20px_rgba(244,63,94,0.9)]"></div>
 
         <!-- Lớp phủ Gradient mờ dần theo hướng vuốt -->
         <div class="swipe-fade-overlay absolute inset-0 pointer-events-none opacity-0 transition-opacity"></div>
@@ -313,39 +313,39 @@ export class VocabAbsorbEngine {
       const rot = (dx * 0.10).toFixed(2);
       cardElement.style.transform = `translate(${dx}px, ${dy * 0.2}px) rotate(${rot}deg)`;
 
-      // Tỉ lệ kéo từ 0 đến 1 (đạt 1 tại khoảng cách 90px)
-      const ratio = Math.min(Math.abs(dx) / 90, 1);
+      // Tỉ lệ kéo từ 0 đến 1 (đạt 1 tại khoảng cách 80px)
+      const ratio = Math.min(Math.abs(dx) / 80, 1);
 
       if (dx < 0) {
         // VUỐT SANG TRÁI (ĐỒNG Ý HỌC TỪ MỚI):
-        // Viền XANH LÁ bên trái sáng bừng, nghiêng sang trái, mờ dần theo tỉ lệ thuận với độ vuốt
+        // Viền XANH LÁ bên trái sáng bừng, màu đậm rõ nét, mờ dần theo tỉ lệ thuận với độ vuốt
         if (edgeLeft) edgeLeft.style.opacity = String(ratio);
         if (edgeRight) edgeRight.style.opacity = '0';
 
-        cardElement.style.borderLeftColor = `rgba(16, 185, 129, ${ratio})`;
+        cardElement.style.borderLeftColor = `rgba(16, 185, 129, ${Math.min(1, ratio * 1.5)})`;
         cardElement.style.borderRightColor = '';
-        cardElement.style.boxShadow = `-${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(16, 185, 129, ${ratio * 0.4})`;
+        cardElement.style.boxShadow = `-${Math.round(ratio * 22)}px 0 ${Math.round(ratio * 38)}px rgba(16, 185, 129, ${ratio * 0.75}), 0 10px 25px -5px rgba(0, 0, 0, 0.12)`;
 
         if (fadeOverlay) {
-          fadeOverlay.style.background = `linear-gradient(to right, rgba(16, 185, 129, ${ratio * 0.22}) 0%, rgba(16, 185, 129, ${ratio * 0.05}) 40%, transparent 80%)`;
-          fadeOverlay.style.opacity = String(ratio);
+          fadeOverlay.style.background = `linear-gradient(to right, rgba(16, 185, 129, ${ratio * 0.55}) 0%, rgba(16, 185, 129, ${ratio * 0.28}) 35%, rgba(16, 185, 129, ${ratio * 0.10}) 65%, transparent 92%)`;
+          fadeOverlay.style.opacity = '1';
         }
 
         // Mờ dần flashcard theo tỉ lệ thuận với độ vuốt
         cardElement.style.opacity = String(Math.max(0.35, 1 - (ratio * 0.5)));
       } else if (dx > 0) {
         // VUỐT SANG PHẢI (ĐÃ BIẾT RỒI):
-        // Viền ĐỎ bên phải sáng bừng, nghiêng sang phải, mờ dần theo tỉ lệ thuận với độ vuốt
+        // Viền ĐỎ bên phải sáng bừng, màu đậm rõ nét, mờ dần theo tỉ lệ thuận với độ vuốt
         if (edgeRight) edgeRight.style.opacity = String(ratio);
         if (edgeLeft) edgeLeft.style.opacity = '0';
 
-        cardElement.style.borderRightColor = `rgba(244, 63, 94, ${ratio})`;
+        cardElement.style.borderRightColor = `rgba(244, 63, 94, ${Math.min(1, ratio * 1.5)})`;
         cardElement.style.borderLeftColor = '';
-        cardElement.style.boxShadow = `${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(244, 63, 94, ${ratio * 0.4})`;
+        cardElement.style.boxShadow = `${Math.round(ratio * 22)}px 0 ${Math.round(ratio * 38)}px rgba(244, 63, 94, ${ratio * 0.75}), 0 10px 25px -5px rgba(0, 0, 0, 0.12)`;
 
         if (fadeOverlay) {
-          fadeOverlay.style.background = `linear-gradient(to left, rgba(244, 63, 94, ${ratio * 0.22}) 0%, rgba(244, 63, 94, ${ratio * 0.05}) 40%, transparent 80%)`;
-          fadeOverlay.style.opacity = String(ratio);
+          fadeOverlay.style.background = `linear-gradient(to left, rgba(244, 63, 94, ${ratio * 0.55}) 0%, rgba(244, 63, 94, ${ratio * 0.28}) 35%, rgba(244, 63, 94, ${ratio * 0.10}) 65%, transparent 92%)`;
+          fadeOverlay.style.opacity = '1';
         }
 
         // Mờ dần flashcard theo tỉ lệ thuận với độ vuốt
@@ -438,24 +438,34 @@ export class VocabAbsorbEngine {
     const edgeLeft = card?.querySelector('.edge-indicator-left');
     const edgeRight = card?.querySelector('.edge-indicator-right');
 
+    const fadeOverlay = card?.querySelector('.swipe-fade-overlay');
+
     if (direction === 'left') {
-      // Bay sang TRÁI (Đồng ý học từ mới - Xanh lá)
+      // Bay sang TRÁI (Đồng ý học từ mới - Xanh lá đậm rõ nét)
       if (edgeLeft) edgeLeft.style.opacity = '1';
+      if (fadeOverlay) {
+        fadeOverlay.style.background = 'linear-gradient(to right, rgba(16, 185, 129, 0.65) 0%, rgba(16, 185, 129, 0.35) 45%, transparent 90%)';
+        fadeOverlay.style.opacity = '1';
+      }
       if (card) {
         card.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in, box-shadow 0.25s ease-in';
         card.style.transform = 'translate(-120vw, 20px) rotate(-22deg)';
         card.style.opacity = '0';
-        card.style.boxShadow = '-25px 0 40px rgba(16, 185, 129, 0.45)';
+        card.style.boxShadow = '-30px 0 50px rgba(16, 185, 129, 0.75)';
       }
       if (window.navigator?.vibrate) window.navigator.vibrate(12);
     } else {
-      // Bay sang PHẢI (Đã biết rồi - Đỏ)
+      // Bay sang PHẢI (Đã biết rồi - Đỏ đậm rõ nét)
       if (edgeRight) edgeRight.style.opacity = '1';
+      if (fadeOverlay) {
+        fadeOverlay.style.background = 'linear-gradient(to left, rgba(244, 63, 94, 0.65) 0%, rgba(244, 63, 94, 0.35) 45%, transparent 90%)';
+        fadeOverlay.style.opacity = '1';
+      }
       if (card) {
         card.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in, box-shadow 0.25s ease-in';
         card.style.transform = 'translate(120vw, 20px) rotate(22deg)';
         card.style.opacity = '0';
-        card.style.boxShadow = '25px 0 40px rgba(244, 63, 94, 0.45)';
+        card.style.boxShadow = '30px 0 50px rgba(244, 63, 94, 0.75)';
       }
       if (window.navigator?.vibrate) window.navigator.vibrate(8);
     }
