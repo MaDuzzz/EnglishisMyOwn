@@ -280,7 +280,7 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   user-select: none;
   touch-action: pan-y;
   will-change: transform, opacity, box-shadow, border-color;
-  transform-origin: 50% 100%;
+  transform-origin: 50% 110%;
 }
 
 @keyframes cardEnterPop {
@@ -295,7 +295,7 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
 }
 
 .animate-card-pop {
-  animation: cardEnterPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardEnterPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes pulseSpeaker {

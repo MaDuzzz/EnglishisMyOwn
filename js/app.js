@@ -457,40 +457,373 @@ class App {
     }
   }
 
+  // ==================== TRANG GIỚI THIỆU SẢN PHẨM & DEMO FLASHCARD (CHO KHÁCH CHƯA ĐĂNG NHẬP) ====================
+  renderGuestPortal(mainContainer) {
+    const DEMO_WORDS = [
+      {
+        word: "catch up",
+        ipa: "/kætʃ ʌp/",
+        groupIcon: "💬",
+        groupName: "Giao Tiếp Thường Nhật",
+        type: "phrasal verb",
+        level: "A2",
+        meaningVi: "hàn huyên, cập nhật tin tức",
+        example: "Let's grab a coffee this Sunday and catch up!",
+        exampleVi: "Chủ nhật này đi cà phê rồi hàn huyên tâm sự nhé!"
+      },
+      {
+        word: "deliverable",
+        ipa: "/dɪˈlɪv.ər.ə.bəl/",
+        groupIcon: "💼",
+        groupName: "Công Sở & Dự Án",
+        type: "noun",
+        level: "B1",
+        meaningVi: "sản phẩm bàn giao, kết quả công việc",
+        example: "The team delivered all sprint deliverables ahead of the Friday deadline.",
+        exampleVi: "Nhóm đã bàn giao đầy đủ kết quả sprint trước hạn chót thứ Sáu."
+      },
+      {
+        word: "touch base",
+        ipa: "/tʌtʃ beɪs/",
+        groupIcon: "💼",
+        groupName: "Họp Hành & Trao Đổi",
+        type: "idiom",
+        level: "B2",
+        meaningVi: "liên hệ ngắn, trao đổi nhanh tình hình",
+        example: "Let's touch base tomorrow morning regarding the deployment plan.",
+        exampleVi: "Sáng mai chúng ta trao đổi nhanh về kế hoạch triển khai nhé."
+      }
+    ];
+
+    let demoIndex = 0;
+
+    mainContainer.innerHTML = `
+      <div class="space-y-6 sm:space-y-8 animate-fade-in max-w-4xl mx-auto w-full py-4 sm:py-6 px-2 sm:px-4">
+        
+        <!-- 1. HERO SHOWCASE INTRO -->
+        <div class="text-center max-w-2xl mx-auto">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-emerald-500/10 dark:from-indigo-950/60 dark:to-emerald-950/40 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-black mb-3 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>✨ Phương Pháp Thẩm Thấu Từ Vựng Thế Hệ Mới</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-2.5">
+            Chinh Phục Tiếng Anh Thực Chiến <br class="hidden sm:inline">Bằng <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 bg-clip-text text-transparent">Phản Xạ Kỷ Luật</span>
+          </h1>
+
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">
+            Học đúng 10 từ mới mỗi ngày, sàng lọc từ đã biết chỉ bằng một cái vuốt nhẹ và ghi nhớ vĩnh viễn nhờ chu kỳ lặp lại ngắt quãng (Spaced Repetition T+1).
+          </p>
+        </div>
+
+        <!-- 2. INTERACTIVE LIVE DEMO FLASHCARD (HỌC THỬ NGAY) -->
+        <div class="w-full max-w-sm sm:max-w-md mx-auto">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 px-1">
+            <span class="flex items-center space-x-1.5 text-indigo-600 dark:text-indigo-400">
+              <span>🎮 Trải nghiệm vuốt thử Flashcard:</span>
+            </span>
+            <span id="portal-demo-counter" class="text-[11px] font-semibold">1 / 3</span>
+          </div>
+
+          <!-- Demo Card Container -->
+          <div id="portal-demo-card-container" class="relative w-full min-h-[440px] flex items-center justify-center">
+            <!-- Thẻ demo động -->
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 dark:text-slate-500 mt-2 px-2 select-none">
+            <span class="text-emerald-600 dark:text-emerald-400">👈 Vuốt trái: Học từ này</span>
+            <span class="text-rose-600 dark:text-rose-400">Vuốt phải: Đã biết 👉</span>
+          </div>
+
+          <!-- Toast for Demo -->
+          <div id="portal-demo-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 pointer-events-none z-50 flex flex-col items-center gap-1.5"></div>
+        </div>
+
+        <!-- 3. THREE CORE PILLARS (3 TRỤ CỘT ĐỘT PHÁ) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 max-w-3xl mx-auto">
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-3 shadow-inner">
+              ⚡
+            </div>
+            <h4 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white mb-1">
+              Thẩm Thấu 10 Từ / Ngày
+            </h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Sàng lọc thông minh bằng cử chỉ vuốt trực quan. Chỉ học điều bạn chưa biết, bỏ qua từ đã thành thạo, tiết kiệm 80% thời gian.
+            </p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-3 shadow-inner">
+              🗓️
+            </div>
+            <h4 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white mb-1">
+              Kỷ Luật Ngắt Quãng T+1
+            </h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Cả từ mới và từ đã biết đều được tự động xếp vào chu kỳ ôn tập ngày hôm sau, kích hoạt đường mòn thần kinh ghi nhớ vĩnh viễn.
+            </p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-3 shadow-inner">
+              🎯
+            </div>
+            <h4 class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white mb-1">
+              Chuẩn CEFR A1 - B2
+            </h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Kho 700+ từ vựng & cụm từ collocations thực chiến bám sát môi trường công sở, CNTT, marketing và giao tiếp chuẩn quốc tế.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4. CALL TO ACTION CONTAINER -->
+        <div class="max-w-md mx-auto p-6 sm:p-8 bg-gradient-to-b from-white to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/20 rounded-3xl border border-indigo-100 dark:border-indigo-900/60 shadow-xl text-center">
+          <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-1.5">
+            Sẵn Sàng Bắt Đầu Lộ Trình?
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
+            Đăng nhập để đồng bộ tiến độ học tập và chuỗi kỷ luật Streak lên Cloud Firestore.
+          </p>
+
+          <button id="btn-login-portal" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 active:scale-98 transition-all flex items-center justify-center space-x-2.5 mb-3">
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Đăng nhập với Google</span>
+          </button>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-2 pt-1 text-xs">
+            <button id="btn-portal-placement-test" type="button" class="w-full sm:w-auto px-4 py-2 rounded-xl text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors">
+              🎯 Kiểm tra trình độ (Placement Test)
+            </button>
+            <span class="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
+            <button id="btn-portal-try-absorb" type="button" class="w-full sm:w-auto px-4 py-2 rounded-xl text-emerald-600 dark:text-emerald-400 font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-colors">
+              ✨ Trải nghiệm học thử 10 từ
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Khởi tạo thẻ Flashcard Demo có thể vuốt thử
+    const renderDemoCard = () => {
+      const demoContainer = mainContainer.querySelector('#portal-demo-card-container');
+      const counterEl = mainContainer.querySelector('#portal-demo-counter');
+      if (!demoContainer) return;
+
+      const word = DEMO_WORDS[demoIndex % DEMO_WORDS.length];
+      if (counterEl) counterEl.textContent = `${(demoIndex % DEMO_WORDS.length) + 1} / ${DEMO_WORDS.length}`;
+
+      demoContainer.innerHTML = `
+        <div id="portal-active-demo-card" class="flashcard-card animate-card-pop relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between select-none overflow-hidden transition-[border-color,box-shadow]">
+          <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-2.5 bg-emerald-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+          <div class="edge-indicator-right absolute right-0 top-0 bottom-0 w-2.5 bg-rose-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+          <div class="swipe-fade-overlay absolute inset-0 pointer-events-none opacity-0 transition-opacity"></div>
+
+          <div class="relative z-10 flex items-center justify-between gap-2 mb-3">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-[11px] truncate max-w-[210px]">
+              ${word.groupIcon} ${word.groupName}
+            </span>
+            <div class="flex items-center space-x-1.5 shrink-0">
+              <span class="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-bold text-[10px] uppercase">${word.type}</span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 font-bold text-[10px]">${word.level}</span>
+            </div>
+          </div>
+
+          <div class="relative z-10 text-center my-3">
+            <div class="flex items-center justify-center space-x-2">
+              <h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">${word.word}</h2>
+              <button class="btn-demo-audio p-2 rounded-full hover:bg-indigo-50 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-transform active:scale-90" title="Nghe phát âm">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+              </button>
+            </div>
+            <p class="text-indigo-600 dark:text-indigo-400 font-mono text-sm font-semibold mt-1">${word.ipa}</p>
+          </div>
+
+          <div class="relative z-10 my-2.5 p-4 rounded-2xl bg-gradient-to-br from-indigo-50/80 to-blue-50/70 dark:from-slate-800/90 dark:to-indigo-950/40 border border-indigo-100 dark:border-indigo-900/50 text-center">
+            <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block mb-1">Nghĩa tiếng Việt</span>
+            <p class="text-lg font-black text-indigo-950 dark:text-indigo-200">${word.meaningVi}</p>
+          </div>
+
+          <div class="relative z-10 my-2 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-left">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ví dụ thực tế:</span>
+            <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 italic leading-relaxed">"${word.example}"</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">${word.exampleVi}</p>
+          </div>
+        </div>
+      `;
+
+      const card = demoContainer.querySelector('#portal-active-demo-card');
+      if (card) {
+        card.addEventListener('animationend', () => card.classList.remove('animate-card-pop'), { once: true });
+        setTimeout(() => card.classList.remove('animate-card-pop'), 300);
+
+        card.querySelector('.btn-demo-audio')?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speechService.speak(word.word);
+        });
+
+        // Gắn cử chỉ vuốt cho thẻ demo
+        this.bindPortalDemoCard(card, () => {
+          demoIndex++;
+          renderDemoCard();
+        });
+      }
+    };
+
+    renderDemoCard();
+
+    mainContainer.querySelector('#btn-login-portal')?.addEventListener('click', () => this.handleAuthClick());
+    mainContainer.querySelector('#btn-portal-placement-test')?.addEventListener('click', () => this.startPlacementTest());
+    mainContainer.querySelector('#btn-portal-try-absorb')?.addEventListener('click', () => this.startNewBatchAbsorb());
+  }
+
+  // Cử chỉ vuốt cho thẻ Flashcard Demo ở trang Portal
+  bindPortalDemoCard(cardElement, onNextCallback) {
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let isAnimating = false;
+
+    const edgeLeft = cardElement.querySelector('.edge-indicator-left');
+    const edgeRight = cardElement.querySelector('.edge-indicator-right');
+    const fadeOverlay = cardElement.querySelector('.swipe-fade-overlay');
+
+    const showPortalToast = (message, color = 'emerald') => {
+      const container = document.getElementById('portal-demo-toast');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `px-3.5 py-1.5 rounded-full text-xs font-bold shadow-lg animate-fade-in ${
+        color === 'emerald' ? 'bg-emerald-600 text-white shadow-emerald-500/30' : 'bg-slate-800 text-slate-200 border border-slate-700 shadow-slate-900/40'
+      }`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        setTimeout(() => toast.remove(), 260);
+      }, 1200);
+    };
+
+    const onStart = (clientX, clientY) => {
+      if (isAnimating) return;
+      isDragging = true;
+      startX = clientX;
+      startY = clientY;
+      currentX = clientX;
+      currentY = clientY;
+      cardElement.style.transition = 'none';
+    };
+
+    const onMove = (clientX, clientY, e) => {
+      if (!isDragging || isAnimating) return;
+      currentX = clientX;
+      currentY = clientY;
+      const dx = currentX - startX;
+      const dy = currentY - startY;
+
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
+        if (e && e.cancelable) e.preventDefault();
+      }
+
+      const rot = (dx * 0.10).toFixed(2);
+      cardElement.style.transform = `translate(${dx}px, ${dy * 0.2}px) rotate(${rot}deg)`;
+      const ratio = Math.min(Math.abs(dx) / 90, 1);
+
+      if (dx < 0) {
+        // Vuốt trái: Xanh lá (Học từ này)
+        if (edgeLeft) edgeLeft.style.opacity = String(ratio);
+        if (edgeRight) edgeRight.style.opacity = '0';
+        cardElement.style.borderLeftColor = `rgba(16, 185, 129, ${ratio})`;
+        cardElement.style.borderRightColor = '';
+        cardElement.style.boxShadow = `-${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(16, 185, 129, ${ratio * 0.4})`;
+        if (fadeOverlay) {
+          fadeOverlay.style.background = `linear-gradient(to right, rgba(16, 185, 129, ${ratio * 0.22}) 0%, rgba(16, 185, 129, ${ratio * 0.05}) 40%, transparent 80%)`;
+          fadeOverlay.style.opacity = String(ratio);
+        }
+        cardElement.style.opacity = String(Math.max(0.35, 1 - (ratio * 0.5)));
+      } else if (dx > 0) {
+        // Vuốt phải: Đỏ (Đã biết)
+        if (edgeRight) edgeRight.style.opacity = String(ratio);
+        if (edgeLeft) edgeLeft.style.opacity = '0';
+        cardElement.style.borderRightColor = `rgba(244, 63, 94, ${ratio})`;
+        cardElement.style.borderLeftColor = '';
+        cardElement.style.boxShadow = `${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(244, 63, 94, ${ratio * 0.4})`;
+        if (fadeOverlay) {
+          fadeOverlay.style.background = `linear-gradient(to left, rgba(244, 63, 94, ${ratio * 0.22}) 0%, rgba(244, 63, 94, ${ratio * 0.05}) 40%, transparent 80%)`;
+          fadeOverlay.style.opacity = String(ratio);
+        }
+        cardElement.style.opacity = String(Math.max(0.35, 1 - (ratio * 0.5)));
+      }
+    };
+
+    const onEnd = () => {
+      if (!isDragging || isAnimating) return;
+      isDragging = false;
+      const dx = currentX - startX;
+
+      if (dx < -65) {
+        isAnimating = true;
+        cardElement.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in';
+        cardElement.style.transform = 'translate(-120vw, 20px) rotate(-22deg)';
+        cardElement.style.opacity = '0';
+        showPortalToast('✨ Bạn vừa chọn nhận từ mới! Đăng nhập để lưu tiến độ nhé.', 'emerald');
+        setTimeout(() => onNextCallback(), 260);
+      } else if (dx > 65) {
+        isAnimating = true;
+        cardElement.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in';
+        cardElement.style.transform = 'translate(120vw, 20px) rotate(22deg)';
+        cardElement.style.opacity = '0';
+        showPortalToast('✓ Đã biết từ này! Hệ thống sẽ xếp vào lịch ôn T+1.', 'slate');
+        setTimeout(() => onNextCallback(), 260);
+      } else {
+        cardElement.style.transition = 'transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease';
+        cardElement.style.transform = 'translate(0px, 0px) rotate(0deg)';
+        cardElement.style.opacity = '1';
+        cardElement.style.boxShadow = '';
+        cardElement.style.borderLeftColor = '';
+        cardElement.style.borderRightColor = '';
+        if (edgeLeft) edgeLeft.style.opacity = '0';
+        if (edgeRight) edgeRight.style.opacity = '0';
+        if (fadeOverlay) fadeOverlay.style.opacity = '0';
+      }
+    };
+
+    cardElement.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+    cardElement.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX, e.touches[0].clientY, e), { passive: false });
+    cardElement.addEventListener('touchend', onEnd);
+    cardElement.addEventListener('touchcancel', onEnd);
+
+    cardElement.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button')) return;
+      onStart(e.clientX, e.clientY);
+      const onMouseMove = (ev) => onMove(ev.clientX, ev.clientY, ev);
+      const onMouseUp = () => {
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+        onEnd();
+      };
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    });
+  }
+
   // ==================== VOCABULARY HUB ====================
   renderVocabDashboard() {
     const mainContainer = document.getElementById('main-content-area');
     if (!mainContainer) return;
 
-    // Kiểm tra 1: Yêu cầu đăng nhập Google để đồng bộ Cloud Firestore
+    // Kiểm tra 1: Khách chưa đăng nhập -> Hiển thị trang giới thiệu sản phẩm (Product Showcase Portal) kèm Flashcard demo học thử
     if (!appState.state.user) {
-      mainContainer.innerHTML = `
-        <div class="flex-1 flex flex-col items-center justify-center w-full py-6 sm:py-10 my-auto animate-fade-in">
-          <div class="w-full max-w-md mx-auto p-6 sm:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-2xl text-center">
-            <div class="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm text-indigo-600 dark:text-indigo-400">
-              🔐
-            </div>
-            <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-2">Đăng Nhập Để Bắt Đầu</h2>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-              Hệ thống lưu trữ và đồng bộ hóa toàn bộ tiến độ, cấp bậc CEFR và chuỗi kỷ luật học tập trực tiếp trên <strong>Cloud Firestore</strong>.
-            </p>
-            <button id="btn-login-vocab-banner" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 active:scale-98 transition-all flex items-center justify-center space-x-2.5">
-              <svg class="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
-              <span>Đăng nhập với Google</span>
-            </button>
-            <button id="btn-guest-explore" type="button" class="mt-4 text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors block mx-auto">
-              Hoặc trải nghiệm kiểm tra trình độ & học thử ➔
-            </button>
-          </div>
-        </div>
-      `;
-      mainContainer.querySelector('#btn-login-vocab-banner')?.addEventListener('click', () => this.handleAuthClick());
-      mainContainer.querySelector('#btn-guest-explore')?.addEventListener('click', () => this.startPlacementTest());
+      this.renderGuestPortal(mainContainer);
       return;
     }
 

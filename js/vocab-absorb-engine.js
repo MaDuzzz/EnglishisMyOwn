@@ -1,10 +1,11 @@
 // ==============================================================================
 // ĐỘNG CƠ THẨM THẤU & SÀNG LỌC TỪ MỚI (GIAI ĐOẠN 1: BATCH 10 TỪ MỚI)
 // Trải nghiệm Flashcard thuần cảm ứng cử chỉ (Gesture-driven):
-// - Vuốt Trái: Viền đỏ bên trái phát sáng, mờ dần theo độ vuốt -> Đã biết rồi
-// - Vuốt Phải: Viền xanh lá bên phải phát sáng, mờ dần theo độ vuốt -> Từ mới cần học
-// - Giao diện tối giản tuyệt đối, loại bỏ toàn bộ nút bấm & chữ hướng dẫn rườm rà
-// - Tự động lên lịch Ôn Tập Kỷ Luật (T+1) cho cả 2 nhóm từ vào ngày mai
+// - Vuốt Trái: ĐỒNG Ý HỌC TỪ MỚI (Viền xanh lá phát sáng, thẻ nghiêng trái, mờ dần theo độ vuốt)
+// - Vuốt Phải: ĐÃ BIẾT RỒI (Viền đỏ phát sáng, thẻ nghiêng phải, mờ dần theo độ vuốt)
+// - Animation nghiêng tự nhiên (Pendulum tilt) theo cử chỉ vuốt
+// - Giao diện tối giản, tập trung 100% vào thẻ từ vựng
+// - Tự động lên lịch Ôn Tập Kỷ Luật (T+1) cho cả 2 nhóm từ
 // ==============================================================================
 
 import { speechService } from './speech.js';
@@ -132,7 +133,7 @@ export class VocabAbsorbEngine {
       }
     });
 
-    // Hỗ trợ phím mũi tên trên Desktop
+    // Hỗ trợ phím mũi tên trên Desktop: Mũi tên trái = Học từ mới, Mũi tên phải = Đã biết
     this.handleKeyDown = (e) => {
       if (this.isAnimating) return;
       if (e.key === 'ArrowLeft') {
@@ -169,11 +170,11 @@ export class VocabAbsorbEngine {
     slot.innerHTML = `
       <div id="active-flashcard" class="flashcard-card animate-card-pop relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between select-none overflow-hidden transition-[border-color,box-shadow]">
         
-        <!-- Dải phát sáng bên trái (ĐỎ - Đã biết) -->
-        <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-2.5 bg-rose-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+        <!-- Dải phát sáng bên trái: XANH LÁ (Vuốt Trái = ĐỒNG Ý HỌC TỪ MỚI) -->
+        <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-2.5 bg-emerald-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
 
-        <!-- Dải phát sáng bên phải (XANH LÁ - Từ mới) -->
-        <div class="edge-indicator-right absolute right-0 top-0 bottom-0 w-2.5 bg-emerald-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
+        <!-- Dải phát sáng bên phải: ĐỎ (Vuốt Phải = ĐÃ BIẾT RỒI) -->
+        <div class="edge-indicator-right absolute right-0 top-0 bottom-0 w-2.5 bg-rose-500 opacity-0 pointer-events-none transition-opacity duration-75"></div>
 
         <!-- Lớp phủ Gradient mờ dần theo hướng vuốt -->
         <div class="swipe-fade-overlay absolute inset-0 pointer-events-none opacity-0 transition-opacity"></div>
@@ -220,7 +221,7 @@ export class VocabAbsorbEngine {
             <div class="flex items-start justify-between gap-1.5 mb-1">
               <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Ví dụ thực tế:</span>
               <button class="btn-example-audio p-1 text-slate-400 hover:text-indigo-600 transition-colors" title="Nghe ví dụ">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
               </button>
             </div>
             <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100 italic leading-relaxed">
@@ -247,6 +248,12 @@ export class VocabAbsorbEngine {
 
     const card = slot.querySelector('#active-flashcard');
     if (card) {
+      // Gỡ bỏ animation entry sau khi chạy xong để transform rotate khi vuốt không bị CSS animation cản trở
+      card.addEventListener('animationend', () => {
+        card.classList.remove('animate-card-pop');
+      }, { once: true });
+      setTimeout(() => card.classList.remove('animate-card-pop'), 300);
+
       this.bindCardGestures(card);
 
       // Gắn sự kiện click nghe phát âm trong card
@@ -298,49 +305,51 @@ export class VocabAbsorbEngine {
       const dy = currentY - startY;
 
       // Ngăn chặn cuộn trang dọc khi người dùng đang vuốt ngang
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 6) {
         if (e && e.cancelable) e.preventDefault();
       }
 
-      // Card di chuyển và xoay theo độ kéo ngón tay
-      const rot = (dx * 0.04).toFixed(2);
-      cardElement.style.transform = `translate(${dx}px, ${dy * 0.22}px) rotate(${rot}deg)`;
+      // Card di chuyển và xoay nghiêng rõ nét theo chiều vuốt (hệ số 0.10 thay vì 0.04 để mắt thấy rõ độ nghiêng tự nhiên)
+      const rot = (dx * 0.10).toFixed(2);
+      cardElement.style.transform = `translate(${dx}px, ${dy * 0.2}px) rotate(${rot}deg)`;
 
-      // Tỉ lệ kéo từ 0 đến 1 (đạt 1 tại khoảng cách 100px)
-      const ratio = Math.min(Math.abs(dx) / 100, 1);
+      // Tỉ lệ kéo từ 0 đến 1 (đạt 1 tại khoảng cách 90px)
+      const ratio = Math.min(Math.abs(dx) / 90, 1);
 
       if (dx < 0) {
-        // VUỐT SANG TRÁI: Viền đỏ bên trái, mờ dần theo tỉ lệ thuận với độ vuốt
+        // VUỐT SANG TRÁI (ĐỒNG Ý HỌC TỪ MỚI):
+        // Viền XANH LÁ bên trái sáng bừng, nghiêng sang trái, mờ dần theo tỉ lệ thuận với độ vuốt
         if (edgeLeft) edgeLeft.style.opacity = String(ratio);
         if (edgeRight) edgeRight.style.opacity = '0';
 
-        cardElement.style.borderLeftColor = `rgba(244, 63, 94, ${ratio})`;
+        cardElement.style.borderLeftColor = `rgba(16, 185, 129, ${ratio})`;
         cardElement.style.borderRightColor = '';
-        cardElement.style.boxShadow = `-${Math.round(ratio * 14)}px 0 ${Math.round(ratio * 26)}px rgba(244, 63, 94, ${ratio * 0.35})`;
+        cardElement.style.boxShadow = `-${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(16, 185, 129, ${ratio * 0.4})`;
 
         if (fadeOverlay) {
-          fadeOverlay.style.background = `linear-gradient(to right, rgba(244, 63, 94, ${ratio * 0.2}) 0%, rgba(244, 63, 94, ${ratio * 0.05}) 40%, transparent 80%)`;
+          fadeOverlay.style.background = `linear-gradient(to right, rgba(16, 185, 129, ${ratio * 0.22}) 0%, rgba(16, 185, 129, ${ratio * 0.05}) 40%, transparent 80%)`;
           fadeOverlay.style.opacity = String(ratio);
         }
 
         // Mờ dần flashcard theo tỉ lệ thuận với độ vuốt
-        cardElement.style.opacity = String(Math.max(0.3, 1 - (ratio * 0.5)));
+        cardElement.style.opacity = String(Math.max(0.35, 1 - (ratio * 0.5)));
       } else if (dx > 0) {
-        // VUỐT SANG PHẢI: Viền xanh lá bên phải, mờ dần theo tỉ lệ thuận với độ vuốt
+        // VUỐT SANG PHẢI (ĐÃ BIẾT RỒI):
+        // Viền ĐỎ bên phải sáng bừng, nghiêng sang phải, mờ dần theo tỉ lệ thuận với độ vuốt
         if (edgeRight) edgeRight.style.opacity = String(ratio);
         if (edgeLeft) edgeLeft.style.opacity = '0';
 
-        cardElement.style.borderRightColor = `rgba(16, 185, 129, ${ratio})`;
+        cardElement.style.borderRightColor = `rgba(244, 63, 94, ${ratio})`;
         cardElement.style.borderLeftColor = '';
-        cardElement.style.boxShadow = `${Math.round(ratio * 14)}px 0 ${Math.round(ratio * 26)}px rgba(16, 185, 129, ${ratio * 0.35})`;
+        cardElement.style.boxShadow = `${Math.round(ratio * 16)}px 0 ${Math.round(ratio * 28)}px rgba(244, 63, 94, ${ratio * 0.4})`;
 
         if (fadeOverlay) {
-          fadeOverlay.style.background = `linear-gradient(to left, rgba(16, 185, 129, ${ratio * 0.2}) 0%, rgba(16, 185, 129, ${ratio * 0.05}) 40%, transparent 80%)`;
+          fadeOverlay.style.background = `linear-gradient(to left, rgba(244, 63, 94, ${ratio * 0.22}) 0%, rgba(244, 63, 94, ${ratio * 0.05}) 40%, transparent 80%)`;
           fadeOverlay.style.opacity = String(ratio);
         }
 
         // Mờ dần flashcard theo tỉ lệ thuận với độ vuốt
-        cardElement.style.opacity = String(Math.max(0.3, 1 - (ratio * 0.5)));
+        cardElement.style.opacity = String(Math.max(0.35, 1 - (ratio * 0.5)));
       } else {
         this.resetCardStyles(cardElement);
       }
@@ -351,12 +360,12 @@ export class VocabAbsorbEngine {
       isDragging = false;
       const dx = currentX - startX;
 
-      if (dx > 70) {
-        // Đã vuốt sang phải (Từ mới)
-        this.executeSwipe('right', cardElement);
-      } else if (dx < -70) {
-        // Đã vuốt sang trái (Đã biết)
+      if (dx < -65) {
+        // Vuốt sang TRÁI -> ĐỒNG Ý HỌC TỪ MỚI
         this.executeSwipe('left', cardElement);
+      } else if (dx > 65) {
+        // Vuốt sang PHẢI -> ĐÃ BIẾT RỒI
+        this.executeSwipe('right', cardElement);
       } else {
         // Trượt trở lại vị trí ban đầu (Snap back)
         cardElement.style.transition = 'transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease';
@@ -429,22 +438,24 @@ export class VocabAbsorbEngine {
     const edgeLeft = card?.querySelector('.edge-indicator-left');
     const edgeRight = card?.querySelector('.edge-indicator-right');
 
-    if (direction === 'right') {
-      if (edgeRight) edgeRight.style.opacity = '1';
-      if (card) {
-        card.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in, box-shadow 0.25s ease-in';
-        card.style.transform = 'translate(120vw, 20px) rotate(20deg)';
-        card.style.opacity = '0';
-        card.style.boxShadow = '20px 0 35px rgba(16, 185, 129, 0.4)';
-      }
-      if (window.navigator?.vibrate) window.navigator.vibrate(12);
-    } else {
+    if (direction === 'left') {
+      // Bay sang TRÁI (Đồng ý học từ mới - Xanh lá)
       if (edgeLeft) edgeLeft.style.opacity = '1';
       if (card) {
         card.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in, box-shadow 0.25s ease-in';
-        card.style.transform = 'translate(-120vw, 20px) rotate(-20deg)';
+        card.style.transform = 'translate(-120vw, 20px) rotate(-22deg)';
         card.style.opacity = '0';
-        card.style.boxShadow = '-20px 0 35px rgba(244, 63, 94, 0.4)';
+        card.style.boxShadow = '-25px 0 40px rgba(16, 185, 129, 0.45)';
+      }
+      if (window.navigator?.vibrate) window.navigator.vibrate(12);
+    } else {
+      // Bay sang PHẢI (Đã biết rồi - Đỏ)
+      if (edgeRight) edgeRight.style.opacity = '1';
+      if (card) {
+        card.style.transition = 'transform 0.28s ease-in, opacity 0.25s ease-in, box-shadow 0.25s ease-in';
+        card.style.transform = 'translate(120vw, 20px) rotate(22deg)';
+        card.style.opacity = '0';
+        card.style.boxShadow = '25px 0 40px rgba(244, 63, 94, 0.45)';
       }
       if (window.navigator?.vibrate) window.navigator.vibrate(8);
     }
@@ -456,10 +467,12 @@ export class VocabAbsorbEngine {
 
   handleDecision(direction) {
     const word = this.candidates[this.currentIndex];
-    if (direction === 'right') {
+    if (direction === 'left') {
+      // Vuốt trái = ĐỒNG Ý HỌC TỪ MỚI
       this.acceptedWords.push(word);
       this.showToast(`✨ Nhận từ mới: "${word.word}"`, 'emerald');
     } else {
+      // Vuốt phải = ĐÃ BIẾT RỒI
       this.skippedWords.push(word);
       this.showToast(`✓ Đã biết: "${word.word}" (sẽ ôn T+1)`, 'slate');
     }
