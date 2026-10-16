@@ -279,7 +279,7 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
 .flashcard-card {
   user-select: none;
   touch-action: pan-y;
-  will-change: transform, opacity;
+  will-change: transform, opacity, box-shadow, border-color;
   transform-origin: 50% 100%;
 }
 
