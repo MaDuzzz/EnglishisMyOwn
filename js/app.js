@@ -32,8 +32,9 @@ class App {
     this.coursesEngine = null;
     this.placementEngine = null;
     this.selectedHeatmapYear = new Date().getFullYear();
+    this.selectedHeatmapMonth = new Date().getMonth();
     this.showDemoHeatmap = false;
-    this.analyticsViewMode = "12months"; // "12months" | "52weeks"
+    this.analyticsViewMode = "month"; // "month" | "12months" | "52weeks"
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
     this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
@@ -1835,18 +1836,64 @@ class App {
       columnsHtml += `<div class="grid grid-rows-7 gap-[3px]">${weekCellsHtml}</div>`;
     }
 
-    // ==================== 2. XÂY DỰNG LỊCH 12 THÁNG (VIEW MODE 2) ====================
-    const monthFullNames = [
-      "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
-      "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
-      "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
-    ];
+    // ==================== 1. CHẾ ĐỘ XEM THEO THÁNG (VIEW MODE: 'month' - MOBILE FIRST) ====================
+    const mIndex = (this.selectedHeatmapMonth !== undefined) ? this.selectedHeatmapMonth : now.getMonth();
+    const currentMonthName = monthFullNames[mIndex];
+    const monthFirstDay = new Date(year, mIndex, 1);
+    const monthDayOfWeek = monthFirstDay.getDay();
+    const monthLeadingBlanks = (monthDayOfWeek + 6) % 7; // Thứ 2 là 0
+    const monthTotalDays = new Date(year, mIndex + 1, 0).getDate();
 
-    const monthsHtml = monthFullNames.map((mName, mIndex) => {
-      const firstDay = new Date(year, mIndex, 1);
+    let focusedMonthActiveDays = 0;
+    let focusedMonthTotalWords = 0;
+    let monthDayCellsHtml = "";
+
+    for (let b = 0; b < monthLeadingBlanks; b++) {
+      monthDayCellsHtml += `<div class="aspect-square opacity-0 pointer-events-none"></div>`;
+    }
+
+    for (let day = 1; day <= monthTotalDays; day++) {
+      const dateStr = `${year}-${String(mIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const isToday = dateStr === todayStr;
+      const isFuture = dateStr > todayStr;
+      const count = wordCountMap[dateStr] || 0;
+      const info = getGitHubLevel(count, isFuture);
+
+      if (count > 0) {
+        focusedMonthActiveDays++;
+        focusedMonthTotalWords += count;
+      }
+
+      const todayRing = isToday 
+        ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#111a2e]' 
+        : '';
+
+      const textColor = info.level === 4 
+        ? 'text-emerald-950 font-black' 
+        : (count > 0 ? 'text-white font-bold' : 'text-slate-400 font-medium');
+
+      monthDayCellsHtml += `
+        <div 
+          class="aspect-square rounded-xl sm:rounded-2xl transition-all duration-150 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-105 active:scale-95 flex flex-col items-center justify-center p-1 relative select-none"
+          data-date="${dateStr}"
+          data-dayname="Ngày ${day}/${mIndex + 1}"
+          data-count="${count}"
+          data-label="${info.label}"
+          data-badge="${info.badge}"
+          title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} (${dateStr})"
+        >
+          <span class="text-xs sm:text-sm font-bold ${textColor}">${day}</span>
+          ${count > 0 ? `<span class="text-[9px] sm:text-[10px] leading-tight font-extrabold ${info.level === 4 ? 'text-emerald-950' : 'text-emerald-300'}">${count}</span>` : ''}
+        </div>
+      `;
+    }
+
+    // ==================== 2. CHẾ ĐỘ XEM CẢ NĂM (12 THÁNG DẠNG LƯỚI 2 CỘT MOBILE) ====================
+    const monthsHtml = monthFullNames.map((mName, idx) => {
+      const firstDay = new Date(year, idx, 1);
       const dayOfWeek = firstDay.getDay();
-      const leadingBlanks = (dayOfWeek + 6) % 7; // T2 là 0
-      const totalDays = new Date(year, mIndex + 1, 0).getDate();
+      const leadingBlanks = (dayOfWeek + 6) % 7;
+      const totalDays = new Date(year, idx + 1, 0).getDate();
 
       let monthActiveDays = 0;
       let cellsHtml = "";
@@ -1856,7 +1903,7 @@ class App {
       }
 
       for (let day = 1; day <= totalDays; day++) {
-        const dateStr = `${year}-${String(mIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const dateStr = `${year}-${String(idx + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const isToday = dateStr === todayStr;
         const isFuture = dateStr > todayStr;
         const count = wordCountMap[dateStr] || 0;
@@ -1864,17 +1911,17 @@ class App {
 
         if (count > 0) monthActiveDays++;
 
-        const todayRing = isToday ? 'ring-1 ring-cyan-400 ring-offset-1 ring-offset-[#111a2e]' : '';
+        const todayRing = isToday ? 'ring-1 ring-cyan-400' : '';
 
         const textColor = info.level === 4 
           ? 'text-emerald-950 font-black' 
-          : (count > 0 ? 'text-white font-bold' : 'text-slate-400/80 dark:text-slate-500/80 font-medium');
+          : (count > 0 ? 'text-white font-bold' : 'text-slate-400/80 font-medium');
 
         cellsHtml += `
           <div 
-            class="aspect-square gh-cell-tile rounded-lg sm:rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-110 active:scale-95 flex items-center justify-center text-[10px] select-none ${textColor}"
+            class="aspect-square rounded-sm sm:rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-110 active:scale-95 flex items-center justify-center text-[8px] sm:text-[9px] select-none ${textColor}"
             data-date="${dateStr}"
-            data-dayname="Ngày ${day}/${mIndex + 1}"
+            data-dayname="Ngày ${day}/${idx + 1}"
             data-count="${count}"
             data-label="${info.label}"
             data-badge="${info.badge}"
@@ -1884,302 +1931,356 @@ class App {
       }
 
       return `
-        <div id="month-card-${mIndex + 1}" class="gh-card p-4 rounded-2xl shadow-md flex flex-col scroll-mt-20 transition-all duration-300">
-          <div class="flex items-center justify-between mb-2.5">
-            <h4 class="text-xs font-bold text-slate-200">${mName}</h4>
-            <span class="text-[10px] font-semibold text-emerald-400">${monthActiveDays > 0 ? `${monthActiveDays} ngày học` : ''}</span>
+        <div id="month-card-${idx + 1}" class="gh-card p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-sm flex flex-col scroll-mt-20">
+          <div class="flex items-center justify-between mb-1.5">
+            <button type="button" data-zoom-month="${idx}" class="btn-zoom-month text-xs font-bold text-slate-200 hover:text-indigo-400 transition-colors flex items-center space-x-1" title="Bấm để xem chi tiết tháng ${idx + 1}">
+              <span>${mName}</span>
+              <span class="text-[9px] text-slate-500">🔍</span>
+            </button>
+            <span class="text-[9px] sm:text-[10px] font-semibold text-emerald-400">${monthActiveDays > 0 ? `${monthActiveDays}n` : ''}</span>
           </div>
           
-          <div class="grid grid-cols-7 gap-1.5 text-center text-[9px] font-bold mb-2 text-slate-400 select-none">
+          <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center text-[7px] sm:text-[8px] font-bold mb-1 text-slate-400 select-none">
             <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span class="text-blue-400">T7</span><span class="text-rose-400">CN</span>
           </div>
 
-          <div class="grid grid-cols-7 gap-1.5 flex-1 items-start">
+          <div class="grid grid-cols-7 gap-0.5 sm:gap-1 flex-1 items-start">
             ${cellsHtml}
           </div>
         </div>
       `;
     }).join('');
 
+    // CEFR Stepper Milestones
+    const cefrLevels = [
+      { id: "A1", desc: "Căn bản" },
+      { id: "A2", desc: "Sơ cấp" },
+      { id: "B1", desc: "Trung cấp" },
+      { id: "B2", desc: "Khá" },
+      { id: "C1", desc: "Thành thạo" }
+    ];
+    const levelOrder = { "A1": 0, "A2": 1, "B1": 2, "B2": 3, "C1": 4 };
+    const currentIdx = levelOrder[rankProg.level] ?? 0;
+
     // ==================== RENDER FULL PAGE HTML ====================
     container.innerHTML = `
-      <div class="space-y-6 animate-fade-in max-w-6xl mx-auto">
-        <!-- Top Banner / Title -->
-        <div class="gh-panel rounded-3xl p-6 md:p-8 text-white shadow-2xl relative overflow-hidden">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="space-y-4 sm:space-y-5 animate-fade-in w-full max-w-5xl mx-auto">
+        
+        <!-- 1. TOP HERO BANNER (Gọn gàng, chuẩn Mobile) -->
+        <div class="rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white border border-slate-800 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <div class="inline-flex items-center space-x-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs font-bold text-emerald-400 mb-2">
-                <span>🌱</span>
-                <span>GitHub-Style Discipline Heatmap</span>
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[11px] font-bold text-emerald-400 mb-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>🌱 Kỷ Luật Học Tập</span>
               </div>
-              <h1 class="text-2xl md:text-3xl font-black text-white">Thống Kê Hoạt Động & Kỷ Luật Học Tập</h1>
-              <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                Đo lường sự kiên trì trong 365 ngày qua bảng màu chuẩn GitHub (Level 0 đến Level 4). Kỷ luật mỗi ngày tạo nên nền tảng ngôn ngữ vững chắc.
+              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Kỷ Luật & Thống Kê</h1>
+              <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
+                Đo lường sự kiên trì 365 ngày qua bảng màu chuẩn GitHub (Level 0 - 4).
               </p>
             </div>
 
-            <div class="flex items-center space-x-3">
-              <div class="bg-white/5 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
-                <div class="text-[11px] text-slate-400">Ngày học tích lũy</div>
-                <div class="text-xl font-extrabold text-emerald-400">${totalActiveDaysInYear} ngày</div>
+            <!-- 2 Quick chips stats -->
+            <div class="flex items-center space-x-2 sm:space-x-3 pt-1 sm:pt-0">
+              <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div class="text-[10px] text-slate-400 font-medium">Ngày tích luỹ</div>
+                <div class="text-base sm:text-lg font-black text-emerald-400">${totalActiveDaysInYear} ngày</div>
               </div>
-              <div class="bg-white/5 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/10 text-center">
-                <div class="text-[11px] text-amber-300">Chuỗi hiện tại</div>
-                <div class="text-xl font-extrabold text-amber-400">🔥 ${streak} ngày</div>
+              <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
+                <div class="text-[10px] text-amber-300 font-medium">Chuỗi Streak</div>
+                <div class="text-base sm:text-lg font-black text-amber-400">🔥 ${streak} ngày</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 4 KPI Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 text-center">
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <div class="text-2xl">🔥</div>
-            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${streak} ngày</div>
-            <div class="text-xs text-slate-500 dark:text-slate-400">Chuỗi ngày liên tục</div>
+        <!-- 2. 4 KPI CARDS (2x2 trên Mobile, 4 cột trên Desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+            <div class="text-xl sm:text-2xl">🔥</div>
+            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${streak} ngày</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Chuỗi liên tục</div>
           </div>
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <div class="text-2xl">📚</div>
-            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${learnedCount} từ</div>
-            <div class="text-xs text-slate-500 dark:text-slate-400">Từ vựng đã nạp</div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+            <div class="text-xl sm:text-2xl">📚</div>
+            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${learnedCount} từ</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Vốn từ đã nạp</div>
           </div>
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <div class="text-2xl">🔄</div>
-            <div class="text-xl font-black text-slate-800 dark:text-white mt-1">${reviewCount} lượt</div>
-            <div class="text-xs text-slate-500 dark:text-slate-400">Lượt ôn củng cố</div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+            <div class="text-xl sm:text-2xl">🔄</div>
+            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${reviewCount} lượt</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Lượt ôn củng cố</div>
           </div>
-          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-            <div class="text-2xl">⭐</div>
-            <div class="text-xl font-black text-amber-500 mt-1">${rankProg.currentXP} XP</div>
-            <div class="text-xs text-slate-500 dark:text-slate-400">Điểm kỷ luật tích luỹ</div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+            <div class="text-xl sm:text-2xl">⭐</div>
+            <div class="text-base sm:text-lg font-black text-amber-500 mt-0.5">${rankProg.currentXP} XP</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Điểm kỷ luật</div>
           </div>
         </div>
 
-        <!-- Hành Trình Nâng Hạng (Rank Progression Card) -->
-        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <!-- 3. LỘ TRÌNH THĂNG HẠNG CEFR (Mobile Timeline Stepper) -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-3">
             <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xl">🏆</span>
-                <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                  Lộ Trình Thăng Hạng: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
+              <div class="flex items-center space-x-1.5">
+                <span class="text-base">🏆</span>
+                <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                  Lộ Trình: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
                 </h3>
               </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Yêu cầu tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong>. Càng lên trình độ cao hành trình càng gian nan và đòi hỏi ý chí thép.
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                Tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong> để thăng hạng CEFR.
               </p>
             </div>
-            <div class="text-right">
-              <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
-              <span class="text-xs font-semibold text-slate-400 block">${rankProg.completedDays} / ${rankProg.minDays} ngày (${rankProg.currentXP} / ${rankProg.requiredXP} XP)</span>
+            <div class="text-right shrink-0">
+              <span class="text-xl sm:text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
+              <span class="text-[10px] text-slate-400 font-medium block">${rankProg.completedDays}/${rankProg.minDays} ngày (${rankProg.currentXP}/${rankProg.requiredXP} XP)</span>
             </div>
           </div>
 
-          <!-- Thanh Tiến Trình Lớn -->
-          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 mb-4 overflow-hidden p-0.5 border border-slate-200 dark:border-slate-700">
+          <!-- Thanh Tiến Trình -->
+          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 sm:h-3 mb-4 overflow-hidden p-0.5 border border-slate-200/70 dark:border-slate-700">
             <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-500 relative" style="width: ${rankProg.percent}%">
               <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
             </div>
           </div>
 
-          <!-- 4 Tiers Roadmap -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-bold text-slate-500 dark:text-slate-400 mb-4">
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">A1 ➔ A2</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 15 ngày</div>
+          <!-- CEFR Connected Milestones Stepper -->
+          <div class="relative py-2 px-1 mb-3">
+            <div class="absolute top-1/2 left-4 right-4 -translate-y-1/2 h-1 bg-slate-200 dark:bg-slate-800 -z-0 rounded-full">
+              <div class="h-full bg-gradient-to-r from-emerald-500 to-indigo-600 transition-all duration-500 rounded-full" style="width: ${Math.min(100, Math.max(0, (currentIdx / 4) * 100 + (rankProg.percent / 4)))}%"></div>
             </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'A2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">A2 ➔ B1</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 30 ngày</div>
-            </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B1' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">B1 ➔ B2</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 60 ngày</div>
-            </div>
-            <div class="p-2.5 rounded-xl border ${rankProg.level === 'B2' ? 'border-indigo-500 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200 dark:border-slate-800'}">
-              <div class="text-sm font-extrabold">B2 ➔ C1</div>
-              <div class="text-[11px] opacity-80 mt-0.5">Tối thiểu 90 ngày</div>
+
+            <div class="flex items-center justify-between relative z-10">
+              ${cefrLevels.map((lvl, idx) => {
+                const isPassed = idx < currentIdx;
+                const isCurrent = idx === currentIdx;
+                const isNext = idx === currentIdx + 1;
+                
+                let nodeCircle = '';
+                if (isPassed) {
+                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black shadow-xs">✓</div>`;
+                } else if (isCurrent) {
+                  nodeCircle = `<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black ring-4 ring-indigo-500/25 shadow-md shadow-indigo-500/30 animate-pulse">${lvl.id}</div>`;
+                } else if (isNext) {
+                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-900 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-[11px] font-black">${lvl.id}</div>`;
+                } else {
+                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[10px] font-bold">${lvl.id}</div>`;
+                }
+
+                return `
+                  <div class="flex flex-col items-center">
+                    ${nodeCircle}
+                    <span class="text-[10px] font-bold mt-1 ${isCurrent ? 'text-indigo-600 dark:text-indigo-400 font-black' : isPassed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}">${lvl.id}</span>
+                  </div>
+                `;
+              }).join('')}
             </div>
           </div>
 
           <!-- Quy tắc kỷ luật -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div class="p-3 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-start space-x-2">
-              <span>📈</span>
-              <div><strong>Tăng tốc kỷ luật:</strong> Hoàn thành 1 ngày đầy đủ (Review + 10 từ mới) $\rightarrow$ <strong>+1 ngày tiến độ (+25 XP)</strong>.</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="p-2.5 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-center space-x-2">
+              <span class="text-base shrink-0">📈</span>
+              <div class="text-[11px]"><strong>Tăng tốc:</strong> Học đủ ngày ➔ <strong>+1 ngày (+25 XP)</strong>.</div>
             </div>
-            <div class="p-3 bg-rose-50/70 dark:bg-rose-950/40 rounded-xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-start space-x-2">
-              <span>⚠️</span>
-              <div><strong>Hình phạt tụt hạng x2:</strong> Bỏ quên 1 ngày học hoặc loose streak $\rightarrow$ <strong>-2 ngày tiến độ (-50 XP/ngày)</strong>!</div>
+            <div class="p-2.5 bg-rose-50/70 dark:bg-rose-950/40 rounded-xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-center space-x-2">
+              <span class="text-base shrink-0">⚠️</span>
+              <div class="text-[11px]"><strong>Phạt x2:</strong> Bỏ ngày / Đứt streak ➔ <strong>-50 XP/ngày</strong>.</div>
             </div>
           </div>
         </div>
 
-        <!-- 🌟 YEARLY ACTIVITY HEATMAP (CHUẨN 12 THÁNG & GITHUB GREENS) 🌟 -->
-        <div class="space-y-4">
+        <!-- 4. 🌟 YEARLY DISCIPLINE HEATMAP ENGINE (Chuẩn Mobile & GitHub) 🌟 -->
+        <div class="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#0b1120] text-white border border-[#1e293b] shadow-xl space-y-4">
+          
           <!-- Controls Header -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div class="flex items-center space-x-3">
-              <span class="text-xl">🟩</span>
-              <div>
-                <div class="flex items-center space-x-2">
-                  <h3 class="text-lg md:text-xl font-black text-slate-800 dark:text-white">
-                    Yearly Activity & Focus Heatmap
-                  </h3>
-                  <!-- Year Switcher -->
-                  <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded-xl text-xs font-bold">
-                    <button id="btn-heatmap-prev-year" class="px-1 py-0.5 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
-                    <span class="px-1 text-emerald-400 font-black">${year}</span>
-                    <button id="btn-heatmap-next-year" class="px-1 py-0.5 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
-                  </div>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center space-x-2 min-w-0">
+                <span class="text-lg shrink-0">🟩</span>
+                <h3 class="text-sm sm:text-base font-black text-white truncate">
+                  Bảng Hoạt Động (Heatmap)
+                </h3>
+              </div>
+
+              <!-- Year Switcher + Demo Toggle -->
+              <div class="flex items-center space-x-1.5 shrink-0">
+                <div class="inline-flex items-center space-x-1 px-2 py-1 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
+                  <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
+                  <span class="px-1 text-emerald-400 font-black">${year}</span>
+                  <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Đo lường sự kiên trì trong cả năm với thang độ đậm xanh chuẩn GitHub.
-                </p>
+
+                <button id="btn-toggle-demo-heatmap" class="px-2.5 py-1 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'}">
+                  ${this.showDemoHeatmap ? '🔄 Dữ liệu thật' : '🎲 Mẫu (Demo)'}
+                </button>
               </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
-              <!-- View Mode Toggle -->
-              <div class="inline-flex rounded-xl p-1 bg-slate-200 dark:bg-slate-800 text-xs font-bold">
-                <button id="btn-view-12months" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
-                  📅 12 Tháng (Lưới)
-                </button>
-                <button id="btn-view-52weeks" class="px-3 py-1.5 rounded-lg transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-white'}">
-                  📊 52 Tuần (GitHub)
-                </button>
-              </div>
-
-              <!-- Demo Data Toggle -->
-              <button id="btn-toggle-demo-heatmap" class="px-3 py-1.5 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-slate-200'}">
-                ${this.showDemoHeatmap ? '🔄 Xem dữ liệu thật' : '🎲 Xem mẫu (Demo)'}
+            <!-- View Mode Switcher (iOS Segmented Pills) -->
+            <div class="grid grid-cols-3 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-bold">
+              <button id="btn-view-month" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === 'month' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+                📅 Theo Tháng
+              </button>
+              <button id="btn-view-12months" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+                🗺️ Cả Năm
+              </button>
+              <button id="btn-view-52weeks" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+                📊 52 Tuần
               </button>
             </div>
           </div>
 
-          <!-- Inspector Bar (Updated dynamically on hover/tap) -->
-          <div id="heatmap-cell-inspector" class="gh-panel p-3.5 rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div class="flex items-center space-x-2">
-              <span class="text-base">📍</span>
-              <span class="text-slate-400">Rê chuột hoặc chạm vào ô vuông để soi chi tiết:</span>
-              <strong id="inspector-date" class="text-emerald-400 font-bold">Hôm nay (${todayStr})</strong>
+          <!-- Inspector Bar (Chạm vào ô vuông để soi chi tiết) -->
+          <div id="heatmap-cell-inspector" class="p-3 rounded-2xl bg-white/5 border border-white/10 text-xs flex items-center justify-between gap-2 shadow-xs">
+            <div class="flex items-center space-x-2 min-w-0">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>
+              <div class="min-w-0">
+                <div id="inspector-date" class="text-slate-200 font-bold truncate">Hôm nay (${todayStr})</div>
+                <div id="inspector-label" class="text-[10px] text-slate-400 truncate">Chạm vào bất kỳ ô nào để xem chi tiết</div>
+              </div>
             </div>
-            <div class="flex items-center space-x-3">
-              <span id="inspector-count" class="font-bold text-white">Đã nạp: ${wordCountMap[todayStr] || 0} từ</span>
-              <span id="inspector-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
-                ${(wordCountMap[todayStr] || 0) >= 10 ? 'Hoàn thành ngày ✅' : 'Đang học hôm nay ⏳'}
+            <div class="flex items-center space-x-2 shrink-0">
+              <span id="inspector-count" class="font-black text-emerald-400 text-xs">${wordCountMap[todayStr] || 0} từ</span>
+              <span id="inspector-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+                ${(wordCountMap[todayStr] || 0) >= 10 ? 'Đã xong ✅' : 'Đang học ⏳'}
               </span>
             </div>
           </div>
 
-          <!-- Content based on View Mode -->
-          ${this.analyticsViewMode === '12months' ? `
-            <!-- 12-MONTH CALENDAR GRID (EXACT MATCH USER IMAGE 4x3) -->
-            <div class="space-y-4">
-              <!-- iOS Quick-Jump Month Bar (T1 - T12 Carousel for iPhone 12 & 17 Pro Max) -->
-              <div class="block sm:hidden -mx-4 px-4 overflow-x-auto scrollbar-none scroll-snap-x py-1">
-                <div class="flex items-center space-x-2 min-w-max">
-                  <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">Nhảy tháng:</span>
-                  ${monthFullNames.map((_, idx) => `
-                    <button 
-                      type="button" 
-                      data-jump-target="month-card-${idx + 1}"
-                      class="month-jump-pill px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-800/90 active:bg-indigo-600 text-slate-300 active:text-white border border-slate-700/80 shadow-sm"
-                    >
-                      T${idx + 1}
-                    </button>
-                  `).join('')}
+          <!-- DYNAMIC CONTENT THEO CHẾ ĐỘ XEM -->
+          ${this.analyticsViewMode === 'month' ? `
+            <!-- CHẾ ĐỘ 1: THEO THÁNG (TO RÕ, CHUẨN NATIVE MOBILE) -->
+            <div class="space-y-3">
+              <!-- Month Navigator -->
+              <div class="flex items-center justify-between gap-2 p-1.5 rounded-2xl bg-white/5 border border-white/10">
+                <button id="btn-prev-month" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-90 text-slate-300 hover:text-white font-bold text-xs transition-all flex items-center space-x-1" title="Tháng trước">
+                  <span>‹</span>
+                  <span class="hidden sm:inline">Trước</span>
+                </button>
+                <div class="text-center">
+                  <div class="text-sm sm:text-base font-black text-white">
+                    ${currentMonthName}, ${year}
+                  </div>
+                  <div class="text-[10px] sm:text-[11px] font-semibold text-emerald-400">
+                    ${focusedMonthActiveDays > 0 ? `${focusedMonthActiveDays}/${monthTotalDays} ngày học • ${focusedMonthTotalWords} từ đã nạp` : 'Chưa có hoạt động trong tháng này'}
+                  </div>
                 </div>
+                <button id="btn-next-month" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-90 text-slate-300 hover:text-white font-bold text-xs transition-all flex items-center space-x-1" title="Tháng sau">
+                  <span class="hidden sm:inline">Sau</span>
+                  <span>›</span>
+                </button>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                ${monthsHtml}
+              <!-- Quick Month Pills Bar (T1..T12) -->
+              <div class="flex items-center space-x-1.5 overflow-x-auto scrollbar-none py-0.5 no-scrollbar">
+                ${monthFullNames.map((_, idx) => `
+                  <button 
+                    type="button" 
+                    data-month="${idx}"
+                    class="month-select-pill px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 ${idx === mIndex ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/25 ring-2 ring-indigo-400/40' : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 border border-white/5'}"
+                  >
+                    T${idx + 1}
+                  </button>
+                `).join('')}
               </div>
 
-              <!-- Footer with GitHub Standard Legend -->
-              <div class="gh-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
-                <div class="flex items-center space-x-2 text-[11px]">
-                  <span>ℹ️</span>
-                  <span>Độ đậm màu xanh: Level 1 (10 từ) • Level 2 (11-20 từ) • Level 3 (21-30 từ) • Level 4 (>30 từ)</span>
+              <!-- Month Grid (To, đẹp, dễ chạm) -->
+              <div class="p-3 sm:p-4 rounded-2xl bg-[#111a2e] border border-white/10 shadow-lg">
+                <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-bold text-slate-400 mb-2 select-none">
+                  <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span class="text-blue-400">T7</span><span class="text-rose-400">CN</span>
                 </div>
-                <div class="flex items-center space-x-1.5 text-[11px]">
-                  <span class="text-slate-400">Less</span>
-                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-0" title="0 từ"></div>
-                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-1" title="10 từ (Level 1)"></div>
-                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-2" title="11-20 từ (Level 2)"></div>
-                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-3" title="21-30 từ (Level 3)"></div>
-                  <div class="w-[12px] h-[12px] rounded-xs gh-cell-4" title=">30 từ (Level 4)"></div>
-                  <span class="text-slate-400">More</span>
+                <div class="grid grid-cols-7 gap-1 sm:gap-2">
+                  ${monthDayCellsHtml}
                 </div>
               </div>
             </div>
+          ` : this.analyticsViewMode === '12months' ? `
+            <!-- CHẾ ĐỘ 2: CẢ NĂM (LƯỚI 2 CỘT GỌN GÀNG TRÊN MOBILE) -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+                <span>Toàn cảnh 12 tháng năm ${year} (Bấm 🔍 để phóng to tháng):</span>
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+                ${monthsHtml}
+              </div>
+            </div>
           ` : `
-            <!-- AUTHENTIC GITHUB 52-WEEK GRAPH -->
-            <div class="gh-panel rounded-2xl p-5 md:p-6 overflow-x-auto scrollbar-thin shadow-2xl">
-              <div class="min-w-[760px]">
-                <!-- Month Labels Row -->
-                <div class="grid grid-cols-[32px_repeat(53,11px)] gap-[3px] mb-1.5 items-center">
-                  <span></span>
-                  ${monthLabelsHtml}
-                </div>
-
-                <!-- Graph Body: Day labels + 53 columns -->
-                <div class="flex items-start space-x-[3px]">
-                  <div class="w-[32px] grid grid-rows-7 gap-[3px] text-[9px] text-slate-400 font-medium select-none pr-1">
-                    <span class="h-[11px] leading-[11px]"></span>
-                    <span class="h-[11px] leading-[11px]">Mon</span>
-                    <span class="h-[11px] leading-[11px]"></span>
-                    <span class="h-[11px] leading-[11px]">Wed</span>
-                    <span class="h-[11px] leading-[11px]"></span>
-                    <span class="h-[11px] leading-[11px]">Fri</span>
-                    <span class="h-[11px] leading-[11px]"></span>
+            <!-- CHẾ ĐỘ 3: 52 TUẦN CHUẨN GITHUB -->
+            <div class="space-y-2">
+              <div class="sm:hidden text-[11px] text-slate-400 flex items-center space-x-1 px-1">
+                <span>👈👉</span>
+                <span>Vuốt ngang để xem toàn bộ 52 tuần</span>
+              </div>
+              <div class="p-3 sm:p-5 rounded-2xl bg-[#111a2e] border border-white/10 overflow-x-auto scrollbar-thin shadow-xl">
+                <div class="min-w-[680px]">
+                  <div class="grid grid-cols-[32px_repeat(53,11px)] gap-[3px] mb-1.5 items-center">
+                    <span></span>
+                    ${monthLabelsHtml}
                   </div>
 
-                  <div class="flex space-x-[3px]">
-                    ${columnsHtml}
-                  </div>
-                </div>
+                  <div class="flex items-start space-x-[3px]">
+                    <div class="w-[32px] grid grid-rows-7 gap-[3px] text-[9px] text-slate-400 font-medium select-none pr-1">
+                      <span class="h-[11px] leading-[11px]"></span>
+                      <span class="h-[11px] leading-[11px]">Mon</span>
+                      <span class="h-[11px] leading-[11px]"></span>
+                      <span class="h-[11px] leading-[11px]">Wed</span>
+                      <span class="h-[11px] leading-[11px]"></span>
+                      <span class="h-[11px] leading-[11px]">Fri</span>
+                      <span class="h-[11px] leading-[11px]"></span>
+                    </div>
 
-                <!-- Footer: Left description link + Right GitHub legend -->
-                <div class="mt-4 pt-3 border-t border-[#30363d]/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
-                  <div class="flex items-center space-x-2">
-                    <span class="text-slate-400 text-[11px] flex items-center space-x-1 cursor-default">
-                      <span>ℹ️</span>
-                      <span>Level 1 (10 từ) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
-                    </span>
-                  </div>
-
-                  <div class="flex items-center space-x-1.5 text-[11px]">
-                    <span class="text-slate-400">Less</span>
-                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-0" title="0 từ"></div>
-                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-1" title="10 từ (Level 1)"></div>
-                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-2" title="11-20 từ (Level 2)"></div>
-                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-3" title="21-30 từ (Level 3)"></div>
-                    <div class="w-[10px] h-[10px] rounded-[2px] gh-cell-4" title=">30 từ (Level 4)"></div>
-                    <span class="text-slate-400">More</span>
+                    <div class="flex space-x-[3px]">
+                      ${columnsHtml}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           `}
+
+          <!-- Legend Bar (Thang màu chuẩn GitHub) -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10 text-[11px] text-slate-400">
+            <div class="flex items-center space-x-1">
+              <span>Mức độ:</span>
+              <span class="hidden sm:inline">Level 1 (1-10) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
+            </div>
+            <div class="flex items-center space-x-1.5 text-[10px]">
+              <span>Ít</span>
+              <div class="w-3 h-3 rounded-[3px] gh-cell-0" title="0 từ"></div>
+              <div class="w-3 h-3 rounded-[3px] gh-cell-1" title="1-10 từ"></div>
+              <div class="w-3 h-3 rounded-[3px] gh-cell-2" title="11-20 từ"></div>
+              <div class="w-3 h-3 rounded-[3px] gh-cell-3" title="21-30 từ"></div>
+              <div class="w-3 h-3 rounded-[3px] gh-cell-4" title=">30 từ"></div>
+              <span>Nhiều</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Bottom Action Card: Placement Test Retake -->
-        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h4 class="text-sm font-bold text-slate-800 dark:text-white">Muốn Đánh Giá Lại Trình Độ Xuất Phát?</h4>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Làm lại bài kiểm tra Placement Test 10 câu nếu bạn cảm thấy trình độ hiện tại chưa phản ánh đúng thực lực.
+        <!-- 5. BOTTOM ACTION: Làm lại Placement Test -->
+        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="text-left w-full sm:w-auto">
+            <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Muốn Đánh Giá Lại Trình Độ Xuất Phát?</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+              Làm lại bài Placement Test 10 câu để cập nhật lại lộ trình thăng hạng.
             </p>
           </div>
-          <button id="btn-retake-from-analytics" class="px-4 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-xs shadow-sm transition-all whitespace-nowrap">
+          <button id="btn-retake-from-analytics" class="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-xs shadow-xs transition-all whitespace-nowrap active:scale-95">
             🎯 Làm lại bài Placement Test
           </button>
         </div>
+
       </div>
     `;
 
-    // Gắn sự kiện chuyển chế độ xem (12 Tháng vs 52 Tuần)
+    // ==================== EVENT LISTENERS ====================
+    // Chuyển Chế Độ Xem (Month, 12months, 52weeks)
+    container.querySelector('#btn-view-month')?.addEventListener('click', () => {
+      this.analyticsViewMode = 'month';
+      this.renderAnalyticsPage(container);
+    });
+
     container.querySelector('#btn-view-12months')?.addEventListener('click', () => {
       this.analyticsViewMode = '12months';
       this.renderAnalyticsPage(container);
@@ -2190,7 +2291,7 @@ class App {
       this.renderAnalyticsPage(container);
     });
 
-    // Gắn sự kiện chuyển năm
+    // Chuyển năm
     container.querySelector('#btn-heatmap-prev-year')?.addEventListener('click', () => {
       this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) - 1;
       this.renderAnalyticsPage(container);
@@ -2201,32 +2302,55 @@ class App {
       this.renderAnalyticsPage(container);
     });
 
+    // Chuyển tháng trong chế độ month
+    container.querySelector('#btn-prev-month')?.addEventListener('click', () => {
+      if (this.selectedHeatmapMonth > 0) {
+        this.selectedHeatmapMonth--;
+      } else {
+        this.selectedHeatmapMonth = 11;
+        this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) - 1;
+      }
+      this.renderAnalyticsPage(container);
+    });
+
+    container.querySelector('#btn-next-month')?.addEventListener('click', () => {
+      if (this.selectedHeatmapMonth < 11) {
+        this.selectedHeatmapMonth++;
+      } else {
+        this.selectedHeatmapMonth = 0;
+        this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) + 1;
+      }
+      this.renderAnalyticsPage(container);
+    });
+
+    // Quick pills chọn tháng (T1..T12)
+    container.querySelectorAll('.month-select-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.selectedHeatmapMonth = Number(btn.getAttribute('data-month'));
+        this.renderAnalyticsPage(container);
+      });
+    });
+
+    // Zoom từ 12 tháng sang tháng đơn
+    container.querySelectorAll('.btn-zoom-month').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.selectedHeatmapMonth = Number(btn.getAttribute('data-zoom-month'));
+        this.analyticsViewMode = 'month';
+        this.renderAnalyticsPage(container);
+      });
+    });
+
     // Gắn sự kiện chuyển đổi Demo / Dữ liệu thực
     container.querySelector('#btn-toggle-demo-heatmap')?.addEventListener('click', () => {
       this.showDemoHeatmap = !this.showDemoHeatmap;
       this.renderAnalyticsPage(container);
     });
 
-    // Gắn sự kiện chạm nhanh nhảy đến tháng (iOS Month Quick-Jump Carousel)
-    container.querySelectorAll('.month-jump-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-jump-target');
-        const targetEl = document.getElementById(targetId);
-        if (targetEl) {
-          if (window.navigator?.vibrate) window.navigator.vibrate(12);
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          targetEl.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-2', 'ring-offset-slate-900');
-          setTimeout(() => {
-            targetEl.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-2', 'ring-offset-slate-900');
-          }, 1500);
-        }
-      });
-    });
-
-    // Gắn sự kiện Inspector tương tác khi rê chuột hoặc click ô
+    // Inspector cells tương tác khi chạm hoặc rê chuột
     const inspectorDate = container.querySelector('#inspector-date');
     const inspectorCount = container.querySelector('#inspector-count');
     const inspectorBadge = container.querySelector('#inspector-badge');
+    const inspectorLabel = container.querySelector('#inspector-label');
 
     container.querySelectorAll('[data-date]').forEach(cell => {
       const updateInspector = () => {
@@ -2237,15 +2361,16 @@ class App {
         const label = cell.getAttribute('data-label');
         const badge = cell.getAttribute('data-badge');
         if (inspectorDate) inspectorDate.textContent = `${dayName}, ${d}`;
-        if (inspectorCount) inspectorCount.textContent = `Đã nạp: ${cnt} từ`;
+        if (inspectorCount) inspectorCount.textContent = `${cnt} từ đã nạp`;
         if (inspectorBadge) inspectorBadge.textContent = badge || label;
+        if (inspectorLabel) inspectorLabel.textContent = label || '';
       };
 
       cell.addEventListener('mouseenter', updateInspector);
       cell.addEventListener('click', updateInspector);
     });
 
-    // Gắn sự kiện làm lại bài test xếp lớp
+    // Làm lại placement test
     container.querySelector('#btn-retake-from-analytics')?.addEventListener('click', () => {
       if (confirm("Bạn có chắc chắn muốn làm lại bài Placement Test? Cấp bậc CEFR sẽ được đánh giá lại.")) {
         this.switchTab("vocab");
