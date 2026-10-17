@@ -1675,7 +1675,7 @@ class App {
     // Hàm phân loại mức độ kỷ luật theo số từ nạp trong ngày
     const getDisciplineLevel = (count, isFuture) => {
       if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Chưa diễn ra", badge: "Tương lai" };
-      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "0 từ (Chưa học)", badge: "0 từ" };
+      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "0 từ", badge: "0 từ" };
       if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ (Đạt chuẩn)`, badge: `${count} từ` };
       if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ (Tích cực)`, badge: `${count} từ` };
       if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ (Tốt)`, badge: `${count} từ` };
@@ -2216,7 +2216,7 @@ class App {
             <div id="legend-cells-group" class="flex items-center space-x-1.5 text-[10px] shrink-0">
               <span class="text-slate-500 font-medium">Ít</span>
               <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-0 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-white/40 active:scale-95" 
-                   data-text="0 từ (Chưa học)" 
+                   data-text="0 từ" 
                    data-level="0"
                    title="0 từ"></div>
               <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-1 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/60 active:scale-95" 
