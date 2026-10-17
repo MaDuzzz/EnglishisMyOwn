@@ -1862,7 +1862,8 @@ class App {
       const strokeColor = p.isToday ? '#f59e0b' : '#0f172a';
 
       return `
-        <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-date="${p.dayOfWeek}, ${p.day}/${p.month}" data-count="${p.count}" data-passed="${isPassed}">
+        <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-x="${p.x}" data-y="${p.y}" data-tooltip="${p.count} từ • ${p.day}/${p.month}">
+          <title>${p.dayOfWeek}, ${p.day}/${p.month}: ${p.count} từ ${isPassed ? '✅' : ''}</title>
           <circle cx="${p.x}" cy="${p.y}" r="15" fill="transparent" />
           <circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${dotFill}" stroke="${strokeColor}" stroke-width="${strokeW}" class="transition-transform duration-150 pointer-events-none" />
         </g>
@@ -1988,25 +1989,9 @@ class App {
             </div>
           </div>
 
-          <!-- Dynamic Info Bar when hover/tap on data points -->
-          <div id="chart-hover-bar" class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 text-xs flex items-center justify-between transition-all min-h-[38px]">
-            <div class="flex items-center space-x-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span id="chart-hover-date" class="font-bold text-slate-700 dark:text-slate-200">
-                ${lineDays[lineDays.length - 1].dayOfWeek}, ${lineDays[lineDays.length - 1].day}/${lineDays[lineDays.length - 1].month} (Hôm nay)
-              </span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span id="chart-hover-count" class="font-black text-emerald-500">${todayCount} từ đã nạp</span>
-              <span id="chart-hover-status" class="text-[10px] font-bold px-2 py-0.5 rounded-full ${todayCount >= 10 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-200 dark:bg-slate-800 text-slate-500'}">
-                ${todayCount >= 10 ? 'Đạt chuẩn 10 từ ✅' : (todayCount > 0 ? `Chưa đủ (${todayCount}/10 từ) ⏳` : 'Nghỉ (0 từ) ⚪')}
-              </span>
-            </div>
-          </div>
-
           <!-- SVG Chart Area -->
           <div class="relative w-full overflow-hidden text-slate-400">
-            <svg viewBox="0 0 ${svgW} ${svgH}" class="w-full h-40 sm:h-48 overflow-visible">
+            <svg id="vocab-line-chart-svg" viewBox="0 0 ${svgW} ${svgH}" class="w-full h-40 sm:h-48 overflow-visible">
               <defs>
                 <linearGradient id="vocabLineAreaGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stop-color="#10b981" stop-opacity="0.32" />
@@ -2023,9 +2008,6 @@ class App {
               <!-- Y Grid Lines -->
               ${yGridHtml}
 
-              <!-- Benchmark Target 10 words line -->
-              <text x="${svgW - padR}" y="${targetY - 5}" text-anchor="end" font-size="9" fill="#10b981" font-weight="bold" opacity="0.85" class="select-none">🎯 Kỷ luật: 10 từ/ngày</text>
-
               <!-- Gradient Area under curve -->
               <polygon points="${areaStr}" fill="url(#vocabLineAreaGrad)" />
 
@@ -2037,6 +2019,13 @@ class App {
 
               <!-- X Axis Labels -->
               ${xLabelsHtml}
+
+              <!-- Floating Tooltip on Hover / Touch -->
+              <g id="chart-floating-tooltip" class="pointer-events-none opacity-0 transition-opacity duration-150" transform="translate(0, 0)">
+                <rect x="-42" y="-30" width="84" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+                <polygon points="0,-8 -4,-4 4,-4" fill="#0f172a" />
+                <text id="chart-tooltip-text" x="0" y="-15" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#34d399">20 từ • 17/10</text>
+              </g>
             </svg>
           </div>
 
@@ -2206,32 +2195,43 @@ class App {
       });
     });
 
-    // Line Chart: Tương tác khi chạm hoặc rê chuột vào các điểm dữ liệu
-    const chartHoverDate = container.querySelector('#chart-hover-date');
-    const chartHoverCount = container.querySelector('#chart-hover-count');
-    const chartHoverStatus = container.querySelector('#chart-hover-status');
+    // Line Chart: Hiển thị tooltip nổi tinh gọn khi chạm/rê chuột vào các điểm dữ liệu
+    const floatingTooltip = container.querySelector('#chart-floating-tooltip');
+    const tooltipText = container.querySelector('#chart-tooltip-text');
+    const chartSvg = container.querySelector('#vocab-line-chart-svg');
 
     container.querySelectorAll('.chart-point-group').forEach(grp => {
-      const handlePointSelect = () => {
-        const date = grp.getAttribute('data-date');
-        const count = Number(grp.getAttribute('data-count') || 0);
-        const passed = grp.getAttribute('data-passed') === 'true';
-
-        if (chartHoverDate) chartHoverDate.textContent = date;
-        if (chartHoverCount) chartHoverCount.textContent = `${count} từ đã nạp`;
-        if (chartHoverStatus) {
-          chartHoverStatus.textContent = passed ? 'Đạt chuẩn 10 từ ✅' : (count > 0 ? `Chưa đủ (${count}/10 từ) ⏳` : 'Nghỉ (0 từ) ⚪');
-          chartHoverStatus.className = `text-[10px] font-bold px-2 py-0.5 rounded-full ${
-            passed 
-              ? 'bg-emerald-500/10 text-emerald-500' 
-              : (count > 0 ? 'bg-amber-500/10 text-amber-500' : 'bg-slate-200 dark:bg-slate-800 text-slate-500')
-          }`;
+      const showTooltip = () => {
+        const x = Number(grp.getAttribute('data-x'));
+        const y = Number(grp.getAttribute('data-y'));
+        const text = grp.getAttribute('data-tooltip');
+        if (floatingTooltip && tooltipText) {
+          tooltipText.textContent = text;
+          const clampedX = Math.max(45, Math.min(svgW - 45, x));
+          floatingTooltip.setAttribute('transform', `translate(${clampedX}, ${y})`);
+          floatingTooltip.classList.remove('opacity-0');
+          floatingTooltip.classList.add('opacity-100');
         }
       };
 
-      grp.addEventListener('mouseenter', handlePointSelect);
-      grp.addEventListener('click', handlePointSelect);
-      grp.addEventListener('touchstart', handlePointSelect, { passive: true });
+      const hideTooltip = () => {
+        if (floatingTooltip) {
+          floatingTooltip.classList.add('opacity-0');
+          floatingTooltip.classList.remove('opacity-100');
+        }
+      };
+
+      grp.addEventListener('mouseenter', showTooltip);
+      grp.addEventListener('mouseleave', hideTooltip);
+      grp.addEventListener('click', showTooltip);
+      grp.addEventListener('touchstart', showTooltip, { passive: true });
+    });
+
+    chartSvg?.addEventListener('mouseleave', () => {
+      if (floatingTooltip) {
+        floatingTooltip.classList.add('opacity-0');
+        floatingTooltip.classList.remove('opacity-100');
+      }
     });
 
     // Đăng nhập từ banner Guest
