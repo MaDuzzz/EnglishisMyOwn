@@ -112,9 +112,11 @@ export class StateManager {
         this.state.rankXP = Math.max(0, oldXP - penaltyXP);
         this.state.lastPenaltyNotice = `⚠️ Bạn đã bỏ lỡ ${missedDays} ngày! Bị trừ -${penaltyXP} XP (Phạt x2 phần tăng hàng ngày).`;
         this.state.lastPenaltyCheckDate = today;
-        this.state.streak = 0; // Reset streak
       }
     }
+
+    // Tự động tính toán streak chính xác từ lịch sử hoạt động học tập thực tế
+    this.state.streak = this.calculateCurrentStreak();
   }
 
   // Lưu trạng thái: Không dùng localStorage, cập nhật UI và đẩy trực tiếp lên Cloud Firestore
@@ -459,17 +461,54 @@ export class StateManager {
   }
 
   updateStreak() {
+    this.state.streak = this.calculateCurrentStreak();
+  }
+
+  // Tính toán chuỗi ngày học liên tục (Streak) dựa trên dữ liệu thực tế
+  calculateCurrentStreak() {
+    const activeDates = new Set();
+    (this.state.learnedWords || []).forEach(w => {
+      if (w.learnedDate) activeDates.add(w.learnedDate);
+    });
+    if (this.state.lastActiveDate) {
+      activeDates.add(this.state.lastActiveDate);
+    }
+
+    if (activeDates.size === 0) return 0;
+
     const today = this.getTodayString();
     const yesterday = this.getYesterdayString();
-    
-    if (!this.state.lastActiveDate) {
-      this.state.streak = 1;
-    } else if (this.state.lastActiveDate === yesterday) {
-      this.state.streak += 1;
-    } else if (this.state.lastActiveDate !== today) {
-      // Đứt chuỗi streak
-      this.state.streak = 1;
+
+    let checkDateStr;
+    if (activeDates.has(today)) {
+      checkDateStr = today;
+    } else if (activeDates.has(yesterday)) {
+      checkDateStr = yesterday;
+    } else {
+      // Đã bỏ lỡ từ 2 ngày trở lên -> chuỗi bị đứt về 0
+      return 0;
     }
+
+    let streak = 0;
+    const [year, month, day] = checkDateStr.split('-').map(Number);
+    const curr = new Date(year, month - 1, day);
+
+    while (true) {
+      const yyyy = curr.getFullYear();
+      const mm = String(curr.getMonth() + 1).padStart(2, '0');
+      const dd = String(curr.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}-${mm}-${dd}`;
+
+      if (activeDates.has(dateStr)) {
+        streak++;
+        // Lùi về 1 ngày trước đó
+        curr.setDate(curr.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+
+    return streak;
   }
 
   async setUser(user) {
