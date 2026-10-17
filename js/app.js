@@ -118,6 +118,22 @@ class App {
   }
 
   bindGlobalEvents() {
+    // Logo Click -> Tải lại trang (Reload Page)
+    const logoBtn = document.getElementById('btn-header-logo') || document.querySelector('.logo-brand-container');
+    if (logoBtn) {
+      const handleLogoReload = () => {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        window.location.reload();
+      };
+      logoBtn.addEventListener('click', handleLogoReload);
+      logoBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleLogoReload();
+        }
+      });
+    }
+
     // Chuyển Tab (cả Header và iOS Bottom Tab Bar)
     document.querySelectorAll('.nav-tab-btn, .ios-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
