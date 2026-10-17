@@ -310,21 +310,23 @@ export class CoursesEngine {
             <div class="font-bold text-sm">✅ Chính xác!</div>
             <p class="mt-1 leading-relaxed">${q.explanation}</p>
           </div>
-          <button id="btn-next-quiz" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold text-xs shadow transition-all ml-3 flex-shrink-0">
-            Câu tiếp ➔
+          <button id="btn-next-quiz" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center ml-3">
+            <span>Tiếp tục</span>
+            <span class="text-sm">➔</span>
           </button>
         </div>
       `;
     } else {
       feedback.className = "mt-4 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100 text-xs animate-fade-in block";
       feedback.innerHTML = `
-        <div class="flex items-start justify-between">
-          <div>
+        <div class="flex items-center justify-between">
+          <div class="min-w-0 pr-2">
             <div class="font-bold text-sm">❌ Giải thích chi tiết:</div>
             <p class="mt-1 leading-relaxed">${q.explanation}</p>
           </div>
-          <button id="btn-next-quiz" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-bold text-xs shadow transition-all ml-3 flex-shrink-0">
-            Đã hiểu ➔
+          <button id="btn-next-quiz" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center ml-3">
+            <span>Tiếp tục</span>
+            <span class="text-sm">➔</span>
           </button>
         </div>
       `;
