@@ -244,7 +244,7 @@ export class VocabPracticeEngine {
               </div>
 
               <!-- Nút Loa / Âm thanh SVG -->
-              <button id="btn-toggle-audio-status" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
+              <button id="btn-toggle-audio-status" title="${!this.isAudioDisabledForSession ? 'Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)' : 'Bấm để bật âm thanh'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
                 <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                 <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
               </button>
