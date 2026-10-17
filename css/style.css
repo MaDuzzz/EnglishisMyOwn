@@ -182,6 +182,26 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   transition: transform 0.1s ease;
 }
 
+/* Navigation Tab Buttons Contrast Guarantee */
+.nav-tab-btn.bg-indigo-600,
+.nav-tab-btn.bg-indigo-600:hover {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+.nav-tab-btn.bg-indigo-600:hover {
+  background-color: #4338ca !important;
+}
+
+.nav-tab-btn:not(.bg-indigo-600):hover {
+  background-color: rgba(226, 232, 240, 0.85);
+  color: #0f172a !important;
+}
+
+.dark .nav-tab-btn:not(.bg-indigo-600):hover {
+  background-color: rgba(51, 65, 85, 0.65);
+  color: #f8fafc !important;
+}
+
 /* Scroll snap for iPhone carousel / quick month selector */
 .scroll-snap-x {
   scroll-snap-type: x mandatory;

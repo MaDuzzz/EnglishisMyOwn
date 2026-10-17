@@ -403,14 +403,17 @@ class App {
     this.currentTab = tab;
 
     // Highlight active desktop tab
+    const activeNavClasses = ['bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'shadow-md', 'shadow-indigo-500/20'];
+    const inactiveNavClasses = ['text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-700/60', 'hover:text-slate-900', 'dark:hover:text-white', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-700/50', 'hover:bg-slate-100', 'dark:hover:bg-slate-800'];
+
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
       const t = btn.getAttribute('data-tab');
       if (t === tab) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-500/20');
-        btn.classList.remove('text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+        btn.classList.remove(...inactiveNavClasses);
+        btn.classList.add(...activeNavClasses);
       } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-500/20');
-        btn.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+        btn.classList.remove(...activeNavClasses);
+        btn.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-200/70', 'dark:hover:bg-slate-700/60', 'hover:text-slate-900', 'dark:hover:text-white');
       }
     });
 
