@@ -1,8 +1,9 @@
 // ==============================================================================
 // ĐỘNG CƠ LUYỆN TẬP TỪ VỰNG (GIAI ĐOẠN 2 & ÔN TẬP KỶ LUẬT)
 // - Giao diện đồng bộ 100% với Giai đoạn Thẩm thấu (Card bo góc 2rem, max-w-md)
-// - Thanh đếm ngược 10 giây (Tạo áp lực phản xạ) mờ mờ ở mép trên card
+// - Thanh đếm ngược 20 giây (Tạo áp lực phản xạ) mờ mờ ở mép trên card
 // - Logic tính điểm luỹ tiến: Đúng +1 điểm, Sai / Hết giờ -1 điểm
+// - Mục tiêu hoàn thành batch: Mặc định 30 điểm
 // - Hàng đợi thích ứng (Adaptive Re-queue): Từ làm sai được đưa lại vào queue
 //   cho đến khi người học đạt đủ mục tiêu hoàn thành batch
 // - Feedback chuẩn UI/UX: Rõ ràng, không vỡ dòng, chuyển đổi nút mượt mà
@@ -15,11 +16,13 @@ import { VOCAB_BANK } from './data/vocab-bank.js';
 export class VocabPracticeEngine {
   constructor(containerElement, options = {}) {
     this.container = containerElement;
+    this.options = options;
     this.mode = options.mode || "review"; // "review" | "new_batch"
     this.words = options.words || []; // Danh sách object từ VOCAB_BANK
     this.onCompleted = options.onCompleted || (() => {});
     
-    this.targetPoints = Math.max(1, this.words.length || 10);
+    // Mục tiêu hoàn thành batch: Tăng lên 30 điểm giúp kéo dài quá trình ôn luyện & ghi nhớ sâu
+    this.targetPoints = options.targetPoints !== undefined ? options.targetPoints : 30;
     this.progressPoints = 0;
     this.correctCount = 0;
     this.totalAttempts = 0;
@@ -27,9 +30,9 @@ export class VocabPracticeEngine {
     this.currentIndex = 0;
     this.isAudioDisabledForSession = false; // Cờ "Không thể nghe lúc này"
     
-    // Timer 10 giây
+    // Timer 20 giây (thời lượng lý tưởng cho phản xạ, không quá vội)
     this.timerInterval = null;
-    this.timerDuration = 10000; // 10s
+    this.timerDuration = 20000; // 20s
     this.timerStartTime = 0;
     this.isTimerPaused = false;
     this.isAnswerSubmitted = false;
@@ -41,7 +44,7 @@ export class VocabPracticeEngine {
       return;
     }
 
-    this.targetPoints = Math.max(1, this.words.length);
+    this.targetPoints = this.options?.targetPoints !== undefined ? this.options.targetPoints : 30;
     this.progressPoints = 0;
     this.correctCount = 0;
     this.totalAttempts = 0;
@@ -156,8 +159,10 @@ export class VocabPracticeEngine {
 
       if (timerText) {
         timerText.textContent = `⏱️ ${secondsLeft}s`;
-        if (secondsLeft <= 3) {
+        if (secondsLeft <= 5) {
           timerText.className = "text-[11px] font-black font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/30 animate-pulse";
+        } else if (secondsLeft <= 10) {
+          timerText.className = "text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/30";
         } else {
           timerText.className = "text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700";
         }
@@ -262,11 +267,11 @@ export class VocabPracticeEngine {
             </div>
         </div>
 
-        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc 2rem, shadow-xl, có thanh 10s mờ mờ ở mép trên) -->
+        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc 2rem, shadow-xl, có thanh 20s mờ mờ ở mép trên) -->
         <div class="flex-1 flex items-center justify-center w-full min-h-[460px] sm:min-h-[480px] my-auto py-2">
           <div id="active-practice-card" class="relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none">
             
-            <!-- THANH ĐẾM NGƯỢC 10 GIÂY (Mờ mờ ở mép trên cùng của card, rút ngắn dần) -->
+            <!-- THANH ĐẾM NGƯỢC 20 GIÂY (Mờ mờ ở mép trên cùng của card, rút ngắn dần) -->
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-200/30 dark:bg-slate-800/30 overflow-hidden">
               <div id="question-timer-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-[width] duration-75 ease-linear" style="width: 100%"></div>
             </div>
@@ -277,7 +282,7 @@ export class VocabPracticeEngine {
                 <span>${modeTitle}</span>
               </div>
               <span id="timer-text" class="text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
-                ⏱️ 10s
+                ⏱️ 20s
               </span>
             </div>
 
@@ -296,7 +301,7 @@ export class VocabPracticeEngine {
 
     this.bindEvents(item);
 
-    // Kích hoạt Timer 10 giây
+    // Kích hoạt Timer 20 giây
     this.startQuestionTimer(item.word);
 
     // Nếu là Mode 2 và audio đang bật, tự động phát âm ngay
@@ -764,7 +769,7 @@ export class VocabPracticeEngine {
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 10 giây!</span>
+            <span class="text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 20 giây!</span>
             <span class="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
           <span class="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
@@ -814,7 +819,7 @@ export class VocabPracticeEngine {
       this.cleanup();
       this.onCompleted();
     } else {
-      // Tiếp tục câu hỏi hiện tại với 10s mới
+      // Tiếp tục câu hỏi hiện tại với 20s mới
       const currentItem = this.queue[this.currentIndex];
       if (currentItem) {
         this.startQuestionTimer(currentItem.word);
@@ -854,7 +859,7 @@ export class VocabPracticeEngine {
               ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Toàn Bộ Batch 10 Từ Mới!'}
             </h2>
             <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc vượt qua bài luyện tập phản xạ 10s và làm chủ 100% batch từ vựng.'}<br/>
+              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc vượt qua bài luyện tập phản xạ 20s và làm chủ 100% batch từ vựng.'}<br/>
               Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${this.totalAttempts} lượt)
             </p>
 

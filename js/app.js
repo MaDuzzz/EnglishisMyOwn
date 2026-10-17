@@ -1280,6 +1280,7 @@ class App {
             this.vocabEngine = new VocabPracticeEngine(mainContainer, {
               mode: "new_batch",
               words: grp.words,
+              targetPoints: 30,
               onCompleted: () => this.renderVocabDashboard()
             });
             this.vocabEngine.start();
@@ -1380,6 +1381,7 @@ class App {
       this.vocabEngine = new VocabPracticeEngine(mainContainer, {
         mode: "review",
         words: fullWordObjects.length > 0 ? fullWordObjects : VOCAB_BANK.slice(0, 10),
+        targetPoints: 30,
         onCompleted: () => this.renderVocabDashboard()
       });
       this.vocabEngine.start();
@@ -1405,6 +1407,7 @@ class App {
         this.vocabEngine = new VocabPracticeEngine(mainContainer, {
           mode: "new_batch",
           words: acceptedWords,
+          targetPoints: 30,
           onCompleted: () => this.renderVocabDashboard()
         });
         this.vocabEngine.start();

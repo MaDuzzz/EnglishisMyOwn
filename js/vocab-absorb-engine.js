@@ -562,6 +562,7 @@ export class VocabAbsorbEngine {
     const practiceEngine = new VocabPracticeEngine(this.container, {
       mode: "new_batch",
       words: practiceWords,
+      targetPoints: 30,
       onCompleted: () => {
         this.onCompleted();
       }
