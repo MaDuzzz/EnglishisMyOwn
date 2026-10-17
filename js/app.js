@@ -1992,20 +1992,38 @@ class App {
             </div>
           `}
 
-          <!-- Legend Bar (Thang màu mức độ hoàn thành) -->
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10 text-[11px] text-slate-400">
-            <div class="flex items-center space-x-1">
-              <span>Mức độ:</span>
-              <span class="text-[10px] sm:text-[11px] text-slate-400">1–10 từ • 11–20 từ • 21–30 từ • >30 từ</span>
+          <!-- Legend Bar (Thang màu mức độ hoàn thành - Hover/Touch cập nhật text cùng hàng) -->
+          <div class="flex items-center justify-between gap-2 pt-2.5 border-t border-white/10 text-[11px] select-none">
+            <div class="flex items-center space-x-1.5 min-w-0 pr-1">
+              <span class="font-semibold text-slate-400 shrink-0">Mức độ:</span>
+              <span id="legend-dynamic-info" class="text-[11px] font-bold text-slate-300 transition-all duration-150 truncate">
+                Chạm hoặc rê chuột vào ô màu
+              </span>
             </div>
-            <div class="flex items-center space-x-1.5 text-[10px]">
-              <span>Ít</span>
-              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-0" title="0 từ"></div>
-              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-1" title="1-10 từ"></div>
-              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-2" title="11-20 từ"></div>
-              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-3" title="21-30 từ"></div>
-              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-4" title=">30 từ"></div>
-              <span>Nhiều</span>
+
+            <div id="legend-cells-group" class="flex items-center space-x-1.5 text-[10px] shrink-0">
+              <span class="text-slate-500 font-medium">Ít</span>
+              <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-0 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-white/40 active:scale-95" 
+                   data-text="0 từ (Chưa nạp từ vựng)" 
+                   data-level="0"
+                   title="0 từ"></div>
+              <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-1 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/60 active:scale-95" 
+                   data-text="1–10 từ (Đạt chuẩn ngày)" 
+                   data-level="1"
+                   title="1–10 từ"></div>
+              <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-2 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/70 active:scale-95" 
+                   data-text="11–20 từ (Khá)" 
+                   data-level="2"
+                   title="11–20 từ"></div>
+              <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-3 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/80 active:scale-95" 
+                   data-text="21–30 từ (Tốt)" 
+                   data-level="3"
+                   title="21–30 từ"></div>
+              <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-4 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-white/80 active:scale-95" 
+                   data-text=">30 từ (Xuất sắc ✨)" 
+                   data-level="4"
+                   title=">30 từ"></div>
+              <span class="text-slate-500 font-medium">Nhiều</span>
             </div>
           </div>
         </div>
@@ -2127,6 +2145,34 @@ class App {
 
       cell.addEventListener('mouseenter', updateInspector);
       cell.addEventListener('click', updateInspector);
+    });
+
+    // Tương tác hover / touch cho các ô vuông chú thích (Legend)
+    const legendInfoEl = container.querySelector('#legend-dynamic-info');
+    const defaultLegendText = 'Chạm hoặc rê chuột vào ô màu';
+
+    container.querySelectorAll('.legend-cell').forEach(cell => {
+      const showLegendInfo = () => {
+        if (window.navigator?.vibrate) window.navigator.vibrate(6);
+        const text = cell.getAttribute('data-text');
+        const level = Number(cell.getAttribute('data-level'));
+        if (legendInfoEl && text) {
+          legendInfoEl.textContent = text;
+          legendInfoEl.className = 'text-[11px] font-black transition-all duration-150 truncate ' + 
+            (level === 4 ? 'text-teal-300' : level >= 2 ? 'text-emerald-300' : level === 1 ? 'text-emerald-400' : 'text-slate-300');
+        }
+      };
+
+      cell.addEventListener('mouseenter', showLegendInfo);
+      cell.addEventListener('click', showLegendInfo);
+      cell.addEventListener('touchstart', showLegendInfo, { passive: true });
+    });
+
+    container.querySelector('#legend-cells-group')?.addEventListener('mouseleave', () => {
+      if (legendInfoEl) {
+        legendInfoEl.textContent = defaultLegendText;
+        legendInfoEl.className = 'text-[11px] font-bold text-slate-300 transition-all duration-150 truncate';
+      }
     });
 
     // Làm lại placement test
