@@ -1737,18 +1737,13 @@ class App {
         ? 'ring-2 ring-amber-400/90 ring-offset-2 ring-offset-[#0b1120] shadow-md shadow-amber-400/20' 
         : '';
 
-      const isHighLevel = info.level >= 3;
-      const textColor = isHighLevel 
-        ? 'text-slate-950 font-black' 
-        : (count > 0 ? 'text-white font-extrabold' : 'text-slate-400 font-semibold');
-
-      const countColor = isHighLevel
-        ? 'text-emerald-950 font-black'
-        : 'text-emerald-200 font-extrabold';
+      const textColor = count > 0 
+        ? 'text-white font-bold' 
+        : (isToday ? 'text-amber-300 font-bold' : 'text-slate-400 font-semibold');
 
       monthDayCellsHtml += `
         <div 
-          class="aspect-square rounded-xl sm:rounded-2xl transition-all duration-150 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-105 active:scale-95 flex flex-col items-center justify-center p-1 relative select-none"
+          class="aspect-square rounded-xl sm:rounded-2xl transition-all duration-150 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-105 active:scale-95 flex items-center justify-center p-1 relative select-none"
           data-date="${dateStr}"
           data-dayname="Ngày ${day}/${mIndex + 1}"
           data-count="${count}"
@@ -1756,8 +1751,7 @@ class App {
           data-badge="${info.badge}"
           title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
         >
-          <span class="text-xs sm:text-sm ${textColor}">${day}</span>
-          ${count > 0 ? `<span class="text-[9px] sm:text-[10px] leading-tight ${countColor}">${count}</span>` : ''}
+          <span class="text-sm sm:text-base ${textColor}">${day}</span>
         </div>
       `;
     }
@@ -1789,14 +1783,13 @@ class App {
 
         const todayRing = isToday ? 'ring-1 ring-amber-400' : '';
 
-        const isHighLevel = info.level >= 3;
-        const textColor = isHighLevel 
-          ? 'text-slate-950 font-black' 
-          : (count > 0 ? 'text-white font-extrabold' : 'text-slate-400/80 font-medium');
+        const textColor = count > 0 
+          ? 'text-white font-bold' 
+          : (isToday ? 'text-amber-300 font-bold' : 'text-slate-400/80 font-medium');
 
         cellsHtml += `
           <div 
-            class="aspect-square rounded-sm sm:rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-110 active:scale-95 flex items-center justify-center text-[8px] sm:text-[9px] select-none ${textColor}"
+            class="aspect-square rounded-sm sm:rounded-md transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-110 active:scale-95 flex items-center justify-center text-[9px] sm:text-[10px] select-none ${textColor}"
             data-date="${dateStr}"
             data-dayname="Ngày ${day}/${idx + 1}"
             data-count="${count}"

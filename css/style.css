@@ -99,21 +99,21 @@
 }
 
 .gh-cell-2 {
-  background: linear-gradient(145deg, #047857 0%, #10b981 100%);
+  background: linear-gradient(145deg, #047857 0%, #059669 100%);
   border: 1px solid rgba(110, 231, 183, 0.45);
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .gh-cell-3 {
-  background: linear-gradient(145deg, #10b981 0%, #34d399 100%);
-  border: 1px solid rgba(167, 243, 208, 0.6);
-  box-shadow: 0 3px 12px rgba(16, 185, 129, 0.38);
+  background: linear-gradient(145deg, #059669 0%, #10b981 100%);
+  border: 1px solid rgba(167, 243, 208, 0.55);
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35);
 }
 
 .gh-cell-4 {
-  background: linear-gradient(145deg, #34d399 0%, #2dd4bf 50%, #6ee7b7 100%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 16px rgba(45, 212, 191, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(145deg, #0d9488 0%, #10b981 50%, #059669 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 /* Glassmorphism helpers */
