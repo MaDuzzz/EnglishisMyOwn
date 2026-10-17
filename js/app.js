@@ -1634,61 +1634,12 @@ class App {
   renderAnalyticsPage(container) {
     if (!container) return;
 
-    // Kiểm tra 1: Yêu cầu đăng nhập Google để tải dữ liệu từ Cloud Firestore
-    if (!appState.state.user) {
-      container.innerHTML = `
-        <div class="w-full max-w-md mx-auto my-auto text-center py-8 px-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl animate-fade-in flex flex-col items-center justify-center">
-          <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm text-indigo-600 dark:text-indigo-400">
-            📊
-          </div>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-2">Đăng Nhập Để Xem Thống Kê</h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs mx-auto leading-relaxed">
-            Lịch sử học tập, chuỗi streak và Heatmap cả năm được lưu trữ an toàn trên <strong>Cloud Firestore</strong>.
-          </p>
-          <button id="btn-login-from-analytics" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-2.5">
-            <svg class="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-            </svg>
-            <span>Đăng nhập với Google</span>
-          </button>
-        </div>
-      `;
-      container.querySelector('#btn-login-from-analytics')?.addEventListener('click', () => {
-        this.handleAuthClick();
-      });
-      return;
+    // Nếu là khách chưa đăng nhập, kích hoạt chế độ Demo để khách vẫn trải nghiệm được Bảng Nhiệt Kỷ Luật
+    const isGuest = !appState.state.user;
+    if (isGuest && this.showDemoHeatmap === undefined) {
+      this.showDemoHeatmap = true;
     }
 
-    if (!appState.state.cefrLevel) {
-      container.innerHTML = `
-        <div class="w-full max-w-md mx-auto my-auto text-center py-6 px-4 animate-fade-in flex flex-col items-center justify-center">
-          <div class="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/60 flex items-center justify-center text-3xl mb-4 shadow-sm">
-            📊
-          </div>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-2">Chưa Có Dữ Liệu Xếp Lớp</h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-xs mx-auto leading-relaxed">
-            Hoàn thành bài đánh giá năng lực CEFR 10 câu để mở khóa bảng thống kê và lộ trình thăng hạng.
-          </p>
-          <button id="btn-start-placement-from-analytics" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-500/25 active:scale-[0.98] transition-all">
-            🚀 Bắt đầu bài Test Xếp Lớp (10 câu)
-          </button>
-        </div>
-      `;
-      container.querySelector('#btn-start-placement-from-analytics')?.addEventListener('click', () => {
-        this.switchTab("vocab");
-        this.startPlacementTest();
-      });
-      return;
-    }
-
-    const rankProg = appState.getRankProgress();
-    const streak = appState.state.streak || 0;
-    const learnedCount = appState.state.learnedWords.length;
-    const reviewCount = appState.state.learnedWords.reduce((sum, w) => sum + (w.reviewCount || 0), 0);
-    const discipline = appState.calculateDisciplineStatus();
     const year = this.selectedHeatmapYear || new Date().getFullYear();
 
     // Map đếm số từ nạp theo từng ngày (YYYY-MM-DD -> count)
@@ -1699,27 +1650,27 @@ class App {
       }
     });
 
-    // Dữ liệu mẫu (Demo) mô phỏng chính xác Tháng 9 & Tháng 10 như ảnh người dùng cung cấp
+    // Dữ liệu mẫu (Demo) mô phỏng chuỗi học tập đẹp mắt trên Heatmap
     if (this.showDemoHeatmap) {
       const demoYear = year;
       // Dữ liệu mẫu Tháng 9
-      wordCountMap[`${demoYear}-09-21`] = 25; // Level 3
-      wordCountMap[`${demoYear}-09-28`] = 18; // Level 2
-      wordCountMap[`${demoYear}-09-29`] = 35; // Level 4
-      wordCountMap[`${demoYear}-09-30`] = 32; // Level 4
+      wordCountMap[`${demoYear}-09-21`] = 25;
+      wordCountMap[`${demoYear}-09-28`] = 18;
+      wordCountMap[`${demoYear}-09-29`] = 35;
+      wordCountMap[`${demoYear}-09-30`] = 32;
 
       // Dữ liệu mẫu Tháng 10
-      wordCountMap[`${demoYear}-10-01`] = 25; // Level 3
-      wordCountMap[`${demoYear}-10-02`] = 35; // Level 4
-      wordCountMap[`${demoYear}-10-03`] = 15; // Level 2
-      wordCountMap[`${demoYear}-10-04`] = 35; // Level 4
-      wordCountMap[`${demoYear}-10-05`] = 32; // Level 4
-      wordCountMap[`${demoYear}-10-06`] = 25; // Level 3
-      wordCountMap[`${demoYear}-10-07`] = 15; // Level 2
-      wordCountMap[`${demoYear}-10-08`] = 40; // Level 4
-      wordCountMap[`${demoYear}-10-11`] = 35; // Level 4
-      wordCountMap[`${demoYear}-10-12`] = 25; // Level 3
-      wordCountMap[`${demoYear}-10-18`] = 35; // Level 4
+      wordCountMap[`${demoYear}-10-01`] = 25;
+      wordCountMap[`${demoYear}-10-02`] = 35;
+      wordCountMap[`${demoYear}-10-03`] = 15;
+      wordCountMap[`${demoYear}-10-04`] = 35;
+      wordCountMap[`${demoYear}-10-05`] = 32;
+      wordCountMap[`${demoYear}-10-06`] = 25;
+      wordCountMap[`${demoYear}-10-07`] = 15;
+      wordCountMap[`${demoYear}-10-08`] = 40;
+      wordCountMap[`${demoYear}-10-11`] = 35;
+      wordCountMap[`${demoYear}-10-12`] = 25;
+      wordCountMap[`${demoYear}-10-18`] = 35;
 
       // Thêm vài ô rải rác ở các tháng khác
       wordCountMap[`${demoYear}-02-14`] = 10;
@@ -1730,79 +1681,31 @@ class App {
 
     const now = new Date();
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const todayCount = wordCountMap[todayStr] || 0;
+    const streak = this.showDemoHeatmap ? 14 : (appState.state.streak || 0);
+
+    // Mảng tên tháng và thứ (Sửa dứt điểm ReferenceError)
+    const monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthFullNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    const dayNames = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
 
     // Hàm phân loại Level màu chuẩn GitHub (Dark to bright green)
     const getGitHubLevel = (count, isFuture) => {
       if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-40", label: "Ngày trong tương lai", badge: "Tương lai" };
-      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Không có từ vựng (0 từ)", badge: "Level 0 (0 từ)" };
-      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Level 1 - Hoàn thành nhiệm vụ)`, badge: `Level 1 (${count} từ)` };
+      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Chưa học từ vựng (0 từ)", badge: "Level 0 (0 từ)" };
+      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Level 1 - Đạt chuẩn ngày)`, badge: `Level 1 (${count} từ)` };
       if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Level 2 - Khá)`, badge: `Level 2 (${count} từ)` };
       if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ vựng (Level 3 - Tốt)`, badge: `Level 3 (${count} từ)` };
       return { level: 4, cellClass: "gh-cell-4", label: `${count} từ vựng (Level 4 - Xuất sắc ✨)`, badge: `Level 4 (${count} từ)` };
     };
 
-    // Đếm tổng số ngày học thực tế
+    // Đếm tổng số ngày học thực tế trong năm đang chọn
     let totalActiveDaysInYear = 0;
     Object.keys(wordCountMap).forEach(d => {
-      if (wordCountMap[d] > 0) totalActiveDaysInYear++;
+      if (d.startsWith(`${year}-`) && wordCountMap[d] > 0) totalActiveDaysInYear++;
     });
 
-    // ==================== 1. XÂY DỰNG BIỂU ĐỒ 52 TUẦN LIÊN TỤC CHUẨN GITHUB ====================
-    const endSaturday = new Date(now);
-    endSaturday.setDate(now.getDate() + (6 - now.getDay())); // Đến Thứ Bảy tuần này
-    const startSunday = new Date(endSaturday);
-    startSunday.setDate(endSaturday.getDate() - (53 * 7 - 1)); // 53 tuần = 371 ngày
-
-    const monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const dayNames = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-
-    // Header tháng cho 53 tuần
-    let monthLabelsHtml = '';
-    let lastMonth = -1;
-    for (let w = 0; w < 53; w++) {
-      const colSunday = new Date(startSunday);
-      colSunday.setDate(startSunday.getDate() + (w * 7));
-      const colMonth = colSunday.getMonth();
-      if (colMonth !== lastMonth && colSunday.getDate() <= 7) {
-        monthLabelsHtml += `<span style="grid-column-start: ${w + 1}" class="text-[10px] text-slate-400 font-medium select-none">${monthShortNames[colMonth]}</span>`;
-        lastMonth = colMonth;
-      }
-    }
-
-    // 53 Cột x 7 Hàng
-    let columnsHtml = '';
-    for (let w = 0; w < 53; w++) {
-      let weekCellsHtml = '';
-      for (let d = 0; d < 7; d++) {
-        const cellDate = new Date(startSunday);
-        cellDate.setDate(startSunday.getDate() + (w * 7 + d));
-        const cYear = cellDate.getFullYear();
-        const cMonth = String(cellDate.getMonth() + 1).padStart(2, '0');
-        const cDay = String(cellDate.getDate()).padStart(2, '0');
-        const dateStr = `${cYear}-${cMonth}-${cDay}`;
-        const isToday = dateStr === todayStr;
-        const isFuture = dateStr > todayStr;
-        const count = wordCountMap[dateStr] || 0;
-        const info = getGitHubLevel(count, isFuture);
-
-        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
-
-        weekCellsHtml += `
-          <div 
-            class="w-[11px] h-[11px] rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
-            data-date="${dateStr}"
-            data-dayname="${dayNames[d]}"
-            data-count="${count}"
-            data-label="${info.label}"
-            data-badge="${info.badge}"
-            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} vào ${dayNames[d]}, ${dateStr}"
-          ></div>
-        `;
-      }
-      columnsHtml += `<div class="grid grid-rows-7 gap-[3px]">${weekCellsHtml}</div>`;
-    }
-
-    // ==================== 1. CHẾ ĐỘ XEM THEO THÁNG (VIEW MODE: 'month' - MOBILE FIRST) ====================
+    // ==================== 1. DỮ LIỆU CHẾ ĐỘ XEM THEO THÁNG (VIEW MODE: 'month' - MOBILE FIRST) ====================
     const mIndex = (this.selectedHeatmapMonth !== undefined) ? this.selectedHeatmapMonth : now.getMonth();
     const currentMonthName = monthFullNames[mIndex];
     const monthFirstDay = new Date(year, mIndex, 1);
@@ -1846,7 +1749,7 @@ class App {
           data-count="${count}"
           data-label="${info.label}"
           data-badge="${info.badge}"
-          title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} (${dateStr})"
+          title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
         >
           <span class="text-xs sm:text-sm font-bold ${textColor}">${day}</span>
           ${count > 0 ? `<span class="text-[9px] sm:text-[10px] leading-tight font-extrabold ${info.level === 4 ? 'text-emerald-950' : 'text-emerald-300'}">${count}</span>` : ''}
@@ -1854,7 +1757,9 @@ class App {
       `;
     }
 
-    // ==================== 2. CHẾ ĐỘ XEM CẢ NĂM (12 THÁNG DẠNG LƯỚI 2 CỘT MOBILE) ====================
+    const monthlyConsistencyRate = Math.round((focusedMonthActiveDays / monthTotalDays) * 100);
+
+    // ==================== 2. DỮ LIỆU CHẾ ĐỘ XEM CẢ NĂM (12 THÁNG DẠNG LƯỚI 2 CỘT MOBILE) ====================
     const monthsHtml = monthFullNames.map((mName, idx) => {
       const firstDay = new Date(year, idx, 1);
       const dayOfWeek = firstDay.getDay();
@@ -1891,7 +1796,7 @@ class App {
             data-count="${count}"
             data-label="${info.label}"
             data-badge="${info.badge}"
-            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Không có từ vựng'} (${dateStr})"
+            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
           >${day}</div>
         `;
       }
@@ -1917,185 +1822,161 @@ class App {
       `;
     }).join('');
 
-    // CEFR Stepper Milestones
-    const cefrLevels = [
-      { id: "A1", desc: "Căn bản" },
-      { id: "A2", desc: "Sơ cấp" },
-      { id: "B1", desc: "Trung cấp" },
-      { id: "B2", desc: "Khá" },
-      { id: "C1", desc: "Thành thạo" }
-    ];
-    const levelOrder = { "A1": 0, "A2": 1, "B1": 2, "B2": 3, "C1": 4 };
-    const currentIdx = levelOrder[rankProg.level] ?? 0;
+    // ==================== 3. XÂY DỰNG BIỂU ĐỒ 52 TUẦN LIÊN TỤC CHUẨN GITHUB ====================
+    const endSaturday = new Date(now);
+    endSaturday.setDate(now.getDate() + (6 - now.getDay())); // Đến Thứ Bảy tuần này
+    const startSunday = new Date(endSaturday);
+    startSunday.setDate(endSaturday.getDate() - (53 * 7 - 1)); // 53 tuần = 371 ngày
+
+    // Header tháng cho 53 tuần
+    let monthLabelsHtml = '';
+    let lastMonth = -1;
+    for (let w = 0; w < 53; w++) {
+      const colSunday = new Date(startSunday);
+      colSunday.setDate(startSunday.getDate() + (w * 7));
+      const colMonth = colSunday.getMonth();
+      if (colMonth !== lastMonth && colSunday.getDate() <= 7) {
+        monthLabelsHtml += `<span style="grid-column-start: ${w + 1}" class="text-[10px] text-slate-400 font-medium select-none">${monthShortNames[colMonth]}</span>`;
+        lastMonth = colMonth;
+      }
+    }
+
+    // 53 Cột x 7 Hàng
+    let columnsHtml = '';
+    for (let w = 0; w < 53; w++) {
+      let weekCellsHtml = '';
+      for (let d = 0; d < 7; d++) {
+        const cellDate = new Date(startSunday);
+        cellDate.setDate(startSunday.getDate() + (w * 7 + d));
+        const cYear = cellDate.getFullYear();
+        const cMonth = String(cellDate.getMonth() + 1).padStart(2, '0');
+        const cDay = String(cellDate.getDate()).padStart(2, '0');
+        const dateStr = `${cYear}-${cMonth}-${cDay}`;
+        const isToday = dateStr === todayStr;
+        const isFuture = dateStr > todayStr;
+        const count = wordCountMap[dateStr] || 0;
+        const info = getGitHubLevel(count, isFuture);
+
+        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
+
+        weekCellsHtml += `
+          <div 
+            class="w-[11px] h-[11px] rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
+            data-date="${dateStr}"
+            data-dayname="${dayNames[d]}"
+            data-count="${count}"
+            data-label="${info.label}"
+            data-badge="${info.badge}"
+            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} vào ${dayNames[d]}, ${dateStr}"
+          ></div>
+        `;
+      }
+      columnsHtml += `<div class="grid grid-rows-7 gap-[3px]">${weekCellsHtml}</div>`;
+    }
 
     // ==================== RENDER FULL PAGE HTML ====================
     container.innerHTML = `
       <div class="space-y-4 sm:space-y-5 animate-fade-in w-full max-w-5xl mx-auto">
         
-        <!-- 1. TOP HERO BANNER (Gọn gàng, chuẩn Mobile) -->
-        <div class="rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white border border-slate-800 shadow-xl relative overflow-hidden">
+        <!-- 0. GUEST CALLOUT (Chỉ hiện khi khách chưa đăng nhập) -->
+        ${isGuest ? `
+          <div class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-r from-indigo-900/80 via-slate-900 to-indigo-950 border border-indigo-500/30 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-base shrink-0">
+                💡
+              </div>
+              <div>
+                <div class="font-bold text-indigo-200">Bạn đang xem Bảng Kỷ Luật mẫu (Demo)</div>
+                <div class="text-[11px] text-slate-300">Đăng nhập Google để lưu giữ chuỗi kỷ luật và lịch sử 365 ngày của bạn trên Cloud Firestore.</div>
+              </div>
+            </div>
+            <button id="btn-login-from-analytics-banner" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shrink-0 transition-all shadow-md active:scale-95 flex items-center justify-center space-x-1.5 self-start sm:self-auto">
+              <svg class="w-4 h-4" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Đăng nhập với Google</span>
+            </button>
+          </div>
+        ` : ''}
+
+        <!-- 1. DISCIPLINE HERO BANNER (Dành riêng cho Kỷ Luật & Thói Quen) -->
+        <div class="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white border border-slate-800 shadow-xl relative overflow-hidden">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[11px] font-bold text-emerald-400 mb-1.5">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-[11px] font-bold text-emerald-400 mb-1">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>🌱 Kỷ Luật Học Tập</span>
+                <span>Bản Đồ Kỷ Luật 365 Ngày</span>
               </div>
-              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Kỷ Luật & Thống Kê</h1>
-              <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">
-                Đo lường sự kiên trì 365 ngày qua bảng màu chuẩn GitHub (Level 0 - 4).
+              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                <span>Bảng Nhiệt Thói Quen</span>
+                <span class="text-[11px] px-2 py-0.5 rounded-md bg-white/10 font-bold text-slate-300">GitHub Heatmap</span>
+              </h1>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Mỗi ô vuông màu xanh đánh dấu một ngày bạn chiến thắng sự trì hoãn và nạp từ vựng.
               </p>
             </div>
 
-            <!-- 2 Quick chips stats -->
-            <div class="flex items-center space-x-2 sm:space-x-3 pt-1 sm:pt-0">
-              <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div class="text-[10px] text-slate-400 font-medium">Ngày tích luỹ</div>
-                <div class="text-base sm:text-lg font-black text-emerald-400">${totalActiveDaysInYear} ngày</div>
+            <!-- Year Switcher + Demo Toggle -->
+            <div class="flex items-center space-x-2 self-start sm:self-center shrink-0">
+              <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
+                <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
+                <span class="px-1.5 text-emerald-400 font-black">${year}</span>
+                <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
               </div>
-              <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-center">
-                <div class="text-[10px] text-amber-300 font-medium">Chuỗi Streak</div>
-                <div class="text-base sm:text-lg font-black text-amber-400">🔥 ${streak} ngày</div>
-              </div>
+
+              <button id="btn-toggle-demo-heatmap" class="px-3 py-1.5 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'}">
+                ${this.showDemoHeatmap ? '🔄 Dữ liệu thật' : '🎲 Mẫu (Demo)'}
+              </button>
             </div>
           </div>
         </div>
 
-        <!-- 2. 4 KPI CARDS (2x2 trên Mobile, 4 cột trên Desktop) -->
+        <!-- 2. 4 THẺ CHỈ SỐ KỶ LUẬT & CHUYÊN CẦN (100% chuyên biệt cho kỷ luật) -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">
-          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
             <div class="text-xl sm:text-2xl">🔥</div>
-            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${streak} ngày</div>
+            <div class="text-base sm:text-lg font-black text-amber-500 mt-0.5">${streak} ngày</div>
             <div class="text-[11px] text-slate-500 dark:text-slate-400">Chuỗi liên tục</div>
           </div>
-          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
-            <div class="text-xl sm:text-2xl">📚</div>
-            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${learnedCount} từ</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400">Vốn từ đã nạp</div>
-          </div>
-          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
-            <div class="text-xl sm:text-2xl">🔄</div>
-            <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-0.5">${reviewCount} lượt</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400">Lượt ôn củng cố</div>
-          </div>
-          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs">
-            <div class="text-xl sm:text-2xl">⭐</div>
-            <div class="text-base sm:text-lg font-black text-amber-500 mt-0.5">${rankProg.currentXP} XP</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400">Điểm kỷ luật</div>
-          </div>
-        </div>
 
-        <!-- 3. LỘ TRÌNH THĂNG HẠNG CEFR (Mobile Timeline Stepper) -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm">
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <div>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-base">🏆</span>
-                <h3 class="text-sm sm:text-base font-black text-slate-900 dark:text-white">
-                  Lộ Trình: ${rankProg.currentLabel} ➔ ${rankProg.nextLabel}
-                </h3>
-              </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                Tối thiểu <strong class="text-indigo-600 dark:text-indigo-400 font-bold">${rankProg.minDays} ngày</strong> để thăng hạng CEFR.
-              </p>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="text-xl sm:text-2xl font-black text-indigo-600 dark:text-indigo-400">${rankProg.percent}%</span>
-              <span class="text-[10px] text-slate-400 font-medium block">${rankProg.completedDays}/${rankProg.minDays} ngày (${rankProg.currentXP}/${rankProg.requiredXP} XP)</span>
-            </div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
+            <div class="text-xl sm:text-2xl">📅</div>
+            <div class="text-base sm:text-lg font-black text-emerald-500 mt-0.5">${totalActiveDaysInYear} ngày</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Ngày học năm ${year}</div>
           </div>
 
-          <!-- Thanh Tiến Trình -->
-          <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 sm:h-3 mb-4 overflow-hidden p-0.5 border border-slate-200/70 dark:border-slate-700">
-            <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-500 relative" style="width: ${rankProg.percent}%">
-              <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
-            </div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
+            <div class="text-xl sm:text-2xl">🎯</div>
+            <div class="text-base sm:text-lg font-black text-indigo-500 mt-0.5">${focusedMonthActiveDays}/${monthTotalDays} ngày</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">${currentMonthName} (${monthlyConsistencyRate}%)</div>
           </div>
 
-          <!-- CEFR Connected Milestones Stepper -->
-          <div class="relative py-2 px-1 mb-3">
-            <div class="absolute top-1/2 left-4 right-4 -translate-y-1/2 h-1 bg-slate-200 dark:bg-slate-800 -z-0 rounded-full">
-              <div class="h-full bg-gradient-to-r from-emerald-500 to-indigo-600 transition-all duration-500 rounded-full" style="width: ${Math.min(100, Math.max(0, (currentIdx / 4) * 100 + (rankProg.percent / 4)))}%"></div>
+          <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
+            <div class="text-xl sm:text-2xl">${todayCount >= 10 ? '✅' : '⏳'}</div>
+            <div class="text-base sm:text-lg font-black ${todayCount >= 10 ? 'text-emerald-500' : 'text-slate-700 dark:text-slate-300'} mt-0.5">
+              ${todayCount >= 10 ? 'Đã đạt 10 từ' : `${todayCount}/10 từ`}
             </div>
-
-            <div class="flex items-center justify-between relative z-10">
-              ${cefrLevels.map((lvl, idx) => {
-                const isPassed = idx < currentIdx;
-                const isCurrent = idx === currentIdx;
-                const isNext = idx === currentIdx + 1;
-                
-                let nodeCircle = '';
-                if (isPassed) {
-                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black shadow-xs">✓</div>`;
-                } else if (isCurrent) {
-                  nodeCircle = `<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black ring-4 ring-indigo-500/25 shadow-md shadow-indigo-500/30 animate-pulse">${lvl.id}</div>`;
-                } else if (isNext) {
-                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-900 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-[11px] font-black">${lvl.id}</div>`;
-                } else {
-                  nodeCircle = `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[10px] font-bold">${lvl.id}</div>`;
-                }
-
-                return `
-                  <div class="flex flex-col items-center">
-                    ${nodeCircle}
-                    <span class="text-[10px] font-bold mt-1 ${isCurrent ? 'text-indigo-600 dark:text-indigo-400 font-black' : isPassed ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}">${lvl.id}</span>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-
-          <!-- Quy tắc kỷ luật -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <div class="p-2.5 bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl border border-emerald-200/80 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 flex items-center space-x-2">
-              <span class="text-base shrink-0">📈</span>
-              <div class="text-[11px]"><strong>Tăng tốc:</strong> Học đủ ngày ➔ <strong>+1 ngày (+25 XP)</strong>.</div>
-            </div>
-            <div class="p-2.5 bg-rose-50/70 dark:bg-rose-950/40 rounded-xl border border-rose-200/80 dark:border-rose-800/60 text-rose-900 dark:text-rose-200 flex items-center space-x-2">
-              <span class="text-base shrink-0">⚠️</span>
-              <div class="text-[11px]"><strong>Phạt x2:</strong> Bỏ ngày / Đứt streak ➔ <strong>-50 XP/ngày</strong>.</div>
-            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Kỷ luật hôm nay</div>
           </div>
         </div>
 
-        <!-- 4. 🌟 YEARLY DISCIPLINE HEATMAP ENGINE (Chuẩn Mobile & GitHub) 🌟 -->
+        <!-- 3. 🌟 BẢNG NHIỆT HOẠT ĐỘNG (HEATMAP ENGINE) 🌟 -->
         <div class="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#0b1120] text-white border border-[#1e293b] shadow-xl space-y-4">
           
-          <!-- Controls Header -->
-          <div class="flex flex-col gap-3">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center space-x-2 min-w-0">
-                <span class="text-lg shrink-0">🟩</span>
-                <h3 class="text-sm sm:text-base font-black text-white truncate">
-                  Bảng Hoạt Động (Heatmap)
-                </h3>
-              </div>
-
-              <!-- Year Switcher + Demo Toggle -->
-              <div class="flex items-center space-x-1.5 shrink-0">
-                <div class="inline-flex items-center space-x-1 px-2 py-1 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
-                  <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
-                  <span class="px-1 text-emerald-400 font-black">${year}</span>
-                  <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
-                </div>
-
-                <button id="btn-toggle-demo-heatmap" class="px-2.5 py-1 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'}">
-                  ${this.showDemoHeatmap ? '🔄 Dữ liệu thật' : '🎲 Mẫu (Demo)'}
-                </button>
-              </div>
-            </div>
-
-            <!-- View Mode Switcher (iOS Segmented Pills) -->
-            <div class="grid grid-cols-3 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-bold">
-              <button id="btn-view-month" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === 'month' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
-                📅 Theo Tháng
-              </button>
-              <button id="btn-view-12months" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
-                🗺️ Cả Năm
-              </button>
-              <button id="btn-view-52weeks" class="py-1.5 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
-                📊 52 Tuần
-              </button>
-            </div>
+          <!-- View Mode Switcher (iOS Segmented Pills) -->
+          <div class="grid grid-cols-3 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-bold">
+            <button id="btn-view-month" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === 'month' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+              📅 Theo Tháng
+            </button>
+            <button id="btn-view-12months" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+              🗺️ Cả Năm
+            </button>
+            <button id="btn-view-52weeks" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+              📊 52 Tuần
+            </button>
           </div>
 
           <!-- Inspector Bar (Chạm vào ô vuông để soi chi tiết) -->
@@ -2210,7 +2091,7 @@ class App {
           <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10 text-[11px] text-slate-400">
             <div class="flex items-center space-x-1">
               <span>Mức độ:</span>
-              <span class="hidden sm:inline">Level 1 (1-10) • Level 2 (11-20) • Level 3 (21-30) • Level 4 (>30 từ)</span>
+              <span class="hidden sm:inline">Level 1 (1-10 từ) • Level 2 (11-20 từ) • Level 3 (21-30 từ) • Level 4 (>30 từ)</span>
             </div>
             <div class="flex items-center space-x-1.5 text-[10px]">
               <span>Ít</span>
@@ -2224,23 +2105,43 @@ class App {
           </div>
         </div>
 
-        <!-- 5. BOTTOM ACTION: Làm lại Placement Test -->
-        <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div class="text-left w-full sm:w-auto">
-            <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Muốn Đánh Giá Lại Trình Độ Xuất Phát?</h4>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Làm lại bài Placement Test 10 câu để cập nhật lại lộ trình thăng hạng.
-            </p>
+        <!-- 4. TRIẾT LÝ KỶ LUẬT (The Discipline Code) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="p-3.5 sm:p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-emerald-900 dark:text-emerald-300 flex items-start space-x-3">
+            <span class="text-2xl shrink-0">🧱</span>
+            <div class="text-xs">
+              <strong class="font-black text-sm block mb-0.5">Sức Mạnh Của 10 Từ / Ngày</strong>
+              Chỉ 10 từ mỗi ngày: 1 tháng bạn tích luỹ 300 từ, 1 năm bạn làm chủ 3,600 từ vựng. Không cần học dồn, quan trọng nhất là sự đều đặn.
+            </div>
           </div>
-          <button id="btn-retake-from-analytics" class="w-full sm:w-auto px-4 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-xs shadow-xs transition-all whitespace-nowrap active:scale-95">
-            🎯 Làm lại bài Placement Test
-          </button>
+          <div class="p-3.5 sm:p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-amber-900 dark:text-amber-300 flex items-start space-x-3">
+            <span class="text-2xl shrink-0">🛡️</span>
+            <div class="text-xs">
+              <strong class="font-black text-sm block mb-0.5">Quy Tắc Không Bỏ 2 Ngày</strong>
+              Cuộc sống có những ngày bận rộn. Nhưng nguyên tắc vàng là không bao giờ để đứt chuỗi 2 ngày liên tiếp để bảo vệ đà tiến bộ.
+            </div>
+          </div>
         </div>
+
+        <!-- 5. FOOTER: Đánh giá lại Level (nếu là user đã đăng nhập) -->
+        ${!isGuest && appState.state.cefrLevel ? `
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs flex items-center justify-between">
+            <span>Cần đánh giá lại trình độ xuất phát CEFR?</span>
+            <button id="btn-retake-from-analytics" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
+              Làm lại Placement Test
+            </button>
+          </div>
+        ` : ''}
 
       </div>
     `;
 
     // ==================== EVENT LISTENERS ====================
+    // Đăng nhập từ banner Guest
+    container.querySelector('#btn-login-from-analytics-banner')?.addEventListener('click', () => {
+      this.handleAuthClick();
+    });
+
     // Chuyển Chế Độ Xem (Month, 12months, 52weeks)
     container.querySelector('#btn-view-month')?.addEventListener('click', () => {
       this.analyticsViewMode = 'month';
