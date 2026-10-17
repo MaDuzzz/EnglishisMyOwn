@@ -34,7 +34,7 @@ class App {
     this.selectedHeatmapYear = new Date().getFullYear();
     this.selectedHeatmapMonth = new Date().getMonth();
     this.analyticsViewMode = "month"; // "month" | "12months"
-    this.analyticsLineRange = 14; // 7 | 14 | 30 ngày cho biểu đồ đường
+    this.analyticsLineRangeMode = "week"; // "week" (cả tuần này) | "month" (từ đầu tháng tới giờ)
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
     this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
@@ -1803,29 +1803,70 @@ class App {
     }).join('');
 
     // ==================== 1.5 DỮ LIỆU BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ (LINE CHART) ====================
-    const lineRange = this.analyticsLineRange || 14;
+    const lineRangeMode = this.analyticsLineRangeMode || 'week'; // 'week' (cả tuần này) | 'month' (từ đầu tháng tới giờ)
     const lineDays = [];
-    for (let i = lineRange - 1; i >= 0; i--) {
-      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const dd = String(d.getDate()).padStart(2, '0');
-      const dStr = `${yyyy}-${mm}-${dd}`;
-      const count = wordCountMap[dStr] || 0;
-      lineDays.push({
-        dateStr: dStr,
-        day: d.getDate(),
-        month: d.getMonth() + 1,
-        dayOfWeek: dayNames[d.getDay()],
-        count: count,
-        isToday: (i === 0)
-      });
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+    if (lineRangeMode === 'week') {
+      // Option 1: "Tuần" -> Hiển thị kết quả của cả tuần này (Thứ Hai -> Chủ Nhật)
+      const currentDayOfWeek = now.getDay(); // 0: CN, 1: T2, ..., 6: T7
+      const diffToMonday = (currentDayOfWeek === 0 ? -6 : 1 - currentDayOfWeek);
+      const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffToMonday);
+      const weekShortLabels = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const dStr = `${yyyy}-${mm}-${dd}`;
+        const dTime = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        const isFuture = dTime > todayStart;
+        const isToday = (dTime === todayStart);
+        const count = isFuture ? 0 : (wordCountMap[dStr] || 0);
+
+        lineDays.push({
+          dateStr: dStr,
+          day: d.getDate(),
+          month: d.getMonth() + 1,
+          dayOfWeek: dayNames[d.getDay()],
+          shortDay: weekShortLabels[i],
+          count: count,
+          isToday: isToday,
+          isFuture: isFuture
+        });
+      }
+    } else {
+      // Option 2: "Tháng" -> Hiển thị kết quả từ đầu tháng tới giờ (Ngày 1 -> Hôm nay)
+      const todayDate = now.getDate();
+      for (let day = 1; day <= todayDate; day++) {
+        const d = new Date(now.getFullYear(), now.getMonth(), day);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const dStr = `${yyyy}-${mm}-${dd}`;
+        const dTime = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        const isToday = (dTime === todayStart);
+        const count = wordCountMap[dStr] || 0;
+
+        lineDays.push({
+          dateStr: dStr,
+          day: day,
+          month: d.getMonth() + 1,
+          dayOfWeek: dayNames[d.getDay()],
+          shortDay: `${day}/${d.getMonth() + 1}`,
+          count: count,
+          isToday: isToday,
+          isFuture: false
+        });
+      }
     }
 
-    const lineTotalWords = lineDays.reduce((acc, cur) => acc + cur.count, 0);
-    const lineAvgWords = (lineTotalWords / lineRange).toFixed(1);
-    const linePassedDays = lineDays.filter(d => d.count >= 10).length;
-    const maxDayCount = Math.max(...lineDays.map(d => d.count), 10);
+    const elapsedDays = lineDays.filter(d => !d.isFuture);
+    const lineTotalWords = elapsedDays.reduce((acc, cur) => acc + cur.count, 0);
+    const lineAvgWords = elapsedDays.length > 0 ? (lineTotalWords / elapsedDays.length).toFixed(1) : 0;
+    const linePassedDays = elapsedDays.filter(d => d.count >= 10).length;
+    const maxDayCount = Math.max(...elapsedDays.map(d => d.count), 10);
     // Để đường biểu đồ có khoảng thở phía trên
     const chartYMax = Math.ceil((maxDayCount * 1.3) / 5) * 5;
 
@@ -1839,7 +1880,11 @@ class App {
     const plotW = svgW - padL - padR;
     const plotH = svgH - padT - padB;
 
-    const getX = (index) => padL + (index * (plotW / (lineRange - 1)));
+    const totalPoints = lineDays.length;
+    const getX = (index) => {
+      if (totalPoints <= 1) return padL + (plotW / 2);
+      return padL + (index * (plotW / (totalPoints - 1)));
+    };
     const getY = (val) => padT + plotH - ((val / chartYMax) * plotH);
 
     const targetY = getY(10);
@@ -1850,8 +1895,17 @@ class App {
       ...d
     }));
 
-    const polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
-    const areaStr = `${points[0].x},${padT + plotH} ${polylineStr} ${points[points.length - 1].x},${padT + plotH}`;
+    let polylineStr = '';
+    let areaStr = '';
+
+    if (points.length === 1) {
+      const p = points[0];
+      polylineStr = `${padL},${p.y} ${padL + plotW},${p.y}`;
+      areaStr = `${padL},${padT + plotH} ${padL},${p.y} ${padL + plotW},${p.y} ${padL + plotW},${padT + plotH}`;
+    } else {
+      polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
+      areaStr = `${points[0].x},${padT + plotH} ${polylineStr} ${points[points.length - 1].x},${padT + plotH}`;
+    }
 
     // Y Grid lines (0, 10, và chartYMax nếu chartYMax > 15)
     const gridYValues = [0, 10];
@@ -1870,15 +1924,28 @@ class App {
 
     const dotsHtml = points.map((p, idx) => {
       const isPassed = p.count >= 10;
-      const dotFill = isPassed ? '#10b981' : (p.count > 0 ? '#6366f1' : '#64748b');
-      const radius = p.isToday ? 4.5 : 3.5;
-      const strokeW = p.isToday ? 2.5 : 1.5;
-      const strokeColor = p.isToday ? '#f59e0b' : '#0f172a';
+      let dotFill = isPassed ? '#10b981' : (p.count > 0 ? '#6366f1' : '#64748b');
+      let radius = p.isToday ? 4.5 : 3.5;
+      let strokeW = p.isToday ? 2.5 : 1.5;
+      let strokeColor = p.isToday ? '#f59e0b' : '#0f172a';
+      let opacity = '1';
+
+      if (p.isFuture) {
+        dotFill = '#334155';
+        radius = 2.5;
+        strokeW = 1;
+        strokeColor = '#1e293b';
+        opacity = '0.45';
+      }
+
+      const tooltipText = p.isFuture 
+        ? `${p.dayOfWeek}, ${p.day}/${p.month}: Chưa diễn ra`
+        : `${p.count} từ • ${p.dayOfWeek}, ${p.day}/${p.month}`;
 
       return `
-        <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-x="${p.x}" data-y="${p.y}" data-tooltip="${p.count} từ • ${p.day}/${p.month}">
-          <title>${p.dayOfWeek}, ${p.day}/${p.month}: ${p.count} từ ${isPassed ? '✅' : ''}</title>
-          <circle cx="${p.x}" cy="${p.y}" r="15" fill="transparent" />
+        <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-x="${p.x}" data-y="${p.y}" data-tooltip="${tooltipText}" opacity="${opacity}">
+          <title>${p.dayOfWeek}, ${p.day}/${p.month}: ${p.isFuture ? 'Chưa diễn ra' : `${p.count} từ ${isPassed ? '✅' : ''}`}</title>
+          <circle cx="${p.x}" cy="${p.y}" r="16" fill="transparent" />
           <circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${dotFill}" stroke="${strokeColor}" stroke-width="${strokeW}" class="transition-transform duration-150 pointer-events-none" />
         </g>
       `;
@@ -1886,13 +1953,33 @@ class App {
 
     const xLabelsHtml = points.map((p, idx) => {
       let showLabel = false;
-      if (lineRange === 7) showLabel = true;
-      else if (lineRange === 14) showLabel = (idx % 2 === 0 || p.isToday);
-      else if (lineRange === 30) showLabel = (idx % 5 === 0 || p.isToday);
+      let text = '';
+
+      if (lineRangeMode === 'week') {
+        // Chế độ Tuần: Hiển thị đủ 7 ngày T2 -> CN
+        showLabel = true;
+        text = p.isToday ? `${p.shortDay} (Nay)` : p.shortDay;
+      } else {
+        // Chế độ Tháng: Hiển thị mốc ngày 1, các mốc cách 5 ngày, và Hôm nay
+        const totalDays = points.length;
+        if (totalDays <= 8) {
+          showLabel = true;
+          text = p.isToday ? 'Nay' : `${p.day}/${p.month}`;
+        } else {
+          const isFirst = (idx === 0);
+          const isEvery5 = (p.day % 5 === 0);
+          const isToday = p.isToday;
+          const nearToday = Math.abs(p.day - now.getDate()) <= 1;
+
+          if (isFirst || isToday || (isEvery5 && !nearToday)) {
+            showLabel = true;
+            text = isToday ? 'Nay' : `${p.day}/${p.month}`;
+          }
+        }
+      }
 
       if (!showLabel) return '';
-      const text = p.isToday ? 'Nay' : `${p.day}/${p.month}`;
-      const textClass = p.isToday ? 'font-black fill-amber-500' : 'font-medium fill-slate-400';
+      const textClass = p.isToday ? 'font-black fill-amber-500' : (p.isFuture ? 'font-normal fill-slate-500' : 'font-medium fill-slate-400');
       return `<text x="${p.x}" y="${svgH - 8}" text-anchor="middle" font-size="9" class="${textClass} select-none">${text}</text>`;
     }).join('');
 
@@ -1995,11 +2082,10 @@ class App {
               </p>
             </div>
 
-            <!-- Range Filter Buttons (7 ngày | 14 ngày | 30 ngày) -->
+            <!-- Range Filter Buttons (Tuần | Tháng) -->
             <div class="flex items-center space-x-1 p-1 bg-slate-100 dark:bg-white/5 rounded-xl text-xs font-bold self-start sm:self-auto border border-slate-200 dark:border-white/10 shrink-0">
-              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 7 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="7">7 ngày</button>
-              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 14 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="14">14 ngày</button>
-              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 30 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="30">30 ngày</button>
+              <button class="btn-line-range px-3 py-1 rounded-lg transition-all ${lineRangeMode === 'week' ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="week">Tuần</button>
+              <button class="btn-line-range px-3 py-1 rounded-lg transition-all ${lineRangeMode === 'month' ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="month">Tháng</button>
             </div>
           </div>
 
@@ -2036,7 +2122,7 @@ class App {
 
               <!-- Floating Tooltip on Hover / Touch -->
               <g id="chart-floating-tooltip" class="pointer-events-none opacity-0 transition-opacity duration-150" transform="translate(0, 0)">
-                <rect x="-42" y="-30" width="84" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+                <rect x="-60" y="-30" width="120" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
                 <polygon points="0,-8 -4,-4 4,-4" fill="#0f172a" />
                 <text id="chart-tooltip-text" x="0" y="-15" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#34d399">20 từ • 17/10</text>
               </g>
@@ -2046,7 +2132,7 @@ class App {
           <!-- Chart Footer Stats -->
           <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-white/10 text-center text-[11px]">
             <div>
-              <span class="text-slate-400">Tổng nạp ${lineRange} ngày:</span>
+              <span class="text-slate-400">Tổng nạp ${lineRangeMode === 'week' ? 'cả tuần này' : 'từ đầu tháng'}:</span>
               <strong class="font-black text-slate-700 dark:text-slate-200 ml-1">${lineTotalWords} từ</strong>
             </div>
             <div>
@@ -2055,7 +2141,7 @@ class App {
             </div>
             <div>
               <span class="text-slate-400">Ngày đạt chuẩn:</span>
-              <strong class="font-black text-indigo-500 ml-1">${linePassedDays}/${lineRange} ngày</strong>
+              <strong class="font-black text-indigo-500 ml-1">${linePassedDays}/${elapsedDays.length} ngày</strong>
             </div>
           </div>
         </div>
@@ -2186,10 +2272,10 @@ class App {
     `;
 
     // ==================== EVENT LISTENERS ====================
-    // Line Chart: Bộ lọc khoảng ngày (7, 14, 30 ngày)
+    // Line Chart: Bộ lọc khoảng ngày (Tuần / Tháng)
     container.querySelectorAll('.btn-line-range').forEach(btn => {
       btn.addEventListener('click', () => {
-        this.analyticsLineRange = Number(btn.getAttribute('data-range')) || 14;
+        this.analyticsLineRangeMode = btn.getAttribute('data-range') || 'week';
         this.renderAnalyticsPage(container);
       });
     });
@@ -2206,7 +2292,7 @@ class App {
         const text = grp.getAttribute('data-tooltip');
         if (floatingTooltip && tooltipText) {
           tooltipText.textContent = text;
-          const clampedX = Math.max(45, Math.min(svgW - 45, x));
+          const clampedX = Math.max(65, Math.min(svgW - 65, x));
           floatingTooltip.setAttribute('transform', `translate(${clampedX}, ${y})`);
           floatingTooltip.classList.remove('opacity-0');
           floatingTooltip.classList.add('opacity-100');
