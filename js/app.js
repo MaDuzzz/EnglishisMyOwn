@@ -34,6 +34,7 @@ class App {
     this.selectedHeatmapYear = new Date().getFullYear();
     this.selectedHeatmapMonth = new Date().getMonth();
     this.analyticsViewMode = "month"; // "month" | "12months"
+    this.analyticsLineRange = 14; // 7 | 14 | 30 ngày cho biểu đồ đường
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
     this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
@@ -1648,6 +1649,9 @@ class App {
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     const todayCount = wordCountMap[todayStr] || 0;
     const streak = appState.state.streak || 0;
+    const maxStreak = typeof appState.calculateMaxStreak === 'function' 
+      ? appState.calculateMaxStreak() 
+      : (appState.state.maxStreak || streak);
 
     // Mảng tên tháng và thứ (Sửa dứt điểm ReferenceError)
     const monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1784,6 +1788,99 @@ class App {
       `;
     }).join('');
 
+    // ==================== 1.5 DỮ LIỆU BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ (LINE CHART) ====================
+    const lineRange = this.analyticsLineRange || 14;
+    const lineDays = [];
+    for (let i = lineRange - 1; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      const dStr = `${yyyy}-${mm}-${dd}`;
+      const count = wordCountMap[dStr] || 0;
+      lineDays.push({
+        dateStr: dStr,
+        day: d.getDate(),
+        month: d.getMonth() + 1,
+        dayOfWeek: dayNames[d.getDay()],
+        count: count,
+        isToday: (i === 0)
+      });
+    }
+
+    const lineTotalWords = lineDays.reduce((acc, cur) => acc + cur.count, 0);
+    const lineAvgWords = (lineTotalWords / lineRange).toFixed(1);
+    const linePassedDays = lineDays.filter(d => d.count >= 10).length;
+    const maxDayCount = Math.max(...lineDays.map(d => d.count), 10);
+    // Để đường biểu đồ có khoảng thở phía trên
+    const chartYMax = Math.ceil((maxDayCount * 1.3) / 5) * 5;
+
+    // Kích thước SVG
+    const svgW = 600;
+    const svgH = 175;
+    const padL = 36;
+    const padR = 20;
+    const padT = 22;
+    const padB = 28;
+    const plotW = svgW - padL - padR;
+    const plotH = svgH - padT - padB;
+
+    const getX = (index) => padL + (index * (plotW / (lineRange - 1)));
+    const getY = (val) => padT + plotH - ((val / chartYMax) * plotH);
+
+    const targetY = getY(10);
+
+    const points = lineDays.map((d, idx) => ({
+      x: Math.round(getX(idx) * 10) / 10,
+      y: Math.round(getY(d.count) * 10) / 10,
+      ...d
+    }));
+
+    const polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
+    const areaStr = `${points[0].x},${padT + plotH} ${polylineStr} ${points[points.length - 1].x},${padT + plotH}`;
+
+    // Y Grid lines (0, 10, và chartYMax nếu chartYMax > 15)
+    const gridYValues = [0, 10];
+    if (chartYMax > 15) {
+      gridYValues.push(chartYMax);
+    }
+
+    const yGridHtml = gridYValues.map(val => {
+      const yPos = getY(val);
+      const isTarget = val === 10;
+      return `
+        <line x1="${padL}" y1="${yPos}" x2="${svgW - padR}" y2="${yPos}" stroke="${isTarget ? '#10b981' : 'currentColor'}" stroke-opacity="${isTarget ? '0.4' : '0.1'}" stroke-dasharray="${isTarget ? '4 4' : 'none'}" stroke-width="${isTarget ? '1.5' : '1'}" />
+        <text x="${padL - 6}" y="${yPos + 3.5}" text-anchor="end" font-size="9" fill="${isTarget ? '#10b981' : 'currentColor'}" class="${isTarget ? 'font-bold' : 'opacity-60'} select-none">${val}</text>
+      `;
+    }).join('');
+
+    const dotsHtml = points.map((p, idx) => {
+      const isPassed = p.count >= 10;
+      const dotFill = isPassed ? '#10b981' : (p.count > 0 ? '#6366f1' : '#64748b');
+      const radius = p.isToday ? 4.5 : 3.5;
+      const strokeW = p.isToday ? 2.5 : 1.5;
+      const strokeColor = p.isToday ? '#f59e0b' : '#0f172a';
+
+      return `
+        <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-date="${p.dayOfWeek}, ${p.day}/${p.month}" data-count="${p.count}" data-passed="${isPassed}">
+          <circle cx="${p.x}" cy="${p.y}" r="15" fill="transparent" />
+          <circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${dotFill}" stroke="${strokeColor}" stroke-width="${strokeW}" class="transition-transform duration-150 pointer-events-none" />
+        </g>
+      `;
+    }).join('');
+
+    const xLabelsHtml = points.map((p, idx) => {
+      let showLabel = false;
+      if (lineRange === 7) showLabel = true;
+      else if (lineRange === 14) showLabel = (idx % 2 === 0 || p.isToday);
+      else if (lineRange === 30) showLabel = (idx % 5 === 0 || p.isToday);
+
+      if (!showLabel) return '';
+      const text = p.isToday ? 'Nay' : `${p.day}/${p.month}`;
+      const textClass = p.isToday ? 'font-black fill-amber-500' : 'font-medium fill-slate-400';
+      return `<text x="${p.x}" y="${svgH - 8}" text-anchor="middle" font-size="9" class="${textClass} select-none">${text}</text>`;
+    }).join('');
+
     // ==================== RENDER FULL PAGE HTML ====================
     container.innerHTML = `
       <div class="space-y-4 sm:space-y-5 animate-fade-in w-full max-w-5xl mx-auto">
@@ -1842,7 +1939,7 @@ class App {
           <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
             <div class="text-xl sm:text-2xl">🔥</div>
             <div class="text-base sm:text-lg font-black text-amber-500 mt-0.5">${streak} ngày</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400">Chuỗi liên tục</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Chuỗi hiện tại</div>
           </div>
 
           <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
@@ -1858,11 +1955,105 @@ class App {
           </div>
 
           <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
-            <div class="text-xl sm:text-2xl">${todayCount >= 10 ? '✅' : '⏳'}</div>
-            <div class="text-base sm:text-lg font-black ${todayCount >= 10 ? 'text-emerald-500' : 'text-slate-700 dark:text-slate-300'} mt-0.5">
-              ${todayCount >= 10 ? 'Đã đạt 10 từ' : `${todayCount}/10 từ`}
+            <div class="text-xl sm:text-2xl">🏆</div>
+            <div class="text-base sm:text-lg font-black text-amber-500 dark:text-amber-400 mt-0.5">${maxStreak} ngày</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">Chuỗi dài nhất</div>
+          </div>
+        </div>
+
+        <!-- 2.5 📈 BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ HÀNG NGÀY (LINE CHART) -->
+        <div class="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3">
+          <!-- Chart Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-base sm:text-lg">📈</span>
+                <h3 class="text-sm sm:text-base font-black text-slate-800 dark:text-white">
+                  Tiến Độ Nạp Từ Hàng Ngày
+                </h3>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${todayCount >= 10 ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'}">
+                  Hôm nay: ${todayCount}/10 từ ${todayCount >= 10 ? '✅' : '⏳'}
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                Đường chuẩn 10 từ/ngày giúp duy trì phong độ và phản xạ từ vựng đều đặn
+              </p>
             </div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400">Kỷ luật hôm nay</div>
+
+            <!-- Range Filter Buttons (7 ngày | 14 ngày | 30 ngày) -->
+            <div class="flex items-center space-x-1 p-1 bg-slate-100 dark:bg-white/5 rounded-xl text-xs font-bold self-start sm:self-auto border border-slate-200 dark:border-white/10 shrink-0">
+              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 7 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="7">7 ngày</button>
+              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 14 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="14">14 ngày</button>
+              <button class="btn-line-range px-2.5 py-1 rounded-lg transition-all ${lineRange === 30 ? 'bg-emerald-500 text-white shadow-xs' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}" data-range="30">30 ngày</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Info Bar when hover/tap on data points -->
+          <div id="chart-hover-bar" class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/10 text-xs flex items-center justify-between transition-all min-h-[38px]">
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="chart-hover-date" class="font-bold text-slate-700 dark:text-slate-200">
+                ${lineDays[lineDays.length - 1].dayOfWeek}, ${lineDays[lineDays.length - 1].day}/${lineDays[lineDays.length - 1].month} (Hôm nay)
+              </span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span id="chart-hover-count" class="font-black text-emerald-500">${todayCount} từ đã nạp</span>
+              <span id="chart-hover-status" class="text-[10px] font-bold px-2 py-0.5 rounded-full ${todayCount >= 10 ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-200 dark:bg-slate-800 text-slate-500'}">
+                ${todayCount >= 10 ? 'Đạt chuẩn 10 từ ✅' : (todayCount > 0 ? `Chưa đủ (${todayCount}/10 từ) ⏳` : 'Nghỉ (0 từ) ⚪')}
+              </span>
+            </div>
+          </div>
+
+          <!-- SVG Chart Area -->
+          <div class="relative w-full overflow-hidden text-slate-400">
+            <svg viewBox="0 0 ${svgW} ${svgH}" class="w-full h-40 sm:h-48 overflow-visible">
+              <defs>
+                <linearGradient id="vocabLineAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#10b981" stop-opacity="0.32" />
+                  <stop offset="85%" stop-color="#10b981" stop-opacity="0.03" />
+                  <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="vocabLineStrokeGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#059669" />
+                  <stop offset="50%" stop-color="#10b981" />
+                  <stop offset="100%" stop-color="#34d399" />
+                </linearGradient>
+              </defs>
+
+              <!-- Y Grid Lines -->
+              ${yGridHtml}
+
+              <!-- Benchmark Target 10 words line -->
+              <text x="${svgW - padR}" y="${targetY - 5}" text-anchor="end" font-size="9" fill="#10b981" font-weight="bold" opacity="0.85" class="select-none">🎯 Kỷ luật: 10 từ/ngày</text>
+
+              <!-- Gradient Area under curve -->
+              <polygon points="${areaStr}" fill="url(#vocabLineAreaGrad)" />
+
+              <!-- Polyline Line -->
+              <polyline points="${polylineStr}" fill="none" stroke="url(#vocabLineStrokeGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+              <!-- Data Dots -->
+              ${dotsHtml}
+
+              <!-- X Axis Labels -->
+              ${xLabelsHtml}
+            </svg>
+          </div>
+
+          <!-- Chart Footer Stats -->
+          <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-white/10 text-center text-[11px]">
+            <div>
+              <span class="text-slate-400">Tổng nạp ${lineRange} ngày:</span>
+              <strong class="font-black text-slate-700 dark:text-slate-200 ml-1">${lineTotalWords} từ</strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Trung bình:</span>
+              <strong class="font-black text-emerald-500 ml-1">${lineAvgWords} từ/ngày</strong>
+            </div>
+            <div>
+              <span class="text-slate-400">Ngày đạt chuẩn:</span>
+              <strong class="font-black text-indigo-500 ml-1">${linePassedDays}/${lineRange} ngày</strong>
+            </div>
           </div>
         </div>
 
@@ -2007,6 +2198,42 @@ class App {
     `;
 
     // ==================== EVENT LISTENERS ====================
+    // Line Chart: Bộ lọc khoảng ngày (7, 14, 30 ngày)
+    container.querySelectorAll('.btn-line-range').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.analyticsLineRange = Number(btn.getAttribute('data-range')) || 14;
+        this.renderAnalyticsPage(container);
+      });
+    });
+
+    // Line Chart: Tương tác khi chạm hoặc rê chuột vào các điểm dữ liệu
+    const chartHoverDate = container.querySelector('#chart-hover-date');
+    const chartHoverCount = container.querySelector('#chart-hover-count');
+    const chartHoverStatus = container.querySelector('#chart-hover-status');
+
+    container.querySelectorAll('.chart-point-group').forEach(grp => {
+      const handlePointSelect = () => {
+        const date = grp.getAttribute('data-date');
+        const count = Number(grp.getAttribute('data-count') || 0);
+        const passed = grp.getAttribute('data-passed') === 'true';
+
+        if (chartHoverDate) chartHoverDate.textContent = date;
+        if (chartHoverCount) chartHoverCount.textContent = `${count} từ đã nạp`;
+        if (chartHoverStatus) {
+          chartHoverStatus.textContent = passed ? 'Đạt chuẩn 10 từ ✅' : (count > 0 ? `Chưa đủ (${count}/10 từ) ⏳` : 'Nghỉ (0 từ) ⚪');
+          chartHoverStatus.className = `text-[10px] font-bold px-2 py-0.5 rounded-full ${
+            passed 
+              ? 'bg-emerald-500/10 text-emerald-500' 
+              : (count > 0 ? 'bg-amber-500/10 text-amber-500' : 'bg-slate-200 dark:bg-slate-800 text-slate-500')
+          }`;
+        }
+      };
+
+      grp.addEventListener('mouseenter', handlePointSelect);
+      grp.addEventListener('click', handlePointSelect);
+      grp.addEventListener('touchstart', handlePointSelect, { passive: true });
+    });
+
     // Đăng nhập từ banner Guest
     container.querySelector('#btn-login-from-analytics-banner')?.addEventListener('click', () => {
       this.handleAuthClick();

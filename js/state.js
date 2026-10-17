@@ -28,6 +28,7 @@ export class StateManager {
       lastPenaltyCheckDate: null, // Ngày kiểm tra phạt gần nhất
       lastPenaltyNotice: null, // Thông báo phạt gần nhất
       streak: 0,
+      maxStreak: 0,
       learnedWords: [], // Array of { wordId, learnedDate, reviewCount, lastReviewedAt }
       dailyReviewDone: false,
       dailyReviewDate: today,
@@ -115,8 +116,9 @@ export class StateManager {
       }
     }
 
-    // Tự động tính toán streak chính xác từ lịch sử hoạt động học tập thực tế
+    // Tự động tính toán streak và kỷ lục maxStreak từ lịch sử hoạt động học tập thực tế
     this.state.streak = this.calculateCurrentStreak();
+    this.state.maxStreak = this.calculateMaxStreak();
   }
 
   // Lưu trạng thái: Không dùng localStorage, cập nhật UI và đẩy trực tiếp lên Cloud Firestore
@@ -462,6 +464,7 @@ export class StateManager {
 
   updateStreak() {
     this.state.streak = this.calculateCurrentStreak();
+    this.state.maxStreak = this.calculateMaxStreak();
   }
 
   // Tính toán chuỗi ngày học liên tục (Streak) dựa trên dữ liệu thực tế
@@ -509,6 +512,53 @@ export class StateManager {
     }
 
     return streak;
+  }
+
+  // Tính toán chuỗi ngày học liên tục dài nhất từ trước đến nay (Kỷ lục chuỗi)
+  calculateMaxStreak() {
+    const activeDates = new Set();
+    (this.state.learnedWords || []).forEach(w => {
+      if (w.learnedDate) activeDates.add(w.learnedDate);
+    });
+    if (this.state.lastActiveDate) {
+      activeDates.add(this.state.lastActiveDate);
+    }
+
+    let calculatedMax = 0;
+    if (activeDates.size > 0) {
+      // Sắp xếp các ngày tăng dần theo thứ tự thời gian
+      const sortedDates = Array.from(activeDates).sort();
+      let currentStreak = 0;
+      let prevDate = null;
+
+      for (const dStr of sortedDates) {
+        const [y, m, d] = dStr.split('-').map(Number);
+        const currentDate = new Date(y, m - 1, d);
+
+        if (!prevDate) {
+          currentStreak = 1;
+        } else {
+          const diffTime = currentDate.getTime() - prevDate.getTime();
+          const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+          if (diffDays === 1) {
+            currentStreak++;
+          } else if (diffDays === 0) {
+            // Cùng 1 ngày
+          } else {
+            currentStreak = 1;
+          }
+        }
+
+        if (currentStreak > calculatedMax) {
+          calculatedMax = currentStreak;
+        }
+        prevDate = currentDate;
+      }
+    }
+
+    const currentStreak = this.calculateCurrentStreak();
+    const storedMax = Number(this.state.maxStreak || 0);
+    return Math.max(calculatedMax, storedMax, currentStreak);
   }
 
   async setUser(user) {
