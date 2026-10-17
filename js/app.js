@@ -2062,22 +2062,7 @@ class App {
             </button>
           </div>
 
-          <!-- Inspector Bar (Chạm vào ô vuông để soi chi tiết) -->
-          <div id="heatmap-cell-inspector" class="p-3 rounded-2xl bg-white/5 border border-white/10 text-xs flex items-center justify-between gap-2 shadow-xs">
-            <div class="flex items-center space-x-2 min-w-0">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>
-              <div class="min-w-0">
-                <div id="inspector-date" class="text-slate-200 font-bold truncate">Hôm nay (${todayStr})</div>
-                <div id="inspector-label" class="text-[10px] text-slate-400 truncate">Chạm vào bất kỳ ô nào để xem chi tiết</div>
-              </div>
-            </div>
-            <div class="flex items-center space-x-2 shrink-0">
-              <span id="inspector-count" class="font-black text-emerald-400 text-xs">${wordCountMap[todayStr] || 0} từ</span>
-              <span id="inspector-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
-                ${(wordCountMap[todayStr] || 0) >= 10 ? 'Đã xong ✅' : 'Đang học ⏳'}
-              </span>
-            </div>
-          </div>
+
 
           <!-- DYNAMIC CONTENT THEO CHẾ ĐỘ XEM -->
           ${this.analyticsViewMode === 'month' ? `
@@ -2294,30 +2279,6 @@ class App {
       });
     });
 
-    // Inspector cells tương tác khi chạm hoặc rê chuột
-    const inspectorDate = container.querySelector('#inspector-date');
-    const inspectorCount = container.querySelector('#inspector-count');
-    const inspectorBadge = container.querySelector('#inspector-badge');
-    const inspectorLabel = container.querySelector('#inspector-label');
-
-    container.querySelectorAll('[data-date]').forEach(cell => {
-      const updateInspector = () => {
-        if (window.navigator?.vibrate) window.navigator.vibrate(8);
-        const d = cell.getAttribute('data-date');
-        const dayName = cell.getAttribute('data-dayname') || '';
-        const cnt = cell.getAttribute('data-count');
-        const label = cell.getAttribute('data-label');
-        const badge = cell.getAttribute('data-badge');
-        if (inspectorDate) inspectorDate.textContent = `${dayName}, ${d}`;
-        if (inspectorCount) inspectorCount.textContent = `${cnt} từ đã nạp`;
-        if (inspectorBadge) inspectorBadge.textContent = badge || label;
-        if (inspectorLabel) inspectorLabel.textContent = label || '';
-      };
-
-      cell.addEventListener('mouseenter', updateInspector);
-      cell.addEventListener('click', updateInspector);
-    });
-
     // Tương tác hover / touch cho các ô vuông chú thích (Legend)
     const legendInfoEl = container.querySelector('#legend-dynamic-info');
     let legendClearTimeout = null;
@@ -2331,6 +2292,24 @@ class App {
         legendInfoEl.innerHTML = '';
       }
     };
+
+    // Calendar cells tương tác hiển thị thông tin tinh gọn tại thanh trạng thái
+    container.querySelectorAll('[data-date]').forEach(cell => {
+      const showCellInfo = () => {
+        if (legendClearTimeout) clearTimeout(legendClearTimeout);
+        if (window.navigator?.vibrate) window.navigator.vibrate(6);
+        const d = cell.getAttribute('data-date');
+        const dayName = cell.getAttribute('data-dayname') || '';
+        const label = cell.getAttribute('data-label') || '';
+        if (legendInfoEl) {
+          legendInfoEl.innerHTML = `<span class="text-emerald-400 font-bold">${dayName} (${d}):</span> <span class="text-slate-200">${label}</span>`;
+        }
+      };
+
+      cell.addEventListener('mouseenter', showCellInfo);
+      cell.addEventListener('mouseleave', clearLegendInfo);
+      cell.addEventListener('click', showCellInfo);
+    });
 
     container.querySelectorAll('.legend-cell').forEach(cell => {
       const showLegendInfo = () => {
