@@ -5,6 +5,7 @@
 // - Logic tính điểm luỹ tiến: Đúng +1 điểm, Sai / Hết giờ -1 điểm
 // - Hàng đợi thích ứng (Adaptive Re-queue): Từ làm sai được đưa lại vào queue
 //   cho đến khi người học đạt đủ mục tiêu hoàn thành batch
+// - Feedback chuẩn UI/UX: Rõ ràng, không vỡ dòng, chuyển đổi nút mượt mà
 // ==============================================================================
 
 import { speechService } from './speech.js';
@@ -31,6 +32,7 @@ export class VocabPracticeEngine {
     this.timerDuration = 10000; // 10s
     this.timerStartTime = 0;
     this.isTimerPaused = false;
+    this.isAnswerSubmitted = false;
   }
 
   start() {
@@ -128,12 +130,13 @@ export class VocabPracticeEngine {
     this.clearQuestionTimer();
     this.timerStartTime = Date.now();
     this.isTimerPaused = false;
+    this.isAnswerSubmitted = false;
 
     const timerBar = this.container.querySelector('#question-timer-bar');
     const timerText = this.container.querySelector('#timer-text');
 
     this.timerInterval = setInterval(() => {
-      if (this.isTimerPaused) return;
+      if (this.isTimerPaused || this.isAnswerSubmitted) return;
 
       const elapsed = Date.now() - this.timerStartTime;
       const remaining = Math.max(0, this.timerDuration - elapsed);
@@ -180,6 +183,7 @@ export class VocabPracticeEngine {
 
   renderCurrentQuestion() {
     this.clearQuestionTimer();
+    this.isAnswerSubmitted = false;
 
     if (this.progressPoints >= this.targetPoints) {
       this.finishSession();
@@ -317,7 +321,7 @@ export class VocabPracticeEngine {
           Gợi ý: ${hint} (${word.word.length} ký tự)
         </div>
 
-        <!-- Ô nhập liệu -->
+        <!-- Ô nhập liệu & Nút kiểm tra -->
         <div class="w-full">
           <input 
             type="text" 
@@ -349,7 +353,7 @@ export class VocabPracticeEngine {
           <p class="text-xs text-slate-400 mt-2">Bấm vào biểu tượng loa để nghe lại</p>
         </div>
 
-        <!-- Ô nhập liệu -->
+        <!-- Ô nhập liệu & Nút kiểm tra -->
         <div class="w-full">
           <input 
             type="text" 
@@ -367,7 +371,7 @@ export class VocabPracticeEngine {
         </div>
 
         <!-- NÚT: KHÔNG THỂ NGHE LÚC NÀY -->
-        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div id="cant-listen-row" class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
           <button id="btn-cant-listen-now" class="text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center mx-auto space-x-1.5 py-1 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             <span>🔇</span>
             <span>Không thể nghe lúc này (Bỏ qua bài nghe)</span>
@@ -444,7 +448,11 @@ export class VocabPracticeEngine {
       inputEl.focus();
       inputEl.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-          this.handleTextAnswer(inputEl.value, item.word);
+          if (this.isAnswerSubmitted) {
+            document.getElementById('btn-next-question')?.click();
+          } else {
+            this.handleTextAnswer(inputEl.value, item.word);
+          }
         }
       });
     }
@@ -487,6 +495,7 @@ export class VocabPracticeEngine {
     const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
     choiceBtns.forEach(btn => {
       btn.addEventListener('click', () => {
+        if (this.isAnswerSubmitted) return;
         const selected = btn.getAttribute('data-option');
         this.handleChoiceAnswer(selected, item.word, btn);
       });
@@ -507,7 +516,7 @@ export class VocabPracticeEngine {
     const feedbackArea = document.getElementById('feedback-area');
     if (feedbackArea) {
       feedbackArea.classList.remove('hidden');
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200 text-sm animate-fade-in block";
       feedbackArea.innerHTML = `
         <div class="flex items-center space-x-2">
           <span class="text-lg">🔇</span>
@@ -522,6 +531,8 @@ export class VocabPracticeEngine {
   }
 
   handleTextAnswer(userInput, word) {
+    if (this.isAnswerSubmitted) return;
+    this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
 
@@ -534,8 +545,10 @@ export class VocabPracticeEngine {
 
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
+    const cantListenRow = document.getElementById('cant-listen-row');
     if (inputEl) inputEl.disabled = true;
-    if (submitBtn) submitBtn.disabled = true;
+    if (submitBtn) submitBtn.classList.add('hidden'); // Ẩn nút kiểm tra cũ để tránh thừa nút
+    if (cantListenRow) cantListenRow.classList.add('hidden');
 
     if (isCorrect) {
       this.correctCount++;
@@ -544,22 +557,26 @@ export class VocabPracticeEngine {
       speechService.speak(word.word);
       if (window.navigator?.vibrate) window.navigator.vibrate(10);
 
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 rounded-2xl p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base text-emerald-600 dark:text-emerald-400">
-              <span>✅ Chính xác!</span>
-              <span class="text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded font-black">+1 điểm</span>
-              <span class="text-xs bg-emerald-200/80 dark:bg-emerald-900/60 px-2 py-0.5 rounded text-emerald-900 dark:text-emerald-100 font-mono">${word.ipa || ""}</span>
-            </div>
-            <p class="mt-1 text-xs opacity-90 truncate sm:whitespace-normal"><strong>Ví dụ:</strong> ${word.example}</p>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Chính xác!</span>
+            <span class="text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
           </div>
-          <button id="btn-next-question" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
-            <span>Tiếp tục</span>
-            <span class="text-sm">➔</span>
-          </button>
+          <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
         </div>
+
+        ${word.example ? `
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            <strong class="text-slate-700 dark:text-slate-200">Ví dụ:</strong> ${word.example}
+          </p>
+        ` : ''}
+
+        <button id="btn-next-question" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 mt-2">
+          <span>Tiếp tục</span>
+          <span class="text-sm">➔</span>
+        </button>
       `;
     } else {
       this.progressPoints = Math.max(0, this.progressPoints - 1);
@@ -575,22 +592,32 @@ export class VocabPracticeEngine {
         id: `q_${word.id}_retry_${Date.now()}`
       });
 
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 rounded-2xl p-4 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
-              <span>❌ Chưa chính xác!</span>
-              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
-            </div>
-            <p class="mt-1 text-xs">Đáp án đúng là: <strong class="text-sm underline font-mono text-rose-950 dark:text-rose-100">${word.word}</strong> (${word.ipa || ""})</p>
-            <p class="mt-0.5 text-xs opacity-90 truncate sm:whitespace-normal"><strong>Ví dụ:</strong> ${word.example}</p>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
+            <span class="text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
-            <span>Tiếp tục</span>
-            <span class="text-sm">➔</span>
-          </button>
+          <span class="text-xs font-mono text-rose-600 dark:text-rose-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
         </div>
+
+        <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
+          <span class="text-slate-500 dark:text-slate-400">Đáp án đúng là:</span>
+          <strong class="text-sm font-mono text-rose-600 dark:text-rose-300 underline decoration-rose-400 decoration-2 ml-1">${word.word}</strong>
+          <span class="text-slate-500 dark:text-slate-400 font-medium ml-1">(${word.meaningVi})</span>
+        </div>
+
+        ${word.example ? `
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed opacity-90">
+            <strong class="text-slate-700 dark:text-slate-200">Ví dụ:</strong> ${word.example}
+          </p>
+        ` : ''}
+
+        <button id="btn-next-question" class="w-full py-3 bg-rose-600 hover:bg-rose-700 active:scale-[0.99] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 mt-2">
+          <span>Tiếp tục</span>
+          <span class="text-sm">➔</span>
+        </button>
       `;
     }
 
@@ -600,6 +627,8 @@ export class VocabPracticeEngine {
   }
 
   handleChoiceAnswer(selectedOption, word, clickedBtn) {
+    if (this.isAnswerSubmitted) return;
+    this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
 
@@ -627,21 +656,24 @@ export class VocabPracticeEngine {
       speechService.speak(word.word);
       if (window.navigator?.vibrate) window.navigator.vibrate(10);
 
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 rounded-2xl p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base text-emerald-600 dark:text-emerald-400">
-              <span>✅ Xuất sắc!</span>
-              <span class="text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded font-black">+1 điểm</span>
-            </div>
-            <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Nhận diện phản xạ từ cực nhanh và chuẩn xác.</p>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Xuất sắc!</span>
+            <span class="text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
           </div>
-          <button id="btn-next-question" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
-            <span>Tiếp tục</span>
-            <span class="text-sm">➔</span>
-          </button>
+          <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
         </div>
+
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          Nhận diện phản xạ từ cực nhanh và chuẩn xác.
+        </p>
+
+        <button id="btn-next-question" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 mt-2">
+          <span>Tiếp tục</span>
+          <span class="text-sm">➔</span>
+        </button>
       `;
     } else {
       this.progressPoints = Math.max(0, this.progressPoints - 1);
@@ -657,21 +689,26 @@ export class VocabPracticeEngine {
         id: `q_${word.id}_retry_${Date.now()}`
       });
 
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 rounded-2xl p-4 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
-              <span>❌ Chưa chính xác!</span>
-              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
-            </div>
-            <p class="mt-0.5 text-xs">Ghi nhớ: <strong>${word.word}</strong> = <strong>${word.meaningVi}</strong></p>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
+            <span class="text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
-            <span>Tiếp tục</span>
-            <span class="text-sm">➔</span>
-          </button>
+          <span class="text-xs font-mono text-rose-600 dark:text-rose-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
         </div>
+
+        <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
+          <span class="text-slate-500 dark:text-slate-400">Ghi nhớ:</span>
+          <strong class="text-sm font-mono text-rose-600 dark:text-rose-300 ml-1">${word.word}</strong>
+          <span class="text-slate-500 dark:text-slate-400 font-medium ml-1">= ${word.meaningVi}</span>
+        </div>
+
+        <button id="btn-next-question" class="w-full py-3 bg-rose-600 hover:bg-rose-700 active:scale-[0.99] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 mt-2">
+          <span>Tiếp tục</span>
+          <span class="text-sm">➔</span>
+        </button>
       `;
     }
 
@@ -681,6 +718,8 @@ export class VocabPracticeEngine {
   }
 
   handleTimeout(word) {
+    if (this.isAnswerSubmitted) return;
+    this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
 
@@ -700,8 +739,10 @@ export class VocabPracticeEngine {
     // Disable tất cả input / nút chọn
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
+    const cantListenRow = document.getElementById('cant-listen-row');
     if (inputEl) inputEl.disabled = true;
-    if (submitBtn) submitBtn.disabled = true;
+    if (submitBtn) submitBtn.classList.add('hidden');
+    if (cantListenRow) cantListenRow.classList.add('hidden');
 
     const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
     choiceBtns.forEach(btn => {
@@ -719,21 +760,26 @@ export class VocabPracticeEngine {
     const feedbackArea = document.getElementById('feedback-area');
     if (feedbackArea) {
       feedbackArea.classList.remove('hidden');
-      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      feedbackArea.className = "mt-4 rounded-2xl p-4 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
-              <span>⏰ Hết 10 giây!</span>
-              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
-            </div>
-            <p class="mt-1 text-xs">Đáp án đúng là: <strong class="underline font-mono text-rose-950 dark:text-rose-100">${word.word}</strong> (${word.meaningVi})</p>
+          <div class="flex items-center space-x-2">
+            <span class="text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 10 giây!</span>
+            <span class="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
-            <span>Tiếp tục</span>
-            <span class="text-sm">➔</span>
-          </button>
+          <span class="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
         </div>
+
+        <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
+          <span class="text-slate-500 dark:text-slate-400">Đáp án đúng là:</span>
+          <strong class="text-sm font-mono text-amber-600 dark:text-amber-300 underline decoration-amber-400 decoration-2 ml-1">${word.word}</strong>
+          <span class="text-slate-500 dark:text-slate-400 font-medium ml-1">(${word.meaningVi})</span>
+        </div>
+
+        <button id="btn-next-question" class="w-full py-3 bg-amber-600 hover:bg-amber-700 active:scale-[0.99] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 mt-2">
+          <span>Tiếp tục</span>
+          <span class="text-sm">➔</span>
+        </button>
       `;
 
       document.getElementById('btn-next-question')?.addEventListener('click', () => {
