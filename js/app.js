@@ -33,7 +33,6 @@ class App {
     this.placementEngine = null;
     this.selectedHeatmapYear = new Date().getFullYear();
     this.selectedHeatmapMonth = new Date().getMonth();
-    this.showDemoHeatmap = false;
     this.analyticsViewMode = "month"; // "month" | "12months"
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
@@ -1634,12 +1633,7 @@ class App {
   renderAnalyticsPage(container) {
     if (!container) return;
 
-    // Nếu là khách chưa đăng nhập, kích hoạt chế độ Demo để khách vẫn trải nghiệm được Bảng Nhiệt Kỷ Luật
     const isGuest = !appState.state.user;
-    if (isGuest && this.showDemoHeatmap === undefined) {
-      this.showDemoHeatmap = true;
-    }
-
     const year = this.selectedHeatmapYear || new Date().getFullYear();
 
     // Map đếm số từ nạp theo từng ngày (YYYY-MM-DD -> count)
@@ -1650,39 +1644,10 @@ class App {
       }
     });
 
-    // Dữ liệu mẫu (Demo) mô phỏng chuỗi học tập đẹp mắt trên Heatmap
-    if (this.showDemoHeatmap) {
-      const demoYear = year;
-      // Dữ liệu mẫu Tháng 9
-      wordCountMap[`${demoYear}-09-21`] = 25;
-      wordCountMap[`${demoYear}-09-28`] = 18;
-      wordCountMap[`${demoYear}-09-29`] = 35;
-      wordCountMap[`${demoYear}-09-30`] = 32;
-
-      // Dữ liệu mẫu Tháng 10
-      wordCountMap[`${demoYear}-10-01`] = 25;
-      wordCountMap[`${demoYear}-10-02`] = 35;
-      wordCountMap[`${demoYear}-10-03`] = 15;
-      wordCountMap[`${demoYear}-10-04`] = 35;
-      wordCountMap[`${demoYear}-10-05`] = 32;
-      wordCountMap[`${demoYear}-10-06`] = 25;
-      wordCountMap[`${demoYear}-10-07`] = 15;
-      wordCountMap[`${demoYear}-10-08`] = 40;
-      wordCountMap[`${demoYear}-10-11`] = 35;
-      wordCountMap[`${demoYear}-10-12`] = 25;
-      wordCountMap[`${demoYear}-10-18`] = 35;
-
-      // Thêm vài ô rải rác ở các tháng khác
-      wordCountMap[`${demoYear}-02-14`] = 10;
-      wordCountMap[`${demoYear}-04-08`] = 15;
-      wordCountMap[`${demoYear}-06-21`] = 10;
-      wordCountMap[`${demoYear}-07-15`] = 25;
-    }
-
     const now = new Date();
     const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     const todayCount = wordCountMap[todayStr] || 0;
-    const streak = this.showDemoHeatmap ? 14 : (appState.state.streak || 0);
+    const streak = appState.state.streak || 0;
 
     // Mảng tên tháng và thứ (Sửa dứt điểm ReferenceError)
     const monthShortNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1803,11 +1768,9 @@ class App {
       return `
         <div id="month-card-${idx + 1}" class="gh-card p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-sm flex flex-col scroll-mt-20">
           <div class="flex items-center justify-between mb-1.5">
-            <button type="button" data-zoom-month="${idx}" class="btn-zoom-month text-xs font-bold text-slate-200 hover:text-indigo-400 transition-colors flex items-center space-x-1" title="Bấm để xem chi tiết tháng ${idx + 1}">
-              <span>${mName}</span>
-              <span class="text-[9px] text-slate-500">🔍</span>
+            <button type="button" data-zoom-month="${idx}" class="btn-zoom-month text-xs font-bold text-slate-200 hover:text-indigo-400 transition-colors" title="Bấm để xem chi tiết ${mName}">
+              ${mName}
             </button>
-            <span class="text-[9px] sm:text-[10px] font-semibold text-emerald-400">${monthActiveDays > 0 ? `${monthActiveDays}n` : ''}</span>
           </div>
           
           <div class="grid grid-cols-7 gap-0.5 sm:gap-1 text-center text-[7px] sm:text-[8px] font-bold mb-1 text-slate-400 select-none">
@@ -1833,7 +1796,7 @@ class App {
                 💡
               </div>
               <div>
-                <div class="font-bold text-indigo-200">Bạn đang xem Bảng Kỷ Luật mẫu (Demo)</div>
+                <div class="font-bold text-indigo-200">Đăng nhập để đồng bộ dữ liệu kỷ luật</div>
                 <div class="text-[11px] text-slate-300">Đăng nhập Google để lưu giữ chuỗi kỷ luật và lịch sử 365 ngày của bạn trên Cloud Firestore.</div>
               </div>
             </div>
@@ -1865,17 +1828,11 @@ class App {
               </p>
             </div>
 
-            <!-- Year Switcher + Demo Toggle -->
-            <div class="flex items-center space-x-2 self-start sm:self-center shrink-0">
-              <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
-                <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
-                <span class="px-1.5 text-emerald-400 font-black">${year}</span>
-                <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
-              </div>
-
-              <button id="btn-toggle-demo-heatmap" class="px-3 py-1.5 text-xs font-bold rounded-xl border transition-all ${this.showDemoHeatmap ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm' : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'}">
-                ${this.showDemoHeatmap ? '🔄 Dữ liệu thật' : '🎲 Mẫu (Demo)'}
-              </button>
+            <!-- Year Switcher -->
+            <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold self-start sm:self-center shrink-0">
+              <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
+              <span class="px-1.5 text-emerald-400 font-black">${year}</span>
+              <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
             </div>
           </div>
         </div>
@@ -1977,7 +1934,7 @@ class App {
             <!-- CHẾ ĐỘ 2: CẢ NĂM (LƯỚI 12 THÁNG GỌN GÀNG TRÊN MOBILE) -->
             <div class="space-y-3">
               <div class="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span>Toàn cảnh 12 tháng năm ${year} (Bấm 🔍 để xem chi tiết tháng):</span>
+                <span>Toàn cảnh 12 tháng năm ${year}</span>
               </div>
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                 ${monthsHtml}
@@ -2108,12 +2065,6 @@ class App {
         this.analyticsViewMode = 'month';
         this.renderAnalyticsPage(container);
       });
-    });
-
-    // Gắn sự kiện chuyển đổi Demo / Dữ liệu thực
-    container.querySelector('#btn-toggle-demo-heatmap')?.addEventListener('click', () => {
-      this.showDemoHeatmap = !this.showDemoHeatmap;
-      this.renderAnalyticsPage(container);
     });
 
     // Inspector cells tương tác khi chạm hoặc rê chuột
