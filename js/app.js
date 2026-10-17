@@ -1425,6 +1425,7 @@ class App {
   }
 
   // ==================== TỪ ĐIỂN / SỔ TAY ĐÃ HỌC ====================
+  // ==================== TỪ ĐIỂN / SỔ TAY ĐÃ HỌC (TỐI ƯU IPHONE 17 PRO MAX) ====================
   renderDictionary(container) {
     const learnedIds = new Set(appState.state.learnedWords.map(w => w.wordId));
     const allGroups = appState.getVocabGroups();
@@ -1432,19 +1433,28 @@ class App {
     let levelFilter = this.dictionaryFilterState?.level || "all";
     let catFilter = this.dictionaryFilterState?.category || "all";
     let activeGroupId = this.dictionaryFilterState?.groupId || null;
+    let currentLimit = 36; // Phân trang 36 từ/lần đảm bảo 120 FPS trên màn hình iPhone 17 Pro Max
 
-    const renderList = (searchKeyword = "") => {
+    const getLevelBadgeClass = (lvl) => {
+      switch (lvl) {
+        case 'A1': return 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20';
+        case 'A2': return 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20';
+        case 'B1': return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20';
+        case 'B2': return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20';
+        default: return 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/20';
+      }
+    };
+
+    const renderList = (searchKeyword = "", resetLimit = true) => {
+      if (resetLimit) {
+        currentLimit = 36;
+      }
+
       let filtered = VOCAB_BANK.filter(w => {
-        // Lọc theo level
         if (levelFilter === "learned" && !learnedIds.has(w.id)) return false;
         if (["A1", "A2", "B1", "B2"].includes(levelFilter) && w.level !== levelFilter) return false;
-
-        // Lọc theo group cụ thể nếu có
         if (activeGroupId && w.groupId !== activeGroupId) return false;
-
-        // Lọc theo category
         if (catFilter !== "all" && w.category !== catFilter) return false;
-
         return true;
       });
 
@@ -1458,19 +1468,20 @@ class App {
       }
 
       const listContainer = document.getElementById('vocab-card-grid');
+      const counterEl = document.getElementById('dict-results-counter');
       const activeGroupBanner = document.getElementById('active-group-banner');
       
       if (activeGroupBanner) {
         if (activeGroupId) {
           const grp = allGroups.find(g => g.groupId === activeGroupId);
-          activeGroupBanner.className = "flex items-center justify-between p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200 text-xs";
+          activeGroupBanner.className = "flex items-center justify-between p-3 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200 text-xs";
           activeGroupBanner.innerHTML = `
-            <div class="flex items-center space-x-2">
-              <span class="text-base">${getGroupIcon(grp?.icon)}</span>
-              <span>Đang lọc theo chủ đề: <strong>${grp?.name || activeGroupId}</strong> (${filtered.length} mục)</span>
+            <div class="flex items-center space-x-2 min-w-0 pr-2">
+              <span class="text-base shrink-0">${getGroupIcon(grp?.icon)}</span>
+              <span class="truncate">Đang lọc theo: <strong>${grp?.name || activeGroupId}</strong> (${filtered.length} mục)</span>
             </div>
-            <button id="btn-clear-group-filter" class="px-2.5 py-1 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 rounded-lg text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors">
-              ✕ Xoá lọc chủ đề
+            <button id="btn-clear-group-filter" class="shrink-0 px-2.5 py-1 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 rounded-xl text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors active:scale-95">
+              ✕ Bỏ lọc
             </button>
           `;
           document.getElementById('btn-clear-group-filter')?.addEventListener('click', () => {
@@ -1484,159 +1495,276 @@ class App {
         }
       }
 
+      if (counterEl) {
+        counterEl.innerHTML = `Hiển thị <strong class="text-slate-900 dark:text-white font-extrabold">${Math.min(currentLimit, filtered.length)}</strong> / ${filtered.length} từ`;
+      }
+
       if (!listContainer) return;
 
       if (filtered.length === 0) {
         listContainer.innerHTML = `
           <div class="col-span-full py-16 text-center text-slate-400">
-            <div class="text-3xl mb-2">🔍</div>
-            <p class="text-sm font-semibold">Không tìm thấy từ vựng hoặc cụm từ phù hợp.</p>
-            <p class="text-xs text-slate-500 mt-1">Hãy thử đổi bộ lọc trình độ, chủ đề hoặc từ khóa tìm kiếm.</p>
+            <div class="text-4xl mb-3">🔍</div>
+            <p class="text-sm sm:text-base font-bold text-slate-700 dark:text-slate-300">Không tìm thấy từ vựng hoặc cụm từ phù hợp.</p>
+            <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Hãy thử đổi bộ lọc trình độ, chủ đề hoặc từ khóa tìm kiếm khác.</p>
           </div>
         `;
         return;
       }
 
-      listContainer.innerHTML = filtered.map(w => {
+      const visibleWords = filtered.slice(0, currentLimit);
+
+      const cardsHtml = visibleWords.map(w => {
         const isLearned = learnedIds.has(w.id);
         const groupInfo = allGroups.find(g => g.groupId === w.groupId);
         const groupBadge = groupInfo 
-          ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400 flex items-center space-x-1"><span class="text-xs">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate max-w-[120px]">${groupInfo.name}</span></span>`
+          ? `<span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-700/50 truncate max-w-[140px] sm:max-w-[150px]"><span class="text-xs shrink-0">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate">${groupInfo.name}</span></span>`
           : '';
 
         return `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/90 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow relative group flex flex-col justify-between">
+          <div class="bg-white dark:bg-[#161b22] rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow relative group flex flex-col justify-between">
             <div>
-              <div class="flex items-start justify-between mb-2">
-                <div class="flex items-center space-x-2">
-                  <span class="px-2 py-0.5 rounded text-[11px] font-bold ${w.level === 'A1' ? 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' : w.level === 'A2' ? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-950 dark:text-cyan-300' : w.level === 'B1' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300'}">
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
+                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-black tracking-wide ${getLevelBadgeClass(w.level)}">
                     ${w.level}
                   </span>
                   ${groupBadge}
+                  ${isLearned ? `
+                    <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">
+                      <span>✓</span><span>Đã thuộc</span>
+                    </span>
+                  ` : ''}
                 </div>
-                <button data-word="${w.word}" class="btn-play-sound p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-indigo-600 transition-colors" title="Phát âm tiếng Anh">
-                  🔊
+                
+                <!-- Nút Loa Chuẩn iOS Haptic -->
+                <button data-word="${w.word}" class="btn-play-sound min-w-[38px] min-h-[38px] w-9 h-9 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-all active:scale-90 border border-indigo-200/50 dark:border-indigo-800/60 shrink-0" title="Phát âm tiếng Anh">
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                  </svg>
                 </button>
               </div>
 
-              <h4 class="text-xl font-black text-slate-900 dark:text-white mb-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                 ${w.word}
               </h4>
-              <div class="text-xs font-mono text-slate-400 mb-2">
-                ${w.ipa || ''} ${w.type ? `• <span class="italic text-indigo-600 dark:text-indigo-400 font-semibold">${w.type}</span>` : ''}
+              <div class="text-xs font-mono text-slate-400 dark:text-slate-500 flex items-center space-x-1.5 mb-2.5">
+                <span>${w.ipa || ''}</span>
+                ${w.type ? `<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic">${w.type}</span>` : ''}
               </div>
-              <p class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3">${w.meaningVi}</p>
+              <p class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 mb-3 leading-snug">${w.meaningVi}</p>
               
               ${w.collocations ? `
-                <div class="text-[11px] text-indigo-700 dark:text-indigo-300 bg-indigo-50/80 dark:bg-indigo-950/50 p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/50 mb-3 leading-relaxed">
-                  <strong class="text-indigo-600 dark:text-indigo-400 block mb-0.5 uppercase text-[10px]">Cụm từ hay gặp:</strong>
-                  ${w.collocations}
+                <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2.5 sm:p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/60 mb-2.5 leading-relaxed">
+                  <div class="text-indigo-600 dark:text-indigo-400 font-extrabold uppercase text-[10px] tracking-wider mb-0.5 flex items-center space-x-1">
+                    <span>💡</span><span>Cụm từ hay gặp:</span>
+                  </div>
+                  <div class="font-medium">${w.collocations}</div>
                 </div>
               ` : ''}
 
-              <div class="text-xs text-slate-600 dark:text-slate-400 italic bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
-                <p>"${w.example}"</p>
-                ${w.exampleVi ? `<p class="text-slate-400 dark:text-slate-500 not-italic text-[11px] mt-1">➔ ${w.exampleVi}</p>` : ''}
+              <!-- Câu Ví Dụ kèm Loa Phát Âm -->
+              <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1">
+                <div class="flex items-start justify-between gap-2">
+                  <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed">"${w.example}"</p>
+                  <button data-example="${w.example.replace(/"/g, '&quot;')}" class="btn-play-example shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors active:scale-90" title="Nghe câu ví dụ">
+                    <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                  </button>
+                </div>
+                ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50">➔ ${w.exampleVi}</p>` : ''}
               </div>
             </div>
-
-            ${isLearned ? `
-              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center space-x-1">
-                <span>✅ Đã học thuộc</span>
-              </div>
-            ` : ''}
           </div>
         `;
       }).join('');
 
+      const loadMoreHtml = filtered.length > currentLimit ? `
+        <div class="col-span-full pt-4 pb-8 flex flex-col items-center justify-center space-y-2">
+          <button id="btn-load-more-dict" class="w-full sm:w-auto px-8 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2">
+            <span>Tải thêm từ vựng (+36 từ)</span>
+            <span class="text-xs opacity-75">(${currentLimit} / ${filtered.length})</span>
+          </button>
+          <span class="text-[11px] text-slate-400">Cuộn hoặc bấm để tải thêm</span>
+        </div>
+      ` : (filtered.length > 0 ? `
+        <div class="col-span-full py-6 text-center text-xs text-slate-400 border-t border-slate-200/60 dark:border-slate-800/60">
+          ✨ Đã hiển thị toàn bộ ${filtered.length} từ vựng phù hợp
+        </div>
+      ` : '');
+
+      listContainer.innerHTML = cardsHtml + loadMoreHtml;
+
       listContainer.querySelectorAll('.btn-play-sound').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (window.navigator?.vibrate) window.navigator.vibrate(8);
           speechService.speak(btn.getAttribute('data-word'));
         });
+      });
+
+      listContainer.querySelectorAll('.btn-play-example').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (window.navigator?.vibrate) window.navigator.vibrate(8);
+          speechService.speak(btn.getAttribute('data-example'));
+        });
+      });
+
+      document.getElementById('btn-load-more-dict')?.addEventListener('click', () => {
+        currentLimit += 36;
+        renderList(document.getElementById('vocab-search-box')?.value || "", false);
       });
     };
 
     container.innerHTML = `
-      <div class="space-y-6 animate-fade-in max-w-5xl mx-auto">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="space-y-4 sm:space-y-5 animate-fade-in max-w-5xl mx-auto pb-10">
+        
+        <!-- Header & Search Box (Tối ưu chuẩn iOS 17 Pro Max) -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
-            <h2 class="text-2xl font-black text-slate-900 dark:text-white">Kho Từ Vựng & Sổ Tay</h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Tra cứu nhanh ${VOCAB_BANK.length} từ vựng, phrasal verbs, collocations và phát âm chuẩn bản xứ.</p>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Sổ Tay Từ Vựng</h2>
+              <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[11px] font-bold">
+                ${VOCAB_BANK.length} từ
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tra cứu nhanh từ vựng, cụm từ thực chiến và luyện phát âm chuẩn bản xứ.</p>
           </div>
 
-          <!-- Ô tìm kiếm -->
-          <div class="relative w-full sm:w-72">
+          <!-- Ô tìm kiếm chống zoom trên iOS Safari -->
+          <div class="relative w-full sm:w-80">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none pointer-events-none">🔍</span>
             <input 
               type="text" 
               id="vocab-search-box" 
               placeholder="Tìm từ tiếng Anh, cụm từ, nghĩa..." 
-              class="w-full text-xs py-2.5 pl-8 pr-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:border-indigo-500"
+              class="w-full text-[16px] sm:text-xs py-2.5 sm:py-2 pl-9 pr-9 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 shadow-xs transition-all"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
             />
-            <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
+            <button id="btn-clear-search" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center text-xs transition-colors" title="Xóa tìm kiếm">✕</button>
           </div>
         </div>
 
-        <!-- Filter Level Row -->
+        <!-- Filter Rows (Bộ lọc Level & Category lướt mượt mà trên iPhone) -->
         <div class="space-y-2">
-          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dict-level-filters">
-            <button data-level="all" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Tất cả (${VOCAB_BANK.length})</button>
-            <button data-level="learned" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'learned' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Đã học (${learnedIds.size})</button>
-            <button data-level="A1" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'A1' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level A1</button>
-            <button data-level="A2" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'A2' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level A2</button>
-            <button data-level="B1" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'B1' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level B1</button>
-            <button data-level="B2" class="dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold ${levelFilter === 'B2' ? 'bg-indigo-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">Level B2</button>
+          <!-- Filter Level -->
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x" style="-webkit-overflow-scrolling: touch;" id="dict-level-filters">
+            <button data-level="all" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'all' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">Tất cả (${VOCAB_BANK.length})</button>
+            <button data-level="learned" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'learned' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">Đã học (${learnedIds.size})</button>
+            <button data-level="A1" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'A1' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">A1</button>
+            <button data-level="A2" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'A2' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">A2</button>
+            <button data-level="B1" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'B1' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">B1</button>
+            <button data-level="B2" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'B2' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">B2</button>
           </div>
 
-          <!-- Filter Category Row -->
-          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none" id="dict-cat-filters">
-            <button data-cat="all" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'all' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">🌐 Toàn bộ chủ đề</button>
-            <button data-cat="toeic" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'toeic' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">🎯 TOEIC 750+</button>
-            <button data-cat="daily" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'daily' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💬 Giao tiếp Hàng ngày</button>
-            <button data-cat="marketing" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'marketing' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">📢 Marketing & Growth</button>
-            <button data-cat="work" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'work' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💼 Công sở & Teamwork</button>
-            <button data-cat="tech" class="dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold ${catFilter === 'tech' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">💻 Công nghệ & CNTT</button>
+          <!-- Filter Category -->
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x" style="-webkit-overflow-scrolling: touch;" id="dict-cat-filters">
+            <button data-cat="all" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🌐 Toàn bộ</button>
+            <button data-cat="toeic" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'toeic' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🎯 TOEIC 750+</button>
+            <button data-cat="daily" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'daily' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💬 Giao tiếp Hàng ngày</button>
+            <button data-cat="work" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'work' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💼 Công sở & Teamwork</button>
+            <button data-cat="marketing" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'marketing' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">📢 Marketing & Growth</button>
+            <button data-cat="tech" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'tech' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💻 Công nghệ & CNTT</button>
           </div>
         </div>
 
         <!-- Banner Lọc theo nhóm chủ đề cụ thể (nếu có) -->
         <div id="active-group-banner" class="hidden"></div>
 
-        <!-- Grid Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="vocab-card-grid"></div>
+        <!-- Dòng đếm kết quả -->
+        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-0.5">
+          <div id="dict-results-counter">Hiển thị...</div>
+          <div class="text-[11px] font-medium text-slate-400 flex items-center space-x-1">
+            <span>🔊</span><span>Chạm loa để nghe chuẩn âm</span>
+          </div>
+        </div>
+
+        <!-- Grid Cards (1 cột trên iPhone, 2 cột trên iPad/Tablet, 3 cột trên Desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="vocab-card-grid"></div>
+
+        <!-- Nút Cuộn Lên Đầu Trang Tinh Gọn (Floating Back to Top) -->
+        <button id="btn-scroll-top" class="fixed right-4 bottom-24 md:bottom-8 z-30 w-11 h-11 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-300/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 shadow-lg shadow-black/10 flex items-center justify-center transition-all duration-200 opacity-0 pointer-events-none active:scale-90" title="Lên đầu trang">
+          <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/>
+          </svg>
+        </button>
+
       </div>
     `;
 
     renderList();
 
+    const searchBox = container.querySelector('#vocab-search-box');
+    const btnClearSearch = container.querySelector('#btn-clear-search');
+    const btnScrollTop = container.querySelector('#btn-scroll-top');
+
     // Event Lọc Level
     container.querySelectorAll('.dict-lvl-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        container.querySelectorAll('.dict-lvl-btn').forEach(b => {
-          b.className = "dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
-        });
-        btn.className = "dict-lvl-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white";
+        if (window.navigator?.vibrate) window.navigator.vibrate(8);
         levelFilter = btn.getAttribute('data-level');
         this.dictionaryFilterState.level = levelFilter;
-        renderList(document.getElementById('vocab-search-box')?.value || "");
+        container.querySelectorAll('.dict-lvl-btn').forEach(b => {
+          const isActive = b.getAttribute('data-level') === levelFilter;
+          b.className = `dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${isActive ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}`;
+        });
+        renderList(searchBox?.value || "", true);
       });
     });
 
     // Event Lọc Category
     container.querySelectorAll('.dict-cat-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        container.querySelectorAll('.dict-cat-btn').forEach(b => {
-          b.className = "dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300";
-        });
-        btn.className = "dict-cat-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900";
+        if (window.navigator?.vibrate) window.navigator.vibrate(8);
         catFilter = btn.getAttribute('data-cat');
         this.dictionaryFilterState.category = catFilter;
-        renderList(document.getElementById('vocab-search-box')?.value || "");
+        container.querySelectorAll('.dict-cat-btn').forEach(b => {
+          const isActive = b.getAttribute('data-cat') === catFilter;
+          b.className = `dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${isActive ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}`;
+        });
+        renderList(searchBox?.value || "", true);
       });
     });
 
     // Event Tìm kiếm ô search
-    document.getElementById('vocab-search-box')?.addEventListener('input', (e) => {
-      renderList(e.target.value);
+    searchBox?.addEventListener('input', (e) => {
+      const val = e.target.value;
+      if (val.trim()) {
+        btnClearSearch?.classList.remove('hidden');
+      } else {
+        btnClearSearch?.classList.add('hidden');
+      }
+      renderList(val, true);
+    });
+
+    // Xoá nhanh tìm kiếm
+    btnClearSearch?.addEventListener('click', () => {
+      if (searchBox) {
+        searchBox.value = '';
+        btnClearSearch.classList.add('hidden');
+        searchBox.focus();
+        renderList('', true);
+      }
+    });
+
+    // Nút cuộn lên đầu trang trên iPhone
+    const onScroll = () => {
+      if (window.scrollY > 350) {
+        btnScrollTop?.classList.remove('opacity-0', 'pointer-events-none');
+        btnScrollTop?.classList.add('opacity-100');
+      } else {
+        btnScrollTop?.classList.add('opacity-0', 'pointer-events-none');
+        btnScrollTop?.classList.remove('opacity-100');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btnScrollTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
