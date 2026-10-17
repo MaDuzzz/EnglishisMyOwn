@@ -1,9 +1,9 @@
 // Kho nhóm từ vựng chuẩn hoá phân cấp A1 -> B2
 // TỰ ĐỘNG TẠO BỞI build-vocab.mjs - KHÔNG SỬA TRỰC TIẾP FILE NÀY
 // Để thêm từ mới, hãy tạo file .json hoặc .js mới trong thư mục: data/vocab/
-// Tổng cộng: 22 nhóm chủ đề, 700 từ vựng và cụm từ.
-// Phân bố chủ đề: {"daily":240,"work":180,"tech":180,"marketing":100}
-// Phân bố trình độ: {"A2":156,"B1":268,"A1":57,"B2":219}
+// Tổng cộng: 36 nhóm chủ đề, 1050 từ vựng và cụm từ.
+// Phân bố chủ đề: {"daily":240,"work":180,"tech":180,"marketing":100,"toeic":350}
+// Phân bố trình độ: {"A2":156,"B1":391,"A1":57,"B2":446}
 
 export const VOCAB_GROUPS = [
   {
@@ -12131,6 +12131,6096 @@ export const VOCAB_GROUPS = [
           "đối chiếu sổ sách kế toán"
         ],
         "exampleVi": ""
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_contracts",
+    "name": "Hợp Đồng & Đàm Phán Thương Mại",
+    "icon": "📝",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Điều khoản, thương lượng, ký kết hợp đồng, cam kết nghĩa vụ và giải quyết tranh chấp kinh doanh.",
+    "words": [
+      {
+        "id": "toeic_001",
+        "word": "negotiate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/nəˈɡoʊ.ʃi.eɪt/",
+        "meaningVi": "đàm phán, thương lượng",
+        "collocations": "negotiate a contract, successfully negotiate, negotiate terms",
+        "example": "The procurement team managed to negotiate a 15% discount with the supplier.",
+        "exampleVi": "Đội ngũ thu mua đã thương lượng thành công mức chiết khấu 15% với nhà cung ứng.",
+        "optionsVi": [
+          "đàm phán, thương lượng",
+          "hủy bỏ thỏa thuận",
+          "áp đặt điều kiện",
+          "trì hoãn thanh toán"
+        ]
+      },
+      {
+        "id": "toeic_002",
+        "word": "binding agreement",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbaɪn.dɪŋ əˈɡriː.mənt/",
+        "meaningVi": "thỏa thuận có tính ràng buộc pháp lý",
+        "collocations": "enter into a binding agreement, legally binding agreement, sign a binding agreement",
+        "example": "Once signed by both CEOs, the memorandum becomes a legally binding agreement.",
+        "exampleVi": "Khi được hai CEO ký kết, bản ghi nhớ sẽ trở thành thỏa thuận ràng buộc về mặt pháp lý.",
+        "optionsVi": [
+          "thỏa thuận có tính ràng buộc pháp lý",
+          "bản ghi nhớ không chính thức",
+          "thỏa thuận miệng tạm thời",
+          "hợp đồng đã hết hạn sử dụng"
+        ]
+      },
+      {
+        "id": "toeic_003",
+        "word": "stipulate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈstɪp.jə.leɪt/",
+        "meaningVi": "quy định, đặt điều kiện rõ ràng",
+        "collocations": "clearly stipulate, stipulate in the clause, as stipulated by law",
+        "example": "The contract stipulates that all invoices must be paid within 30 days.",
+        "exampleVi": "Hợp đồng quy định rõ rằng mọi hóa đơn phải được thanh toán trong vòng 30 ngày.",
+        "optionsVi": [
+          "quy định, đặt điều kiện rõ ràng",
+          "bỏ qua các chi tiết nhỏ",
+          "xin ý kiến hội đồng",
+          "phủ nhận trách nhiệm"
+        ]
+      },
+      {
+        "id": "toeic_004",
+        "word": "clause",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/klɔːz/",
+        "meaningVi": "điều khoản hợp đồng",
+        "collocations": "confidentiality clause, penalty clause, insert a clause",
+        "example": "Our legal department recommended adding an indemnity clause to the draft.",
+        "exampleVi": "Phòng pháp chế khuyến nghị bổ sung một điều khoản bồi thường vào bản dự thảo.",
+        "optionsVi": [
+          "điều khoản hợp đồng",
+          "chữ ký của các bên",
+          "khoản phụ phí phát sinh",
+          "thông báo đình chỉ công việc"
+        ]
+      },
+      {
+        "id": "toeic_005",
+        "word": "breach of contract",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/briːtʃ əv ˈkɑːn.trækt/",
+        "meaningVi": "vi phạm hợp đồng",
+        "collocations": "commit a breach of contract, sue for breach of contract, material breach of contract",
+        "example": "Failing to deliver the machinery on schedule constitutes a material breach of contract.",
+        "exampleVi": "Không giao máy móc đúng lịch trình được xem là hành vi vi phạm hợp đồng nghiêm trọng.",
+        "optionsVi": [
+          "vi phạm hợp đồng",
+          "gia hạn thời hạn hợp đồng",
+          "thanh lý xong hợp đồng",
+          "chuyển nhượng quyền thực hiện"
+        ]
+      },
+      {
+        "id": "toeic_006",
+        "word": "obligate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈɑː.blə.ɡeɪt/",
+        "meaningVi": "bắt buộc, cam kết nghĩa vụ",
+        "collocations": "be legally obligated, obligate the contractor, fulfill obligated duties",
+        "example": "The vendor is obligated to provide technical support for twenty-four months.",
+        "exampleVi": "Nhà cung cấp có nghĩa vụ phải cung cấp dịch vụ hỗ trợ kỹ thuật trong suốt 24 tháng.",
+        "optionsVi": [
+          "bắt buộc, cam kết nghĩa vụ",
+          "tùy nghi quyết định",
+          "được miễn trừ trách nhiệm",
+          "từ chối cung cấp dịch vụ"
+        ]
+      },
+      {
+        "id": "toeic_007",
+        "word": "null and void",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/nʌl ænd vɔɪd/",
+        "meaningVi": "vô hiệu lực, không có giá trị pháp lý",
+        "collocations": "declare null and void, rendered null and void, become null and void",
+        "example": "If the tenant alters the structure without written consent, the lease is rendered null and void.",
+        "exampleVi": "Nếu bên thuê thay đổi kết cấu công trình mà không có văn bản đồng ý, hợp đồng thuê sẽ bị vô hiệu lực.",
+        "optionsVi": [
+          "vô hiệu lực, không có giá trị pháp lý",
+          "đang có hiệu lực thi hành",
+          "tạm hoãn để kiểm tra",
+          "đã được công chứng hợp pháp"
+        ]
+      },
+      {
+        "id": "toeic_008",
+        "word": "party",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈpɑːr.t̬i/",
+        "meaningVi": "bên tham gia (hợp đồng)",
+        "collocations": "both parties, third party, contracting parties",
+        "example": "Both parties must sign at the bottom of each page to validate the agreement.",
+        "exampleVi": "Cả hai bên tham gia phải ký ở cuối mỗi trang để xác thực thỏa thuận.",
+        "optionsVi": [
+          "bên tham gia (hợp đồng)",
+          "bữa tiệc chúc mừng",
+          "nhân chứng trung lập",
+          "cơ quan giám sát thi hành"
+        ]
+      },
+      {
+        "id": "toeic_009",
+        "word": "terms and conditions",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/tɜːrmz ænd kənˈdɪʃ.ənz/",
+        "meaningVi": "các điều khoản và điều kiện",
+        "collocations": "agree to terms and conditions, review terms and conditions, outline terms and conditions",
+        "example": "Please carefully review the warranty terms and conditions before signing the receipt.",
+        "exampleVi": "Vui lòng xem xét kỹ các điều khoản và điều kiện bảo hành trước khi ký biên nhận.",
+        "optionsVi": [
+          "các điều khoản và điều kiện",
+          "danh mục sản phẩm bán lẻ",
+          "kế hoạch chi trả cổ tức",
+          "bảng báo giá sơ bộ"
+        ]
+      },
+      {
+        "id": "toeic_010",
+        "word": "terminate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈtɜːr.mə.neɪt/",
+        "meaningVi": "chấm dứt, hủy bỏ hợp đồng",
+        "collocations": "terminate an agreement, terminate employment, right to terminate",
+        "example": "Either party reserves the right to terminate the partnership with thirty days of notice.",
+        "exampleVi": "Mỗi bên bảo lưu quyền chấm dứt quan hệ đối tác với thông báo trước 30 ngày.",
+        "optionsVi": [
+          "chấm dứt, hủy bỏ hợp đồng",
+          "tái khởi động đàm phán",
+          "chấp thuận vô điều kiện",
+          "chuyển giao công nghệ"
+        ]
+      },
+      {
+        "id": "toeic_011",
+        "word": "provision",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/prəˈvɪʒ.ən/",
+        "meaningVi": "điều khoản quy định trong văn bản",
+        "collocations": "statutory provision, make provision for, under the provisions of",
+        "example": "Under the provisions of Article 4, the distributor has exclusive rights in the region.",
+        "exampleVi": "Theo các điều khoản quy định tại Điều 4, nhà phân phối nắm giữ quyền độc quyền tại khu vực.",
+        "optionsVi": [
+          "điều khoản quy định trong văn bản",
+          "khoản chi viện trợ",
+          "vật tư tiêu hao",
+          "thông báo đình công"
+        ]
+      },
+      {
+        "id": "toeic_012",
+        "word": "settlement",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈset̬.əl.mənt/",
+        "meaningVi": "sự dàn xếp, thỏa thuận hòa giải",
+        "collocations": "reach an out-of-court settlement, amicable settlement, financial settlement",
+        "example": "The two competing corporations reached an amicable settlement to avoid costly litigation.",
+        "exampleVi": "Hai tập đoàn đối thủ đã đạt được thỏa thuận hòa giải êm thấm nhằm tránh kiện tụng tốn kém.",
+        "optionsVi": [
+          "sự dàn xếp, thỏa thuận hòa giải",
+          "sự bất đồng quan điểm",
+          "quyết định mở rộng chi nhánh",
+          "đơn kháng cáo lên tòa án"
+        ]
+      },
+      {
+        "id": "toeic_013",
+        "word": "amendment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/əˈmend.mənt/",
+        "meaningVi": "điều khoản sửa đổi, bổ sung",
+        "collocations": "propose an amendment, contract amendment, ratify an amendment",
+        "example": "The board drafted an amendment to include eco-friendly packaging standards.",
+        "exampleVi": "Hội đồng quản trị đã soạn thảo một điều khoản bổ sung để đưa vào các tiêu chuẩn bao bì thân thiện môi trường.",
+        "optionsVi": [
+          "điều khoản sửa đổi, bổ sung",
+          "biên bản thanh lý tài sản",
+          "quyết định bãi nhiệm giám đốc",
+          "hóa đơn thanh toán định kỳ"
+        ]
+      },
+      {
+        "id": "toeic_014",
+        "word": "counteroffer",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkaʊn.t̬ɚˌɑː.fɚ/",
+        "meaningVi": "đề nghị đối ứng, đề xuất giá ngược lại",
+        "collocations": "make a counteroffer, reject a counteroffer, consider a counteroffer",
+        "example": "The seller declined our initial bid and submitted a counteroffer of $450,000.",
+        "exampleVi": "Bên bán đã từ chối mức chào giá ban đầu của chúng tôi và đưa ra đề xuất giá đối ứng là 450.000 USD.",
+        "optionsVi": [
+          "đề nghị đối ứng, đề xuất giá ngược lại",
+          "hợp đồng bảo hiểm trọn gói",
+          "chấp thuận mức giá ban đầu",
+          "thông báo hủy giao dịch"
+        ]
+      },
+      {
+        "id": "toeic_015",
+        "word": "preliminary",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/prɪˈlɪm.ə.ner.i/",
+        "meaningVi": "sơ bộ, bước đầu",
+        "collocations": "preliminary discussion, preliminary findings, preliminary approval",
+        "example": "After preliminary discussions, both firms agreed to conduct a detailed financial audit.",
+        "exampleVi": "Sau các cuộc thảo luận sơ bộ, cả hai công ty đã đồng ý tiến hành kiểm toán tài chính chi tiết.",
+        "optionsVi": [
+          "sơ bộ, bước đầu",
+          "kết luận cuối cùng",
+          "chi tiết và toàn diện",
+          "đã được chính thức phê duyệt"
+        ]
+      },
+      {
+        "id": "toeic_016",
+        "word": "concession",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈseʃ.ən/",
+        "meaningVi": "sự nhượng bộ trong đàm phán",
+        "collocations": "make a concession, win concessions, mutual concessions",
+        "example": "To close the deal before quarter-end, our team made a concession on delivery timelines.",
+        "exampleVi": "Để chốt thương vụ trước cuối quý, đội ngũ chúng tôi đã nhượng bộ về thời hạn giao hàng.",
+        "optionsVi": [
+          "sự nhượng bộ trong đàm phán",
+          "lời cảnh cáo vi phạm",
+          "khoản tiền hoa hồng",
+          "sự từ chối dứt khoát"
+        ]
+      },
+      {
+        "id": "toeic_017",
+        "word": "arbitration",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌɑːr.bəˈtreɪ.ʃən/",
+        "meaningVi": "sự phân xử của trọng tài thương mại",
+        "collocations": "submit to arbitration, commercial arbitration, binding arbitration",
+        "example": "Any unresolved trade disputes shall be submitted to the international arbitration court.",
+        "exampleVi": "Mọi tranh chấp thương mại chưa giải quyết sẽ được đưa ra tòa án trọng tài quốc tế.",
+        "optionsVi": [
+          "sự phân xử của trọng tài thương mại",
+          "sự hòa giải nội bộ",
+          "cuộc họp cổ đông thường niên",
+          "thủ tục giải thể doanh nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_018",
+        "word": "compensate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈkɑːm.pən.seɪt/",
+        "meaningVi": "bồi thường, đền bù",
+        "collocations": "compensate for losses, adequately compensate, compensate employees",
+        "example": "The airline compensated passengers for the extensive flight delay with meal vouchers.",
+        "exampleVi": "Hãng hàng không đã bồi thường cho hành khách bị trễ chuyến bay kéo dài bằng các phiếu ăn uống.",
+        "optionsVi": [
+          "bồi thường, đền bù",
+          "tước đoạt quyền lợi",
+          "khiếu nại bồi thường",
+          "phạt tiền vi phạm"
+        ]
+      },
+      {
+        "id": "toeic_019",
+        "word": "renew",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈnuː/",
+        "meaningVi": "gia hạn hợp đồng, làm mới",
+        "collocations": "renew a contract, renew a subscription, automatically renew",
+        "example": "We decided not to renew the software license because of poor customer service.",
+        "exampleVi": "Chúng tôi đã quyết định không gia hạn bản quyền phần mềm do dịch vụ chăm sóc khách hàng kém.",
+        "optionsVi": [
+          "gia hạn hợp đồng, làm mới",
+          "hủy ngang hợp đồng",
+          "đơn phương chấm dứt",
+          "tăng gấp đôi thời hạn"
+        ]
+      },
+      {
+        "id": "toeic_020",
+        "word": "enforce",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɪnˈfɔːrs/",
+        "meaningVi": "thực thi, bắt buộc chấp hành",
+        "collocations": "enforce regulations, enforce compliance, strictly enforce",
+        "example": "Management will strictly enforce the new workplace safety standards starting next Monday.",
+        "exampleVi": "Ban quản lý sẽ thực thi nghiêm ngặt các tiêu chuẩn an toàn lao động mới bắt đầu từ thứ Hai tới.",
+        "optionsVi": [
+          "thực thi, bắt buộc chấp hành",
+          "bỏ qua quy định",
+          "sửa đổi quy chuẩn",
+          "tạm ngừng áp dụng"
+        ]
+      },
+      {
+        "id": "toeic_021",
+        "word": "non-disclosure agreement",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌnɑːn.dɪˈskloʊ.ʒɚ əˈɡriː.mənt/",
+        "meaningVi": "thỏa thuận bảo mật thông tin (NDA)",
+        "collocations": "sign an NDA, mutual non-disclosure agreement, breach an NDA",
+        "example": "Before reviewing the technical blueprints, all contractors must sign a non-disclosure agreement.",
+        "exampleVi": "Trước khi xem bản vẽ kỹ thuật, tất cả nhà thầu phải ký thỏa thuận bảo mật thông tin.",
+        "optionsVi": [
+          "thỏa thuận bảo mật thông tin (NDA)",
+          "hợp đồng mua bán độc quyền",
+          "giấy phép khai thác sáng chế",
+          "biên bản bàn giao mặt bằng"
+        ]
+      },
+      {
+        "id": "toeic_022",
+        "word": "indemnify",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɪnˈdem.nə.faɪ/",
+        "meaningVi": "bảo đảm bồi thường thiệt hại",
+        "collocations": "indemnify against loss, agree to indemnify, indemnify the client",
+        "example": "The manufacturer agreed to indemnify the retailer against any intellectual property claims.",
+        "exampleVi": "Nhà sản xuất đồng ý bảo đảm bồi thường cho nhà bán lẻ nếu có bất kỳ khiếu nại nào về quyền sở hữu trí tuệ.",
+        "optionsVi": [
+          "bảo đảm bồi thường thiệt hại",
+          "tuyên bố phá sản",
+          "trục xuất khỏi thị trường",
+          "kiểm tra tài chính độc lập"
+        ]
+      },
+      {
+        "id": "toeic_023",
+        "word": "waive",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/weɪv/",
+        "meaningVi": "từ bỏ quyền lợi, miễn trừ phí",
+        "collocations": "waive the fee, waive rights, waive the penalty",
+        "example": "The landlord agreed to waive the late fee as a courtesy for a long-time tenant.",
+        "exampleVi": "Chủ nhà đã đồng ý miễn trừ khoản phí trễ hạn như một sự ưu đãi cho khách thuê lâu năm.",
+        "optionsVi": [
+          "từ bỏ quyền lợi, miễn trừ phí",
+          "yêu cầu thanh toán ngay",
+          "tăng gấp đôi mức phạt",
+          "áp dụng mức lãi suất cao"
+        ]
+      },
+      {
+        "id": "toeic_024",
+        "word": "default",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪˈfɑːlt/",
+        "meaningVi": "vỡ nợ, không thực hiện đúng nghĩa vụ thanh toán",
+        "collocations": "default on a loan, default on payment, in default of",
+        "example": "If the borrower defaults on the payment, the lender has the right to seize the collateral.",
+        "exampleVi": "Nếu người vay vỡ nợ không trả đúng hạn, bên cho vay có quyền tịch thu tài sản thế chấp.",
+        "optionsVi": [
+          "vỡ nợ, không thực hiện đúng nghĩa vụ thanh toán",
+          "tất toán toàn bộ khoản vay",
+          "nhận thêm vốn tài trợ",
+          "đầu tư có lãi lớn"
+        ]
+      },
+      {
+        "id": "toeic_025",
+        "word": "finalize",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈfaɪ.nəl.aɪz/",
+        "meaningVi": "chốt lại, hoàn tất hợp đồng",
+        "collocations": "finalize the details, finalize a deal, finalize the contract",
+        "example": "The two executive teams met yesterday to finalize the terms of the merger.",
+        "exampleVi": "Hai ban điều hành đã gặp gỡ ngày hôm qua để hoàn tất các điều khoản của thương vụ sáp nhập.",
+        "optionsVi": [
+          "chốt lại, hoàn tất hợp đồng",
+          "khởi xướng đàm phán",
+          "hủy bỏ thỏa thuận",
+          "chuyển giao công việc"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_finance",
+    "name": "Tài Chính, Kế Toán & Thuế Doanh Nghiệp",
+    "icon": "📊",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Báo cáo tài chính, kiểm toán, ngân sách, cổ tức, tài sản nợ có và quản lý dòng tiền.",
+    "words": [
+      {
+        "id": "toeic_026",
+        "word": "audit",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɑː.dɪt/",
+        "meaningVi": "kiểm toán, sự kiểm tra sổ sách kế toán",
+        "collocations": "conduct an audit, internal audit, annual financial audit",
+        "example": "An external firm was hired to conduct an independent financial audit.",
+        "exampleVi": "Một công ty bên ngoài đã được thuê để tiến hành kiểm toán tài chính độc lập.",
+        "optionsVi": [
+          "kiểm toán, sự kiểm tra sổ sách kế toán",
+          "kế hoạch giải ngân vốn",
+          "bảng lương nhân viên",
+          "báo cáo nghiên cứu thị trường"
+        ]
+      },
+      {
+        "id": "toeic_027",
+        "word": "budget deficit",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbʌdʒ.ɪt ˈdef.ə.sɪt/",
+        "meaningVi": "thâm hụt ngân sách",
+        "collocations": "face a budget deficit, reduce the budget deficit, record budget deficit",
+        "example": "Due to unexpected equipment repairs, the branch faces a significant budget deficit this quarter.",
+        "exampleVi": "Do các chi phí sửa chữa máy móc ngoài dự kiến, chi nhánh đang đối mặt với mức thâm hụt ngân sách lớn trong quý này.",
+        "optionsVi": [
+          "thâm hụt ngân sách",
+          "thặng dư ngân sách",
+          "phân bổ vốn đầu tư",
+          "hạn mức tín dụng ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_028",
+        "word": "surplus",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈsɜːr.pləs/",
+        "meaningVi": "khoản thặng dư, số dư thừa",
+        "collocations": "trade surplus, budget surplus, operating surplus",
+        "example": "The company reported a cash surplus of two million dollars at the end of the fiscal year.",
+        "exampleVi": "Công ty đã báo cáo mức thặng dư tiền mặt 2 triệu USD vào cuối năm tài chính.",
+        "optionsVi": [
+          "khoản thặng dư, số dư thừa",
+          "khoản nợ xấu khó đòi",
+          "chi phí khấu hao",
+          "mức tổn thất tài sản"
+        ]
+      },
+      {
+        "id": "toeic_029",
+        "word": "revenue",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈrev.ə.nuː/",
+        "meaningVi": "doanh thu, tổng thu nhập",
+        "collocations": "generate revenue, boost revenue, annual revenue",
+        "example": "Online sales accounted for more than sixty percent of the company's total revenue.",
+        "exampleVi": "Doanh số bán hàng trực tuyến chiếm hơn 60% tổng doanh thu của công ty.",
+        "optionsVi": [
+          "doanh thu, tổng thu nhập",
+          "chi phí sản xuất",
+          "tiền thuế doanh nghiệp",
+          "lãi suất vay ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_030",
+        "word": "fiscal year",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfɪs.kəl jɪr/",
+        "meaningVi": "năm tài chính, tài khóa",
+        "collocations": "current fiscal year, upcoming fiscal year, end of the fiscal year",
+        "example": "Our fiscal year runs from April 1st to March 31st of the following calendar year.",
+        "exampleVi": "Năm tài chính của chúng tôi tính từ ngày 1 tháng 4 đến ngày 31 tháng 3 năm dương lịch tiếp theo.",
+        "optionsVi": [
+          "năm tài chính, tài khóa",
+          "năm nhuận theo lịch",
+          "chu kỳ kiểm định thiết bị",
+          "thời hạn bảo hành 12 tháng"
+        ]
+      },
+      {
+        "id": "toeic_031",
+        "word": "allocate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈæl.ə.keɪt/",
+        "meaningVi": "phân bổ (ngân sách, nguồn lực)",
+        "collocations": "allocate funds, allocate resources, allocate budget to",
+        "example": "The CFO decided to allocate additional funds to the mobile app development project.",
+        "exampleVi": "Giám đốc tài chính đã quyết định phân bổ thêm kinh phí cho dự án phát triển ứng dụng di động.",
+        "optionsVi": [
+          "phân bổ (ngân sách, nguồn lực)",
+          "cắt giảm toàn bộ chi phí",
+          "đóng băng tài khoản",
+          "rút vốn khỏi thị trường"
+        ]
+      },
+      {
+        "id": "toeic_032",
+        "word": "asset",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈæs.et/",
+        "meaningVi": "tài sản của cá nhân/doanh nghiệp",
+        "collocations": "liquid assets, valuable asset, tangible assets",
+        "example": "Patents and trademarks are among the corporation's most valuable intangible assets.",
+        "exampleVi": "Bằng sáng chế và nhãn hiệu thương mại là những tài sản vô hình có giá trị nhất của tập đoàn.",
+        "optionsVi": [
+          "tài sản của cá nhân/doanh nghiệp",
+          "khoản nợ phải trả",
+          "chi phí vận hành",
+          "tiền phạt vi phạm"
+        ]
+      },
+      {
+        "id": "toeic_033",
+        "word": "liability",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌlaɪ.əˈbɪl.ə.t̬i/",
+        "meaningVi": "nghĩa vụ nợ, khoản nợ phải trả",
+        "collocations": "current liabilities, total liabilities, limit liability",
+        "example": "The balance sheet shows that our total assets comfortably exceed our short-term liabilities.",
+        "exampleVi": "Bảng cân đối kế toán cho thấy tổng tài sản của chúng ta vượt trội so với các khoản nợ ngắn hạn.",
+        "optionsVi": [
+          "nghĩa vụ nợ, khoản nợ phải trả",
+          "lợi nhuận sau thuế",
+          "khoản bảo hiểm chi trả",
+          "quỹ dự phòng rủi ro"
+        ]
+      },
+      {
+        "id": "toeic_034",
+        "word": "depreciation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˌpriː.ʃiˈeɪ.ʃən/",
+        "meaningVi": "sự khấu hao tài sản",
+        "collocations": "asset depreciation, rate of depreciation, straight-line depreciation",
+        "example": "Accountants must factor in machinery depreciation when calculating the net operating profit.",
+        "exampleVi": "Kế toán viên phải tính đến khấu hao máy móc khi tính toán lợi nhuận hoạt động ròng.",
+        "optionsVi": [
+          "sự khấu hao tài sản",
+          "sự tăng giá trị thị trường",
+          "khoản tiền thưởng cuối năm",
+          "chỉ số lạm phát kinh tế"
+        ]
+      },
+      {
+        "id": "toeic_035",
+        "word": "dividend",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈdɪv.ə.dend/",
+        "meaningVi": "cổ tức chia cho cổ đông",
+        "collocations": "pay a dividend, annual dividend, quarterly dividend payout",
+        "example": "Shareholders were pleased to receive a higher dividend payout following strong sales growth.",
+        "exampleVi": "Các cổ đông rất hài lòng khi nhận được mức chi trả cổ tức cao hơn sau đợt tăng trưởng doanh số mạnh mẽ.",
+        "optionsVi": [
+          "cổ tức chia cho cổ đông",
+          "khoản thuế thu nhập cá nhân",
+          "phí môi giới chứng khoán",
+          "khoản vay nợ ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_036",
+        "word": "expenditure",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪkˈspen.də.tʃɚ/",
+        "meaningVi": "chi phí tiêu dùng, khoản chi tiêu",
+        "collocations": "capital expenditure, cut expenditure, annual expenditure",
+        "example": "The executive committee voted to curtail non-essential travel expenditures this year.",
+        "exampleVi": "Ủy ban điều hành đã bỏ phiếu cắt giảm các khoản chi tiêu đi lại không thiết yếu trong năm nay.",
+        "optionsVi": [
+          "chi phí tiêu dùng, khoản chi tiêu",
+          "doanh số bán hàng",
+          "tiền lãi gửi tiết kiệm",
+          "khoản viện trợ không hoàn lại"
+        ]
+      },
+      {
+        "id": "toeic_037",
+        "word": "reimburse",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌriː.ɪmˈbɜːrs/",
+        "meaningVi": "hoàn trả chi phí, thanh toán lại tiền",
+        "collocations": "reimburse travel expenses, promptly reimburse, be fully reimbursed",
+        "example": "Employees will be reimbursed for parking and toll charges incurred during business trips.",
+        "exampleVi": "Nhân viên sẽ được hoàn trả các chi phí gửi xe và phí cầu đường phát sinh trong các chuyến công tác.",
+        "optionsVi": [
+          "hoàn trả chi phí, thanh toán lại tiền",
+          "khấu trừ lương nhân viên",
+          "từ chối giải quyết đơn từ",
+          "phạt tiền vi phạm quy chế"
+        ]
+      },
+      {
+        "id": "toeic_038",
+        "word": "lucrative",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈluː.krə.t̬ɪv/",
+        "meaningVi": "sinh lời cao, có lợi nhuận lớn",
+        "collocations": "lucrative contract, lucrative market, prove lucrative",
+        "example": "Securing the government tender turned out to be a highly lucrative opportunity for our firm.",
+        "exampleVi": "Trúng thầu gói thầu chính phủ đã chứng minh là một cơ hội sinh lời rất cao cho công ty chúng tôi.",
+        "optionsVi": [
+          "sinh lời cao, có lợi nhuận lớn",
+          "gây thua lỗ nặng nề",
+          "chứa nhiều rủi ro pháp lý",
+          "ít được thị trường quan tâm"
+        ]
+      },
+      {
+        "id": "toeic_039",
+        "word": "quarterly earnings",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkwɔːr.t̬ɚ.li ˈɜːr.nɪŋz/",
+        "meaningVi": "thu nhập lợi nhuận hàng quý",
+        "collocations": "quarterly earnings report, release quarterly earnings, exceed quarterly earnings",
+        "example": "The tech giant exceeded Wall Street expectations in its latest quarterly earnings report.",
+        "exampleVi": "Gã khổng lồ công nghệ đã vượt kỳ vọng của Phố Wall trong báo cáo lợi nhuận hàng quý mới nhất.",
+        "optionsVi": [
+          "thu nhập lợi nhuận hàng quý",
+          "bản kê khai tài sản cố định",
+          "khoản chi tiêu hàng tháng",
+          "kế hoạch chi lương nhân viên"
+        ]
+      },
+      {
+        "id": "toeic_040",
+        "word": "portfolio",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/pɔːrtˈfoʊ.li.oʊ/",
+        "meaningVi": "danh mục đầu tư tài chính",
+        "collocations": "investment portfolio, diversify a portfolio, manage a portfolio",
+        "example": "Financial advisors recommend maintaining a balanced portfolio of stocks and treasury bonds.",
+        "exampleVi": "Các chuyên gia tư vấn tài chính khuyến nghị duy trì một danh mục đầu tư cân bằng giữa cổ phiếu và trái phiếu kho bạc.",
+        "optionsVi": [
+          "danh mục đầu tư tài chính",
+          "hồ sơ nhân sự công ty",
+          "sổ hộ chiếu công tác",
+          "bản thiết kế đồ họa sản phẩm"
+        ]
+      },
+      {
+        "id": "toeic_041",
+        "word": "invoice",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɪn.vɔɪs/",
+        "meaningVi": "hóa đơn thương mại yêu cầu thanh toán",
+        "collocations": "issue an invoice, pay an invoice, outstanding invoice",
+        "example": "Please ensure that the purchase order number is clearly printed on every invoice.",
+        "exampleVi": "Vui lòng đảm bảo rằng số đơn đặt hàng được in rõ ràng trên mọi hóa đơn thanh toán.",
+        "optionsVi": [
+          "hóa đơn thương mại yêu cầu thanh toán",
+          "biên bản họp giao ban",
+          "hợp đồng bảo hiểm nhân thọ",
+          "bảng đánh giá thành tích"
+        ]
+      },
+      {
+        "id": "toeic_042",
+        "word": "ledger",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈledʒ.ɚ/",
+        "meaningVi": "sổ cái kế toán",
+        "collocations": "general ledger, enter into the ledger, balance the ledger",
+        "example": "Every payment receipt must be entered into the general ledger by the close of business.",
+        "exampleVi": "Mọi biên lai thu tiền phải được ghi vào sổ cái kế toán trước giờ kết thúc ngày làm việc.",
+        "optionsVi": [
+          "sổ cái kế toán",
+          "sổ tay nhân viên mới",
+          "hồ sơ khiếu nại khách hàng",
+          "phiếu xuất kho hàng hóa"
+        ]
+      },
+      {
+        "id": "toeic_043",
+        "word": "curb expenses",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kɜːrb ɪkˈspen.sɪz/",
+        "meaningVi": "kiềm chế, thắt chặt chi tiêu",
+        "collocations": "curb unnecessary expenses, curb operational costs, measures to curb expenses",
+        "example": "In response to declining demand, leadership adopted strict measures to curb corporate expenses.",
+        "exampleVi": "Trước nhu cầu thị trường sụt giảm, ban lãnh đạo đã thông qua các biện pháp nghiêm ngặt để kiềm chế chi tiêu doanh nghiệp.",
+        "optionsVi": [
+          "kiềm chế, thắt chặt chi tiêu",
+          "tăng gấp đôi mức chi tiêu",
+          "vay nợ thêm từ ngân hàng",
+          "thanh lý tài sản cố định"
+        ]
+      },
+      {
+        "id": "toeic_044",
+        "word": "reconcile",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈrek.ən.saɪl/",
+        "meaningVi": "đối chiếu, làm khớp số liệu sổ sách",
+        "collocations": "reconcile accounts, reconcile discrepancies, reconcile bank statements",
+        "example": "The senior accountant worked late to reconcile the discrepancies between the receipts and bank statements.",
+        "exampleVi": "Kế toán trưởng đã làm thêm giờ muộn để đối chiếu các chênh lệch giữa biên lai và sao kê ngân hàng.",
+        "optionsVi": [
+          "đối chiếu, làm khớp số liệu sổ sách",
+          "hủy bỏ các con số sai lệch",
+          "chấp nhận sai số không chỉnh sửa",
+          "chuyển tiền sang tài khoản mới"
+        ]
+      },
+      {
+        "id": "toeic_045",
+        "word": "break-even point",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbreɪkˌiː.vən pɔɪnt/",
+        "meaningVi": "điểm hòa vốn",
+        "collocations": "reach the break-even point, calculate break-even point, achieve break-even",
+        "example": "We estimate that the new production plant will reach its break-even point within eighteen months.",
+        "exampleVi": "Chúng tôi ước tính nhà máy sản xuất mới sẽ đạt điểm hòa vốn trong vòng 18 tháng.",
+        "optionsVi": [
+          "điểm hòa vốn",
+          "thời điểm vỡ nợ phá sản",
+          "mức lợi nhuận cao kỷ lục",
+          "thời điểm giải ngân vốn đầu tư"
+        ]
+      },
+      {
+        "id": "toeic_046",
+        "word": "liquidity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/lɪˈkwɪd.ə.t̬i/",
+        "meaningVi": "tính thanh khoản (khả năng đổi ra tiền mặt)",
+        "collocations": "high liquidity, maintain liquidity, liquidity crisis",
+        "example": "Holding adequate short-term treasury bills helps the firm preserve financial liquidity.",
+        "exampleVi": "Nắm giữ đủ tín phiếu kho bạc ngắn hạn giúp công ty duy trì tính thanh khoản tài chính.",
+        "optionsVi": [
+          "tính thanh khoản (khả năng đổi ra tiền mặt)",
+          "mức độ thâm hụt nợ nần",
+          "tốc độ tăng trưởng doanh thu",
+          "giá trị thị trường của thương hiệu"
+        ]
+      },
+      {
+        "id": "toeic_047",
+        "word": "outstanding balance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌaʊtˈstæn.dɪŋ ˈbæl.əns/",
+        "meaningVi": "số dư còn nợ chưa thanh toán",
+        "collocations": "pay outstanding balance, clear outstanding balance, settle outstanding balance",
+        "example": "A late penalty will be applied to your account if the outstanding balance is not settled today.",
+        "exampleVi": "Khoản phí phạt chậm sẽ bị tính vào tài khoản của bạn nếu số dư nợ chưa được thanh toán trong hôm nay.",
+        "optionsVi": [
+          "số dư còn nợ chưa thanh toán",
+          "khoản tiền gửi tiết kiệm có kỳ hạn",
+          "tiền thưởng đạt chỉ tiêu tháng",
+          "khoản hoàn trả thừa từ ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_048",
+        "word": "yield",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/jiːld/",
+        "meaningVi": "tỷ suất sinh lời, sản lượng thu hoạch",
+        "collocations": "bond yield, high yield, annual yield",
+        "example": "Corporate bonds offer a higher annual yield than conventional savings accounts.",
+        "exampleVi": "Trái phiếu doanh nghiệp mang lại tỷ suất sinh lời hàng năm cao hơn so với tài khoản tiết kiệm thông thường.",
+        "optionsVi": [
+          "tỷ suất sinh lời, sản lượng thu hoạch",
+          "mức độ rủi ro tín dụng",
+          "chi phí quản lý tài khoản",
+          "khoản nợ xấu không thể thu hồi"
+        ]
+      },
+      {
+        "id": "toeic_049",
+        "word": "exempt from tax",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ɪɡˈzempt frəm tæks/",
+        "meaningVi": "được miễn thuế",
+        "collocations": "tax-exempt status, exempt from income tax, fully exempt from tax",
+        "example": "Donations made to the charitable foundation are completely exempt from corporate tax.",
+        "exampleVi": "Các khoản quyên góp cho quỹ từ thiện được miễn hoàn toàn thuế thu nhập doanh nghiệp.",
+        "optionsVi": [
+          "được miễn thuế",
+          "phải chịu thuế suất tối đa",
+          "bị phạt do trốn thuế",
+          "tạm giữ để thanh tra thuế"
+        ]
+      },
+      {
+        "id": "toeic_050",
+        "word": "collateral",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kəˈlæt̬.ɚ.əl/",
+        "meaningVi": "tài sản thế chấp cho khoản vay",
+        "collocations": "pledge as collateral, secure with collateral, provide collateral",
+        "example": "The commercial bank required company real estate as collateral for the multi-million-dollar loan.",
+        "exampleVi": "Ngân hàng thương mại đã yêu cầu bất động sản của công ty làm tài sản thế chấp cho khoản vay hàng triệu USD.",
+        "optionsVi": [
+          "tài sản thế chấp cho khoản vay",
+          "khoản lãi suất chi trả định kỳ",
+          "hợp đồng bảo lãnh tín dụng",
+          "chứng chỉ tiền gửi không kỳ hạn"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_hr",
+    "name": "Tuyển Dụng, Lương Thưởng & Quản Trị Nhân Sự",
+    "icon": "👥",
+    "category": "toeic",
+    "level": "B1",
+    "description": "Hồ sơ ứng viên, phỏng vấn, chế độ đãi ngộ, đánh giá năng lực, thăng tiến và phúc lợi nhân viên.",
+    "words": [
+      {
+        "id": "toeic_051",
+        "word": "recruit",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈkruːt/",
+        "meaningVi": "tuyển dụng nhân sự mới",
+        "collocations": "recruit qualified candidates, actively recruit, recruit top talent",
+        "example": "The HR department is launching a regional campaign to recruit seasoned software engineers.",
+        "exampleVi": "Phòng nhân sự đang phát động một chiến dịch khu vực để tuyển dụng các kỹ sư phần mềm dày dạn kinh nghiệm.",
+        "optionsVi": [
+          "tuyển dụng nhân sự mới",
+          "cho thôi việc hàng loạt",
+          "luân chuyển vị trí công tác",
+          "đào tạo nâng cao tay nghề"
+        ]
+      },
+      {
+        "id": "toeic_052",
+        "word": "applicant",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈæp.lə.kənt/",
+        "meaningVi": "người nộp đơn xin việc, ứng viên",
+        "collocations": "successful applicant, qualified applicant, pool of applicants",
+        "example": "Over two hundred applicants submitted resumes for the regional sales manager position.",
+        "exampleVi": "Hơn hai trăm ứng viên đã nộp hồ sơ xin việc cho vị trí giám đốc kinh doanh khu vực.",
+        "optionsVi": [
+          "người nộp đơn xin việc, ứng viên",
+          "người phỏng vấn nhân sự",
+          "nhân viên thử việc",
+          "chuyên gia tư vấn ngoài"
+        ]
+      },
+      {
+        "id": "toeic_053",
+        "word": "probationary period",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/proʊˈbeɪ.ʃən.er.i ˈpɪr.i.əd/",
+        "meaningVi": "thời gian thử việc",
+        "collocations": "complete probationary period, three-month probationary period, undergo a probationary period",
+        "example": "New hires receive regular performance reviews during their three-month probationary period.",
+        "exampleVi": "Nhân viên mới được đánh giá hiệu suất định kỳ trong suốt thời gian thử việc 3 tháng.",
+        "optionsVi": [
+          "thời gian thử việc",
+          "kỳ nghỉ phép hưởng lương",
+          "thời hạn thông báo nghỉ việc",
+          "chế độ nghỉ thai sản"
+        ]
+      },
+      {
+        "id": "toeic_054",
+        "word": "remuneration",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/rɪˌmjuː.nəˈreɪ.ʃən/",
+        "meaningVi": "thù lao, tiền công và chế độ đãi ngộ",
+        "collocations": "attractive remuneration package, remuneration commensurate with experience, financial remuneration",
+        "example": "We offer a competitive remuneration package including health insurance and annual stock options.",
+        "exampleVi": "Chúng tôi cung cấp gói thù lao cạnh tranh bao gồm bảo hiểm sức khỏe và quyền chọn mua cổ phiếu hàng năm.",
+        "optionsVi": [
+          "thù lao, tiền công và chế độ đãi ngộ",
+          "khoản phạt vi phạm hợp đồng",
+          "chi phí đào tạo nội bộ",
+          "đơn khiếu nại của công đoàn"
+        ]
+      },
+      {
+        "id": "toeic_055",
+        "word": "credential",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/krəˈden.ʃəl/",
+        "meaningVi": "chứng chỉ, bằng cấp năng lực",
+        "collocations": "academic credentials, professional credentials, verify credentials",
+        "example": "The selection committee was impressed by the candidate's strong academic credentials.",
+        "exampleVi": "Hội đồng tuyển chọn rất ấn tượng với bằng cấp học thuật vững vàng của ứng viên.",
+        "optionsVi": [
+          "chứng chỉ, bằng cấp năng lực",
+          "bản mô tả nhiệm vụ công việc",
+          "thư từ chối nhận việc",
+          "giấy xác nhận lương"
+        ]
+      },
+      {
+        "id": "toeic_056",
+        "word": "incentive",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪnˈsen.t̬ɪv/",
+        "meaningVi": "chính sách khích lệ, tiền thưởng động viên",
+        "collocations": "financial incentive, performance incentive, offer an incentive",
+        "example": "The firm introduced performance incentives to motivate sales representatives to reach target quotas.",
+        "exampleVi": "Công ty đã đưa ra các chính sách thưởng hiệu suất nhằm khích lệ nhân viên kinh doanh đạt chỉ tiêu.",
+        "optionsVi": [
+          "chính sách khích lệ, tiền thưởng động viên",
+          "hình thức xử lý kỷ luật",
+          "quy định kiểm soát giờ làm",
+          "biên bản nhắc nhở công việc"
+        ]
+      },
+      {
+        "id": "toeic_057",
+        "word": "appraisal",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/əˈpreɪ.zəl/",
+        "meaningVi": "sự đánh giá năng lực, hiệu quả công tác",
+        "collocations": "performance appraisal, annual appraisal, employee appraisal",
+        "example": "Employees set individual development goals during their annual performance appraisal.",
+        "exampleVi": "Nhân viên thiết lập các mục tiêu phát triển cá nhân trong đợt đánh giá hiệu suất hàng năm.",
+        "optionsVi": [
+          "sự đánh giá năng lực, hiệu quả công tác",
+          "quyết định điều chuyển công tác",
+          "chương trình tặng quà tri ân",
+          "hội thảo hướng nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_058",
+        "word": "severance package",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsev.ɚ.əns ˈpæk.ɪdʒ/",
+        "meaningVi": "gói trợ cấp thôi việc",
+        "collocations": "receive a severance package, generous severance package, negotiate a severance package",
+        "example": "Laid-off staff members were offered a generous severance package based on years of tenure.",
+        "exampleVi": "Những nhân sự bị cắt giảm đã được đề nghị một gói trợ cấp thôi việc hậu hĩnh căn cứ vào số năm cống hiến.",
+        "optionsVi": [
+          "gói trợ cấp thôi việc",
+          "tiền thưởng lễ tết hàng năm",
+          "phụ cấp công tác nước ngoài",
+          "gói bảo hiểm y tế cao cấp"
+        ]
+      },
+      {
+        "id": "toeic_059",
+        "word": "turnover rate",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈtɜːrnˌoʊ.vɚ reɪt/",
+        "meaningVi": "tỷ lệ luân chuyển nhân sự, tỷ lệ nghỉ việc",
+        "collocations": "high turnover rate, reduce employee turnover rate, staff turnover rate",
+        "example": "Improving workplace ergonomics and communication helped reduce the high staff turnover rate.",
+        "exampleVi": "Cải thiện môi trường làm việc và giao tiếp đã giúp giảm tỷ lệ nghỉ việc cao của nhân viên.",
+        "optionsVi": [
+          "tỷ lệ luân chuyển nhân sự, tỷ lệ nghỉ việc",
+          "tốc độ tăng trưởng doanh thu",
+          "tỷ lệ hoàn thành công việc",
+          "chỉ số chấm công đúng giờ"
+        ]
+      },
+      {
+        "id": "toeic_060",
+        "word": "shortlist",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈʃɔːrt.lɪst/",
+        "meaningVi": "danh sách rút gọn các ứng viên sáng giá",
+        "collocations": "make the shortlist, draw up a shortlist, candidate on the shortlist",
+        "example": "Only five candidates made the shortlist for the final interview with the vice president.",
+        "exampleVi": "Chỉ có năm ứng viên lọt vào danh sách rút gọn cho vòng phỏng vấn cuối cùng với phó chủ tịch.",
+        "optionsVi": [
+          "danh sách rút gọn các ứng viên sáng giá",
+          "danh sách nhân viên bị kỷ luật",
+          "bảng phân công công trực ban",
+          "bản liệt kê các câu hỏi phỏng vấn"
+        ]
+      },
+      {
+        "id": "toeic_061",
+        "word": "headhunt",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈhed.hʌnt/",
+        "meaningVi": "săn đầu người, chiêu mộ nhân sự cấp cao",
+        "collocations": "be headhunted for a role, headhunt from competitors, headhunt top executives",
+        "example": "Our current Chief Technology Officer was headhunted from an internationally renowned rival.",
+        "exampleVi": "Giám đốc công nghệ hiện tại của chúng tôi đã được săn đón về từ một đối thủ nổi tiếng quốc tế.",
+        "optionsVi": [
+          "săn đầu người, chiêu mộ nhân sự cấp cao",
+          "sa thải nhân viên không báo trước",
+          "tuyển dụng thực tập sinh",
+          "kiểm tra lý lịch tư pháp"
+        ]
+      },
+      {
+        "id": "toeic_062",
+        "word": "pension scheme",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpen.ʃən skiːm/",
+        "meaningVi": "chế độ bảo hiểm hưu trí",
+        "collocations": "occupational pension scheme, contribute to a pension scheme, join a pension scheme",
+        "example": "The company matches employee contributions up to six percent under the corporate pension scheme.",
+        "exampleVi": "Công ty đóng đối ứng khoản đóng góp của nhân viên lên tới 6% theo chế độ hưu trí của doanh nghiệp.",
+        "optionsVi": [
+          "chế độ bảo hiểm hưu trí",
+          "chính sách thưởng hiệu suất",
+          "chế độ thanh toán viện phí",
+          "kế hoạch đào tạo thạc sĩ"
+        ]
+      },
+      {
+        "id": "toeic_063",
+        "word": "orientation session",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌɔːr.i.enˈteɪ.ʃən ˈseʃ.ən/",
+        "meaningVi": "buổi đào tạo định hướng nhân viên mới",
+        "collocations": "attend orientation session, conduct an orientation session, new employee orientation",
+        "example": "All newly hired specialists must attend a mandatory orientation session on their first morning.",
+        "exampleVi": "Tất cả chuyên viên mới được tuyển dụng phải tham dự buổi định hướng bắt buộc vào sáng đầu tiên đi làm.",
+        "optionsVi": [
+          "buổi đào tạo định hướng nhân viên mới",
+          "buổi họp kiểm điểm nội bộ",
+          "phiên đàm phán mức lương",
+          "tiệc chia tay nhân viên về hưu"
+        ]
+      },
+      {
+        "id": "toeic_064",
+        "word": "fringe benefits",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfrɪndʒ ˌben.ə.fɪts/",
+        "meaningVi": "phúc lợi phụ (ngoài lương cơ bản)",
+        "collocations": "comprehensive fringe benefits, receive fringe benefits, tax-free fringe benefits",
+        "example": "Aside from a good salary, the firm offers fringe benefits such as a gym pass and free cafeteria meals.",
+        "exampleVi": "Bên cạnh mức lương tốt, công ty còn cung cấp các phúc lợi phụ như vé tập gym và bữa ăn miễn phí ở căn tin.",
+        "optionsVi": [
+          "phúc lợi phụ (ngoài lương cơ bản)",
+          "tiền phạt đi muộn về sớm",
+          "thuế khấu trừ tại nguồn",
+          "chi phí trang phục công sở tự túc"
+        ]
+      },
+      {
+        "id": "toeic_065",
+        "word": "promote",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/prəˈmoʊt/",
+        "meaningVi": "thăng chức, bổ nhiệm lên vị trí cao hơn",
+        "collocations": "be promoted to manager, promote from within, promote internally",
+        "example": "After leading three successful marketing campaigns, Sarah was promoted to department director.",
+        "exampleVi": "Sau khi dẫn dắt thành công 3 chiến dịch tiếp thị, Sarah đã được thăng chức lên làm giám đốc bộ phận.",
+        "optionsVi": [
+          "thăng chức, bổ nhiệm lên vị trí cao hơn",
+          "hạ bậc lương nhân viên",
+          "chuyển công tác sang chi nhánh khác",
+          "đình chỉ nhiệm vụ để thanh tra"
+        ]
+      },
+      {
+        "id": "toeic_066",
+        "word": "workplace morale",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈwɜːrk.pleɪs məˈræl/",
+        "meaningVi": "tinh thần làm việc của tập thể",
+        "collocations": "boost workplace morale, low workplace morale, maintain high morale",
+        "example": "Organizing regular team-building activities noticeably boosted workplace morale across departments.",
+        "exampleVi": "Việc tổ chức các hoạt động gắn kết định kỳ đã nâng cao rõ rệt tinh thần làm việc trong toàn bộ các phòng ban.",
+        "optionsVi": [
+          "tinh thần làm việc của tập thể",
+          "quy định an toàn phòng cháy",
+          "nội quy trang phục công sở",
+          "định mức sản lượng hàng ngày"
+        ]
+      },
+      {
+        "id": "toeic_067",
+        "word": "curriculum vitae",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˌrɪk.jə.ləm ˈviː.taɪ/",
+        "meaningVi": "sơ yếu lý lịch, bản CV xin việc",
+        "collocations": "submit a curriculum vitae, updated curriculum vitae, attached curriculum vitae",
+        "example": "Please submit your updated curriculum vitae along with three professional reference letters.",
+        "exampleVi": "Vui lòng nộp bản sơ yếu lý lịch mới nhất kèm theo ba thư giới thiệu chuyên môn.",
+        "optionsVi": [
+          "sơ yếu lý lịch, bản CV xin việc",
+          "giấy khám sức khỏe định kỳ",
+          "hóa đơn thanh toán học phí",
+          "bản cam kết bảo mật thông tin"
+        ]
+      },
+      {
+        "id": "toeic_068",
+        "word": "hire",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/haɪr/",
+        "meaningVi": "thuê, tuyển dụng người làm",
+        "collocations": "hire new staff, decision to hire, freeze hiring",
+        "example": "Management implemented a temporary freeze on hiring new personnel until revenues stabilize.",
+        "exampleVi": "Ban lãnh đạo đã ban hành quyết định tạm ngừng tuyển dụng nhân sự mới cho đến khi doanh thu ổn định trở lại.",
+        "optionsVi": [
+          "thuê, tuyển dụng người làm",
+          "cho nghỉ việc trước thời hạn",
+          "cắt giảm trợ cấp hàng tháng",
+          "chấm dứt hợp đồng lao động"
+        ]
+      },
+      {
+        "id": "toeic_069",
+        "word": "disciplinary action",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈdɪs.ə.plə.ner.i ˈæk.ʃən/",
+        "meaningVi": "biện pháp kỷ luật lao động",
+        "collocations": "face disciplinary action, take disciplinary action, subject to disciplinary action",
+        "example": "Any employee disclosing confidential company data will face immediate disciplinary action.",
+        "exampleVi": "Bất kỳ nhân viên nào tiết lộ dữ liệu mật của công ty sẽ phải đối mặt với biện pháp kỷ luật ngay lập tức.",
+        "optionsVi": [
+          "biện pháp kỷ luật lao động",
+          "chính sách khen thưởng đột xuất",
+          "quyết định cử đi công tác nước ngoài",
+          "chế độ tăng lương trước thời hạn"
+        ]
+      },
+      {
+        "id": "toeic_070",
+        "word": "eligible for promotion",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈel.ə.dʒə.bəl fər prəˈmoʊ.ʃən/",
+        "meaningVi": "đủ điều kiện để được thăng chức",
+        "collocations": "become eligible for promotion, deemed eligible for promotion, criteria to be eligible",
+        "example": "After completing two full years of continuous service, associates become eligible for promotion.",
+        "exampleVi": "Sau khi hoàn thành đủ hai năm làm việc liên tục, các chuyên viên sẽ đủ điều kiện để được xét thăng chức.",
+        "optionsVi": [
+          "đủ điều kiện để được thăng chức",
+          "bị xem xét cho thôi việc",
+          "thuộc diện phải đi đào tạo lại",
+          "hết hạn hợp đồng lao động"
+        ]
+      },
+      {
+        "id": "toeic_071",
+        "word": "demote",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪˈmoʊt/",
+        "meaningVi": "giáng chức, hạ bậc vị trí",
+        "collocations": "be demoted to assistant, demote for misconduct, face being demoted",
+        "example": "The supervisor was demoted to an analyst position following recurring safety breaches.",
+        "exampleVi": "Người giám sát đã bị giáng chức xuống vị trí chuyên viên phân tích sau các vi phạm an toàn lặp đi lặp lại.",
+        "optionsVi": [
+          "giáng chức, hạ bậc vị trí",
+          "thăng chức lên giám đốc",
+          "khen thưởng danh hiệu xuất sắc",
+          "tăng lương gấp đôi"
+        ]
+      },
+      {
+        "id": "toeic_072",
+        "word": "resignation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌrez.ɪɡˈneɪ.ʃən/",
+        "meaningVi": "sự từ chức, đơn xin thôi việc",
+        "collocations": "tender one's resignation, hand in resignation, accept a resignation",
+        "example": "The financial director tendered his formal resignation yesterday due to personal reasons.",
+        "exampleVi": "Giám đốc tài chính đã chính thức nộp đơn xin từ chức vào hôm qua vì lý do cá nhân.",
+        "optionsVi": [
+          "sự từ chức, đơn xin thôi việc",
+          "đơn xin tăng lương",
+          "giấy đề xuất bổ nhiệm",
+          "bản cam kết không cạnh tranh"
+        ]
+      },
+      {
+        "id": "toeic_073",
+        "word": "job description",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈdʒɑːb dɪˌskrɪp.ʃən/",
+        "meaningVi": "bản mô tả công việc (JD)",
+        "collocations": "detailed job description, outlined in the job description, match the job description",
+        "example": "The revised job description emphasizes cross-functional leadership and agile project management.",
+        "exampleVi": "Bản mô tả công việc sửa đổi nhấn mạnh kỹ năng lãnh đạo liên phòng ban và quản lý dự án linh hoạt.",
+        "optionsVi": [
+          "bản mô tả công việc (JD)",
+          "hợp đồng bảo hiểm trách nhiệm",
+          "thư cảm ơn sau phỏng vấn",
+          "bảng kê khai thu nhập cá nhân"
+        ]
+      },
+      {
+        "id": "toeic_074",
+        "word": "mentorship",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmen.tɔːr.ʃɪp/",
+        "meaningVi": "chương trình hướng dẫn, kèm cặp chuyên môn",
+        "collocations": "mentorship program, provide mentorship, benefit from mentorship",
+        "example": "Junior analysts are paired with senior partners through our structured mentorship program.",
+        "exampleVi": "Các chuyên viên phân tích mới vào nghề được ghép đôi với các đối tác cấp cao thông qua chương trình kèm cặp có hệ thống.",
+        "optionsVi": [
+          "chương trình hướng dẫn, kèm cặp chuyên môn",
+          "kỳ thi sát hạch lý thuyết",
+          "cuộc họp công đoàn cơ sở",
+          "chương trình tặng quà đối tác"
+        ]
+      },
+      {
+        "id": "toeic_075",
+        "word": "competence",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkɑːm.pə.təns/",
+        "meaningVi": "năng lực, trình độ chuyên môn vững vàng",
+        "collocations": "professional competence, demonstrate competence, core competence",
+        "example": "During the interview, the candidate demonstrated exceptional technical competence in data architecture.",
+        "exampleVi": "Trong suốt buổi phỏng vấn, ứng viên đã thể hiện năng lực chuyên môn kỹ thuật xuất sắc về kiến trúc dữ liệu.",
+        "optionsVi": [
+          "năng lực, trình độ chuyên môn vững vàng",
+          "sự thiếu hụt kinh nghiệm",
+          "thái độ bất hợp tác",
+          "tình trạng sức khỏe kém"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_logistics",
+    "name": "Chuỗi Cung Ứng, Kho Bãi & Vận Tải Quốc Tế",
+    "icon": "🚢",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Vận chuyển hàng hóa, chứng từ xuất nhập khẩu, hải quan, lưu kho và theo dõi hành trình đơn hàng.",
+    "words": [
+      {
+        "id": "toeic_076",
+        "word": "freight",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/freɪt/",
+        "meaningVi": "hàng hóa chuyên chở, cước phí vận chuyển",
+        "collocations": "air freight, freight charges, freight forwarder",
+        "example": "Rising fuel costs have led to an unexpected increase in international air freight charges.",
+        "exampleVi": "Giá nhiên liệu tăng cao đã dẫn tới sự gia tăng ngoài dự kiến trong cước phí vận chuyển hàng không quốc tế.",
+        "optionsVi": [
+          "hàng hóa chuyên chở, cước phí vận chuyển",
+          "thủ tục kiểm dịch động vật",
+          "bản đồ chỉ dẫn cảng biển",
+          "hợp đồng cho thuê kho bãi"
+        ]
+      },
+      {
+        "id": "toeic_077",
+        "word": "consignment",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈsaɪn.mənt/",
+        "meaningVi": "lô hàng gửi đi, hàng ký gửi",
+        "collocations": "ship a consignment, receive a consignment, consignment of goods",
+        "example": "The latest consignment of microchips arrived at the warehouse without any transit damage.",
+        "exampleVi": "Lô hàng vi mạch mới nhất đã đến kho chứa mà không gặp bất kỳ hư hại nào trong quá trình vận chuyển.",
+        "optionsVi": [
+          "lô hàng gửi đi, hàng ký gửi",
+          "giấy phép thành lập doanh nghiệp",
+          "khoản thuế giá trị gia tăng",
+          "thông báo hủy hợp đồng cung ứng"
+        ]
+      },
+      {
+        "id": "toeic_078",
+        "word": "bill of lading",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌbɪl əv ˈleɪ.dɪŋ/",
+        "meaningVi": "vận đơn đường biển/đường bộ",
+        "collocations": "original bill of lading, endorse a bill of lading, present the bill of lading",
+        "example": "The consignee must present the original bill of lading at the port to collect the container.",
+        "exampleVi": "Người nhận hàng phải xuất trình vận đơn gốc tại cảng để làm thủ tục nhận container.",
+        "optionsVi": [
+          "vận đơn đường biển/đường bộ",
+          "hóa đơn thanh toán tiền điện",
+          "chứng thư bảo lãnh ngân hàng",
+          "bản kê khai xuất xứ hàng hóa"
+        ]
+      },
+      {
+        "id": "toeic_079",
+        "word": "inventory turnover",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈɪn.vən.tɔːr.i ˈtɜːrnˌoʊ.vɚ/",
+        "meaningVi": "vòng quay hàng tồn kho",
+        "collocations": "high inventory turnover, improve inventory turnover, inventory turnover ratio",
+        "example": "Adopting lean manufacturing practices helped the distributor achieve a higher inventory turnover.",
+        "exampleVi": "Áp dụng phương pháp sản xuất tinh gọn đã giúp nhà phân phối đạt được vòng quay hàng tồn kho cao hơn.",
+        "optionsVi": [
+          "vòng quay hàng tồn kho",
+          "tổng số lượng hàng hỏng",
+          "diện tích sàn nhà kho",
+          "chi phí bốc xếp hàng thủ công"
+        ]
+      },
+      {
+        "id": "toeic_080",
+        "word": "customs clearance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.təmz ˈklɪr.əns/",
+        "meaningVi": "thủ tục thông quan hải quan",
+        "collocations": "await customs clearance, grant customs clearance, delay in customs clearance",
+        "example": "The imported medical devices were held up at the border pending official customs clearance.",
+        "exampleVi": "Các thiết bị y tế nhập khẩu đã bị giữ lại tại cửa khẩu để chờ thông quan hải quan chính thức.",
+        "optionsVi": [
+          "thủ tục thông quan hải quan",
+          "việc kiểm kê kho định kỳ",
+          "chính sách đổi trả hàng hóa",
+          "hợp đồng thuê mượn container"
+        ]
+      },
+      {
+        "id": "toeic_081",
+        "word": "warehouse",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈwer.haʊs/",
+        "meaningVi": "nhà kho, kho lưu trữ hàng",
+        "collocations": "central warehouse, automated warehouse, store in the warehouse",
+        "example": "All returned merchandise is routed back to our central warehouse in Chicago for inspection.",
+        "exampleVi": "Tất cả hàng hóa bị hoàn trả đều được chuyển về kho trung tâm tại Chicago để kiểm tra.",
+        "optionsVi": [
+          "nhà kho, kho lưu trữ hàng",
+          "cửa hàng bán lẻ ngoài phố",
+          "văn phòng đại diện thương mại",
+          "phòng trưng bày mẫu sản phẩm"
+        ]
+      },
+      {
+        "id": "toeic_082",
+        "word": "dispatch",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪˈspætʃ/",
+        "meaningVi": "gửi đi, phái đi nhanh chóng",
+        "collocations": "dispatch an order, promptly dispatch, dispatch courier",
+        "example": "Orders received before 3:00 PM will be dispatched on the same business day.",
+        "exampleVi": "Các đơn hàng nhận trước 3 giờ chiều sẽ được gửi đi ngay trong ngày làm việc hôm đó.",
+        "optionsVi": [
+          "gửi đi, phái đi nhanh chóng",
+          "lưu kho vô thời hạn",
+          "hủy đơn đặt hàng của khách",
+          "từ chối vận chuyển hàng nặng"
+        ]
+      },
+      {
+        "id": "toeic_083",
+        "word": "carrier",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈker.i.ɚ/",
+        "meaningVi": "đơn vị vận chuyển hàng, hãng vận tải",
+        "collocations": "shipping carrier, preferred carrier, international carrier",
+        "example": "We partnered with a reliable freight carrier to ensure timely delivery across North America.",
+        "exampleVi": "Chúng tôi đã hợp tác với một hãng vận tải uy tín để đảm bảo giao hàng đúng giờ trên khắp Bắc Mỹ.",
+        "optionsVi": [
+          "đơn vị vận chuyển hàng, hãng vận tải",
+          "nhà cung cấp nguyên liệu",
+          "đại lý phân phối độc quyền",
+          "cơ quan giám định chất lượng"
+        ]
+      },
+      {
+        "id": "toeic_084",
+        "word": "in transit",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ɪn ˈtræn.zɪt/",
+        "meaningVi": "đang trên đường vận chuyển",
+        "collocations": "goods in transit, damaged in transit, lost in transit",
+        "example": "Customer support confirmed that the replacement parts are currently in transit from Germany.",
+        "exampleVi": "Bộ phận chăm sóc khách hàng xác nhận các linh kiện thay thế hiện đang trên đường vận chuyển từ Đức về.",
+        "optionsVi": [
+          "đang trên đường vận chuyển",
+          "đã giao hàng thành công",
+          "đang chờ sản xuất tại xưởng",
+          "bị tạm giữ do thiếu hóa đơn"
+        ]
+      },
+      {
+        "id": "toeic_085",
+        "word": "procurement",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/prəˈkjʊr.mənt/",
+        "meaningVi": "hoạt động thu mua vật tư, trang thiết bị",
+        "collocations": "procurement department, procurement policy, sustainable procurement",
+        "example": "The procurement director negotiated volume discounts on all electronic components.",
+        "exampleVi": "Giám đốc thu mua đã đàm phán được mức chiết khấu theo số lượng lớn cho tất cả linh kiện điện tử.",
+        "optionsVi": [
+          "hoạt động thu mua vật tư, trang thiết bị",
+          "chiến dịch quảng bá bán lẻ",
+          "quy trình tuyển dụng nhân viên",
+          "công tác kiểm toán tài chính"
+        ]
+      },
+      {
+        "id": "toeic_086",
+        "word": "distributor",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈstrɪb.jə.t̬ɚ/",
+        "meaningVi": "nhà phân phối hàng hóa",
+        "collocations": "authorized distributor, regional distributor, exclusive distributor",
+        "example": "Only products purchased from an authorized distributor qualify for manufacturer warranty coverage.",
+        "exampleVi": "Chỉ các sản phẩm được mua từ nhà phân phối được ủy quyền mới đủ điều kiện bảo hành của hãng.",
+        "optionsVi": [
+          "nhà phân phối hàng hóa",
+          "người tiêu dùng cuối cùng",
+          "người bốc xếp hàng tại bến",
+          "chuyên viên giám định pháp lý"
+        ]
+      },
+      {
+        "id": "toeic_087",
+        "word": "packaging specification",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpæk.ɪ.dʒɪŋ ˌspes.ə.fəˈkeɪ.ʃən/",
+        "meaningVi": "quy cách đóng gói hàng hóa",
+        "collocations": "meet packaging specifications, strict packaging specifications, alter packaging specifications",
+        "example": "All export containers must strictly comply with international packaging specifications.",
+        "exampleVi": "Tất cả container hàng xuất khẩu phải tuân thủ nghiêm ngặt các quy cách đóng gói quốc tế.",
+        "optionsVi": [
+          "quy cách đóng gói hàng hóa",
+          "hạn mức tín dụng ngân hàng",
+          "bảng báo giá chi tiết sản phẩm",
+          "chính sách bảo hiểm hàng hải"
+        ]
+      },
+      {
+        "id": "toeic_088",
+        "word": "tariff",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈter.ɪf/",
+        "meaningVi": "thuế quan xuất nhập khẩu",
+        "collocations": "impose tariffs, import tariffs, exempt from tariffs",
+        "example": "The government announced a ten percent tariff on imported solar panels to support domestic factories.",
+        "exampleVi": "Chính phủ đã công bố mức thuế quan 10% đối với các tấm pin năng lượng mặt trời nhập khẩu để hỗ trợ các nhà máy trong nước.",
+        "optionsVi": [
+          "thuế quan xuất nhập khẩu",
+          "cước phí dỡ hàng tại cảng",
+          "tiền thuê kho bãi lưu trữ",
+          "mức hoa hồng bán buôn"
+        ]
+      },
+      {
+        "id": "toeic_089",
+        "word": "perishable goods",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈper.ɪ.ʃə.bəl ɡʊdz/",
+        "meaningVi": "hàng hóa mau hỏng (thực phẩm, hoa quả)",
+        "collocations": "transport perishable goods, perishable goods refrigerated, store perishable goods",
+        "example": "Refrigerated freight trucks are indispensable for transporting perishable goods over long distances.",
+        "exampleVi": "Xe tải chở hàng đông lạnh là phương tiện không thể thiếu để vận chuyển hàng mau hỏng trên những quãng đường dài.",
+        "optionsVi": [
+          "hàng hóa mau hỏng (thực phẩm, hoa quả)",
+          "máy móc cơ khí hạng nặng",
+          "vật liệu xây dựng công nghiệp",
+          "hàng hóa đóng gói bằng kim loại"
+        ]
+      },
+      {
+        "id": "toeic_090",
+        "word": "lead time",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈliːd ˌtaɪm/",
+        "meaningVi": "thời gian từ lúc đặt hàng đến khi nhận",
+        "collocations": "shorten lead time, average lead time, lead time of two weeks",
+        "example": "By sourcing parts locally, the manufacturer managed to cut production lead time by half.",
+        "exampleVi": "Bằng cách tìm nguồn linh kiện tại địa phương, nhà sản xuất đã rút ngắn được một nửa thời gian từ lúc đặt đến khi nhận.",
+        "optionsVi": [
+          "thời gian từ lúc đặt hàng đến khi nhận",
+          "thời gian bảo hành của sản phẩm",
+          "thời hạn sử dụng in trên bao bì",
+          "thời gian họp bàn giao công việc"
+        ]
+      },
+      {
+        "id": "toeic_091",
+        "word": "replenish",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/rɪˈplen.ɪʃ/",
+        "meaningVi": "bổ sung thêm hàng vào kho",
+        "collocations": "replenish stock, replenish inventory, regularly replenish",
+        "example": "The retail chain replenishes its shelf inventory twice weekly to prevent stockouts.",
+        "exampleVi": "Chuỗi bán lẻ bổ sung thêm hàng lên kệ 2 lần mỗi tuần để tránh tình trạng hết hàng.",
+        "optionsVi": [
+          "bổ sung thêm hàng vào kho",
+          "thanh lý toàn bộ hàng cũ",
+          "tiêu hủy hàng quá hạn",
+          "kiểm tra tem chống hàng giả"
+        ]
+      },
+      {
+        "id": "toeic_092",
+        "word": "cargo",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkɑːr.ɡoʊ/",
+        "meaningVi": "hàng hóa trên tàu hoặc máy bay",
+        "collocations": "cargo ship, handle cargo, load cargo",
+        "example": "Dockworkers worked throughout the night to unload containerized cargo from the vessel.",
+        "exampleVi": "Các công nhân bốc vác đã làm việc suốt đêm để bốc dỡ hàng hóa container từ con tàu.",
+        "optionsVi": [
+          "hàng hóa trên tàu hoặc máy bay",
+          "đội ngũ thuyền viên trên tàu",
+          "nhiên liệu đốt của phương tiện",
+          "vé hành khách đi máy bay"
+        ]
+      },
+      {
+        "id": "toeic_093",
+        "word": "expedite",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈek.spə.daɪt/",
+        "meaningVi": "đẩy nhanh, xúc tiến tiến độ",
+        "collocations": "expedite delivery, expedite processing, expedite the shipment",
+        "example": "We paid an extra fee to expedite the delivery of urgent surgical equipment.",
+        "exampleVi": "Chúng tôi đã trả thêm một khoản phí phụ để đẩy nhanh việc giao thiết bị phẫu thuật khẩn cấp.",
+        "optionsVi": [
+          "đẩy nhanh, xúc tiến tiến độ",
+          "trì hoãn giao hàng",
+          "từ chối vận chuyển",
+          "hủy bỏ thỏa thuận mua bán"
+        ]
+      },
+      {
+        "id": "toeic_094",
+        "word": "mishandle",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˌmɪsˈhæn.dəl/",
+        "meaningVi": "xử lý sai sót, bốc dỡ hàng ẩu",
+        "collocations": "mishandle fragile items, mishandle baggage, mishandle cargo",
+        "example": "The fragile glassware shattered because the handling crew mishandled the crate during transit.",
+        "exampleVi": "Đồ thủy tinh dễ vỡ đã bị vỡ tan do đội bốc dỡ đã bốc xếp ẩu kiện hàng trong quá trình vận chuyển.",
+        "optionsVi": [
+          "xử lý sai sót, bốc dỡ hàng ẩu",
+          "đóng gói cẩn thận",
+          "vận chuyển an toàn tuyệt đối",
+          "kiểm tra kỹ trước khi gửi"
+        ]
+      },
+      {
+        "id": "toeic_095",
+        "word": "tracking number",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈtræk.ɪŋ ˌnʌm.bɚ/",
+        "meaningVi": "mã số theo dõi bưu kiện vận chuyển",
+        "collocations": "provide a tracking number, enter tracking number, tracking number in confirmation email",
+        "example": "Once your order has been dispatched, you will receive an email containing the tracking number.",
+        "exampleVi": "Ngay khi đơn hàng của bạn được gửi đi, bạn sẽ nhận được một email chứa mã số theo dõi bưu kiện.",
+        "optionsVi": [
+          "mã số theo dõi bưu kiện vận chuyển",
+          "mã số định danh thuế doanh nghiệp",
+          "số tài khoản ngân hàng thụ hưởng",
+          "mã số chứng minh nhân dân"
+        ]
+      },
+      {
+        "id": "toeic_096",
+        "word": "storage facility",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈstɔːr.ɪdʒ fəˌsɪl.ə.t̬i/",
+        "meaningVi": "cơ sở kho bãi lưu trữ hàng",
+        "collocations": "climate-controlled storage facility, secure storage facility, rent a storage facility",
+        "example": "High-end pharmaceuticals require a temperature-controlled storage facility to maintain potency.",
+        "exampleVi": "Dược phẩm cao cấp đòi hỏi cơ sở kho bãi có kiểm soát nhiệt độ để duy trì hiệu lực thuốc.",
+        "optionsVi": [
+          "cơ sở kho bãi lưu trữ hàng",
+          "xưởng sản xuất bao bì giấy",
+          "văn phòng giao dịch khách hàng",
+          "trạm thu phí đường cao tốc"
+        ]
+      },
+      {
+        "id": "toeic_097",
+        "word": "damaged in transit",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈdæm.ɪdʒd ɪn ˈtræn.zɪt/",
+        "meaningVi": "bị hư hỏng trong quá trình vận chuyển",
+        "collocations": "items damaged in transit, claim for goods damaged in transit, replace goods damaged in transit",
+        "example": "Customers can request an immediate free replacement for any item damaged in transit.",
+        "exampleVi": "Khách hàng có thể yêu cầu đổi mới miễn phí ngay lập tức cho bất kỳ mặt hàng nào bị hư hỏng trong quá trình vận chuyển.",
+        "optionsVi": [
+          "bị hư hỏng trong quá trình vận chuyển",
+          "được giao nguyên vẹn an toàn",
+          "bị thất lạc tại quầy thủ tục",
+          "hết hạn bảo hành từ nhà sản xuất"
+        ]
+      },
+      {
+        "id": "toeic_098",
+        "word": "supplier",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/səˈplaɪ.ɚ/",
+        "meaningVi": "nhà cung cấp nguyên vật liệu/hàng hóa",
+        "collocations": "reliable supplier, foreign supplier, switch suppliers",
+        "example": "The auto maker works with dozens of certified parts suppliers across the globe.",
+        "exampleVi": "Hãng sản xuất ô tô làm việc với hàng chục nhà cung cấp phụ tùng đã được cấp chứng nhận trên toàn cầu.",
+        "optionsVi": [
+          "nhà cung cấp nguyên vật liệu/hàng hóa",
+          "khách hàng mua buôn",
+          "đơn vị kiểm định môi trường",
+          "nhân viên bảo trì thiết bị"
+        ]
+      },
+      {
+        "id": "toeic_099",
+        "word": "fulfill an order",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/fʊlˈfɪl ən ˈɔːr.dɚ/",
+        "meaningVi": "xử lý và hoàn tất đơn hàng",
+        "collocations": "promptly fulfill an order, unable to fulfill an order, warehouse fulfills orders",
+        "example": "Automated packing robots enable the fulfillment center to fulfill orders within two hours.",
+        "exampleVi": "Robot đóng gói tự động cho phép trung tâm hoàn tất đơn hàng xử lý và gửi đi các đơn trong vòng 2 giờ.",
+        "optionsVi": [
+          "xử lý và hoàn tất đơn hàng",
+          "hủy bỏ đơn mua hàng",
+          "khiếu nại về giá thành",
+          "hoãn thanh toán tiền hàng"
+        ]
+      },
+      {
+        "id": "toeic_100",
+        "word": "backorder",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbækˌɔːr.dɚ/",
+        "meaningVi": "đơn hàng chờ xử lý do hết hàng trong kho",
+        "collocations": "placed on backorder, item on backorder, backorder backlog",
+        "example": "Because the bestselling monitor is currently on backorder, shipping will take up to three weeks.",
+        "exampleVi": "Bởi vì chiếc màn hình bán chạy nhất hiện đang tạm hết hàng trong kho, việc giao hàng sẽ mất tối đa 3 tuần.",
+        "optionsVi": [
+          "đơn hàng chờ xử lý do hết hàng trong kho",
+          "đơn hàng bị giao sai địa chỉ",
+          "hàng hóa được giảm giá mạnh",
+          "phiếu nhận hàng tại cửa hàng"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_mkt",
+    "name": "Tiếp Thị, Quảng Cáo & Nghiên Cứu Thị Trường",
+    "icon": "📣",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Chiến dịch quảng bá, phân khúc khách hàng, thị phần, ra mắt sản phẩm và quan hệ công chúng.",
+    "words": [
+      {
+        "id": "toeic_101",
+        "word": "target audience",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈtɑːr.ɡɪt ˈɑː.di.əns/",
+        "meaningVi": "nhóm khách hàng mục tiêu",
+        "collocations": "reach the target audience, identify target audience, tailor to target audience",
+        "example": "The ad campaign was tailored specifically to appeal to a younger target audience.",
+        "exampleVi": "Chiến dịch quảng cáo được điều chỉnh đặc biệt để thu hút nhóm khách hàng mục tiêu trẻ tuổi.",
+        "optionsVi": [
+          "nhóm khách hàng mục tiêu",
+          "hội đồng cổ đông công ty",
+          "đội ngũ sáng tạo nội dung",
+          "ban giám khảo cuộc thi"
+        ]
+      },
+      {
+        "id": "toeic_102",
+        "word": "market penetration",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌmɑːr.kɪt ˌpen.əˈtreɪ.ʃən/",
+        "meaningVi": "độ thâm nhập thị trường",
+        "collocations": "increase market penetration, achieve market penetration, aggressive market penetration",
+        "example": "Offering competitive introductory pricing accelerated our market penetration in Southeast Asia.",
+        "exampleVi": "Đưa ra mức giá chào hàng cạnh tranh đã thúc đẩy nhanh độ thâm nhập thị trường của chúng tôi tại Đông Nam Á.",
+        "optionsVi": [
+          "độ thâm nhập thị trường",
+          "tỷ lệ hoàn trả sản phẩm",
+          "mức độ bảo mật thông tin",
+          "chi phí vận chuyển hàng không"
+        ]
+      },
+      {
+        "id": "toeic_103",
+        "word": "brand awareness",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/brænd əˈwer.nəs/",
+        "meaningVi": "mức độ nhận diện thương hiệu",
+        "collocations": "build brand awareness, raise brand awareness, strong brand awareness",
+        "example": "Sponsoring international sporting tournaments helped raise brand awareness across Europe.",
+        "exampleVi": "Tài trợ cho các giải đấu thể thao quốc tế đã giúp nâng cao mức độ nhận diện thương hiệu trên khắp châu Âu.",
+        "optionsVi": [
+          "mức độ nhận diện thương hiệu",
+          "chất lượng bao bì sản phẩm",
+          "chính sách đổi trả bảo hành",
+          "hạn mức tín dụng đại lý"
+        ]
+      },
+      {
+        "id": "toeic_104",
+        "word": "consumer survey",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/kənˈsuː.mɚ ˈsɜːr.veɪ/",
+        "meaningVi": "khảo sát ý kiến người tiêu dùng",
+        "collocations": "conduct a consumer survey, consumer survey reveals, participate in a consumer survey",
+        "example": "A recent consumer survey revealed that customers prioritize product durability over aesthetics.",
+        "exampleVi": "Một cuộc khảo sát người tiêu dùng gần đây tiết lộ rằng khách hàng ưu tiên độ bền sản phẩm hơn là tính thẩm mỹ.",
+        "optionsVi": [
+          "khảo sát ý kiến người tiêu dùng",
+          "biên bản thanh tra vệ sinh",
+          "bảng kê khai hàng tồn đọng",
+          "hóa đơn thanh toán bán buôn"
+        ]
+      },
+      {
+        "id": "toeic_105",
+        "word": "promotional campaign",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/prəˈmoʊ.ʃən.əl kæmˈpeɪn/",
+        "meaningVi": "chiến dịch quảng bá, khuyến mãi",
+        "collocations": "launch a promotional campaign, intensive promotional campaign, nationwide promotional campaign",
+        "example": "The marketing team launched a nationwide promotional campaign featuring buy-one-get-one deals.",
+        "exampleVi": "Đội ngũ tiếp thị đã phát động chiến dịch quảng bá toàn quốc với chương trình mua một tặng một.",
+        "optionsVi": [
+          "chiến dịch quảng bá, khuyến mãi",
+          "kế hoạch cắt giảm nhân sự",
+          "thủ tục giải thể chi nhánh",
+          "quy trình kiểm định kỹ thuật"
+        ]
+      },
+      {
+        "id": "toeic_106",
+        "word": "endorsement",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈdɔːrs.mənt/",
+        "meaningVi": "sự chứng thực quảng cáo của người nổi tiếng",
+        "collocations": "celebrity endorsement, seek endorsement, official endorsement",
+        "example": "The athletic footwear company signed an exclusive multi-million-dollar endorsement with a tennis star.",
+        "exampleVi": "Công ty giày thể thao đã ký hợp đồng quảng cáo độc quyền trị giá hàng triệu USD với một ngôi sao quần vợt.",
+        "optionsVi": [
+          "sự chứng thực quảng cáo của người nổi tiếng",
+          "lời cảnh báo từ người tiêu dùng",
+          "biên bản xử phạt hành chính",
+          "đơn kiện vi phạm bản quyền"
+        ]
+      },
+      {
+        "id": "toeic_107",
+        "word": "demographics",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌdem.əˈɡræf.ɪks/",
+        "meaningVi": "dữ liệu nhân khẩu học",
+        "collocations": "target demographics, analyze demographics, shifting demographics",
+        "example": "Marketers must study urban demographics to decide where to open upcoming flagship stores.",
+        "exampleVi": "Những người làm tiếp thị phải nghiên cứu dữ liệu nhân khẩu học đô thị để quyết định nơi mở các cửa hàng đầu đàn sắp tới.",
+        "optionsVi": [
+          "dữ liệu nhân khẩu học",
+          "chỉ số biến động chứng khoán",
+          "hệ thống giao thông công cộng",
+          "thông số kỹ thuật máy móc"
+        ]
+      },
+      {
+        "id": "toeic_108",
+        "word": "competitive edge",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kəmˈpet̬.ə.t̬ɪv edʒ/",
+        "meaningVi": "lợi thế cạnh tranh vượt trội",
+        "collocations": "gain a competitive edge, maintain a competitive edge, sharpen competitive edge",
+        "example": "Investing in AI-driven analytics gave our firm a decisive competitive edge over local rivals.",
+        "exampleVi": "Đầu tư vào phân tích dữ liệu bằng AI đã đem lại cho công ty chúng tôi lợi thế cạnh tranh vượt trội trước các đối thủ địa phương.",
+        "optionsVi": [
+          "lợi thế cạnh tranh vượt trội",
+          "mối đe dọa phá sản",
+          "khoản nợ đến hạn thanh toán",
+          "sự sụt giảm doanh số bán"
+        ]
+      },
+      {
+        "id": "toeic_109",
+        "word": "launch",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/lɑːntʃ/",
+        "meaningVi": "ra mắt, tung ra sản phẩm mới",
+        "collocations": "launch a new product, product launch, official launch date",
+        "example": "The automaker plans to launch three all-electric models before the end of next year.",
+        "exampleVi": "Hãng sản xuất ô tô dự định tung ra ba mẫu xe thuần điện trước cuối năm tới.",
+        "optionsVi": [
+          "ra mắt, tung ra sản phẩm mới",
+          "thu hồi sản phẩm bị lỗi",
+          "ngừng dây chuyền lắp ráp",
+          "giảm giá thanh lý hàng cũ"
+        ]
+      },
+      {
+        "id": "toeic_110",
+        "word": "niche market",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/niːʃ ˈmɑːr.kɪt/",
+        "meaningVi": "thị trường ngách, phân khúc hẹp",
+        "collocations": "carve out a niche market, serve a niche market, profitable niche market",
+        "example": "By focusing exclusively on vegan skincare, the startup successfully captured a profitable niche market.",
+        "exampleVi": "Bằng cách tập trung hoàn toàn vào mỹ phẩm thuần chay, công ty khởi nghiệp đã chiếm lĩnh thành công một thị trường ngách đầy lợi nhuận.",
+        "optionsVi": [
+          "thị trường ngách, phân khúc hẹp",
+          "thị trường đại trà giá rẻ",
+          "khu chợ truyền thống ngoài trời",
+          "trung tâm thương mại sầm uất"
+        ]
+      },
+      {
+        "id": "toeic_111",
+        "word": "press release",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpres rɪˌliːs/",
+        "meaningVi": "thông cáo báo chí",
+        "collocations": "issue a press release, distribute a press release, official press release",
+        "example": "The corporate communications office issued a press release denying the merger rumors.",
+        "exampleVi": "Văn phòng truyền thông doanh nghiệp đã phát đi thông cáo báo chí bác bỏ những tin đồn sáp nhập.",
+        "optionsVi": [
+          "thông cáo báo chí",
+          "bản tin nội bộ phòng ban",
+          "hợp đồng bảo mật thông tin",
+          "hóa đơn chi phí tiếp khách"
+        ]
+      },
+      {
+        "id": "toeic_112",
+        "word": "customer loyalty",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.tə.mɚ ˈlɔɪ.əl.t̬i/",
+        "meaningVi": "lòng trung thành của khách hàng",
+        "collocations": "build customer loyalty, customer loyalty program, reward customer loyalty",
+        "example": "Offering personalized discounts and rewards programs is key to strengthening customer loyalty.",
+        "exampleVi": "Cung cấp chiết khấu cá nhân hóa và các chương trình tích điểm là chìa khóa để củng cố lòng trung thành của khách hàng.",
+        "optionsVi": [
+          "lòng trung thành của khách hàng",
+          "sự nghi ngờ về chất lượng",
+          "thói quen đổi trả sản phẩm",
+          "số lượng khiếu nại phát sinh"
+        ]
+      },
+      {
+        "id": "toeic_113",
+        "word": "commercial",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˈmɜːr.ʃəl/",
+        "meaningVi": "quảng cáo trên truyền hình hoặc đài phát thanh",
+        "collocations": "television commercial, radio commercial, 30-second commercial",
+        "example": "The brand aired a memorable 30-second commercial during the championship game.",
+        "exampleVi": "Thương hiệu đã phát sóng một đoạn quảng cáo 30 giây đáng nhớ trong suốt trận đấu vô địch.",
+        "optionsVi": [
+          "quảng cáo trên truyền hình hoặc đài phát thanh",
+          "bài báo cáo khoa học",
+          "bản tin thời sự trực tiếp",
+          "chương trình phim tài liệu"
+        ]
+      },
+      {
+        "id": "toeic_114",
+        "word": "market share",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈmɑːr.kɪt ʃer/",
+        "meaningVi": "thị phần của doanh nghiệp",
+        "collocations": "gain market share, lose market share, dominate market share",
+        "example": "Aggressive advertising helped the beverage manufacturer capture forty percent of the domestic market share.",
+        "exampleVi": "Quảng cáo mạnh mẽ đã giúp nhà sản xuất đồ uống chiếm lĩnh 40% thị phần nội địa.",
+        "optionsVi": [
+          "thị phần của doanh nghiệp",
+          "khoản nợ ngân hàng",
+          "chi phí mua sắm bao bì",
+          "số lượng đại lý giải thể"
+        ]
+      },
+      {
+        "id": "toeic_115",
+        "word": "flyer",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈflaɪ.ɚ/",
+        "meaningVi": "tờ rơi quảng cáo",
+        "collocations": "hand out flyers, promotional flyer, design a flyer",
+        "example": "Volunteers handed out colorful flyers announcing the grand opening of the new department store.",
+        "exampleVi": "Các tình nguyện viên đã phát những tờ rơi đầy màu sắc thông báo ngày khai trương của trung tâm mua sắm mới.",
+        "optionsVi": [
+          "tờ rơi quảng cáo",
+          "cuốn sổ tay nội quy",
+          "tấm vé máy bay",
+          "hóa đơn đỏ giá trị gia tăng"
+        ]
+      },
+      {
+        "id": "toeic_116",
+        "word": "brochure",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/broʊˈʃʊr/",
+        "meaningVi": "tập sách giới thiệu sản phẩm/dịch vụ",
+        "collocations": "glossy brochure, travel brochure, pick up a brochure",
+        "example": "Visitors can pick up a complimentary informational brochure at the reception counter.",
+        "exampleVi": "Khách tham quan có thể nhận một tập tài liệu giới thiệu thông tin miễn phí tại quầy tiếp tân.",
+        "optionsVi": [
+          "tập sách giới thiệu sản phẩm/dịch vụ",
+          "hợp đồng cho thuê mặt bằng",
+          "phiếu bảo hành có thời hạn",
+          "thẻ lên máy bay"
+        ]
+      },
+      {
+        "id": "toeic_117",
+        "word": "public relations",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌpʌb.lɪk rɪˈleɪ.ʃənz/",
+        "meaningVi": "quan hệ công chúng (PR)",
+        "collocations": "public relations firm, public relations campaign, head of public relations",
+        "example": "The executive hired a prominent public relations firm to rebuild the corporate image after the crisis.",
+        "exampleVi": "Ban điều hành đã thuê một công ty quan hệ công chúng uy tín để xây dựng lại hình ảnh doanh nghiệp sau khủng hoảng.",
+        "optionsVi": [
+          "quan hệ công chúng (PR)",
+          "phòng kiểm toán nội bộ",
+          "bộ phận xuất nhập khẩu",
+          "đội ngũ kỹ thuật phần mềm"
+        ]
+      },
+      {
+        "id": "toeic_118",
+        "word": "word-of-mouth",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌwɜːrd.əvˈmaʊθ/",
+        "meaningVi": "hình thức tiếp thị truyền miệng",
+        "collocations": "word-of-mouth recommendation, spread by word-of-mouth, word-of-mouth marketing",
+        "example": "The boutique coffee shop relies heavily on word-of-mouth recommendations rather than paid billboard ads.",
+        "exampleVi": "Quán cà phê nhỏ dựa nhiều vào lời giới thiệu truyền miệng hơn là các biển quảng cáo trả phí.",
+        "optionsVi": [
+          "hình thức tiếp thị truyền miệng",
+          "thông điệp phát thanh công cộng",
+          "quảng cáo trên truyền hình cáp",
+          "bản khảo sát trực tuyến tự động"
+        ]
+      },
+      {
+        "id": "toeic_119",
+        "word": "sponsorship",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈspɑːn.sɚ.ʃɪp/",
+        "meaningVi": "sự tài trợ thương mại",
+        "collocations": "corporate sponsorship, secure sponsorship, under the sponsorship of",
+        "example": "Securing corporate sponsorship from tech leaders allowed the university to build new research labs.",
+        "exampleVi": "Có được sự tài trợ từ các tập đoàn công nghệ hàng đầu đã cho phép trường đại học xây dựng các phòng thí nghiệm mới.",
+        "optionsVi": [
+          "sự tài trợ thương mại",
+          "khoản nợ quá hạn chi trả",
+          "hành vi can thiệp trái phép",
+          "khoản phí bảo trì thiết bị"
+        ]
+      },
+      {
+        "id": "toeic_120",
+        "word": "discount voucher",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈdɪs.kaʊnt ˈvaʊ.tʃɚ/",
+        "meaningVi": "phiếu giảm giá mua hàng",
+        "collocations": "redeem a discount voucher, valid discount voucher, apply a discount voucher",
+        "example": "Subscribers who fill out the online feedback form will receive a 20% discount voucher.",
+        "exampleVi": "Những người đăng ký điền vào phiếu khảo sát trực tuyến sẽ nhận được phiếu giảm giá 20%.",
+        "optionsVi": [
+          "phiếu giảm giá mua hàng",
+          "giấy phép nhập cảnh",
+          "phiếu xuất kho phụ tùng",
+          "biên lai thu tiền điện"
+        ]
+      },
+      {
+        "id": "toeic_121",
+        "word": "focus group",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfoʊ.kəs ˌɡruːp/",
+        "meaningVi": "nhóm thảo luận lấy ý kiến chuyên sâu",
+        "collocations": "conduct a focus group, focus group participants, feedback from focus groups",
+        "example": "Feedback from consumer focus groups helped the software team refine the mobile user interface.",
+        "exampleVi": "Ý kiến đóng góp từ các nhóm thảo luận người tiêu dùng đã giúp đội ngũ phần mềm tinh chỉnh giao diện người dùng trên di động.",
+        "optionsVi": [
+          "nhóm thảo luận lấy ý kiến chuyên sâu",
+          "đội thợ sửa chữa lưu động",
+          "hội đồng giải quyết tranh chấp",
+          "đoàn đại biểu tham quan"
+        ]
+      },
+      {
+        "id": "toeic_122",
+        "word": "billboard",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbɪl.bɔːrd/",
+        "meaningVi": "biển bảng quảng cáo lớn ngoài trời",
+        "collocations": "highway billboard, digital billboard, advertise on billboards",
+        "example": "The real estate firm erected massive billboards along major highway intersections to attract homebuyers.",
+        "exampleVi": "Công ty bất động sản đã dựng những biển quảng cáo khổng lồ dọc các nút giao cao tốc lớn để thu hút người mua nhà.",
+        "optionsVi": [
+          "biển bảng quảng cáo lớn ngoài trời",
+          "bảng lương bảo mật",
+          "bảng thông báo nội bộ",
+          "biển báo hạn chế tốc độ"
+        ]
+      },
+      {
+        "id": "toeic_123",
+        "word": "digital marketing",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈdɪdʒ.ə.t̬əl ˈmɑːr.kɪ.t̬ɪŋ/",
+        "meaningVi": "tiếp thị số, tiếp thị trực tuyến",
+        "collocations": "digital marketing strategy, digital marketing specialist, invest in digital marketing",
+        "example": "Shifting budget from print ads to digital marketing dramatically expanded their consumer reach.",
+        "exampleVi": "Chuyển ngân sách từ báo in sang tiếp thị số đã mở rộng đáng kể phạm vi tiếp cận người tiêu dùng của họ.",
+        "optionsVi": [
+          "tiếp thị số, tiếp thị trực tuyến",
+          "kinh doanh vận tải đường thủy",
+          "kiểm kê tài sản thủ công",
+          "quản lý nhân sự truyền thống"
+        ]
+      },
+      {
+        "id": "toeic_124",
+        "word": "tagline",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈtæɡ.laɪn/",
+        "meaningVi": "khẩu hiệu, câu slogan thương hiệu",
+        "collocations": "catchy tagline, memorable tagline, company tagline",
+        "example": "The brand's catchy new tagline helped make the product instantly recognizable to shoppers.",
+        "exampleVi": "Câu khẩu hiệu mới bắt tai của thương hiệu đã giúp sản phẩm được người mua sắm nhận ra ngay lập tức.",
+        "optionsVi": [
+          "khẩu hiệu, câu slogan thương hiệu",
+          "bản hướng dẫn cài đặt",
+          "danh sách nguyên liệu độc hại",
+          "thông tin mã vạch sản phẩm"
+        ]
+      },
+      {
+        "id": "toeic_125",
+        "word": "expand outreach",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ɪkˈspænd ˈaʊt.riːtʃ/",
+        "meaningVi": "mở rộng phạm vi tiếp cận cộng đồng/khách hàng",
+        "collocations": "expand community outreach, effort to expand outreach, expand outreach to new regions",
+        "example": "The non-profit organization partnered with universities to expand outreach to rural students.",
+        "exampleVi": "Tổ chức phi lợi nhuận đã hợp tác với các trường đại học để mở rộng tiếp cận tới học sinh vùng nông thôn.",
+        "optionsVi": [
+          "mở rộng phạm vi tiếp cận cộng đồng/khách hàng",
+          "cắt giảm mạng lưới chi nhánh",
+          "thu hẹp quy mô hoạt động",
+          "ngừng cung cấp dịch vụ miễn phí"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_conferences",
+    "name": "Hội Nghị, Hội Thảo & Sự Kiện Doanh Nghiệp",
+    "icon": "🎤",
+    "category": "toeic",
+    "level": "B1",
+    "description": "Địa điểm tổ chức, điều phối viên, lịch trình nghị sự, diễn giả, bài thuyết trình và tiệc chiêu đãi.",
+    "words": [
+      {
+        "id": "toeic_126",
+        "word": "venue",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈven.juː/",
+        "meaningVi": "địa điểm tổ chức sự kiện/hội nghị",
+        "collocations": "conference venue, ideal venue, book a venue",
+        "example": "The grand ballroom at the Grand Plaza Hotel was selected as the conference venue.",
+        "exampleVi": "Hội trường lớn tại khách sạn Grand Plaza đã được chọn làm địa điểm tổ chức hội nghị.",
+        "optionsVi": [
+          "địa điểm tổ chức sự kiện/hội nghị",
+          "thực đơn tiệc trưa",
+          "danh sách khách mời VIP",
+          "bài phát biểu khai mạc"
+        ]
+      },
+      {
+        "id": "toeic_127",
+        "word": "keynote speaker",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkiː.noʊt ˈspiː.kɚ/",
+        "meaningVi": "diễn giả chính của buổi hội nghị",
+        "collocations": "invite a keynote speaker, keynote speaker delivers address, distinguished keynote speaker",
+        "example": "A distinguished artificial intelligence researcher was invited as our keynote speaker.",
+        "exampleVi": "Một nhà nghiên cứu trí tuệ nhân tạo lỗi lạc đã được mời làm diễn giả chính của chúng tôi.",
+        "optionsVi": [
+          "diễn giả chính của buổi hội nghị",
+          "người phục vụ tiệc",
+          "kỹ thuật viên âm thanh",
+          "nhân viên bảo vệ cửa"
+        ]
+      },
+      {
+        "id": "toeic_128",
+        "word": "agenda",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/əˈdʒen.də/",
+        "meaningVi": "chương trình nghị sự, lịch trình phiên họp",
+        "collocations": "on the agenda, item on the agenda, adopt the agenda",
+        "example": "The first item on today's agenda is the approval of last month's financial statements.",
+        "exampleVi": "Mục đầu tiên trong chương trình nghị sự hôm nay là phê duyệt báo cáo tài chính tháng trước.",
+        "optionsVi": [
+          "chương trình nghị sự, lịch trình phiên họp",
+          "biên bản xử phạt hành chính",
+          "giấy mời ăn trưa",
+          "bản đồ chỉ dẫn giao thông"
+        ]
+      },
+      {
+        "id": "toeic_129",
+        "word": "accommodate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əˈkɑː.mə.deɪt/",
+        "meaningVi": "chứa được, đáp ứng chỗ ngồi/tiện nghi",
+        "collocations": "accommodate guests, accommodate up to 500 people, accommodate special requests",
+        "example": "The auditorium can comfortably accommodate up to six hundred delegates.",
+        "exampleVi": "Khán phòng có thể đáp ứng chỗ ngồi thoải mái cho tối đa 600 đại biểu.",
+        "optionsVi": [
+          "chứa được, đáp ứng chỗ ngồi/tiện nghi",
+          "từ chối tiếp đón",
+          "hủy bỏ đặt chỗ",
+          "giảm bớt số lượng ghế"
+        ]
+      },
+      {
+        "id": "toeic_130",
+        "word": "delegate",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈdel.ə.ɡət/",
+        "meaningVi": "đại biểu tham dự hội nghị",
+        "collocations": "conference delegate, register delegates, international delegates",
+        "example": "Delegates from over thirty different nations attended the clean energy summit.",
+        "exampleVi": "Các đại biểu đến từ hơn ba mươi quốc gia khác nhau đã tham dự hội nghị thượng đỉnh năng lượng sạch.",
+        "optionsVi": [
+          "đại biểu tham dự hội nghị",
+          "nhân viên lái xe đưa đón",
+          "người phiên dịch cabin",
+          "đơn vị tài trợ chính"
+        ]
+      },
+      {
+        "id": "toeic_131",
+        "word": "registration fee",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌredʒ.əˈstreɪ.ʃən fiː/",
+        "meaningVi": "phí đăng ký tham gia sự kiện",
+        "collocations": "pay registration fee, waive the registration fee, early-bird registration fee",
+        "example": "Attendees who sign up before August 1st will enjoy a thirty percent discount on the registration fee.",
+        "exampleVi": "Những người tham dự đăng ký trước ngày 1 tháng 8 sẽ được giảm 30% phí đăng ký.",
+        "optionsVi": [
+          "phí đăng ký tham gia sự kiện",
+          "tiền phạt hủy đặt phòng",
+          "chi phí mua quà lưu niệm",
+          "phí gửi hành lý qua đêm"
+        ]
+      },
+      {
+        "id": "toeic_132",
+        "word": "banquet",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbæŋ.kwət/",
+        "meaningVi": "bữa tiệc lớn chiêu đãi khách",
+        "collocations": "annual banquet, banquet hall, host a banquet",
+        "example": "The company awards banquet will be held in the rooftop pavilion on Friday evening.",
+        "exampleVi": "Bữa tiệc trao giải của công ty sẽ được tổ chức tại sảnh tầng thượng vào tối thứ Sáu.",
+        "optionsVi": [
+          "bữa tiệc lớn chiêu đãi khách",
+          "phiên thảo luận chuyên đề",
+          "cuộc họp khẩn của ban giám đốc",
+          "buổi kiểm tra tay nghề"
+        ]
+      },
+      {
+        "id": "toeic_133",
+        "word": "panel discussion",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpæn.əl dɪˌskʌʃ.ən/",
+        "meaningVi": "phiên thảo luận bàn tròn của chuyên gia",
+        "collocations": "participate in a panel discussion, panel discussion on climate, moderate a panel discussion",
+        "example": "Industry leaders took part in a lively panel discussion regarding supply chain resilience.",
+        "exampleVi": "Các nhà lãnh đạo trong ngành đã tham gia vào một phiên thảo luận bàn tròn sôi nổi về khả năng chống chịu của chuỗi cung ứng.",
+        "optionsVi": [
+          "phiên thảo luận bàn tròn của chuyên gia",
+          "bài kiểm tra trắc nghiệm",
+          "buổi biểu diễn văn nghệ",
+          "cuộc thanh tra tài chính"
+        ]
+      },
+      {
+        "id": "toeic_134",
+        "word": "reception",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/rɪˈsep.ʃən/",
+        "meaningVi": "buổi tiệc đón tiếp, sự tiếp đón",
+        "collocations": "welcome reception, cocktail reception, reception area",
+        "example": "An informal welcome reception is scheduled immediately following the opening remarks.",
+        "exampleVi": "Một buổi tiệc đón tiếp thân mật được lên lịch ngay sau phần phát biểu khai mạc.",
+        "optionsVi": [
+          "buổi tiệc đón tiếp, sự tiếp đón",
+          "lễ ký kết hợp đồng",
+          "cuộc họp nội bộ kín",
+          "kỳ thi nâng bậc lương"
+        ]
+      },
+      {
+        "id": "toeic_135",
+        "word": "moderator",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmɑː.də.reɪ.t̬ɚ/",
+        "meaningVi": "người điều phối phiên thảo luận",
+        "collocations": "session moderator, skilled moderator, act as moderator",
+        "example": "The moderator ensured that all panelists had equal opportunity to voice their perspectives.",
+        "exampleVi": "Người điều phối đã đảm bảo rằng mọi diễn giả tham gia đều có cơ hội bình đẳng để bày tỏ quan điểm.",
+        "optionsVi": [
+          "người điều phối phiên thảo luận",
+          "khán giả tham gia đặt câu hỏi",
+          "người phụ trách ánh sáng",
+          "nhân viên in ấn tài liệu"
+        ]
+      },
+      {
+        "id": "toeic_136",
+        "word": "catering service",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkeɪ.t̬ɚ.ɪŋ ˈsɜːr.vɪs/",
+        "meaningVi": "dịch vụ cung cấp tiệc ăn uống",
+        "collocations": "hire a catering service, professional catering service, outdoor catering service",
+        "example": "We hired an upscale catering service to provide coffee breaks and a gourmet lunch.",
+        "exampleVi": "Chúng tôi đã thuê một dịch vụ tiệc cao cấp để phục vụ các bữa giải lao cà phê và bữa trưa thịnh soạn.",
+        "optionsVi": [
+          "dịch vụ cung cấp tiệc ăn uống",
+          "đơn vị cho thuê máy chiếu",
+          "dịch vụ bảo vệ an ninh",
+          "công ty thiết kế đồ họa"
+        ]
+      },
+      {
+        "id": "toeic_137",
+        "word": "symposium",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/sɪmˈpoʊ.zi.əm/",
+        "meaningVi": "hội thảo chuyên đề khoa học/kinh tế",
+        "collocations": "annual symposium, attend a symposium, international symposium on",
+        "example": "Scholars and executives gathered for a three-day international symposium on renewable energy.",
+        "exampleVi": "Các học giả và nhà điều hành đã quy tụ tại hội thảo chuyên đề quốc tế kéo dài 3 ngày về năng lượng tái tạo.",
+        "optionsVi": [
+          "hội thảo chuyên đề khoa học/kinh tế",
+          "chuyến dã ngoại công ty",
+          "buổi bán đấu giá từ thiện",
+          "triển lãm tranh nghệ thuật"
+        ]
+      },
+      {
+        "id": "toeic_138",
+        "word": "audio-visual equipment",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌɑː.di.oʊˈvɪʒ.u.əl ɪˈkwɪp.mənt/",
+        "meaningVi": "thiết bị nghe nhìn (máy chiếu, micro, loa)",
+        "collocations": "state-of-the-art audio-visual equipment, set up audio-visual equipment, test audio-visual equipment",
+        "example": "Technicians thoroughly tested the audio-visual equipment before the CEO's keynote presentation.",
+        "exampleVi": "Các kỹ thuật viên đã kiểm tra kỹ lưỡng thiết bị nghe nhìn trước bài thuyết trình chính của CEO.",
+        "optionsVi": [
+          "thiết bị nghe nhìn (máy chiếu, micro, loa)",
+          "dụng cụ văn phòng phẩm",
+          "bàn ghế tiếp khách",
+          "hệ thống phòng cháy chữa cháy"
+        ]
+      },
+      {
+        "id": "toeic_139",
+        "word": "handout",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈhænd.aʊt/",
+        "meaningVi": "tài liệu phát tay cho người nghe",
+        "collocations": "distribute handouts, conference handouts, refer to the handout",
+        "example": "Please refer to page three of the handout for a breakdown of projected quarterly earnings.",
+        "exampleVi": "Vui lòng xem trang ba của tài liệu phát tay để biết chi tiết về lợi nhuận dự kiến hàng quý.",
+        "optionsVi": [
+          "tài liệu phát tay cho người nghe",
+          "tấm vé mời vào cổng",
+          "hóa đơn thanh toán tiền phòng",
+          "chứng nhận tham gia khóa học"
+        ]
+      },
+      {
+        "id": "toeic_140",
+        "word": "adjourn",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əˈdʒɜːrn/",
+        "meaningVi": "tạm hoãn, tạm dừng cuộc họp",
+        "collocations": "adjourn the meeting, meeting adjourned until tomorrow, adjourn for lunch",
+        "example": "The committee chair decided to adjourn the session until 2:00 PM for lunch.",
+        "exampleVi": "Chủ tịch ủy ban đã quyết định tạm dừng phiên họp cho đến 2 giờ chiều để nghỉ ăn trưa.",
+        "optionsVi": [
+          "tạm hoãn, tạm dừng cuộc họp",
+          "bắt đầu phiên chất vấn",
+          "bỏ phiếu biểu quyết",
+          "mở rộng phòng họp"
+        ]
+      },
+      {
+        "id": "toeic_141",
+        "word": "plenary session",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpliː.nə.ri ˈseʃ.ən/",
+        "meaningVi": "phiên họp toàn thể hội nghị",
+        "collocations": "opening plenary session, attend the plenary session, plenary session address",
+        "example": "All conference registrants are expected to be seated before the opening plenary session begins.",
+        "exampleVi": "Tất cả người đăng ký tham dự hội nghị cần ngồi vào chỗ trước khi phiên họp toàn thể khai mạc bắt đầu.",
+        "optionsVi": [
+          "phiên họp toàn thể hội nghị",
+          "nhóm thảo luận riêng lẻ",
+          "tiệc trà giải lao",
+          "phỏng vấn ứng viên tuyển dụng"
+        ]
+      },
+      {
+        "id": "toeic_142",
+        "word": "commence",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/kəˈmens/",
+        "meaningVi": "bắt đầu, khởi sự phiên họp",
+        "collocations": "commence promptly at, scheduled to commence, work will commence",
+        "example": "The opening ceremony will commence promptly at 9:00 AM in the Grand Ballroom.",
+        "exampleVi": "Lễ khai mạc sẽ bắt đầu đúng 9:00 sáng tại Hội trường lớn Grand Ballroom.",
+        "optionsVi": [
+          "bắt đầu, khởi sự phiên họp",
+          "hoãn lại sang tuần sau",
+          "kết thúc sớm hơn dự kiến",
+          "chuyển đổi địa điểm tổ chức"
+        ]
+      },
+      {
+        "id": "toeic_143",
+        "word": "name badge",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈneɪm ˌbædʒ/",
+        "meaningVi": "thẻ đeo tên người tham dự",
+        "collocations": "wear a name badge, collect name badge, display name badge",
+        "example": "For security reasons, all participants must wear their name badge throughout the event.",
+        "exampleVi": "Vì lý do an ninh, tất cả người tham gia phải đeo thẻ tên trong suốt thời gian diễn ra sự kiện.",
+        "optionsVi": [
+          "thẻ đeo tên người tham dự",
+          "vé đi tàu điện ngầm",
+          "phiếu bốc thăm trúng thưởng",
+          "hóa đơn tiền taxi"
+        ]
+      },
+      {
+        "id": "toeic_144",
+        "word": "networking opportunity",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈnet.wɜːr.kɪŋ ˌɑː.pɚˈtuː.nə.t̬i/",
+        "meaningVi": "cơ hội giao lưu, kết nối đối tác",
+        "collocations": "provide networking opportunities, valuable networking opportunity, take advantage of networking opportunities",
+        "example": "The evening reception provides an invaluable networking opportunity for startup founders and investors.",
+        "exampleVi": "Buổi tiệc tối đem lại cơ hội giao lưu kết nối vô cùng quý giá cho các nhà sáng lập khởi nghiệp và các nhà đầu tư.",
+        "optionsVi": [
+          "cơ hội giao lưu, kết nối đối tác",
+          "chương trình giảm giá phòng",
+          "bài thi đánh giá kiến thức",
+          "thời gian nghỉ phép năm"
+        ]
+      },
+      {
+        "id": "toeic_145",
+        "word": "postpone",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/poʊstˈpoʊn/",
+        "meaningVi": "trì hoãn, lùi lịch lại",
+        "collocations": "postpone a conference, postpone until next month, forced to postpone",
+        "example": "Organizers decided to postpone the annual trade expo due to severe weather warnings.",
+        "exampleVi": "Ban tổ chức đã quyết định hoãn hội chợ thương mại thường niên do các cảnh báo thời tiết khắc nghiệt.",
+        "optionsVi": [
+          "trì hoãn, lùi lịch lại",
+          "đẩy nhanh tiến độ",
+          "hủy bỏ vĩnh viễn",
+          "tổ chức đúng lịch trình"
+        ]
+      },
+      {
+        "id": "toeic_146",
+        "word": "convention center",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/kənˈven.ʃən ˌsen.t̬ɚ/",
+        "meaningVi": "trung tâm hội nghị triển lãm",
+        "collocations": "state convention center, hold at the convention center, adjacent to the convention center",
+        "example": "The international motor show will be hosted at the downtown convention center next week.",
+        "exampleVi": "Triển lãm ô tô quốc tế sẽ được đăng cai tại trung tâm hội nghị trung tâm thành phố vào tuần tới.",
+        "optionsVi": [
+          "trung tâm hội nghị triển lãm",
+          "trung tâm thể dục thể thao",
+          "trạm xe buýt đường dài",
+          "bệnh viện đa khoa quốc tế"
+        ]
+      },
+      {
+        "id": "toeic_147",
+        "word": "conclude",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kənˈkluːd/",
+        "meaningVi": "bế mạc, kết thúc buổi hội nghị",
+        "collocations": "conclude the conference, conclude with a speech, successfully conclude",
+        "example": "The two-day seminar will conclude with an awards banquet honoring top sales leaders.",
+        "exampleVi": "Hội thảo kéo dài 2 ngày sẽ bế mạc bằng một bữa tiệc trao giải tôn vinh các cá nhân bán hàng xuất sắc nhất.",
+        "optionsVi": [
+          "bế mạc, kết thúc buổi hội nghị",
+          "bắt đầu phát biểu khai mạc",
+          "tạm ngừng để ăn trưa",
+          "mở màn phiên hỏi đáp"
+        ]
+      },
+      {
+        "id": "toeic_148",
+        "word": "turnout",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈtɜːrn.aʊt/",
+        "meaningVi": "số lượng người đến tham dự sự kiện",
+        "collocations": "large turnout, high voter turnout, record turnout",
+        "example": "Despite heavy rain, the career fair drew a record turnout of over five thousand job seekers.",
+        "exampleVi": "Bất chấp trời mưa lớn, ngày hội việc làm đã thu hút lượng người tham gia kỷ lục với hơn 5.000 người tìm việc.",
+        "optionsVi": [
+          "số lượng người đến tham dự sự kiện",
+          "chi phí in ấn tài liệu",
+          "thời lượng bài thuyết trình",
+          "số lượng quà tặng phát ra"
+        ]
+      },
+      {
+        "id": "toeic_149",
+        "word": "rsvp",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌɑːr.es.viːˈpiː/",
+        "meaningVi": "phúc đáp xác nhận có tham dự hay không",
+        "collocations": "please RSVP by Friday, RSVP to the invitation, failed to RSVP",
+        "example": "Please RSVP by Thursday so that the catering department can finalize the head count.",
+        "exampleVi": "Vui lòng phúc đáp trước thứ Năm để bộ phận tiệc có thể chốt số lượng người tham dự.",
+        "optionsVi": [
+          "phúc đáp xác nhận có tham dự hay không",
+          "hủy bỏ lời mời tham dự",
+          "chuyển tiếp thư cho người khác",
+          "khiếu nại về món ăn"
+        ]
+      },
+      {
+        "id": "toeic_150",
+        "word": "facilitate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/fəˈsɪl.ə.teɪt/",
+        "meaningVi": "tạo điều kiện thuận lợi, điều phối trơn tru",
+        "collocations": "facilitate discussion, facilitate the process, help facilitate",
+        "example": "The workshop facilitator used interactive polls to facilitate constructive discussions among attendees.",
+        "exampleVi": "Người điều phối hội thảo đã sử dụng các cuộc bình chọn tương tác để thúc đẩy thảo luận mang tính xây dựng giữa những người tham dự.",
+        "optionsVi": [
+          "tạo điều kiện thuận lợi, điều phối trơn tru",
+          "gây khó khăn cản trở",
+          "áp đặt quan điểm cá nhân",
+          "kết thúc đột ngột phiên họp"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_facilities",
+    "name": "Bất Động Sản, Thuê Văn Phòng & Bảo Trì Cơ Sở",
+    "icon": "🏢",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Hợp đồng thuê mặt bằng, tu sửa tòa nhà, trang thiết bị, hóa đơn tiện ích và chuyển địa điểm.",
+    "words": [
+      {
+        "id": "toeic_151",
+        "word": "lease agreement",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/liːs əˈɡriː.mənt/",
+        "meaningVi": "hợp đồng thuê bất động sản/văn phòng",
+        "collocations": "sign a lease agreement, commercial lease agreement, terms of the lease agreement",
+        "example": "The company signed a five-year lease agreement for three floors in the financial district.",
+        "exampleVi": "Công ty đã ký hợp đồng thuê 5 năm cho ba tầng tại khu tài chính.",
+        "optionsVi": [
+          "hợp đồng thuê bất động sản/văn phòng",
+          "hợp đồng bảo hiểm tài sản",
+          "giấy phép xây dựng cao ốc",
+          "biên bản bàn giao thiết bị"
+        ]
+      },
+      {
+        "id": "toeic_152",
+        "word": "landlord",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈlænd.lɔːrd/",
+        "meaningVi": "chủ nhà, chủ cho thuê mặt bằng",
+        "collocations": "commercial landlord, notify the landlord, landlord responsibilities",
+        "example": "The landlord agreed to replace the worn carpeting before the new tenant moved in.",
+        "exampleVi": "Chủ nhà đã đồng ý thay thế thảm trải sàn đã cũ trước khi người thuê mới chuyển đến.",
+        "optionsVi": [
+          "chủ nhà, chủ cho thuê mặt bằng",
+          "người thuê nhà trọ",
+          "nhân viên môi giới địa ốc",
+          "thợ sửa điện nước"
+        ]
+      },
+      {
+        "id": "toeic_153",
+        "word": "tenant",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈten.ənt/",
+        "meaningVi": "người thuê nhà, đơn vị thuê văn phòng",
+        "collocations": "prospective tenant, commercial tenant, tenant obligations",
+        "example": "All commercial tenants must adhere to building recycling regulations.",
+        "exampleVi": "Tất cả các đơn vị thuê văn phòng thương mại phải tuân thủ quy định tái chế rác của tòa nhà.",
+        "optionsVi": [
+          "người thuê nhà, đơn vị thuê văn phòng",
+          "chủ sở hữu tòa nhà",
+          "nhân viên bảo vệ tòa nhà",
+          "người kiểm tra an toàn cháy nổ"
+        ]
+      },
+      {
+        "id": "toeic_154",
+        "word": "renovation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌren.əˈveɪ.ʃən/",
+        "meaningVi": "việc tu sửa, cải tạo công trình",
+        "collocations": "undergo renovation, extensive renovation, building renovation",
+        "example": "The headquarters will undergo extensive renovations to improve energy efficiency.",
+        "exampleVi": "Trụ sở chính sẽ trải qua đợt tu sửa cải tạo quy mô lớn nhằm nâng cao hiệu quả tiết kiệm năng lượng.",
+        "optionsVi": [
+          "việc tu sửa, cải tạo công trình",
+          "kế hoạch phá bỏ toàn bộ",
+          "thủ tục bàn giao sổ đỏ",
+          "quy trình giải thể công ty"
+        ]
+      },
+      {
+        "id": "toeic_155",
+        "word": "premises",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈprem.ə.sɪz/",
+        "meaningVi": "mặt bằng, cơ ngơi khu nhà",
+        "collocations": "on the premises, vacate the premises, commercial premises",
+        "example": "Smoking is strictly prohibited everywhere on the company premises.",
+        "exampleVi": "Hút thuốc bị nghiêm cấm ở mọi nơi trong toàn bộ khuôn viên cơ ngơi công ty.",
+        "optionsVi": [
+          "mặt bằng, cơ ngơi khu nhà",
+          "chính sách tiền thưởng",
+          "bản phân công ca trực",
+          "khoản nợ đến hạn trả"
+        ]
+      },
+      {
+        "id": "toeic_156",
+        "word": "maintenance crew",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmeɪn.tən.əns kruː/",
+        "meaningVi": "đội thợ bảo trì kỹ thuật",
+        "collocations": "dispatch maintenance crew, building maintenance crew, notify maintenance crew",
+        "example": "The building maintenance crew repaired the broken elevator within forty-five minutes.",
+        "exampleVi": "Đội bảo trì tòa nhà đã sửa chữa thang máy bị hỏng trong vòng 45 phút.",
+        "optionsVi": [
+          "đội thợ bảo trì kỹ thuật",
+          "đội ngũ tiếp tân sảnh",
+          "ban giám đốc điều hành",
+          "đoàn kiểm tra thuế"
+        ]
+      },
+      {
+        "id": "toeic_157",
+        "word": "utility bill",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/juːˈtɪl.ə.t̬i bɪl/",
+        "meaningVi": "hóa đơn tiền điện nước, dịch vụ tiện ích",
+        "collocations": "pay utility bills, monthly utility bill, cut utility bills",
+        "example": "Switching to LED lighting helped the retail store cut its monthly utility bills by twenty percent.",
+        "exampleVi": "Chuyển sang chiếu sáng bằng đèn LED đã giúp cửa hàng bán lẻ cắt giảm 20% hóa đơn điện nước hàng tháng.",
+        "optionsVi": [
+          "hóa đơn tiền điện nước, dịch vụ tiện ích",
+          "bản cam kết bảo hành sản phẩm",
+          "hóa đơn tiền ăn khách sạn",
+          "phiếu đóng bảo hiểm thất nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_158",
+        "word": "vacate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈveɪ.keɪt/",
+        "meaningVi": "dọn đi, trả lại mặt bằng/phòng",
+        "collocations": "vacate the office, required to vacate, vacate by the end of the month",
+        "example": "Tenants are required to vacate the suites by the end of the month as the lease has expired.",
+        "exampleVi": "Người thuê được yêu cầu phải dọn đi và trả lại phòng vào cuối tháng do hợp đồng thuê đã hết hạn.",
+        "optionsVi": [
+          "dọn đi, trả lại mặt bằng/phòng",
+          "gia hạn thêm thời gian thuê",
+          "nâng cấp trang thiết bị",
+          "sửa chữa tường bị nứt"
+        ]
+      },
+      {
+        "id": "toeic_159",
+        "word": "security deposit",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/səˈkjʊr.ə.t̬i dɪˌpɑː.zɪt/",
+        "meaningVi": "tiền đặt cọc bảo đảm/thuê nhà",
+        "collocations": "refundable security deposit, forfeit security deposit, require a security deposit",
+        "example": "The two months' security deposit will be fully refunded provided there is no structural damage.",
+        "exampleVi": "Khoản tiền đặt cọc 2 tháng sẽ được hoàn trả toàn bộ miễn là không có thiệt hại kết cấu nào.",
+        "optionsVi": [
+          "tiền đặt cọc bảo đảm/thuê nhà",
+          "khoản đóng góp từ thiện",
+          "tiền trả trước cho luật sư",
+          "khoản phạt đỗ xe trái phép"
+        ]
+      },
+      {
+        "id": "toeic_160",
+        "word": "relocate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌriːˈloʊ.keɪt/",
+        "meaningVi": "chuyển địa điểm, di dời trụ sở",
+        "collocations": "relocate headquarters, plan to relocate, assist employees to relocate",
+        "example": "The software corporation plans to relocate its regional headquarters to Singapore next spring.",
+        "exampleVi": "Tập đoàn phần mềm dự định chuyển trụ sở khu vực sang Singapore vào mùa xuân tới.",
+        "optionsVi": [
+          "chuyển địa điểm, di dời trụ sở",
+          "đóng cửa vĩnh viễn chi nhánh",
+          "tăng gấp đôi diện tích kho",
+          "thay mới dàn máy vi tính"
+        ]
+      },
+      {
+        "id": "toeic_161",
+        "word": "property manager",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈprɑː.pɚ.t̬i ˈmæn.ə.dʒɚ/",
+        "meaningVi": "ban quản lý tòa nhà, người quản lý bất động sản",
+        "collocations": "contact the property manager, certified property manager, duties of property manager",
+        "example": "If heating problems persist, contact the property manager on the first floor immediately.",
+        "exampleVi": "Nếu vấn đề hệ thống sưởi vẫn tiếp diễn, hãy liên hệ ngay với ban quản lý tòa nhà ở tầng một.",
+        "optionsVi": [
+          "ban quản lý tòa nhà, người quản lý bất động sản",
+          "chủ tịch hiệp hội cư dân",
+          "nhân viên thu tiền điện thoại",
+          "kỹ sư thiết kế nội thất"
+        ]
+      },
+      {
+        "id": "toeic_162",
+        "word": "spacious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈspeɪ.ʃəs/",
+        "meaningVi": "rộng rãi, thoáng đãng",
+        "collocations": "spacious office, bright and spacious, spacious layout",
+        "example": "The new open-plan design provides a bright and spacious working environment for employees.",
+        "exampleVi": "Thiết kế không gian mở mới mang lại môi trường làm việc sáng sủa và rộng rãi cho nhân viên.",
+        "optionsVi": [
+          "rộng rãi, thoáng đãng",
+          "chật chội và ẩm thấp",
+          "tối tăm thiếu ánh sáng",
+          "cũ kỹ cần sửa chữa"
+        ]
+      },
+      {
+        "id": "toeic_163",
+        "word": "wear and tear",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌwer ən ˈter/",
+        "meaningVi": "hao mòn tự nhiên do sử dụng lâu ngày",
+        "collocations": "normal wear and tear, exempt from wear and tear, signs of wear and tear",
+        "example": "Tenants are not financially liable for minor scratches caused by normal everyday wear and tear.",
+        "exampleVi": "Người thuê không phải chịu trách nhiệm tài chính cho các vết xước nhỏ do hao mòn tự nhiên hàng ngày gây ra.",
+        "optionsVi": [
+          "hao mòn tự nhiên do sử dụng lâu ngày",
+          "sự cố hỏa hoạn nghiêm trọng",
+          "hành vi phá hoại cố ý",
+          "sai sót trong khâu lắp đặt"
+        ]
+      },
+      {
+        "id": "toeic_164",
+        "word": "air conditioning unit",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈer kənˌdɪʃ.ən.ɪŋ ˈjuː.nɪt/",
+        "meaningVi": "thiết bị máy điều hòa nhiệt độ",
+        "collocations": "install air conditioning unit, service air conditioning unit, central air conditioning unit",
+        "example": "A technician will visit this afternoon to inspect the malfunctioning air conditioning unit.",
+        "exampleVi": "Một kỹ thuật viên sẽ đến chiều nay để kiểm tra chiếc máy điều hòa nhiệt độ đang bị trục trặc.",
+        "optionsVi": [
+          "thiết bị máy điều hòa nhiệt độ",
+          "hệ thống lọc nước uống",
+          "bình chữa cháy tự động",
+          "máy quét mã vạch bưu phẩm"
+        ]
+      },
+      {
+        "id": "toeic_165",
+        "word": "eviction notice",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ɪˈvɪk.ʃən ˌnoʊ.t̬ɪs/",
+        "meaningVi": "thông báo trục xuất, thu hồi mặt bằng",
+        "collocations": "serve an eviction notice, issue an eviction notice, receive an eviction notice",
+        "example": "After three consecutive months of unpaid rent, the commercial tenant was served an eviction notice.",
+        "exampleVi": "Sau ba tháng liên tiếp không trả tiền thuê, đơn vị thuê thương mại đã bị gửi thông báo trục xuất thu hồi mặt bằng.",
+        "optionsVi": [
+          "thông báo trục xuất, thu hồi mặt bằng",
+          "giấy mời nhận phòng mới",
+          "hóa đơn thanh toán tiền rác",
+          "thông báo giảm giá thuê"
+        ]
+      },
+      {
+        "id": "toeic_166",
+        "word": "furnishings",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈfɜːr.nɪ.ʃɪŋz/",
+        "meaningVi": "đồ đạc nội thất trang bị",
+        "collocations": "office furnishings, modern furnishings, furnish with ergonomic furnishings",
+        "example": "The executive suite was equipped with high-quality ergonomic furnishings.",
+        "exampleVi": "Phòng điều hành đã được trang bị đồ nội thất công thái học chất lượng cao.",
+        "optionsVi": [
+          "đồ đạc nội thất trang bị",
+          "thiết bị máy chủ dữ liệu",
+          "giấy tờ hợp đồng lưu trữ",
+          "hệ thống dây điện âm tường"
+        ]
+      },
+      {
+        "id": "toeic_167",
+        "word": "plumbing issue",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈplʌm.ɪŋ ˈɪʃ.uː/",
+        "meaningVi": "sự cố đường ống cấp thoát nước",
+        "collocations": "report a plumbing issue, severe plumbing issue, resolve plumbing issue",
+        "example": "A serious plumbing issue on the fifth floor caused temporary water shutdowns across the wing.",
+        "exampleVi": "Một sự cố đường ống nước nghiêm trọng ở tầng năm đã gây cắt nước tạm thời trên toàn bộ dãy nhà.",
+        "optionsVi": [
+          "sự cố đường ống cấp thoát nước",
+          "lỗi phần mềm máy tính",
+          "cháy nổ bóng đèn chiếu sáng",
+          "kẹt khóa cửa ra vào"
+        ]
+      },
+      {
+        "id": "toeic_168",
+        "word": "adjacent to",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/əˈdʒeɪ.sənt tuː/",
+        "meaningVi": "liền kề, ngay sát cạnh bên",
+        "collocations": "located adjacent to, room adjacent to, parcel of land adjacent to",
+        "example": "The newly acquired parking structure is situated directly adjacent to the corporate offices.",
+        "exampleVi": "Nhà để xe mới mua nằm ngay sát cạnh các văn phòng công ty.",
+        "optionsVi": [
+          "liền kề, ngay sát cạnh bên",
+          "ở xa tít ngoại thành",
+          "đối diện bên kia sông",
+          "ở tầng hầm sâu nhất"
+        ]
+      },
+      {
+        "id": "toeic_169",
+        "word": "occupancy rate",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈɑː.kjə.pən.si reɪt/",
+        "meaningVi": "tỷ lệ lấp đầy phòng/diện tích thuê",
+        "collocations": "high occupancy rate, 90 percent occupancy rate, improve occupancy rate",
+        "example": "Commercial towers in the central business district boast an average occupancy rate of 94 percent.",
+        "exampleVi": "Các tòa tháp thương mại ở khu trung tâm kinh doanh tự hào có tỷ lệ lấp đầy trung bình đạt 94%.",
+        "optionsVi": [
+          "tỷ lệ lấp đầy phòng/diện tích thuê",
+          "tỷ lệ phế phẩm sản xuất",
+          "mức độ ô nhiễm tiếng ồn",
+          "chi phí xây dựng thô"
+        ]
+      },
+      {
+        "id": "toeic_170",
+        "word": "sublease",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈsʌb.liːs/",
+        "meaningVi": "cho thuê lại mặt bằng đã thuê",
+        "collocations": "sublease excess space, permission to sublease, sublease agreement",
+        "example": "To offset operating costs, the consulting firm decided to sublease their unused fourth floor.",
+        "exampleVi": "Để bù đắp chi phí vận hành, công ty tư vấn đã quyết định cho thuê lại tầng bốn chưa sử dụng của họ.",
+        "optionsVi": [
+          "cho thuê lại mặt bằng đã thuê",
+          "bán đứt tòa nhà",
+          "phá bỏ công trình cũ",
+          "tăng gấp ba tiền đặt cọc"
+        ]
+      },
+      {
+        "id": "toeic_171",
+        "word": "demolish",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪˈmɑː.lɪʃ/",
+        "meaningVi": "phá dỡ công trình cũ",
+        "collocations": "demolish the building, slated to be demolished, demolish to make way for",
+        "example": "The condemned warehouse will be demolished next month to make way for a modern logistics hub.",
+        "exampleVi": "Nhà kho đã xuống cấp sẽ bị phá dỡ vào tháng tới để nhường chỗ cho một trung tâm logistics hiện đại.",
+        "optionsVi": [
+          "phá dỡ công trình cũ",
+          "tân trang phòng họp",
+          "sơn lại mặt tiền",
+          "lắp đặt điều hòa mới"
+        ]
+      },
+      {
+        "id": "toeic_172",
+        "word": "ventilation system",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌven.t̬əlˈeɪ.ʃən ˈsɪs.təm/",
+        "meaningVi": "hệ thống thông gió tòa nhà",
+        "collocations": "upgraded ventilation system, proper ventilation system, ventilation system filters",
+        "example": "Installing a modern ventilation system significantly enhanced indoor air quality for office staff.",
+        "exampleVi": "Việc lắp đặt hệ thống thông gió hiện đại đã cải thiện đáng kể chất lượng không khí trong nhà cho nhân viên văn phòng.",
+        "optionsVi": [
+          "hệ thống thông gió tòa nhà",
+          "đường dây internet cáp quang",
+          "hệ thống thoát nước mưa",
+          "hệ thống thang máy tải trọng lớn"
+        ]
+      },
+      {
+        "id": "toeic_173",
+        "word": "refurbish",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˌriːˈfɜːr.bɪʃ/",
+        "meaningVi": "tân trang, làm mới lại phòng ốc/thiết bị",
+        "collocations": "refurbish the cafeteria, completely refurbish, refurbished office suites",
+        "example": "The cafeteria was completely refurbished with eco-friendly seating and modern lighting fixtures.",
+        "exampleVi": "Căn tin đã được tân trang hoàn toàn với ghế ngồi thân thiện môi trường và hệ thống đèn chiếu sáng hiện đại.",
+        "optionsVi": [
+          "tân trang, làm mới lại phòng ốc/thiết bị",
+          "tháo dỡ bán phế liệu",
+          "cho thuê dài hạn",
+          "chuyển đổi thành bãi đỗ xe"
+        ]
+      },
+      {
+        "id": "toeic_174",
+        "word": "amenity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/əˈmen.ə.t̬i/",
+        "meaningVi": "tiện nghi, dịch vụ tiện ích phục vụ người dùng",
+        "collocations": "building amenities, modern amenities, access to amenities",
+        "example": "On-site amenities include a fitness center, child-care facility, and subsidized cafeteria.",
+        "exampleVi": "Các tiện ích tại chỗ bao gồm phòng tập thể hình, khu trông trẻ và căng tin được trợ giá.",
+        "optionsVi": [
+          "tiện nghi, dịch vụ tiện ích phục vụ người dùng",
+          "khoản nợ quá hạn ngân hàng",
+          "nghĩa vụ đóng thuế đất",
+          "nội quy kiểm tra an ninh cổng"
+        ]
+      },
+      {
+        "id": "toeic_175",
+        "word": "zoning regulation",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈzoʊ.nɪŋ ˌreɡ.jəˈleɪ.ʃən/",
+        "meaningVi": "quy định phân vùng quy hoạch xây dựng",
+        "collocations": "comply with zoning regulations, strict zoning regulations, local zoning regulations",
+        "example": "The proposed warehouse expansion was halted due to local municipal zoning regulations.",
+        "exampleVi": "Dự án mở rộng kho hàng đề xuất đã bị tạm dừng do các quy định phân vùng quy hoạch của chính quyền địa phương.",
+        "optionsVi": [
+          "quy định phân vùng quy hoạch xây dựng",
+          "chính sách giảm giá bán buôn",
+          "hạn mức vay vốn ngân hàng",
+          "tiêu chuẩn kiểm nghiệm hóa chất"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_legal",
+    "name": "Pháp Lý Doanh Nghiệp, Tuân Thủ & Bảo Hiểm",
+    "icon": "⚖️",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Tuân thủ pháp luật, sở hữu trí tuệ, kiện tụng thương mại, tranh chấp bản quyền và hợp đồng bảo hiểm.",
+    "words": [
+      {
+        "id": "toeic_176",
+        "word": "comply with",
+        "level": "B1",
+        "type": "phrasal verb",
+        "ipa": "/kəmˈplaɪ wɪð/",
+        "meaningVi": "tuân thủ nghiêm ngặt (luật lệ, quy định)",
+        "collocations": "comply with regulations, strictly comply with, fail to comply with",
+        "example": "All export manufacturing operations must comply with federal environmental regulations.",
+        "exampleVi": "Mọi hoạt động sản xuất xuất khẩu phải tuân thủ nghiêm ngặt các quy định môi trường liên bang.",
+        "optionsVi": [
+          "tuân thủ nghiêm ngặt (luật lệ, quy định)",
+          "phớt lờ hướng dẫn an toàn",
+          "tự ý thay đổi quy trình",
+          "khiếu nại lên cấp trên"
+        ]
+      },
+      {
+        "id": "toeic_177",
+        "word": "liability insurance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌlaɪ.əˈbɪl.ə.t̬i ɪnˈʃʊr.əns/",
+        "meaningVi": "bảo hiểm trách nhiệm pháp lý (bên thứ ba)",
+        "collocations": "carry liability insurance, comprehensive liability insurance, liability insurance coverage",
+        "example": "Contractors are required to maintain valid liability insurance prior to commencing construction.",
+        "exampleVi": "Các nhà thầu bắt buộc phải duy trì bảo hiểm trách nhiệm pháp lý còn hiệu lực trước khi khởi công xây dựng.",
+        "optionsVi": [
+          "bảo hiểm trách nhiệm pháp lý (bên thứ ba)",
+          "bảo hiểm cháy nổ nhà ở tư nhân",
+          "chế độ chi trả trợ cấp ốm đau",
+          "quỹ học bổng doanh nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_178",
+        "word": "intellectual property",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌɪn.t̬əlˈek.tʃu.əl ˈprɑː.pɚ.t̬i/",
+        "meaningVi": "tài sản sở hữu trí tuệ",
+        "collocations": "protect intellectual property, intellectual property rights, intellectual property law",
+        "example": "Protecting corporate intellectual property is vital for maintaining our technological leadership.",
+        "exampleVi": "Bảo vệ tài sản sở hữu trí tuệ của doanh nghiệp là yếu tố sống còn để duy trì vị thế dẫn đầu công nghệ.",
+        "optionsVi": [
+          "tài sản sở hữu trí tuệ",
+          "bất động sản công nghiệp",
+          "tiền mặt trong tài khoản",
+          "máy móc cơ khí trong nhà xưởng"
+        ]
+      },
+      {
+        "id": "toeic_179",
+        "word": "patent infringement",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpæt.ənt ɪnˈfrɪndʒ.mənt/",
+        "meaningVi": "hành vi vi phạm bằng sáng chế độc quyền",
+        "collocations": "accuse of patent infringement, sue for patent infringement, allege patent infringement",
+        "example": "The smartphone manufacturer filed a multimillion-dollar lawsuit alleging patent infringement.",
+        "exampleVi": "Hãng sản xuất điện thoại thông minh đã đệ đơn kiện hàng triệu USD cáo buộc hành vi vi phạm bằng sáng chế.",
+        "optionsVi": [
+          "hành vi vi phạm bằng sáng chế độc quyền",
+          "thủ tục đăng ký nhãn hiệu",
+          "hợp đồng mua bán linh kiện",
+          "quy trình cấp phép kinh doanh"
+        ]
+      },
+      {
+        "id": "toeic_180",
+        "word": "lawsuit",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈlɑː.suːt/",
+        "meaningVi": "vụ kiện tụng dân sự/thương mại",
+        "collocations": "file a lawsuit, settle a lawsuit, drop a lawsuit",
+        "example": "The consumer group filed a class-action lawsuit against the automaker over deceptive emissions claims.",
+        "exampleVi": "Nhóm người tiêu dùng đã đệ đơn kiện tập thể chống lại hãng xe hơi vì những tuyên bố phát thải gian dối.",
+        "optionsVi": [
+          "vụ kiện tụng dân sự/thương mại",
+          "buổi họp đối thoại nội bộ",
+          "chiến dịch quảng bá bán hàng",
+          "thủ tục đổi tên thương hiệu"
+        ]
+      },
+      {
+        "id": "toeic_181",
+        "word": "litigation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌlɪt̬.əˈɡeɪ.ʃən/",
+        "meaningVi": "việc tranh tụng tại tòa án",
+        "collocations": "avoid litigation, ongoing litigation, pending litigation",
+        "example": "Corporate leaders preferred an out-of-court settlement rather than risking prolonged public litigation.",
+        "exampleVi": "Các nhà lãnh đạo doanh nghiệp ưa chuộng hòa giải ngoài tòa hơn là mạo hiểm với việc tranh tụng công khai kéo dài.",
+        "optionsVi": [
+          "việc tranh tụng tại tòa án",
+          "thủ tục bàn giao sổ sách",
+          "kế hoạch tổ chức tiệc cuối năm",
+          "chương trình tặng quà tri ân"
+        ]
+      },
+      {
+        "id": "toeic_182",
+        "word": "regulatory agency",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈreɡ.jə.lə.tɔːr.i ˈeɪ.dʒən.si/",
+        "meaningVi": "cơ quan quản lý nhà nước có thẩm quyền",
+        "collocations": "federal regulatory agency, comply with regulatory agency, regulatory agency investigation",
+        "example": "The pharmaceutical firm submitted safety trial data directly to the national regulatory agency.",
+        "exampleVi": "Công ty dược phẩm đã nộp dữ liệu thử nghiệm an toàn trực tiếp lên cơ quan quản lý nhà nước.",
+        "optionsVi": [
+          "cơ quan quản lý nhà nước có thẩm quyền",
+          "công ty tư vấn du học",
+          "hội từ thiện tư nhân",
+          "đại lý phân phối độc quyền"
+        ]
+      },
+      {
+        "id": "toeic_183",
+        "word": "confidentiality",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌkɑːn.fə.den.ʃiˈæl.ə.t̬i/",
+        "meaningVi": "tính bảo mật, sự giữ kín thông tin",
+        "collocations": "maintain confidentiality, breach of confidentiality, strict confidentiality",
+        "example": "Consultants are bound by strict confidentiality regarding client financial records.",
+        "exampleVi": "Các chuyên gia tư vấn bị ràng buộc bởi sự bảo mật nghiêm ngặt đối với hồ sơ tài chính của khách hàng.",
+        "optionsVi": [
+          "tính bảo mật, sự giữ kín thông tin",
+          "sự công khai minh bạch",
+          "quyền phát biểu tự do",
+          "tinh thần hợp tác công khai"
+        ]
+      },
+      {
+        "id": "toeic_184",
+        "word": "settle out of court",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈset̬.əl aʊt əv kɔːrt/",
+        "meaningVi": "dàn xếp, hòa giải ngoài tòa án",
+        "collocations": "agree to settle out of court, decide to settle out of court, settle out of court for an undisclosed sum",
+        "example": "Both corporations agreed to settle out of court for an undisclosed sum to avoid damaging publicity.",
+        "exampleVi": "Cả hai tập đoàn đã đồng ý hòa giải ngoài tòa với số tiền không được tiết lộ nhằm tránh ảnh hưởng hình ảnh trước công chúng.",
+        "optionsVi": [
+          "dàn xếp, hòa giải ngoài tòa án",
+          "kháng cáo lên tòa án tối cao",
+          "yêu cầu mở phiên tòa xét xử",
+          "kêu gọi biểu tình phản đối"
+        ]
+      },
+      {
+        "id": "toeic_185",
+        "word": "trademark",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈtreɪd.mɑːrk/",
+        "meaningVi": "nhãn hiệu đã đăng ký độc quyền",
+        "collocations": "registered trademark, trademark infringement, protect a trademark",
+        "example": "Unauthorized commercial use of our company logo constitutes trademark infringement.",
+        "exampleVi": "Việc sử dụng thương mại trái phép logo công ty chúng tôi cấu thành hành vi vi phạm nhãn hiệu độc quyền.",
+        "optionsVi": [
+          "nhãn hiệu đã đăng ký độc quyền",
+          "sổ cái ghi chép thu chi",
+          "chữ ký nháy của giám đốc",
+          "giấy phép xây dựng nhà xưởng"
+        ]
+      },
+      {
+        "id": "toeic_186",
+        "word": "indemnity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈdem.nə.t̬i/",
+        "meaningVi": "sự bảo đảm bồi thường thiệt hại",
+        "collocations": "indemnity clause, claim indemnity, provide indemnity",
+        "example": "The agreement includes an indemnity clause shielding the distributor against defective part claims.",
+        "exampleVi": "Thỏa thuận bao gồm một điều khoản bồi thường bảo vệ nhà phân phối trước các khiếu nại về linh kiện lỗi.",
+        "optionsVi": [
+          "sự bảo đảm bồi thường thiệt hại",
+          "khoản phụ phí giao hàng nhanh",
+          "tiền cọc thuê hội trường",
+          "chính sách giảm giá bán lẻ"
+        ]
+      },
+      {
+        "id": "toeic_187",
+        "word": "copyright violation",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkɑː.pi.raɪt ˌvaɪ.əˈleɪ.ʃən/",
+        "meaningVi": "vi phạm bản quyền tác giả",
+        "collocations": "guilty of copyright violation, accuse of copyright violation, liable for copyright violation",
+        "example": "Using proprietary software code without purchasing a commercial license is a serious copyright violation.",
+        "exampleVi": "Sử dụng mã nguồn phần mềm có bản quyền mà không mua giấy phép thương mại là vi phạm bản quyền nghiêm trọng.",
+        "optionsVi": [
+          "vi phạm bản quyền tác giả",
+          "chậm nộp tờ khai thuế",
+          "vi phạm nội quy trang phục",
+          "đỗ xe sai vị trí quy định"
+        ]
+      },
+      {
+        "id": "toeic_188",
+        "word": "subpoena",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/səˈpiː.nə/",
+        "meaningVi": "trát đòi hầu tòa, lệnh triệu tập",
+        "collocations": "issue a subpoena, comply with a subpoena, serve a subpoena on",
+        "example": "The financial controller received a court subpoena to produce all internal accounting records.",
+        "exampleVi": "Kiểm soát viên tài chính đã nhận được trát đòi của tòa án yêu cầu xuất trình toàn bộ sổ sách kế toán nội bộ.",
+        "optionsVi": [
+          "trát đòi hầu tòa, lệnh triệu tập",
+          "thư cảm ơn của khách hàng",
+          "giấy mời tham dự hội thảo",
+          "thông báo trúng tuyển việc làm"
+        ]
+      },
+      {
+        "id": "toeic_189",
+        "word": "verdict",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈvɜːr.dɪkt/",
+        "meaningVi": "phán quyết tuyên án của bồi thẩm đoàn",
+        "collocations": "deliver a verdict, reach a verdict, unanimous verdict",
+        "example": "After three days of deliberation, the federal jury reached a unanimous verdict in favor of the plaintiff.",
+        "exampleVi": "Sau 3 ngày nghị án, bồi thẩm đoàn liên bang đã đạt được phán quyết nhất trí ủng hộ nguyên đơn.",
+        "optionsVi": [
+          "phán quyết tuyên án của bồi thẩm đoàn",
+          "lời khai của nhân chứng",
+          "bản cáo trạng của viện kiểm sát",
+          "đơn xin hoãn phiên xét xử"
+        ]
+      },
+      {
+        "id": "toeic_190",
+        "word": "testimony",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈtes.tə.moʊ.ni/",
+        "meaningVi": "lời khai nhân chứng trước tòa",
+        "collocations": "give testimony, hear testimony, sworn testimony",
+        "example": "The former engineer gave sworn testimony confirming that safety concerns were repeatedly ignored.",
+        "exampleVi": "Cựu kỹ sư đã đưa ra lời khai có tuyên thệ xác nhận rằng các quan ngại an toàn đã liên tục bị phớt lờ.",
+        "optionsVi": [
+          "lời khai nhân chứng trước tòa",
+          "quyết định thành lập công ty",
+          "bản kế hoạch tài chính",
+          "bài diễn thuyết khai mạc"
+        ]
+      },
+      {
+        "id": "toeic_191",
+        "word": "negligence",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈneɡ.lə.dʒəns/",
+        "meaningVi": "sự sơ suất, bất cẩn gây hậu quả",
+        "collocations": "gross negligence, sue for negligence, result of negligence",
+        "example": "The factory operator was held liable for gross negligence after skipping required routine inspections.",
+        "exampleVi": "Đơn vị vận hành nhà máy bị quy trách nhiệm do sơ suất nghiêm trọng sau khi bỏ qua các đợt kiểm định định kỳ bắt buộc.",
+        "optionsVi": [
+          "sự sơ suất, bất cẩn gây hậu quả",
+          "tinh thần trách nhiệm cao",
+          "sự chu đáo cẩn trọng",
+          "khả năng ứng phó linh hoạt"
+        ]
+      },
+      {
+        "id": "toeic_192",
+        "word": "statute",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈstætʃ.uːt/",
+        "meaningVi": "đạo luật ban hành, quy chế",
+        "collocations": "under the statute, statute of limitations, federal statute",
+        "example": "The lawsuit was dismissed because the statute of limitations had already expired.",
+        "exampleVi": "Vụ kiện đã bị bác bỏ do thời hiệu khởi kiện theo đạo luật quy định đã hết hạn.",
+        "optionsVi": [
+          "đạo luật ban hành, quy chế",
+          "bản ghi nhớ tạm thời",
+          "nội quy phòng họp",
+          "hóa đơn thanh toán thuế"
+        ]
+      },
+      {
+        "id": "toeic_193",
+        "word": "file a claim",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/faɪl ə kleɪm/",
+        "meaningVi": "nộp đơn yêu cầu bồi thường bảo hiểm",
+        "collocations": "file an insurance claim, file a claim for damages, time limit to file a claim",
+        "example": "Policyholders must file an insurance claim within thirty days of the water damage incident.",
+        "exampleVi": "Chủ sở hữu hợp đồng bảo hiểm phải nộp đơn yêu cầu bồi thường trong vòng 30 ngày kể từ khi xảy ra sự cố ngập nước.",
+        "optionsVi": [
+          "nộp đơn yêu cầu bồi thường bảo hiểm",
+          "hủy bỏ hợp đồng bảo hiểm",
+          "thanh toán phí bảo hiểm năm",
+          "chuyển nhượng quyền thừa kế"
+        ]
+      },
+      {
+        "id": "toeic_194",
+        "word": "premium",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpriː.mi.əm/",
+        "meaningVi": "phí bảo hiểm định kỳ",
+        "collocations": "monthly insurance premium, pay premiums, premium increase",
+        "example": "Companies with proven safety records typically qualify for discounted insurance premiums.",
+        "exampleVi": "Các công ty có thành tích an toàn được chứng minh thường đủ điều kiện hưởng mức phí bảo hiểm ưu đãi.",
+        "optionsVi": [
+          "phí bảo hiểm định kỳ",
+          "tiền phạt do vi phạm giao thông",
+          "khoản bồi thường bảo hiểm chi trả",
+          "thuế thu nhập doanh nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_195",
+        "word": "deductible",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈdʌk.tə.bəl/",
+        "meaningVi": "mức miễn bồi (khoản tiền tự chi trả trước)",
+        "collocations": "high deductible, pay the deductible, insurance deductible of $500",
+        "example": "The commercial policy features a $1,000 deductible before medical coverage takes effect.",
+        "exampleVi": "Hợp đồng thương mại quy định mức miễn bồi 1.000 USD trước khi bảo hiểm y tế bắt đầu chi trả.",
+        "optionsVi": [
+          "mức miễn bồi (khoản tiền tự chi trả trước)",
+          "tổng mức chi trả tối đa",
+          "tiền hoa hồng đại lý",
+          "khoản lãi suất chậm trả"
+        ]
+      },
+      {
+        "id": "toeic_196",
+        "word": "policyholder",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpɑː.lə.siˌhoʊl.dɚ/",
+        "meaningVi": "chủ hợp đồng bảo hiểm",
+        "collocations": "notify policyholders, protect policyholders, policyholder rights",
+        "example": "The insurer sent written notices to all policyholders detailing updates to coverage limits.",
+        "exampleVi": "Hãng bảo hiểm đã gửi thông báo bằng văn bản tới tất cả các chủ hợp đồng để nêu chi tiết những cập nhật về hạn mức bảo hiểm.",
+        "optionsVi": [
+          "chủ hợp đồng bảo hiểm",
+          "đại lý môi giới bảo hiểm",
+          "chuyên viên giám định tổn thất",
+          "bác sĩ chỉ định điều trị"
+        ]
+      },
+      {
+        "id": "toeic_197",
+        "word": "legal counsel",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈliː.ɡəl ˈkaʊn.səl/",
+        "meaningVi": "cố vấn pháp lý, luật sư doanh nghiệp",
+        "collocations": "seek legal counsel, consult with legal counsel, retain legal counsel",
+        "example": "Before finalizing any international merger, executives should consult experienced legal counsel.",
+        "exampleVi": "Trước khi hoàn tất bất kỳ thương vụ sáp nhập quốc tế nào, các nhà điều hành nên tham vấn cố vấn pháp lý giàu kinh nghiệm.",
+        "optionsVi": [
+          "cố vấn pháp lý, luật sư doanh nghiệp",
+          "kế toán viên thuế",
+          "chuyên gia quan hệ công chúng",
+          "giám đốc kinh doanh vùng"
+        ]
+      },
+      {
+        "id": "toeic_198",
+        "word": "jurisdiction",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌdʒʊr.ɪsˈdɪk.ʃən/",
+        "meaningVi": "quyền tài phán, thẩm quyền pháp lý",
+        "collocations": "under the jurisdiction of, fall outside the jurisdiction, legal jurisdiction",
+        "example": "Cross-border e-commerce disputes fall under the jurisdiction of the international trade commission.",
+        "exampleVi": "Các tranh chấp thương mại điện tử xuyên biên giới thuộc thẩm quyền pháp lý của ủy ban thương mại quốc tế.",
+        "optionsVi": [
+          "quyền tài phán, thẩm quyền pháp lý",
+          "khoản chi tiêu công cộng",
+          "quy trình tuyển dụng nhân tài",
+          "thời hạn bảo hành thiết bị"
+        ]
+      },
+      {
+        "id": "toeic_199",
+        "word": "non-compliance penalty",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌnɑːn kəmˈplaɪ.əns ˈpen.əl.t̬i/",
+        "meaningVi": "tiền phạt do không tuân thủ quy định",
+        "collocations": "face non-compliance penalties, avoid non-compliance penalties, severe non-compliance penalty",
+        "example": "Firms that fail to audit their workplace safety face severe non-compliance penalties from regulators.",
+        "exampleVi": "Những công ty không kiểm tra an toàn lao động sẽ phải đối mặt với mức phạt không tuân thủ nghiêm khắc từ cơ quan chức năng.",
+        "optionsVi": [
+          "tiền phạt do không tuân thủ quy định",
+          "khoản hoàn thuế giá trị gia tăng",
+          "tiền thưởng hoàn thành nhiệm vụ",
+          "khoản trợ cấp di dời cơ sở"
+        ]
+      },
+      {
+        "id": "toeic_200",
+        "word": "binding verdict",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbaɪn.dɪŋ ˈvɜːr.dɪkt/",
+        "meaningVi": "phán quyết có hiệu lực bắt buộc thi hành",
+        "collocations": "issue a binding verdict, subject to a binding verdict, accept the binding verdict",
+        "example": "Both corporations signed an agreement pledging to honor the arbitrator's binding verdict.",
+        "exampleVi": "Cả hai tập đoàn đã ký thỏa thuận cam kết tôn trọng phán quyết mang tính bắt buộc thi hành của trọng tài.",
+        "optionsVi": [
+          "phán quyết có hiệu lực bắt buộc thi hành",
+          "ý kiến tư vấn tham khảo",
+          "thông cáo báo chí sơ bộ",
+          "biên bản họp hòa giải nội bộ"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_travel",
+    "name": "Công Tác, Đặt Vé & Dịch Vụ Khách Sạn",
+    "icon": "✈️",
+    "category": "toeic",
+    "level": "B1",
+    "description": "Lịch trình công tác, vé máy bay, thủ tục khách sạn, bồi hoàn chi phí và dịch vụ di chuyển.",
+    "words": [
+      {
+        "id": "toeic_201",
+        "word": "itinerary",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/aɪˈtɪn.ə.rer.i/",
+        "meaningVi": "lịch trình chuyến đi công tác chi tiết",
+        "collocations": "travel itinerary, detailed itinerary, itinerary includes",
+        "example": "The executive assistant prepared a detailed itinerary for the CEO's five-city European tour.",
+        "exampleVi": "Trợ lý điều hành đã chuẩn bị một lịch trình chi tiết cho chuyến công du châu Âu qua 5 thành phố của CEO.",
+        "optionsVi": [
+          "lịch trình chuyến đi công tác chi tiết",
+          "hóa đơn thanh toán phòng",
+          "hộ chiếu công vụ",
+          "thẻ bảo hiểm y tế quốc tế"
+        ]
+      },
+      {
+        "id": "toeic_202",
+        "word": "per diem",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/pɜːr ˈdiː.em/",
+        "meaningVi": "công tác phí hàng ngày",
+        "collocations": "per diem allowance, receive a per diem, daily per diem rate",
+        "example": "Employees sent on overseas assignments receive a sixty-dollar daily per diem for meals.",
+        "exampleVi": "Nhân viên được cử đi công tác nước ngoài nhận được khoản công tác phí hàng ngày 60 USD cho tiền ăn uống.",
+        "optionsVi": [
+          "công tác phí hàng ngày",
+          "tiền thưởng theo quý",
+          "khoản đóng bảo hiểm thất nghiệp",
+          "chi phí mua sắm đồng phục"
+        ]
+      },
+      {
+        "id": "toeic_203",
+        "word": "boarding pass",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈbɔːr.dɪŋ ˌpæs/",
+        "meaningVi": "thẻ lên máy bay",
+        "collocations": "print boarding pass, mobile boarding pass, show your boarding pass",
+        "example": "Passengers can download their mobile boarding pass onto their smartphones after checking in online.",
+        "exampleVi": "Hành khách có thể tải thẻ lên máy bay di động về điện thoại sau khi làm thủ tục trực tuyến.",
+        "optionsVi": [
+          "thẻ lên máy bay",
+          "thẻ tín dụng doanh nghiệp",
+          "giấy phép nhập cảnh",
+          "phiếu nhận hành lý ký gửi"
+        ]
+      },
+      {
+        "id": "toeic_204",
+        "word": "layover",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈleɪˌoʊ.vɚ/",
+        "meaningVi": "thời gian quá cảnh, dừng nối chuyến",
+        "collocations": "three-hour layover, layover in Tokyo, long layover",
+        "example": "Our flight to London included a convenient two-hour layover at Frankfurt Airport.",
+        "exampleVi": "Chuyến bay của chúng tôi tới London có một chặng quá cảnh thuận tiện kéo dài 2 giờ tại sân bay Frankfurt.",
+        "optionsVi": [
+          "thời gian quá cảnh, dừng nối chuyến",
+          "thời gian chờ lấy hành lý",
+          "lịch hoãn chuyến bay vì bão",
+          "quãng đường bay thẳng"
+        ]
+      },
+      {
+        "id": "toeic_205",
+        "word": "carry-on luggage",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈker.i.ɑːn ˈlʌɡ.ɪdʒ/",
+        "meaningVi": "hành lý xách tay",
+        "collocations": "carry-on luggage restrictions, fit in carry-on luggage, carry-on luggage size",
+        "example": "Please ensure your carry-on luggage fits within the dimensions allowed in the overhead bin.",
+        "exampleVi": "Vui lòng đảm bảo hành lý xách tay của bạn vừa với kích thước cho phép trong ngăn để đồ phía trên.",
+        "optionsVi": [
+          "hành lý xách tay",
+          "hành lý ký gửi quá cước",
+          "hàng hóa cấm vận chuyển",
+          "bưu kiện gửi chuyển phát nhanh"
+        ]
+      },
+      {
+        "id": "toeic_206",
+        "word": "concierge",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kɑːn.siˈerʒ/",
+        "meaningVi": "nhân viên hỗ trợ thông tin khách hàng ở khách sạn",
+        "collocations": "hotel concierge, ask the concierge, concierge desk",
+        "example": "The hotel concierge assisted the delegation with dinner reservations and limousine rentals.",
+        "exampleVi": "Nhân viên hỗ trợ khách sạn đã giúp đỡ phái đoàn đặt bàn ăn tối và thuê xe limousine.",
+        "optionsVi": [
+          "nhân viên hỗ trợ thông tin khách hàng ở khách sạn",
+          "đầu bếp trưởng nhà hàng",
+          "nhân viên dọn phòng khách sạn",
+          "người quản lý tài chính công ty"
+        ]
+      },
+      {
+        "id": "toeic_207",
+        "word": "complimentary breakfast",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌkɑːm.pləˈmen.t̬ɚ.i ˈbrek.fəst/",
+        "meaningVi": "bữa sáng miễn phí kèm theo phòng",
+        "collocations": "enjoy complimentary breakfast, complimentary breakfast buffet, includes complimentary breakfast",
+        "example": "All guest room reservations include a complimentary breakfast buffet served from 6:30 to 10:00 AM.",
+        "exampleVi": "Mọi đặt phòng nghỉ đều bao gồm bữa sáng buffet miễn phí được phục vụ từ 6:30 đến 10:00 sáng.",
+        "optionsVi": [
+          "bữa sáng miễn phí kèm theo phòng",
+          "bữa trưa thương gia trả phí",
+          "tiệc tối tính thêm tiền",
+          "thực đơn ăn kiêng đặc biệt"
+        ]
+      },
+      {
+        "id": "toeic_208",
+        "word": "check-in counter",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈtʃek.ɪn ˌkaʊn.t̬ɚ/",
+        "meaningVi": "quầy làm thủ tục nhận phòng/vé",
+        "collocations": "approach check-in counter, airline check-in counter, hotel check-in counter",
+        "example": "Business class passengers may proceed directly to the priority check-in counter.",
+        "exampleVi": "Hành khách hạng thương gia có thể đi thẳng tới quầy làm thủ tục ưu tiên.",
+        "optionsVi": [
+          "quầy làm thủ tục nhận phòng/vé",
+          "quầy đổi ngoại tệ",
+          "cửa soi chiếu an ninh",
+          "khu vực nhận lại hành lý"
+        ]
+      },
+      {
+        "id": "toeic_209",
+        "word": "reservation confirmation",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌrez.ɚˈveɪ.ʃən ˌkɑːn.fɚˈmeɪ.ʃən/",
+        "meaningVi": "giấy/mã xác nhận đặt chỗ trước",
+        "collocations": "show reservation confirmation, receive reservation confirmation, reservation confirmation number",
+        "example": "Please present your reservation confirmation number upon arrival at the hotel reception.",
+        "exampleVi": "Vui lòng xuất trình mã xác nhận đặt phòng khi đến quầy lễ tân khách sạn.",
+        "optionsVi": [
+          "giấy/mã xác nhận đặt chỗ trước",
+          "hóa đơn thanh toán thuế",
+          "giấy chứng nhận lưu trú tạm thời",
+          "phiếu đánh giá chất lượng dịch vụ"
+        ]
+      },
+      {
+        "id": "toeic_210",
+        "word": "reimbursement claim",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌriː.ɪmˈbɜːrs.mənt kleɪm/",
+        "meaningVi": "đơn yêu cầu hoàn trả chi phí công tác",
+        "collocations": "submit reimbursement claim, approve reimbursement claim, reimbursement claim form",
+        "example": "Remember to attach all itemized receipts when submitting your travel reimbursement claim.",
+        "exampleVi": "Hãy nhớ đính kèm toàn bộ hóa đơn chi tiết khi nộp đơn yêu cầu thanh toán chi phí đi lại.",
+        "optionsVi": [
+          "đơn yêu cầu hoàn trả chi phí công tác",
+          "đơn xin nghỉ phép không lương",
+          "phiếu đề xuất tăng lương",
+          "giấy báo nợ ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_211",
+        "word": "flight cancellation",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/flaɪt ˌkæn.səlˈeɪ.ʃən/",
+        "meaningVi": "việc hủy chuyến bay",
+        "collocations": "due to flight cancellation, compensate for flight cancellation, sudden flight cancellation",
+        "example": "Passengers affected by the sudden flight cancellation were rebooked onto the next morning's flight.",
+        "exampleVi": "Hành khách bị ảnh hưởng bởi việc hủy chuyến bay đột xuất đã được xếp chỗ lại sang chuyến bay sáng hôm sau.",
+        "optionsVi": [
+          "việc hủy chuyến bay",
+          "thủ tục đổi chỗ ngồi",
+          "dịch vụ nâng hạng vé",
+          "thông báo hạ cánh an toàn"
+        ]
+      },
+      {
+        "id": "toeic_212",
+        "word": "frequent flyer miles",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌfriː.kwənt ˈflaɪ.ɚ maɪlz/",
+        "meaningVi": "điểm dặm bay tích lũy dành cho khách quen",
+        "collocations": "redeem frequent flyer miles, earn frequent flyer miles, frequent flyer miles program",
+        "example": "Business consultants often accumulate enough frequent flyer miles to earn complimentary upgrades.",
+        "exampleVi": "Các chuyên viên tư vấn kinh doanh thường tích lũy đủ dặm bay khách quen để được nâng hạng ghế miễn phí.",
+        "optionsVi": [
+          "điểm dặm bay tích lũy dành cho khách quen",
+          "khoản phí bảo hiểm hành lý",
+          "tiền phụ phí nhiên liệu",
+          "hạn mức chi tiêu thẻ ngân hàng"
+        ]
+      },
+      {
+        "id": "toeic_213",
+        "word": "shuttle service",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈʃʌt̬.əl ˈsɜːr.vɪs/",
+        "meaningVi": "tuyến xe buýt đưa đón chặng ngắn (sân bay - khách sạn)",
+        "collocations": "complimentary shuttle service, airport shuttle service, hotel operates a shuttle service",
+        "example": "The resort provides a complimentary shuttle service operating between the terminal and hotel lobby.",
+        "exampleVi": "Khu nghỉ dưỡng cung cấp dịch vụ xe đưa đón miễn phí chạy giữa nhà ga sân bay và sảnh khách sạn.",
+        "optionsVi": [
+          "tuyến xe buýt đưa đón chặng ngắn (sân bay - khách sạn)",
+          "chuyến tàu hỏa liên tỉnh",
+          "dịch vụ thuê trực thăng riêng",
+          "tuyến phà chở khách qua sông"
+        ]
+      },
+      {
+        "id": "toeic_214",
+        "word": "jet lag",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈdʒet ˌlæɡ/",
+        "meaningVi": "cảm giác mệt mỏi do lệch múi giờ",
+        "collocations": "suffer from jet lag, overcome jet lag, severe jet lag",
+        "example": "To minimize jet lag, the delegates arrived a day ahead of the international conference.",
+        "exampleVi": "Để giảm thiểu cảm giác mệt mỏi do lệch múi giờ, các đại biểu đã đến trước một ngày diễn ra hội nghị quốc tế.",
+        "optionsVi": [
+          "cảm giác mệt mỏi do lệch múi giờ",
+          "say sóng khi đi tàu thủy",
+          "dị ứng đồ ăn khách sạn",
+          "cảm giác lo sợ khi máy bay cất cánh"
+        ]
+      },
+      {
+        "id": "toeic_215",
+        "word": "customs declaration",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.təmz ˌdek.ləˈreɪ.ʃən/",
+        "meaningVi": "tờ khai hải quan nhập cảnh",
+        "collocations": "fill out customs declaration, customs declaration form, submit customs declaration",
+        "example": "International travelers must complete a customs declaration form before clearing border inspection.",
+        "exampleVi": "Khách du lịch quốc tế phải điền vào tờ khai hải quan trước khi qua cửa kiểm tra biên giới.",
+        "optionsVi": [
+          "tờ khai hải quan nhập cảnh",
+          "phiếu khảo sát dịch vụ chuyến bay",
+          "giấy chứng nhận tiêm chủng",
+          "hợp đồng bảo hiểm du lịch"
+        ]
+      },
+      {
+        "id": "toeic_216",
+        "word": "baggage allowance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbæɡ.ɪdʒ əˌlaʊ.əns/",
+        "meaningVi": "định mức hành lý miễn cước được phép mang",
+        "collocations": "exceed baggage allowance, checked baggage allowance, generous baggage allowance",
+        "example": "Each passenger in economy class is permitted a checked baggage allowance of twenty-three kilograms.",
+        "exampleVi": "Mỗi hành khách ở hạng phổ thông được hưởng định mức hành lý ký gửi là 23 kg.",
+        "optionsVi": [
+          "định mức hành lý miễn cước được phép mang",
+          "chi phí lưu kho hành lý qua đêm",
+          "tiền bồi thường hành lý thất lạc",
+          "khoản phạt mang chất lỏng"
+        ]
+      },
+      {
+        "id": "toeic_217",
+        "word": "travel agency",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈtræv.əl ˈeɪ.dʒən.si/",
+        "meaningVi": "đại lý dịch vụ lữ hành, công ty du lịch",
+        "collocations": "book through a travel agency, corporate travel agency, licensed travel agency",
+        "example": "Our corporate travel agency managed all airline reservations and hotel accommodations.",
+        "exampleVi": "Đại lý du lịch của công ty chúng tôi đã điều phối toàn bộ việc đặt vé máy bay và phòng khách sạn.",
+        "optionsVi": [
+          "đại lý dịch vụ lữ hành, công ty du lịch",
+          "công ty bảo hiểm y tế",
+          "trung tâm dịch vụ khách hàng",
+          "hãng taxi công nghệ"
+        ]
+      },
+      {
+        "id": "toeic_218",
+        "word": "deluxe suite",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/dɪˈlʌks swiːt/",
+        "meaningVi": "phòng khách sạn cao cấp hạng sang",
+        "collocations": "book a deluxe suite, upgrade to deluxe suite, deluxe suite with ocean view",
+        "example": "Visiting executives were accommodated in deluxe suites overlooking the city harbor.",
+        "exampleVi": "Các lãnh đạo đến thăm được sắp xếp nghỉ tại các phòng hạng sang nhìn ra bến cảng thành phố.",
+        "optionsVi": [
+          "phòng khách sạn cao cấp hạng sang",
+          "phòng họp tiêu chuẩn nhỏ",
+          "phòng chờ sân bay công cộng",
+          "khu vực phục vụ giặt là"
+        ]
+      },
+      {
+        "id": "toeic_219",
+        "word": "express checkout",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ɪkˈspres ˈtʃek.aʊt/",
+        "meaningVi": "dịch vụ trả phòng khách sạn nhanh",
+        "collocations": "use express checkout, express checkout service, drop key for express checkout",
+        "example": "Guests in a rush can take advantage of express checkout by leaving their room keys in the lobby drop box.",
+        "exampleVi": "Khách đang vội có thể sử dụng dịch vụ trả phòng nhanh bằng cách thả chìa khóa phòng vào hộp nhận ở sảnh.",
+        "optionsVi": [
+          "dịch vụ trả phòng khách sạn nhanh",
+          "quầy làm thủ tục nhận phòng vip",
+          "dịch vụ gọi xe khẩn cấp",
+          "thủ tục đăng ký tạm trú"
+        ]
+      },
+      {
+        "id": "toeic_220",
+        "word": "currency exchange",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkɝː.ən.si ɪksˌtʃeɪndʒ/",
+        "meaningVi": "dịch vụ đổi ngoại tệ",
+        "collocations": "currency exchange booth, currency exchange rate, favorable currency exchange",
+        "example": "You can find several currency exchange booths located just outside the international arrivals hall.",
+        "exampleVi": "Bạn có thể tìm thấy một vài quầy đổi ngoại tệ nằm ngay bên ngoài sảnh đến quốc tế.",
+        "optionsVi": [
+          "dịch vụ đổi ngoại tệ",
+          "cây rút tiền atm nội địa",
+          "quầy hoàn thuế mua sắm",
+          "văn phòng công chứng hộ chiếu"
+        ]
+      },
+      {
+        "id": "toeic_221",
+        "word": "passport validity",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpæs.pɔːrt vəˈlɪd.ə.t̬i/",
+        "meaningVi": "thời hạn còn hiệu lực của hộ chiếu",
+        "collocations": "check passport validity, six months passport validity, maintain passport validity",
+        "example": "Most international destinations require at least six months of passport validity beyond the travel dates.",
+        "exampleVi": "Hầu hết các điểm đến quốc tế đều yêu cầu hộ chiếu phải còn hạn ít nhất sáu tháng sau ngày đi lại.",
+        "optionsVi": [
+          "thời hạn còn hiệu lực của hộ chiếu",
+          "phí làm lại hộ chiếu bị mất",
+          "số trang thị thực còn trống",
+          "thông tin nơi sinh của đương đơn"
+        ]
+      },
+      {
+        "id": "toeic_222",
+        "word": "car rental",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkɑːr ˌren.t̬əl/",
+        "meaningVi": "dịch vụ thuê xe ô tô tự lái",
+        "collocations": "car rental agency, reserve a car rental, car rental insurance",
+        "example": "The sales team reserved an SUV through a local car rental agency for their client visits.",
+        "exampleVi": "Đội ngũ kinh doanh đã đặt thuê một chiếc xe SUV qua đại lý cho thuê xe địa phương để đi gặp khách hàng.",
+        "optionsVi": [
+          "dịch vụ thuê xe ô tô tự lái",
+          "bến xe khách liên tỉnh",
+          "trạm bảo dưỡng xe ô tô",
+          "bãi trông giữ xe ngày đêm"
+        ]
+      },
+      {
+        "id": "toeic_223",
+        "word": "delayed flight",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/dɪˈleɪd flaɪt/",
+        "meaningVi": "chuyến bay bị hoãn giờ cất cánh",
+        "collocations": "compensation for delayed flight, severely delayed flight, announce a delayed flight",
+        "example": "Due to mechanical inspection, the delayed flight departed three hours behind schedule.",
+        "exampleVi": "Do kiểm tra kỹ thuật, chuyến bay bị hoãn đã cất cánh chậm 3 tiếng so với lịch trình.",
+        "optionsVi": [
+          "chuyến bay bị hoãn giờ cất cánh",
+          "chuyến bay bị hủy hoàn toàn",
+          "chuyến bay hạ cánh khẩn cấp",
+          "chuyến bay cất cánh sớm"
+        ]
+      },
+      {
+        "id": "toeic_224",
+        "word": "travel expense receipt",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈtræv.əl ɪkˈspens rɪˌsiːt/",
+        "meaningVi": "hóa đơn biên lai chi phí đi lại",
+        "collocations": "keep travel expense receipts, submit travel expense receipt, original travel expense receipt",
+        "example": "The finance office requires original travel expense receipts for all meals and ground transportation.",
+        "exampleVi": "Phòng tài chính yêu cầu biên lai chi phí đi lại gốc cho tất cả các bữa ăn và phương tiện di chuyển mặt đất.",
+        "optionsVi": [
+          "hóa đơn biên lai chi phí đi lại",
+          "giấy xác nhận của khách sạn",
+          "thẻ bảo hiểm du lịch toàn cầu",
+          "tờ khai nhập cảnh biên giới"
+        ]
+      },
+      {
+        "id": "toeic_225",
+        "word": "commute",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəˈmjuːt/",
+        "meaningVi": "đi lại hàng ngày giữa nhà và nơi làm việc",
+        "collocations": "commute by train, daily commute, long commute",
+        "example": "Many employees commute to the downtown headquarters using the high-speed commuter rail.",
+        "exampleVi": "Nhiều nhân viên đi lại hàng ngày tới trụ sở trung tâm bằng tuyến tàu điện cao tốc.",
+        "optionsVi": [
+          "đi lại hàng ngày giữa nhà và nơi làm việc",
+          "đi công tác dài ngày ở nước ngoài",
+          "chuyển nhà đến thành phố khác",
+          "nghỉ phép dưỡng bệnh tại gia"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_strategy",
+    "name": "Chiến Lược Doanh Nghiệp, M&A & Mở Rộng Thị Trường",
+    "icon": "📈",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Sáp nhập & mua lại, liên doanh, tái cấu trúc tổ chức, đại hội cổ đông và lợi thế cạnh tranh.",
+    "words": [
+      {
+        "id": "toeic_226",
+        "word": "merger and acquisition",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmɜːr.dʒɚ ænd ˌæk.wəˈzɪʃ.ən/",
+        "meaningVi": "sáp nhập và mua lại doanh nghiệp (M&A)",
+        "collocations": "merger and acquisition deal, advise on merger and acquisition, oversee merger and acquisition",
+        "example": "The telecom conglomerate finalized a multibillion-dollar merger and acquisition agreement yesterday.",
+        "exampleVi": "Tập đoàn viễn thông đã hoàn tất thỏa thuận sáp nhập và mua lại trị giá hàng tỷ USD vào ngày hôm qua.",
+        "optionsVi": [
+          "sáp nhập và mua lại doanh nghiệp (M&A)",
+          "kế hoạch giải thể công ty con",
+          "chương trình thoái vốn nhà nước",
+          "chiến dịch tiếp thị đại trà"
+        ]
+      },
+      {
+        "id": "toeic_227",
+        "word": "joint venture",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌdʒɔɪnt ˈven.tʃɚ/",
+        "meaningVi": "công ty liên doanh liên kết",
+        "collocations": "form a joint venture, 50-50 joint venture, successful joint venture",
+        "example": "The two automakers formed a joint venture to co-develop next-generation electric vehicle batteries.",
+        "exampleVi": "Hai hãng sản xuất ô tô đã thành lập một liên doanh để cùng phát triển pin xe điện thế hệ tiếp theo.",
+        "optionsVi": [
+          "công ty liên doanh liên kết",
+          "công ty con sở hữu 100% vốn",
+          "doanh nghiệp tư nhân một thành viên",
+          "tổ chức phi chính phủ độc lập"
+        ]
+      },
+      {
+        "id": "toeic_228",
+        "word": "subsidiary",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/səbˈsɪd.i.er.i/",
+        "meaningVi": "công ty con trực thuộc tập đoàn",
+        "collocations": "wholly-owned subsidiary, overseas subsidiary, operate as a subsidiary",
+        "example": "The Japanese electronics manufacturer established a wholly-owned manufacturing subsidiary in Vietnam.",
+        "exampleVi": "Nhà sản xuất điện tử Nhật Bản đã thành lập một công ty con sản xuất 100% vốn tại Việt Nam.",
+        "optionsVi": [
+          "công ty con trực thuộc tập đoàn",
+          "tập đoàn mẹ ở nước ngoài",
+          "đơn vị kiểm toán độc lập",
+          "đại lý bán lẻ ủy quyền"
+        ]
+      },
+      {
+        "id": "toeic_229",
+        "word": "parent company",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈper.ənt ˌkʌm.pə.ni/",
+        "meaningVi": "công ty mẹ",
+        "collocations": "parent company guarantees, owned by parent company, parent company headquarters",
+        "example": "All major financial decisions must be approved by the parent company's board of directors.",
+        "exampleVi": "Mọi quyết định tài chính lớn đều phải được hội đồng quản trị của công ty mẹ phê duyệt.",
+        "optionsVi": [
+          "công ty mẹ",
+          "chi nhánh bán lẻ",
+          "công ty liên kết cấp 2",
+          "đối thủ cạnh tranh trực tiếp"
+        ]
+      },
+      {
+        "id": "toeic_230",
+        "word": "feasibility study",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌfiː.zəˈbɪl.ə.t̬i ˈstʌd.i/",
+        "meaningVi": "nghiên cứu tính khả thi của dự án",
+        "collocations": "conduct a feasibility study, comprehensive feasibility study, feasibility study reveals",
+        "example": "Before committing funds, developers conducted a rigorous feasibility study on the solar farm project.",
+        "exampleVi": "Trước khi giải ngân vốn, các chủ đầu tư đã tiến hành nghiên cứu tính khả thi nghiêm ngặt cho dự án trang trại điện mặt trời.",
+        "optionsVi": [
+          "nghiên cứu tính khả thi của dự án",
+          "báo cáo quyết toán thuế năm",
+          "bản thảo hợp đồng lao động",
+          "biên bản thanh tra chất lượng"
+        ]
+      },
+      {
+        "id": "toeic_231",
+        "word": "restructure",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˌriːˈstrʌk.tʃɚ/",
+        "meaningVi": "tái cơ cấu bộ máy tổ chức",
+        "collocations": "restructure corporate debt, plan to restructure, restructure operations",
+        "example": "The executive committee voted to restructure operations by merging three regional sales offices.",
+        "exampleVi": "Ủy ban điều hành đã bỏ phiếu tái cơ cấu hoạt động bằng việc sáp nhập ba văn phòng kinh doanh khu vực.",
+        "optionsVi": [
+          "tái cơ cấu bộ máy tổ chức",
+          "mở rộng thêm nhân sự",
+          "giữ nguyên mô hình cũ",
+          "bán thanh lý trụ sở chính"
+        ]
+      },
+      {
+        "id": "toeic_232",
+        "word": "stakeholder",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈsteɪkˌhoʊl.dɚ/",
+        "meaningVi": "các bên liên quan trực tiếp đến lợi ích dự án",
+        "collocations": "key stakeholders, stakeholder meeting, consult stakeholders",
+        "example": "Company leadership scheduled town hall meetings to consult key stakeholders regarding the planned expansion.",
+        "exampleVi": "Ban lãnh đạo công ty đã lên lịch các buổi họp công khai để tham vấn các bên liên quan trọng yếu về kế hoạch mở rộng.",
+        "optionsVi": [
+          "các bên liên quan trực tiếp đến lợi ích dự án",
+          "nhân viên thời vụ bán thời gian",
+          "khách hàng mua thử lần đầu",
+          "đơn vị dọn dẹp vệ sinh"
+        ]
+      },
+      {
+        "id": "toeic_233",
+        "word": "diversify",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/daɪˈvɝː.sə.faɪ/",
+        "meaningVi": "đa dạng hóa danh mục sản phẩm/đầu tư",
+        "collocations": "diversify product lines, diversify investments, strategy to diversify",
+        "example": "To mitigate revenue risks, the agribusiness diversified its offerings into packaged organic snacks.",
+        "exampleVi": "Để giảm thiểu rủi ro doanh thu, doanh nghiệp nông nghiệp đã đa dạng hóa các sản phẩm sang đồ ăn nhẹ hữu cơ đóng gói.",
+        "optionsVi": [
+          "đa dạng hóa danh mục sản phẩm/đầu tư",
+          "thu hẹp quy mô sản xuất",
+          "tập trung vào một sản phẩm duy nhất",
+          "ngừng toàn bộ dây chuyền đóng gói"
+        ]
+      },
+      {
+        "id": "toeic_234",
+        "word": "strategic alliance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/strəˈtiː.dʒɪk əˈlaɪ.əns/",
+        "meaningVi": "liên minh hợp tác chiến lược",
+        "collocations": "form a strategic alliance, enter into a strategic alliance, strategic alliance with",
+        "example": "The airline entered into a strategic alliance with international carriers to offer seamless connections.",
+        "exampleVi": "Hãng hàng không đã tham gia vào một liên minh chiến lược với các hãng bay quốc tế để cung cấp các chuyến nối chuyến liền mạch.",
+        "optionsVi": [
+          "liên minh hợp tác chiến lược",
+          "cuộc cạnh tranh khốc liệt",
+          "thương vụ thâu tóm thù địch",
+          "hợp đồng thuê ngoài ngắn hạn"
+        ]
+      },
+      {
+        "id": "toeic_235",
+        "word": "competitive advantage",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kəmˈpet̬.ə.t̬ɪv ədˈvæn.t̬ɪdʒ/",
+        "meaningVi": "lợi thế cạnh tranh vượt trội",
+        "collocations": "sustainable competitive advantage, gain competitive advantage, lose competitive advantage",
+        "example": "Our proprietary logistics software provides a sustainable competitive advantage in fulfillment speed.",
+        "exampleVi": "Phần mềm logistics độc quyền của chúng tôi mang lại lợi thế cạnh tranh bền vững về tốc độ xử lý đơn hàng.",
+        "optionsVi": [
+          "lợi thế cạnh tranh vượt trội",
+          "tình trạng thua lỗ kéo dài",
+          "khoản nợ quá hạn ngân hàng",
+          "tỷ lệ nhân viên thôi việc cao"
+        ]
+      },
+      {
+        "id": "toeic_236",
+        "word": "downsize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈdaʊn.saɪz/",
+        "meaningVi": "cắt giảm quy mô, tinh giản nhân sự",
+        "collocations": "downsize workforce, forced to downsize, downsize operations",
+        "example": "Faced with declining global demand, the manufacturer announced plans to downsize its workforce by ten percent.",
+        "exampleVi": "Đối mặt với nhu cầu toàn cầu sụt giảm, nhà sản xuất đã công bố kế hoạch cắt giảm 10% lực lượng lao động.",
+        "optionsVi": [
+          "cắt giảm quy mô, tinh giản nhân sự",
+          "tuyển dụng ồ ạt nhân viên mới",
+          "tăng gấp đôi diện tích nhà máy",
+          "tăng lương đồng loạt toàn công ty"
+        ]
+      },
+      {
+        "id": "toeic_237",
+        "word": "core competency",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kɔːr ˈkɑːm.pə.tən.si/",
+        "meaningVi": "năng lực cạnh tranh cốt lõi",
+        "collocations": "identify core competencies, build on core competency, focus on core competencies",
+        "example": "Leadership decided to outsource administrative tasks so engineers could focus on their core competencies.",
+        "exampleVi": "Ban lãnh đạo đã quyết định thuê ngoài các công việc hành chính để các kỹ sư có thể tập trung vào năng lực cốt lõi của họ.",
+        "optionsVi": [
+          "năng lực cạnh tranh cốt lõi",
+          "kỹ năng giao tiếp cơ bản",
+          "các thiếu sót trong quản lý",
+          "nhiệm vụ phụ không quan trọng"
+        ]
+      },
+      {
+        "id": "toeic_238",
+        "word": "monopoly",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/məˈnɑː.pəl.i/",
+        "meaningVi": "tình trạng độc quyền thị trường",
+        "collocations": "break up a monopoly, natural monopoly, hold a monopoly over",
+        "example": "Antitrust regulators intervened to prevent the software giant from creating an unfair monopoly.",
+        "exampleVi": "Các cơ quan quản lý chống độc quyền đã can thiệp để ngăn chặn gã khổng lồ phần mềm tạo ra sự độc quyền không lành mạnh.",
+        "optionsVi": [
+          "tình trạng độc quyền thị trường",
+          "thị trường cạnh tranh hoàn hảo",
+          "sự hợp tác giữa các doanh nghiệp nhỏ",
+          "chính sách trợ giá nông sản"
+        ]
+      },
+      {
+        "id": "toeic_239",
+        "word": "hostile takeover",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌhɑː.stəl ˈteɪkˌoʊ.vɚ/",
+        "meaningVi": "vụ thâu tóm công ty mang tính thù địch",
+        "collocations": "launch a hostile takeover, resist a hostile takeover, victim of a hostile takeover",
+        "example": "The board of directors implemented defensive poison-pill strategies to fend off the hostile takeover bid.",
+        "exampleVi": "Hội đồng quản trị đã thực hiện các chiến lược phòng vệ để đẩy lùi nỗ lực thâu tóm mang tính thù địch.",
+        "optionsVi": [
+          "vụ thâu tóm công ty mang tính thù địch",
+          "thỏa thuận sáp nhập tự nguyện",
+          "chính sách tặng cổ phiếu thưởng",
+          "kế hoạch giải ngân vốn đầu tư"
+        ]
+      },
+      {
+        "id": "toeic_240",
+        "word": "shareholder meeting",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈʃerˌhoʊl.dɚ ˈmiː.t̬ɪŋ/",
+        "meaningVi": "đại hội đồng cổ đông",
+        "collocations": "annual shareholder meeting, extraordinary shareholder meeting, speak at the shareholder meeting",
+        "example": "Shareholders voted to approve the new executive compensation plan during the annual shareholder meeting.",
+        "exampleVi": "Các cổ đông đã bỏ phiếu thông qua chế độ đãi ngộ ban điều hành mới trong phiên đại hội cổ đông thường niên.",
+        "optionsVi": [
+          "đại hội đồng cổ đông",
+          "buổi họp giao ban tuần",
+          "tiệc kỷ niệm thành lập công ty",
+          "hội thảo khoa học quốc tế"
+        ]
+      },
+      {
+        "id": "toeic_241",
+        "word": "conglomerate",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈɡlɑː.mɚ.ət/",
+        "meaningVi": "tập đoàn đa ngành quy mô lớn",
+        "collocations": "media conglomerate, multinational conglomerate, industrial conglomerate",
+        "example": "The South Korean conglomerate operates divisions ranging from shipbuilding to consumer electronics.",
+        "exampleVi": "Tập đoàn đa ngành Hàn Quốc vận hành các mảng từ đóng tàu cho tới điện tử tiêu dùng.",
+        "optionsVi": [
+          "tập đoàn đa ngành quy mô lớn",
+          "doanh nghiệp nhỏ mới thành lập",
+          "cửa hàng bách hóa tổng hợp",
+          "hợp tác xã dịch vụ nông nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_242",
+        "word": "streamline operations",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈstriːm.laɪn ˌɑː.pəˈreɪ.ʃənz/",
+        "meaningVi": "tinh giản hóa quy trình vận hành",
+        "collocations": "effort to streamline operations, streamline operations and reduce costs, digitally streamline operations",
+        "example": "Automating inventory tracking helped the logistics company streamline warehouse operations.",
+        "exampleVi": "Tự động hóa theo dõi hàng tồn kho đã giúp công ty logistics tinh giản quy trình vận hành kho bãi.",
+        "optionsVi": [
+          "tinh giản hóa quy trình vận hành",
+          "gia tăng các khâu thủ tục rườm rà",
+          "tuyển dụng thêm nhân sự hành chính",
+          "ngừng ứng dụng công nghệ thông tin"
+        ]
+      },
+      {
+        "id": "toeic_243",
+        "word": "expansion plan",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ɪkˈspæn.ʃən plæn/",
+        "meaningVi": "kế hoạch mở rộng chi nhánh/thị trường",
+        "collocations": "aggressive expansion plan, announce expansion plans, fund an expansion plan",
+        "example": "The retail chain announced ambitious expansion plans to open fifty new outlets across Europe.",
+        "exampleVi": "Chuỗi bán lẻ đã công bố các kế hoạch mở rộng đầy tham vọng để khai trương 50 cửa hàng mới trên khắp châu Âu.",
+        "optionsVi": [
+          "kế hoạch mở rộng chi nhánh/thị trường",
+          "chiến lược thu hẹp hoạt động",
+          "kế hoạch đóng cửa hàng loạt",
+          "bản thảo thanh lý tài sản"
+        ]
+      },
+      {
+        "id": "toeic_244",
+        "word": "contingency plan",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/kənˈtɪn.dʒən.si plæn/",
+        "meaningVi": "phương án dự phòng khi có khủng hoảng",
+        "collocations": "develop a contingency plan, contingency plan in place, activate a contingency plan",
+        "example": "Management put in place a contingency plan in case the port strike disrupted raw material shipments.",
+        "exampleVi": "Ban quản lý đã thiết lập một phương án dự phòng phòng trường hợp cuộc đình công ở cảng làm gián đoạn các chuyến vận chuyển nguyên liệu.",
+        "optionsVi": [
+          "phương án dự phòng khi có khủng hoảng",
+          "lịch trình nghỉ mát hè công ty",
+          "kế hoạch phát hành cổ phiếu",
+          "bảng phân công ca trực bảo vệ"
+        ]
+      },
+      {
+        "id": "toeic_245",
+        "word": "synergy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈsɪn.ɚ.dʒi/",
+        "meaningVi": "hiệu ứng cộng hưởng sức mạnh",
+        "collocations": "create synergies, operational synergy, capitalize on synergies",
+        "example": "The merger created significant synergies by pooling research budgets and combining sales forces.",
+        "exampleVi": "Thương vụ sáp nhập đã tạo ra sức mạnh cộng hưởng đáng kể bằng việc gộp ngân sách nghiên cứu và kết hợp đội ngũ bán hàng.",
+        "optionsVi": [
+          "hiệu ứng cộng hưởng sức mạnh",
+          "sự xung đột nội bộ kéo dài",
+          "khoản thâm hụt sau sáp nhập",
+          "sự sụt giảm doanh số bán"
+        ]
+      },
+      {
+        "id": "toeic_246",
+        "word": "board of directors",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/bɔːrd əv dɪˈrek.tɚz/",
+        "meaningVi": "hội đồng quản trị công ty",
+        "collocations": "seat on the board of directors, chairman of the board of directors, board of directors meets",
+        "example": "The board of directors voted unanimously to appoint Ms. Watson as the new chief executive officer.",
+        "exampleVi": "Hội đồng quản trị đã bỏ phiếu nhất trí bổ nhiệm bà Watson làm tổng giám đốc điều hành mới.",
+        "optionsVi": [
+          "hội đồng quản trị công ty",
+          "ban chấp hành công đoàn",
+          "đội ngũ nhân viên bán hàng",
+          "hội cựu chiến binh cơ quan"
+        ]
+      },
+      {
+        "id": "toeic_247",
+        "word": "market volatility",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmɑːr.kɪt ˌvɑː.ləˈtɪl.ə.t̬i/",
+        "meaningVi": "sự biến động thất thường của thị trường",
+        "collocations": "hedge against market volatility, high market volatility, period of market volatility",
+        "example": "Investors adopted defensive hedging strategies to safeguard portfolios against market volatility.",
+        "exampleVi": "Các nhà đầu tư đã áp dụng các chiến lược phòng vệ để bảo vệ danh mục đầu tư trước sự biến động thất thường của thị trường.",
+        "optionsVi": [
+          "sự biến động thất thường của thị trường",
+          "sự ổn định vững chắc của giá cả",
+          "sự tăng trưởng bền vững",
+          "quy định kiểm soát giá trần"
+        ]
+      },
+      {
+        "id": "toeic_248",
+        "word": "benchmarking",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbentʃˌmɑːr.kɪŋ/",
+        "meaningVi": "việc đối chuẩn với tiêu chuẩn hàng đầu trong ngành",
+        "collocations": "benchmarking process, competitive benchmarking, industry benchmarking",
+        "example": "Regular benchmarking allows the tech startup to assess its software delivery speed against global rivals.",
+        "exampleVi": "Việc đối chuẩn định kỳ cho phép công ty khởi nghiệp công nghệ đánh giá tốc độ phát hành phần mềm so với các đối thủ toàn cầu.",
+        "optionsVi": [
+          "việc đối chuẩn với tiêu chuẩn hàng đầu trong ngành",
+          "sự sao chép mã nguồn trái phép",
+          "việc bán hạ giá phá giá thị trường",
+          "thủ tục đăng ký kinh doanh mới"
+        ]
+      },
+      {
+        "id": "toeic_249",
+        "word": "leverage assets",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈlev.ɚ.ɪdʒ ˈæs.ets/",
+        "meaningVi": "tận dụng tối đa nguồn lực tài sản",
+        "collocations": "leverage company assets, strategically leverage assets, leverage assets for growth",
+        "example": "The firm was able to leverage existing distribution assets to quickly roll out its new beverage brand.",
+        "exampleVi": "Công ty đã có thể tận dụng tối đa hệ thống tài sản phân phối sẵn có để nhanh chóng ra mắt thương hiệu đồ uống mới.",
+        "optionsVi": [
+          "tận dụng tối đa nguồn lực tài sản",
+          "bán tống bán tháo tài sản cố định",
+          "thế chấp toàn bộ nhà xưởng",
+          "đóng băng nguồn vốn lưu động"
+        ]
+      },
+      {
+        "id": "toeic_250",
+        "word": "penetrate new markets",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpen.ə.treɪt nuː ˈmɑːr.kɪts/",
+        "meaningVi": "thâm nhập vào các thị trường mới",
+        "collocations": "strategy to penetrate new markets, successfully penetrate new markets, struggle to penetrate new markets",
+        "example": "Forming alliances with local distributors allowed the e-commerce platform to penetrate new markets rapidly.",
+        "exampleVi": "Thiết lập liên minh với các nhà phân phối địa phương đã cho phép nền tảng thương mại điện tử thâm nhập nhanh chóng vào các thị trường mới.",
+        "optionsVi": [
+          "thâm nhập vào các thị trường mới",
+          "rút lui khỏi thị trường quốc tế",
+          "thu hẹp số lượng khách hàng",
+          "từ bỏ phân khúc bán lẻ"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_support",
+    "name": "Chăm Sóc Khách Hàng & Giải Quyết Khiếu Nại",
+    "icon": "🎧",
+    "category": "toeic",
+    "level": "B1",
+    "description": "Xử lý phàn nàn, chính sách bảo hành, hoàn tiền, phản hồi khách hàng và bồi thường sự cố.",
+    "words": [
+      {
+        "id": "toeic_251",
+        "word": "resolve a complaint",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/rɪˈzɑːlv ə kəmˈpleɪnt/",
+        "meaningVi": "giải quyết thỏa đáng khiếu nại của khách hàng",
+        "collocations": "promptly resolve a complaint, resolve customer complaints, effort to resolve a complaint",
+        "example": "The customer care team made every effort to promptly resolve the customer's complaint.",
+        "exampleVi": "Đội ngũ chăm sóc khách hàng đã nỗ lực hết mình để giải quyết thỏa đáng khiếu nại của khách hàng trong thời gian sớm nhất.",
+        "optionsVi": [
+          "giải quyết thỏa đáng khiếu nại của khách hàng",
+          "bác bỏ khiếu nại của người dùng",
+          "chuyển khiếu nại lên tòa án",
+          "từ chối tiếp nhận ý kiến"
+        ]
+      },
+      {
+        "id": "toeic_252",
+        "word": "customer retention",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkʌs.tə.mɚ rɪˌten.ʃən/",
+        "meaningVi": "việc duy trì và giữ chân khách hàng cũ",
+        "collocations": "improve customer retention, customer retention rate, customer retention strategy",
+        "example": "Delivering exceptional after-sales support is vital for sustaining a high customer retention rate.",
+        "exampleVi": "Cung cấp dịch vụ hậu mãi xuất sắc là yếu tố sống còn để duy trì tỷ lệ giữ chân khách hàng ở mức cao.",
+        "optionsVi": [
+          "việc duy trì và giữ chân khách hàng cũ",
+          "chi phí thu hút khách hàng mới",
+          "tỷ lệ mất khách hàng vào tay đối thủ",
+          "tổng số lượng giao dịch trực tuyến"
+        ]
+      },
+      {
+        "id": "toeic_253",
+        "word": "hotline support",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈhɑːt.laɪn səˈpɔːrt/",
+        "meaningVi": "dịch vụ hỗ trợ qua đường dây nóng",
+        "collocations": "24/7 hotline support, call hotline support, technical hotline support",
+        "example": "The bank provides 24/7 toll-free hotline support to help cardholders report lost cards.",
+        "exampleVi": "Ngân hàng cung cấp dịch vụ hỗ trợ đường dây nóng miễn phí 24/7 để giúp chủ thẻ báo mất thẻ.",
+        "optionsVi": [
+          "dịch vụ hỗ trợ qua đường dây nóng",
+          "hệ thống gửi thư điện tử tự động",
+          "quầy giao dịch trực tiếp tại trụ sở",
+          "dịch vụ giao nhận bưu phẩm nhanh"
+        ]
+      },
+      {
+        "id": "toeic_254",
+        "word": "satisfaction rating",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌsæt̬.ɪsˈfæk.ʃən ˈreɪ.t̬ɪŋ/",
+        "meaningVi": "điểm đánh giá mức độ hài lòng",
+        "collocations": "high satisfaction rating, survey satisfaction ratings, boost satisfaction ratings",
+        "example": "Our online support agents achieved a record ninety-eight percent customer satisfaction rating.",
+        "exampleVi": "Các nhân viên hỗ trợ trực tuyến của chúng tôi đã đạt điểm đánh giá mức độ hài lòng kỷ lục lên tới 98%.",
+        "optionsVi": [
+          "điểm đánh giá mức độ hài lòng",
+          "tỷ lệ phế phẩm trong nhà máy",
+          "hạn mức tín dụng cá nhân",
+          "chỉ số tiêu thụ năng lượng"
+        ]
+      },
+      {
+        "id": "toeic_255",
+        "word": "warranty coverage",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈwɔːr.ən.t̬i ˈkʌv.ɚ.ɪdʒ/",
+        "meaningVi": "phạm vi và thời hạn bảo hành sản phẩm",
+        "collocations": "under warranty coverage, extended warranty coverage, full warranty coverage",
+        "example": "Accidental screen damage is not covered under the manufacturer's standard warranty coverage.",
+        "exampleVi": "Hư hỏng màn hình do tai nạn không nằm trong phạm vi bảo hành tiêu chuẩn của nhà sản xuất.",
+        "optionsVi": [
+          "phạm vi và thời hạn bảo hành sản phẩm",
+          "chính sách hoàn tiền mặt",
+          "chi phí vận chuyển hàng trả về",
+          "thời hạn sử dụng in trên vỏ hộp"
+        ]
+      },
+      {
+        "id": "toeic_256",
+        "word": "refund policy",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈriː.fʌnd ˌpɑː.lə.si/",
+        "meaningVi": "chính sách hoàn tiền cho khách",
+        "collocations": "strict refund policy, 30-day refund policy, under our refund policy",
+        "example": "Under our 30-day refund policy, merchandise must be returned unopened in its original packaging.",
+        "exampleVi": "Theo chính sách hoàn tiền trong 30 ngày của chúng tôi, hàng hóa phải được trả lại khi chưa mở hộp trong bao bì nguyên bản.",
+        "optionsVi": [
+          "chính sách hoàn tiền cho khách",
+          "chương trình tặng quà tri ân",
+          "quy định bảo mật tài khoản",
+          "bảng phí giao hàng hỏa tốc"
+        ]
+      },
+      {
+        "id": "toeic_257",
+        "word": "inquiry",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪnˈkwaɪr.i/",
+        "meaningVi": "câu hỏi thắc mắc, yêu cầu cung cấp thông tin",
+        "collocations": "customer inquiry, respond to inquiries, general inquiry",
+        "example": "Please allow up to twenty-four hours for a customer representative to reply to your email inquiry.",
+        "exampleVi": "Vui lòng đợi tối đa 24 giờ để đại diện chăm sóc khách hàng trả lời yêu cầu thắc mắc qua email của bạn.",
+        "optionsVi": [
+          "câu hỏi thắc mắc, yêu cầu cung cấp thông tin",
+          "hóa đơn thanh toán cước phí",
+          "lời khen ngợi chất lượng",
+          "đơn đặt hàng xuất khẩu"
+        ]
+      },
+      {
+        "id": "toeic_258",
+        "word": "prompt response",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/prɑːmpt rɪˈspɑːns/",
+        "meaningVi": "sự phản hồi nhanh chóng, kịp thời",
+        "collocations": "thank you for your prompt response, ensure a prompt response, provide a prompt response",
+        "example": "Clients greatly appreciated the support desk's prompt response to technical downtime issues.",
+        "exampleVi": "Khách hàng đánh giá rất cao sự phản hồi nhanh chóng của bàn hỗ trợ đối với các sự cố gián đoạn kỹ thuật.",
+        "optionsVi": [
+          "sự phản hồi nhanh chóng, kịp thời",
+          "sự chậm trễ kéo dài nhiều ngày",
+          "lời từ chối cung cấp hỗ trợ",
+          "câu trả lời tự động chung chung"
+        ]
+      },
+      {
+        "id": "toeic_259",
+        "word": "compensation voucher",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌkɑːm.pənˈseɪ.ʃən ˈvaʊ.tʃɚ/",
+        "meaningVi": "phiếu voucher đền bù thiệt hại",
+        "collocations": "issue a compensation voucher, receive compensation voucher, redeem compensation voucher",
+        "example": "Passengers whose flights were delayed over four hours received a $100 travel compensation voucher.",
+        "exampleVi": "Những hành khách có chuyến bay bị trễ trên 4 tiếng đã nhận được phiếu voucher đền bù du lịch trị giá 100 USD.",
+        "optionsVi": [
+          "phiếu voucher đền bù thiệt hại",
+          "thẻ lên máy bay ưu tiên",
+          "biên nhận đóng lệ phí sân bay",
+          "phiếu gửi hành lý quá cước"
+        ]
+      },
+      {
+        "id": "toeic_260",
+        "word": "escalate an issue",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈes.kə.leɪt ən ˈɪʃ.uː/",
+        "meaningVi": "chuyển sự cố lên cấp quản lý cao hơn",
+        "collocations": "escalate the issue to management, need to escalate an issue, escalate unresolved issues",
+        "example": "If the frontline representative cannot solve your billing dispute, they will escalate the issue to a supervisor.",
+        "exampleVi": "Nếu nhân viên trực tiếp không thể giải quyết tranh chấp hóa đơn của bạn, họ sẽ chuyển sự cố lên cho cấp giám sát.",
+        "optionsVi": [
+          "chuyển sự cố lên cấp quản lý cao hơn",
+          "tự ý đóng hồ sơ khiếu nại",
+          "hủy bỏ dịch vụ của khách hàng",
+          "chuyển hướng cuộc gọi sang máy bận"
+        ]
+      },
+      {
+        "id": "toeic_261",
+        "word": "defective item",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/dɪˈfek.tɪv ˈaɪ.t̬əm/",
+        "meaningVi": "sản phẩm bị lỗi hỏng do sản xuất",
+        "collocations": "return a defective item, replace defective items, inspect defective items",
+        "example": "The retailer offered an immediate full refund or brand-new replacement for the defective item.",
+        "exampleVi": "Nhà bán lẻ đã đề nghị hoàn tiền đầy đủ ngay lập tức hoặc đổi mới một sản phẩm khác cho món hàng bị lỗi.",
+        "optionsVi": [
+          "sản phẩm bị lỗi hỏng do sản xuất",
+          "mặt hàng bán chạy nhất tháng",
+          "sản phẩm được giảm giá 50%",
+          "hàng hóa nhập khẩu chính ngạch"
+        ]
+      },
+      {
+        "id": "toeic_262",
+        "word": "courteous",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈkɝː.t̬i.əs/",
+        "meaningVi": "lịch sự, nhã nhặn, tôn trọng khách",
+        "collocations": "courteous staff, courteous service, prompt and courteous",
+        "example": "Reviewers frequently commended the hotel desk staff for their attentive and courteous service.",
+        "exampleVi": "Những người đánh giá thường xuyên khen ngợi nhân viên quầy khách sạn vì dịch vụ chu đáo và lịch sự.",
+        "optionsVi": [
+          "lịch sự, nhã nhặn, tôn trọng khách",
+          "thô lỗ và cộc cằn",
+          "thiếu kiên nhẫn khi lắng nghe",
+          "lơ đễnh trong công việc"
+        ]
+      },
+      {
+        "id": "toeic_263",
+        "word": "feedback form",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈfiːd.bæk fɔːrm/",
+        "meaningVi": "phiếu lấy ý kiến đóng góp của khách hàng",
+        "collocations": "fill out a feedback form, submit a feedback form, online feedback form",
+        "example": "Guests are encouraged to fill out a short feedback form before departing the resort.",
+        "exampleVi": "Khách nghỉ dưỡng được khuyến khích điền vào một phiếu khảo sát ý kiến ngắn trước khi rời khỏi khu nghỉ dưỡng.",
+        "optionsVi": [
+          "phiếu lấy ý kiến đóng góp của khách hàng",
+          "hóa đơn thanh toán phòng",
+          "tờ khai tạm trú tạm vắng",
+          "giấy xác nhận đặt cọc"
+        ]
+      },
+      {
+        "id": "toeic_264",
+        "word": "service outage",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsɜːr.vɪs ˈaʊ.t̬ɪdʒ/",
+        "meaningVi": "sự cố gián đoạn cung cấp dịch vụ",
+        "collocations": "unexpected service outage, apologize for service outage, resolve service outage",
+        "example": "The internet provider issued a bill credit to compensate subscribers affected by the weekend service outage.",
+        "exampleVi": "Nhà cung cấp internet đã trừ tiền cước để bồi thường cho các thuê bao bị ảnh hưởng bởi sự cố mất mạng cuối tuần.",
+        "optionsVi": [
+          "sự cố gián đoạn cung cấp dịch vụ",
+          "đợt nâng cấp tốc độ miễn phí",
+          "chương trình khuyến mãi giảm giá",
+          "hội thảo hướng dẫn sử dụng"
+        ]
+      },
+      {
+        "id": "toeic_265",
+        "word": "troubleshooting guide",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈtrʌb.əlˌʃuː.t̬ɪŋ ɡaɪd/",
+        "meaningVi": "tài liệu hướng dẫn xử lý sự cố kỹ thuật",
+        "collocations": "consult the troubleshooting guide, step-by-step troubleshooting guide, comprehensive troubleshooting guide",
+        "example": "Before calling customer support, users should consult the online troubleshooting guide for quick fixes.",
+        "exampleVi": "Trước khi gọi cho bộ phận hỗ trợ khách hàng, người dùng nên tham khảo tài liệu hướng dẫn khắc phục sự cố trực tuyến để tìm cách khắc phục nhanh.",
+        "optionsVi": [
+          "tài liệu hướng dẫn xử lý sự cố kỹ thuật",
+          "hợp đồng mua bán thiết bị",
+          "phiếu bảo hành có đóng dấu",
+          "bảng báo giá linh kiện thay thế"
+        ]
+      },
+      {
+        "id": "toeic_266",
+        "word": "apologize sincerely",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/əˈpɑː.lə.dʒaɪz sɪnˈsɪr.li/",
+        "meaningVi": "gửi lời xin lỗi chân thành",
+        "collocations": "apologize sincerely for the inconvenience, sincerely apologize on behalf of, write to apologize sincerely",
+        "example": "We sincerely apologize for the inconvenience caused by the unexpected shipping delay.",
+        "exampleVi": "Chúng tôi chân thành xin lỗi vì sự bất tiện gây ra bởi sự chậm trễ giao hàng ngoài dự kiến.",
+        "optionsVi": [
+          "gửi lời xin lỗi chân thành",
+          "đổ lỗi cho nhà vận chuyển",
+          "phủ nhận trách nhiệm của hãng",
+          "yêu cầu khách tự chịu chi phí"
+        ]
+      },
+      {
+        "id": "toeic_267",
+        "word": "client testimonial",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈklaɪ.ənt ˌtes.təˈmoʊ.ni.əl/",
+        "meaningVi": "lời nhận xét chứng thực từ khách hàng",
+        "collocations": "positive client testimonial, feature client testimonials, video client testimonial",
+        "example": "Displaying glowing client testimonials on the website helped boost consumer trust and conversions.",
+        "exampleVi": "Trưng bày những lời chứng thực tích cực của khách hàng trên trang web đã giúp nâng cao niềm tin và tỷ lệ chuyển đổi của người tiêu dùng.",
+        "optionsVi": [
+          "lời nhận xét chứng thực từ khách hàng",
+          "bản cáo trạng của viện kiểm sát",
+          "hợp đồng bảo mật thông tin",
+          "bảng kê khai hàng tồn kho"
+        ]
+      },
+      {
+        "id": "toeic_268",
+        "word": "exchange policy",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ɪksˈtʃeɪndʒ ˌpɑː.lə.si/",
+        "meaningVi": "chính sách đổi sản phẩm khác",
+        "collocations": "item exchange policy, fair exchange policy, understand the exchange policy",
+        "example": "Our store's flexible exchange policy allows shoppers to swap clothing sizes within fourteen days.",
+        "exampleVi": "Chính sách đổi hàng linh hoạt của cửa hàng cho phép người mua sắm đổi kích cỡ quần áo trong vòng 14 ngày.",
+        "optionsVi": [
+          "chính sách đổi sản phẩm khác",
+          "quy định kiểm tra an ninh cổng",
+          "nội quy trang phục nhân viên",
+          "quy định hoàn trả tiền mặt"
+        ]
+      },
+      {
+        "id": "toeic_269",
+        "word": "toll-free number",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌtoʊlˈfriː ˈnʌm.bɚ/",
+        "meaningVi": "số điện thoại tổng đài miễn cước gọi",
+        "collocations": "call the toll-free number, toll-free number on the back, toll-free customer support",
+        "example": "Consumers dial our toll-free number without incurring any long-distance telephone charges.",
+        "exampleVi": "Người tiêu dùng gọi đến số điện thoại miễn cước của chúng tôi mà không phải chịu bất kỳ khoản cước viễn thông đường dài nào.",
+        "optionsVi": [
+          "số điện thoại tổng đài miễn cước gọi",
+          "số tài khoản nhận tiền thanh toán",
+          "mã số bưu điện quốc gia",
+          "số đăng ký kinh doanh"
+        ]
+      },
+      {
+        "id": "toeic_270",
+        "word": "dedicated representative",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈded.ə.keɪ.t̬ɪd ˌrep.rɪˈzen.t̬ə.t̬ɪv/",
+        "meaningVi": "chuyên viên tận tâm phụ trách riêng",
+        "collocations": "assigned a dedicated representative, dedicated representative for VIP accounts, work with a dedicated representative",
+        "example": "Corporate enterprise accounts are assigned a dedicated representative to manage their orders.",
+        "exampleVi": "Các tài khoản doanh nghiệp lớn được chỉ định một chuyên viên phụ trách riêng tận tâm để quản lý các đơn hàng của họ.",
+        "optionsVi": [
+          "chuyên viên tận tâm phụ trách riêng",
+          "nhân viên bảo vệ tòa nhà",
+          "tổng đài trả lời tự động bằng robot",
+          "người chuyển phát bưu phẩm"
+        ]
+      },
+      {
+        "id": "toeic_271",
+        "word": "mishap",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈmɪs.hæp/",
+        "meaningVi": "sự cố rủi ro ngoài ý muốn",
+        "collocations": "minor mishap, avoid mishaps, technical mishap",
+        "example": "Despite a minor logistical mishap with the sound equipment, the gala proceeded without interruption.",
+        "exampleVi": "Bất chấp một sự cố nhỏ về mặt kỹ thuật với dàn âm thanh, đêm dạ tiệc vẫn diễn ra mà không bị gián đoạn.",
+        "optionsVi": [
+          "sự cố rủi ro ngoài ý muốn",
+          "thành công rực rỡ ngoài mong đợi",
+          "kế hoạch chi tiết được duyệt",
+          "buổi lễ khai mạc trang trọng"
+        ]
+      },
+      {
+        "id": "toeic_272",
+        "word": "rectify the mistake",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈrek.tə.faɪ ðə mɪˈsteɪk/",
+        "meaningVi": "sửa chữa, khắc phục sai sót kịp thời",
+        "collocations": "quickly rectify the mistake, effort to rectify the mistake, step to rectify mistakes",
+        "example": "The billing department acted immediately to rectify the billing mistake and refunded the difference.",
+        "exampleVi": "Bộ phận hóa đơn đã hành động ngay lập tức để khắc phục sai sót tính tiền và hoàn trả khoản tiền chênh lệch.",
+        "optionsVi": [
+          "sửa chữa, khắc phục sai sót kịp thời",
+          "chối bỏ trách nhiệm về lỗi lầm",
+          "yêu cầu bồi thường thêm tiền",
+          "đình chỉ hoạt động tài khoản"
+        ]
+      },
+      {
+        "id": "toeic_273",
+        "word": "user feedback",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈjuː.zɚ ˈfiːd.bæk/",
+        "meaningVi": "ý kiến phản hồi đóng góp từ người dùng",
+        "collocations": "gather user feedback, positive user feedback, incorporate user feedback",
+        "example": "Product developers incorporated user feedback into the latest mobile application update.",
+        "exampleVi": "Các nhà phát triển sản phẩm đã đưa những ý kiến đóng góp của người dùng vào bản cập nhật ứng dụng di động mới nhất.",
+        "optionsVi": [
+          "ý kiến phản hồi đóng góp từ người dùng",
+          "chính sách bảo mật mật khẩu",
+          "bản điều khoản sử dụng phần mềm",
+          "hóa đơn thanh toán định kỳ"
+        ]
+      },
+      {
+        "id": "toeic_274",
+        "word": "follow-up survey",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfɑː.loʊ.ʌp ˈsɜːr.veɪ/",
+        "meaningVi": "cuộc khảo sát theo dõi sau dịch vụ",
+        "collocations": "send a follow-up survey, follow-up survey results, participate in a follow-up survey",
+        "example": "Customers received a brief follow-up survey via SMS to rate their technician's service quality.",
+        "exampleVi": "Khách hàng đã nhận được một cuộc khảo sát theo dõi ngắn qua tin nhắn để đánh giá chất lượng dịch vụ của kỹ thuật viên.",
+        "optionsVi": [
+          "cuộc khảo sát theo dõi sau dịch vụ",
+          "tin nhắn quảng cáo bán hàng",
+          "thông báo cắt dịch vụ vì nợ cước",
+          "mã kích hoạt tài khoản mới"
+        ]
+      },
+      {
+        "id": "toeic_275",
+        "word": "unconditional guarantee",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌʌn.kənˈdɪʃ.ən.əl ˌɡer.ənˈtiː/",
+        "meaningVi": "sự bảo đảm chất lượng vô điều kiện",
+        "collocations": "backed by unconditional guarantee, offer an unconditional guarantee, 100 percent unconditional guarantee",
+        "example": "The brand backs every purchase with a 100% unconditional guarantee of customer satisfaction.",
+        "exampleVi": "Thương hiệu cam kết mọi đơn mua hàng bằng sự bảo đảm vô điều kiện 100% về sự hài lòng của khách hàng.",
+        "optionsVi": [
+          "sự bảo đảm chất lượng vô điều kiện",
+          "chính sách từ chối hoàn trả",
+          "điều kiện ràng buộc phức tạp",
+          "hợp đồng vay vốn lãi suất cao"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_manufacturing",
+    "name": "Sản Xuất, Kiểm Định Chất Lượng & An Toàn",
+    "icon": "🏭",
+    "category": "toeic",
+    "level": "B2",
+    "description": "Dây chuyền sản xuất, nguyên vật liệu, tỷ lệ lỗi, an toàn lao động và bảo trì thiết bị nhà xưởng.",
+    "words": [
+      {
+        "id": "toeic_276",
+        "word": "assembly line",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/əˈsem.bli laɪn/",
+        "meaningVi": "dây chuyền lắp ráp nhà máy",
+        "collocations": "assembly line worker, modern assembly line, shut down the assembly line",
+        "example": "Automated robotic arms perform the precision welding along the automotive assembly line.",
+        "exampleVi": "Các cánh tay robot tự động thực hiện việc hàn chính xác dọc theo dây chuyền lắp ráp ô tô.",
+        "optionsVi": [
+          "dây chuyền lắp ráp nhà máy",
+          "hàng rào an ninh nhà kho",
+          "đường ống dẫn dầu ngầm",
+          "dãy bàn làm việc văn phòng"
+        ]
+      },
+      {
+        "id": "toeic_277",
+        "word": "quality assurance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkwɑː.lə.t̬i əˌʃʊr.əns/",
+        "meaningVi": "hoạt động bảo đảm chất lượng (QA)",
+        "collocations": "quality assurance inspector, quality assurance standards, strict quality assurance",
+        "example": "Every finished device undergoes rigorous inspection by the quality assurance department.",
+        "exampleVi": "Mỗi thiết bị thành phẩm đều trải qua sự kiểm tra nghiêm ngặt của bộ phận bảo đảm chất lượng.",
+        "optionsVi": [
+          "hoạt động bảo đảm chất lượng (QA)",
+          "chiến dịch quảng bá bán lẻ",
+          "dịch vụ vận chuyển hàng nặng",
+          "quy trình tuyển mộ công nhân"
+        ]
+      },
+      {
+        "id": "toeic_278",
+        "word": "raw materials",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌrɑː məˈtɪr.i.əlz/",
+        "meaningVi": "nguồn nguyên liệu thô ban đầu",
+        "collocations": "supply of raw materials, cost of raw materials, raw materials shortage",
+        "example": "Geopolitical tensions caused a sharp spike in the price of essential raw materials like copper and steel.",
+        "exampleVi": "Căng thẳng địa chính trị đã gây ra đợt tăng giá mạnh đối với các nguyên liệu thô thiết yếu như đồng và thép.",
+        "optionsVi": [
+          "nguồn nguyên liệu thô ban đầu",
+          "thành phẩm đã đóng gói sẵn",
+          "rác thải công nghiệp đã qua xử lý",
+          "dụng cụ văn phòng phẩm tiêu hao"
+        ]
+      },
+      {
+        "id": "toeic_279",
+        "word": "defect rate",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈdiː.fekt reɪt/",
+        "meaningVi": "tỷ lệ sản phẩm lỗi hỏng",
+        "collocations": "reduce defect rate, low defect rate, zero-defect rate target",
+        "example": "Investing in computer vision sensors helped the plant reduce its defect rate to below 0.1 percent.",
+        "exampleVi": "Đầu tư vào cảm biến thị giác máy tính đã giúp nhà máy giảm tỷ lệ sản phẩm lỗi xuống dưới 0,1%.",
+        "optionsVi": [
+          "tỷ lệ sản phẩm lỗi hỏng",
+          "tốc độ quay của máy móc",
+          "tỷ lệ hoàn thành định mức",
+          "chỉ số tiêu thụ điện năng"
+        ]
+      },
+      {
+        "id": "toeic_280",
+        "word": "safety regulation",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈseɪf.ti ˌreɡ.jəˈleɪ.ʃən/",
+        "meaningVi": "quy chuẩn an toàn lao động",
+        "collocations": "enforce safety regulations, strict safety regulations, comply with safety regulations",
+        "example": "All factory visitors must strictly adhere to occupational safety regulations, including wearing hard hats.",
+        "exampleVi": "Tất cả khách tham quan nhà máy phải tuân thủ nghiêm ngặt các quy định an toàn lao động, bao gồm việc đội mũ bảo hộ.",
+        "optionsVi": [
+          "quy chuẩn an toàn lao động",
+          "quy định giờ nghỉ ăn trưa",
+          "bảng lương công nhân theo ca",
+          "hợp đồng bảo hiểm tài sản"
+        ]
+      },
+      {
+        "id": "toeic_281",
+        "word": "plant manager",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/plænt ˈmæn.ə.dʒɚ/",
+        "meaningVi": "giám đốc quản lý phân xưởng/nhà máy",
+        "collocations": "report to plant manager, experienced plant manager, plant manager conducts inspection",
+        "example": "The plant manager holds a daily morning briefing with shift supervisors to review output targets.",
+        "exampleVi": "Giám đốc nhà máy tổ chức buổi họp giao ban buổi sáng hàng ngày với các trưởng ca để rà soát chỉ tiêu sản lượng.",
+        "optionsVi": [
+          "giám đốc quản lý phân xưởng/nhà máy",
+          "nhân viên bảo vệ cổng chính",
+          "chuyên viên kế toán kho",
+          "kỹ sư vận hành xe nâng"
+        ]
+      },
+      {
+        "id": "toeic_282",
+        "word": "mass production",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌmæs prəˈdʌk.ʃən/",
+        "meaningVi": "hoạt động sản xuất hàng loạt",
+        "collocations": "enter mass production, techniques of mass production, mass production facility",
+        "example": "Once the prototype passed durability tests, the company commenced mass production.",
+        "exampleVi": "Khi mẫu thử nghiệm vượt qua các bài kiểm tra độ bền, công ty đã bắt đầu sản xuất hàng loạt.",
+        "optionsVi": [
+          "hoạt động sản xuất hàng loạt",
+          "chế tạo thủ công đơn chiếc",
+          "dây chuyền tạm ngừng bảo dưỡng",
+          "hoạt động nghiên cứu lý thuyết"
+        ]
+      },
+      {
+        "id": "toeic_283",
+        "word": "protective gear",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/prəˈtek.tɪv ɡɪr/",
+        "meaningVi": "đồ bảo hộ lao động cá nhân",
+        "collocations": "wear protective gear, personal protective gear, safety protective gear",
+        "example": "Workers handling caustic chemicals must wear full protective gear, including face shields and heavy gloves.",
+        "exampleVi": "Công nhân xử lý hóa chất ăn mòn phải mặc đầy đủ đồ bảo hộ, bao gồm mặt nạ chắn và găng tay dày.",
+        "optionsVi": [
+          "đồ bảo hộ lao động cá nhân",
+          "đồng phục thể thao công ty",
+          "trang phục công sở lịch sự",
+          "dụng cụ sửa chữa máy móc"
+        ]
+      },
+      {
+        "id": "toeic_284",
+        "word": "machinery malfunction",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/məˈʃiː.nɚ.i ˌmælˈfʌŋk.ʃən/",
+        "meaningVi": "sự cố hỏng hóc máy móc thiết bị",
+        "collocations": "unexpected machinery malfunction, caused by machinery malfunction, fix machinery malfunction",
+        "example": "Production came to a complete standstill for three hours due to an unexpected machinery malfunction.",
+        "exampleVi": "Sản xuất đã ngừng trệ hoàn toàn trong 3 giờ do sự cố hỏng hóc máy móc bất ngờ.",
+        "optionsVi": [
+          "sự cố hỏng hóc máy móc thiết bị",
+          "đợt bảo dưỡng định kỳ hàng tháng",
+          "quá trình nâng cấp phần mềm",
+          "quy trình hiệu chuẩn dụng cụ"
+        ]
+      },
+      {
+        "id": "toeic_285",
+        "word": "output quota",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈaʊt.pʊt ˈkwoʊ.t̬ə/",
+        "meaningVi": "định mức chỉ tiêu sản lượng",
+        "collocations": "meet the output quota, exceed output quota, set daily output quotas",
+        "example": "Thanks to automated packaging equipment, the factory consistently exceeds its monthly output quota.",
+        "exampleVi": "Nhờ vào thiết bị đóng gói tự động, nhà máy liên tục vượt chỉ tiêu sản lượng hàng tháng.",
+        "optionsVi": [
+          "định mức chỉ tiêu sản lượng",
+          "định mức tiêu hao điện năng",
+          "giới hạn số giờ làm thêm ca",
+          "tỷ lệ hao hụt nguyên liệu"
+        ]
+      },
+      {
+        "id": "toeic_286",
+        "word": "routine inspection",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ruːˈtiːn ɪnˈspek.ʃən/",
+        "meaningVi": "công tác thanh tra kiểm tra định kỳ",
+        "collocations": "conduct a routine inspection, schedule routine inspections, subject to routine inspection",
+        "example": "The conveyor belts are halted every Sunday morning for routine inspection and lubrication.",
+        "exampleVi": "Các băng chuyền được tạm dừng vào mỗi sáng Chủ nhật để kiểm tra định kỳ và bôi trơn.",
+        "optionsVi": [
+          "công tác thanh tra kiểm tra định kỳ",
+          "đợt thanh tra đột xuất khi có tai nạn",
+          "quy trình lắp đặt thiết bị mới",
+          "buổi họp kiểm điểm trách nhiệm"
+        ]
+      },
+      {
+        "id": "toeic_287",
+        "word": "hazardous waste",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈhæz.ɚ.dəs weɪst/",
+        "meaningVi": "chất thải độc hại nguy hiểm",
+        "collocations": "dispose of hazardous waste, store hazardous waste, hazardous waste management",
+        "example": "Facilities must employ certified environmental contractors to safely dispose of industrial hazardous waste.",
+        "exampleVi": "Các cơ sở phải thuê nhà thầu môi trường được cấp chứng nhận để xử lý an toàn chất thải độc hại công nghiệp.",
+        "optionsVi": [
+          "chất thải độc hại nguy hiểm",
+          "nước sạch dùng trong sinh hoạt",
+          "vật liệu có thể tái chế làm giấy",
+          "phế liệu kim loại bán thanh lý"
+        ]
+      },
+      {
+        "id": "toeic_288",
+        "word": "operational efficiency",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌɑː.pəˈreɪ.ʃən.əl ɪˈfɪʃ.ən.si/",
+        "meaningVi": "hiệu quả vận hành sản xuất",
+        "collocations": "improve operational efficiency, maximize operational efficiency, high operational efficiency",
+        "example": "Upgrading to energy-efficient motors significantly boosted the overall operational efficiency of the plant.",
+        "exampleVi": "Nâng cấp lên các động cơ tiết kiệm điện đã nâng cao đáng kể hiệu quả vận hành tổng thể của nhà máy.",
+        "optionsVi": [
+          "hiệu quả vận hành sản xuất",
+          "chi phí sửa chữa phát sinh",
+          "thời gian máy ngưng hoạt động",
+          "số lượng phế phẩm thải ra"
+        ]
+      },
+      {
+        "id": "toeic_289",
+        "word": "idle capacity",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈaɪ.dəl kəˈpæs.ə.t̬i/",
+        "meaningVi": "công suất máy móc nhàn rỗi chưa khai thác",
+        "collocations": "utilize idle capacity, minimize idle capacity, reduction in idle capacity",
+        "example": "Securing contract manufacturing orders from overseas allowed the facility to utilize its idle capacity.",
+        "exampleVi": "Có được các đơn đặt hàng gia công từ nước ngoài đã cho phép nhà máy tận dụng công suất nhàn rỗi của mình.",
+        "optionsVi": [
+          "công suất máy móc nhàn rỗi chưa khai thác",
+          "công suất tối đa khi quá tải",
+          "tốc độ vận hành chuẩn của máy",
+          "chi phí tiêu hao năng lượng"
+        ]
+      },
+      {
+        "id": "toeic_290",
+        "word": "calibrate instruments",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈkæl.ə.breɪt ˈɪn.strə.mənts/",
+        "meaningVi": "hiệu chuẩn thiết bị đo lường chính xác",
+        "collocations": "regularly calibrate instruments, calibrate instruments before testing, certified to calibrate instruments",
+        "example": "Technicians must calibrate optical measurement instruments daily to guarantee millimeter accuracy.",
+        "exampleVi": "Kỹ thuật viên phải hiệu chuẩn các dụng cụ đo quang học hàng ngày để đảm bảo độ chính xác tới từng milimét.",
+        "optionsVi": [
+          "hiệu chuẩn thiết bị đo lường chính xác",
+          "vệ sinh bụi bẩn bên ngoài máy",
+          "thay mới toàn bộ phụ tùng",
+          "tắt nguồn thiết bị sau ca làm"
+        ]
+      },
+      {
+        "id": "toeic_291",
+        "word": "workplace hazard",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈwɜːrk.pleɪs ˈhæz.ɚd/",
+        "meaningVi": "mối nguy hiểm, rủi ro nơi làm việc",
+        "collocations": "eliminate workplace hazards, identify workplace hazards, report a workplace hazard",
+        "example": "Floor markings and safety barriers were erected to protect workers from potential workplace hazards.",
+        "exampleVi": "Các vạch kẻ sàn và rào chắn an toàn đã được dựng lên để bảo vệ công nhân trước các mối nguy hiểm tiềm ẩn tại nơi làm việc.",
+        "optionsVi": [
+          "mối nguy hiểm, rủi ro nơi làm việc",
+          "tiện ích phục vụ giải lao",
+          "bản phân công lịch trực tuần",
+          "chính sách tiền thưởng theo ca"
+        ]
+      },
+      {
+        "id": "toeic_292",
+        "word": "standard operating procedure",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌstæn.dɚd ˌɑː.pəˈreɪ.t̬ɪŋ prəˈsiː.dʒɚ/",
+        "meaningVi": "quy trình thao tác chuẩn (SOP)",
+        "collocations": "follow standard operating procedures, establish a standard operating procedure, documented in the SOP",
+        "example": "Following the standard operating procedure ensures consistent product quality and minimizes worker injury.",
+        "exampleVi": "Tuân thủ quy trình thao tác chuẩn đảm bảo chất lượng sản phẩm đồng đều và giảm thiểu chấn thương cho công nhân.",
+        "optionsVi": [
+          "quy trình thao tác chuẩn (SOP)",
+          "bản thảo đề xuất tăng lương",
+          "hóa đơn thanh toán nguyên liệu",
+          "kế hoạch tổ chức tiệc tất niên"
+        ]
+      },
+      {
+        "id": "toeic_293",
+        "word": "heavy machinery",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈhev.i məˈʃiː.nɚ.i/",
+        "meaningVi": "máy móc cơ giới hạng nặng",
+        "collocations": "operate heavy machinery, licensed to operate heavy machinery, heavy machinery safety",
+        "example": "Only certified operators who completed forty hours of training may operate the heavy machinery.",
+        "exampleVi": "Chỉ những người vận hành có chứng chỉ đã hoàn thành 40 giờ đào tạo mới được phép điều khiển máy móc hạng nặng.",
+        "optionsVi": [
+          "máy móc cơ giới hạng nặng",
+          "dụng cụ văn phòng phẩm nhỏ",
+          "thiết bị điện tử cầm tay",
+          "đồ nội thất bằng gỗ"
+        ]
+      },
+      {
+        "id": "toeic_294",
+        "word": "factory overhaul",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfæk.tɚ.i ˈoʊ.vɚ.hɑːl/",
+        "meaningVi": "cuộc đại tu, nâng cấp toàn diện nhà máy",
+        "collocations": "complete factory overhaul, major factory overhaul, undergo a factory overhaul",
+        "example": "The manufacturing plant is closed this week for a planned biennial factory overhaul.",
+        "exampleVi": "Nhà máy sản xuất đóng cửa trong tuần này để phục vụ đợt đại tu toàn diện định kỳ hai năm một lần.",
+        "optionsVi": [
+          "cuộc đại tu, nâng cấp toàn diện nhà máy",
+          "đợt kiểm tra vệ sinh đột xuất",
+          "kỳ nghỉ phép hè của công nhân",
+          "lễ khánh thành phân xưởng mới"
+        ]
+      },
+      {
+        "id": "toeic_295",
+        "word": "rigorous testing",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈrɪɡ.ɚ.əs ˈtes.tɪŋ/",
+        "meaningVi": "việc kiểm thử nghiêm ngặt, khắt khe",
+        "collocations": "undergo rigorous testing, subject to rigorous testing, rigorous testing procedures",
+        "example": "All prototype airframes undergo rigorous stress testing in specialized wind tunnels.",
+        "exampleVi": "Mọi mẫu thân máy bay thử nghiệm đều trải qua quá trình kiểm thử chịu lực nghiêm ngặt trong các đường hầm gió chuyên dụng.",
+        "optionsVi": [
+          "việc kiểm thử nghiêm ngặt, khắt khe",
+          "kiểm tra sơ lược bằng mắt thường",
+          "quy trình thử nghiệm tùy chọn",
+          "thủ tục bàn giao giấy tờ"
+        ]
+      },
+      {
+        "id": "toeic_296",
+        "word": "fabricate components",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfæb.rə.keɪt kəmˈpoʊ.nənts/",
+        "meaningVi": "chế tạo, gia công linh kiện",
+        "collocations": "fabricate precision components, machine to fabricate components, fabricate electronic components",
+        "example": "High-precision CNC laser cutters are utilized to fabricate aluminum components for the fuselage.",
+        "exampleVi": "Máy cắt laser CNC độ chính xác cao được sử dụng để gia công các linh kiện nhôm cho thân máy bay.",
+        "optionsVi": [
+          "chế tạo, gia công linh kiện",
+          "tiêu hủy phế liệu kim loại",
+          "sơn lại vỏ ngoài sản phẩm",
+          "đóng thùng xuất khẩu"
+        ]
+      },
+      {
+        "id": "toeic_297",
+        "word": "production bottleneck",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/prəˈdʌk.ʃən ˈbɑː.t̬əl.nek/",
+        "meaningVi": "điểm nghẽn, ách tắc trên dây chuyền sản xuất",
+        "collocations": "identify production bottlenecks, eliminate production bottleneck, cause a production bottleneck",
+        "example": "A shortage of specialized microchips became the primary production bottleneck for the electronics company.",
+        "exampleVi": "Tình trạng thiếu hụt vi mạch chuyên dụng đã trở thành điểm nghẽn sản xuất chính của công ty điện tử.",
+        "optionsVi": [
+          "điểm nghẽn, ách tắc trên dây chuyền sản xuất",
+          "giai đoạn sản xuất trơn tru nhất",
+          "khoản chi thưởng vượt định mức",
+          "khâu đóng gói bao bì cuối cùng"
+        ]
+      },
+      {
+        "id": "toeic_298",
+        "word": "spill protocol",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/spɪl ˈproʊ.t̬ə.kɑːl/",
+        "meaningVi": "quy trình ứng phó rò rỉ hóa chất",
+        "collocations": "follow chemical spill protocol, emergency spill protocol, spill protocol training",
+        "example": "Workers immediately evacuated the sector and initiated the chemical spill protocol.",
+        "exampleVi": "Công nhân đã lập tức sơ tán khỏi khu vực và kích hoạt quy trình ứng phó rò rỉ hóa chất.",
+        "optionsVi": [
+          "quy trình ứng phó rò rỉ hóa chất",
+          "quy định kiểm tra hàng tồn kho",
+          "thủ tục xin cấp phép xây dựng",
+          "hướng dẫn sử dụng thang máy"
+        ]
+      },
+      {
+        "id": "toeic_299",
+        "word": "yield rate",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/jiːld reɪt/",
+        "meaningVi": "tỷ lệ thành phẩm đạt chuẩn chất lượng",
+        "collocations": "improve yield rate, high yield rate, wafer yield rate",
+        "example": "Fine-tuning the furnace temperature boosted the silicon wafer yield rate from 88 to 96 percent.",
+        "exampleVi": "Tinh chỉnh nhiệt độ lò nung đã nâng tỷ lệ thành phẩm tấm bán dẫn silic đạt chuẩn từ 88% lên 96%.",
+        "optionsVi": [
+          "tỷ lệ thành phẩm đạt chuẩn chất lượng",
+          "tỷ lệ công nhân vắng mặt",
+          "mức độ tiêu hao nhiên liệu",
+          "chi phí khấu hao nhà xưởng"
+        ]
+      },
+      {
+        "id": "toeic_300",
+        "word": "preventive maintenance",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/prɪˈven.t̬ɪv ˈmeɪn.tən.əns/",
+        "meaningVi": "bảo trì phòng ngừa định kỳ",
+        "collocations": "schedule preventive maintenance, routine preventive maintenance, preventive maintenance program",
+        "example": "Performing regular preventive maintenance drastically reduced expensive emergency breakdowns.",
+        "exampleVi": "Thực hiện bảo trì phòng ngừa định kỳ đã giúp giảm đáng kể các sự cố hỏng hóc khẩn cấp tốn kém.",
+        "optionsVi": [
+          "bảo trì phòng ngừa định kỳ",
+          "sửa chữa khi máy móc đã hỏng hoàn toàn",
+          "thay thế toàn bộ dây chuyền sản xuất",
+          "thanh lý máy móc cũ phế liệu"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_admin",
+    "name": "Hành Chính, Văn Thư, Thông Báo & Memos",
+    "icon": "📋",
+    "category": "toeic",
+    "level": "B1",
+    "description": "Văn bản nội bộ, biên bản họp, thư từ giao dịch chính thức, văn phòng phẩm và phê duyệt giấy tờ.",
+    "words": [
+      {
+        "id": "toeic_301",
+        "word": "memorandum",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌmem.əˈræn.dəm/",
+        "meaningVi": "thông báo nội bộ công ty (memo)",
+        "collocations": "issue a memorandum, internal memorandum, confidential memorandum",
+        "example": "The Human Resources department circulated a memorandum outlining the new remote work policy.",
+        "exampleVi": "Phòng Nhân sự đã gửi một thông báo nội bộ nêu rõ chính sách làm việc từ xa mới.",
+        "optionsVi": [
+          "thông báo nội bộ công ty (memo)",
+          "hợp đồng mua bán độc quyền",
+          "hóa đơn thanh toán tiền điện",
+          "bản tường trình tai nạn lao động"
+        ]
+      },
+      {
+        "id": "toeic_302",
+        "word": "minutes of the meeting",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmɪn.ɪts əv ðə ˈmiː.t̬ɪŋ/",
+        "meaningVi": "biên bản cuộc họp chính thức",
+        "collocations": "take the minutes of the meeting, distribute meeting minutes, approve the minutes of the meeting",
+        "example": "The administrative secretary recorded and circulated the minutes of the meeting to all board members.",
+        "exampleVi": "Thư ký hành chính đã ghi lại và gửi biên bản cuộc họp tới tất cả các thành viên hội đồng quản trị.",
+        "optionsVi": [
+          "biên bản cuộc họp chính thức",
+          "chương trình nghị sự sơ bộ",
+          "thư mời tham dự tiệc tối",
+          "bản thảo bài phát biểu khai mạc"
+        ]
+      },
+      {
+        "id": "toeic_303",
+        "word": "confidential filing",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌkɑːn.fəˈden.ʃəl ˈfaɪ.lɪŋ/",
+        "meaningVi": "việc lưu trữ hồ sơ tài liệu mật",
+        "collocations": "secure confidential filing, confidential filing system, maintain confidential filing",
+        "example": "All employee performance reviews are kept locked in a secure confidential filing cabinet.",
+        "exampleVi": "Tất cả các bản đánh giá hiệu suất nhân viên đều được cất khóa trong tủ lưu trữ hồ sơ mật an toàn.",
+        "optionsVi": [
+          "việc lưu trữ hồ sơ tài liệu mật",
+          "công tác in ấn tài liệu đại trà",
+          "việc gửi thư rác quảng cáo",
+          "thủ tục thanh lý giấy tờ cũ"
+        ]
+      },
+      {
+        "id": "toeic_304",
+        "word": "interoffice memo",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˌɪn.t̬ɚˈɑː.fɪs ˈmem.oʊ/",
+        "meaningVi": "thông tri chuyển phát giữa các phòng ban",
+        "collocations": "send an interoffice memo, interoffice memo regarding parking, receive an interoffice memo",
+        "example": "An interoffice memo was distributed to remind staff of the upcoming annual software audit.",
+        "exampleVi": "Một thông tri nội bộ giữa các phòng ban đã được gửi đi để nhắc nhở nhân viên về đợt kiểm tra phần mềm thường niên sắp tới.",
+        "optionsVi": [
+          "thông tri chuyển phát giữa các phòng ban",
+          "thư từ gửi cho khách hàng bên ngoài",
+          "thông cáo báo chí cho công chúng",
+          "bài viết trên mạng xã hội công ty"
+        ]
+      },
+      {
+        "id": "toeic_305",
+        "word": "sign-off sheet",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsaɪn.ɑːf ʃiːt/",
+        "meaningVi": "phiếu ký nhận bàn giao/phê duyệt",
+        "collocations": "project sign-off sheet, signature on sign-off sheet, complete the sign-off sheet",
+        "example": "Before the shipment leaves the facility, the logistics supervisor must sign the sign-off sheet.",
+        "exampleVi": "Trước khi lô hàng rời khỏi cơ sở, giám sát logistics phải ký vào phiếu ký nhận bàn giao.",
+        "optionsVi": [
+          "phiếu ký nhận bàn giao/phê duyệt",
+          "bảng kê khai chi phí tiếp khách",
+          "phiếu đăng ký đi nghỉ mát",
+          "giấy xin nghỉ ốm có hưởng lương"
+        ]
+      },
+      {
+        "id": "toeic_306",
+        "word": "stationery supplies",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈsteɪ.ʃə.ner.i səˈplaɪz/",
+        "meaningVi": "đồ dùng văn phòng phẩm (bút, giấy, kẹp)",
+        "collocations": "order stationery supplies, stock stationery supplies, replenish stationery supplies",
+        "example": "The office administrator placed a bulk order for printer paper, pens, and other essential stationery supplies.",
+        "exampleVi": "Nhân viên quản trị văn phòng đã đặt một đơn hàng số lượng lớn giấy in, bút và các văn phòng phẩm thiết yếu khác.",
+        "optionsVi": [
+          "đồ dùng văn phòng phẩm (bút, giấy, kẹp)",
+          "thiết bị máy chủ dữ liệu lớn",
+          "nội thất bàn ghế hội trường",
+          "dụng cụ bảo hộ lao động nhà máy"
+        ]
+      },
+      {
+        "id": "toeic_307",
+        "word": "archive records",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈɑːr.kaɪv ˈrek.ɚdz/",
+        "meaningVi": "lưu trữ hồ sơ tài liệu vào kho dữ liệu",
+        "collocations": "archive records digitally, retain archive records, access archive records",
+        "example": "Tax statutes mandate that corporations safely archive financial records for at least seven years.",
+        "exampleVi": "Luật thuế quy định các tập đoàn phải lưu trữ an toàn các hồ sơ tài chính trong ít nhất 7 năm.",
+        "optionsVi": [
+          "lưu trữ hồ sơ tài liệu vào kho dữ liệu",
+          "tiêu hủy hồ sơ bằng máy cắt giấy",
+          "công khai tài liệu lên internet",
+          "chỉnh sửa số liệu kế toán cũ"
+        ]
+      },
+      {
+        "id": "toeic_308",
+        "word": "clerical staff",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈkler.ɪ.kəl stæf/",
+        "meaningVi": "đội ngũ nhân viên hành chính văn phòng",
+        "collocations": "clerical staff duties, clerical staff handles paperwork, support clerical staff",
+        "example": "Our clerical staff coordinates meeting rooms, manages incoming postal mail, and organizes records.",
+        "exampleVi": "Đội ngũ nhân viên hành chính của chúng tôi điều phối các phòng họp, quản lý thư từ đến và sắp xếp hồ sơ.",
+        "optionsVi": [
+          "đội ngũ nhân viên hành chính văn phòng",
+          "đội ngũ kỹ sư phần mềm cao cấp",
+          "các thành viên hội đồng quản trị",
+          "lực lượng bảo vệ ca đêm"
+        ]
+      },
+      {
+        "id": "toeic_309",
+        "word": "forward an email",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈfɔːr.wɚd ən ˈiː.meɪl/",
+        "meaningVi": "chuyển tiếp thư điện tử",
+        "collocations": "please forward this email, forward an email to the team, forward email attachment",
+        "example": "Please forward the client's inquiry email to the accounts manager for immediate action.",
+        "exampleVi": "Vui lòng chuyển tiếp email thắc mắc của khách hàng tới người quản lý tài khoản để xử lý ngay.",
+        "optionsVi": [
+          "chuyển tiếp thư điện tử",
+          "xóa thư vĩnh viễn khỏi hộp thư",
+          "đánh dấu thư là thư rác",
+          "soạn thảo thư mới từ đầu"
+        ]
+      },
+      {
+        "id": "toeic_310",
+        "word": "bulletin board",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈbʊl.ə.t̬ɪn bɔːrd/",
+        "meaningVi": "bảng tin thông báo nội bộ",
+        "collocations": "post on the bulletin board, employee bulletin board, electronic bulletin board",
+        "example": "Announcements concerning holiday hours are posted on the employee bulletin board in the breakroom.",
+        "exampleVi": "Các thông báo liên quan đến lịch nghỉ lễ được dán trên bảng tin nhân viên trong phòng giải lao.",
+        "optionsVi": [
+          "bảng tin thông báo nội bộ",
+          "màn hình chiếu phim sự kiện",
+          "bảng lương bảo mật giám đốc",
+          "bảng báo giá cho đối tác"
+        ]
+      },
+      {
+        "id": "toeic_311",
+        "word": "requisition form",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌrek.wəˈzɪʃ.ən fɔːrm/",
+        "meaningVi": "phiếu đề xuất cấp phát vật tư/trang thiết bị",
+        "collocations": "submit a requisition form, purchase requisition form, approve requisition form",
+        "example": "Department heads must approve the equipment requisition form before purchases are made.",
+        "exampleVi": "Trưởng bộ phận phải phê duyệt phiếu đề xuất mua sắm trang thiết bị trước khi tiến hành mua hàng.",
+        "optionsVi": [
+          "phiếu đề xuất cấp phát vật tư/trang thiết bị",
+          "đơn xin thôi việc tự nguyện",
+          "biên bản phạt vi phạm giao thông",
+          "hóa đơn thanh toán tiền phòng khách sạn"
+        ]
+      },
+      {
+        "id": "toeic_312",
+        "word": "streamline paperwork",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈstriːm.laɪn ˈpeɪ.pɚ.wɜːrk/",
+        "meaningVi": "tinh giản thủ tục giấy tờ",
+        "collocations": "digital tools to streamline paperwork, effort to streamline paperwork, streamline internal paperwork",
+        "example": "Switching to electronic signatures helped streamline administrative paperwork across all branches.",
+        "exampleVi": "Chuyển sang sử dụng chữ ký điện tử đã giúp tinh giản các thủ tục giấy tờ hành chính trên khắp các chi nhánh.",
+        "optionsVi": [
+          "tinh giản thủ tục giấy tờ",
+          "tăng thêm các biểu mẫu cần ký",
+          "lưu trữ toàn bộ giấy tờ bản cứng",
+          "ngừng nhận hồ sơ trực tuyến"
+        ]
+      },
+      {
+        "id": "toeic_313",
+        "word": "administrative assistant",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ədˈmɪn.ə.strə.t̬ɪv əˈsɪs.tənt/",
+        "meaningVi": "trợ lý hành chính văn phòng",
+        "collocations": "hire an administrative assistant, administrative assistant duties, executive administrative assistant",
+        "example": "The administrative assistant coordinates the Vice President's schedule and screens incoming inquiries.",
+        "exampleVi": "Trợ lý hành chính điều phối lịch làm việc của Phó Chủ tịch và tiếp nhận xử lý các thắc mắc gửi đến.",
+        "optionsVi": [
+          "trợ lý hành chính văn phòng",
+          "kỹ sư phần mềm mạng",
+          "nhân viên bảo trì thang máy",
+          "lái xe cơ quan"
+        ]
+      },
+      {
+        "id": "toeic_314",
+        "word": "circulate a notice",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsɜːr.kjə.leɪt ə ˈnoʊ.t̬ɪs/",
+        "meaningVi": "luân chuyển, phổ biến thông báo cho mọi người",
+        "collocations": "circulate a formal notice, circulate notice among staff, circulate written notice",
+        "example": "Management circulated a notice regarding changes to the building's keycard access policies.",
+        "exampleVi": "Ban quản lý đã phổ biến một thông báo về những thay đổi đối với chính sách ra vào bằng thẻ từ của tòa nhà.",
+        "optionsVi": [
+          "luân chuyển, phổ biến thông báo cho mọi người",
+          "thu hồi tài liệu mật",
+          "hủy bỏ quyết định khen thưởng",
+          "từ chối giải quyết đơn thư"
+        ]
+      },
+      {
+        "id": "toeic_315",
+        "word": "signature required",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈsɪɡ.nə.tʃɚ rɪˈkwaɪərd/",
+        "meaningVi": "yêu cầu bắt buộc phải có chữ ký",
+        "collocations": "package with signature required, authorized signature required, parent signature required",
+        "example": "High-value contracts and certified courier deliveries always have a signature required at delivery.",
+        "exampleVi": "Các hợp đồng giá trị cao và bưu kiện chuyển phát bảo đảm luôn bắt buộc phải có chữ ký khi giao nhận.",
+        "optionsVi": [
+          "yêu cầu bắt buộc phải có chữ ký",
+          "miễn phí cước giao hàng",
+          "hàng hóa được để trước cửa",
+          "không cần xuất trình giấy tờ"
+        ]
+      },
+      {
+        "id": "toeic_316",
+        "word": "formal correspondence",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfɔːr.məl ˌkɔːr.əˈspɑːn.dəns/",
+        "meaningVi": "thư từ trao đổi giao dịch chính thức",
+        "collocations": "conduct formal correspondence, formal correspondence with authorities, draft formal correspondence",
+        "example": "All formal correspondence addressed to foreign regulatory authorities must use company letterhead.",
+        "exampleVi": "Mọi thư từ giao dịch chính thức gửi tới các cơ quan quản lý nước ngoài phải sử dụng tiêu đề thư của công ty.",
+        "optionsVi": [
+          "thư từ trao đổi giao dịch chính thức",
+          "tin nhắn trò chuyện riêng tư",
+          "thông báo dán ở hành lang",
+          "email quảng cáo giảm giá"
+        ]
+      },
+      {
+        "id": "toeic_317",
+        "word": "shred confidential documents",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ʃred ˌkɑːn.fəˈden.ʃəl ˈdɑː.kjə.mənts/",
+        "meaningVi": "tiêu hủy tài liệu mật bằng máy cắt giấy",
+        "collocations": "policy to shred confidential documents, shred confidential documents daily, machine to shred documents",
+        "example": "To prevent identity theft, office personnel must immediately shred all discarded confidential documents.",
+        "exampleVi": "Để ngăn chặn hành vi đánh cắp danh tính, nhân viên văn phòng phải tiêu hủy ngay toàn bộ tài liệu mật bỏ đi bằng máy cắt giấy.",
+        "optionsVi": [
+          "tiêu hủy tài liệu mật bằng máy cắt giấy",
+          "đóng dấu lưu trữ vĩnh viễn",
+          "gửi tài liệu qua bưu điện thường",
+          "in thêm nhiều bản sao"
+        ]
+      },
+      {
+        "id": "toeic_318",
+        "word": "procure office supplies",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/prəˈkjʊr ˈɑː.fɪs səˈplaɪz/",
+        "meaningVi": "mua sắm trang thiết bị văn phòng",
+        "collocations": "procure office supplies locally, budget to procure office supplies, contract to procure supplies",
+        "example": "The facilities team works with an authorized commercial vendor to procure office supplies at bulk rates.",
+        "exampleVi": "Đội ngũ cơ sở vật chất làm việc với nhà cung cấp thương mại được ủy quyền để mua sắm vật tư văn phòng với giá bán buôn.",
+        "optionsVi": [
+          "mua sắm trang thiết bị văn phòng",
+          "thanh lý đồ nội thất cũ",
+          "thuê mượn mặt bằng kinh doanh",
+          "kiểm kê tài sản cố định"
+        ]
+      },
+      {
+        "id": "toeic_319",
+        "word": "postal courier",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈpoʊ.stəl ˈkʊr.i.ɚ/",
+        "meaningVi": "nhân viên chuyển phát thư từ/bưu phẩm",
+        "collocations": "deliver by postal courier, dispatched via postal courier, reliable postal courier",
+        "example": "Original signed deeds and certificates were sent directly via an insured postal courier.",
+        "exampleVi": "Các văn tự và giấy chứng nhận có chữ ký gốc đã được gửi trực tiếp qua nhân viên chuyển phát bưu điện có bảo hiểm.",
+        "optionsVi": [
+          "nhân viên chuyển phát thư từ/bưu phẩm",
+          "nhân viên bán hàng lưu động",
+          "người hướng dẫn khách du lịch",
+          "chuyên viên kiểm toán thuế"
+        ]
+      },
+      {
+        "id": "toeic_320",
+        "word": "annual report distribution",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈæn.ju.əl rɪˈpɔːrt ˌdɪs.trɪˈbjuː.ʃən/",
+        "meaningVi": "việc phát hành, gửi báo cáo thường niên",
+        "collocations": "oversee annual report distribution, electronic annual report distribution, schedule annual report distribution",
+        "example": "Shareholder services coordinated the electronic annual report distribution ahead of the yearly general meeting.",
+        "exampleVi": "Bộ phận dịch vụ cổ đông đã điều phối việc phát hành báo cáo thường niên điện tử trước kỳ họp đại hội cổ đông.",
+        "optionsVi": [
+          "việc phát hành, gửi báo cáo thường niên",
+          "kế hoạch thu hồi báo cáo cũ",
+          "buổi họp báo ra mắt sản phẩm",
+          "quy trình kiểm toán nội bộ"
+        ]
+      },
+      {
+        "id": "toeic_321",
+        "word": "reception desk",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/rɪˈsep.ʃən desk/",
+        "meaningVi": "bàn tiếp tân ở sảnh văn phòng",
+        "collocations": "report to the reception desk, check in at the reception desk, reception desk staff",
+        "example": "All external visitors must register and sign in at the front reception desk upon entering the building.",
+        "exampleVi": "Tất cả khách từ bên ngoài phải đăng ký và ký tên tại bàn tiếp tân phía trước khi bước vào tòa nhà.",
+        "optionsVi": [
+          "bàn tiếp tân ở sảnh văn phòng",
+          "bàn làm việc của giám đốc",
+          "quầy thu ngân nhà ăn",
+          "khu vực kiểm tra an ninh cổng sau"
+        ]
+      },
+      {
+        "id": "toeic_322",
+        "word": "pending approval",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈpen.dɪŋ əˈpruː.vəl/",
+        "meaningVi": "văn bản đang chờ xét duyệt",
+        "collocations": "application is pending approval, budget pending approval, decisions pending board approval",
+        "example": "The proposed budget for our department is currently pending final approval from the CFO.",
+        "exampleVi": "Ngân sách đề xuất cho bộ phận chúng tôi hiện đang chờ sự phê duyệt cuối cùng từ Giám đốc tài chính.",
+        "optionsVi": [
+          "văn bản đang chờ xét duyệt",
+          "hồ sơ đã bị từ chối chính thức",
+          "văn bản đã có hiệu lực thi hành",
+          "tài liệu đã được tiêu hủy"
+        ]
+      },
+      {
+        "id": "toeic_323",
+        "word": "dispatch a parcel",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/dɪˈspætʃ ə ˈpɑːr.səl/",
+        "meaningVi": "gửi một bưu kiện hàng qua đường bưu điện",
+        "collocations": "promptly dispatch a parcel, dispatch a parcel internationally, prepare to dispatch a parcel",
+        "example": "The mailroom team prepared to dispatch an urgent parcel of legal briefs to the foreign ministry.",
+        "exampleVi": "Đội ngũ phòng văn thư đã chuẩn bị để gửi một bưu kiện khẩn chứa các bản tóm tắt pháp lý tới Bộ Ngoại giao.",
+        "optionsVi": [
+          "gửi một bưu kiện hàng qua đường bưu điện",
+          "nhận bưu phẩm từ bưu tá",
+          "từ chối nhận bưu kiện giao sai",
+          "mở hộp kiểm tra đồ đạc"
+        ]
+      },
+      {
+        "id": "toeic_324",
+        "word": "official announcement",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/əˈfɪʃ.əl əˈnaʊns.mənt/",
+        "meaningVi": "thông báo chính thức từ ban giám đốc",
+        "collocations": "make an official announcement, await an official announcement, official announcement regarding merger",
+        "example": "The executive board made an official announcement confirming the opening of a new regional office.",
+        "exampleVi": "Ban điều hành đã đưa ra một thông báo chính thức xác nhận việc mở văn phòng khu vực mới.",
+        "optionsVi": [
+          "thông báo chính thức từ ban giám đốc",
+          "tin đồn thất thiệt ngoài hành lang",
+          "bản khảo sát nội bộ không chính thức",
+          "thư mời tham dự tiệc sinh nhật"
+        ]
+      },
+      {
+        "id": "toeic_325",
+        "word": "filing cabinet",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈfaɪ.lɪŋ ˌkæb.nət/",
+        "meaningVi": "tủ sắt lưu trữ hồ sơ, tài liệu",
+        "collocations": "lock the filing cabinet, organize filing cabinets, fireproof filing cabinet",
+        "example": "Historical tax audit reports are securely locked in a fireproof filing cabinet in the basement archive.",
+        "exampleVi": "Các báo cáo kiểm toán thuế trong quá khứ được cất khóa an toàn trong tủ hồ sơ chống cháy tại kho lưu trữ dưới tầng hầm.",
+        "optionsVi": [
+          "tủ sắt lưu trữ hồ sơ, tài liệu",
+          "tủ để quần áo bảo hộ",
+          "giá để sách trong thư viện",
+          "thùng chứa rác tái chế"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "toeic_it_enterprise",
+    "name": "Hạ Tầng CNTT, An Ninh Mạng & Dữ Liệu Doanh Nghiệp",
+    "icon": "💻",
+    "category": "toeic",
+    "level": "B2",
+    "description": "An ninh mạng, lưu trữ đám mây, sao lưu dữ liệu, bảo trì máy chủ, khắc phục sự cố và cấp quyền truy cập.",
+    "words": [
+      {
+        "id": "toeic_326",
+        "word": "cybersecurity breach",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌsaɪ.bɚ.səˈkjʊr.ə.t̬i briːtʃ/",
+        "meaningVi": "sự cố rò rỉ, xâm phạm an ninh mạng",
+        "collocations": "prevent a cybersecurity breach, investigate a cybersecurity breach, serious cybersecurity breach",
+        "example": "The IT team responded swiftly to contain a potential cybersecurity breach before sensitive data leaked.",
+        "exampleVi": "Đội ngũ CNTT đã phản ứng nhanh chóng để khống chế một sự cố an ninh mạng tiềm ẩn trước khi dữ liệu nhạy cảm bị rò rỉ.",
+        "optionsVi": [
+          "sự cố rò rỉ, xâm phạm an ninh mạng",
+          "đợt nâng cấp đường truyền internet",
+          "hoạt động bảo trì định kỳ máy chủ",
+          "chính sách cấp phát máy tính mới"
+        ]
+      },
+      {
+        "id": "toeic_327",
+        "word": "data encryption",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈdeɪ.t̬ə ɪnˈkrɪp.ʃən/",
+        "meaningVi": "hoạt động mã hóa bảo mật dữ liệu",
+        "collocations": "end-to-end data encryption, implement data encryption, data encryption standards",
+        "example": "All financial transactions processed on our platform utilize 256-bit end-to-end data encryption.",
+        "exampleVi": "Tất cả các giao dịch tài chính được xử lý trên nền tảng của chúng tôi đều sử dụng mã hóa dữ liệu đầu cuối 256-bit.",
+        "optionsVi": [
+          "hoạt động mã hóa bảo mật dữ liệu",
+          "sao chép dữ liệu sang thẻ nhớ",
+          "xóa vĩnh viễn tệp tin hỏng",
+          "nén dữ liệu để giảm dung lượng"
+        ]
+      },
+      {
+        "id": "toeic_328",
+        "word": "cloud storage",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/klaʊd ˈstɔːr.ɪdʒ/",
+        "meaningVi": "dịch vụ lưu trữ dữ liệu đám mây",
+        "collocations": "migrate to cloud storage, secure cloud storage, cloud storage provider",
+        "example": "Employees can access collaborative work files seamlessly from anywhere via secure cloud storage.",
+        "exampleVi": "Nhân viên có thể truy cập các tập tin làm việc cộng tác một cách liền mạch từ mọi nơi thông qua lưu trữ đám mây an toàn.",
+        "optionsVi": [
+          "dịch vụ lưu trữ dữ liệu đám mây",
+          "ổ cứng di động gắn ngoài",
+          "phòng máy chủ đặt tại chỗ",
+          "tủ lưu trữ hồ sơ giấy"
+        ]
+      },
+      {
+        "id": "toeic_329",
+        "word": "technical support desk",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈtek.nɪ.kəl səˈpɔːrt desk/",
+        "meaningVi": "bàn hỗ trợ kỹ thuật IT nội bộ",
+        "collocations": "contact technical support desk, internal technical support desk, open a ticket with support desk",
+        "example": "If your workstation experiences software crashes, contact the internal technical support desk immediately.",
+        "exampleVi": "Nếu máy trạm của bạn gặp lỗi sập phần mềm, hãy liên hệ ngay với bàn hỗ trợ kỹ thuật nội bộ.",
+        "optionsVi": [
+          "bàn hỗ trợ kỹ thuật IT nội bộ",
+          "quầy lễ tân đón khách",
+          "bàn thu ngân nhà ăn",
+          "bộ phận bảo vệ cơ quan"
+        ]
+      },
+      {
+        "id": "toeic_330",
+        "word": "software upgrade",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈsɑːft.wer ˈʌp.ɡreɪd/",
+        "meaningVi": "việc nâng cấp phiên bản phần mềm",
+        "collocations": "mandatory software upgrade, schedule software upgrade, perform software upgrade",
+        "example": "The corporate network will undergo a mandatory software upgrade tonight between midnight and 3:00 AM.",
+        "exampleVi": "Mạng doanh nghiệp sẽ trải qua đợt nâng cấp phần mềm bắt buộc vào đêm nay trong khoảng từ nửa đêm đến 3:00 sáng.",
+        "optionsVi": [
+          "việc nâng cấp phiên bản phần mềm",
+          "gỡ cài đặt ứng dụng cũ",
+          "mua mới máy in văn phòng",
+          "khôi phục mật khẩu tài khoản"
+        ]
+      },
+      {
+        "id": "toeic_331",
+        "word": "system downtime",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈsɪs.təm ˈdaʊn.taɪm/",
+        "meaningVi": "thời gian hệ thống tạm ngưng hoạt động",
+        "collocations": "minimize system downtime, scheduled system downtime, unplanned system downtime",
+        "example": "Engineers scheduled the database migration during non-business hours to minimize system downtime.",
+        "exampleVi": "Các kỹ sư đã lên lịch chuyển đổi cơ sở dữ liệu ngoài giờ làm việc để giảm thiểu thời gian ngưng trệ hệ thống.",
+        "optionsVi": [
+          "thời gian hệ thống tạm ngưng hoạt động",
+          "thời gian khởi động máy tính",
+          "tốc độ xử lý của vi xử lý",
+          "thời lượng pin sử dụng liên tục"
+        ]
+      },
+      {
+        "id": "toeic_332",
+        "word": "two-factor authentication",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌtuːˈfæk.tɚ əˌθen.t̬əˈkeɪ.ʃən/",
+        "meaningVi": "xác thực bảo mật hai lớp (2FA)",
+        "collocations": "enable two-factor authentication, require two-factor authentication, set up two-factor authentication",
+        "example": "All remote employees must enable two-factor authentication to access the internal enterprise network.",
+        "exampleVi": "Tất cả nhân viên làm việc từ xa phải bật xác thực hai yếu tố để truy cập mạng doanh nghiệp nội bộ.",
+        "optionsVi": [
+          "xác thực bảo mật hai lớp (2FA)",
+          "đăng nhập bằng mật khẩu đơn giản",
+          "sử dụng mạng wifi công cộng",
+          "chia sẻ tài khoản với đồng nghiệp"
+        ]
+      },
+      {
+        "id": "toeic_333",
+        "word": "backup database",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbæk.ʌp ˈdeɪ.t̬ə.beɪs/",
+        "meaningVi": "sao lưu cơ sở dữ liệu dự phòng",
+        "collocations": "daily backup database, restore from backup database, secure backup database",
+        "example": "The server automatically generates a secure backup database every night at 2:00 AM.",
+        "exampleVi": "Máy chủ tự động tạo một bản sao lưu cơ sở dữ liệu an toàn vào mỗi đêm lúc 2:00 sáng.",
+        "optionsVi": [
+          "sao lưu cơ sở dữ liệu dự phòng",
+          "xóa sạch dữ liệu người dùng",
+          "nâng cấp bộ nhớ ram máy chủ",
+          "cài đặt hệ điều hành mới"
+        ]
+      },
+      {
+        "id": "toeic_334",
+        "word": "unauthorized access",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ʌnˈɑː.θə.raɪzd ˈæk.ses/",
+        "meaningVi": "hành vi truy cập trái phép không được cấp quyền",
+        "collocations": "prevent unauthorized access, protect against unauthorized access, detect unauthorized access",
+        "example": "Strong firewalls and strict access controls are installed to prevent unauthorized access to financial servers.",
+        "exampleVi": "Các tường lửa mạnh mẽ và biện pháp kiểm soát truy cập nghiêm ngặt được cài đặt để ngăn chặn hành vi truy cập trái phép vào máy chủ tài chính.",
+        "optionsVi": [
+          "hành vi truy cập trái phép không được cấp quyền",
+          "đăng nhập hợp lệ bằng quyền quản trị",
+          "truy cập công khai trên internet",
+          "quy trình đổi mật khẩu định kỳ"
+        ]
+      },
+      {
+        "id": "toeic_335",
+        "word": "network outage",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈnet.wɜːrk ˈaʊ.t̬ɪdʒ/",
+        "meaningVi": "sự cố mất kết nối mạng toàn diện",
+        "collocations": "widespread network outage, suffer a network outage, resolve the network outage",
+        "example": "A severed fiber optic cable resulted in an unexpected four-hour network outage across the campus.",
+        "exampleVi": "Một sợi cáp quang bị đứt đã dẫn tới sự cố mất kết nối mạng ngoài dự kiến kéo dài 4 tiếng trong toàn bộ khuôn viên.",
+        "optionsVi": [
+          "sự cố mất kết nối mạng toàn diện",
+          "đợt tăng tốc độ đường truyền",
+          "sự cố mất điện tòa nhà",
+          "chương trình thử nghiệm đường dây mới"
+        ]
+      },
+      {
+        "id": "toeic_336",
+        "word": "firewall protection",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfaɪr.wɑːl prəˈtek.ʃən/",
+        "meaningVi": "bức tường lửa bảo vệ máy tính",
+        "collocations": "robust firewall protection, bypass firewall protection, enterprise firewall protection",
+        "example": "Robust firewall protection prevents external cyber attackers from penetrating the corporate intranet.",
+        "exampleVi": "Bức tường lửa bảo vệ mạnh mẽ ngăn chặn những kẻ tấn công mạng từ bên ngoài thâm nhập vào mạng nội bộ công ty.",
+        "optionsVi": [
+          "bức tường lửa bảo vệ máy tính",
+          "thiết bị dập lửa tự động",
+          "hệ thống dây điện chống cháy",
+          "kính cường lực chắn gió"
+        ]
+      },
+      {
+        "id": "toeic_337",
+        "word": "server maintenance",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈsɜːr.vɚ ˈmeɪn.tən.əns/",
+        "meaningVi": "hoạt động bảo trì máy chủ doanh nghiệp",
+        "collocations": "routine server maintenance, scheduled server maintenance, conduct server maintenance",
+        "example": "Users were notified twenty-four hours ahead of time about the scheduled weekend server maintenance.",
+        "exampleVi": "Người dùng đã được thông báo trước 24 giờ về đợt bảo trì máy chủ theo lịch trình vào cuối tuần.",
+        "optionsVi": [
+          "hoạt động bảo trì máy chủ doanh nghiệp",
+          "mua sắm bàn ghế văn phòng",
+          "cài đặt ứng dụng trên điện thoại cá nhân",
+          "sơn sửa phòng họp trung tâm"
+        ]
+      },
+      {
+        "id": "toeic_338",
+        "word": "phishing attempt",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈfɪʃ.ɪŋ əˌtempt/",
+        "meaningVi": "vụ lừa đảo đánh cắp thông tin qua email giả mạo",
+        "collocations": "recognize a phishing attempt, report a phishing attempt, suspicious phishing attempt",
+        "example": "Staff are trained never to click suspicious links that might represent a deceptive phishing attempt.",
+        "exampleVi": "Nhân viên được đào tạo để không bao giờ nhấp vào các liên kết đáng ngờ có thể là vụ lừa đảo qua email giả mạo.",
+        "optionsVi": [
+          "vụ lừa đảo đánh cắp thông tin qua email giả mạo",
+          "thư mời tham gia khảo sát",
+          "thông báo trúng thưởng hợp pháp",
+          "email gửi biên lai thanh toán hàng"
+        ]
+      },
+      {
+        "id": "toeic_339",
+        "word": "bandwidth limit",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈbænd.wɪtθ ˈlɪm.ɪt/",
+        "meaningVi": "giới hạn băng thông đường truyền",
+        "collocations": "exceed bandwidth limit, monthly bandwidth limit, unlimited bandwidth",
+        "example": "Streaming ultra-high-definition video during work hours can quickly exceed office bandwidth limits.",
+        "exampleVi": "Xem video độ phân giải siêu cao trong giờ làm việc có thể nhanh chóng vượt quá giới hạn băng thông của văn phòng.",
+        "optionsVi": [
+          "giới hạn băng thông đường truyền",
+          "dung lượng bộ nhớ ram",
+          "kích thước màn hình máy tính",
+          "tốc độ quay của ổ cứng"
+        ]
+      },
+      {
+        "id": "toeic_340",
+        "word": "user permissions",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈjuː.zɚ pɚˈmɪʃ.ənz/",
+        "meaningVi": "quyền hạn truy cập của người dùng trên hệ thống",
+        "collocations": "configure user permissions, grant user permissions, restrict user permissions",
+        "example": "System administrators configured strict user permissions to ensure employees only view authorized records.",
+        "exampleVi": "Quản trị viên hệ thống đã cấu hình quyền hạn người dùng nghiêm ngặt để đảm bảo nhân viên chỉ xem những hồ sơ được cho phép.",
+        "optionsVi": [
+          "quyền hạn truy cập của người dùng trên hệ thống",
+          "mật khẩu đăng nhập mặc định",
+          "thời gian sử dụng máy tính trong ngày",
+          "danh sách thiết bị được cấp phát"
+        ]
+      },
+      {
+        "id": "toeic_341",
+        "word": "hardware malfunction",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈhɑːrd.wer ˌmælˈfʌŋk.ʃən/",
+        "meaningVi": "sự cố hỏng hóc thiết bị phần cứng",
+        "collocations": "diagnose hardware malfunction, critical hardware malfunction, replace after hardware malfunction",
+        "example": "A serious hardware malfunction in the primary storage array caused database access delays.",
+        "exampleVi": "Một sự cố phần cứng nghiêm trọng trong mảng lưu trữ chính đã gây ra sự chậm trễ truy cập cơ sở dữ liệu.",
+        "optionsVi": [
+          "sự cố hỏng hóc thiết bị phần cứng",
+          "lỗi chính tả trong văn bản",
+          "nhiễm virus phần mềm độc hại",
+          "mất kết nối wifi tạm thời"
+        ]
+      },
+      {
+        "id": "toeic_342",
+        "word": "migrate data",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmaɪ.ɡreɪt ˈdeɪ.t̬ə/",
+        "meaningVi": "di chuyển, chuyển đổi cơ sở dữ liệu sang hệ thống mới",
+        "collocations": "seamlessly migrate data, plan to migrate data, migrate data to the cloud",
+        "example": "IT consultants worked through the holiday weekend to migrate data to the modern cloud infrastructure.",
+        "exampleVi": "Các chuyên gia tư vấn CNTT đã làm việc suốt kỳ nghỉ cuối tuần để chuyển đổi dữ liệu sang hạ tầng đám mây hiện đại.",
+        "optionsVi": [
+          "di chuyển, chuyển đổi cơ sở dữ liệu sang hệ thống mới",
+          "xóa toàn bộ lịch sử truy cập",
+          "khôi phục dữ liệu đã bị xóa",
+          "in dữ liệu ra giấy lưu trữ"
+        ]
+      },
+      {
+        "id": "toeic_343",
+        "word": "troubleshoot connectivity",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈtrʌb.əl.ʃuːt kəˌnekˈtɪv.ə.t̬i/",
+        "meaningVi": "dò tìm và khắc phục sự cố kết nối mạng",
+        "collocations": "troubleshoot network connectivity, help troubleshoot connectivity, step-by-step to troubleshoot connectivity",
+        "example": "Network technicians dispatched to the satellite office helped staff troubleshoot recurring Wi-Fi connectivity problems.",
+        "exampleVi": "Các kỹ thuật viên mạng được cử đến văn phòng vệ tinh đã giúp nhân viên khắc phục các sự cố kết nối Wi-Fi lặp đi lặp lại.",
+        "optionsVi": [
+          "dò tìm và khắc phục sự cố kết nối mạng",
+          "ngắt kết nối cáp mạng vĩnh viễn",
+          "thay thế toàn bộ máy tính mới",
+          "nâng cấp gói cước internet"
+        ]
+      },
+      {
+        "id": "toeic_344",
+        "word": "proprietary software",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/prəˈpraɪə.ter.i ˈsɑːft.wer/",
+        "meaningVi": "phần mềm sở hữu độc quyền",
+        "collocations": "develop proprietary software, license proprietary software, proprietary software tools",
+        "example": "The brokerage firm utilizes custom proprietary software for executing high-frequency algorithmic trades.",
+        "exampleVi": "Công ty môi giới sử dụng phần mềm độc quyền được thiết kế riêng để thực hiện các giao dịch thuật toán tần suất cao.",
+        "optionsVi": [
+          "phần mềm sở hữu độc quyền",
+          "phần mềm mã nguồn mở miễn phí",
+          "bản dùng thử có thời hạn 30 ngày",
+          "trò chơi điện tử trực tuyến"
+        ]
+      },
+      {
+        "id": "toeic_345",
+        "word": "automated backup",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/ˈɑː.t̬ə.meɪ.t̬ɪd ˈbæk.ʌp/",
+        "meaningVi": "cơ chế tự động sao lưu dữ liệu dự phòng",
+        "collocations": "configure automated backup, automated cloud backup, reliable automated backup",
+        "example": "Configuring daily automated backups guarantees that no vital enterprise documents are lost if a drive fails.",
+        "exampleVi": "Cấu hình sao lưu tự động hàng ngày đảm bảo rằng không có tài liệu doanh nghiệp quan trọng nào bị mất nếu ổ đĩa bị hỏng.",
+        "optionsVi": [
+          "cơ chế tự động sao lưu dữ liệu dự phòng",
+          "quá trình quét virus thủ công",
+          "việc cập nhật ứng dụng tự động",
+          "tự động tắt nguồn máy tính"
+        ]
+      },
+      {
+        "id": "toeic_346",
+        "word": "intranet portal",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈɪn.trə.net ˈpɔːr.t̬əl/",
+        "meaningVi": "cổng thông tin nội bộ của công ty",
+        "collocations": "log in to intranet portal, company intranet portal, access via intranet portal",
+        "example": "Employees can request paid leave and view pay stubs by logging into the corporate intranet portal.",
+        "exampleVi": "Nhân viên có thể xin nghỉ phép và xem phiếu lương bằng cách đăng nhập vào cổng thông tin nội bộ của công ty.",
+        "optionsVi": [
+          "cổng thông tin nội bộ của công ty",
+          "trang web thương mại điện tử công khai",
+          "trang mạng xã hội cá nhân",
+          "cổng tìm kiếm việc làm trực tuyến"
+        ]
+      },
+      {
+        "id": "toeic_347",
+        "word": "restore files",
+        "level": "B1",
+        "type": "collocation",
+        "ipa": "/rɪˈstɔːr faɪlz/",
+        "meaningVi": "khôi phục lại các tập tin dữ liệu đã mất",
+        "collocations": "restore files from backup, ability to restore files, successfully restore files",
+        "example": "Thanks to our hourly snapshots, the IT administrator was able to restore the accidentally deleted files immediately.",
+        "exampleVi": "Nhờ các bản chụp dữ liệu hàng giờ, quản trị viên CNTT đã có thể khôi phục các tệp vô tình bị xóa ngay lập tức.",
+        "optionsVi": [
+          "khôi phục lại các tập tin dữ liệu đã mất",
+          "xóa vĩnh viễn tệp khỏi thùng rác",
+          "đổi tên tệp tài liệu lưu trữ",
+          "chuyển tệp sang thư mục nén"
+        ]
+      },
+      {
+        "id": "toeic_348",
+        "word": "malware detection",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˈmæl.wer dɪˈtek.ʃən/",
+        "meaningVi": "việc phát hiện phần mềm độc hại",
+        "collocations": "real-time malware detection, advanced malware detection, malware detection software",
+        "example": "The security software features real-time malware detection that quarantines infected downloads instantly.",
+        "exampleVi": "Phần mềm bảo mật có tính năng phát hiện phần mềm độc hại theo thời gian thực để cách ly các tệp tải về bị nhiễm ngay lập tức.",
+        "optionsVi": [
+          "việc phát hiện phần mềm độc hại",
+          "phần mềm gỡ lỗi lập trình",
+          "công cụ đo tốc độ tải trang",
+          "tiện ích chặn quảng cáo trình duyệt"
+        ]
+      },
+      {
+        "id": "toeic_349",
+        "word": "IT infrastructure",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/ˌaɪˈtiː ˈɪn.frəˌstrʌk.tʃɚ/",
+        "meaningVi": "cơ sở hạ tầng công nghệ thông tin",
+        "collocations": "modernize IT infrastructure, scalable IT infrastructure, robust IT infrastructure",
+        "example": "The bank invested fifty million dollars to modernize its core IT infrastructure to support digital banking.",
+        "exampleVi": "Ngân hàng đã đầu tư 50 triệu USD để hiện đại hóa cơ sở hạ tầng CNTT cốt lõi nhằm hỗ trợ ngân hàng số.",
+        "optionsVi": [
+          "cơ sở hạ tầng công nghệ thông tin",
+          "hệ thống giao thông nội bộ nhà máy",
+          "chuỗi cung ứng nguyên vật liệu",
+          "mạng lưới văn phòng giao dịch"
+        ]
+      },
+      {
+        "id": "toeic_350",
+        "word": "remote desktop access",
+        "level": "B2",
+        "type": "collocation",
+        "ipa": "/rɪˈmoʊt ˈdesk.tɑːp ˈæk.ses/",
+        "meaningVi": "kết nối điều khiển máy tính từ xa",
+        "collocations": "secure remote desktop access, enable remote desktop access, configure remote desktop access",
+        "example": "Technical specialists used encrypted remote desktop access to troubleshoot software glitches on employee laptops.",
+        "exampleVi": "Các chuyên viên kỹ thuật đã sử dụng kết nối điều khiển máy tính từ xa có mã hóa để khắc phục sự cố phần mềm trên máy tính xách tay của nhân viên.",
+        "optionsVi": [
+          "kết nối điều khiển máy tính từ xa",
+          "cài đặt hệ điều hành tại chỗ",
+          "thay thế linh kiện bàn phím mới",
+          "vệ sinh quạt tản nhiệt máy tính"
+        ]
       }
     ]
   }
