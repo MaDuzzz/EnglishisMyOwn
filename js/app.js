@@ -1674,12 +1674,12 @@ class App {
 
     // Hàm phân loại mức độ kỷ luật theo số từ nạp trong ngày
     const getDisciplineLevel = (count, isFuture) => {
-      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Ngày trong tương lai", badge: "Tương lai" };
-      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Chưa nạp từ vựng (0 từ)", badge: "0 từ" };
-      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Đạt chuẩn ngày)`, badge: `${count} từ` };
-      if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Tích cực)`, badge: `${count} từ` };
-      if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ vựng (Tốt)`, badge: `${count} từ` };
-      return { level: 4, cellClass: "gh-cell-4", label: `${count} từ vựng (Xuất sắc ✨)`, badge: `${count} từ ✨` };
+      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Chưa diễn ra", badge: "Tương lai" };
+      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "0 từ (Chưa học)", badge: "0 từ" };
+      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ (Đạt chuẩn)`, badge: `${count} từ` };
+      if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ (Tích cực)`, badge: `${count} từ` };
+      if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ (Tốt)`, badge: `${count} từ` };
+      return { level: 4, cellClass: "gh-cell-4", label: `${count} từ (Xuất sắc ✨)`, badge: `${count} từ ✨` };
     };
 
     // Đếm tổng số ngày học thực tế trong năm đang chọn
@@ -1732,7 +1732,7 @@ class App {
           data-count="${count}"
           data-label="${info.label}"
           data-badge="${info.badge}"
-          title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
+          title="${day}/${mIndex + 1}: ${count > 0 ? count + ' từ' : '0 từ'}"
         >
           <span class="text-sm sm:text-base ${textColor}">${day}</span>
         </div>
@@ -1778,7 +1778,7 @@ class App {
             data-count="${count}"
             data-label="${info.label}"
             data-badge="${info.badge}"
-            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
+            title="${day}/${idx + 1}: ${count > 0 ? count + ' từ' : '0 từ'}"
           >${day}</div>
         `;
       }
@@ -2216,11 +2216,11 @@ class App {
             <div id="legend-cells-group" class="flex items-center space-x-1.5 text-[10px] shrink-0">
               <span class="text-slate-500 font-medium">Ít</span>
               <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-0 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-white/40 active:scale-95" 
-                   data-text="0 từ (Chưa nạp từ vựng)" 
+                   data-text="0 từ (Chưa học)" 
                    data-level="0"
                    title="0 từ"></div>
               <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-1 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/60 active:scale-95" 
-                   data-text="1–10 từ (Đạt chuẩn ngày)" 
+                   data-text="1–10 từ (Đạt chuẩn)" 
                    data-level="1"
                    title="1–10 từ"></div>
               <div class="legend-cell w-4 h-4 rounded-[4px] gh-cell-2 cursor-pointer transition-all duration-150 hover:scale-125 hover:ring-2 hover:ring-emerald-300/70 active:scale-95" 
@@ -2399,7 +2399,7 @@ class App {
         const dayName = cell.getAttribute('data-dayname') || '';
         const label = cell.getAttribute('data-label') || '';
         if (legendInfoEl) {
-          legendInfoEl.innerHTML = `<span class="text-emerald-400 font-bold">${dayName} (${d}):</span> <span class="text-slate-200">${label}</span>`;
+          legendInfoEl.innerHTML = `<span class="text-emerald-400 font-bold">${dayName}:</span> <span class="text-slate-200">${label}</span>`;
         }
       };
 
