@@ -1942,13 +1942,10 @@ class App {
             </div>
           `}
 
-          <!-- Legend Bar (Thang màu mức độ hoàn thành - Hover/Touch cập nhật text cùng hàng) -->
-          <div class="flex items-center justify-between gap-2 pt-2.5 border-t border-white/10 text-[11px] select-none">
-            <div class="flex items-center space-x-1.5 min-w-0 pr-1">
-              <span class="font-semibold text-slate-400 shrink-0">Mức độ:</span>
-              <span id="legend-dynamic-info" class="text-[11px] font-bold text-slate-300 transition-all duration-150 truncate">
-                Chạm hoặc rê chuột vào ô màu
-              </span>
+          <!-- Legend Bar (Thang màu mức độ hoàn thành - Chỉ hiển thị thông tin khi hover) -->
+          <div class="flex items-center justify-between gap-2 pt-2.5 border-t border-white/10 text-[11px] select-none min-h-[30px]">
+            <div class="flex items-center min-w-0 pr-1 h-5">
+              <span id="legend-dynamic-info" class="text-[11px] font-bold text-slate-300 transition-all duration-150 truncate"></span>
             </div>
 
             <div id="legend-cells-group" class="flex items-center space-x-1.5 text-[10px] shrink-0">
@@ -2093,31 +2090,44 @@ class App {
 
     // Tương tác hover / touch cho các ô vuông chú thích (Legend)
     const legendInfoEl = container.querySelector('#legend-dynamic-info');
-    const defaultLegendText = 'Chạm hoặc rê chuột vào ô màu';
+    let legendClearTimeout = null;
+
+    const clearLegendInfo = () => {
+      if (legendClearTimeout) {
+        clearTimeout(legendClearTimeout);
+        legendClearTimeout = null;
+      }
+      if (legendInfoEl) {
+        legendInfoEl.innerHTML = '';
+      }
+    };
 
     container.querySelectorAll('.legend-cell').forEach(cell => {
       const showLegendInfo = () => {
+        if (legendClearTimeout) clearTimeout(legendClearTimeout);
         if (window.navigator?.vibrate) window.navigator.vibrate(6);
         const text = cell.getAttribute('data-text');
         const level = Number(cell.getAttribute('data-level'));
         if (legendInfoEl && text) {
-          legendInfoEl.textContent = text;
-          legendInfoEl.className = 'text-[11px] font-black transition-all duration-150 truncate ' + 
-            (level === 4 ? 'text-teal-300' : level >= 2 ? 'text-emerald-300' : level === 1 ? 'text-emerald-400' : 'text-slate-300');
+          const colorClass = level === 4 ? 'text-teal-300' : level >= 2 ? 'text-emerald-300' : level === 1 ? 'text-emerald-400' : 'text-slate-300';
+          legendInfoEl.innerHTML = `<span class="text-slate-400 font-semibold mr-1">Mức độ:</span><span class="${colorClass} font-black">${text}</span>`;
         }
       };
 
       cell.addEventListener('mouseenter', showLegendInfo);
-      cell.addEventListener('click', showLegendInfo);
-      cell.addEventListener('touchstart', showLegendInfo, { passive: true });
+      cell.addEventListener('click', () => {
+        showLegendInfo();
+        if (legendClearTimeout) clearTimeout(legendClearTimeout);
+        legendClearTimeout = setTimeout(clearLegendInfo, 2500);
+      });
+      cell.addEventListener('touchstart', () => {
+        showLegendInfo();
+        if (legendClearTimeout) clearTimeout(legendClearTimeout);
+        legendClearTimeout = setTimeout(clearLegendInfo, 2500);
+      }, { passive: true });
     });
 
-    container.querySelector('#legend-cells-group')?.addEventListener('mouseleave', () => {
-      if (legendInfoEl) {
-        legendInfoEl.textContent = defaultLegendText;
-        legendInfoEl.className = 'text-[11px] font-bold text-slate-300 transition-all duration-150 truncate';
-      }
-    });
+    container.querySelector('#legend-cells-group')?.addEventListener('mouseleave', clearLegendInfo);
 
     // Làm lại placement test
     container.querySelector('#btn-retake-from-analytics')?.addEventListener('click', () => {
