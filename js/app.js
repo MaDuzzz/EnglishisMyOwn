@@ -591,36 +591,6 @@ class App {
             </p>
           </div>
         </div>
-
-        <!-- 4. CALL TO ACTION CONTAINER -->
-        <div class="max-w-md mx-auto p-6 sm:p-8 bg-gradient-to-b from-white to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/20 rounded-3xl border border-indigo-100 dark:border-indigo-900/60 shadow-xl text-center">
-          <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-1.5">
-            Sẵn Sàng Bắt Đầu Lộ Trình?
-          </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
-            Đăng nhập để đồng bộ tiến độ học tập và chuỗi kỷ luật Streak lên Cloud Firestore.
-          </p>
-
-          <button id="btn-login-portal" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 active:scale-98 transition-all flex items-center justify-center space-x-2.5 mb-3">
-            <svg class="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-              <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-            </svg>
-            <span>Đăng nhập với Google</span>
-          </button>
-
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-2 pt-1 text-xs">
-            <button id="btn-portal-placement-test" type="button" class="w-full sm:w-auto px-4 py-2 rounded-xl text-indigo-600 dark:text-indigo-400 font-bold hover:bg-indigo-50 dark:hover:bg-slate-800 transition-colors">
-              🎯 Kiểm tra trình độ (Placement Test)
-            </button>
-            <span class="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
-            <button id="btn-portal-try-absorb" type="button" class="w-full sm:w-auto px-4 py-2 rounded-xl text-emerald-600 dark:text-emerald-400 font-bold hover:bg-emerald-50 dark:hover:bg-slate-800 transition-colors">
-              ✨ Trải nghiệm học thử 10 từ
-            </button>
-          </div>
-        </div>
       </div>
     `;
 
@@ -691,10 +661,6 @@ class App {
     };
 
     renderDemoCard();
-
-    mainContainer.querySelector('#btn-login-portal')?.addEventListener('click', () => this.handleAuthClick());
-    mainContainer.querySelector('#btn-portal-placement-test')?.addEventListener('click', () => this.startPlacementTest());
-    mainContainer.querySelector('#btn-portal-try-absorb')?.addEventListener('click', () => this.startNewBatchAbsorb());
   }
 
   // Cử chỉ vuốt cho thẻ Flashcard Demo ở trang Portal
