@@ -34,7 +34,7 @@ class App {
     this.selectedHeatmapYear = new Date().getFullYear();
     this.selectedHeatmapMonth = new Date().getMonth();
     this.showDemoHeatmap = false;
-    this.analyticsViewMode = "month"; // "month" | "12months" | "52weeks"
+    this.analyticsViewMode = "month"; // "month" | "12months"
     this.isUserMenuOpen = false;
     this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
     this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
@@ -1689,14 +1689,14 @@ class App {
     const monthFullNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
     const dayNames = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
 
-    // Hàm phân loại Level màu chuẩn GitHub (Dark to bright green)
-    const getGitHubLevel = (count, isFuture) => {
-      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-40", label: "Ngày trong tương lai", badge: "Tương lai" };
-      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Chưa học từ vựng (0 từ)", badge: "Level 0 (0 từ)" };
-      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Level 1 - Đạt chuẩn ngày)`, badge: `Level 1 (${count} từ)` };
-      if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Level 2 - Khá)`, badge: `Level 2 (${count} từ)` };
-      if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ vựng (Level 3 - Tốt)`, badge: `Level 3 (${count} từ)` };
-      return { level: 4, cellClass: "gh-cell-4", label: `${count} từ vựng (Level 4 - Xuất sắc ✨)`, badge: `Level 4 (${count} từ)` };
+    // Hàm phân loại mức độ kỷ luật theo số từ nạp trong ngày
+    const getDisciplineLevel = (count, isFuture) => {
+      if (isFuture) return { level: 0, cellClass: "gh-cell-0 opacity-30", label: "Ngày trong tương lai", badge: "Tương lai" };
+      if (count === 0) return { level: 0, cellClass: "gh-cell-0", label: "Chưa nạp từ vựng (0 từ)", badge: "0 từ" };
+      if (count <= 10) return { level: 1, cellClass: "gh-cell-1", label: `${count} từ vựng (Đạt chuẩn ngày)`, badge: `${count} từ` };
+      if (count <= 20) return { level: 2, cellClass: "gh-cell-2", label: `${count} từ vựng (Tích cực)`, badge: `${count} từ` };
+      if (count <= 30) return { level: 3, cellClass: "gh-cell-3", label: `${count} từ vựng (Tốt)`, badge: `${count} từ` };
+      return { level: 4, cellClass: "gh-cell-4", label: `${count} từ vựng (Xuất sắc ✨)`, badge: `${count} từ ✨` };
     };
 
     // Đếm tổng số ngày học thực tế trong năm đang chọn
@@ -1705,7 +1705,7 @@ class App {
       if (d.startsWith(`${year}-`) && wordCountMap[d] > 0) totalActiveDaysInYear++;
     });
 
-    // ==================== 1. DỮ LIỆU CHẾ ĐỘ XEM THEO THÁNG (VIEW MODE: 'month' - MOBILE FIRST) ====================
+    // ==================== 1. DỮ LIỆU CHẾ ĐỘ XEM THEO THÁNG (VIEW MODE: 'month') ====================
     const mIndex = (this.selectedHeatmapMonth !== undefined) ? this.selectedHeatmapMonth : now.getMonth();
     const currentMonthName = monthFullNames[mIndex];
     const monthFirstDay = new Date(year, mIndex, 1);
@@ -1726,7 +1726,7 @@ class App {
       const isToday = dateStr === todayStr;
       const isFuture = dateStr > todayStr;
       const count = wordCountMap[dateStr] || 0;
-      const info = getGitHubLevel(count, isFuture);
+      const info = getDisciplineLevel(count, isFuture);
 
       if (count > 0) {
         focusedMonthActiveDays++;
@@ -1734,12 +1734,17 @@ class App {
       }
 
       const todayRing = isToday 
-        ? 'ring-2 ring-cyan-400 ring-offset-2 ring-offset-[#111a2e]' 
+        ? 'ring-2 ring-amber-400/90 ring-offset-2 ring-offset-[#0b1120] shadow-md shadow-amber-400/20' 
         : '';
 
-      const textColor = info.level === 4 
-        ? 'text-emerald-950 font-black' 
-        : (count > 0 ? 'text-white font-bold' : 'text-slate-400 font-medium');
+      const isHighLevel = info.level >= 3;
+      const textColor = isHighLevel 
+        ? 'text-slate-950 font-black' 
+        : (count > 0 ? 'text-white font-extrabold' : 'text-slate-400 font-semibold');
+
+      const countColor = isHighLevel
+        ? 'text-emerald-950 font-black'
+        : 'text-emerald-200 font-extrabold';
 
       monthDayCellsHtml += `
         <div 
@@ -1751,8 +1756,8 @@ class App {
           data-badge="${info.badge}"
           title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} (${dateStr})"
         >
-          <span class="text-xs sm:text-sm font-bold ${textColor}">${day}</span>
-          ${count > 0 ? `<span class="text-[9px] sm:text-[10px] leading-tight font-extrabold ${info.level === 4 ? 'text-emerald-950' : 'text-emerald-300'}">${count}</span>` : ''}
+          <span class="text-xs sm:text-sm ${textColor}">${day}</span>
+          ${count > 0 ? `<span class="text-[9px] sm:text-[10px] leading-tight ${countColor}">${count}</span>` : ''}
         </div>
       `;
     }
@@ -1778,15 +1783,16 @@ class App {
         const isToday = dateStr === todayStr;
         const isFuture = dateStr > todayStr;
         const count = wordCountMap[dateStr] || 0;
-        const info = getGitHubLevel(count, isFuture);
+        const info = getDisciplineLevel(count, isFuture);
 
         if (count > 0) monthActiveDays++;
 
-        const todayRing = isToday ? 'ring-1 ring-cyan-400' : '';
+        const todayRing = isToday ? 'ring-1 ring-amber-400' : '';
 
-        const textColor = info.level === 4 
-          ? 'text-emerald-950 font-black' 
-          : (count > 0 ? 'text-white font-bold' : 'text-slate-400/80 font-medium');
+        const isHighLevel = info.level >= 3;
+        const textColor = isHighLevel 
+          ? 'text-slate-950 font-black' 
+          : (count > 0 ? 'text-white font-extrabold' : 'text-slate-400/80 font-medium');
 
         cellsHtml += `
           <div 
@@ -1821,58 +1827,6 @@ class App {
         </div>
       `;
     }).join('');
-
-    // ==================== 3. XÂY DỰNG BIỂU ĐỒ 52 TUẦN LIÊN TỤC CHUẨN GITHUB ====================
-    const endSaturday = new Date(now);
-    endSaturday.setDate(now.getDate() + (6 - now.getDay())); // Đến Thứ Bảy tuần này
-    const startSunday = new Date(endSaturday);
-    startSunday.setDate(endSaturday.getDate() - (53 * 7 - 1)); // 53 tuần = 371 ngày
-
-    // Header tháng cho 53 tuần
-    let monthLabelsHtml = '';
-    let lastMonth = -1;
-    for (let w = 0; w < 53; w++) {
-      const colSunday = new Date(startSunday);
-      colSunday.setDate(startSunday.getDate() + (w * 7));
-      const colMonth = colSunday.getMonth();
-      if (colMonth !== lastMonth && colSunday.getDate() <= 7) {
-        monthLabelsHtml += `<span style="grid-column-start: ${w + 1}" class="text-[10px] text-slate-400 font-medium select-none">${monthShortNames[colMonth]}</span>`;
-        lastMonth = colMonth;
-      }
-    }
-
-    // 53 Cột x 7 Hàng
-    let columnsHtml = '';
-    for (let w = 0; w < 53; w++) {
-      let weekCellsHtml = '';
-      for (let d = 0; d < 7; d++) {
-        const cellDate = new Date(startSunday);
-        cellDate.setDate(startSunday.getDate() + (w * 7 + d));
-        const cYear = cellDate.getFullYear();
-        const cMonth = String(cellDate.getMonth() + 1).padStart(2, '0');
-        const cDay = String(cellDate.getDate()).padStart(2, '0');
-        const dateStr = `${cYear}-${cMonth}-${cDay}`;
-        const isToday = dateStr === todayStr;
-        const isFuture = dateStr > todayStr;
-        const count = wordCountMap[dateStr] || 0;
-        const info = getGitHubLevel(count, isFuture);
-
-        const todayRing = isToday ? 'ring-1 ring-emerald-400 ring-offset-1 ring-offset-[#0d1117]' : '';
-
-        weekCellsHtml += `
-          <div 
-            class="w-[11px] h-[11px] rounded-[2px] transition-all duration-100 cursor-pointer ${info.cellClass} ${todayRing} hover:scale-125 hover:z-20"
-            data-date="${dateStr}"
-            data-dayname="${dayNames[d]}"
-            data-count="${count}"
-            data-label="${info.label}"
-            data-badge="${info.badge}"
-            title="${count > 0 ? count + ' từ vựng đã nạp' : 'Chưa học từ vựng'} vào ${dayNames[d]}, ${dateStr}"
-          ></div>
-        `;
-      }
-      columnsHtml += `<div class="grid grid-rows-7 gap-[3px]">${weekCellsHtml}</div>`;
-    }
 
     // ==================== RENDER FULL PAGE HTML ====================
     container.innerHTML = `
@@ -1910,12 +1864,11 @@ class App {
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Bản Đồ Kỷ Luật 365 Ngày</span>
               </div>
-              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
-                <span>Bảng Nhiệt Thói Quen</span>
-                <span class="text-[11px] px-2 py-0.5 rounded-md bg-white/10 font-bold text-slate-300">GitHub Heatmap</span>
+              <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Bảng Nhiệt Kỷ Luật
               </h1>
               <p class="text-xs text-slate-400 mt-0.5">
-                Mỗi ô vuông màu xanh đánh dấu một ngày bạn chiến thắng sự trì hoãn và nạp từ vựng.
+                Mỗi ô màu xanh ghi dấu một ngày bạn kiên trì nạp từ vựng và rèn luyện phản xạ.
               </p>
             </div>
 
@@ -1934,7 +1887,7 @@ class App {
           </div>
         </div>
 
-        <!-- 2. 4 THẺ CHỈ SỐ KỶ LUẬT & CHUYÊN CẦN (100% chuyên biệt cho kỷ luật) -->
+        <!-- 2. 4 THẺ CHỈ SỐ KỶ LUẬT & CHUYÊN CẦN -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">
           <div class="p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs flex flex-col justify-center">
             <div class="text-xl sm:text-2xl">🔥</div>
@@ -1963,19 +1916,16 @@ class App {
           </div>
         </div>
 
-        <!-- 3. 🌟 BẢNG NHIỆT HOẠT ĐỘNG (HEATMAP ENGINE) 🌟 -->
+        <!-- 3. 🌟 BẢNG NHIỆT HOẠT ĐỘNG (HEATMAP) 🌟 -->
         <div class="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#0b1120] text-white border border-[#1e293b] shadow-xl space-y-4">
           
-          <!-- View Mode Switcher (iOS Segmented Pills) -->
-          <div class="grid grid-cols-3 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-bold">
-            <button id="btn-view-month" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === 'month' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+          <!-- View Mode Switcher: 2 Nút (Theo Tháng & Cả Năm) -->
+          <div class="grid grid-cols-2 p-1 rounded-xl bg-white/5 border border-white/10 text-xs font-bold">
+            <button id="btn-view-month" class="py-2 px-3 rounded-lg text-center transition-all ${this.analyticsViewMode === 'month' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
               📅 Theo Tháng
             </button>
-            <button id="btn-view-12months" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
+            <button id="btn-view-12months" class="py-2 px-3 rounded-lg text-center transition-all ${this.analyticsViewMode === '12months' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}">
               🗺️ Cả Năm
-            </button>
-            <button id="btn-view-52weeks" class="py-2 px-2 rounded-lg text-center transition-all ${this.analyticsViewMode === '52weeks' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'}">
-              📊 52 Tuần
             </button>
           </div>
 
@@ -1990,7 +1940,7 @@ class App {
             </div>
             <div class="flex items-center space-x-2 shrink-0">
               <span id="inspector-count" class="font-black text-emerald-400 text-xs">${wordCountMap[todayStr] || 0} từ</span>
-              <span id="inspector-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+              <span id="inspector-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${(wordCountMap[todayStr] || 0) >= 10 ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
                 ${(wordCountMap[todayStr] || 0) >= 10 ? 'Đã xong ✅' : 'Đang học ⏳'}
               </span>
             </div>
@@ -1998,7 +1948,7 @@ class App {
 
           <!-- DYNAMIC CONTENT THEO CHẾ ĐỘ XEM -->
           ${this.analyticsViewMode === 'month' ? `
-            <!-- CHẾ ĐỘ 1: THEO THÁNG (TO RÕ, CHUẨN NATIVE MOBILE) -->
+            <!-- CHẾ ĐỘ 1: THEO THÁNG (TO RÕ, GỌN GÀNG, CHUẨN MOBILE) -->
             <div class="space-y-3">
               <!-- Month Navigator -->
               <div class="flex items-center justify-between gap-2 p-1.5 rounded-2xl bg-white/5 border border-white/10">
@@ -2020,19 +1970,6 @@ class App {
                 </button>
               </div>
 
-              <!-- Quick Month Pills Bar (T1..T12) -->
-              <div class="flex items-center space-x-1.5 overflow-x-auto scrollbar-none py-0.5 no-scrollbar">
-                ${monthFullNames.map((_, idx) => `
-                  <button 
-                    type="button" 
-                    data-month="${idx}"
-                    class="month-select-pill px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 ${idx === mIndex ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/25 ring-2 ring-indigo-400/40' : 'bg-white/5 hover:bg-white/10 text-slate-400 hover:text-slate-200 border border-white/5'}"
-                  >
-                    T${idx + 1}
-                  </button>
-                `).join('')}
-              </div>
-
               <!-- Month Grid (To, đẹp, dễ chạm) -->
               <div class="p-3 sm:p-4 rounded-2xl bg-[#111a2e] border border-white/10 shadow-lg">
                 <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-bold text-slate-400 mb-2 select-none">
@@ -2043,63 +1980,31 @@ class App {
                 </div>
               </div>
             </div>
-          ` : this.analyticsViewMode === '12months' ? `
-            <!-- CHẾ ĐỘ 2: CẢ NĂM (LƯỚI 2 CỘT GỌN GÀNG TRÊN MOBILE) -->
+          ` : `
+            <!-- CHẾ ĐỘ 2: CẢ NĂM (LƯỚI 12 THÁNG GỌN GÀNG TRÊN MOBILE) -->
             <div class="space-y-3">
               <div class="flex items-center justify-between text-xs text-slate-400 px-1">
-                <span>Toàn cảnh 12 tháng năm ${year} (Bấm 🔍 để phóng to tháng):</span>
+                <span>Toàn cảnh 12 tháng năm ${year} (Bấm 🔍 để xem chi tiết tháng):</span>
               </div>
               <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                 ${monthsHtml}
               </div>
             </div>
-          ` : `
-            <!-- CHẾ ĐỘ 3: 52 TUẦN CHUẨN GITHUB -->
-            <div class="space-y-2">
-              <div class="sm:hidden text-[11px] text-slate-400 flex items-center space-x-1 px-1">
-                <span>👈👉</span>
-                <span>Vuốt ngang để xem toàn bộ 52 tuần</span>
-              </div>
-              <div class="p-3 sm:p-5 rounded-2xl bg-[#111a2e] border border-white/10 overflow-x-auto scrollbar-thin shadow-xl">
-                <div class="min-w-[680px]">
-                  <div class="grid grid-cols-[32px_repeat(53,11px)] gap-[3px] mb-1.5 items-center">
-                    <span></span>
-                    ${monthLabelsHtml}
-                  </div>
-
-                  <div class="flex items-start space-x-[3px]">
-                    <div class="w-[32px] grid grid-rows-7 gap-[3px] text-[9px] text-slate-400 font-medium select-none pr-1">
-                      <span class="h-[11px] leading-[11px]"></span>
-                      <span class="h-[11px] leading-[11px]">Mon</span>
-                      <span class="h-[11px] leading-[11px]"></span>
-                      <span class="h-[11px] leading-[11px]">Wed</span>
-                      <span class="h-[11px] leading-[11px]"></span>
-                      <span class="h-[11px] leading-[11px]">Fri</span>
-                      <span class="h-[11px] leading-[11px]"></span>
-                    </div>
-
-                    <div class="flex space-x-[3px]">
-                      ${columnsHtml}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           `}
 
-          <!-- Legend Bar (Thang màu chuẩn GitHub) -->
+          <!-- Legend Bar (Thang màu mức độ hoàn thành) -->
           <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10 text-[11px] text-slate-400">
             <div class="flex items-center space-x-1">
               <span>Mức độ:</span>
-              <span class="hidden sm:inline">Level 1 (1-10 từ) • Level 2 (11-20 từ) • Level 3 (21-30 từ) • Level 4 (>30 từ)</span>
+              <span class="text-[10px] sm:text-[11px] text-slate-400">1–10 từ • 11–20 từ • 21–30 từ • >30 từ</span>
             </div>
             <div class="flex items-center space-x-1.5 text-[10px]">
               <span>Ít</span>
-              <div class="w-3 h-3 rounded-[3px] gh-cell-0" title="0 từ"></div>
-              <div class="w-3 h-3 rounded-[3px] gh-cell-1" title="1-10 từ"></div>
-              <div class="w-3 h-3 rounded-[3px] gh-cell-2" title="11-20 từ"></div>
-              <div class="w-3 h-3 rounded-[3px] gh-cell-3" title="21-30 từ"></div>
-              <div class="w-3 h-3 rounded-[3px] gh-cell-4" title=">30 từ"></div>
+              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-0" title="0 từ"></div>
+              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-1" title="1-10 từ"></div>
+              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-2" title="11-20 từ"></div>
+              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-3" title="21-30 từ"></div>
+              <div class="w-3.5 h-3.5 rounded-[4px] gh-cell-4" title=">30 từ"></div>
               <span>Nhiều</span>
             </div>
           </div>
@@ -2142,7 +2047,7 @@ class App {
       this.handleAuthClick();
     });
 
-    // Chuyển Chế Độ Xem (Month, 12months, 52weeks)
+    // Chuyển Chế Độ Xem (Month, 12months)
     container.querySelector('#btn-view-month')?.addEventListener('click', () => {
       this.analyticsViewMode = 'month';
       this.renderAnalyticsPage(container);
@@ -2150,11 +2055,6 @@ class App {
 
     container.querySelector('#btn-view-12months')?.addEventListener('click', () => {
       this.analyticsViewMode = '12months';
-      this.renderAnalyticsPage(container);
-    });
-
-    container.querySelector('#btn-view-52weeks')?.addEventListener('click', () => {
-      this.analyticsViewMode = '52weeks';
       this.renderAnalyticsPage(container);
     });
 
@@ -2188,14 +2088,6 @@ class App {
         this.selectedHeatmapYear = (this.selectedHeatmapYear || new Date().getFullYear()) + 1;
       }
       this.renderAnalyticsPage(container);
-    });
-
-    // Quick pills chọn tháng (T1..T12)
-    container.querySelectorAll('.month-select-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.selectedHeatmapMonth = Number(btn.getAttribute('data-month'));
-        this.renderAnalyticsPage(container);
-      });
     });
 
     // Zoom từ 12 tháng sang tháng đơn

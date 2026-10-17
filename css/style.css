@@ -73,41 +73,47 @@
   background: rgba(100, 116, 139, 0.6);
 }
 
-/* GitHub Standard Contribution Graph Colors (Dark Theme Match) */
+/* ==================== DISCIPLINE HEATMAP STYLING ==================== */
 .gh-panel {
   background-color: #0b1120;
   border: 1px solid #1e293b;
 }
 
 .gh-card {
-  background-color: #111a2e;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background-color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .gh-cell-0 {
-  background-color: #182235;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(30, 41, 59, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.gh-cell-0:hover {
+  background-color: rgba(51, 65, 85, 0.75);
 }
 
 .gh-cell-1 {
-  background-color: #0e4429;
-  border: 1px solid rgba(14, 68, 41, 0.8);
+  background: linear-gradient(145deg, #064e3b 0%, #065f46 100%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  box-shadow: 0 1px 4px rgba(6, 78, 59, 0.3);
 }
 
 .gh-cell-2 {
-  background-color: #006d32;
-  border: 1px solid rgba(0, 109, 50, 0.8);
+  background: linear-gradient(145deg, #047857 0%, #10b981 100%);
+  border: 1px solid rgba(110, 231, 183, 0.45);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .gh-cell-3 {
-  background-color: #26a641;
-  border: 1px solid rgba(38, 166, 65, 0.8);
+  background: linear-gradient(145deg, #10b981 0%, #34d399 100%);
+  border: 1px solid rgba(167, 243, 208, 0.6);
+  box-shadow: 0 3px 12px rgba(16, 185, 129, 0.38);
 }
 
 .gh-cell-4 {
-  background-color: #39d353;
-  border: 1px solid rgba(57, 211, 83, 0.9);
-  box-shadow: 0 0 6px rgba(57, 211, 83, 0.5);
+  background: linear-gradient(145deg, #34d399 0%, #2dd4bf 50%, #6ee7b7 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 16px rgba(45, 212, 191, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 /* Glassmorphism helpers */
