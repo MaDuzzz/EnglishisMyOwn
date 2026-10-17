@@ -1,6 +1,11 @@
-// Động cơ Học & Ôn tập từ vựng (Vocabulary Engine)
-// Hỗ trợ 3 chế độ: Dịch ngược (Mode 1), Nghe chép chính tả (Mode 2), Nhận diện trắc nghiệm (Mode 3)
-// Tích hợp tính năng: "Không thể nghe lúc này" (Audio Bypass) & Web Speech API
+// ==============================================================================
+// ĐỘNG CƠ LUYỆN TẬP TỪ VỰNG (GIAI ĐOẠN 2 & ÔN TẬP KỶ LUẬT)
+// - Giao diện đồng bộ 100% với Giai đoạn Thẩm thấu (Card bo góc 2rem, max-w-md)
+// - Thanh đếm ngược 10 giây (Tạo áp lực phản xạ) mờ mờ ở mép trên card
+// - Logic tính điểm luỹ tiến: Đúng +1 điểm, Sai / Hết giờ -1 điểm
+// - Hàng đợi thích ứng (Adaptive Re-queue): Từ làm sai được đưa lại vào queue
+//   cho đến khi người học đạt đủ mục tiêu hoàn thành batch
+// ==============================================================================
 
 import { speechService } from './speech.js';
 import { appState } from './state.js';
@@ -13,10 +18,19 @@ export class VocabPracticeEngine {
     this.words = options.words || []; // Danh sách object từ VOCAB_BANK
     this.onCompleted = options.onCompleted || (() => {});
     
+    this.targetPoints = Math.max(1, this.words.length || 10);
+    this.progressPoints = 0;
+    this.correctCount = 0;
+    this.totalAttempts = 0;
     this.queue = [];
     this.currentIndex = 0;
-    this.correctCount = 0;
     this.isAudioDisabledForSession = false; // Cờ "Không thể nghe lúc này"
+    
+    // Timer 10 giây
+    this.timerInterval = null;
+    this.timerDuration = 10000; // 10s
+    this.timerStartTime = 0;
+    this.isTimerPaused = false;
   }
 
   start() {
@@ -25,10 +39,12 @@ export class VocabPracticeEngine {
       return;
     }
 
-    // Xây dựng hàng đợi câu hỏi (Mỗi từ được phân bổ vào các mode tương ứng)
+    this.targetPoints = Math.max(1, this.words.length);
+    this.progressPoints = 0;
+    this.correctCount = 0;
+    this.totalAttempts = 0;
     this.buildQueue();
     this.currentIndex = 0;
-    this.correctCount = 0;
     this.renderCurrentQuestion();
   }
 
@@ -52,11 +68,40 @@ export class VocabPracticeEngine {
     this.queue.sort(() => 0.5 - Math.random());
   }
 
+  getNextModeForWord(currentMode) {
+    const availableModes = this.isAudioDisabledForSession 
+      ? ["mode1_vn_to_en", "mode3_en_to_vn"] 
+      : ["mode1_vn_to_en", "mode2_audio_to_en", "mode3_en_to_vn"];
+    const otherModes = availableModes.filter(m => m !== currentMode);
+    if (otherModes.length > 0) {
+      return otherModes[Math.floor(Math.random() * otherModes.length)];
+    }
+    return currentMode;
+  }
+
+  replenishQueue() {
+    // Khi hết câu hỏi trong queue nhưng điểm chưa đạt targetPoints:
+    // Tạo thêm câu hỏi mới từ danh sách từ vựng của batch
+    const availableModes = this.isAudioDisabledForSession 
+      ? ["mode1_vn_to_en", "mode3_en_to_vn"] 
+      : ["mode1_vn_to_en", "mode2_audio_to_en", "mode3_en_to_vn"];
+    
+    const extraBatch = [...this.words].sort(() => 0.5 - Math.random());
+    extraBatch.forEach((word, idx) => {
+      const selectedMode = availableModes[(this.queue.length + idx) % availableModes.length];
+      this.queue.push({
+        word,
+        mode: selectedMode,
+        id: `q_${word.id}_extra_${Date.now()}_${idx}`
+      });
+    });
+  }
+
   renderEmptyState() {
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
-        <div class="w-full max-w-lg mx-auto">
-          <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border border-slate-200/90 dark:border-slate-800 shadow-xl">
+        <div class="w-full max-w-md mx-auto">
+          <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border-2 border-slate-200/90 dark:border-slate-800 shadow-xl">
             <div class="text-4xl mb-4">🎉</div>
             <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Không còn từ nào cần ôn tập!</h3>
             <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã hoàn thành xuất sắc các mục tiêu từ vựng của hôm nay.</p>
@@ -72,58 +117,174 @@ export class VocabPracticeEngine {
     });
   }
 
+  clearQuestionTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+  }
+
+  startQuestionTimer(word) {
+    this.clearQuestionTimer();
+    this.timerStartTime = Date.now();
+    this.isTimerPaused = false;
+
+    const timerBar = this.container.querySelector('#question-timer-bar');
+    const timerText = this.container.querySelector('#timer-text');
+
+    this.timerInterval = setInterval(() => {
+      if (this.isTimerPaused) return;
+
+      const elapsed = Date.now() - this.timerStartTime;
+      const remaining = Math.max(0, this.timerDuration - elapsed);
+      const percent = (remaining / this.timerDuration) * 100;
+      const secondsLeft = Math.ceil(remaining / 1000);
+
+      if (timerBar) {
+        timerBar.style.width = `${percent}%`;
+        if (percent <= 25) {
+          timerBar.className = "h-full bg-rose-500 transition-all duration-75 ease-linear shadow-[0_0_8px_rgba(244,63,94,0.6)]";
+        } else if (percent <= 50) {
+          timerBar.className = "h-full bg-amber-400 transition-all duration-75 ease-linear";
+        } else {
+          timerBar.className = "h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-all duration-75 ease-linear";
+        }
+      }
+
+      if (timerText) {
+        timerText.textContent = `⏱️ ${secondsLeft}s`;
+        if (secondsLeft <= 3) {
+          timerText.className = "text-[11px] font-black font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/30 animate-pulse";
+        } else {
+          timerText.className = "text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700";
+        }
+      }
+
+      if (remaining <= 0) {
+        this.clearQuestionTimer();
+        this.handleTimeout(word);
+      }
+    }, 50);
+  }
+
+  updateProgressUI() {
+    const progressLabel = this.container.querySelector('#label-progress-count');
+    const masteryLabel = this.container.querySelector('#label-mastery-percent');
+    const progressBar = this.container.querySelector('#practice-progress-bar');
+
+    if (progressLabel) progressLabel.textContent = this.progressPoints;
+    const percent = Math.min(100, Math.round((this.progressPoints / this.targetPoints) * 100));
+    if (masteryLabel) masteryLabel.textContent = `🎯 Hoàn thành: ${percent}%`;
+    if (progressBar) progressBar.style.width = `${percent}%`;
+  }
+
   renderCurrentQuestion() {
-    if (this.currentIndex >= this.queue.length) {
+    this.clearQuestionTimer();
+
+    if (this.progressPoints >= this.targetPoints) {
       this.finishSession();
       return;
     }
 
+    if (this.currentIndex >= this.queue.length) {
+      this.replenishQueue();
+    }
+
     const item = this.queue[this.currentIndex];
-    const total = this.queue.length;
-    const progress = Math.round(((this.currentIndex) / total) * 100);
+    if (!item) {
+      this.finishSession();
+      return;
+    }
 
-    // Header chung cho tất cả các mode
-    const headerHtml = `
-      <div class="flex items-center justify-between mb-3.5">
-        <div class="flex items-center space-x-2">
-          <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Tạm dừng phiên học">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-          <span class="px-2.5 py-0.5 text-[11px] font-black rounded-lg uppercase tracking-wider ${this.mode === 'review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
-            ${this.mode === 'review' ? '🔄 Ôn Tập Kỷ Luật' : '⚡ Luyện Tập: 10 Từ Mới (Giai đoạn 2)'}
-          </span>
-          <span class="text-xs font-semibold text-slate-400">${this.currentIndex + 1} / ${total}</span>
-        </div>
+    const progressPercent = Math.min(100, Math.round((this.progressPoints / this.targetPoints) * 100));
 
-        <!-- Nút Trạng thái Loa (Bật/Tắt Audio) -->
-        <button id="btn-toggle-audio-status" title="${this.isAudioDisabledForSession ? 'Âm thanh đang tắt (Click để bật lại)' : 'Âm thanh đang bật'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${this.isAudioDisabledForSession ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900 text-rose-600' : 'bg-slate-100 dark:bg-slate-800 border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300'} hover:opacity-80 transition-all">
-          <span>${this.isAudioDisabledForSession ? '🔇 Tắt loa' : '🔊 Loa bật'}</span>
-        </button>
-      </div>
+    // Mode metadata
+    let modeTitle = "Chế độ 1: Dịch nghĩa & Điền từ";
+    let modeBadgeClass = "bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200/60 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300";
+    if (item.mode === "mode2_audio_to_en") {
+      modeTitle = "Chế độ 2: Nghe & Chép chính tả";
+      modeBadgeClass = "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300";
+    } else if (item.mode === "mode3_en_to_vn") {
+      modeTitle = "Chế độ 3: Nhận diện phản xạ nhanh";
+      modeBadgeClass = "bg-blue-50 dark:bg-blue-950/60 border-blue-200/60 dark:border-blue-900/60 text-blue-700 dark:text-blue-300";
+    }
 
-      <!-- Thanh tiến độ siêu mỏng, sắc nét -->
-      <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mb-5 overflow-hidden">
-        <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: ${progress}%"></div>
-      </div>
-    `;
-
-    // Render theo mode tương ứng
-    let contentHtml = "";
+    let questionBodyHtml = "";
     if (item.mode === "mode1_vn_to_en") {
-      contentHtml = this.renderMode1(item.word);
+      questionBodyHtml = this.renderMode1(item.word);
     } else if (item.mode === "mode2_audio_to_en") {
-      contentHtml = this.renderMode2(item.word);
+      questionBodyHtml = this.renderMode2(item.word);
     } else {
-      contentHtml = this.renderMode3(item.word);
+      questionBodyHtml = this.renderMode3(item.word);
     }
 
     this.container.innerHTML = `
-      <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-2 sm:py-4 animate-fade-in">
-        <div class="w-full max-w-xl mx-auto">
-          <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-7 backdrop-blur-xl">
-            ${headerHtml}
-            ${contentHtml}
-            <div id="feedback-area" class="mt-4 hidden"></div>
+      <div class="flex-1 flex flex-col w-full max-w-md mx-auto px-1 sm:px-4 animate-fade-in">
+        
+        <!-- Top Control Header (Đồng bộ 100% với Giai đoạn Thẩm thấu) -->
+        <div class="w-full pt-0.5 pb-2">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border">
+                  <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse"></span>
+                  <span>${this.mode === 'review' ? 'Ôn tập kỷ luật' : 'Luyện tập phản xạ'}</span>
+                </div>
+              </div>
+
+              <!-- Nút Loa / Âm thanh SVG -->
+              <button id="btn-toggle-audio-status" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
+                <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
+              </button>
+            </div>
+
+            <!-- Thanh tiến trình Batch (Tăng khi đúng, giảm khi sai/timeout) -->
+            <div class="flex items-center justify-between text-xs font-bold mb-1.5 px-0.5">
+              <span class="text-indigo-600 dark:text-indigo-400 flex items-center space-x-1">
+                <span>Tiến độ Batch:</span>
+                <span id="label-progress-count" class="font-extrabold text-sm text-slate-900 dark:text-white">${this.progressPoints}</span>
+                <span class="text-slate-400">/ ${this.targetPoints} điểm</span>
+              </span>
+              <span id="label-mastery-percent" class="text-emerald-500 dark:text-emerald-400 font-bold text-[11px] flex items-center space-x-1">
+                <span>🎯 Hoàn thành: ${progressPercent}%</span>
+              </span>
+            </div>
+
+            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-700/60">
+              <div id="practice-progress-bar" class="bg-gradient-to-r from-blue-500 via-indigo-600 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: ${progressPercent}%"></div>
+            </div>
+        </div>
+
+        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc 2rem, shadow-xl, có thanh 10s mờ mờ ở mép trên) -->
+        <div class="flex-1 flex items-center justify-center w-full min-h-[460px] sm:min-h-[480px] my-auto py-2">
+          <div id="active-practice-card" class="relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none">
+            
+            <!-- THANH ĐẾM NGƯỢC 10 GIÂY (Mờ mờ ở mép trên cùng của card, rút ngắn dần) -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-200/30 dark:bg-slate-800/30 overflow-hidden">
+              <div id="question-timer-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-[width] duration-75 ease-linear" style="width: 100%"></div>
+            </div>
+
+            <!-- Card Sub-header: Mode Tag + Đồng hồ đếm ngược -->
+            <div class="flex items-center justify-between w-full mb-3 pt-1">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[11px] font-bold border">
+                <span>${modeTitle}</span>
+              </div>
+              <span id="timer-text" class="text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
+                ⏱️ 10s
+              </span>
+            </div>
+
+            <!-- Main Question Body -->
+            <div class="my-auto py-1">
+              ${questionBodyHtml}
+            </div>
+
+            <!-- Feedback Area (Hiển thị khi trả lời đúng / sai / hết giờ) -->
+            <div id="feedback-area" class="mt-3 hidden"></div>
+
           </div>
         </div>
       </div>
@@ -131,9 +292,12 @@ export class VocabPracticeEngine {
 
     this.bindEvents(item);
 
-    // Nếu là Mode 2 và audio đang bật, tự động phát âm lần đầu
+    // Kích hoạt Timer 10 giây
+    this.startQuestionTimer(item.word);
+
+    // Nếu là Mode 2 và audio đang bật, tự động phát âm ngay
     if (item.mode === "mode2_audio_to_en" && !this.isAudioDisabledForSession) {
-      setTimeout(() => speechService.speak(item.word.word), 300);
+      setTimeout(() => speechService.speak(item.word.word), 250);
     }
   }
 
@@ -142,33 +306,30 @@ export class VocabPracticeEngine {
     const hint = `${word.word[0]}${"_ ".repeat(word.word.length - 2)}${word.word[word.word.length - 1]}`;
     return `
       <div class="text-center py-1">
-        <span class="text-[11px] uppercase tracking-wider font-extrabold text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2.5 py-1 rounded-md border border-indigo-200/60 dark:border-indigo-900/60">
-          Chế độ 1: Dịch nghĩa & Điền từ
-        </span>
-        <div class="mt-4 mb-2">
+        <div class="mb-3">
           <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(${word.type})</span>
-          <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 dark:text-white mt-1 leading-snug">
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1 leading-snug">
             "${word.meaningVi}"
           </h3>
         </div>
         
-        <div class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 font-mono text-xs tracking-widest text-slate-600 dark:text-slate-300 mb-5">
+        <div class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 font-mono text-xs tracking-widest text-slate-600 dark:text-slate-300 mb-4">
           Gợi ý: ${hint} (${word.word.length} ký tự)
         </div>
 
         <!-- Ô nhập liệu -->
-        <div class="max-w-md mx-auto">
+        <div class="w-full">
           <input 
             type="text" 
             id="vocab-input" 
-            placeholder="Gõ từ tiếng Anh tại đây..." 
+            placeholder="Gõ từ tiếng Anh..." 
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
+            class="w-full text-center text-lg sm:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-3.5 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-sm">
+          <button id="btn-submit-answer" class="w-full mt-3 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-sm">
             Kiểm tra đáp án ➔
           </button>
         </div>
@@ -180,20 +341,16 @@ export class VocabPracticeEngine {
   renderMode2(word) {
     return `
       <div class="text-center py-1">
-        <span class="text-[11px] uppercase tracking-wider font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-1 rounded-md border border-emerald-200/60 dark:border-emerald-900/60">
-          Chế độ 2: Nghe & Chép chính tả
-        </span>
-
         <!-- Nút Loa Lớn để nghe lại -->
-        <div class="my-5">
-          <button id="btn-play-audio" class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25 transition-transform active:scale-95 group">
+        <div class="my-4">
+          <button id="btn-play-audio" class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25 transition-transform active:scale-95 group">
             <span class="text-3xl group-hover:scale-110 transition-transform">🔊</span>
           </button>
           <p class="text-xs text-slate-400 mt-2">Bấm vào biểu tượng loa để nghe lại</p>
         </div>
 
         <!-- Ô nhập liệu -->
-        <div class="max-w-md mx-auto">
+        <div class="w-full">
           <input 
             type="text" 
             id="vocab-input" 
@@ -202,15 +359,15 @@ export class VocabPracticeEngine {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg md:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
+            class="w-full text-center text-lg sm:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-3.5 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-sm">
+          <button id="btn-submit-answer" class="w-full mt-3 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-sm">
             Kiểm tra đáp án ➔
           </button>
         </div>
 
-        <!-- NÚT ĐẶC BIỆT: KHÔNG THỂ NGHE LÚC NÀY -->
-        <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800">
+        <!-- NÚT: KHÔNG THỂ NGHE LÚC NÀY -->
+        <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
           <button id="btn-cant-listen-now" class="text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center mx-auto space-x-1.5 py-1 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             <span>🔇</span>
             <span>Không thể nghe lúc này (Bỏ qua bài nghe)</span>
@@ -234,16 +391,12 @@ export class VocabPracticeEngine {
         .slice(0, 3);
       options = [correctAnswer, ...distractors];
     }
-    // Xáo trộn thứ tự 4 lựa chọn để đáp án đúng không cố định ở vị trí A
     options = options.sort(() => 0.5 - Math.random());
 
     return `
       <div class="py-1">
-        <div class="text-center mb-5">
-          <span class="text-[11px] uppercase tracking-wider font-extrabold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-md border border-blue-200/60 dark:border-blue-900/60">
-            Chế độ 3: Nhận diện phản xạ nhanh
-          </span>
-          <div class="flex items-center justify-center space-x-2.5 mt-3">
+        <div class="text-center mb-4">
+          <div class="flex items-center justify-center space-x-2 mt-1">
             <h3 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
               ${word.word}
             </h3>
@@ -255,11 +408,11 @@ export class VocabPracticeEngine {
         </div>
 
         <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2.5 text-center">
-          Chọn nghĩa Tiếng Việt chính xác nhất:
+          Chọn nghĩa Tiếng Việt chính xác:
         </p>
 
         <!-- 4 Option buttons -->
-        <div class="space-y-2.5 max-w-md mx-auto" id="options-group">
+        <div class="space-y-2.5 w-full" id="options-group">
           ${options.map((opt, idx) => `
             <button 
               data-option="${opt}"
@@ -276,8 +429,8 @@ export class VocabPracticeEngine {
   }
 
   bindEvents(item) {
-    document.getElementById('btn-exit-practice')?.addEventListener('click', () => {
-      this.onCompleted();
+    this.container.querySelector('#btn-exit-practice')?.addEventListener('click', () => {
+      this.handleExitPrompt();
     });
 
     const inputEl = document.getElementById('vocab-input');
@@ -287,7 +440,6 @@ export class VocabPracticeEngine {
     const playWordAudioBtn = document.getElementById('btn-play-word-audio');
     const toggleAudioStatusBtn = document.getElementById('btn-toggle-audio-status');
 
-    // Focus vào input nếu có
     if (inputEl) {
       inputEl.focus();
       inputEl.addEventListener('keydown', (e) => {
@@ -315,7 +467,6 @@ export class VocabPracticeEngine {
       });
     }
 
-    // Toggle Audio Status ở thanh công cụ phía trên
     if (toggleAudioStatusBtn) {
       toggleAudioStatusBtn.addEventListener('click', () => {
         this.isAudioDisabledForSession = !this.isAudioDisabledForSession;
@@ -327,14 +478,12 @@ export class VocabPracticeEngine {
       });
     }
 
-    // Xử lý nút: KHÔNG THỂ NGHE LÚC NÀY
     if (cantListenBtn) {
       cantListenBtn.addEventListener('click', () => {
         this.handleCantListenNow();
       });
     }
 
-    // Gắn sự kiện cho các lựa chọn trắc nghiệm (Mode 3)
     const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
     choiceBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -344,53 +493,65 @@ export class VocabPracticeEngine {
     });
   }
 
-  // Xử lý sự kiện "Không thể nghe lúc này"
   handleCantListenNow() {
+    this.clearQuestionTimer();
     this.isAudioDisabledForSession = true;
 
-    // Chuyển đổi toàn bộ các câu hỏi Mode 2 (nghe) còn lại trong hàng đợi sang Mode 1 hoặc Mode 3
+    // Chuyển toàn bộ câu Mode 2 trong queue sang Mode 1 hoặc 3
     for (let i = this.currentIndex; i < this.queue.length; i++) {
       if (this.queue[i].mode === "mode2_audio_to_en") {
         this.queue[i].mode = (i % 2 === 0) ? "mode1_vn_to_en" : "mode3_en_to_vn";
       }
     }
 
-    // Hiển thị thông báo Toast nhẹ nhàng
     const feedbackArea = document.getElementById('feedback-area');
-    feedbackArea.className = "mt-4 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200 text-sm animate-fade-in block";
-    feedbackArea.innerHTML = `
-      <div class="flex items-center space-x-2">
-        <span class="text-lg">🔇</span>
-        <span><strong>Đã tắt bài tập nghe cho phiên này.</strong> Các câu tiếp theo sẽ tự động chuyển sang dạng đọc hiểu và điền từ!</span>
-      </div>
-    `;
+    if (feedbackArea) {
+      feedbackArea.classList.remove('hidden');
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200 text-sm animate-fade-in block";
+      feedbackArea.innerHTML = `
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🔇</span>
+          <span><strong>Đã tắt bài tập nghe cho phiên này.</strong> Đang chuyển câu hỏi sang dạng đọc hiểu và điền từ...</span>
+        </div>
+      `;
+    }
 
-    // Nhảy ngay sang câu kế tiếp sau 1.2 giây
     setTimeout(() => {
-      this.currentIndex++;
       this.renderCurrentQuestion();
-    }, 1200);
+    }, 1100);
   }
 
-  // Xử lý đáp án dạng gõ text (Mode 1 & Mode 2)
   handleTextAnswer(userInput, word) {
+    this.clearQuestionTimer();
+    this.totalAttempts++;
+
     const cleanInput = (userInput || "").trim().toLowerCase();
     const targetWord = word.word.trim().toLowerCase();
     const isCorrect = cleanInput === targetWord;
 
     const feedbackArea = document.getElementById('feedback-area');
-    feedbackArea.classList.remove('hidden');
+    if (feedbackArea) feedbackArea.classList.remove('hidden');
+
+    const inputEl = document.getElementById('vocab-input');
+    const submitBtn = document.getElementById('btn-submit-answer');
+    if (inputEl) inputEl.disabled = true;
+    if (submitBtn) submitBtn.disabled = true;
 
     if (isCorrect) {
       this.correctCount++;
-      speechService.speak(word.word); // Phát âm chuẩn khi trả lời đúng
-      feedbackArea.className = "mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
+      this.progressPoints = Math.min(this.targetPoints, this.progressPoints + 1);
+      this.updateProgressUI();
+      speechService.speak(word.word);
+      if (window.navigator?.vibrate) window.navigator.vibrate(10);
+
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
       feedbackArea.innerHTML = `
-        <div class="flex items-start justify-between">
+        <div class="flex items-center justify-between">
           <div class="min-w-0 pr-2">
-            <div class="font-bold flex items-center space-x-1.5 text-base">
+            <div class="font-bold flex items-center space-x-1.5 text-base text-emerald-600 dark:text-emerald-400">
               <span>✅ Chính xác!</span>
-              <span class="text-xs bg-emerald-200 dark:bg-emerald-900 px-2 py-0.5 rounded text-emerald-900 dark:text-emerald-100">${word.ipa || ""}</span>
+              <span class="text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded font-black">+1 điểm</span>
+              <span class="text-xs bg-emerald-200/80 dark:bg-emerald-900/60 px-2 py-0.5 rounded text-emerald-900 dark:text-emerald-100 font-mono">${word.ipa || ""}</span>
             </div>
             <p class="mt-1 text-xs opacity-90 truncate sm:whitespace-normal"><strong>Ví dụ:</strong> ${word.example}</p>
           </div>
@@ -401,13 +562,29 @@ export class VocabPracticeEngine {
         </div>
       `;
     } else {
-      feedbackArea.className = "mt-4 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      this.progressPoints = Math.max(0, this.progressPoints - 1);
+      this.updateProgressUI();
+      if (window.navigator?.vibrate) window.navigator.vibrate(20);
+
+      // Re-queue từ vựng để ôn lại
+      const currentItem = this.queue[this.currentIndex];
+      const nextMode = this.getNextModeForWord(currentItem ? currentItem.mode : "mode1_vn_to_en");
+      this.queue.push({
+        word,
+        mode: nextMode,
+        id: `q_${word.id}_retry_${Date.now()}`
+      });
+
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
           <div class="min-w-0 pr-2">
-            <div class="font-bold text-base">❌ Chưa chính xác!</div>
+            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
+              <span>❌ Chưa chính xác!</span>
+              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
+            </div>
             <p class="mt-1 text-xs">Đáp án đúng là: <strong class="text-sm underline font-mono text-rose-950 dark:text-rose-100">${word.word}</strong> (${word.ipa || ""})</p>
-            <p class="mt-1 text-xs opacity-90 truncate sm:whitespace-normal"><strong>Ví dụ:</strong> ${word.example}</p>
+            <p class="mt-0.5 text-xs opacity-90 truncate sm:whitespace-normal"><strong>Ví dụ:</strong> ${word.example}</p>
           </div>
           <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
             <span>Tiếp tục</span>
@@ -417,24 +594,19 @@ export class VocabPracticeEngine {
       `;
     }
 
-    // Vô hiệu hóa nút kiểm tra cũ
-    const submitBtn = document.getElementById('btn-submit-answer');
-    if (submitBtn) submitBtn.disabled = true;
-
-    // Lắng nghe sự kiện chuyển câu
     document.getElementById('btn-next-question')?.addEventListener('click', () => {
-      this.currentIndex++;
-      this.renderCurrentQuestion();
+      this.advanceToNextQuestion();
     });
   }
 
-  // Xử lý đáp án dạng chọn trắc nghiệm (Mode 3)
   handleChoiceAnswer(selectedOption, word, clickedBtn) {
+    this.clearQuestionTimer();
+    this.totalAttempts++;
+
     const correctAnswer = (word.optionsVi && word.optionsVi.length > 0) ? word.optionsVi[0] : word.meaningVi;
     const isCorrect = (selectedOption === correctAnswer) || (selectedOption === word.meaningVi);
     const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
 
-    // Highlight các nút đúng/sai
     choiceBtns.forEach(btn => {
       btn.disabled = true;
       const opt = btn.getAttribute('data-option');
@@ -446,15 +618,25 @@ export class VocabPracticeEngine {
     });
 
     const feedbackArea = document.getElementById('feedback-area');
-    feedbackArea.classList.remove('hidden');
+    if (feedbackArea) feedbackArea.classList.remove('hidden');
 
     if (isCorrect) {
       this.correctCount++;
+      this.progressPoints = Math.min(this.targetPoints, this.progressPoints + 1);
+      this.updateProgressUI();
       speechService.speak(word.word);
-      feedbackArea.className = "mt-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
+      if (window.navigator?.vibrate) window.navigator.vibrate(10);
+
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm animate-fade-in block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="min-w-0 pr-2">✅ Xuất sắc! Nhận diện từ chuẩn xác.</span>
+          <div class="min-w-0 pr-2">
+            <div class="font-bold flex items-center space-x-1.5 text-base text-emerald-600 dark:text-emerald-400">
+              <span>✅ Xuất sắc!</span>
+              <span class="text-xs bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 rounded font-black">+1 điểm</span>
+            </div>
+            <p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Nhận diện phản xạ từ cực nhanh và chuẩn xác.</p>
+          </div>
           <button id="btn-next-question" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
             <span>Tiếp tục</span>
             <span class="text-sm">➔</span>
@@ -462,10 +644,29 @@ export class VocabPracticeEngine {
         </div>
       `;
     } else {
-      feedbackArea.className = "mt-4 p-4 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      this.progressPoints = Math.max(0, this.progressPoints - 1);
+      this.updateProgressUI();
+      if (window.navigator?.vibrate) window.navigator.vibrate(20);
+
+      // Re-queue từ vựng để ôn lại
+      const currentItem = this.queue[this.currentIndex];
+      const nextMode = this.getNextModeForWord(currentItem ? currentItem.mode : "mode3_en_to_vn");
+      this.queue.push({
+        word,
+        mode: nextMode,
+        id: `q_${word.id}_retry_${Date.now()}`
+      });
+
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
       feedbackArea.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="min-w-0 pr-2">❌ Hãy ghi nhớ: <strong>${word.word}</strong> = <strong>${word.meaningVi}</strong></span>
+          <div class="min-w-0 pr-2">
+            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
+              <span>❌ Chưa chính xác!</span>
+              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
+            </div>
+            <p class="mt-0.5 text-xs">Ghi nhớ: <strong>${word.word}</strong> = <strong>${word.meaningVi}</strong></p>
+          </div>
           <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
             <span>Tiếp tục</span>
             <span class="text-sm">➔</span>
@@ -475,21 +676,120 @@ export class VocabPracticeEngine {
     }
 
     document.getElementById('btn-next-question')?.addEventListener('click', () => {
-      this.currentIndex++;
-      this.renderCurrentQuestion();
+      this.advanceToNextQuestion();
     });
   }
 
+  handleTimeout(word) {
+    this.clearQuestionTimer();
+    this.totalAttempts++;
+
+    // Trừ điểm progress (tối thiểu 0)
+    this.progressPoints = Math.max(0, this.progressPoints - 1);
+    this.updateProgressUI();
+
+    // Re-queue từ vựng này để luyện lại
+    const currentItem = this.queue[this.currentIndex];
+    const nextMode = this.getNextModeForWord(currentItem ? currentItem.mode : "mode1_vn_to_en");
+    this.queue.push({
+      word,
+      mode: nextMode,
+      id: `q_${word.id}_retry_${Date.now()}`
+    });
+
+    // Disable tất cả input / nút chọn
+    const inputEl = document.getElementById('vocab-input');
+    const submitBtn = document.getElementById('btn-submit-answer');
+    if (inputEl) inputEl.disabled = true;
+    if (submitBtn) submitBtn.disabled = true;
+
+    const choiceBtns = this.container.querySelectorAll('.vocab-choice-btn');
+    choiceBtns.forEach(btn => {
+      btn.disabled = true;
+      const opt = btn.getAttribute('data-option');
+      const correctAnswer = (word.optionsVi && word.optionsVi.length > 0) ? word.optionsVi[0] : word.meaningVi;
+      if (opt === correctAnswer || opt === word.meaningVi) {
+        btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'dark:bg-emerald-950', 'dark:text-emerald-100');
+      }
+    });
+
+    if (window.navigator?.vibrate) window.navigator.vibrate([10, 50, 10]);
+
+    // Hiển thị feedback hết giờ
+    const feedbackArea = document.getElementById('feedback-area');
+    if (feedbackArea) {
+      feedbackArea.classList.remove('hidden');
+      feedbackArea.className = "mt-4 p-3.5 sm:p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-sm animate-fade-in block";
+      feedbackArea.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="min-w-0 pr-2">
+            <div class="font-bold flex items-center space-x-1.5 text-base text-rose-600 dark:text-rose-400">
+              <span>⏰ Hết 10 giây!</span>
+              <span class="text-xs bg-rose-100 dark:bg-rose-900/80 text-rose-700 dark:text-rose-300 px-1.5 py-0.5 rounded font-black">-1 điểm</span>
+            </div>
+            <p class="mt-1 text-xs">Đáp án đúng là: <strong class="underline font-mono text-rose-950 dark:text-rose-100">${word.word}</strong> (${word.meaningVi})</p>
+          </div>
+          <button id="btn-next-question" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white rounded-xl font-bold text-xs shadow-md transition-all shrink-0 whitespace-nowrap flex items-center space-x-1 self-center">
+            <span>Tiếp tục</span>
+            <span class="text-sm">➔</span>
+          </button>
+        </div>
+      `;
+
+      document.getElementById('btn-next-question')?.addEventListener('click', () => {
+        this.advanceToNextQuestion();
+      });
+    }
+  }
+
+  advanceToNextQuestion() {
+    this.clearQuestionTimer();
+
+    // Đã đạt đủ điểm hoàn thành batch?
+    if (this.progressPoints >= this.targetPoints) {
+      this.finishSession();
+      return;
+    }
+
+    this.currentIndex++;
+    if (this.currentIndex >= this.queue.length) {
+      this.replenishQueue();
+    }
+
+    this.renderCurrentQuestion();
+  }
+
+  handleExitPrompt() {
+    this.clearQuestionTimer();
+    const confirmExit = window.confirm(
+      `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm hoàn thành batch.\nBạn có chắc chắn muốn tạm dừng phiên luyện tập không?`
+    );
+    if (confirmExit) {
+      this.cleanup();
+      this.onCompleted();
+    } else {
+      // Tiếp tục câu hỏi hiện tại với 10s mới
+      const currentItem = this.queue[this.currentIndex];
+      if (currentItem) {
+        this.startQuestionTimer(currentItem.word);
+      }
+    }
+  }
+
+  cleanup() {
+    this.clearQuestionTimer();
+  }
+
   finishSession() {
+    this.cleanup();
     const wordIds = this.words.map(w => w.id);
-    const totalQuestions = this.queue.length;
-    const accuracy = Math.round((this.correctCount / totalQuestions) * 100);
+    const accuracy = Math.round((this.correctCount / Math.max(1, this.totalAttempts)) * 100);
 
     // Cập nhật state hệ thống
     if (this.mode === "review") {
       appState.markReviewComplete(wordIds);
     } else {
-      const practiceBonusXP = this.correctCount * 2;
+      const practiceBonusXP = this.targetPoints * 2;
       if (practiceBonusXP > 0) {
         appState.addXP(practiceBonusXP);
         appState.saveState();
@@ -498,8 +798,8 @@ export class VocabPracticeEngine {
 
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
-        <div class="w-full max-w-lg mx-auto">
-          <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/90 dark:border-slate-800 p-6 sm:p-8 text-center">
+        <div class="w-full max-w-md mx-auto">
+          <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border-2 border-slate-200/90 dark:border-slate-800 shadow-xl">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-500 flex items-center justify-center text-white text-3xl shadow-lg">
               🏆
             </div>
@@ -508,8 +808,8 @@ export class VocabPracticeEngine {
               ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Toàn Bộ Batch 10 Từ Mới!'}
             </h2>
             <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc hoàn thành cả 2 Giai đoạn: Thẩm thấu & Luyện tập phản xạ 3 dạng bài.'}<br/>
-              Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${totalQuestions} câu)
+              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc vượt qua bài luyện tập phản xạ 10s và làm chủ 100% batch từ vựng.'}<br/>
+              Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${this.totalAttempts} lượt)
             </p>
 
             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-6 text-left">
