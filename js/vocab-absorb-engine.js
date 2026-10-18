@@ -255,16 +255,40 @@ export class VocabAbsorbEngine {
 
       this.bindCardGestures(card);
 
-      // Gắn sự kiện click nghe phát âm trong card
-      card.querySelector('.btn-card-inline-audio')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speechService.speak(word.word);
-      });
+      // Gắn sự kiện click / tap nghe phát âm trong card
+      const wordAudioBtn = card.querySelector('.btn-card-inline-audio');
+      if (wordAudioBtn) {
+        let lastTime = 0;
+        const playWord = (e) => {
+          e.stopPropagation();
+          const now = Date.now();
+          if (now - lastTime < 500) return;
+          lastTime = now;
+          if (window.navigator?.vibrate) window.navigator.vibrate(10);
+          wordAudioBtn.classList.add('scale-125', 'text-indigo-500');
+          setTimeout(() => wordAudioBtn.classList.remove('scale-125', 'text-indigo-500'), 350);
+          speechService.speak(word.word);
+        };
+        wordAudioBtn.addEventListener('click', playWord);
+        wordAudioBtn.addEventListener('touchend', playWord);
+      }
 
-      card.querySelector('.btn-example-audio')?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (word.example) speechService.speak(word.example);
-      });
+      const exAudioBtn = card.querySelector('.btn-example-audio');
+      if (exAudioBtn) {
+        let lastTime = 0;
+        const playEx = (e) => {
+          e.stopPropagation();
+          const now = Date.now();
+          if (now - lastTime < 500) return;
+          lastTime = now;
+          if (window.navigator?.vibrate) window.navigator.vibrate(10);
+          exAudioBtn.classList.add('scale-125', 'text-indigo-500');
+          setTimeout(() => exAudioBtn.classList.remove('scale-125', 'text-indigo-500'), 350);
+          if (word.example) speechService.speak(word.example);
+        };
+        exAudioBtn.addEventListener('click', playEx);
+        exAudioBtn.addEventListener('touchend', playEx);
+      }
     }
 
     // Tự động phát âm khi thẻ xuất hiện nếu bật loa
@@ -381,11 +405,13 @@ export class VocabAbsorbEngine {
 
     // Touch Events trên Mobile
     cardElement.addEventListener('touchstart', (e) => {
+      if (e.target.closest('button, .btn-card-inline-audio, .btn-example-audio, a')) return;
       const t = e.touches[0];
       onStart(t.clientX, t.clientY);
     }, { passive: true });
 
     cardElement.addEventListener('touchmove', (e) => {
+      if (e.target.closest('button, .btn-card-inline-audio, .btn-example-audio, a')) return;
       const t = e.touches[0];
       onMove(t.clientX, t.clientY, e);
     }, { passive: false });

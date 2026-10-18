@@ -793,10 +793,22 @@ class App {
         card.addEventListener('animationend', () => card.classList.remove('animate-card-pop'), { once: true });
         setTimeout(() => card.classList.remove('animate-card-pop'), 300);
 
-        card.querySelector('.btn-demo-audio')?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          speechService.speak(word.word);
-        });
+        const audioBtn = card.querySelector('.btn-demo-audio');
+        if (audioBtn) {
+          let lastPlay = 0;
+          const playAction = (e) => {
+            e.stopPropagation();
+            const now = Date.now();
+            if (now - lastPlay < 500) return;
+            lastPlay = now;
+            if (window.navigator?.vibrate) window.navigator.vibrate(10);
+            audioBtn.classList.add('scale-125', 'text-indigo-500');
+            setTimeout(() => audioBtn.classList.remove('scale-125', 'text-indigo-500'), 400);
+            speechService.speak(word.word);
+          };
+          audioBtn.addEventListener('click', playAction);
+          audioBtn.addEventListener('touchend', playAction);
+        }
 
         // Gắn cử chỉ vuốt cho thẻ demo
         this.bindPortalDemoCard(card, () => {
@@ -913,8 +925,14 @@ class App {
       }
     };
 
-    cardElement.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-    cardElement.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX, e.touches[0].clientY, e), { passive: false });
+    cardElement.addEventListener('touchstart', (e) => {
+      if (e.target.closest('button, .btn-demo-audio, a')) return;
+      onStart(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    cardElement.addEventListener('touchmove', (e) => {
+      if (e.target.closest('button, .btn-demo-audio, a')) return;
+      onMove(e.touches[0].clientX, e.touches[0].clientY, e);
+    }, { passive: false });
     cardElement.addEventListener('touchend', onEnd);
     cardElement.addEventListener('touchcancel', onEnd);
 
@@ -1751,19 +1769,35 @@ class App {
       listContainer.innerHTML = cardsHtml + loadMoreHtml;
 
       listContainer.querySelectorAll('.btn-play-sound').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        let lastPlay = 0;
+        const play = (e) => {
           e.stopPropagation();
+          const now = Date.now();
+          if (now - lastPlay < 500) return;
+          lastPlay = now;
           if (window.navigator?.vibrate) window.navigator.vibrate(8);
+          btn.classList.add('scale-115', 'text-indigo-500');
+          setTimeout(() => btn.classList.remove('scale-115', 'text-indigo-500'), 350);
           speechService.speak(btn.getAttribute('data-word'));
-        });
+        };
+        btn.addEventListener('click', play);
+        btn.addEventListener('touchend', play);
       });
 
       listContainer.querySelectorAll('.btn-play-example').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        let lastPlay = 0;
+        const play = (e) => {
           e.stopPropagation();
+          const now = Date.now();
+          if (now - lastPlay < 500) return;
+          lastPlay = now;
           if (window.navigator?.vibrate) window.navigator.vibrate(8);
+          btn.classList.add('scale-115', 'text-indigo-500');
+          setTimeout(() => btn.classList.remove('scale-115', 'text-indigo-500'), 350);
           speechService.speak(btn.getAttribute('data-example'));
-        });
+        };
+        btn.addEventListener('click', play);
+        btn.addEventListener('touchend', play);
       });
 
       document.getElementById('btn-load-more-dict')?.addEventListener('click', () => {

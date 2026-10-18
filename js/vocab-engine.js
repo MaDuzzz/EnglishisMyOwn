@@ -469,15 +469,35 @@ export class VocabPracticeEngine {
     }
 
     if (playAudioBtn) {
-      playAudioBtn.addEventListener('click', () => {
+      let lastPlay = 0;
+      const play = (e) => {
+        e.stopPropagation();
+        const now = Date.now();
+        if (now - lastPlay < 500) return;
+        lastPlay = now;
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        playAudioBtn.classList.add('scale-110');
+        setTimeout(() => playAudioBtn.classList.remove('scale-110'), 350);
         speechService.speak(item.word.word);
-      });
+      };
+      playAudioBtn.addEventListener('click', play);
+      playAudioBtn.addEventListener('touchend', play);
     }
 
     if (playWordAudioBtn) {
-      playWordAudioBtn.addEventListener('click', () => {
+      let lastPlay = 0;
+      const play = (e) => {
+        e.stopPropagation();
+        const now = Date.now();
+        if (now - lastPlay < 500) return;
+        lastPlay = now;
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        playWordAudioBtn.classList.add('scale-110');
+        setTimeout(() => playWordAudioBtn.classList.remove('scale-110'), 350);
         speechService.speak(item.word.word);
-      });
+      };
+      playWordAudioBtn.addEventListener('click', play);
+      playWordAudioBtn.addEventListener('touchend', play);
     }
 
     if (toggleAudioStatusBtn) {
@@ -505,6 +525,13 @@ export class VocabPracticeEngine {
         this.handleChoiceAnswer(selected, item.word, btn);
       });
     });
+
+    // Tự động phát âm trong Mode 2 nếu chưa tắt âm
+    if (item.mode === 'mode2_audio_to_en' && !this.isAudioDisabledForSession) {
+      setTimeout(() => {
+        speechService.speak(item.word.word);
+      }, 150);
+    }
   }
 
   handleCantListenNow() {
