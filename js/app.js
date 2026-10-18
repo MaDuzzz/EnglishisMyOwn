@@ -715,6 +715,24 @@ class App {
           </div>
         </div>
 
+        <!-- 3.5 TRIẾT LÝ KỶ LUẬT (QUẢNG BÁ PHƯƠNG PHÁP HỌC) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-3xl mx-auto">
+          <div class="p-4 rounded-2xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/25 text-emerald-950 dark:text-emerald-300 flex items-start space-x-3.5 shadow-sm">
+            <span class="text-2xl shrink-0">🧱</span>
+            <div class="text-xs">
+              <strong class="font-black text-sm block mb-1 text-emerald-950 dark:text-emerald-200">Sức Mạnh Của 10 Từ / Ngày</strong>
+              Chỉ 10 từ mỗi ngày: 1 tháng bạn tích luỹ 300 từ, 1 năm bạn làm chủ 3,600 từ vựng. Không cần học dồn, quan trọng nhất là sự đều đặn.
+            </div>
+          </div>
+          <div class="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-950/40 border border-amber-500/25 text-amber-950 dark:text-amber-300 flex items-start space-x-3.5 shadow-sm">
+            <span class="text-2xl shrink-0">🛡️</span>
+            <div class="text-xs">
+              <strong class="font-black text-sm block mb-1 text-amber-950 dark:text-amber-200">Quy Tắc Không Bỏ 2 Ngày</strong>
+              Cuộc sống có những ngày bận rộn. Nhưng nguyên tắc vàng là không bao giờ để đứt chuỗi 2 ngày liên tiếp để bảo vệ đà tiến bộ.
+            </div>
+          </div>
+        </div>
+
         <!-- 4. CALL TO ACTION TO LOGIN WITH GOOGLE -->
         <div class="mt-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-blue-700 text-white text-center shadow-xl shadow-indigo-500/25 relative overflow-hidden">
           <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-white/10 pointer-events-none blur-2xl"></div>
@@ -2547,23 +2565,6 @@ class App {
           </div>
         </div>
 
-        <!-- 4. TRIẾT LÝ KỶ LUẬT (The Discipline Code) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="p-3.5 sm:p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20 text-emerald-900 dark:text-emerald-300 flex items-start space-x-3">
-            <span class="text-2xl shrink-0">🧱</span>
-            <div class="text-xs">
-              <strong class="font-black text-sm block mb-0.5">Sức Mạnh Của 10 Từ / Ngày</strong>
-              Chỉ 10 từ mỗi ngày: 1 tháng bạn tích luỹ 300 từ, 1 năm bạn làm chủ 3,600 từ vựng. Không cần học dồn, quan trọng nhất là sự đều đặn.
-            </div>
-          </div>
-          <div class="p-3.5 sm:p-4 bg-amber-500/10 rounded-2xl border border-amber-500/20 text-amber-900 dark:text-amber-300 flex items-start space-x-3">
-            <span class="text-2xl shrink-0">🛡️</span>
-            <div class="text-xs">
-              <strong class="font-black text-sm block mb-0.5">Quy Tắc Không Bỏ 2 Ngày</strong>
-              Cuộc sống có những ngày bận rộn. Nhưng nguyên tắc vàng là không bao giờ để đứt chuỗi 2 ngày liên tiếp để bảo vệ đà tiến bộ.
-            </div>
-          </div>
-        </div>
 
         <!-- 5. FOOTER: Đánh giá lại Level (nếu là user đã đăng nhập) -->
         ${appState.state.cefrLevel ? `
