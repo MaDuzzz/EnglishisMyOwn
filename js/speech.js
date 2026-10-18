@@ -16,6 +16,8 @@ class SpeechService {
     this.voice = null;
     this.audioCtx = null;
     this.currentAudio = null;
+    this.audioPool = [];
+    this._poolIndex = 0;
     this._isUnlocked = false;
     this._playSessionId = 0;
 
@@ -23,14 +25,27 @@ class SpeechService {
     this.setupAudioUnlock();
   }
 
+  // Lấy audio element từ pool tái sử dụng (giữ quyền phát âm thanh liên tục trên iOS Safari)
+  getAudioElement() {
+    if (!this.audioPool || this.audioPool.length === 0) {
+      if (typeof window !== 'undefined') {
+        for (let i = 0; i < 2; i++) {
+          const a = new Audio();
+          a.referrerPolicy = 'no-referrer';
+          a.preload = 'auto';
+          this.audioPool.push(a);
+        }
+      }
+    }
+    this._poolIndex = ((this._poolIndex || 0) + 1) % (this.audioPool.length || 1);
+    return this.audioPool[this._poolIndex];
+  }
+
   // Tự động mở khóa audio pipeline trên iOS Safari ngay từ tương tác chạm đầu tiên
   setupAudioUnlock() {
     if (typeof window === 'undefined') return;
 
     const unlock = () => {
-      if (this._isUnlocked) return;
-      this._isUnlocked = true;
-
       // 1. Mở khóa Web Audio Context bằng buffer câm 1-sample chuẩn Apple
       try {
         const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
@@ -41,29 +56,84 @@ class SpeechService {
           if (this.audioCtx.state === 'suspended') {
             this.audioCtx.resume().catch(() => {});
           }
-          const buffer = this.audioCtx.createBuffer(1, 1, 22050);
-          const source = this.audioCtx.createBufferSource();
-          source.buffer = buffer;
-          source.connect(this.audioCtx.destination);
-          source.start(0);
+          if (!this._isUnlocked) {
+            const buffer = this.audioCtx.createBuffer(1, 1, 22050);
+            const source = this.audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(this.audioCtx.destination);
+            source.start(0);
+          }
         }
       } catch (e) {}
 
-      // 2. Đánh thức Web Speech API (tuyệt đối KHÔNG gọi speak(' ') vì sẽ làm treo iOS daemon)
+      // 2. Mở khóa Audio Elements trong Pool bằng silent data URI
+      try {
+        if (!this.audioPool || this.audioPool.length === 0) {
+          this.getAudioElement();
+        }
+        if (this.audioPool && !this._isUnlocked) {
+          this.audioPool.forEach(audio => {
+            audio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+            const p = audio.play();
+            if (p) p.catch(() => {});
+          });
+        }
+      } catch (e) {}
+
+      // 3. Đánh thức Web Speech API
       if (this.synth) {
         try {
           if (this.synth.paused) this.synth.resume();
         } catch (e) {}
       }
 
-      window.removeEventListener('touchstart', unlock, true);
-      window.removeEventListener('touchend', unlock, true);
-      window.removeEventListener('click', unlock, true);
+      this._isUnlocked = true;
     };
 
     window.addEventListener('touchstart', unlock, { capture: true, passive: true });
     window.addEventListener('touchend', unlock, { capture: true, passive: true });
     window.addEventListener('click', unlock, { capture: true, passive: true });
+  }
+
+  // Đánh thức & duy trì quyền phát âm thanh trong các tương tác vuốt/chạm
+  prime() {
+    try {
+      if (this.audioCtx && this.audioCtx.state === 'suspended') {
+        this.audioCtx.resume().catch(() => {});
+      }
+      if (this.synth && this.synth.paused) {
+        this.synth.resume();
+      }
+      if (!this.audioPool || this.audioPool.length === 0) {
+        this.getAudioElement();
+      }
+      if (this.audioPool && this.audioPool[0]) {
+        const audio = this.audioPool[0];
+        if (audio.paused && !audio.src) {
+          audio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+          const p = audio.play();
+          if (p) p.catch(() => {});
+        }
+      }
+    } catch (e) {}
+  }
+
+  // Preload âm thanh từ vựng tiếp theo ngay trong sự kiện chạm/vuốt
+  preloadWord(text) {
+    if (!text) return;
+    const clean = this.cleanText(text);
+    if (!clean) return;
+    try {
+      this.prime();
+      const urls = this.getAudioUrls(clean);
+      if (urls && urls[0]) {
+        const audio = this.getAudioElement();
+        if (audio) {
+          audio.src = urls[0];
+          audio.load();
+        }
+      }
+    } catch (e) {}
   }
 
   initVoice() {
@@ -78,7 +148,7 @@ class SpeechService {
           v.name.includes('Samantha') || 
           v.name.includes('Natural') || 
           v.name.includes('Google') || 
-          v.name.includes('Aaron') ||
+          v.name.includes('Aaron') || 
           v.name.includes('Daniel') ||
           v.name.includes('Nicky')
         ))
@@ -134,7 +204,7 @@ class SpeechService {
     }
   }
 
-  // Phát một URL âm thanh cụ thể
+  // Phát một URL âm thanh cụ thể bằng phần tử Audio tái sử dụng
   playAudioUrl(url, sessionId) {
     return new Promise((resolve, reject) => {
       if (sessionId && this._playSessionId !== sessionId) {
@@ -150,21 +220,25 @@ class SpeechService {
           this.currentAudio = null;
         }
 
-        const audio = new Audio();
-        audio.referrerPolicy = 'no-referrer';
-        audio.preload = 'auto';
+        const audio = this.getAudioElement();
         this.currentAudio = audio;
 
         let finished = false;
         let timer = null;
 
-        const done = (isSuccess, err) => {
-          if (finished) return;
-          finished = true;
+        const cleanup = () => {
+          audio.onended = null;
+          audio.onerror = null;
           if (timer) {
             clearTimeout(timer);
             timer = null;
           }
+        };
+
+        const done = (isSuccess, err) => {
+          if (finished) return;
+          finished = true;
+          cleanup();
           if (this.currentAudio === audio) this.currentAudio = null;
           if (isSuccess) resolve(true);
           else reject(err || new Error('Audio playback failed'));
@@ -173,12 +247,15 @@ class SpeechService {
         audio.onended = () => done(true);
         audio.onerror = (e) => done(false, e);
 
-        // Timeout 2.5s nếu mạng chập chờn để chuyển nguồn dự phòng
+        // Timeout 3.0s nếu mạng chập chờn để chuyển nguồn dự phòng
         timer = setTimeout(() => {
           done(false, new Error('Audio load timeout'));
-        }, 2500);
+        }, 3000);
 
-        audio.src = url;
+        if (audio.src !== url && audio.currentSrc !== url) {
+          audio.src = url;
+        }
+
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           playPromise
@@ -269,14 +346,11 @@ class SpeechService {
       };
 
       if (this.synth.speaking) {
-        this.synth.cancel();
-        setTimeout(() => {
-          this.synth.speak(utterance);
-          if (this.synth.paused) this.synth.resume();
-        }, 50);
-      } else {
-        this.synth.speak(utterance);
-        if (this.synth.paused) this.synth.resume();
+        try { this.synth.cancel(); } catch (e) {}
+      }
+      this.synth.speak(utterance);
+      if (this.synth.paused) {
+        try { this.synth.resume(); } catch (e) {}
       }
     } catch (err) {
       console.warn("Lỗi khi phát âm native synth:", err);

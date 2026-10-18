@@ -136,8 +136,10 @@ export class VocabAbsorbEngine {
     this.handleKeyDown = (e) => {
       if (this.isAnimating) return;
       if (e.key === 'ArrowLeft') {
+        this.prepareNextWordAudio();
         this.executeSwipe('left');
       } else if (e.key === 'ArrowRight') {
+        this.prepareNextWordAudio();
         this.executeSwipe('right');
       } else if (e.key === ' ' || e.key === 'Spacebar') {
         const currentWord = this.candidates[this.currentIndex];
@@ -295,7 +297,7 @@ export class VocabAbsorbEngine {
     if (this.autoSpeak && word) {
       setTimeout(() => {
         speechService.speak(word.word);
-      }, 120);
+      }, 40);
     }
   }
 
@@ -312,6 +314,7 @@ export class VocabAbsorbEngine {
 
     const onStart = (clientX, clientY) => {
       if (this.isAnimating) return;
+      speechService.prime(); // Đánh thức audio pipeline ngay khi ngón tay chạm vào thẻ
       isDragging = true;
       startX = clientX;
       startY = clientY;
@@ -385,9 +388,11 @@ export class VocabAbsorbEngine {
 
       if (dx < -65) {
         // Vuốt sang TRÁI -> ĐỒNG Ý HỌC TỪ MỚI
+        this.prepareNextWordAudio();
         this.executeSwipe('left', cardElement);
       } else if (dx > 65) {
         // Vuốt sang PHẢI -> ĐÃ BIẾT RỒI
+        this.prepareNextWordAudio();
         this.executeSwipe('right', cardElement);
       } else {
         // Trượt trở lại vị trí ban đầu (Snap back)
@@ -455,9 +460,19 @@ export class VocabAbsorbEngine {
     if (fadeOverlay) fadeOverlay.style.opacity = '0';
   }
 
+  // Preload âm thanh từ kế tiếp ngay trong user gesture (touchend/arrow)
+  prepareNextWordAudio() {
+    if (!this.autoSpeak) return;
+    const nextWord = this.candidates[this.currentIndex + 1];
+    if (nextWord && nextWord.word) {
+      speechService.preloadWord(nextWord.word);
+    }
+  }
+
   executeSwipe(direction, cardEl = null) {
     if (this.isAnimating) return;
     this.isAnimating = true;
+    speechService.stop(); // Dừng phát âm từ cũ khi bắt đầu vuốt sang thẻ mới
 
     const card = cardEl || this.container.querySelector('#active-flashcard');
     const edgeLeft = card?.querySelector('.edge-indicator-left');
