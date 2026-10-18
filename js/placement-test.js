@@ -1,6 +1,7 @@
 // Trình điều khiển bài Placement Test phân loại trình độ CEFR ngẫu nhiên từ ngân hàng câu hỏi
 import { getRandomPlacementQuestions, calculateLevel } from './data/placement-questions.js';
 import { appState } from './state.js';
+import { celebrationEngine } from './celebration.js';
 
 export class PlacementTestEngine {
   constructor(containerElement, onCompletedCallback) {
@@ -134,6 +135,13 @@ export class PlacementTestEngine {
 
     // Lưu cấp độ vào state
     appState.setLevel(result.level);
+
+    // Kích hoạt hiệu ứng pháo hoa giấy & Kèn chiến thắng
+    try {
+      celebrationEngine.trigger();
+    } catch (e) {
+      console.warn('Lỗi hiệu ứng chúc mừng:', e);
+    }
 
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">

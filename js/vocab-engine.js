@@ -12,6 +12,7 @@
 import { speechService } from './speech.js';
 import { appState } from './state.js';
 import { VOCAB_BANK } from './data/vocab-bank.js';
+import { celebrationEngine } from './celebration.js';
 
 export class VocabPracticeEngine {
   constructor(containerElement, options = {}) {
@@ -923,6 +924,13 @@ export class VocabPracticeEngine {
         appState.addXP(practiceBonusXP);
         appState.saveState();
       }
+    }
+
+    // Kích hoạt hiệu ứng pháo hoa giấy 2 bên & Kèn đồng chiến thắng ăn mừng!
+    try {
+      celebrationEngine.trigger();
+    } catch (e) {
+      console.warn('Lỗi hiệu ứng chúc mừng:', e);
     }
 
     this.container.innerHTML = `
