@@ -1522,16 +1522,16 @@ class App {
           : '';
 
         return `
-          <div class="bg-white dark:bg-[#161b22] rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow relative group flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-2.5">
-                <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
-                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-black tracking-wide ${getLevelBadgeClass(w.level)}">
+          <div class="w-full min-w-0 box-border bg-white dark:bg-[#161b22] rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow relative group flex flex-col justify-between">
+            <div class="min-w-0">
+              <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
+                <div class="flex items-center space-x-1.5 flex-wrap gap-y-1 min-w-0 pr-1">
+                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-black tracking-wide shrink-0 ${getLevelBadgeClass(w.level)}">
                     ${w.level}
                   </span>
                   ${groupBadge}
                   ${isLearned ? `
-                    <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">
+                    <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold shrink-0">
                       <span>✓</span><span>Đã thuộc</span>
                     </span>
                   ` : ''}
@@ -1545,35 +1545,35 @@ class App {
                 </button>
               </div>
 
-              <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+              <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors break-words">
                 ${w.word}
               </h4>
-              <div class="text-xs font-mono text-slate-400 dark:text-slate-500 flex items-center space-x-1.5 mb-2.5">
+              <div class="text-xs font-mono text-slate-400 dark:text-slate-500 flex items-center space-x-1.5 mb-2.5 flex-wrap gap-y-0.5">
                 <span>${w.ipa || ''}</span>
-                ${w.type ? `<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic">${w.type}</span>` : ''}
+                ${w.type ? `<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic shrink-0">${w.type}</span>` : ''}
               </div>
-              <p class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 mb-3 leading-snug">${w.meaningVi}</p>
+              <p class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 mb-3 leading-snug break-words">${w.meaningVi}</p>
               
               ${w.collocations ? `
-                <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2.5 sm:p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/60 mb-2.5 leading-relaxed">
+                <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2.5 sm:p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/60 mb-2.5 leading-relaxed break-words">
                   <div class="text-indigo-600 dark:text-indigo-400 font-extrabold uppercase text-[10px] tracking-wider mb-0.5 flex items-center space-x-1">
                     <span>💡</span><span>Cụm từ hay gặp:</span>
                   </div>
-                  <div class="font-medium">${w.collocations}</div>
+                  <div class="font-medium break-words">${w.collocations}</div>
                 </div>
               ` : ''}
 
               <!-- Câu Ví Dụ kèm Loa Phát Âm -->
-              <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1">
+              <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1 break-words">
                 <div class="flex items-start justify-between gap-2">
-                  <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed">"${w.example}"</p>
+                  <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed break-words">"${w.example}"</p>
                   <button data-example="${w.example.replace(/"/g, '&quot;')}" class="btn-play-example shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors active:scale-90" title="Nghe câu ví dụ">
                     <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
                     </svg>
                   </button>
                 </div>
-                ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50">➔ ${w.exampleVi}</p>` : ''}
+                ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50 break-words">➔ ${w.exampleVi}</p>` : ''}
               </div>
             </div>
           </div>
@@ -1619,28 +1619,28 @@ class App {
     };
 
     container.innerHTML = `
-      <div class="space-y-4 sm:space-y-5 animate-fade-in max-w-5xl mx-auto pb-10">
+      <div class="space-y-4 sm:space-y-5 animate-fade-in w-full min-w-0 max-w-5xl mx-auto pb-10">
         
         <!-- Header & Search Box (Tối ưu chuẩn iOS 17 Pro Max) -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-          <div>
-            <div class="flex items-center space-x-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 min-w-0">
+          <div class="min-w-0">
+            <div class="flex items-center space-x-2 flex-wrap gap-y-1">
               <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Sổ Tay Từ Vựng</h2>
-              <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[11px] font-bold">
+              <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[11px] font-bold shrink-0">
                 ${VOCAB_BANK.length} từ
               </span>
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tra cứu nhanh từ vựng, cụm từ thực chiến và luyện phát âm chuẩn bản xứ.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed break-words">Tra cứu nhanh từ vựng, cụm từ thực chiến và luyện phát âm chuẩn bản xứ.</p>
           </div>
 
           <!-- Ô tìm kiếm chống zoom trên iOS Safari -->
-          <div class="relative w-full sm:w-80">
+          <div class="relative w-full sm:w-80 shrink-0">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none pointer-events-none">🔍</span>
             <input 
               type="text" 
               id="vocab-search-box" 
               placeholder="Tìm từ tiếng Anh, cụm từ, nghĩa..." 
-              class="w-full text-[16px] sm:text-xs py-2.5 sm:py-2 pl-9 pr-9 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 shadow-xs transition-all"
+              class="w-full text-[16px] sm:text-xs py-2.5 sm:py-2 pl-9 pr-9 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 shadow-xs transition-all box-border"
               autocomplete="off"
               autocorrect="off"
               autocapitalize="off"
@@ -1651,9 +1651,9 @@ class App {
         </div>
 
         <!-- Filter Rows (Bộ lọc Level & Category lướt mượt mà trên iPhone) -->
-        <div class="space-y-2">
+        <div class="space-y-2 w-full min-w-0 max-w-full overflow-hidden">
           <!-- Filter Level -->
-          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x" style="-webkit-overflow-scrolling: touch;" id="dict-level-filters">
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x -mx-3 px-3 sm:mx-0 sm:px-0 w-auto" style="-webkit-overflow-scrolling: touch;" id="dict-level-filters">
             <button data-level="all" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'all' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">Tất cả (${VOCAB_BANK.length})</button>
             <button data-level="learned" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'learned' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">Đã học (${learnedIds.size})</button>
             <button data-level="A1" class="dict-lvl-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${levelFilter === 'A1' ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">A1</button>
@@ -1663,7 +1663,7 @@ class App {
           </div>
 
           <!-- Filter Category -->
-          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x" style="-webkit-overflow-scrolling: touch;" id="dict-cat-filters">
+          <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x -mx-3 px-3 sm:mx-0 sm:px-0 w-auto" style="-webkit-overflow-scrolling: touch;" id="dict-cat-filters">
             <button data-cat="all" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🌐 Toàn bộ</button>
             <button data-cat="toeic" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'toeic' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🎯 TOEIC 750+</button>
             <button data-cat="daily" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'daily' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💬 Giao tiếp Hàng ngày</button>
@@ -1677,15 +1677,15 @@ class App {
         <div id="active-group-banner" class="hidden"></div>
 
         <!-- Dòng đếm kết quả -->
-        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-0.5">
-          <div id="dict-results-counter">Hiển thị...</div>
-          <div class="text-[11px] font-medium text-slate-400 flex items-center space-x-1">
-            <span>🔊</span><span>Chạm loa để nghe chuẩn âm</span>
+        <div class="flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-0.5 min-w-0">
+          <div id="dict-results-counter" class="font-medium shrink-0">Hiển thị...</div>
+          <div class="text-[11px] font-medium text-slate-400 flex items-center space-x-1 shrink-0">
+            <span>🔊</span><span>Chạm loa để nghe âm</span>
           </div>
         </div>
 
         <!-- Grid Cards (1 cột trên iPhone, 2 cột trên iPad/Tablet, 3 cột trên Desktop) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="vocab-card-grid"></div>
+        <div class="w-full min-w-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="vocab-card-grid"></div>
 
         <!-- Nút Cuộn Lên Đầu Trang Tinh Gọn (Floating Back to Top) -->
         <button id="btn-scroll-top" class="fixed right-4 bottom-24 md:bottom-8 z-30 w-11 h-11 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-300/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 shadow-lg shadow-black/10 flex items-center justify-center transition-all duration-200 opacity-0 pointer-events-none active:scale-90" title="Lên đầu trang">
