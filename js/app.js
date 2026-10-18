@@ -446,11 +446,12 @@ class App {
     if (isLoggedIn) {
       // Đã đăng nhập: Hiện đầy đủ thanh điều hướng
       if (desktopNav) {
-        desktopNav.classList.remove('hidden');
-        desktopNav.classList.add('md:flex');
+        desktopNav.classList.remove('flex');
+        desktopNav.classList.add('hidden', 'md:flex');
       }
       if (mobileBottomBar) {
         mobileBottomBar.classList.remove('hidden');
+        mobileBottomBar.classList.add('md:hidden');
       }
       if (mainEl) {
         mainEl.classList.remove('pb-10');
@@ -461,20 +462,21 @@ class App {
         streakEl.classList.add('flex');
       }
       if (levelBtn && appState.state.cefrLevel) {
-        levelBtn.classList.remove('hidden');
+        levelBtn.classList.remove('flex');
         levelBtn.classList.add('hidden', 'sm:flex');
       }
     } else {
       // Chưa đăng nhập: Ẩn hoàn toàn bottom bar & nav bar, chỉ mở portal
       if (desktopNav) {
-        desktopNav.classList.remove('md:flex');
+        desktopNav.classList.remove('md:flex', 'flex');
         desktopNav.classList.add('hidden');
       }
       if (mobileBottomBar) {
+        mobileBottomBar.classList.remove('md:hidden');
         mobileBottomBar.classList.add('hidden');
       }
       if (mainEl) {
-        mainEl.classList.remove('pb-28');
+        mainEl.classList.remove('pb-28', 'md:pb-10');
         mainEl.classList.add('pb-10');
       }
       if (streakEl) {

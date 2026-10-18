@@ -343,4 +343,19 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   animation: pulseSpeaker 0.6s infinite ease-in-out;
 }
 
+/* Đảm bảo thanh điều hướng Desktop KHÔNG BAO GIỜ hiển thị trên Mobile */
+@media (max-width: 767px) {
+  #desktop-nav-bar {
+    display: none !important;
+  }
+}
+
+/* Đảm bảo thanh Bottom Bar của Mobile KHÔNG BAO GIỜ hiển thị trên Desktop */
+@media (min-width: 768px) {
+  #ios-bottom-bar {
+    display: none !important;
+  }
+}
+
+
 
