@@ -1,13 +1,14 @@
 // Trình phát âm thanh Chuẩn iOS Safari & iPhone (Headphones & Built-in Speaker)
 // Thiết kế Dual-Engine chịu lỗi toàn diện (Fault-Tolerant Hybrid):
-// 1. Primary Engine: Studio Audio MP3 (dict.youdao.com chuẩn US English)
+// 1. Primary Engine: Studio & Neural Audio MP3 (Google TTS & Youdao Audio chuẩn US English)
 //    - Phát âm thanh phòng thu người bản xứ 100% tự nhiên, rõ ràng, to và chuẩn xác.
+//    - Tự động tối ưu: Từ vựng dùng Youdao Studio Audio, Câu ví dụ dùng Google Translate Neural TTS.
 //    - Không bị ảnh hưởng bởi lỗi kẹt hàng đợi Web Speech API trên iOS Safari.
 //    - Hoạt động mượt mà qua cả Tai nghe (AirPods/EarPods) và Loa ngoài iPhone.
 // 2. Fallback Engine: Web Speech API (window.speechSynthesis)
-//    - Tự động kích hoạt khi offline hoặc khi đọc câu ví dụ dài.
-//    - Loại bỏ hoàn toàn utterance rỗng gây đóng băng engine trên WebKit.
-//    - Chống Safari Garbage Collection và xử lý bất đồng bộ cancel() an toàn.
+//    - Tự động kích hoạt khi offline hoặc khi mất kết nối mạng.
+//    - Bảo vệ WebKit iOS chống crash bằng cách không gán enhanced voice gây câm tiếng.
+//    - Chống Safari Garbage Collection và xử lý bất đồng bộ an toàn.
 
 class SpeechService {
   constructor() {
@@ -16,6 +17,7 @@ class SpeechService {
     this.audioCtx = null;
     this.currentAudio = null;
     this._isUnlocked = false;
+    this._playSessionId = 0;
 
     this.initVoice();
     this.setupAudioUnlock();
@@ -98,15 +100,47 @@ class SpeechService {
     if (!text) return '';
     return text
       .toString()
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&')
       .replace(/<[^>]*>/g, '') // Bỏ thẻ HTML
       .replace(/[\*\_\#\~\`]/g, '') // Bỏ ký tự markdown
+      .replace(/^[\s"“'”«»\(\)\[\]]+|[\s"“'”«»\(\)\[\]]+$/g, '') // Bỏ dấu ngoặc kép, ngoặc đơn bọc ngoài cùng
       .replace(/\s+/g, ' ')
       .trim();
   }
 
-  // Phát âm thanh Native Studio Audio qua thẻ HTML5 Audio
-  speakAudioSource(word) {
+  // Lấy danh sách URL âm thanh MP3 ưu tiên theo loại nội dung (từ vựng vs câu ví dụ)
+  getAudioUrls(text) {
+    const encoded = encodeURIComponent(text);
+    const words = text.split(/\s+/);
+
+    // Với từ vựng / cụm từ ngắn (<= 3 từ):
+    //   1. Youdao dictvoice (phát âm bản xứ chuẩn phòng thu US chất lượng cao nhất)
+    //   2. Google Translate TTS (dự phòng)
+    // Với câu ví dụ dài (> 3 từ):
+    //   1. Google Translate TTS (ngữ điệu câu chuẩn, nối âm mượt mà)
+    //   2. Youdao dictvoice (dự phòng)
+    if (words.length <= 3) {
+      return [
+        `https://dict.youdao.com/dictvoice?audio=${encoded}&type=2`,
+        `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encoded}`
+      ];
+    } else {
+      return [
+        `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encoded}`,
+        `https://dict.youdao.com/dictvoice?audio=${encoded}&type=2`
+      ];
+    }
+  }
+
+  // Phát một URL âm thanh cụ thể
+  playAudioUrl(url, sessionId) {
     return new Promise((resolve, reject) => {
+      if (sessionId && this._playSessionId !== sessionId) {
+        return reject(new Error('Session cancelled'));
+      }
+
       try {
         if (this.currentAudio) {
           try {
@@ -116,16 +150,21 @@ class SpeechService {
           this.currentAudio = null;
         }
 
-        // Endpoint từ vựng US English chuẩn cao cấp (type=2 là US, type=1 là UK)
-        const url = `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(word)}&type=2`;
-        const audio = new Audio(url);
+        const audio = new Audio();
+        audio.referrerPolicy = 'no-referrer';
         audio.preload = 'auto';
         this.currentAudio = audio;
 
         let finished = false;
+        let timer = null;
+
         const done = (isSuccess, err) => {
           if (finished) return;
           finished = true;
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          }
           if (this.currentAudio === audio) this.currentAudio = null;
           if (isSuccess) resolve(true);
           else reject(err || new Error('Audio playback failed'));
@@ -134,17 +173,28 @@ class SpeechService {
         audio.onended = () => done(true);
         audio.onerror = (e) => done(false, e);
 
-        // Timeout 1.2s nếu mạng chập chờn để chuyển sang Web Speech API
-        const timer = setTimeout(() => {
+        // Timeout 2.5s nếu mạng chập chờn để chuyển nguồn dự phòng
+        timer = setTimeout(() => {
           done(false, new Error('Audio load timeout'));
-        }, 1200);
+        }, 2500);
 
+        audio.src = url;
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           playPromise
-            .then(() => clearTimeout(timer))
+            .then(() => {
+              if (sessionId && this._playSessionId !== sessionId) {
+                try { audio.pause(); } catch (e) {}
+                done(false, new Error('Session cancelled'));
+                return;
+              }
+              // Bắt đầu phát thành công, hủy timeout chờ kết thúc bài phát
+              if (timer) {
+                clearTimeout(timer);
+                timer = null;
+              }
+            })
             .catch((err) => {
-              clearTimeout(timer);
               done(false, err);
             });
         }
@@ -154,7 +204,23 @@ class SpeechService {
     });
   }
 
-  // Phát âm qua Web Speech API dự phòng (Harden cho iOS Safari)
+  // Phát Native Studio Audio qua danh sách URL ưu tiên
+  async speakAudioSource(text, sessionId) {
+    const urls = this.getAudioUrls(text);
+    for (const url of urls) {
+      if (sessionId && this._playSessionId !== sessionId) return;
+      try {
+        await this.playAudioUrl(url, sessionId);
+        return true;
+      } catch (err) {
+        if (sessionId && this._playSessionId !== sessionId) return;
+        console.warn("Nguồn audio lỗi, thử nguồn tiếp theo:", err?.message || err);
+      }
+    }
+    throw new Error('Tất cả nguồn Audio MP3 đều thất bại');
+  }
+
+  // Phát âm qua Web Speech API dự phòng (Harden chống lỗi iOS Safari)
   speakSynth(clean, rate = 0.9) {
     if (!this.synth) return;
 
@@ -173,7 +239,14 @@ class SpeechService {
       utterance.pitch = 1.0;
       utterance.volume = 1.0;
 
-      if (this.voice) {
+      // WebKit bug 225344: Trên iOS, gán utterance.voice khiến Web Speech API câm tiếng hoàn toàn.
+      // Chỉ gán utterance.voice trên các thiết bị không phải iOS (Android, Windows, Mac desktop).
+      const isIOS = typeof navigator !== 'undefined' && (
+        /iPad|iPhone|iPod/.test(navigator.userAgent || '') ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+      );
+
+      if (!isIOS && this.voice) {
         utterance.voice = this.voice;
       }
 
@@ -200,7 +273,7 @@ class SpeechService {
         setTimeout(() => {
           this.synth.speak(utterance);
           if (this.synth.paused) this.synth.resume();
-        }, 40);
+        }, 50);
       } else {
         this.synth.speak(utterance);
         if (this.synth.paused) this.synth.resume();
@@ -210,30 +283,27 @@ class SpeechService {
     }
   }
 
-  // Phát âm thanh tiếng Anh (Tự động chọn Studio Audio cho từ vựng hoặc Web Speech cho câu)
+  // Phát âm thanh tiếng Anh (Tự động phát âm thanh phòng thu / neural MP3 cho cả từ và câu, fallback Web Speech)
   async speak(text, rate = 0.9) {
     const clean = this.cleanText(text);
     if (!clean) return;
 
-    // Đánh thức Web Audio Context
+    const playSessionId = ++this._playSessionId;
+    this.stop();
+
+    // Đánh thức Web Audio Context nếu đang suspended
     if (this.audioCtx && this.audioCtx.state === 'suspended') {
       this.audioCtx.resume().catch(() => {});
     }
 
-    // Từ vựng đơn hoặc cụm từ ngắn (<= 4 từ): Ưu tiên âm thanh phòng thu bản xứ chuẩn US
-    const words = clean.split(/\s+/);
-    if (words.length <= 4) {
-      try {
-        await this.speakAudioSource(clean);
-        return;
-      } catch (err) {
-        // Fallback sang Web Speech API nếu lỗi hoặc offline
-        console.log("Chuyển sang Web Speech API fallback:", err?.message || err);
-      }
+    try {
+      await this.speakAudioSource(clean, playSessionId);
+      return;
+    } catch (err) {
+      if (this._playSessionId !== playSessionId) return;
+      console.log("Audio Source fallback sang Web Speech API:", err?.message || err);
+      this.speakSynth(clean, rate);
     }
-
-    // Câu dài hoặc khi Audio Source lỗi
-    this.speakSynth(clean, rate);
   }
 
   // Phát tiếng chuông báo Web Audio hai âm điệu (Kiểm tra phần cứng loa / tai nghe)
