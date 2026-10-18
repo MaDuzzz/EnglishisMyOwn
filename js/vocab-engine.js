@@ -267,9 +267,9 @@ export class VocabPracticeEngine {
             </div>
         </div>
 
-        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc 2rem, shadow-xl, có thanh 20s mờ mờ ở mép trên) -->
-        <div class="flex-1 flex items-center justify-center w-full min-h-[460px] sm:min-h-[480px] my-auto py-2">
-          <div id="active-practice-card" class="relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none">
+        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc linh hoạt, tự động nâng lên khi bàn phím ảo iPhone bật) -->
+        <div id="practice-card-wrapper" class="flex-1 flex flex-col justify-start sm:justify-center items-center w-full min-h-0 sm:min-h-[480px] my-1 sm:my-auto py-1 sm:py-2 transition-all duration-200">
+          <div id="active-practice-card" class="relative w-full rounded-2xl sm:rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-4 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none transition-all duration-200">
             
             <!-- THANH ĐẾM NGƯỢC 20 GIÂY (Mờ mờ ở mép trên cùng của card, rút ngắn dần) -->
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-200/30 dark:bg-slate-800/30 overflow-hidden">
@@ -277,22 +277,22 @@ export class VocabPracticeEngine {
             </div>
 
             <!-- Card Sub-header: Mode Tag + Đồng hồ đếm ngược -->
-            <div class="flex items-center justify-between w-full mb-3 pt-1">
-              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[11px] font-bold border">
+            <div class="flex items-center justify-between w-full mb-2 sm:mb-3 pt-0.5 sm:pt-1">
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[10px] sm:text-[11px] font-bold border">
                 <span>${modeTitle}</span>
               </div>
-              <span id="timer-text" class="text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
+              <span id="timer-text" class="text-[10px] sm:text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
                 ⏱️ 20s
               </span>
             </div>
 
             <!-- Main Question Body -->
-            <div class="my-auto py-1">
+            <div class="py-0.5 sm:py-1">
               ${questionBodyHtml}
             </div>
 
             <!-- Feedback Area (Hiển thị khi trả lời đúng / sai / hết giờ) -->
-            <div id="feedback-area" class="mt-3 hidden"></div>
+            <div id="feedback-area" class="mt-2.5 sm:mt-3 hidden"></div>
 
           </div>
         </div>
@@ -314,15 +314,15 @@ export class VocabPracticeEngine {
   renderMode1(word) {
     const hint = `${word.word[0]}${"_ ".repeat(word.word.length - 2)}${word.word[word.word.length - 1]}`;
     return `
-      <div class="text-center py-1">
-        <div class="mb-3">
+      <div class="text-center py-0.5 sm:py-1">
+        <div class="mb-2 sm:mb-3">
           <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">(${word.type})</span>
-          <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1 leading-snug">
+          <h3 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white mt-0.5 leading-snug">
             "${word.meaningVi}"
           </h3>
         </div>
         
-        <div class="inline-flex items-center px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 font-mono text-xs tracking-widest text-slate-600 dark:text-slate-300 mb-4">
+        <div class="inline-flex items-center px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 font-mono text-[11px] sm:text-xs tracking-wider sm:tracking-widest text-slate-600 dark:text-slate-300 mb-2.5 sm:mb-4">
           Gợi ý: ${hint} (${word.word.length} ký tự)
         </div>
 
@@ -336,9 +336,9 @@ export class VocabPracticeEngine {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg sm:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
+            class="w-full text-center text-base sm:text-xl font-bold py-2.5 sm:py-3.5 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-3 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-sm">
+          <button id="btn-submit-answer" class="w-full mt-2.5 sm:mt-3 py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl sm:rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-xs sm:text-sm">
             Kiểm tra đáp án ➔
           </button>
         </div>
@@ -349,13 +349,13 @@ export class VocabPracticeEngine {
   // MODE 2: Nghe Voice -> Gõ từ Tiếng Anh (Có nút "Không thể nghe lúc này")
   renderMode2(word) {
     return `
-      <div class="text-center py-1">
+      <div class="text-center py-0.5 sm:py-1">
         <!-- Nút Loa Lớn để nghe lại -->
-        <div class="my-4">
-          <button id="btn-play-audio" class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25 transition-transform active:scale-95 group">
-            <span class="text-3xl group-hover:scale-110 transition-transform">🔊</span>
+        <div class="my-2 sm:my-3">
+          <button id="btn-play-audio" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/25 transition-transform active:scale-95 group">
+            <span class="text-2xl sm:text-3xl group-hover:scale-110 transition-transform">🔊</span>
           </button>
-          <p class="text-xs text-slate-400 mt-2">Bấm vào biểu tượng loa để nghe lại</p>
+          <p class="text-[11px] sm:text-xs text-slate-400 mt-1 sm:mt-2">Bấm vào loa để nghe lại</p>
         </div>
 
         <!-- Ô nhập liệu & Nút kiểm tra -->
@@ -368,18 +368,18 @@ export class VocabPracticeEngine {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            class="w-full text-center text-lg sm:text-xl font-bold py-3.5 px-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
+            class="w-full text-center text-base sm:text-xl font-bold py-2.5 sm:py-3.5 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
-          <button id="btn-submit-answer" class="w-full mt-3 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-sm">
+          <button id="btn-submit-answer" class="w-full mt-2.5 sm:mt-3 py-3 sm:py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl sm:rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-xs sm:text-sm">
             Kiểm tra đáp án ➔
           </button>
         </div>
 
         <!-- NÚT: KHÔNG THỂ NGHE LÚC NÀY -->
-        <div id="cant-listen-row" class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
-          <button id="btn-cant-listen-now" class="text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center mx-auto space-x-1.5 py-1 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <div id="cant-listen-row" class="mt-2.5 sm:mt-4 pt-1.5 sm:pt-2 border-t border-slate-100 dark:border-slate-800">
+          <button id="btn-cant-listen-now" class="text-[11px] sm:text-xs font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center justify-center mx-auto space-x-1.5 py-1 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
             <span>🔇</span>
-            <span>Không thể nghe lúc này (Bỏ qua bài nghe)</span>
+            <span>Không thể nghe lúc này</span>
           </button>
         </div>
       </div>
@@ -450,7 +450,44 @@ export class VocabPracticeEngine {
     const toggleAudioStatusBtn = document.getElementById('btn-toggle-audio-status');
 
     if (inputEl) {
-      inputEl.focus();
+      const cardWrapper = document.getElementById('practice-card-wrapper');
+
+      const scrollToInput = () => {
+        setTimeout(() => {
+          const target = submitBtn || inputEl;
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 280);
+      };
+
+      inputEl.addEventListener('focus', () => {
+        cardWrapper?.classList.add('keyboard-open');
+        scrollToInput();
+      });
+
+      inputEl.addEventListener('blur', () => {
+        setTimeout(() => {
+          if (document.activeElement !== inputEl) {
+            cardWrapper?.classList.remove('keyboard-open');
+          }
+        }, 150);
+      });
+
+      // Lắng nghe window.visualViewport trên iOS Safari để nhận biết tức thì khi bàn phím mở
+      if (typeof window !== 'undefined' && window.visualViewport) {
+        const handleViewport = () => {
+          const isKeyboard = window.visualViewport.height < window.innerHeight * 0.82;
+          if (isKeyboard && document.activeElement === inputEl) {
+            cardWrapper?.classList.add('keyboard-open');
+            scrollToInput();
+          } else if (!isKeyboard) {
+            cardWrapper?.classList.remove('keyboard-open');
+          }
+        };
+        window.visualViewport.addEventListener('resize', handleViewport, { passive: true });
+      }
+
       inputEl.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           if (this.isAnswerSubmitted) {
@@ -578,7 +615,14 @@ export class VocabPracticeEngine {
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
     const cantListenRow = document.getElementById('cant-listen-row');
-    if (inputEl) inputEl.disabled = true;
+    const cardWrapper = document.getElementById('practice-card-wrapper');
+    if (inputEl) {
+      inputEl.blur();
+      inputEl.disabled = true;
+    }
+    if (cardWrapper) {
+      cardWrapper.classList.remove('keyboard-open');
+    }
     if (submitBtn) submitBtn.classList.add('hidden'); // Ẩn nút kiểm tra cũ để tránh thừa nút
     if (cantListenRow) cantListenRow.classList.add('hidden');
 
@@ -591,12 +635,12 @@ export class VocabPracticeEngine {
 
       feedbackArea.className = "mt-4 rounded-2xl p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Chính xác!</span>
-            <span class="text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
+            <span class="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Chính xác!</span>
+            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
           </div>
-          <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-emerald-700 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
         ${word.example ? `
@@ -626,12 +670,12 @@ export class VocabPracticeEngine {
 
       feedbackArea.className = "mt-4 rounded-2xl p-4 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
-            <span class="text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-sm sm:text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
+            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <span class="text-xs font-mono text-rose-600 dark:text-rose-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold px-2 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
         <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
@@ -690,12 +734,12 @@ export class VocabPracticeEngine {
 
       feedbackArea.className = "mt-4 rounded-2xl p-4 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Xuất sắc!</span>
-            <span class="text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
+            <span class="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Xuất sắc!</span>
+            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
           </div>
-          <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-emerald-700 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -723,12 +767,12 @@ export class VocabPracticeEngine {
 
       feedbackArea.className = "mt-4 rounded-2xl p-4 bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
-            <span class="text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-sm sm:text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
+            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <span class="text-xs font-mono text-rose-600 dark:text-rose-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold px-2 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
         <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
@@ -772,7 +816,14 @@ export class VocabPracticeEngine {
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
     const cantListenRow = document.getElementById('cant-listen-row');
-    if (inputEl) inputEl.disabled = true;
+    const cardWrapper = document.getElementById('practice-card-wrapper');
+    if (inputEl) {
+      inputEl.blur();
+      inputEl.disabled = true;
+    }
+    if (cardWrapper) {
+      cardWrapper.classList.remove('keyboard-open');
+    }
     if (submitBtn) submitBtn.classList.add('hidden');
     if (cantListenRow) cantListenRow.classList.add('hidden');
 
@@ -794,12 +845,12 @@ export class VocabPracticeEngine {
       feedbackArea.classList.remove('hidden');
       feedbackArea.className = "mt-4 rounded-2xl p-4 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100 animate-fade-in space-y-2.5 block";
       feedbackArea.innerHTML = `
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
-            <span class="text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 20 giây!</span>
-            <span class="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-sm sm:text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 20 giây!</span>
+            <span class="text-[11px] sm:text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
           </div>
-          <span class="text-xs font-mono text-amber-600 dark:text-amber-400 font-bold whitespace-nowrap">${word.ipa || ""}</span>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
         <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">

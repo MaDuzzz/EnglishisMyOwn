@@ -357,5 +357,15 @@ button:active, .nav-tab-btn:active, .month-jump-pill:active, .ios-tab-btn:active
   }
 }
 
-
-
+/* Trợ lực bàn phím ảo iPhone / Safari: tự động nâng và tạo khoảng cuộn phía dưới khi mở bàn phím */
+@media (max-width: 640px) {
+  #practice-card-wrapper.keyboard-open {
+    padding-bottom: 300px !important;
+    justify-content: flex-start !important;
+    margin-top: 0 !important;
+  }
+  
+  #practice-card-wrapper.keyboard-open #active-practice-card {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  }
+}
