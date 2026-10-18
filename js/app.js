@@ -36,7 +36,14 @@ class App {
     this.analyticsViewMode = "month"; // "month" | "12months"
     this.analyticsLineRangeMode = "week"; // "week" (cả tuần này) | "month" (từ đầu tháng tới giờ)
     this.isUserMenuOpen = false;
-    this.dictionaryFilterState = { level: "all", category: "all", groupId: null };
+    this.dictionaryFilterState = { 
+      level: "all", 
+      category: "all", 
+      groupId: null, 
+      page: 1, 
+      pageSize: 12, 
+      viewMode: (typeof window !== 'undefined' && localStorage.getItem('dict_view_mode')) || 'compact' 
+    };
     this.groupViewMode = typeof window !== 'undefined' && window.innerWidth < 640 ? "slide" : "grid";
     this.groupCurrentPage = 1;
     this.groupActiveCat = "all";
@@ -1625,7 +1632,9 @@ class App {
     let levelFilter = this.dictionaryFilterState?.level || "all";
     let catFilter = this.dictionaryFilterState?.category || "all";
     let activeGroupId = this.dictionaryFilterState?.groupId || null;
-    let currentLimit = 36; // Phân trang 36 từ/lần đảm bảo 120 FPS trên màn hình iPhone 17 Pro Max
+    let viewMode = this.dictionaryFilterState?.viewMode || (typeof window !== 'undefined' && localStorage.getItem('dict_view_mode')) || 'compact';
+    let pageSize = this.dictionaryFilterState?.pageSize || (typeof window !== 'undefined' && parseInt(localStorage.getItem('dict_page_size') || '12', 10)) || 12;
+    let currentPage = this.dictionaryFilterState?.page || 1;
 
     const getLevelBadgeClass = (lvl) => {
       switch (lvl) {
@@ -1637,9 +1646,77 @@ class App {
       }
     };
 
-    const renderList = (searchKeyword = "", resetLimit = true) => {
-      if (resetLimit) {
-        currentLimit = 36;
+    const buildPaginationHtml = (currPage, totalPages, totalItems) => {
+      if (totalPages <= 1) {
+        return `
+          <div class="col-span-full py-4 text-center text-xs text-slate-400 border-t border-slate-200/60 dark:border-slate-800/60">
+            ✨ Hiển thị toàn bộ ${totalItems} từ vựng phù hợp
+          </div>
+        `;
+      }
+
+      let pages = [];
+      if (totalPages <= 5) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        let start = Math.max(2, currPage - 1);
+        let end = Math.min(totalPages - 1, currPage + 1);
+
+        if (start > 2) pages.push('...');
+        for (let i = start; i <= end; i++) pages.push(i);
+        if (end < totalPages - 1) pages.push('...');
+        pages.push(totalPages);
+      }
+
+      const pageButtonsHtml = pages.map(p => {
+        if (p === '...') {
+          return `<span class="px-1 text-xs text-slate-400 select-none">...</span>`;
+        }
+        const isActive = p === currPage;
+        return `
+          <button data-page="${p}" class="dict-page-btn min-w-[32px] h-8 px-2 rounded-xl text-xs font-bold transition-all active:scale-90 ${isActive ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/30' : 'bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80'}">
+            ${p}
+          </button>
+        `;
+      }).join('');
+
+      return `
+        <div class="col-span-full pt-4 pb-6 flex flex-col items-center justify-center space-y-3 border-t border-slate-200/60 dark:border-slate-800/60">
+          <div class="flex items-center justify-center space-x-1.5 sm:space-x-2 w-full max-w-md px-1">
+            <button id="btn-page-prev" ${currPage <= 1 ? 'disabled' : ''} class="px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 ${currPage <= 1 ? 'opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400' : 'bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-xs active:scale-95'}">
+              <span>‹</span><span>Trước</span>
+            </button>
+
+            <div class="flex items-center space-x-1 overflow-x-auto py-0.5">
+              ${pageButtonsHtml}
+            </div>
+
+            <button id="btn-page-next" ${currPage >= totalPages ? 'disabled' : ''} class="px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 ${currPage >= totalPages ? 'opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400' : 'bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-xs active:scale-95'}">
+              <span>Sau</span><span>›</span>
+            </button>
+          </div>
+
+          <div class="flex items-center space-x-2 text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+            <span>Trang <strong class="text-slate-800 dark:text-slate-200">${currPage}</strong> / ${totalPages} (${totalItems} từ)</span>
+            ${totalPages > 3 ? `
+              <span class="text-slate-300 dark:text-slate-700">|</span>
+              <div class="flex items-center space-x-1">
+                <span>Đến:</span>
+                <select id="dict-jump-page-select" class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg px-1.5 py-0.5 outline-none font-bold cursor-pointer">
+                  ${Array.from({ length: totalPages }, (_, i) => `<option value="${i + 1}" ${i + 1 === currPage ? 'selected' : ''}>Trang ${i + 1}</option>`).join('')}
+                </select>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    };
+
+    const renderList = (searchKeyword = "", resetPage = true) => {
+      if (resetPage) {
+        currentPage = 1;
+        this.dictionaryFilterState.page = 1;
       }
 
       let filtered = VOCAB_BANK.filter(w => {
@@ -1679,7 +1756,7 @@ class App {
           document.getElementById('btn-clear-group-filter')?.addEventListener('click', () => {
             activeGroupId = null;
             this.dictionaryFilterState.groupId = null;
-            renderList(document.getElementById('vocab-search-box')?.value || "");
+            renderList(document.getElementById('vocab-search-box')?.value || "", true);
           });
         } else {
           activeGroupBanner.className = "hidden";
@@ -1687,13 +1764,27 @@ class App {
         }
       }
 
+      const totalItems = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+      this.dictionaryFilterState.page = currentPage;
+
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, totalItems);
+      const pageWords = filtered.slice(startIndex, endIndex);
+
       if (counterEl) {
-        counterEl.innerHTML = `Hiển thị <strong class="text-slate-900 dark:text-white font-extrabold">${Math.min(currentLimit, filtered.length)}</strong> / ${filtered.length} từ`;
+        if (totalItems === 0) {
+          counterEl.innerHTML = `Không có từ nào phù hợp`;
+        } else {
+          counterEl.innerHTML = `Hiển thị <strong class="text-slate-900 dark:text-white font-extrabold">${startIndex + 1} - ${endIndex}</strong> / ${totalItems} từ`;
+        }
       }
 
       if (!listContainer) return;
 
-      if (filtered.length === 0) {
+      if (totalItems === 0) {
+        listContainer.className = "w-full min-w-0";
         listContainer.innerHTML = `
           <div class="col-span-full py-16 text-center text-slate-400">
             <div class="text-4xl mb-3">🔍</div>
@@ -1704,90 +1795,158 @@ class App {
         return;
       }
 
-      const visibleWords = filtered.slice(0, currentLimit);
+      if (viewMode === 'compact') {
+        listContainer.className = "w-full min-w-0 grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3";
+      } else {
+        listContainer.className = "w-full min-w-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4";
+      }
 
-      const cardsHtml = visibleWords.map(w => {
-        const isLearned = learnedIds.has(w.id);
-        const groupInfo = allGroups.find(g => g.groupId === w.groupId);
-        const groupBadge = groupInfo 
-          ? `<span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-700/50 truncate max-w-[140px] sm:max-w-[150px]"><span class="text-xs shrink-0">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate">${groupInfo.name}</span></span>`
-          : '';
+      let cardsHtml = '';
+      if (viewMode === 'compact') {
+        cardsHtml = pageWords.map(w => {
+          const isLearned = learnedIds.has(w.id);
+          const groupInfo = allGroups.find(g => g.groupId === w.groupId);
+          const groupBadge = groupInfo 
+            ? `<span class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 inline-flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded-md border border-slate-200/50 dark:border-slate-700/50 truncate max-w-[150px]"><span class="shrink-0">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate">${groupInfo.name}</span></span>`
+            : '';
 
-        return `
-          <div class="w-full min-w-0 box-border bg-white dark:bg-[#161b22] rounded-2xl p-4 sm:p-5 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow relative group flex flex-col justify-between">
-            <div class="min-w-0">
-              <div class="flex items-center justify-between gap-2 mb-2.5 min-w-0">
-                <div class="flex items-center space-x-1.5 flex-wrap gap-y-1 min-w-0 pr-1">
-                  <span class="px-2.5 py-0.5 rounded-lg text-xs font-black tracking-wide shrink-0 ${getLevelBadgeClass(w.level)}">
-                    ${w.level}
-                  </span>
-                  ${groupBadge}
-                  ${isLearned ? `
-                    <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold shrink-0">
-                      <span>✓</span><span>Đã thuộc</span>
+          return `
+            <div class="dict-compact-item w-full min-w-0 bg-white dark:bg-[#161b22] rounded-2xl p-3 sm:p-3.5 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:border-indigo-300 dark:hover:border-indigo-700 transition-all flex flex-col justify-between">
+              <!-- Hàng chính: Thông tin từ + Nút thao tác -->
+              <div class="flex items-center justify-between gap-2.5 min-w-0">
+                <div class="btn-toggle-expand flex-1 min-w-0 cursor-pointer select-none py-0.5" title="Bấm để xem cụm từ & câu ví dụ">
+                  <div class="flex items-center space-x-1.5 flex-wrap gap-y-0.5 mb-1">
+                    <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      ${w.word}
                     </span>
-                  ` : ''}
-                </div>
-                
-                <!-- Nút Loa Chuẩn iOS Haptic -->
-                <button data-word="${w.word}" class="btn-play-sound min-w-[38px] min-h-[38px] w-9 h-9 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-all active:scale-90 border border-indigo-200/50 dark:border-indigo-800/60 shrink-0" title="Phát âm tiếng Anh">
-                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                  </svg>
-                </button>
-              </div>
-
-              <h4 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors break-words">
-                ${w.word}
-              </h4>
-              <div class="text-xs font-mono text-slate-400 dark:text-slate-500 flex items-center space-x-1.5 mb-2.5 flex-wrap gap-y-0.5">
-                <span>${w.ipa || ''}</span>
-                ${w.type ? `<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic shrink-0">${w.type}</span>` : ''}
-              </div>
-              <p class="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-100 mb-3 leading-snug break-words">${w.meaningVi}</p>
-              
-              ${w.collocations ? `
-                <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2.5 sm:p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/60 mb-2.5 leading-relaxed break-words">
-                  <div class="text-indigo-600 dark:text-indigo-400 font-extrabold uppercase text-[10px] tracking-wider mb-0.5 flex items-center space-x-1">
-                    <span>💡</span><span>Cụm từ hay gặp:</span>
+                    <span class="text-[11px] font-mono text-slate-400 dark:text-slate-500">${w.ipa || ''}</span>
+                    ${w.type ? `<span class="px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic shrink-0">${w.type}</span>` : ''}
+                    <span class="px-1.5 py-0.2 rounded text-[10px] font-bold shrink-0 ${getLevelBadgeClass(w.level)}">${w.level}</span>
+                    ${isLearned ? `
+                      <span class="inline-flex items-center px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] font-bold shrink-0">
+                        ✓ Thuộc
+                      </span>
+                    ` : ''}
                   </div>
-                  <div class="font-medium break-words">${w.collocations}</div>
+                  <p class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 truncate leading-snug">
+                    ${w.meaningVi}
+                  </p>
                 </div>
-              ` : ''}
 
-              <!-- Câu Ví Dụ kèm Loa Phát Âm -->
-              <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1 break-words">
-                <div class="flex items-start justify-between gap-2">
-                  <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed break-words">"${w.example}"</p>
-                  <button data-example="${w.example.replace(/"/g, '&quot;')}" class="btn-play-example shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors active:scale-90" title="Nghe câu ví dụ">
-                    <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                <!-- Cụm loa & mũi tên mở rộng -->
+                <div class="flex items-center space-x-1 shrink-0">
+                  <button data-word="${w.word}" class="btn-play-sound w-9 h-9 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-all active:scale-90 border border-indigo-200/50 dark:border-indigo-800/60 shrink-0" title="Phát âm từ vựng">
+                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                  </button>
+
+                  <button class="btn-toggle-expand-icon w-8 h-8 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all active:scale-90" title="Xem chi tiết ví dụ & cụm từ">
+                    <svg class="w-3.5 h-3.5 transform transition-transform duration-200 icon-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
                   </button>
                 </div>
-                ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50 break-words">➔ ${w.exampleVi}</p>` : ''}
+              </div>
+
+              <!-- Drawer mở rộng: Cụm từ hay gặp & Câu ví dụ -->
+              <div class="expand-drawer hidden mt-2.5 pt-2.5 border-t border-slate-100 dark:border-slate-800/80 space-y-2 text-xs">
+                ${groupBadge ? `<div class="mb-1">${groupBadge}</div>` : ''}
+
+                ${w.collocations ? `
+                  <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2 sm:p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/60 leading-relaxed break-words">
+                    <div class="text-indigo-600 dark:text-indigo-400 font-extrabold uppercase text-[10px] tracking-wider mb-0.5 flex items-center space-x-1">
+                      <span>💡</span><span>Cụm từ hay gặp:</span>
+                    </div>
+                    <div class="font-medium">${w.collocations}</div>
+                  </div>
+                ` : ''}
+
+                <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2 sm:p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1 break-words">
+                  <div class="flex items-start justify-between gap-2">
+                    <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed">"${w.example}"</p>
+                    <button data-example="${w.example.replace(/"/g, '&quot;')}" class="btn-play-example shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors active:scale-90" title="Nghe câu ví dụ">
+                      <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50">➔ ${w.exampleVi}</p>` : ''}
+                </div>
               </div>
             </div>
-          </div>
-        `;
-      }).join('');
+          `;
+        }).join('');
+      } else {
+        cardsHtml = pageWords.map(w => {
+          const isLearned = learnedIds.has(w.id);
+          const groupInfo = allGroups.find(g => g.groupId === w.groupId);
+          const groupBadge = groupInfo 
+            ? `<span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center space-x-1 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-slate-700/50 truncate max-w-[140px] sm:max-w-[150px]"><span class="text-xs shrink-0">${getGroupIcon(groupInfo.icon)}</span> <span class="truncate">${groupInfo.name}</span></span>`
+            : '';
 
-      const loadMoreHtml = filtered.length > currentLimit ? `
-        <div class="col-span-full pt-4 pb-8 flex flex-col items-center justify-center space-y-2">
-          <button id="btn-load-more-dict" class="w-full sm:w-auto px-8 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2">
-            <span>Tải thêm từ vựng (+36 từ)</span>
-            <span class="text-xs opacity-75">(${currentLimit} / ${filtered.length})</span>
-          </button>
-          <span class="text-[11px] text-slate-400">Cuộn hoặc bấm để tải thêm</span>
-        </div>
-      ` : (filtered.length > 0 ? `
-        <div class="col-span-full py-6 text-center text-xs text-slate-400 border-t border-slate-200/60 dark:border-slate-800/60">
-          ✨ Đã hiển thị toàn bộ ${filtered.length} từ vựng phù hợp
-        </div>
-      ` : '');
+          return `
+            <div class="w-full min-w-0 box-border bg-white dark:bg-[#161b22] rounded-2xl p-3.5 sm:p-4 border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow relative group flex flex-col justify-between">
+              <div class="min-w-0">
+                <div class="flex items-center justify-between gap-2 mb-2 min-w-0">
+                  <div class="flex items-center space-x-1.5 flex-wrap gap-y-1 min-w-0 pr-1">
+                    <span class="px-2 py-0.5 rounded-lg text-xs font-black tracking-wide shrink-0 ${getLevelBadgeClass(w.level)}">
+                      ${w.level}
+                    </span>
+                    ${groupBadge}
+                    ${isLearned ? `
+                      <span class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold shrink-0">
+                        <span>✓</span><span>Đã thuộc</span>
+                      </span>
+                    ` : ''}
+                  </div>
+                  
+                  <button data-word="${w.word}" class="btn-play-sound w-9 h-9 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-all active:scale-90 border border-indigo-200/50 dark:border-indigo-800/60 shrink-0" title="Phát âm tiếng Anh">
+                    <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                  </button>
+                </div>
 
-      listContainer.innerHTML = cardsHtml + loadMoreHtml;
+                <h4 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-0.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors break-words">
+                  ${w.word}
+                </h4>
+                <div class="text-xs font-mono text-slate-400 dark:text-slate-500 flex items-center space-x-1.5 mb-2 flex-wrap gap-y-0.5">
+                  <span>${w.ipa || ''}</span>
+                  ${w.type ? `<span class="px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-sans font-bold text-indigo-600 dark:text-indigo-400 not-italic shrink-0">${w.type}</span>` : ''}
+                </div>
+                <p class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 mb-2 leading-snug break-words">${w.meaningVi}</p>
+                
+                ${w.collocations ? `
+                  <div class="text-xs text-indigo-900 dark:text-indigo-200 bg-indigo-50/70 dark:bg-indigo-950/40 p-2 sm:p-2.5 rounded-xl border border-indigo-100 dark:border-indigo-900/60 mb-2 leading-relaxed break-words">
+                    <div class="text-indigo-600 dark:text-indigo-400 font-extrabold uppercase text-[10px] tracking-wider mb-0.5 flex items-center space-x-1">
+                      <span>💡</span><span>Cụm từ hay gặp:</span>
+                    </div>
+                    <div class="font-medium break-words">${w.collocations}</div>
+                  </div>
+                ` : ''}
 
+                <div class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2 sm:p-2.5 rounded-xl border border-slate-200/60 dark:border-slate-800/80 space-y-1 break-words">
+                  <div class="flex items-start justify-between gap-2">
+                    <p class="italic font-medium text-slate-700 dark:text-slate-200 leading-relaxed break-words">"${w.example}"</p>
+                    <button data-example="${w.example.replace(/"/g, '&quot;')}" class="btn-play-example shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-200/60 dark:hover:bg-slate-700/60 transition-colors active:scale-90" title="Nghe câu ví dụ">
+                      <svg class="w-3.5 h-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  ${w.exampleVi ? `<p class="text-slate-500 dark:text-slate-400 text-[11px] not-italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50 break-words">➔ ${w.exampleVi}</p>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const paginationHtml = buildPaginationHtml(currentPage, totalPages, totalItems);
+      listContainer.innerHTML = cardsHtml + paginationHtml;
+
+      // Event listener cho phát âm từ vựng
       listContainer.querySelectorAll('.btn-play-sound').forEach(btn => {
         let lastPlay = 0;
         const play = (e) => {
@@ -1804,6 +1963,7 @@ class App {
         btn.addEventListener('touchend', play);
       });
 
+      // Event listener cho phát âm câu ví dụ
       listContainer.querySelectorAll('.btn-play-example').forEach(btn => {
         let lastPlay = 0;
         const play = (e) => {
@@ -1820,9 +1980,59 @@ class App {
         btn.addEventListener('touchend', play);
       });
 
-      document.getElementById('btn-load-more-dict')?.addEventListener('click', () => {
-        currentLimit += 36;
+      // Event listener cho Accordion trong chế độ Compact
+      if (viewMode === 'compact') {
+        listContainer.querySelectorAll('.dict-compact-item').forEach(card => {
+          const toggleBtn = card.querySelector('.btn-toggle-expand');
+          const chevronBtn = card.querySelector('.btn-toggle-expand-icon');
+          const drawer = card.querySelector('.expand-drawer');
+          const chevronIcon = card.querySelector('.icon-chevron');
+
+          const toggle = (e) => {
+            if (e.target.closest('.btn-play-sound') || e.target.closest('.btn-play-example')) return;
+            if (!drawer) return;
+            drawer.classList.toggle('hidden');
+            if (chevronIcon) {
+              if (drawer.classList.contains('hidden')) {
+                chevronIcon.classList.remove('rotate-180');
+              } else {
+                chevronIcon.classList.add('rotate-180');
+              }
+            }
+          };
+
+          toggleBtn?.addEventListener('click', toggle);
+          chevronBtn?.addEventListener('click', toggle);
+        });
+      }
+
+      // Event listeners cho các nút phân trang
+      const goToPage = (newPage) => {
+        if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
+        currentPage = newPage;
+        this.dictionaryFilterState.page = currentPage;
         renderList(document.getElementById('vocab-search-box')?.value || "", false);
+        
+        // Cuộn mượt lên đầu danh sách từ vựng trên mobile
+        const searchBoxEl = document.getElementById('vocab-search-box');
+        if (searchBoxEl) {
+          const yOffset = -70;
+          const y = searchBoxEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        }
+      };
+
+      document.getElementById('btn-page-prev')?.addEventListener('click', () => goToPage(currentPage - 1));
+      document.getElementById('btn-page-next')?.addEventListener('click', () => goToPage(currentPage + 1));
+      listContainer.querySelectorAll('.dict-page-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const p = parseInt(btn.getAttribute('data-page'), 10);
+          if (!isNaN(p)) goToPage(p);
+        });
+      });
+      document.getElementById('dict-jump-page-select')?.addEventListener('change', (e) => {
+        const p = parseInt(e.target.value, 10);
+        if (!isNaN(p)) goToPage(p);
       });
     };
 
@@ -1884,16 +2094,37 @@ class App {
         <!-- Banner Lọc theo nhóm chủ đề cụ thể (nếu có) -->
         <div id="active-group-banner" class="hidden"></div>
 
-        <!-- Dòng đếm kết quả & Nút Thử Âm Thanh -->
-        <div class="flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-0.5 min-w-0">
-          <div id="dict-results-counter" class="font-medium shrink-0">Hiển thị...</div>
-          <button id="btn-test-audio-dict" class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 px-2.5 py-1 rounded-xl border border-indigo-200/60 dark:border-indigo-800/60 flex items-center space-x-1 shrink-0 active:scale-95 transition-all" title="Bấm để kiểm tra âm thanh phát ra loa hoặc tai nghe">
-            <span>🔊</span><span>Thử âm thanh</span>
-          </button>
+        <!-- Toolbar: Đếm kết quả, View Mode Toggle, Page Size & Thử âm thanh -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-0.5 min-w-0">
+          <div id="dict-results-counter" class="font-medium shrink-0 text-slate-600 dark:text-slate-300">Hiển thị...</div>
+          
+          <div class="flex items-center space-x-2 shrink-0 ml-auto flex-wrap gap-y-1.5">
+            <!-- Nút chuyển đổi View Mode: Gọn (Compact) vs Thẻ (Cards) -->
+            <div class="flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80">
+              <button id="btn-view-compact" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 ${viewMode === 'compact' ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}" title="Danh sách thu gọn, chạm để xem chi tiết">
+                <span>📋</span><span>Gọn</span>
+              </button>
+              <button id="btn-view-card" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 ${viewMode === 'card' ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-xs' : 'text-slate-500 hover:text-slate-800 dark:hover:text-white'}" title="Dạng thẻ chi tiết">
+                <span>🗂️</span><span>Thẻ</span>
+              </button>
+            </div>
+
+            <!-- Dropdown số lượng mỗi trang -->
+            <select id="dict-page-size-select" class="text-[11px] bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 rounded-xl px-2 py-1 outline-none font-semibold cursor-pointer">
+              <option value="12" ${pageSize === 12 ? 'selected' : ''}>12 từ/trang</option>
+              <option value="24" ${pageSize === 24 ? 'selected' : ''}>24 từ/trang</option>
+              <option value="48" ${pageSize === 48 ? 'selected' : ''}>48 từ/trang</option>
+            </select>
+
+            <!-- Thử âm thanh -->
+            <button id="btn-test-audio-dict" class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 px-2 py-1 rounded-xl border border-indigo-200/60 dark:border-indigo-800/60 flex items-center space-x-1 shrink-0 active:scale-95 transition-all" title="Bấm để kiểm tra âm thanh phát ra loa hoặc tai nghe">
+              <span>🔊</span><span class="hidden sm:inline">Thử loa</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Grid Cards (1 cột trên iPhone, 2 cột trên iPad/Tablet, 3 cột trên Desktop) -->
-        <div class="w-full min-w-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4" id="vocab-card-grid"></div>
+        <!-- Grid Cards / Compact List Container -->
+        <div class="w-full min-w-0" id="vocab-card-grid"></div>
 
         <!-- Nút Cuộn Lên Đầu Trang Tinh Gọn (Floating Back to Top) -->
         <button id="btn-scroll-top" class="fixed right-4 bottom-24 md:bottom-8 z-30 w-11 h-11 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-300/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 shadow-lg shadow-black/10 flex items-center justify-center transition-all duration-200 opacity-0 pointer-events-none active:scale-90" title="Lên đầu trang">
@@ -1905,11 +2136,44 @@ class App {
       </div>
     `;
 
-    renderList();
+    renderList("", true);
 
     const searchBox = container.querySelector('#vocab-search-box');
     const btnClearSearch = container.querySelector('#btn-clear-search');
     const btnScrollTop = container.querySelector('#btn-scroll-top');
+    const btnViewCompact = container.querySelector('#btn-view-compact');
+    const btnViewCard = container.querySelector('#btn-view-card');
+    const pageSizeSelect = container.querySelector('#dict-page-size-select');
+
+    // Chuyển chế độ Gọn (Compact)
+    btnViewCompact?.addEventListener('click', () => {
+      if (viewMode === 'compact') return;
+      viewMode = 'compact';
+      this.dictionaryFilterState.viewMode = 'compact';
+      localStorage.setItem('dict_view_mode', 'compact');
+      btnViewCompact.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-xs';
+      btnViewCard.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 text-slate-500 hover:text-slate-800 dark:hover:text-white';
+      renderList(searchBox?.value || "", false);
+    });
+
+    // Chuyển chế độ Thẻ (Card)
+    btnViewCard?.addEventListener('click', () => {
+      if (viewMode === 'card') return;
+      viewMode = 'card';
+      this.dictionaryFilterState.viewMode = 'card';
+      localStorage.setItem('dict_view_mode', 'card');
+      btnViewCard.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-xs';
+      btnViewCompact.className = 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all flex items-center space-x-1 text-slate-500 hover:text-slate-800 dark:hover:text-white';
+      renderList(searchBox?.value || "", false);
+    });
+
+    // Thay đổi số lượng từ trên mỗi trang
+    pageSizeSelect?.addEventListener('change', (e) => {
+      pageSize = parseInt(e.target.value, 10) || 12;
+      this.dictionaryFilterState.pageSize = pageSize;
+      localStorage.setItem('dict_page_size', pageSize.toString());
+      renderList(searchBox?.value || "", true);
+    });
 
     // Nút thử âm thanh loa / tai nghe
     container.querySelector('#btn-test-audio-dict')?.addEventListener('click', () => {
