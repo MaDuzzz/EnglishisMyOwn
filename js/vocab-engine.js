@@ -306,7 +306,7 @@ export class VocabPracticeEngine {
 
     // Nếu là Mode 2 và audio đang bật, tự động phát âm ngay
     if (item.mode === "mode2_audio_to_en" && !this.isAudioDisabledForSession) {
-      setTimeout(() => speechService.speak(item.word.word), 250);
+      setTimeout(() => speechService.speak(item.word.word), 60);
     }
   }
 

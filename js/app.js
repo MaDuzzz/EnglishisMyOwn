@@ -186,6 +186,17 @@ class App {
         return;
       }
 
+      // Thử âm thanh từ dropdown
+      const dropdownTestAudioBtn = e.target.closest('#btn-dropdown-test-audio');
+      if (dropdownTestAudioBtn) {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        this.isUserMenuOpen = false;
+        this.updateHeaderUI();
+        speechService.testAudio();
+        this.showToast("🔊 Đang phát chuông & giọng đọc mẫu! Hãy kiểm tra âm lượng tai nghe trong Control Center hoặc gạt nút rung.");
+        return;
+      }
+
       // Đăng nhập Google
       const loginBtn = e.target.closest('#btn-auth-action');
       if (loginBtn) {
@@ -244,6 +255,25 @@ class App {
     }
     appState.clearUser();
     this.updateHeaderUI();
+  }
+
+  showToast(message, duration = 3500) {
+    let toast = document.getElementById('app-floating-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'app-floating-toast';
+      toast.className = 'fixed top-16 sm:top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/95 dark:bg-white/95 text-white dark:text-slate-900 text-xs font-semibold shadow-xl backdrop-blur-md transition-all duration-300 pointer-events-none opacity-0 translate-y-[-10px] max-w-sm text-center leading-snug border border-white/10 dark:border-slate-800/10 select-none';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translate(-50%, 0)';
+
+    clearTimeout(this._toastTimeout);
+    this._toastTimeout = setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translate(-50%, -10px)';
+    }, duration);
   }
 
   updateHeaderUI() {
@@ -335,6 +365,19 @@ class App {
                     <!-- Switch Visual Indicator -->
                     <div class="w-9 h-5 rounded-full p-0.5 transition-colors ${isDark ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-700'}">
                       <div class="w-4 h-4 rounded-full bg-white shadow-sm transform transition-transform ${isDark ? 'translate-x-4' : 'translate-x-0'}"></div>
+                    </div>
+                  </button>
+
+                  <!-- Test Audio Option -->
+                  <button id="btn-dropdown-test-audio" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-left group">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-xs font-semibold text-slate-800 dark:text-slate-200">Kiểm tra âm thanh</p>
+                      <p class="text-[10px] text-slate-400">Thử chuông & giọng đọc</p>
                     </div>
                   </button>
 
@@ -1676,12 +1719,12 @@ class App {
         <!-- Banner Lọc theo nhóm chủ đề cụ thể (nếu có) -->
         <div id="active-group-banner" class="hidden"></div>
 
-        <!-- Dòng đếm kết quả -->
+        <!-- Dòng đếm kết quả & Nút Thử Âm Thanh -->
         <div class="flex items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-0.5 min-w-0">
           <div id="dict-results-counter" class="font-medium shrink-0">Hiển thị...</div>
-          <div class="text-[11px] font-medium text-slate-400 flex items-center space-x-1 shrink-0">
-            <span>🔊</span><span>Chạm loa để nghe âm</span>
-          </div>
+          <button id="btn-test-audio-dict" class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 px-2.5 py-1 rounded-xl border border-indigo-200/60 dark:border-indigo-800/60 flex items-center space-x-1 shrink-0 active:scale-95 transition-all" title="Bấm để kiểm tra âm thanh phát ra loa hoặc tai nghe">
+            <span>🔊</span><span>Thử âm thanh</span>
+          </button>
         </div>
 
         <!-- Grid Cards (1 cột trên iPhone, 2 cột trên iPad/Tablet, 3 cột trên Desktop) -->
@@ -1702,6 +1745,13 @@ class App {
     const searchBox = container.querySelector('#vocab-search-box');
     const btnClearSearch = container.querySelector('#btn-clear-search');
     const btnScrollTop = container.querySelector('#btn-scroll-top');
+
+    // Nút thử âm thanh loa / tai nghe
+    container.querySelector('#btn-test-audio-dict')?.addEventListener('click', () => {
+      if (window.navigator?.vibrate) window.navigator.vibrate(10);
+      speechService.testAudio();
+      this.showToast("🔊 Đang phát chuông & giọng đọc mẫu! Hãy kiểm tra âm lượng tai nghe trong Control Center hoặc gạt nút rung.");
+    });
 
     // Event Lọc Level
     container.querySelectorAll('.dict-lvl-btn').forEach(btn => {
