@@ -1977,6 +1977,7 @@ class App {
       return;
     }
 
+    const isGuest = !appState.state.user;
     const year = this.selectedHeatmapYear || new Date().getFullYear();
 
     // Map đếm số từ nạp theo từng ngày (YYYY-MM-DD -> count)
@@ -2315,29 +2316,7 @@ class App {
     container.innerHTML = `
       <div class="space-y-4 sm:space-y-5 animate-fade-in w-full max-w-5xl mx-auto">
         
-        <!-- 0. GUEST CALLOUT (Chỉ hiện khi khách chưa đăng nhập) -->
-        ${isGuest ? `
-          <div class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-r from-indigo-900/80 via-slate-900 to-indigo-950 border border-indigo-500/30 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-lg">
-            <div class="flex items-center space-x-2.5">
-              <div class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-base shrink-0">
-                💡
-              </div>
-              <div>
-                <div class="font-bold text-indigo-200">Đăng nhập để đồng bộ dữ liệu kỷ luật</div>
-                <div class="text-[11px] text-slate-300">Đăng nhập Google để lưu giữ chuỗi kỷ luật và lịch sử 365 ngày của bạn trên Cloud Firestore.</div>
-              </div>
-            </div>
-            <button id="btn-login-from-analytics-banner" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shrink-0 transition-all shadow-md active:scale-95 flex items-center justify-center space-x-1.5 self-start sm:self-auto">
-              <svg class="w-4 h-4" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
-              <span>Đăng nhập với Google</span>
-            </button>
-          </div>
-        ` : ''}
+
 
         <!-- 1. DISCIPLINE HERO BANNER (Dành riêng cho Kỷ Luật & Thói Quen) -->
         <div class="rounded-2xl sm:rounded-3xl p-4 sm:p-5 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white border border-slate-800 shadow-xl relative overflow-hidden">
@@ -2587,7 +2566,7 @@ class App {
         </div>
 
         <!-- 5. FOOTER: Đánh giá lại Level (nếu là user đã đăng nhập) -->
-        ${!isGuest && appState.state.cefrLevel ? `
+        ${appState.state.cefrLevel ? `
           <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs flex items-center justify-between">
             <span>Cần đánh giá lại trình độ xuất phát CEFR?</span>
             <button id="btn-retake-from-analytics" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
