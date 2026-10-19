@@ -206,6 +206,15 @@ export class VocabPracticeEngine {
       return;
     }
 
+    // Tối ưu độ trễ âm thanh: Nạp sẵn từ câu hỏi hiện tại và câu hỏi kế tiếp vào RAM
+    if (item.word?.word) {
+      speechService.preloadWord(item.word.word);
+    }
+    const nextQueueItem = this.queue[this.currentIndex + 1];
+    if (nextQueueItem?.word?.word) {
+      speechService.preloadWord(nextQueueItem.word.word);
+    }
+
     const progressPercent = Math.min(100, Math.round((this.progressPoints / this.targetPoints) * 100));
 
     // Mode metadata
@@ -563,13 +572,6 @@ export class VocabPracticeEngine {
         this.handleChoiceAnswer(selected, item.word, btn);
       });
     });
-
-    // Tự động phát âm trong Mode 2 nếu chưa tắt âm
-    if (item.mode === 'mode2_audio_to_en' && !this.isAudioDisabledForSession) {
-      setTimeout(() => {
-        speechService.speak(item.word.word);
-      }, 150);
-    }
   }
 
   handleCantListenNow() {

@@ -159,6 +159,16 @@ export class VocabAbsorbEngine {
       return;
     }
 
+    // Tối ưu độ trễ âm thanh: Nạp sẵn từ hiện tại, câu ví dụ và từ kế tiếp vào RAM
+    speechService.preloadWord(word.word);
+    if (word.example) {
+      speechService.preloadWord(word.example);
+    }
+    const nextCandidate = this.candidates[this.currentIndex + 1];
+    if (nextCandidate && nextCandidate.word) {
+      speechService.preloadWord(nextCandidate.word);
+    }
+
     // Làm sạch tên nhóm (loại bỏ phần tiếng Anh trong ngoặc đơn nếu có để không bị tràn dòng)
     const cleanGroupName = (word.groupName || 'Từ vựng thực chiến')
       .replace(/\(.*?\)/g, '')
@@ -462,10 +472,13 @@ export class VocabAbsorbEngine {
 
   // Preload âm thanh từ kế tiếp ngay trong user gesture (touchend/arrow)
   prepareNextWordAudio() {
-    if (!this.autoSpeak) return;
     const nextWord = this.candidates[this.currentIndex + 1];
     if (nextWord && nextWord.word) {
       speechService.preloadWord(nextWord.word);
+    }
+    const nextNextWord = this.candidates[this.currentIndex + 2];
+    if (nextNextWord && nextNextWord.word) {
+      speechService.preloadWord(nextNextWord.word);
     }
   }
 

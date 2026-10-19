@@ -20,6 +20,8 @@ class SpeechService {
     this._poolIndex = 0;
     this._isUnlocked = false;
     this._playSessionId = 0;
+    this.audioCache = new Map(); // cleanKey -> { audio, url, backupUrl, isReady, lastAccess }
+    this.maxCacheSize = 50;
 
     this.initVoice();
     this.setupAudioUnlock();
@@ -29,7 +31,7 @@ class SpeechService {
   getAudioElement() {
     if (!this.audioPool || this.audioPool.length === 0) {
       if (typeof window !== 'undefined') {
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
           const a = new Audio();
           a.referrerPolicy = 'no-referrer';
           a.preload = 'auto';
@@ -118,21 +120,81 @@ class SpeechService {
     } catch (e) {}
   }
 
-  // Preload âm thanh từ vựng tiếp theo ngay trong sự kiện chạm/vuốt
+  // Preload âm thanh từ vựng / câu ví dụ vào bộ nhớ RAM (In-Memory Audio Cache)
   preloadWord(text) {
     if (!text) return;
     const clean = this.cleanText(text);
     if (!clean) return;
+    const key = clean.toLowerCase();
+
+    // Nếu đã có trong cache, cập nhật lastAccess
+    if (this.audioCache.has(key)) {
+      const entry = this.audioCache.get(key);
+      entry.lastAccess = Date.now();
+      return;
+    }
+
     try {
       this.prime();
       const urls = this.getAudioUrls(clean);
-      if (urls && urls[0]) {
-        const audio = this.getAudioElement();
-        if (audio) {
-          audio.src = urls[0];
+      if (!urls || urls.length === 0) return;
+
+      const audio = new Audio();
+      audio.referrerPolicy = 'no-referrer';
+      audio.preload = 'auto';
+
+      const entry = {
+        audio,
+        url: urls[0],
+        backupUrl: urls[1] || null,
+        isReady: false,
+        lastAccess: Date.now()
+      };
+
+      const markReady = () => {
+        entry.isReady = true;
+      };
+
+      audio.addEventListener('canplaythrough', markReady, { once: true });
+      audio.addEventListener('canplay', markReady, { once: true });
+      audio.addEventListener('loadeddata', markReady, { once: true });
+
+      // Tự động chuyển sang URL dự phòng nếu URL chính gặp lỗi tải
+      audio.addEventListener('error', () => {
+        if (entry.backupUrl && audio.src !== entry.backupUrl) {
+          audio.src = entry.backupUrl;
           audio.load();
+        } else {
+          this.audioCache.delete(key);
+        }
+      }, { once: true });
+
+      audio.src = urls[0];
+      audio.load();
+
+      // LRU Eviction: Tối đa 50 phần tử trong RAM để tiết kiệm tài nguyên
+      if (this.audioCache.size >= this.maxCacheSize) {
+        let oldestKey = null;
+        let oldestTime = Infinity;
+        for (const [k, v] of this.audioCache.entries()) {
+          if (v.lastAccess < oldestTime) {
+            oldestTime = v.lastAccess;
+            oldestKey = k;
+          }
+        }
+        if (oldestKey) {
+          try {
+            const old = this.audioCache.get(oldestKey);
+            if (old && old.audio) {
+              old.audio.src = '';
+              old.audio.load();
+            }
+          } catch (e) {}
+          this.audioCache.delete(oldestKey);
         }
       }
+
+      this.audioCache.set(key, entry);
     } catch (e) {}
   }
 
@@ -247,10 +309,10 @@ class SpeechService {
         audio.onended = () => done(true);
         audio.onerror = (e) => done(false, e);
 
-        // Timeout 3.0s nếu mạng chập chờn để chuyển nguồn dự phòng
+        // Timeout 1.2s nếu mạng chập chờn để chuyển nguồn dự phòng nhanh
         timer = setTimeout(() => {
           done(false, new Error('Audio load timeout'));
-        }, 3000);
+        }, 1200);
 
         if (audio.src !== url && audio.currentSrc !== url) {
           audio.src = url;
@@ -357,7 +419,7 @@ class SpeechService {
     }
   }
 
-  // Phát âm thanh tiếng Anh (Tự động phát âm thanh phòng thu / neural MP3 cho cả từ và câu, fallback Web Speech)
+  // Phát âm thanh tiếng Anh (Ưu tiên Instant Playback từ RAM Cache, fallback Network Audio, fallback Web Speech)
   async speak(text, rate = 0.9) {
     const clean = this.cleanText(text);
     if (!clean) return;
@@ -370,12 +432,89 @@ class SpeechService {
       this.audioCtx.resume().catch(() => {});
     }
 
+    const key = clean.toLowerCase();
+
+    // 1. SIÊU TỐC: Kiểm tra trong In-Memory Audio Cache (Phản hồi tức thì < 15ms)
+    if (this.audioCache.has(key)) {
+      const entry = this.audioCache.get(key);
+      entry.lastAccess = Date.now();
+      const cachedAudio = entry.audio;
+
+      if (cachedAudio) {
+        try {
+          this.currentAudio = cachedAudio;
+          cachedAudio.currentTime = 0;
+
+          const playPromise = cachedAudio.play();
+          if (playPromise !== undefined) {
+            await new Promise((resolve, reject) => {
+              let timer = null;
+              const cleanup = () => {
+                cachedAudio.onended = null;
+                cachedAudio.onerror = null;
+                if (timer) {
+                  clearTimeout(timer);
+                  timer = null;
+                }
+              };
+
+              cachedAudio.onended = () => {
+                cleanup();
+                if (this.currentAudio === cachedAudio) this.currentAudio = null;
+                resolve(true);
+              };
+
+              cachedAudio.onerror = (e) => {
+                cleanup();
+                if (this.currentAudio === cachedAudio) this.currentAudio = null;
+                reject(e);
+              };
+
+              // Timeout 1.2s nếu mạng bị kẹt chưa kích hoạt phát được
+              timer = setTimeout(() => {
+                cleanup();
+                if (this.currentAudio === cachedAudio) this.currentAudio = null;
+                reject(new Error('Cached audio start timeout'));
+              }, 1200);
+
+              playPromise
+                .then(() => {
+                  if (this._playSessionId !== playSessionId) {
+                    try { cachedAudio.pause(); } catch (e) {}
+                    cleanup();
+                    return;
+                  }
+                  // Đã bắt đầu phát thành công, huỷ timer chờ kết thúc bài phát
+                  if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                  }
+                })
+                .catch((err) => {
+                  cleanup();
+                  reject(err);
+                });
+            });
+            return; // Phát thành công siêu tốc tức thì từ Cache!
+          }
+        } catch (err) {
+          console.warn("Cached audio playback gặp lỗi, chuyển sang Network/Synth fallback:", err);
+          if (this.currentAudio === cachedAudio) this.currentAudio = null;
+        }
+      }
+    }
+
+    // 2. Tự động nạp trước vào cache cho các lần bấm tiếp theo
+    this.preloadWord(clean);
+
+    // 3. Nếu chưa có trong cache hoặc phát lỗi, thử phát trực tiếp từ Network Audio Sources
     try {
       await this.speakAudioSource(clean, playSessionId);
       return;
     } catch (err) {
       if (this._playSessionId !== playSessionId) return;
       console.log("Audio Source fallback sang Web Speech API:", err?.message || err);
+      // 4. Fallback cuối cùng: Web Speech API offline
       this.speakSynth(clean, rate);
     }
   }

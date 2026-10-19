@@ -776,6 +776,11 @@ class App {
       const word = DEMO_WORDS[demoIndex % DEMO_WORDS.length];
       if (counterEl) counterEl.textContent = `${(demoIndex % DEMO_WORDS.length) + 1} / ${DEMO_WORDS.length}`;
 
+      // Nạp trước âm thanh cho demo card
+      if (word && word.word) speechService.preloadWord(word.word);
+      const nextDemo = DEMO_WORDS[(demoIndex + 1) % DEMO_WORDS.length];
+      if (nextDemo && nextDemo.word) speechService.preloadWord(nextDemo.word);
+
       demoContainer.innerHTML = `
         <div id="portal-active-demo-card" class="flashcard-card animate-card-pop relative w-full rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between select-none overflow-hidden transition-[border-color,box-shadow]">
           <div class="edge-indicator-left absolute left-0 top-0 bottom-0 w-3 sm:w-3.5 bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-400 opacity-0 pointer-events-none transition-opacity duration-75 shadow-[0_0_20px_rgba(16,185,129,0.9)]"></div>
@@ -1946,6 +1951,15 @@ class App {
 
       const paginationHtml = buildPaginationHtml(currentPage, totalPages, totalItems);
       listContainer.innerHTML = cardsHtml + paginationHtml;
+
+      // Tối ưu độ trễ âm thanh: Nạp trước các từ hiển thị trên trang sổ tay vào RAM
+      if (Array.isArray(paginatedWords) && paginatedWords.length > 0) {
+        setTimeout(() => {
+          paginatedWords.slice(0, 8).forEach(w => {
+            if (w && w.word) speechService.preloadWord(w.word);
+          });
+        }, 80);
+      }
 
       // Event listener cho phát âm từ vựng
       listContainer.querySelectorAll('.btn-play-sound').forEach(btn => {
