@@ -1,6 +1,15 @@
 // Trình điều phối chính ứng dụng (App Main Coordinator)
 import { appState } from './state.js';
-import { initFirebase, authInstance, googleProviderInstance, isFirebaseLive } from './firebase-config.js';
+import {
+  initFirebase,
+  authInstance,
+  googleProviderInstance,
+  isFirebaseLive,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged
+} from './firebase-config.js';
 import { PlacementTestEngine } from './placement-test.js';
 import { VocabPracticeEngine } from './vocab-engine.js';
 import { VocabAbsorbEngine } from './vocab-absorb-engine.js';
@@ -118,54 +127,59 @@ class App {
   }
 
   setupAuthListener() {
-    if (isFirebaseLive && authInstance) {
-      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ onAuthStateChanged, getRedirectResult }) => {
-        // Xử lý kết quả trả về nếu người dùng dùng signInWithRedirect (đặc biệt trên mobile Safari / PWA)
-        if (typeof getRedirectResult === 'function') {
-          getRedirectResult(authInstance).then((result) => {
-            if (result && result.user) {
-              console.log("Redirect login successful:", result.user.email);
-              appState.setUser({
-                uid: result.user.uid,
-                displayName: result.user.displayName || result.user.email.split('@')[0],
-                email: result.user.email,
-                photoURL: result.user.photoURL
-              }).then(() => {
-                if (appState.state.theme) this.applyTheme(appState.state.theme);
-                this.updateHeaderUI();
-                this.updateNavigationVisibility();
-                this.switchTab(this.currentTab || "vocab");
-              });
-            }
-          }).catch(err => {
-            console.warn("getRedirectResult info/error:", err);
-          });
-        }
-
-        onAuthStateChanged(authInstance, (user) => {
-          appState.isAuthResolving = false;
-          if (user) {
+    if (isFirebaseLive && authInstance && onAuthStateChanged) {
+      // Xử lý kết quả trả về nếu người dùng dùng signInWithRedirect (đặc biệt trên mobile Safari / PWA)
+      if (typeof getRedirectResult === 'function') {
+        getRedirectResult(authInstance).then((result) => {
+          if (result && result.user) {
+            console.log("Redirect login successful:", result.user.email);
             appState.setUser({
-              uid: user.uid,
-              displayName: user.displayName || user.email.split('@')[0],
-              email: user.email,
-              photoURL: user.photoURL
+              uid: result.user.uid,
+              displayName: result.user.displayName || result.user.email.split('@')[0],
+              email: result.user.email,
+              photoURL: result.user.photoURL
             }).then(() => {
-              if (appState.state.theme) {
-                this.applyTheme(appState.state.theme);
-              }
+              if (appState.state.theme) this.applyTheme(appState.state.theme);
               this.updateHeaderUI();
               this.updateNavigationVisibility();
               this.switchTab(this.currentTab || "vocab");
-              appState.loadVocabGroupsFromFirestore();
             });
-          } else {
+          }
+        }).catch(err => {
+          console.warn("getRedirectResult info/error:", err);
+        });
+      }
+
+      onAuthStateChanged(authInstance, (user) => {
+        appState.isAuthResolving = false;
+        if (user) {
+          appState.setUser({
+            uid: user.uid,
+            displayName: user.displayName || user.email.split('@')[0],
+            email: user.email,
+            photoURL: user.photoURL
+          }).then(() => {
+            if (appState.state.theme) {
+              this.applyTheme(appState.state.theme);
+            }
+            this.updateHeaderUI();
+            this.updateNavigationVisibility();
+            this.switchTab(this.currentTab || "vocab");
+            appState.loadVocabGroupsFromFirestore();
+          });
+        } else {
+          // BẢO VỆ PHIÊN ĐĂNG NHẬP:
+          // Nếu appState đã có cached user từ localStorage, KHÔNG xóa phiên của người dùng!
+          // Chỉ xóa khi người dùng chủ động bấm Đăng Xuất (handleLogout).
+          if (!appState.state.user) {
             appState.clearUser();
             this.updateHeaderUI();
             this.updateNavigationVisibility();
             this.switchTab("vocab");
+          } else {
+            console.log("ℹ️ Phiên đăng nhập người dùng được bảo toàn từ LocalStorage Cache.");
           }
-        });
+        }
       });
     }
   }
@@ -280,18 +294,25 @@ class App {
   }
 
   async handleAuthClick() {
-    if (isFirebaseLive && authInstance && googleProviderInstance) {
-      const { signInWithPopup, signInWithRedirect } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    if (!isFirebaseLive || !authInstance || !googleProviderInstance) {
+      console.log("Firebase chưa sẵn sàng, đang nạp...");
+      await initFirebase();
+    }
+
+    if (isFirebaseLive && authInstance && googleProviderInstance && signInWithPopup) {
       try {
         let res = null;
         try {
+          // GỌI TRỰC TIẾP ĐỒNG BỘ: Giữ nguyên user activation token của trình duyệt
           res = await signInWithPopup(authInstance, googleProviderInstance);
         } catch (popupErr) {
           // Khi popup bị chặn trên mobile (iOS Safari / standalone PWA / Chrome popup blocker)
           if (popupErr.code === 'auth/popup-blocked' || popupErr.code === 'auth/cancelled-popup-request') {
             console.warn("Popup bị chặn, chuyển sang đăng nhập chuyển hướng (redirect):", popupErr);
-            await signInWithRedirect(authInstance, googleProviderInstance);
-            return;
+            if (signInWithRedirect) {
+              await signInWithRedirect(authInstance, googleProviderInstance);
+              return;
+            }
           }
           throw popupErr;
         }
@@ -500,7 +521,7 @@ class App {
                 : `<svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>`
               }
             </button>
-            <button id="btn-auth-action" type="button" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center space-x-1.5 active:scale-95 shrink-0" title="Đăng nhập Google để đồng bộ dữ liệu Cloud Firestore">
+            <button id="btn-auth-action" type="button" class="cursor-pointer px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center space-x-1.5 active:scale-95 shrink-0" title="Đăng nhập Google để đồng bộ dữ liệu Cloud Firestore">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -864,7 +885,7 @@ class App {
               Làm bài Test xếp lớp CEFR chuẩn xác, mở khoá 1,000+ từ vựng, hệ thống lộ trình Spaced Repetition T+1 và biểu đồ kỷ luật Heatmap của riêng bạn.
             </p>
             <div class="pt-2">
-              <button id="btn-portal-login-cta" class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white text-indigo-700 hover:bg-indigo-50 active:scale-95 font-black text-sm shadow-lg shadow-black/10 transition-all inline-flex items-center justify-center space-x-2.5">
+              <button id="btn-portal-login-cta" type="button" class="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white text-indigo-700 hover:bg-indigo-50 active:scale-95 font-black text-sm shadow-lg shadow-black/10 transition-all inline-flex items-center justify-center space-x-2.5">
                 <svg class="w-4 h-4" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>

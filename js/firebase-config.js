@@ -15,6 +15,10 @@ let authInstance = null;
 let dbInstance = null;
 let googleProviderInstance = null;
 let isFirebaseLive = false;
+let signInWithPopup = null;
+let signInWithRedirect = null;
+let getRedirectResult = null;
+let onAuthStateChanged = null;
 
 export async function initFirebase() {
   const config = FIREBASE_CONFIG;
@@ -26,17 +30,41 @@ export async function initFirebase() {
 
   try {
     const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-    const { getAuth, GoogleAuthProvider } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+    const fbAuth = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
     const { getFirestore } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
 
     const app = initializeApp(config);
-    authInstance = getAuth(app);
+    authInstance = fbAuth.getAuth(app);
+    try {
+      if (fbAuth.setPersistence && fbAuth.browserLocalPersistence) {
+        await fbAuth.setPersistence(authInstance, fbAuth.browserLocalPersistence);
+      }
+    } catch (e) {
+      console.warn("Lưu ý persistence:", e);
+    }
+
     dbInstance = getFirestore(app);
-    googleProviderInstance = new GoogleAuthProvider();
+    googleProviderInstance = new fbAuth.GoogleAuthProvider();
+    googleProviderInstance.setCustomParameters({ prompt: 'select_account' });
+
+    signInWithPopup = fbAuth.signInWithPopup;
+    signInWithRedirect = fbAuth.signInWithRedirect;
+    getRedirectResult = fbAuth.getRedirectResult;
+    onAuthStateChanged = fbAuth.onAuthStateChanged;
+
     isFirebaseLive = true;
 
     console.log("✅ Kết nối Cloud Firestore & Google Auth thành công!");
-    return { isLive: true, auth: authInstance, db: dbInstance, provider: googleProviderInstance };
+    return {
+      isLive: true,
+      auth: authInstance,
+      db: dbInstance,
+      provider: googleProviderInstance,
+      signInWithPopup,
+      signInWithRedirect,
+      getRedirectResult,
+      onAuthStateChanged
+    };
   } catch (error) {
     console.error("❌ Lỗi khi khởi tạo Firebase:", error);
     isFirebaseLive = false;
@@ -44,4 +72,13 @@ export async function initFirebase() {
   }
 }
 
-export { authInstance, dbInstance, googleProviderInstance, isFirebaseLive };
+export {
+  authInstance,
+  dbInstance,
+  googleProviderInstance,
+  isFirebaseLive,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged
+};

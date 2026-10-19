@@ -27,7 +27,7 @@ export class StateManager {
         user: cachedUser
       };
       this.hasCachedSession = true;
-      this.isAuthResolving = true; // Firebase đang âm thầm xác thực ngầm
+      this.isAuthResolving = false; // Đã có user từ cache, mở thẳng giao diện học tập
     } else if (hasFbSession) {
       // Có phiên Firebase lưu trữ -> Chờ Firebase emit kết quả
       this.state = this.getDefaultState(null);
