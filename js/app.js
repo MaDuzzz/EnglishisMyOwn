@@ -674,7 +674,6 @@ class App {
       }
     });
 
-    const mainContainer = document.getElementById('main-content-area');
     if (!mainContainer) return;
 
     // Trigger Silky Smooth Screen Enter Transition
