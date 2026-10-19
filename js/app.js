@@ -2092,9 +2092,9 @@ class App {
       listContainer.innerHTML = cardsHtml + paginationHtml;
 
       // Tối ưu độ trễ âm thanh: Nạp trước các từ hiển thị trên trang sổ tay vào RAM
-      if (Array.isArray(paginatedWords) && paginatedWords.length > 0) {
+      if (Array.isArray(pageWords) && pageWords.length > 0) {
         setTimeout(() => {
-          paginatedWords.slice(0, 8).forEach(w => {
+          pageWords.slice(0, 8).forEach(w => {
             if (w && w.word) speechService.preloadWord(w.word);
           });
         }, 80);
