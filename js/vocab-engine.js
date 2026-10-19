@@ -891,8 +891,11 @@ export class VocabPracticeEngine {
 
   handleExitPrompt() {
     this.clearQuestionTimer();
+    const isNewBatch = this.mode === 'new_batch';
     const confirmExit = window.confirm(
-      `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm hoàn thành batch.\nBạn có chắc chắn muốn tạm dừng phiên luyện tập không?`
+      isNewBatch
+        ? `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm hoàn thành batch.\nNếu thoát bây giờ, bài luyện tập chưa hoàn tất và batch từ mới này sẽ KHÔNG được tính (coi như chưa học). Bạn có chắc chắn muốn thoát không?`
+        : `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm ôn tập.\nBạn có chắc chắn muốn tạm dừng phiên ôn tập không?`
     );
     if (confirmExit) {
       this.cleanup();
@@ -919,6 +922,12 @@ export class VocabPracticeEngine {
     if (this.mode === "review") {
       appState.markReviewComplete(wordIds);
     } else {
+      // mode === "new_batch"
+      // CHÍNH THỨC XÁC NHẬN VÀ LƯU 10 TỪ MỚI VÀO HỆ THỐNG KHI VƯỢT QUA 100% BÀI LUYỆN TẬP PHẢN XẠ
+      const acceptedIds = this.options.batchMeta?.acceptedIds || wordIds;
+      const skippedIds = this.options.batchMeta?.skippedIds || [];
+      appState.markNewBatchComplete(acceptedIds, skippedIds);
+
       const practiceBonusXP = this.targetPoints * 2;
       if (practiceBonusXP > 0) {
         appState.addXP(practiceBonusXP);

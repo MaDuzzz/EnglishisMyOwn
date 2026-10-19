@@ -1597,10 +1597,11 @@ class App {
     const mainContainer = document.getElementById('main-content-area');
     this.absorbEngine = new VocabAbsorbEngine(mainContainer, {
       onCompleted: () => this.renderVocabDashboard(),
-      onStartPractice: (acceptedWords) => {
+      onStartPractice: (acceptedWords, batchMeta) => {
         this.vocabEngine = new VocabPracticeEngine(mainContainer, {
           mode: "new_batch",
           words: acceptedWords,
+          batchMeta: batchMeta,
           targetPoints: 30,
           onCompleted: () => this.renderVocabDashboard()
         });

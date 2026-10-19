@@ -559,21 +559,15 @@ export class VocabAbsorbEngine {
 
 
   handleExitPrompt() {
-    if (this.acceptedWords.length === 0) {
-      this.cleanup();
-      this.onCompleted();
-      return;
-    }
-
+    const count = this.acceptedWords.length;
     const confirmExit = window.confirm(
-      `Bạn đã chọn được ${this.acceptedWords.length} / ${this.targetCount} từ mới.\nBạn có muốn lưu các từ này vào lịch học và thoát không?`
+      count > 0 
+        ? `Bạn đang học dở batch từ mới (${count} / ${this.targetCount} từ).\nNếu thoát giữa chừng, tiến độ sẽ KHÔNG được lưu và coi như chưa học từ nào. Bạn có chắc chắn muốn thoát không?`
+        : `Bạn có chắc chắn muốn thoát phiên nạp từ mới không?`
     );
 
     if (confirmExit) {
       this.cleanup();
-      const acceptedIds = this.acceptedWords.map(w => w.id);
-      const skippedIds = this.skippedWords.map(w => w.id);
-      appState.markNewBatchComplete(acceptedIds, skippedIds);
       this.onCompleted();
     }
   }
@@ -581,28 +575,26 @@ export class VocabAbsorbEngine {
   finishSession() {
     this.cleanup();
 
-    const acceptedIds = this.acceptedWords.map(w => w.id);
-    const skippedIds = this.skippedWords.map(w => w.id);
-
-    // Lưu trạng thái: Cả 10 từ mới và các từ đã biết đều được xếp lịch ôn T+1
-    appState.markNewBatchComplete(acceptedIds, skippedIds);
-
-    const practiceWords = this.acceptedWords.length > 0 
+    const acceptedWords = this.acceptedWords.length > 0 
       ? this.acceptedWords 
       : this.candidates.slice(0, 10);
+    const acceptedIds = acceptedWords.map(w => w.id);
+    const skippedIds = this.skippedWords.map(w => w.id);
 
-    // Tự động chuyển thẳng sang Giai đoạn 2: Luyện tập phản xạ (không hiển thị màn hình hỏi ý kiến)
-    this.startStage2Practice(practiceWords);
+    // CHÚ Ý QUAN TRỌNG: Không lưu trạng thái đã học ở đây!
+    // Người học phải hoàn thành cả Giai đoạn 2 (Luyện tập phản xạ) thì mới chính thức được tính là đã học xong batch 10 từ.
+    this.startStage2Practice(acceptedWords, { acceptedIds, skippedIds });
   }
 
-  startStage2Practice(practiceWords) {
+  startStage2Practice(practiceWords, batchMeta = {}) {
     if (this.onStartPractice) {
-      this.onStartPractice(practiceWords);
+      this.onStartPractice(practiceWords, batchMeta);
       return;
     }
     const practiceEngine = new VocabPracticeEngine(this.container, {
       mode: "new_batch",
       words: practiceWords,
+      batchMeta: batchMeta,
       targetPoints: 30,
       onCompleted: () => {
         this.onCompleted();
