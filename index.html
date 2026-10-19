@@ -38,10 +38,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./css/style.css?v=4.7">
+  <link rel="stylesheet" href="./css/style.css?v=4.8">
 
   <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Pre-auth State Setup (Ẩn hoàn toàn thanh bar điều hướng khi chưa đăng nhập) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('eimo_auth_user')) {
+          document.documentElement.classList.add('user-authenticated');
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <style>
+    /* Ẩn hoàn toàn thanh điều hướng desktop & mobile khi chưa đăng nhập */
+    html:not(.user-authenticated) #desktop-nav-bar,
+    html:not(.user-authenticated) #ios-bottom-bar {
+      display: none !important;
+    }
+  </style>
 
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
@@ -62,7 +80,7 @@
         </div>
 
         <!-- Navigation Tabs (Center) - Desktop Only (Chỉ hiện khi đã đăng nhập) -->
-        <nav id="desktop-nav-bar" class="hidden md:flex items-center space-x-1 p-1 bg-slate-100 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-700/60">
+        <nav id="desktop-nav-bar" class="hidden md:flex items-center space-x-1 p-1 bg-slate-100 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-700/60" style="display: none;">
           <button data-tab="vocab" class="nav-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-500/20">
             <span>📇</span>
             <span>Luyện Từ Vựng</span>
@@ -202,6 +220,6 @@
   </script>
 
   <!-- ES Modules Entrypoint -->
-  <script type="module" src="./js/app.js?v=6.43"></script>
+  <script type="module" src="./js/app.js?v=6.44"></script>
 </body>
 </html>

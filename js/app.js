@@ -525,12 +525,17 @@ class App {
     const levelBtn = document.getElementById('btn-retake-placement-header');
 
     if (isLoggedIn) {
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.add('user-authenticated');
+      }
       // Đã đăng nhập: Hiện đầy đủ thanh điều hướng
       if (desktopNav) {
-        desktopNav.classList.remove('flex');
+        desktopNav.style.display = '';
+        desktopNav.classList.remove('hidden', 'flex');
         desktopNav.classList.add('hidden', 'md:flex');
       }
       if (mobileBottomBar) {
+        mobileBottomBar.style.display = '';
         mobileBottomBar.classList.remove('hidden');
         mobileBottomBar.classList.add('md:hidden');
       }
@@ -547,12 +552,17 @@ class App {
         levelBtn.classList.add('hidden', 'sm:flex');
       }
     } else {
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('user-authenticated');
+      }
       // Chưa đăng nhập: Ẩn hoàn toàn bottom bar & nav bar, chỉ mở portal
       if (desktopNav) {
+        desktopNav.style.display = 'none';
         desktopNav.classList.remove('md:flex', 'flex');
         desktopNav.classList.add('hidden');
       }
       if (mobileBottomBar) {
+        mobileBottomBar.style.display = 'none';
         mobileBottomBar.classList.remove('md:hidden');
         mobileBottomBar.classList.add('hidden');
       }

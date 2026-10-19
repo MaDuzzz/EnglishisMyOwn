@@ -670,7 +670,7 @@ export class StateManager {
       this.hasCachedSession = true;
       this.setCachedUser(user);
       if (typeof document !== 'undefined') {
-        document.documentElement.classList.add('user-cached');
+        document.documentElement.classList.add('user-cached', 'user-authenticated');
       }
       try {
         await this.loadUserFromFirestore(user.uid);
@@ -690,7 +690,7 @@ export class StateManager {
     this.setCachedUser(null);
     this.setCachedProfile(null);
     if (typeof document !== 'undefined') {
-      document.documentElement.classList.remove('user-cached');
+      document.documentElement.classList.remove('user-cached', 'user-authenticated');
     }
     const currentTheme = this.state.theme || "dark";
     this.state = this.getDefaultState(null);
