@@ -67,14 +67,32 @@ class App {
       }
     });
 
-    // Render ngay giao diện lần đầu tiên (không bị trắng màn hình)
+    // Render ngay giao diện lần đầu tiên (tận dụng cache 0ms hoặc hiện màn hình loading nếu đang check auth)
     this.bindGlobalEvents();
     this.updateHeaderUI();
     this.switchTab("vocab");
 
     // Khởi tạo Firebase / Local Fallback trong background
     await initFirebase();
-    this.setupAuthListener();
+    if (!isFirebaseLive) {
+      appState.isAuthResolving = false;
+      this.updateHeaderUI();
+      this.updateNavigationVisibility();
+      this.switchTab(this.currentTab || "vocab");
+    } else {
+      this.setupAuthListener();
+    }
+
+    // Safety timeout: Sau tối đa 3.5 giây nếu auth vẫn đang resolving thì tự động giải phóng
+    setTimeout(() => {
+      if (appState.isAuthResolving) {
+        console.warn("Auth resolution timeout -> fallback");
+        appState.isAuthResolving = false;
+        this.updateHeaderUI();
+        this.updateNavigationVisibility();
+        this.switchTab(this.currentTab || "vocab");
+      }
+    }, 3500);
   }
 
   initTheme() {
@@ -103,6 +121,7 @@ class App {
     if (isFirebaseLive && authInstance) {
       import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ onAuthStateChanged }) => {
         onAuthStateChanged(authInstance, (user) => {
+          appState.isAuthResolving = false;
           if (user) {
             appState.setUser({
               uid: user.uid,
@@ -119,7 +138,7 @@ class App {
               appState.loadVocabGroupsFromFirestore();
             });
           } else {
-            appState.setUser(null);
+            appState.clearUser();
             this.updateHeaderUI();
             this.updateNavigationVisibility();
             this.switchTab("vocab");
@@ -417,6 +436,18 @@ class App {
             ` : ''}
           </div>
         `;
+      } else if (appState.isAuthResolving) {
+        authContainer.innerHTML = `
+          <div class="flex items-center space-x-1.5 sm:space-x-2">
+            <button id="btn-header-theme" type="button" class="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-200/80 dark:border-slate-700/80 text-slate-600 dark:text-slate-300 transition-colors" title="Chuyển chế độ Sáng / Tối">
+              ${isDark 
+                ? `<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`
+                : `<svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>`
+              }
+            </button>
+            <div class="h-8 w-20 sm:w-24 rounded-xl bg-slate-100 dark:bg-slate-800/80 animate-pulse border border-slate-200/60 dark:border-slate-700/60"></div>
+          </div>
+        `;
       } else {
         authContainer.innerHTML = `
           <div class="flex items-center space-x-1.5 sm:space-x-2">
@@ -498,11 +529,20 @@ class App {
   }
 
   switchTab(tab, options = {}) {
-    // Auth Guard: Nếu chưa đăng nhập, chỉ cho phép ở lại portal page, chặn toàn bộ các tab khác
+    const mainContainer = document.getElementById('main-content-area');
+
+    // 1. Nếu đang chờ xác thực phiên đăng nhập và chưa có user cache: Hiển thị màn hình loading
+    if (appState.isAuthResolving && !appState.state.user) {
+      this.currentTab = 'vocab';
+      this.updateNavigationVisibility();
+      if (mainContainer) this.renderAuthLoadingScreen(mainContainer);
+      return;
+    }
+
+    // 2. Auth Guard: Nếu đã xác định chắc chắn chưa đăng nhập, chỉ cho phép ở lại portal page, chặn toàn bộ các tab khác
     if (!appState.state.user) {
       this.currentTab = 'vocab';
       this.updateNavigationVisibility();
-      const mainContainer = document.getElementById('main-content-area');
       if (mainContainer) this.renderGuestPortal(mainContainer);
       return;
     }
@@ -602,6 +642,26 @@ class App {
     } else if (tab === "dictionary") {
       this.renderDictionary(mainContainer);
     }
+  }
+
+  // ==================== MÀN HÌNH NẠP KHI ĐANG XÁC THỰC PHIÊN ĐĂNG NHẬP ====================
+  renderAuthLoadingScreen(mainContainer) {
+    if (!mainContainer) return;
+    mainContainer.innerHTML = `
+      <div class="flex-1 flex flex-col items-center justify-center min-h-[380px] sm:min-h-[460px] text-center p-6 animate-fade-in select-none">
+        <div class="relative w-16 h-16 sm:w-20 sm:h-20 mb-5 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full border-4 border-indigo-100 dark:border-indigo-950/60"></div>
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-transparent border-t-indigo-600 dark:border-t-indigo-400 animate-spin"></div>
+          <span class="text-2xl sm:text-3xl animate-bounce">⚡</span>
+        </div>
+        <h3 class="text-base sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+          Đang nạp không gian học tập...
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1.5 max-w-xs sm:max-w-sm leading-relaxed">
+          Đồng bộ phiên đăng nhập và dữ liệu cá nhân của bạn
+        </p>
+      </div>
+    `;
   }
 
   // ==================== TRANG GIỚI THIỆU SẢN PHẨM & DEMO FLASHCARD (CHO KHÁCH CHƯA ĐĂNG NHẬP) ====================
@@ -986,6 +1046,12 @@ class App {
   renderVocabDashboard() {
     const mainContainer = document.getElementById('main-content-area');
     if (!mainContainer) return;
+
+    // Kiểm tra 0: Đang chờ xác thực phiên đăng nhập -> Hiển thị màn hình loading
+    if (appState.isAuthResolving && !appState.state.user) {
+      this.renderAuthLoadingScreen(mainContainer);
+      return;
+    }
 
     // Kiểm tra 1: Khách chưa đăng nhập -> Hiển thị trang giới thiệu sản phẩm (Product Showcase Portal) kèm Flashcard demo học thử
     if (!appState.state.user) {

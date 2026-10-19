@@ -14,8 +14,102 @@ export const RANK_TIERS = {
 
 export class StateManager {
   constructor() {
-    this.state = this.getDefaultState();
+    this.isAuthResolving = true;
+    const cachedUser = this.getCachedUser();
+    const cachedProfile = this.getCachedProfile();
+    const hasFbSession = this.hasFirebaseStoredSession();
+
+    if (cachedUser && cachedUser.uid) {
+      // Có sẵn phiên đăng nhập từ cache -> Mở khóa giao diện đã đăng nhập tức thì (0ms)
+      this.state = {
+        ...this.getDefaultState(cachedUser),
+        ...(cachedProfile || {}),
+        user: cachedUser
+      };
+      this.hasCachedSession = true;
+      this.isAuthResolving = true; // Firebase đang âm thầm xác thực ngầm
+    } else if (hasFbSession) {
+      // Có phiên Firebase lưu trữ -> Chờ Firebase emit kết quả
+      this.state = this.getDefaultState(null);
+      this.hasCachedSession = false;
+      this.isAuthResolving = true;
+    } else {
+      // Khách chưa từng đăng nhập hoặc đã đăng xuất
+      this.state = this.getDefaultState(null);
+      this.hasCachedSession = false;
+      this.isAuthResolving = false;
+    }
     this.listeners = [];
+  }
+
+  getCachedUser() {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return null;
+      const data = localStorage.getItem('eimo_auth_user');
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  getCachedProfile() {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return null;
+      const data = localStorage.getItem('eimo_auth_profile');
+      return data ? JSON.parse(data) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  setCachedUser(user) {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return;
+      if (user && user.uid) {
+        localStorage.setItem('eimo_auth_user', JSON.stringify({
+          uid: user.uid,
+          displayName: user.displayName || '',
+          email: user.email || '',
+          photoURL: user.photoURL || ''
+        }));
+      } else {
+        localStorage.removeItem('eimo_auth_user');
+      }
+    } catch (e) {}
+  }
+
+  setCachedProfile(profile) {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return;
+      if (profile) {
+        localStorage.setItem('eimo_auth_profile', JSON.stringify({
+          cefrLevel: profile.cefrLevel || null,
+          rankXP: profile.rankXP || 0,
+          streak: profile.streak || 0,
+          maxStreak: profile.maxStreak || 0,
+          theme: profile.theme || 'dark',
+          dailyReviewDone: profile.dailyReviewDone || false,
+          dailyReviewDate: profile.dailyReviewDate || null,
+          dailyNewBatchDone: profile.dailyNewBatchDone || false,
+          dailyNewBatchDate: profile.dailyNewBatchDate || null
+        }));
+      } else {
+        localStorage.removeItem('eimo_auth_profile');
+      }
+    } catch (e) {}
+  }
+
+  hasFirebaseStoredSession() {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return false;
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.startsWith('firebase:authUser:') || key.startsWith('firebase:host:'))) {
+          return true;
+        }
+      }
+    } catch (e) {}
+    return false;
   }
 
   getDefaultState(user = null) {
@@ -59,6 +153,7 @@ export class StateManager {
         this.applyDailyCheck();
         // Cập nhật lại Firestore nếu có thay đổi từ kiểm tra ngày
         await this.syncToFirestore();
+        this.setCachedProfile(this.state);
       } else {
         // Tạo profile mới trên Firestore nếu lần đầu đăng nhập
         const initialDoc = {
@@ -77,6 +172,7 @@ export class StateManager {
           audioEnabled: true
         };
         await setDoc(userRef, initialDoc, { merge: true });
+        this.setCachedProfile(this.state);
       }
       this.notify();
     } catch (err) {
@@ -121,8 +217,9 @@ export class StateManager {
     this.state.maxStreak = this.calculateMaxStreak();
   }
 
-  // Lưu trạng thái: Không dùng localStorage, cập nhật UI và đẩy trực tiếp lên Cloud Firestore
+  // Lưu trạng thái: Đồng bộ với Cloud Firestore và lưu bộ đệm LocalStorage
   saveState() {
+    this.setCachedProfile(this.state);
     this.notify();
     this.syncToFirestore();
   }
@@ -562,15 +659,23 @@ export class StateManager {
   }
 
   async setUser(user) {
+    this.isAuthResolving = false;
     this.state.user = user;
     if (user && user.uid) {
+      this.hasCachedSession = true;
+      this.setCachedUser(user);
       await this.loadUserFromFirestore(user.uid);
+      this.setCachedProfile(this.state);
     } else {
-      this.notify();
+      this.clearUser();
     }
   }
 
   clearUser() {
+    this.isAuthResolving = false;
+    this.hasCachedSession = false;
+    this.setCachedUser(null);
+    this.setCachedProfile(null);
     const currentTheme = this.state.theme || "dark";
     this.state = this.getDefaultState(null);
     this.state.theme = currentTheme;
