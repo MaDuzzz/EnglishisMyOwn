@@ -104,8 +104,13 @@ export class StateManager {
       if (typeof window === 'undefined' || !window.localStorage) return false;
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key && (key.startsWith('firebase:authUser:') || key.startsWith('firebase:host:'))) {
-          return true;
+        // Chỉ nhận diện phiên đăng nhập thật khi có key firebase:authUser:...
+        // KHÔNG kiểm tra firebase:host vì đây chỉ là metadata kết nối của Firebase cho mọi khách ghé thăm
+        if (key && key.startsWith('firebase:authUser:')) {
+          const val = localStorage.getItem(key);
+          if (val && val !== 'null' && val !== '{}' && val !== 'undefined') {
+            return true;
+          }
         }
       }
     } catch (e) {}
@@ -664,8 +669,16 @@ export class StateManager {
     if (user && user.uid) {
       this.hasCachedSession = true;
       this.setCachedUser(user);
-      await this.loadUserFromFirestore(user.uid);
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.add('user-cached');
+      }
+      try {
+        await this.loadUserFromFirestore(user.uid);
+      } catch (err) {
+        console.error("Lỗi đồng bộ hồ sơ người dùng:", err);
+      }
       this.setCachedProfile(this.state);
+      this.notify();
     } else {
       this.clearUser();
     }
@@ -676,6 +689,9 @@ export class StateManager {
     this.hasCachedSession = false;
     this.setCachedUser(null);
     this.setCachedProfile(null);
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('user-cached');
+    }
     const currentTheme = this.state.theme || "dark";
     this.state = this.getDefaultState(null);
     this.state.theme = currentTheme;

@@ -119,7 +119,29 @@ class App {
 
   setupAuthListener() {
     if (isFirebaseLive && authInstance) {
-      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ onAuthStateChanged }) => {
+      import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js").then(({ onAuthStateChanged, getRedirectResult }) => {
+        // Xử lý kết quả trả về nếu người dùng dùng signInWithRedirect (đặc biệt trên mobile Safari / PWA)
+        if (typeof getRedirectResult === 'function') {
+          getRedirectResult(authInstance).then((result) => {
+            if (result && result.user) {
+              console.log("Redirect login successful:", result.user.email);
+              appState.setUser({
+                uid: result.user.uid,
+                displayName: result.user.displayName || result.user.email.split('@')[0],
+                email: result.user.email,
+                photoURL: result.user.photoURL
+              }).then(() => {
+                if (appState.state.theme) this.applyTheme(appState.state.theme);
+                this.updateHeaderUI();
+                this.updateNavigationVisibility();
+                this.switchTab(this.currentTab || "vocab");
+              });
+            }
+          }).catch(err => {
+            console.warn("getRedirectResult info/error:", err);
+          });
+        }
+
         onAuthStateChanged(authInstance, (user) => {
           appState.isAuthResolving = false;
           if (user) {
@@ -233,9 +255,10 @@ class App {
         return;
       }
 
-      // Đăng nhập Google
-      const loginBtn = e.target.closest('#btn-auth-action');
+      // Đăng nhập Google (Header hoặc Call-to-action trên Guest Portal)
+      const loginBtn = e.target.closest('#btn-auth-action, #btn-portal-login-cta');
       if (loginBtn) {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
         this.handleAuthClick();
         return;
       }
@@ -258,16 +281,36 @@ class App {
 
   async handleAuthClick() {
     if (isFirebaseLive && authInstance && googleProviderInstance) {
-      const { signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      const { signInWithPopup, signInWithRedirect } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
       try {
-        const res = await signInWithPopup(authInstance, googleProviderInstance);
-        await appState.setUser({
-          uid: res.user.uid,
-          displayName: res.user.displayName,
-          email: res.user.email,
-          photoURL: res.user.photoURL
-        });
-        this.updateHeaderUI();
+        let res = null;
+        try {
+          res = await signInWithPopup(authInstance, googleProviderInstance);
+        } catch (popupErr) {
+          // Khi popup bị chặn trên mobile (iOS Safari / standalone PWA / Chrome popup blocker)
+          if (popupErr.code === 'auth/popup-blocked' || popupErr.code === 'auth/cancelled-popup-request') {
+            console.warn("Popup bị chặn, chuyển sang đăng nhập chuyển hướng (redirect):", popupErr);
+            await signInWithRedirect(authInstance, googleProviderInstance);
+            return;
+          }
+          throw popupErr;
+        }
+
+        if (res && res.user) {
+          await appState.setUser({
+            uid: res.user.uid,
+            displayName: res.user.displayName || res.user.email.split('@')[0],
+            email: res.user.email,
+            photoURL: res.user.photoURL
+          });
+          if (appState.state.theme) {
+            this.applyTheme(appState.state.theme);
+          }
+          this.updateHeaderUI();
+          this.updateNavigationVisibility();
+          this.switchTab("vocab");
+          appState.loadVocabGroupsFromFirestore();
+        }
       } catch (e) {
         console.error("Lỗi Google Sign-in:", e);
         if (e.code === 'auth/operation-not-allowed') {
