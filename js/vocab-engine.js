@@ -37,6 +37,7 @@ export class VocabPracticeEngine {
     this.timerStartTime = 0;
     this.isTimerPaused = false;
     this.isAnswerSubmitted = false;
+    this.isQuestionTransitioning = false;
   }
 
   start() {
@@ -344,8 +345,10 @@ export class VocabPracticeEngine {
             placeholder="Gõ từ tiếng Anh..." 
             autocomplete="off"
             autocorrect="off"
-            autocapitalize="off"
+            autocapitalize="none"
             spellcheck="false"
+            lang="en"
+            inputmode="text"
             class="w-full text-center text-base sm:text-xl font-bold py-2.5 sm:py-3.5 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
           <button id="btn-submit-answer" class="w-full mt-2.5 sm:mt-3 py-3 sm:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl sm:rounded-2xl shadow-md shadow-indigo-500/20 active:scale-[0.98] transition-all text-xs sm:text-sm">
@@ -376,8 +379,10 @@ export class VocabPracticeEngine {
             placeholder="Nghe và gõ lại từ..." 
             autocomplete="off"
             autocorrect="off"
-            autocapitalize="off"
+            autocapitalize="none"
             spellcheck="false"
+            lang="en"
+            inputmode="text"
             class="w-full text-center text-base sm:text-xl font-bold py-2.5 sm:py-3.5 px-3 sm:px-4 rounded-xl sm:rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-900 transition-all shadow-inner"
           />
           <button id="btn-submit-answer" class="w-full mt-2.5 sm:mt-3 py-3 sm:py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl sm:rounded-2xl shadow-md shadow-emerald-500/20 active:scale-[0.98] transition-all text-xs sm:text-sm">
@@ -434,12 +439,13 @@ export class VocabPracticeEngine {
         <div class="space-y-2.5 w-full" id="options-group">
           ${options.map((opt, idx) => `
             <button 
+              type="button"
               data-option="${opt}"
-              class="vocab-choice-btn w-full text-left p-3.5 rounded-2xl border border-slate-200/90 dark:border-slate-800 hover:border-indigo-500 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 active:scale-[0.99] transition-all flex items-center space-x-3 text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm group">
-              <span class="w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-indigo-600 group-hover:text-white text-slate-500 text-xs flex items-center justify-center font-bold transition-colors">
+              class="vocab-choice-btn w-full text-left p-3.5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 active:scale-[0.98] active:border-indigo-500 transition-all flex items-center space-x-3 text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm">
+              <span class="choice-badge w-6 h-6 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs flex items-center justify-center font-bold transition-colors shrink-0">
                 ${String.fromCharCode(65 + idx)}
               </span>
-              <span class="flex-1">${opt}</span>
+              <span class="flex-1 leading-snug">${opt}</span>
             </button>
           `).join('')}
         </div>
@@ -603,14 +609,23 @@ export class VocabPracticeEngine {
   }
 
   handleTextAnswer(userInput, word) {
-    if (this.isAnswerSubmitted) return;
+    if (this.isAnswerSubmitted || this.isQuestionTransitioning) return;
     this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
 
     const cleanInput = (userInput || "").trim().toLowerCase();
     const targetWord = word.word.trim().toLowerCase();
-    const isCorrect = cleanInput === targetWord;
+    
+    // Khử dấu tiếng Việt nếu bàn phím gõ Telex trên điện thoại tự động ghép dấu
+    const normalizeInput = (str) => {
+      return (str || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd')
+        .replace(/Đ/g, 'd');
+    };
+    const isCorrect = (cleanInput === targetWord) || (normalizeInput(cleanInput) === targetWord);
 
     const feedbackArea = document.getElementById('feedback-area');
     if (feedbackArea) feedbackArea.classList.remove('hidden');
@@ -706,7 +721,7 @@ export class VocabPracticeEngine {
   }
 
   handleChoiceAnswer(selectedOption, word, clickedBtn) {
-    if (this.isAnswerSubmitted) return;
+    if (this.isAnswerSubmitted || this.isQuestionTransitioning) return;
     this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
@@ -718,10 +733,17 @@ export class VocabPracticeEngine {
     choiceBtns.forEach(btn => {
       btn.disabled = true;
       const opt = btn.getAttribute('data-option');
+      const badge = btn.querySelector('.choice-badge');
       if (opt === correctAnswer || opt === word.meaningVi) {
         btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'dark:bg-emerald-950', 'dark:text-emerald-100');
+        if (badge) {
+          badge.className = 'choice-badge w-6 h-6 rounded-lg bg-emerald-600 text-white text-xs flex items-center justify-center font-bold shrink-0 shadow-xs';
+        }
       } else if (btn === clickedBtn && !isCorrect) {
         btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900', 'dark:bg-rose-950', 'dark:text-rose-100');
+        if (badge) {
+          badge.className = 'choice-badge w-6 h-6 rounded-lg bg-rose-600 text-white text-xs flex items-center justify-center font-bold shrink-0 shadow-xs';
+        }
       }
     });
 
@@ -877,18 +899,31 @@ export class VocabPracticeEngine {
   advanceToNextQuestion() {
     this.clearQuestionTimer();
 
+    // Blur mọi element đang active để tránh focus tự động rơi vào option D ở câu tiếp theo
+    if (typeof document !== 'undefined' && document.activeElement) {
+      try {
+        document.activeElement.blur();
+      } catch (e) {}
+    }
+
     // Đã đạt đủ điểm hoàn thành batch?
     if (this.progressPoints >= this.targetPoints) {
       this.finishSession();
       return;
     }
 
+    this.isQuestionTransitioning = true;
     this.currentIndex++;
     if (this.currentIndex >= this.queue.length) {
       this.replenishQueue();
     }
 
     this.renderCurrentQuestion();
+
+    // Shield: Chặn mọi ghost click / chạm đúp rò rỉ từ nút "Tiếp tục" trong 300ms đầu
+    setTimeout(() => {
+      this.isQuestionTransitioning = false;
+    }, 300);
   }
 
   handleExitPrompt() {
@@ -920,9 +955,14 @@ export class VocabPracticeEngine {
     const wordIds = this.words.map(w => w.id);
     const accuracy = Math.round((this.correctCount / Math.max(1, this.totalAttempts)) * 100);
 
+    let hasRemainingReview = false;
+    let disciplineStatus = null;
+    let isStreakDone = false;
+
     // Cập nhật state hệ thống
     if (this.mode === "review") {
-      appState.markReviewComplete(wordIds);
+      disciplineStatus = appState.markReviewBatchComplete(wordIds);
+      hasRemainingReview = disciplineStatus.needsReview && disciplineStatus.remainingReviewCount > 0;
     } else {
       // mode === "new_batch"
       // CHÍNH THỨC XÁC NHẬN VÀ LƯU 10 TỪ MỚI VÀO HỆ THỐNG KHI VƯỢT QUA 100% BÀI LUYỆN TẬP PHẢN XẠ
@@ -935,6 +975,7 @@ export class VocabPracticeEngine {
         appState.addXP(practiceBonusXP);
         appState.saveState();
       }
+      isStreakDone = appState.isTodayTaskComplete();
     }
 
     // Kích hoạt hiệu ứng pháo hoa giấy 2 bên & Kèn đồng chiến thắng ăn mừng!
@@ -944,38 +985,101 @@ export class VocabPracticeEngine {
       console.warn('Lỗi hiệu ứng chúc mừng:', e);
     }
 
+    // Xây dựng nội dung màn hình tổng kết
+    let titleHtml = '';
+    let descHtml = '';
+    let iconEmoji = '🏆';
+    let actionButtonsHtml = '';
+
+    if (this.mode === 'review') {
+      if (hasRemainingReview) {
+        iconEmoji = '🎯';
+        titleHtml = `Hoàn Thành Đợt ${this.options.batchMeta?.currentBatchIndex || 1}/${this.options.batchMeta?.totalBatches || 1}!`;
+        descHtml = `Bạn đã hoàn tất ôn tập ${wordIds.length} từ trong đợt này.<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập T-1.`;
+        actionButtonsHtml = `
+          <button id="btn-next-review-batch" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
+            <span>🚀</span>
+            <span>Ôn tiếp Đợt ${disciplineStatus.currentBatchIndex}/${disciplineStatus.totalBatches} (${disciplineStatus.currentReviewBatch.length} từ)</span>
+          </button>
+          <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
+            Về Bảng Điều Khiển (Ôn tiếp sau)
+          </button>
+        `;
+      } else {
+        iconEmoji = '🏆';
+        titleHtml = `Hoàn Thành 100% Bài Ôn Tập Kỷ Luật!`;
+        descHtml = `Xuất sắc! Bạn đã ôn tập trọn vẹn toàn bộ ${disciplineStatus?.totalReviewCount || wordIds.length} từ của ngày T-1.<br/><strong class="text-indigo-600 dark:text-indigo-400">Hãy tiếp tục học ít nhất 1 batch 10 từ mới để bảo toàn chuỗi Streak hôm nay!</strong>`;
+        actionButtonsHtml = `
+          <button id="btn-open-new-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
+            <span>✨</span>
+            <span>Mở Khóa & Nạp 10 Từ Mới Ngay</span>
+          </button>
+          <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
+            Quay lại Bảng Điều Khiển
+          </button>
+        `;
+      }
+    } else {
+      // mode === 'new_batch'
+      if (isStreakDone) {
+        iconEmoji = '🔥';
+        titleHtml = `Bảo Toàn Chuỗi Ngày Kỷ Luật!`;
+        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Học 10 từ mới hôm nay.<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
+        actionButtonsHtml = `
+          <button id="btn-learn-more-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
+            <span>✨</span>
+            <span>Học Thêm 10 Từ Mới (+15 XP)</span>
+          </button>
+          <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
+            Quay lại Bảng Điều Khiển
+          </button>
+        `;
+      } else {
+        iconEmoji = '⚡';
+        titleHtml = `Hoàn Thành Batch 10 Từ Mới!`;
+        descHtml = `Bạn đã nạp thành công 10 từ mới!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập T-1 để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
+        actionButtonsHtml = `
+          <button id="btn-do-review-now" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
+            <span>🚀</span>
+            <span>Ôn tập T-1 để giữ chuỗi</span>
+          </button>
+          <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
+            Quay lại Bảng Điều Khiển
+          </button>
+        `;
+      }
+    }
+
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
         <div class="w-full max-w-md mx-auto">
           <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border-2 border-slate-200/90 dark:border-slate-800 shadow-xl">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-500 flex items-center justify-center text-white text-3xl shadow-lg">
-              🏆
+              ${iconEmoji}
             </div>
 
-            <h2 class="text-2xl font-black text-slate-800 dark:text-white mb-2">
-              ${this.mode === 'review' ? 'Hoàn Thành Bài Ôn Tập Kỷ Luật!' : 'Hoàn Thành Toàn Bộ Batch 10 Từ Mới!'}
+            <h2 class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white mb-2">
+              ${titleHtml}
             </h2>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6 leading-relaxed">
-              ${this.mode === 'review' ? 'Bạn đã hoàn tất bài ôn tập hôm nay.' : 'Bạn đã xuất sắc vượt qua bài luyện tập phản xạ 20s và làm chủ 100% batch từ vựng.'}<br/>
+            <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mb-5 leading-relaxed">
+              ${descHtml}<br/>
               Độ chính xác: <strong class="text-indigo-600 dark:text-indigo-400 text-base">${accuracy}%</strong> (${this.correctCount}/${this.totalAttempts} lượt)
             </p>
 
-            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-6 text-left">
-              <div class="flex items-center justify-between text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-5 text-left">
+              <div class="flex items-center justify-between text-xs sm:text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
                 <span class="text-slate-500">Chuỗi ngày kiên trì (Streak):</span>
                 <span class="font-extrabold text-amber-500 flex items-center space-x-1">
                   <span>🔥 ${appState.state.streak} ngày</span>
                 </span>
               </div>
-              <div class="flex items-center justify-between text-sm py-1.5">
+              <div class="flex items-center justify-between text-xs sm:text-sm py-1.5">
                 <span class="text-slate-500">Tổng vốn từ đã nạp:</span>
                 <span class="font-bold text-slate-800 dark:text-white">${appState.state.learnedWords.length} từ</span>
               </div>
             </div>
 
-            <button id="btn-complete-session" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all">
-              Quay lại Bảng Điều Khiển
-            </button>
+            ${actionButtonsHtml}
           </div>
         </div>
       </div>
@@ -984,5 +1088,38 @@ export class VocabPracticeEngine {
     document.getElementById('btn-complete-session')?.addEventListener('click', () => {
       this.onCompleted();
     });
+
+    document.getElementById('btn-next-review-batch')?.addEventListener('click', () => {
+      if (typeof this.options.onContinueNextReviewBatch === 'function') {
+        this.options.onContinueNextReviewBatch();
+      } else {
+        this.onCompleted();
+      }
+    });
+
+    document.getElementById('btn-open-new-batch')?.addEventListener('click', () => {
+      if (typeof this.options.onStartNewBatch === 'function') {
+        this.options.onStartNewBatch();
+      } else {
+        this.onCompleted();
+      }
+    });
+
+    document.getElementById('btn-learn-more-batch')?.addEventListener('click', () => {
+      if (typeof this.options.onStartNewBatch === 'function') {
+        this.options.onStartNewBatch();
+      } else {
+        this.onCompleted();
+      }
+    });
+
+    document.getElementById('btn-do-review-now')?.addEventListener('click', () => {
+      if (typeof this.options.onStartReview === 'function') {
+        this.options.onStartReview();
+      } else {
+        this.onCompleted();
+      }
+    });
+  }
   }
 }

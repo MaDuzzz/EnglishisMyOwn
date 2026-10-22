@@ -90,8 +90,11 @@ export class StateManager {
           theme: profile.theme || 'dark',
           dailyReviewDone: profile.dailyReviewDone || false,
           dailyReviewDate: profile.dailyReviewDate || null,
+          dailyReviewedWordIds: profile.dailyReviewedWordIds || [],
           dailyNewBatchDone: profile.dailyNewBatchDone || false,
-          dailyNewBatchDate: profile.dailyNewBatchDate || null
+          dailyNewBatchDate: profile.dailyNewBatchDate || null,
+          todayNewWordsCount: profile.todayNewWordsCount || 0,
+          completedStreakDates: profile.completedStreakDates || []
         }));
       } else {
         localStorage.removeItem('eimo_auth_profile');
@@ -131,8 +134,11 @@ export class StateManager {
       learnedWords: [], // Array of { wordId, learnedDate, reviewCount, lastReviewedAt }
       dailyReviewDone: false,
       dailyReviewDate: today,
+      dailyReviewedWordIds: [], // Danh sách wordId đã được ôn tập hôm nay
       dailyNewBatchDone: false,
       dailyNewBatchDate: today,
+      todayNewWordsCount: 0, // Số từ mới đã hoàn thành bài luyện tập hôm nay
+      completedStreakDates: [], // Danh sách các ngày ("YYYY-MM-DD") đã hoàn thành CẢ 2 nhiệm vụ (Review T-1 + Học 10 từ mới)
       audioEnabled: true, // Điều khiển âm thanh toàn cục
       theme: "dark", // "dark" | "light"
       vocabGroups: VOCAB_GROUPS // Danh sách nhóm từ vựng (hỗ trợ sync với Firestore)
@@ -154,6 +160,12 @@ export class StateManager {
           ...remoteData,
           user: this.state.user // Đảm bảo giữ user auth hiện tại
         };
+        if (!Array.isArray(this.state.dailyReviewedWordIds)) {
+          this.state.dailyReviewedWordIds = [];
+        }
+        if (!Array.isArray(this.state.completedStreakDates)) {
+          this.state.completedStreakDates = [];
+        }
         // Kiểm tra reset ngày mới và hình phạt
         this.applyDailyCheck();
         // Cập nhật lại Firestore nếu có thay đổi từ kiểm tra ngày
@@ -169,11 +181,15 @@ export class StateManager {
           cefrLevel: null,
           rankXP: 0,
           streak: 0,
+          maxStreak: 0,
           learnedWords: [],
           dailyReviewDone: false,
           dailyReviewDate: this.getTodayString(),
+          dailyReviewedWordIds: [],
           dailyNewBatchDone: false,
           dailyNewBatchDate: this.getTodayString(),
+          todayNewWordsCount: 0,
+          completedStreakDates: [],
           audioEnabled: true
         };
         await setDoc(userRef, initialDoc, { merge: true });
@@ -193,10 +209,25 @@ export class StateManager {
     if (this.state.dailyReviewDate !== today) {
       this.state.dailyReviewDone = false;
       this.state.dailyReviewDate = today;
+      this.state.dailyReviewedWordIds = [];
     }
     if (this.state.dailyNewBatchDate !== today) {
       this.state.dailyNewBatchDone = false;
       this.state.dailyNewBatchDate = today;
+      this.state.todayNewWordsCount = 0;
+    }
+
+    // Tự động khởi tạo completedStreakDates từ lịch sử nếu tài khoản cũ chưa có mảng này
+    if (!Array.isArray(this.state.completedStreakDates) || this.state.completedStreakDates.length === 0) {
+      const dateCounts = {};
+      (this.state.learnedWords || []).forEach(w => {
+        if (w.learnedDate && w.learnedDate < today) {
+          dateCounts[w.learnedDate] = (dateCounts[w.learnedDate] || 0) + 1;
+        }
+      });
+      // Những ngày trong quá khứ đã nạp >= 10 từ mới được tính là ngày giữ chuỗi hợp lệ
+      const pastDates = Object.keys(dateCounts).filter(d => dateCounts[d] >= 10);
+      this.state.completedStreakDates = pastDates;
     }
 
     // ÁP DỤNG HÌNH PHẠT TỤT PROGRESS x2 NẾU BỎ NGÀY HỌC (LOSE STREAK)
@@ -218,8 +249,7 @@ export class StateManager {
     }
 
     // Tự động tính toán streak và kỷ lục maxStreak từ lịch sử hoạt động học tập thực tế
-    this.state.streak = this.calculateCurrentStreak();
-    this.state.maxStreak = this.calculateMaxStreak();
+    this.updateStreak();
   }
 
   // Lưu trạng thái: Đồng bộ với Cloud Firestore và lưu bộ đệm LocalStorage
@@ -244,11 +274,15 @@ export class StateManager {
         lastPenaltyCheckDate: this.state.lastPenaltyCheckDate || null,
         lastPenaltyNotice: this.state.lastPenaltyNotice || null,
         streak: this.state.streak || 0,
+        maxStreak: this.state.maxStreak || 0,
         learnedWords: this.state.learnedWords || [],
         dailyReviewDone: this.state.dailyReviewDone || false,
         dailyReviewDate: this.state.dailyReviewDate || this.getTodayString(),
+        dailyReviewedWordIds: this.state.dailyReviewedWordIds || [],
         dailyNewBatchDone: this.state.dailyNewBatchDone || false,
         dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
+        todayNewWordsCount: this.state.todayNewWordsCount || 0,
+        completedStreakDates: this.state.completedStreakDates || [],
         audioEnabled: this.state.audioEnabled ?? true,
         theme: this.state.theme || "dark",
         updatedAt: new Date().toISOString()
@@ -346,82 +380,142 @@ export class StateManager {
     return `${year}-${month}-${day}`;
   }
 
-  // Phân tích trạng thái kỷ luật & Cơ chế Phạt (Penalty System)
+  // Phân tích trạng thái kỷ luật & Chia đợt ôn tập (10 từ/đợt) & Cơ chế Phạt (Penalty System)
   calculateDisciplineStatus() {
     const today = this.getTodayString();
     const yesterday = this.getYesterdayString();
-    const lastActive = this.state.lastActiveDate;
 
-    // Nếu chưa học từ nào
-    if (this.state.learnedWords.length === 0) {
+    // 1. Nếu chưa học từ nào trong hệ thống
+    if (!this.state.learnedWords || this.state.learnedWords.length === 0) {
       return {
         needsReview: false,
         isPenalized: false,
         missedDays: 0,
+        tMinus1Date: null,
+        totalReviewCount: 0,
+        completedReviewCount: 0,
+        remainingReviewCount: 0,
+        currentReviewBatch: [],
+        currentBatchIndex: 0,
+        totalBatches: 0,
+        allReviewWords: [],
         reviewWords: [],
         reason: "Chào mừng bạn! Hãy bắt đầu với 10 từ vựng đầu tiên."
       };
     }
 
-    // Nếu hôm nay đã hoàn thành review
-    if (this.state.dailyReviewDone) {
+    // 2. Tìm ngày học gần nhất trước hôm nay (T-1)
+    const pastLearningDates = Array.from(new Set(
+      this.state.learnedWords
+        .map(w => w.learnedDate)
+        .filter(d => d && d < today)
+    )).sort();
+
+    // Nếu chưa từng có ngày học nào trước hôm nay (tức là chỉ mới bắt đầu học hôm nay)
+    if (pastLearningDates.length === 0) {
       return {
         needsReview: false,
         isPenalized: false,
         missedDays: 0,
+        tMinus1Date: null,
+        totalReviewCount: 0,
+        completedReviewCount: 0,
+        remainingReviewCount: 0,
+        currentReviewBatch: [],
+        currentBatchIndex: 0,
+        totalBatches: 0,
+        allReviewWords: [],
         reviewWords: [],
-        reason: "Tuyệt vời! Bạn đã hoàn thành bài ôn tập của ngày hôm nay."
+        reason: "Bạn vừa bắt đầu hôm nay! Chưa có từ vựng ngày hôm qua để ôn tập."
       };
     }
 
-    // Xác định số ngày bỏ quên (Missed Days)
+    const tMinus1Date = pastLearningDates[pastLearningDates.length - 1];
+
+    // Xác định số ngày bỏ quên giữa tMinus1Date và today
     let missedDays = 0;
-    if (lastActive && lastActive !== today && lastActive !== yesterday) {
-      const lastDateObj = new Date(lastActive);
+    if (tMinus1Date < yesterday) {
+      const lastDateObj = new Date(tMinus1Date);
       const todayDateObj = new Date(today);
       const diffTime = Math.abs(todayDateObj - lastDateObj);
-      missedDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1;
+      missedDays = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1);
     }
 
-    // Gom danh sách từ cần review
-    let reviewWords = [];
-    let isPenalized = false;
+    // Gom danh sách toàn bộ từ cần review cho chu kỳ hôm nay
+    let allReviewWords = [];
+    let isPenalized = missedDays > 0;
 
-    if (missedDays > 0) {
-      // Có vi phạm: Phạt = Từ chưa review hôm trước + 10 từ random trong quá khứ
-      isPenalized = true;
-      const unreviewed = this.state.learnedWords.filter(w => w.learnedDate === lastActive);
-      const historicalPool = this.state.learnedWords.filter(w => w.learnedDate !== lastActive);
-      
-      // Shuffle lấy 10 từ ngẫu nhiên
+    if (isPenalized) {
+      // Phạt = Toàn bộ từ học ở phiên T-1 + 10 từ ngẫu nhiên trong lịch sử trước T-1
+      const tMinus1Words = this.state.learnedWords.filter(w => w.learnedDate === tMinus1Date);
+      const historicalPool = this.state.learnedWords.filter(w => w.learnedDate && w.learnedDate < tMinus1Date);
       const shuffled = [...historicalPool].sort(() => 0.5 - Math.random());
       const penaltyWords = shuffled.slice(0, 10);
-      
-      reviewWords = [...unreviewed, ...penaltyWords];
+      allReviewWords = [...tMinus1Words, ...penaltyWords];
     } else {
-      // Học đều đặn: Review các từ học từ phiên gần nhất
-      reviewWords = this.state.learnedWords.filter(w => w.learnedDate === (lastActive || yesterday));
-      if (reviewWords.length === 0) {
-        // Fallback: nếu phiên trước không có, lấy 10 từ có reviewCount thấp nhất
-        reviewWords = [...this.state.learnedWords]
-          .sort((a, b) => a.reviewCount - b.reviewCount)
+      // Học đều đặn: Toàn bộ từ học từ phiên gần nhất T-1
+      allReviewWords = this.state.learnedWords.filter(w => w.learnedDate === tMinus1Date);
+      if (allReviewWords.length === 0) {
+        allReviewWords = [...this.state.learnedWords]
+          .sort((a, b) => (a.reviewCount || 0) - (b.reviewCount || 0))
           .slice(0, 10);
       }
     }
 
-    // Nếu reviewWords vẫn rỗng mà chưa hoàn thành review hôm nay, lấy tối đa 10 từ bất kỳ
-    if (reviewWords.length === 0 && this.state.learnedWords.length > 0) {
-      reviewWords = this.state.learnedWords.slice(0, 10);
+    // Khử trùng lặp ID
+    const uniqueReviewMap = new Map();
+    allReviewWords.forEach(w => {
+      const wid = w.wordId || w.id;
+      if (wid && !uniqueReviewMap.has(wid)) {
+        uniqueReviewMap.set(wid, w);
+      }
+    });
+    const pool = Array.from(uniqueReviewMap.values());
+
+    // Kiểm tra danh sách ID đã hoàn thành ôn tập HÔM NAY
+    const reviewedTodaySet = new Set(this.state.dailyReviewedWordIds || []);
+
+    // Danh sách từ CÒN LẠI chưa ôn tập hôm nay
+    const remainingReviewWords = pool.filter(w => !reviewedTodaySet.has(w.wordId || w.id));
+
+    const totalReviewCount = pool.length;
+    const remainingReviewCount = remainingReviewWords.length;
+    const completedReviewCount = totalReviewCount - remainingReviewCount;
+
+    // QUY TẮC BATCHING: Chia nhỏ 10 từ / lần review
+    const BATCH_SIZE = 10;
+    const totalBatches = Math.ceil(totalReviewCount / BATCH_SIZE);
+    const currentBatchIndex = totalBatches === 0 ? 0 : Math.min(totalBatches, Math.floor(completedReviewCount / BATCH_SIZE) + 1);
+    const currentReviewBatch = remainingReviewWords.slice(0, BATCH_SIZE);
+
+    const needsReview = remainingReviewCount > 0;
+
+    // Tự động đồng bộ cờ dailyReviewDone
+    if (!needsReview && totalReviewCount > 0) {
+      if (!this.state.dailyReviewDone) {
+        this.state.dailyReviewDone = true;
+        this.state.dailyReviewDate = today;
+      }
     }
 
     return {
-      needsReview: reviewWords.length > 0,
+      needsReview,
       isPenalized,
       missedDays,
-      reviewWords,
+      tMinus1Date,
+      totalReviewCount,
+      completedReviewCount,
+      remainingReviewCount,
+      currentReviewBatch,
+      currentBatchIndex,
+      totalBatches,
+      allReviewWords: pool,
+      reviewWords: currentReviewBatch, // Tương thích ngược với các thành phần cũ
       reason: isPenalized 
-        ? `⚠️ Bạn đã bỏ quên ${missedDays} ngày! Hệ thống áp dụng hình phạt: Ôn lại ${reviewWords.length} từ (gồm từ phiên trước + 10 từ cũ ngẫu nhiên) để củng cố trí nhớ.`
-        : `Bạn có ${reviewWords.length} từ cần ôn tập lại từ phiên hôm qua trước khi mở khoá 10 từ mới.`
+        ? `⚠️ Bạn đã bỏ quên ${missedDays} ngày! Hệ thống áp dụng hình phạt: Ôn lại ${totalReviewCount} từ (gồm từ ngày ${tMinus1Date} + 10 từ cũ ngẫu nhiên) chia làm ${totalBatches} đợt (10 từ/đợt).`
+        : totalBatches > 1
+          ? `Bạn có ${totalReviewCount} từ cần ôn tập từ ngày ${tMinus1Date}. Hệ thống chia thành ${totalBatches} đợt (10 từ/lần review) để bạn luyện tập hiệu quả nhất.`
+          : `Bạn có ${totalReviewCount} từ cần ôn tập lại từ phiên ngày ${tMinus1Date} trước khi mở khoá 10 từ mới.`
     };
   }
 
@@ -441,32 +535,51 @@ export class StateManager {
     return pool.slice(0, 10);
   }
 
-  // Đánh dấu hoàn thành Review hôm nay
-  markReviewComplete(reviewedWordIds) {
+  // Đánh dấu hoàn thành 1 batch từ vựng trong bài Review hôm nay
+  markReviewBatchComplete(reviewedWordIds = []) {
     const today = this.getTodayString();
     
-    // Tăng reviewCount cho các từ vừa review
-    this.state.learnedWords = this.state.learnedWords.map(w => {
-      if (reviewedWordIds.includes(w.wordId)) {
+    // Ghi nhận các ID vừa review vào dailyReviewedWordIds hôm nay
+    const currentSet = new Set(this.state.dailyReviewedWordIds || []);
+    reviewedWordIds.forEach(id => currentSet.add(id));
+    this.state.dailyReviewedWordIds = Array.from(currentSet);
+
+    // Tăng reviewCount và cập nhật lastReviewedAt cho các từ vừa review
+    this.state.learnedWords = (this.state.learnedWords || []).map(w => {
+      const wid = w.wordId || w.id;
+      if (reviewedWordIds.includes(wid)) {
         return {
           ...w,
           reviewCount: (w.reviewCount || 0) + 1,
-          lastReviewedAt: new Date().toISOString()
+          lastReviewedAt: new Date().toISOString(),
+          lastReviewedDate: today
         };
       }
       return w;
     });
 
-    this.state.dailyReviewDone = true;
-    this.state.dailyReviewDate = today;
     this.state.lastActiveDate = today;
 
-    // Tăng +10 XP cho bài Review
+    // Tăng +10 XP cho mỗi batch ôn tập hoàn thành
     this.addXP(10);
 
-    // Cập nhật streak nếu chưa cập nhật hôm nay
+    // Kiểm tra xem đã hoàn thành toàn bộ các đợt review hôm nay chưa
+    const discipline = this.calculateDisciplineStatus();
+    if (!discipline.needsReview) {
+      this.state.dailyReviewDone = true;
+      this.state.dailyReviewDate = today;
+    }
+
+    // Cập nhật streak
     this.updateStreak();
     this.saveState();
+
+    return discipline;
+  }
+
+  // Tương thích ngược: markReviewComplete gọi trực tiếp markReviewBatchComplete
+  markReviewComplete(reviewedWordIds = []) {
+    return this.markReviewBatchComplete(reviewedWordIds);
   }
 
   // Lấy danh sách ứng viên từ mới phong phú cho phiên thẩm thấu Giai đoạn 1
@@ -485,7 +598,7 @@ export class StateManager {
   // Đánh dấu hoàn thành học Batch 10 từ mới (kèm danh sách từ đã biết bỏ qua)
   markNewBatchComplete(newWordIds, skippedKnownWordIds = []) {
     const today = this.getTodayString();
-    const existingIds = new Set((this.state.learnedWords || []).map(w => w.wordId));
+    const existingIds = new Set((this.state.learnedWords || []).map(w => w.wordId || w.id));
     
     // 10 từ mới cần học (status: "learning")
     const newItems = newWordIds
@@ -513,6 +626,7 @@ export class StateManager {
     this.state.learnedWords.push(...newItems, ...knownItems);
     this.state.dailyNewBatchDone = true;
     this.state.dailyNewBatchDate = today;
+    this.state.todayNewWordsCount = (this.state.todayNewWordsCount || 0) + newWordIds.length;
     this.state.lastActiveDate = today;
 
     // Tăng +15 XP cho việc nạp xong 10 từ mới
@@ -564,38 +678,72 @@ export class StateManager {
     };
   }
 
+  // Kiểm tra xem ngày hôm nay đã hoàn thành nhiệm vụ để tính/giữ chuỗi chưa:
+  // QUY TẮC: BẮT BUỘC ĐỦ CẢ HAI:
+  // 1. Hoàn thành toàn bộ ôn tập từ vựng T-1 (dailyReviewDone = true hoặc không có từ T-1 cần ôn)
+  // 2. Hoàn thành ít nhất 1 lần (batch 10 từ) mới (dailyNewBatchDone = true)
+  isTodayTaskComplete() {
+    if (!this.state.learnedWords || this.state.learnedWords.length === 0) {
+      return false;
+    }
+
+    // Điều kiện 1: Đã hoàn tất bài ôn tập T-1 (hoặc không có từ T-1 cần ôn)
+    const discipline = this.calculateDisciplineStatus();
+    const reviewSatisfied = (!discipline.needsReview) || (this.state.dailyReviewDone === true);
+
+    // Điều kiện 2: Đã nạp và hoàn thành ít nhất 1 batch (10 từ) mới hôm nay
+    const newBatchSatisfied = (this.state.dailyNewBatchDone === true) || 
+      ((this.state.todayNewWordsCount || 0) >= 10) ||
+      (this.state.learnedWords.filter(w => w.learnedDate === this.getTodayString()).length >= 10);
+
+    return reviewSatisfied && newBatchSatisfied;
+  }
+
   updateStreak() {
+    const today = this.getTodayString();
+    const isComplete = this.isTodayTaskComplete();
+
+    const datesSet = new Set(this.state.completedStreakDates || []);
+    if (isComplete) {
+      datesSet.add(today);
+    } else {
+      datesSet.delete(today);
+    }
+    this.state.completedStreakDates = Array.from(datesSet);
+
     this.state.streak = this.calculateCurrentStreak();
     this.state.maxStreak = this.calculateMaxStreak();
   }
 
-  // Tính toán chuỗi ngày học liên tục (Streak) dựa trên dữ liệu thực tế
+  // Tính toán chuỗi ngày học liên tục (Streak) dựa trên quy tắc hoàn thành cả 2 nhiệm vụ
   calculateCurrentStreak() {
-    const activeDates = new Set();
-    (this.state.learnedWords || []).forEach(w => {
-      if (w.learnedDate) activeDates.add(w.learnedDate);
-    });
-    if (this.state.lastActiveDate) {
-      activeDates.add(this.state.lastActiveDate);
-    }
-
-    if (activeDates.size === 0) return 0;
-
     const today = this.getTodayString();
     const yesterday = this.getYesterdayString();
 
-    let checkDateStr;
-    if (activeDates.has(today)) {
-      checkDateStr = today;
-    } else if (activeDates.has(yesterday)) {
-      checkDateStr = yesterday;
+    const completedSet = new Set(this.state.completedStreakDates || []);
+    if (this.isTodayTaskComplete()) {
+      completedSet.add(today);
     } else {
-      // Đã bỏ lỡ từ 2 ngày trở lên -> chuỗi bị đứt về 0
-      return 0;
+      completedSet.delete(today);
+    }
+
+    if (completedSet.size === 0) return 0;
+
+    // Điểm bắt đầu tính chuỗi:
+    // - Nếu hôm nay đã hoàn thành cả 2 nhiệm vụ: đếm lùi từ hôm nay
+    // - Nếu hôm nay đang diễn ra (chưa hoàn thành), nhưng hôm qua ĐÃ hoàn thành: chuỗi vẫn giữ từ hôm qua
+    // - Nếu hôm qua KHÔNG hoàn thành: chuỗi đứt -> 0
+    let startDateStr = null;
+    if (completedSet.has(today)) {
+      startDateStr = today;
+    } else if (completedSet.has(yesterday)) {
+      startDateStr = yesterday;
+    } else {
+      return 0; // Đã mất chuỗi
     }
 
     let streak = 0;
-    const [year, month, day] = checkDateStr.split('-').map(Number);
+    const [year, month, day] = startDateStr.split('-').map(Number);
     const curr = new Date(year, month - 1, day);
 
     while (true) {
@@ -604,9 +752,8 @@ export class StateManager {
       const dd = String(curr.getDate()).padStart(2, '0');
       const dateStr = `${yyyy}-${mm}-${dd}`;
 
-      if (activeDates.has(dateStr)) {
+      if (completedSet.has(dateStr)) {
         streak++;
-        // Lùi về 1 ngày trước đó
         curr.setDate(curr.getDate() - 1);
       } else {
         break;
@@ -618,19 +765,15 @@ export class StateManager {
 
   // Tính toán chuỗi ngày học liên tục dài nhất từ trước đến nay (Kỷ lục chuỗi)
   calculateMaxStreak() {
-    const activeDates = new Set();
-    (this.state.learnedWords || []).forEach(w => {
-      if (w.learnedDate) activeDates.add(w.learnedDate);
-    });
-    if (this.state.lastActiveDate) {
-      activeDates.add(this.state.lastActiveDate);
+    const completedSet = new Set(this.state.completedStreakDates || []);
+    if (this.isTodayTaskComplete()) {
+      completedSet.add(this.getTodayString());
     }
 
     let calculatedMax = 0;
-    if (activeDates.size > 0) {
-      // Sắp xếp các ngày tăng dần theo thứ tự thời gian
-      const sortedDates = Array.from(activeDates).sort();
-      let currentStreak = 0;
+    if (completedSet.size > 0) {
+      const sortedDates = Array.from(completedSet).sort();
+      let currentRun = 0;
       let prevDate = null;
 
       for (const dStr of sortedDates) {
@@ -638,21 +781,21 @@ export class StateManager {
         const currentDate = new Date(y, m - 1, d);
 
         if (!prevDate) {
-          currentStreak = 1;
+          currentRun = 1;
         } else {
           const diffTime = currentDate.getTime() - prevDate.getTime();
           const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
           if (diffDays === 1) {
-            currentStreak++;
+            currentRun++;
           } else if (diffDays === 0) {
-            // Cùng 1 ngày
+            // trùng ngày
           } else {
-            currentStreak = 1;
+            currentRun = 1;
           }
         }
 
-        if (currentStreak > calculatedMax) {
-          calculatedMax = currentStreak;
+        if (currentRun > calculatedMax) {
+          calculatedMax = currentRun;
         }
         prevDate = currentDate;
       }

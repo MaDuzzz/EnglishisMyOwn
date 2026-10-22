@@ -1223,6 +1223,42 @@ class App {
           </div>
         ` : ''}
 
+        <!-- STREAK DISCIPLINE STATUS BANNER -->
+        ${appState.isTodayTaskComplete() ? `
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/10 border border-emerald-500/30 text-emerald-900 dark:text-emerald-200 shadow-sm flex items-center justify-between gap-3 animate-fade-in w-full">
+            <div class="flex items-center space-x-3 min-w-0">
+              <span class="text-2xl shrink-0">🔥</span>
+              <div class="min-w-0">
+                <h4 class="font-extrabold text-xs sm:text-sm text-emerald-800 dark:text-emerald-300">Nhiệm vụ hôm nay đã hoàn tất 100%!</h4>
+                <p class="text-[11px] sm:text-xs text-emerald-700/90 dark:text-emerald-300/90 mt-0.5 truncate sm:whitespace-normal">Bạn đã hoàn thành Ôn tập T-1 và Học từ mới. Chuỗi kiên trì <strong class="font-black text-amber-500">🔥 ${appState.state.streak} ngày</strong> được bảo toàn an toàn!</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-600 text-white shrink-0 shadow-xs tracking-wider uppercase">ĐẠT CHUẨN</span>
+          </div>
+        ` : appState.state.streak > 0 ? `
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 shadow-sm flex items-center justify-between gap-3 animate-fade-in w-full">
+            <div class="flex items-center space-x-3 min-w-0">
+              <span class="text-2xl shrink-0">⚡</span>
+              <div class="min-w-0">
+                <h4 class="font-extrabold text-xs sm:text-sm text-amber-800 dark:text-amber-300">Bảo toàn chuỗi 🔥 ${appState.state.streak} ngày trước 23:59</h4>
+                <p class="text-[11px] sm:text-xs text-amber-700/90 dark:text-amber-300/90 mt-0.5 truncate sm:whitespace-normal">Quy tắc giữ chuỗi: Cần hoàn tất <strong class="underline">CẢ HAI</strong> nhiệm vụ (Ôn tập T-1 + Học ít nhất 10 từ mới) để không bị đứt chuỗi!</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-600 text-white shrink-0 shadow-xs tracking-wider uppercase">CẦN HỌC</span>
+          </div>
+        ` : `
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-indigo-500/10 via-blue-500/10 to-indigo-500/10 border border-indigo-500/30 text-indigo-900 dark:text-indigo-200 shadow-sm flex items-center justify-between gap-3 animate-fade-in w-full">
+            <div class="flex items-center space-x-3 min-w-0">
+              <span class="text-2xl shrink-0">🎯</span>
+              <div class="min-w-0">
+                <h4 class="font-extrabold text-xs sm:text-sm text-indigo-800 dark:text-indigo-300">Bắt đầu thiết lập chuỗi ngày học mới hôm nay</h4>
+                <p class="text-[11px] sm:text-xs text-indigo-700/90 dark:text-indigo-300/90 mt-0.5 truncate sm:whitespace-normal">Hoàn thành cả Ôn tập T-1 và Học 10 từ mới hôm nay để khởi động lại ngọn lửa chuỗi Streak 🔥!</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-indigo-600 text-white shrink-0 shadow-xs tracking-wider uppercase">MỤC TIÊU</span>
+          </div>
+        `}
+
         <!-- 3. DAILY MISSION COCKPIT (2 Bước Ôn tập & Nạp mới) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 w-full">
           <!-- CARD BƯỚC 1: ÔN TẬP KỶ LUẬT (Review Day T-1) -->
@@ -1236,25 +1272,36 @@ class App {
                   <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bước 1</span>
                 </div>
                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${discipline.needsReview ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'}">
-                  ${discipline.needsReview ? 'Bắt buộc hôm nay' : 'Đã xong hôm nay ✅'}
+                  ${discipline.needsReview ? (discipline.totalBatches > 1 ? `Đợt ${discipline.currentBatchIndex}/${discipline.totalBatches}` : 'Bắt buộc hôm nay') : 'Đã xong hôm nay ✅'}
                 </span>
               </div>
 
-              <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white">
-                Ôn Tập Kỷ Luật (Day T-1)
+              <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center justify-between">
+                <span>Ôn Tập Kỷ Luật (Day T-1)</span>
+                ${discipline.needsReview && discipline.totalBatches > 1 ? `<span class="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">${discipline.completedReviewCount}/${discipline.totalReviewCount} từ</span>` : ''}
               </h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 ${discipline.needsReview ? 'line-clamp-2 leading-relaxed' : 'line-clamp-1'}">
                 ${discipline.needsReview 
-                  ? `Có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.reviewWords.length} từ</strong> cần củng cố qua 3 chế độ (Dịch - Nghe chính tả - Phản xạ nhanh).`
-                  : 'Nhiệm vụ ôn tập hôm nay đã xong! Trí nhớ dài hạn được bảo toàn vững chắc.'}
+                  ? (discipline.totalBatches > 1
+                      ? `Đợt ${discipline.currentBatchIndex}/${discipline.totalBatches}: Luyện <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.currentReviewBatch.length} từ</strong> (còn ${discipline.remainingReviewCount} từ cần ôn tiếp để mở khóa Bước 2).`
+                      : `Có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.remainingReviewCount} từ</strong> cần củng cố qua 3 chế độ (Dịch - Nghe chính tả - Phản xạ nhanh).`)
+                  : (discipline.totalReviewCount > 0 
+                      ? `Xuất sắc! Toàn bộ ${discipline.totalReviewCount} từ ngày hôm qua đã được ôn tập trọn vẹn.`
+                      : 'Nhiệm vụ ôn tập hôm nay đã xong! Trí nhớ dài hạn được bảo toàn vững chắc.')}
               </p>
+
+              ${discipline.needsReview && discipline.totalBatches > 1 ? `
+                <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mt-2.5 overflow-hidden">
+                  <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-full transition-all duration-300" style="width: ${Math.round((discipline.completedReviewCount / Math.max(1, discipline.totalReviewCount)) * 100)}%"></div>
+                </div>
+              ` : ''}
             </div>
 
             <div class="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80">
               ${discipline.needsReview ? `
                 <button id="btn-start-review" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-md shadow-orange-500/20 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>🚀</span>
-                  <span>Bắt đầu Ôn Tập (${discipline.reviewWords.length} từ)</span>
+                  <span>${discipline.totalBatches > 1 ? `Ôn tập Đợt ${discipline.currentBatchIndex}/${discipline.totalBatches} (${discipline.currentReviewBatch.length} từ)` : `Bắt đầu Ôn Tập (${discipline.currentReviewBatch.length} từ)`}</span>
                 </button>
               ` : `
                 <div class="py-2 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-center text-xs font-bold text-emerald-700 dark:text-emerald-300 flex items-center justify-center space-x-1.5">
@@ -1266,17 +1313,17 @@ class App {
           </div>
 
           <!-- CARD BƯỚC 2: HỌC BATCH 10 TỪ MỚI -->
-          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border ${discipline.needsReview ? 'border-slate-200/70 dark:border-slate-800/70 opacity-75' : 'border-indigo-400/80 dark:border-indigo-600/80 bg-gradient-to-b from-indigo-500/[0.03] to-transparent ring-2 ring-indigo-500/10'} shadow-sm hover:shadow-md transition-all flex flex-col justify-between w-full">
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border ${discipline.needsReview ? 'border-slate-200/70 dark:border-slate-800/70 opacity-75' : (appState.state.dailyNewBatchDone ? 'border-emerald-400/80 dark:border-emerald-600/80 bg-gradient-to-b from-emerald-500/[0.03] to-transparent ring-2 ring-emerald-500/10' : 'border-indigo-400/80 dark:border-indigo-600/80 bg-gradient-to-b from-indigo-500/[0.03] to-transparent ring-2 ring-indigo-500/10')} shadow-sm hover:shadow-md transition-all flex flex-col justify-between w-full">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center space-x-2">
-                  <div class="w-7 h-7 rounded-lg ${discipline.needsReview ? 'bg-slate-200 dark:bg-slate-800 text-slate-500' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'} flex items-center justify-center font-bold text-xs">
-                    ${discipline.needsReview ? '🔒' : '2'}
+                  <div class="w-7 h-7 rounded-lg ${discipline.needsReview ? 'bg-slate-200 dark:bg-slate-800 text-slate-500' : (appState.state.dailyNewBatchDone ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400')} flex items-center justify-center font-bold text-xs">
+                    ${discipline.needsReview ? '🔒' : (appState.state.dailyNewBatchDone ? '✓' : '2')}
                   </div>
                   <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bước 2</span>
                 </div>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${discipline.needsReview ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'}">
-                  ${discipline.needsReview ? 'Đang bị khóa' : 'Sẵn sàng nạp'}
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${discipline.needsReview ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : (appState.state.dailyNewBatchDone ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300')}">
+                  ${discipline.needsReview ? 'Đang bị khóa' : (appState.state.dailyNewBatchDone ? 'Đã đạt chuẩn hôm nay ✅' : 'Bắt buộc để giữ chuỗi 🔥')}
                 </span>
               </div>
 
@@ -1285,8 +1332,10 @@ class App {
               </h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
-                  ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập từ hôm trước) để hệ thống mở khóa 10 từ mới.'
-                  : 'Quy trình 2 giai đoạn: Giai đoạn 1 (Thẩm thấu qua Flashcard cử chỉ) ➔ Giai đoạn 2 (Luyện tập thực chiến 3 kỹ năng phản xạ).'}
+                  ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập toàn bộ từ T-1) để hệ thống mở khóa 10 từ mới.'
+                  : (appState.state.dailyNewBatchDone 
+                      ? `Đã nạp thành công ${appState.state.todayNewWordsCount || 10} từ mới hôm nay! Bạn có thể học thêm batch tiếp theo nếu muốn bứt phá vốn từ.`
+                      : 'Quy tắc giữ chuỗi: Hoàn thành ít nhất 1 batch 10 từ mới hôm nay qua 2 giai đoạn (Thẩm thấu ➔ Luyện tập thực chiến 3 kỹ năng).')}
               </p>
             </div>
 
@@ -1297,9 +1346,9 @@ class App {
                   <span>Hoàn thành Bước 1 để mở khóa</span>
                 </button>
               ` : `
-                <button id="btn-start-new-batch" class="w-full py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-md shadow-indigo-500/25 active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
+                <button id="btn-start-new-batch" class="w-full py-2.5 bg-gradient-to-r ${appState.state.dailyNewBatchDone ? 'from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 shadow-indigo-500/25' : 'from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-indigo-500/25'} text-white font-bold rounded-xl shadow-md active:scale-[0.98] transition-all flex items-center justify-center space-x-1.5 text-xs sm:text-sm">
                   <span>✨</span>
-                  <span>Bắt đầu Nạp & Luyện Tập 10 Từ Mới</span>
+                  <span>${appState.state.dailyNewBatchDone ? 'Học Thêm 10 Từ Mới (+15 XP)' : 'Bắt đầu Nạp & Luyện Tập 10 Từ Mới'}</span>
                 </button>
               `}
             </div>
@@ -1714,15 +1763,41 @@ class App {
 
     // Gắn sự kiện Bắt đầu Ôn tập
     document.getElementById('btn-start-review')?.addEventListener('click', () => {
-      const reviewWordIds = new Set(discipline.reviewWords.map(w => w.wordId));
-      const fullWordObjects = VOCAB_BANK.filter(w => reviewWordIds.has(w.id));
-      this.vocabEngine = new VocabPracticeEngine(mainContainer, {
-        mode: "review",
-        words: fullWordObjects.length > 0 ? fullWordObjects : VOCAB_BANK.slice(0, 10),
-        targetPoints: 30,
-        onCompleted: () => this.renderVocabDashboard()
-      });
-      this.vocabEngine.start();
+      const currentDiscipline = appState.calculateDisciplineStatus();
+      if (!currentDiscipline.needsReview || currentDiscipline.currentReviewBatch.length === 0) return;
+
+      const startBatchPractice = (batchDiscipline) => {
+        const batchIds = new Set(batchDiscipline.currentReviewBatch.map(w => w.wordId || w.id));
+        const wordsToPractice = VOCAB_BANK.filter(w => batchIds.has(w.id));
+
+        this.vocabEngine = new VocabPracticeEngine(mainContainer, {
+          mode: "review",
+          words: wordsToPractice.length > 0 ? wordsToPractice : batchDiscipline.currentReviewBatch,
+          batchMeta: {
+            currentBatchIndex: batchDiscipline.currentBatchIndex,
+            totalBatches: batchDiscipline.totalBatches,
+            totalReviewCount: batchDiscipline.totalReviewCount,
+            completedReviewCount: batchDiscipline.completedReviewCount,
+            remainingReviewCount: batchDiscipline.remainingReviewCount
+          },
+          targetPoints: 30,
+          onCompleted: () => this.renderVocabDashboard(),
+          onContinueNextReviewBatch: () => {
+            const nextDiscipline = appState.calculateDisciplineStatus();
+            if (nextDiscipline.needsReview && nextDiscipline.currentReviewBatch.length > 0) {
+              startBatchPractice(nextDiscipline);
+            } else {
+              this.renderVocabDashboard();
+            }
+          },
+          onStartNewBatch: () => {
+            this.startNewBatchAbsorb();
+          }
+        });
+        this.vocabEngine.start();
+      };
+
+      startBatchPractice(currentDiscipline);
     });
 
     // Gắn sự kiện Nạp Batch 10 từ mới (Giai đoạn 1: Thẩm thấu Flashcard vuốt trái/phải)
@@ -1747,7 +1822,13 @@ class App {
           words: acceptedWords,
           batchMeta: batchMeta,
           targetPoints: 30,
-          onCompleted: () => this.renderVocabDashboard()
+          onCompleted: () => this.renderVocabDashboard(),
+          onStartNewBatch: () => {
+            this.startNewBatchAbsorb();
+          },
+          onStartReview: () => {
+            document.getElementById('btn-start-review')?.click();
+          }
         });
         this.vocabEngine.start();
       }
