@@ -22,8 +22,14 @@ export class VocabPracticeEngine {
     this.words = options.words || []; // Danh sách object từ VOCAB_BANK
     this.onCompleted = options.onCompleted || (() => {});
     
-    // Mục tiêu hoàn thành batch: Tăng lên 30 điểm giúp kéo dài quá trình ôn luyện & ghi nhớ sâu
-    this.targetPoints = options.targetPoints !== undefined ? options.targetPoints : 30;
+    // Mỗi từ tương đương 3 nấc chinh phục (mỗi kỹ năng 1 lần trong 1 batch đối với 1 từ)
+    const wordCount = Math.max(1, this.words.length);
+    const calculatedTarget = wordCount * 3;
+    this.targetPoints = (options.targetPoints !== undefined && options.targetPoints <= calculatedTarget)
+      ? options.targetPoints
+      : calculatedTarget;
+    if (this.targetPoints < 3) this.targetPoints = 3;
+
     this.progressPoints = 0;
     this.correctCount = 0;
     this.totalAttempts = 0;
@@ -46,7 +52,13 @@ export class VocabPracticeEngine {
       return;
     }
 
-    this.targetPoints = this.options?.targetPoints !== undefined ? this.options.targetPoints : 30;
+    const wordCount = Math.max(1, this.words.length);
+    const calculatedTarget = wordCount * 3;
+    this.targetPoints = (this.options?.targetPoints !== undefined && this.options.targetPoints <= calculatedTarget)
+      ? this.options.targetPoints
+      : calculatedTarget;
+    if (this.targetPoints < 3) this.targetPoints = 3;
+
     this.progressPoints = 0;
     this.correctCount = 0;
     this.totalAttempts = 0;
@@ -57,28 +69,55 @@ export class VocabPracticeEngine {
 
   buildQueue() {
     this.queue = [];
-    const availableModes = this.isAudioDisabledForSession 
-      ? ["mode1_vn_to_en", "mode3_en_to_vn"] 
-      : ["mode1_vn_to_en", "mode2_audio_to_en", "mode3_en_to_vn"];
+    const isAudioOff = this.isAudioDisabledForSession;
 
-    // Phân bổ đều các mode cho danh sách từ
-    this.words.forEach((word, idx) => {
-      const selectedMode = availableModes[idx % availableModes.length];
-      this.queue.push({
-        word,
-        mode: selectedMode,
-        id: `q_${word.id}_${idx}`
-      });
-    });
+    // QUY TẮC SƯ PHẠM 3 KỸ NĂNG CHO MỖI TỪ (3 NẤC CHINH PHỤC):
+    // Kỹ năng 1 (Mode 3): Nhận diện phản xạ 4 đáp án (Khởi động)
+    // Kỹ năng 2 (Mode 1): Gợi nhớ nghĩa Việt -> Gõ từ vựng tiếng Anh (Recall)
+    // Kỹ năng 3 (Mode 2): Nghe native audio -> Chép chính tả (Luyện tai)
+    // (Nếu tắt âm thanh: Kỹ năng 3 được chuyển sang Mode 1)
 
-    // Shuffle nhẹ để các dạng câu hỏi xuất hiện xen kẽ tự nhiên
-    this.queue.sort(() => 0.5 - Math.random());
+    if (this.words.length === 1) {
+      // Trường hợp batch có 1 từ: Đi tuần tự đúng 3 kỹ năng cho từ đó (tổng 3 nấc)
+      const singleWord = this.words[0];
+      this.queue.push(
+        { word: singleWord, mode: "mode3_en_to_vn", id: `q_${singleWord.id}_m3` },
+        { word: singleWord, mode: "mode1_vn_to_en", id: `q_${singleWord.id}_m1` },
+        { word: singleWord, mode: isAudioOff ? "mode1_vn_to_en" : "mode2_audio_to_en", id: `q_${singleWord.id}_m2` }
+      );
+      return;
+    }
+
+    // Trường hợp batch có nhiều từ (ví dụ 10 từ = 30 nấc):
+    // Chia làm 3 chặng sư phạm xen kẽ:
+    // Chặng 1: Nhận diện phản xạ Mode 3 cho tất cả các từ (shuffled)
+    const round1 = [...this.words].sort(() => 0.5 - Math.random()).map((word, idx) => ({
+      word,
+      mode: "mode3_en_to_vn",
+      id: `q_${word.id}_r1_${idx}`
+    }));
+
+    // Chặng 2: Gợi nhớ nghĩa và gõ từ Mode 1 cho tất cả các từ (shuffled)
+    const round2 = [...this.words].sort(() => 0.5 - Math.random()).map((word, idx) => ({
+      word,
+      mode: "mode1_vn_to_en",
+      id: `q_${word.id}_r2_${idx}`
+    }));
+
+    // Chặng 3: Luyện nghe chính tả Mode 2 cho tất cả các từ (shuffled)
+    const round3 = [...this.words].sort(() => 0.5 - Math.random()).map((word, idx) => ({
+      word,
+      mode: isAudioOff ? "mode1_vn_to_en" : "mode2_audio_to_en",
+      id: `q_${word.id}_r3_${idx}`
+    }));
+
+    this.queue = [...round1, ...round2, ...round3];
   }
 
   getNextModeForWord(currentMode) {
     const availableModes = this.isAudioDisabledForSession 
-      ? ["mode1_vn_to_en", "mode3_en_to_vn"] 
-      : ["mode1_vn_to_en", "mode2_audio_to_en", "mode3_en_to_vn"];
+      ? ["mode3_en_to_vn", "mode1_vn_to_en"] 
+      : ["mode3_en_to_vn", "mode1_vn_to_en", "mode2_audio_to_en"];
     const otherModes = availableModes.filter(m => m !== currentMode);
     if (otherModes.length > 0) {
       return otherModes[Math.floor(Math.random() * otherModes.length)];
@@ -90,8 +129,8 @@ export class VocabPracticeEngine {
     // Khi hết câu hỏi trong queue nhưng điểm chưa đạt targetPoints:
     // Tạo thêm câu hỏi mới từ danh sách từ vựng của batch
     const availableModes = this.isAudioDisabledForSession 
-      ? ["mode1_vn_to_en", "mode3_en_to_vn"] 
-      : ["mode1_vn_to_en", "mode2_audio_to_en", "mode3_en_to_vn"];
+      ? ["mode3_en_to_vn", "mode1_vn_to_en"] 
+      : ["mode3_en_to_vn", "mode1_vn_to_en", "mode2_audio_to_en"];
     
     const extraBatch = [...this.words].sort(() => 0.5 - Math.random());
     extraBatch.forEach((word, idx) => {
@@ -177,15 +216,63 @@ export class VocabPracticeEngine {
     }, 50);
   }
 
-  updateProgressUI() {
+  updateProgressUI(isClimbingStep = null) {
     const progressLabel = this.container.querySelector('#label-progress-count');
     const masteryLabel = this.container.querySelector('#label-mastery-percent');
-    const progressBar = this.container.querySelector('#practice-progress-bar');
+    const activeTrail = this.container.querySelector('#mountain-trail-active');
+    const stickman = this.container.querySelector('#mountain-stickman');
+    const basePath = this.container.querySelector('#mountain-trail-base');
+    const summitFlag = this.container.querySelector('#summit-flag-element');
 
     if (progressLabel) progressLabel.textContent = this.progressPoints;
-    const percent = Math.min(100, Math.round((this.progressPoints / this.targetPoints) * 100));
-    if (masteryLabel) masteryLabel.textContent = `🎯 Hoàn thành: ${percent}%`;
-    if (progressBar) progressBar.style.width = `${percent}%`;
+    const ratio = Math.max(0, Math.min(1, this.progressPoints / this.targetPoints));
+    const percent = Math.min(100, Math.round(ratio * 100));
+    if (masteryLabel) masteryLabel.textContent = `${percent}%`;
+
+    // Cập nhật vệt đường leo núi phát sáng (Active gradient trail)
+    if (basePath && activeTrail) {
+      const totalLen = typeof basePath.getTotalLength === 'function' ? basePath.getTotalLength() : 332;
+      activeTrail.style.strokeDasharray = `${totalLen}`;
+      activeTrail.style.strokeDashoffset = `${Math.max(0, totalLen * (1 - ratio))}`;
+    }
+
+    // Cập nhật tọa độ và hoạt họa Người Que leo núi
+    if (stickman) {
+      // Tọa độ mặc định nội suy tuyến tính (Fallback)
+      let x = 24 + ratio * (350 - 24);
+      let y = 56 + ratio * (14 - 56);
+
+      if (basePath && typeof basePath.getPointAtLength === 'function') {
+        try {
+          const totalLen = basePath.getTotalLength();
+          const targetLen = ratio * totalLen;
+          const pt = basePath.getPointAtLength(targetLen);
+          x = pt.x;
+          y = pt.y;
+        } catch (e) {}
+      }
+
+      stickman.style.transform = `translate(${x}px, ${y}px)`;
+
+      // Kích hoạt hoạt họa bước chân leo núi hoặc trượt chân
+      stickman.classList.remove('stickman-step-anim', 'stickman-slip-anim');
+      if (isClimbingStep === true) {
+        void stickman.offsetWidth;
+        stickman.classList.add('stickman-step-anim');
+      } else if (isClimbingStep === false) {
+        void stickman.offsetWidth;
+        stickman.classList.add('stickman-slip-anim');
+      }
+    }
+
+    // Khi chạm đỉnh 100%: Kích hoạt cờ đỉnh núi phát sáng hào quang
+    if (summitFlag) {
+      if (ratio >= 1) {
+        summitFlag.classList.add('summit-reached-glow');
+      } else {
+        summitFlag.classList.remove('summit-reached-glow');
+      }
+    }
   }
 
   renderCurrentQuestion() {
@@ -239,43 +326,156 @@ export class VocabPracticeEngine {
     }
 
     this.container.innerHTML = `
+      <style>
+        @keyframes stickman-step-bounce {
+          0% { transform: translateY(0) scale(1); }
+          35% { transform: translateY(-4px) scale(1.06) rotate(3deg); }
+          70% { transform: translateY(-1px) scale(0.98) rotate(-1deg); }
+          100% { transform: translateY(0) scale(1); }
+        }
+        @keyframes stickman-slip-down {
+          0% { transform: translateX(0) rotate(0deg); }
+          25% { transform: translateX(-5px) translateY(2px) rotate(-6deg); }
+          60% { transform: translateX(-2px) translateY(1px) rotate(2deg); }
+          100% { transform: translateX(0) rotate(0deg); }
+        }
+        .stickman-step-anim {
+          animation: stickman-step-bounce 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .stickman-slip-anim {
+          animation: stickman-slip-down 0.55s ease-out;
+        }
+        .summit-reached-glow {
+          filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8)) drop-shadow(0 0 16px rgba(239, 68, 68, 0.6));
+          animation: summit-pulse 1s infinite alternate;
+        }
+        @keyframes summit-pulse {
+          0% { transform: translate(350px, 14px) scale(1); }
+          100% { transform: translate(350px, 14px) scale(1.15); }
+        }
+      </style>
+
       <div class="flex-1 flex flex-col w-full max-w-md mx-auto px-1 sm:px-4 animate-fade-in">
         
-        <!-- Top Control Header (Đồng bộ 100% với Giai đoạn Thẩm thấu) -->
-        <div class="w-full pt-0.5 pb-2">
-            <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center space-x-2">
-                <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border">
-                  <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse"></span>
-                  <span>${this.mode === 'review' ? 'Ôn tập kỷ luật' : 'Luyện tập phản xạ'}</span>
-                </div>
-              </div>
-
-              <!-- Nút Loa / Âm thanh SVG -->
-              <button id="btn-toggle-audio-status" title="${!this.isAudioDisabledForSession ? 'Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)' : 'Bấm để bật âm thanh'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
-                <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-                <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
+        <!-- Top Control Header: Thoát + Badge Mode + Bật/Tắt Âm Thanh -->
+        <div class="w-full pt-0.5 pb-1">
+          <div class="flex items-center justify-between mb-1.5">
+            <div class="flex items-center space-x-2">
+              <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border">
+                <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse"></span>
+                <span>${this.mode === 'review' ? 'Ôn tập kỷ luật' : 'Luyện tập phản xạ'}</span>
+              </div>
             </div>
 
-            <!-- Thanh tiến trình Batch (Tăng khi đúng, giảm khi sai/timeout) -->
-            <div class="flex items-center justify-between text-xs font-bold mb-1.5 px-0.5">
-              <span class="text-indigo-600 dark:text-indigo-400 flex items-center space-x-1">
-                <span>Tiến độ Batch:</span>
-                <span id="label-progress-count" class="font-extrabold text-sm text-slate-900 dark:text-white">${this.progressPoints}</span>
-                <span class="text-slate-400">/ ${this.targetPoints} điểm</span>
-              </span>
-              <span id="label-mastery-percent" class="text-emerald-500 dark:text-emerald-400 font-bold text-[11px] flex items-center space-x-1">
-                <span>🎯 Hoàn thành: ${progressPercent}%</span>
-              </span>
+            <!-- Nút Loa / Âm thanh SVG -->
+            <button id="btn-toggle-audio-status" title="${!this.isAudioDisabledForSession ? 'Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)' : 'Bấm để bật âm thanh'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
+              <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+              <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
+            </button>
+          </div>
+
+          <!-- GIAO DIỆN LEO NÚI NGƯỜI QUE (STICKMAN MOUNTAIN CLIMBER PROGRESS TRACK) -->
+          <div class="relative w-full rounded-2xl bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent dark:from-slate-800/60 dark:via-indigo-950/30 dark:to-slate-900/60 border border-sky-200/50 dark:border-indigo-900/50 p-2 sm:p-2.5 mb-2 sm:mb-2.5 overflow-hidden shadow-xs">
+            
+            <!-- Altitude Info Bar -->
+            <div class="flex items-center justify-between text-xs font-bold mb-1 px-1">
+              <div class="flex items-center space-x-1.5 text-slate-700 dark:text-slate-200">
+                <span class="text-base">🧗</span>
+                <span class="text-[11px] sm:text-xs text-indigo-700 dark:text-indigo-300 font-extrabold">Độ cao:</span>
+                <span class="text-xs sm:text-sm font-black text-slate-900 dark:text-white" id="label-progress-count">${this.progressPoints}</span>
+                <span class="text-slate-400 font-semibold text-[11px]">/ ${this.targetPoints} nấc</span>
+                <span class="hidden sm:inline-block text-[10px] text-slate-400 px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 font-normal">(${this.words.length} từ • 3 nấc/từ)</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <span id="label-mastery-percent" class="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 tracking-tight">
+                  ${progressPercent}%
+                </span>
+              </div>
             </div>
 
-            <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-700/60">
-              <div id="practice-progress-bar" class="bg-gradient-to-r from-blue-500 via-indigo-600 to-emerald-400 h-full rounded-full transition-all duration-300" style="width: ${progressPercent}%"></div>
+            <!-- SVG Mountain Slope Track -->
+            <div class="relative w-full h-[62px] sm:h-[70px] select-none">
+              <svg id="mountain-svg" class="w-full h-full overflow-visible" viewBox="0 0 380 66" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="mountainFaceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#6366F1" stop-opacity="0.18" />
+                    <stop offset="100%" stop-color="#6366F1" stop-opacity="0.02" />
+                  </linearGradient>
+
+                  <linearGradient id="activeTrailGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#06B6D4" />
+                    <stop offset="50%" stop-color="#10B981" />
+                    <stop offset="100%" stop-color="#F59E0B" />
+                  </linearGradient>
+
+                  <filter id="summitGlow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+
+                <!-- Distant mountain peaks -->
+                <polygon points="40,58 110,32 180,58" class="fill-slate-200/50 dark:fill-slate-800/40" />
+                <polygon points="150,58 230,22 310,58" class="fill-slate-200/40 dark:fill-slate-800/30" />
+
+                <!-- Mountain rock face body -->
+                <path d="M 24 56 C 110 54, 200 42, 350 14 L 350 66 L 24 66 Z" fill="url(#mountainFaceGrad)" />
+
+                <!-- Inactive trail (đường mòn đá nét đứt) -->
+                <path id="mountain-trail-base" 
+                      d="M 24 56 C 110 54, 200 42, 350 14" 
+                      fill="none" 
+                      stroke="#94A3B8" 
+                      stroke-width="2.5" 
+                      stroke-dasharray="4 4" 
+                      stroke-linecap="round" 
+                      class="opacity-40 dark:opacity-30" />
+
+                <!-- Active climbed trail (vệt sáng leo núi) -->
+                <path id="mountain-trail-active" 
+                      d="M 24 56 C 110 54, 200 42, 350 14" 
+                      fill="none" 
+                      stroke="url(#activeTrailGrad)" 
+                      stroke-width="3.5" 
+                      stroke-linecap="round" 
+                      style="transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);" />
+
+                <!-- Summit Peak at (350, 14) -->
+                <g id="summit-flag-element" transform="translate(350, 14)" class="transition-all duration-300">
+                  <polygon points="-8,10 0,0 8,10" fill="#E0E7FF" class="dark:fill-slate-100" />
+                  <polygon points="-5,10 0,2 5,10" fill="#FFFFFF" />
+                  <line x1="0" y1="0" x2="0" y2="-18" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M 0 -18 C 6 -21 11 -15 17 -18 L 17 -9 C 11 -6 6 -12 0 -9 Z" fill="#EF4444" class="summit-flag-banner origin-left animate-pulse" />
+                  <circle cx="5" cy="-13.5" r="1.2" fill="#FBBF24" />
+                  <circle cx="0" cy="-18" r="1.8" fill="#F59E0B" />
+                </g>
+
+                <!-- Base Camp Tent at Start (24, 56) -->
+                <g transform="translate(18, 56)">
+                  <polygon points="-6,4 0,-6 6,4" fill="#3B82F6" class="opacity-80" />
+                  <polygon points="0,-6 6,4 2,4 0,-2" fill="#1D4ED8" />
+                </g>
+
+                <!-- STICKMAN CLIMBER (Người Que Leo Núi) -->
+                <g id="mountain-stickman" class="stickman-climber text-slate-800 dark:text-white" style="transform: translate(24px, 56px); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);">
+                  <ellipse cx="0" cy="1" rx="5" ry="1.5" fill="rgba(0,0,0,0.25)" class="dark:fill-black/40" />
+                  <rect x="-6" y="-17" width="4.5" height="6.5" rx="1.5" fill="#F59E0B" stroke="#D97706" stroke-width="0.8" />
+                  <path class="stickman-leg-back" d="M -1 -7 L -5 -2 L -7 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path class="stickman-leg-front" d="M 0 -7 L 3 -3 L 2 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <line class="stickman-torso" x1="-0.5" y1="-7" x2="2.5" y2="-17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                  <path class="stickman-arm-back" d="M 1 -15 L -4 -11 L -7 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  <line x1="-8.5" y1="-1" x2="-5.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
+                  <path class="stickman-arm-front" d="M 2.5 -15 L 7 -11 L 8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <line x1="6.5" y1="-1" x2="9.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
+                  <circle class="stickman-head" cx="4" cy="-21" r="3.8" fill="currentColor" />
+                  <path d="M 1.5 -23 L 7.5 -22 L 5 -20 Z" fill="#EF4444" />
+                </g>
+              </svg>
             </div>
+          </div>
         </div>
 
         <!-- Khung Card chứa câu hỏi luyện tập (Bo góc linh hoạt, tự động nâng lên khi bàn phím ảo iPhone bật) -->
@@ -311,6 +511,7 @@ export class VocabPracticeEngine {
     `;
 
     this.bindEvents(item);
+    this.updateProgressUI();
 
     // Kích hoạt Timer 20 giây
     this.startQuestionTimer(item.word);
@@ -647,7 +848,7 @@ export class VocabPracticeEngine {
     if (isCorrect) {
       this.correctCount++;
       this.progressPoints = Math.min(this.targetPoints, this.progressPoints + 1);
-      this.updateProgressUI();
+      this.updateProgressUI(true);
       speechService.speak(word.word);
       if (window.navigator?.vibrate) window.navigator.vibrate(10);
 
@@ -656,7 +857,7 @@ export class VocabPracticeEngine {
         <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
             <span class="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Chính xác!</span>
-            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
+            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 nấc leo núi 🧗</span>
           </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-emerald-700 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
@@ -674,7 +875,7 @@ export class VocabPracticeEngine {
       `;
     } else {
       this.progressPoints = Math.max(0, this.progressPoints - 1);
-      this.updateProgressUI();
+      this.updateProgressUI(false);
       if (window.navigator?.vibrate) window.navigator.vibrate(20);
 
       // Re-queue từ vựng để ôn lại
@@ -691,7 +892,7 @@ export class VocabPracticeEngine {
         <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
             <span class="text-sm sm:text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
-            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 nấc trượt xuống ⚠️</span>
           </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold px-2 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
@@ -753,7 +954,7 @@ export class VocabPracticeEngine {
     if (isCorrect) {
       this.correctCount++;
       this.progressPoints = Math.min(this.targetPoints, this.progressPoints + 1);
-      this.updateProgressUI();
+      this.updateProgressUI(true);
       speechService.speak(word.word);
       if (window.navigator?.vibrate) window.navigator.vibrate(10);
 
@@ -762,7 +963,7 @@ export class VocabPracticeEngine {
         <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
             <span class="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 whitespace-nowrap">✅ Xuất sắc!</span>
-            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 điểm</span>
+            <span class="text-[11px] sm:text-xs bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">+1 nấc leo núi 🧗</span>
           </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-emerald-700 dark:text-emerald-300 font-semibold px-2 py-0.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
@@ -778,7 +979,7 @@ export class VocabPracticeEngine {
       `;
     } else {
       this.progressPoints = Math.max(0, this.progressPoints - 1);
-      this.updateProgressUI();
+      this.updateProgressUI(false);
       if (window.navigator?.vibrate) window.navigator.vibrate(20);
 
       // Re-queue từ vựng để ôn lại
@@ -795,7 +996,7 @@ export class VocabPracticeEngine {
         <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
             <span class="text-sm sm:text-base font-black text-rose-600 dark:text-rose-400 whitespace-nowrap">❌ Chưa chính xác!</span>
-            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-[11px] sm:text-xs bg-rose-500/20 text-rose-700 dark:text-rose-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 nấc trượt xuống ⚠️</span>
           </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold px-2 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
@@ -824,9 +1025,9 @@ export class VocabPracticeEngine {
     this.clearQuestionTimer();
     this.totalAttempts++;
 
-    // Trừ điểm progress (tối thiểu 0)
+    // Trừ 1 nấc leo núi (tối thiểu 0)
     this.progressPoints = Math.max(0, this.progressPoints - 1);
-    this.updateProgressUI();
+    this.updateProgressUI(false);
 
     // Re-queue từ vựng này để luyện lại
     const currentItem = this.queue[this.currentIndex];
@@ -873,8 +1074,10 @@ export class VocabPracticeEngine {
         <div class="flex items-center justify-between gap-2 flex-wrap min-w-0">
           <div class="flex items-center space-x-2">
             <span class="text-sm sm:text-base font-black text-amber-600 dark:text-amber-400 whitespace-nowrap">⏰ Hết 20 giây!</span>
-            <span class="text-[11px] sm:text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 điểm</span>
+            <span class="text-[11px] sm:text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 font-extrabold px-2 py-0.5 rounded-full whitespace-nowrap">-1 nấc trượt xuống ⚠️</span>
           </div>
+          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
+        </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
 
@@ -931,8 +1134,8 @@ export class VocabPracticeEngine {
     const isNewBatch = this.mode === 'new_batch';
     const confirmExit = window.confirm(
       isNewBatch
-        ? `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm hoàn thành batch.\nNếu thoát bây giờ, bài luyện tập chưa hoàn tất và batch từ mới này sẽ KHÔNG được tính (coi như chưa học). Bạn có chắc chắn muốn thoát không?`
-        : `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} điểm ôn tập.\nBạn có chắc chắn muốn tạm dừng phiên ôn tập không?`
+        ? `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} nấc leo núi.\nNếu thoát bây giờ, bài luyện tập chưa hoàn tất và batch từ mới này sẽ KHÔNG được tính (coi như chưa học). Bạn có chắc chắn muốn thoát không?`
+        : `Tiến độ hiện tại: ${this.progressPoints} / ${this.targetPoints} nấc leo núi.\nBạn có chắc chắn muốn tạm dừng phiên ôn tập không?`
     );
     if (confirmExit) {
       this.cleanup();
@@ -993,9 +1196,9 @@ export class VocabPracticeEngine {
 
     if (this.mode === 'review') {
       if (hasRemainingReview) {
-        iconEmoji = '🎯';
+        iconEmoji = '🧗';
         titleHtml = `Hoàn Thành Đợt ${this.options.batchMeta?.currentBatchIndex || 1}/${this.options.batchMeta?.totalBatches || 1}!`;
-        descHtml = `Bạn đã hoàn tất ôn tập ${wordIds.length} từ trong đợt này.<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập T-1.`;
+        descHtml = `Bạn đã chinh phục thành công toàn bộ ${this.targetPoints} nấc thử thách của đợt này (${wordIds.length} từ x 3 kỹ năng).<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập T-1.`;
         actionButtonsHtml = `
           <button id="btn-next-review-batch" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>
@@ -1007,8 +1210,8 @@ export class VocabPracticeEngine {
         `;
       } else {
         iconEmoji = '🏆';
-        titleHtml = `Hoàn Thành 100% Bài Ôn Tập Kỷ Luật!`;
-        descHtml = `Xuất sắc! Bạn đã ôn tập trọn vẹn toàn bộ ${disciplineStatus?.totalReviewCount || wordIds.length} từ của ngày T-1.<br/><strong class="text-indigo-600 dark:text-indigo-400">Hãy tiếp tục học ít nhất 1 batch 10 từ mới để bảo toàn chuỗi Streak hôm nay!</strong>`;
+        titleHtml = `Chinh Phục Thành Công Đỉnh Núi Kỷ Luật!`;
+        descHtml = `Xuất sắc! Bạn đã vượt qua ${this.targetPoints} nấc thử thách (${disciplineStatus?.totalReviewCount || wordIds.length} từ x 3 kỹ năng) và cắm cờ chiến thắng đỉnh núi.<br/><strong class="text-indigo-600 dark:text-indigo-400">Hãy tiếp tục học ít nhất 1 batch 10 từ mới để bảo toàn chuỗi Streak hôm nay!</strong>`;
         actionButtonsHtml = `
           <button id="btn-open-new-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>✨</span>
@@ -1023,8 +1226,8 @@ export class VocabPracticeEngine {
       // mode === 'new_batch'
       if (isStreakDone) {
         iconEmoji = '🔥';
-        titleHtml = `Bảo Toàn Chuỗi Ngày Kỷ Luật!`;
-        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Học 10 từ mới hôm nay.<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
+        titleHtml = `Chinh Phục Đỉnh Núi & Bảo Toàn Chuỗi Kỷ Luật!`;
+        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Chinh phục đỉnh núi 10 từ mới hôm nay (${this.targetPoints} nấc thực chiến).<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
         actionButtonsHtml = `
           <button id="btn-learn-more-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>✨</span>
@@ -1036,8 +1239,8 @@ export class VocabPracticeEngine {
         `;
       } else {
         iconEmoji = '⚡';
-        titleHtml = `Hoàn Thành Batch 10 Từ Mới!`;
-        descHtml = `Bạn đã nạp thành công 10 từ mới!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập T-1 để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
+        titleHtml = `Chinh Phục Đỉnh Núi 10 Từ Mới!`;
+        descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập T-1 để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
         actionButtonsHtml = `
           <button id="btn-do-review-now" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>

@@ -1661,7 +1661,7 @@ class App {
             this.vocabEngine = new VocabPracticeEngine(mainContainer, {
               mode: "new_batch",
               words: grp.words,
-              targetPoints: 30,
+              targetPoints: (grp.words.length || 10) * 3,
               onCompleted: () => this.renderVocabDashboard()
             });
             this.vocabEngine.start();
@@ -1774,7 +1774,7 @@ class App {
             completedReviewCount: batchDiscipline.completedReviewCount,
             remainingReviewCount: batchDiscipline.remainingReviewCount
           },
-          targetPoints: 30,
+          targetPoints: ((wordsToPractice.length > 0 ? wordsToPractice.length : batchDiscipline.currentReviewBatch.length) || 1) * 3,
           onCompleted: () => this.renderVocabDashboard(),
           onContinueNextReviewBatch: () => {
             const nextDiscipline = appState.calculateDisciplineStatus();
@@ -1815,7 +1815,7 @@ class App {
           mode: "new_batch",
           words: acceptedWords,
           batchMeta: batchMeta,
-          targetPoints: 30,
+          targetPoints: (acceptedWords.length || 10) * 3,
           onCompleted: () => this.renderVocabDashboard(),
           onStartNewBatch: () => {
             this.startNewBatchAbsorb();
