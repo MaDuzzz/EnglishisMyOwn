@@ -1121,5 +1121,5 @@ export class VocabPracticeEngine {
       }
     });
   }
-  }
 }
+

@@ -984,12 +984,6 @@ class App {
     };
 
     renderDemoCard();
-
-    // Sự kiện nút đăng nhập ở CTA portal
-    mainContainer.querySelector('#btn-portal-login-cta')?.addEventListener('click', () => {
-      if (window.navigator?.vibrate) window.navigator.vibrate(10);
-      this.handleAuthClick();
-    });
   }
 
   // Cử chỉ vuốt cho thẻ Flashcard Demo ở trang Portal
