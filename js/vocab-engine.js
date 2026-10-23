@@ -78,6 +78,9 @@ export class VocabPracticeEngine {
     this.totalAttempts = 0;
     this.buildQueue();
     this.currentIndex = 0;
+    if (this.container) {
+      this.container.innerHTML = '';
+    }
     this.renderCurrentQuestion();
   }
 
@@ -235,6 +238,7 @@ export class VocabPracticeEngine {
     const masteryLabel = this.container.querySelector('#label-mastery-percent');
     const activeTrail = this.container.querySelector('#mountain-trail-active');
     const stickman = this.container.querySelector('#mountain-stickman');
+    const stickmanInner = this.container.querySelector('#stickman-inner-body');
     const basePath = this.container.querySelector('#mountain-trail-base');
     const summitFlag = this.container.querySelector('#summit-flag-element');
 
@@ -266,16 +270,19 @@ export class VocabPracticeEngine {
         } catch (e) {}
       }
 
+      // Di chuyển mượt mà dọc theo sườn núi (transform ngoài)
       stickman.style.transform = `translate(${x}px, ${y}px)`;
 
-      // Kích hoạt hoạt họa bước chân leo núi hoặc trượt chân
-      stickman.classList.remove('stickman-step-anim', 'stickman-slip-anim');
-      if (isClimbingStep === true) {
-        void stickman.offsetWidth;
-        stickman.classList.add('stickman-step-anim');
-      } else if (isClimbingStep === false) {
-        void stickman.offsetWidth;
-        stickman.classList.add('stickman-slip-anim');
+      // Kích hoạt hoạt họa bước chân leo núi hoặc trượt chân trên inner body (KHÔNG ghi đè translation của stickman)
+      if (stickmanInner) {
+        stickmanInner.classList.remove('climber-step-anim', 'climber-slip-anim');
+        if (isClimbingStep === true) {
+          void stickmanInner.offsetWidth;
+          stickmanInner.classList.add('climber-step-anim');
+        } else if (isClimbingStep === false) {
+          void stickmanInner.offsetWidth;
+          stickmanInner.classList.add('climber-slip-anim');
+        }
       }
     }
 
@@ -339,190 +346,245 @@ export class VocabPracticeEngine {
       questionBodyHtml = this.renderMode3(item.word);
     }
 
-    this.container.innerHTML = `
-      <style>
-        @keyframes stickman-step-bounce {
-          0% { transform: translateY(0) scale(1); }
-          35% { transform: translateY(-4px) scale(1.06) rotate(3deg); }
-          70% { transform: translateY(-1px) scale(0.98) rotate(-1deg); }
-          100% { transform: translateY(0) scale(1); }
-        }
-        @keyframes stickman-slip-down {
-          0% { transform: translateX(0) rotate(0deg); }
-          25% { transform: translateX(-5px) translateY(2px) rotate(-6deg); }
-          60% { transform: translateX(-2px) translateY(1px) rotate(2deg); }
-          100% { transform: translateX(0) rotate(0deg); }
-        }
-        .stickman-step-anim {
-          animation: stickman-step-bounce 0.55s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .stickman-slip-anim {
-          animation: stickman-slip-down 0.55s ease-out;
-        }
-        .summit-reached-glow {
-          filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8)) drop-shadow(0 0 16px rgba(239, 68, 68, 0.6));
-          animation: summit-pulse 1s infinite alternate;
-        }
-        @keyframes summit-pulse {
-          0% { transform: translate(350px, 14px) scale(1); }
-          100% { transform: translate(350px, 14px) scale(1.15); }
-        }
-      </style>
+    const existingMountain = this.container.querySelector('#mountain-svg');
+    if (!existingMountain) {
+      const initRatio = Math.max(0, Math.min(1, this.progressPoints / this.targetPoints));
+      const initX = Math.round((24 + initRatio * (350 - 24)) * 10) / 10;
+      const initY = Math.round((56 + initRatio * (14 - 56)) * 10) / 10;
 
-      <div class="flex-1 flex flex-col w-full max-w-md mx-auto px-1 sm:px-4 animate-fade-in">
-        
-        <!-- Top Control Header: Thoát + Badge Mode + Bật/Tắt Âm Thanh -->
-        <div class="w-full pt-0.5 pb-1">
-          <div class="flex items-center justify-between mb-1.5">
-            <div class="flex items-center space-x-2">
-              <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
-              </button>
-              <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border truncate max-w-[190px] sm:max-w-xs">
-                <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse shrink-0"></span>
-                <span class="truncate">${this.mode === 'review' ? 'Ôn tập kỷ luật' : (this.options.batchMeta?.groupName ? this.options.batchMeta.groupName : 'Luyện tập phản xạ')}</span>
+      this.container.innerHTML = `
+        <style>
+          @keyframes climber-step-bounce {
+            0% { transform: translateY(0) rotate(0deg); }
+            30% { transform: translateY(-4px) rotate(4deg); }
+            65% { transform: translateY(-1px) rotate(-1deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+          }
+          @keyframes climber-slip-down {
+            0% { transform: translateX(0) rotate(0deg); }
+            30% { transform: translateX(-4px) translateY(2px) rotate(-8deg); }
+            70% { transform: translateX(-1px) translateY(1px) rotate(2deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+          }
+          .climber-step-anim {
+            animation: climber-step-bounce 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+          }
+          .climber-slip-anim {
+            animation: climber-slip-down 0.55s ease-out;
+          }
+          @keyframes vn-flag-wave {
+            0%, 100% { transform: skewY(0deg) scaleX(1); }
+            50% { transform: skewY(2deg) scaleX(0.97); }
+          }
+          .vn-flag-waving {
+            animation: vn-flag-wave 2.4s ease-in-out infinite;
+          }
+          .summit-reached-glow {
+            filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.95)) drop-shadow(0 0 16px rgba(220, 38, 38, 0.8));
+            animation: summit-pulse 1s infinite alternate;
+          }
+          @keyframes summit-pulse {
+            0% { transform: translate(350px, 14px) scale(1); }
+            100% { transform: translate(350px, 14px) scale(1.15); }
+          }
+        </style>
+
+        <div class="flex-1 flex flex-col w-full max-w-md mx-auto px-1 sm:px-4 animate-fade-in">
+          
+          <!-- Top Control Header: Thoát + Badge Mode + Bật/Tắt Âm Thanh -->
+          <div class="w-full pt-0.5 pb-1">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="flex items-center space-x-2">
+                <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border truncate max-w-[190px] sm:max-w-xs">
+                  <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse shrink-0"></span>
+                  <span class="truncate">${this.mode === 'review' ? 'Ôn tập kỷ luật' : (this.options.batchMeta?.groupName ? this.options.batchMeta.groupName : 'Luyện tập phản xạ')}</span>
+                </div>
               </div>
+
+              <!-- Nút Loa / Âm thanh SVG -->
+              <button id="btn-toggle-audio-status" title="${!this.isAudioDisabledForSession ? 'Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)' : 'Bấm để bật âm thanh'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
+                <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
+              </button>
             </div>
 
-            <!-- Nút Loa / Âm thanh SVG -->
-            <button id="btn-toggle-audio-status" title="${!this.isAudioDisabledForSession ? 'Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)' : 'Bấm để bật âm thanh'}" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border ${!this.isAudioDisabledForSession ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500'} transition-all">
-              <svg class="w-3.5 h-3.5 ${!this.isAudioDisabledForSession ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-              <span>${!this.isAudioDisabledForSession ? 'Âm thanh: Bật' : 'Tắt âm'}</span>
-            </button>
+            <!-- GIAO DIỆN LEO NÚI NGƯỜI QUE (STICKMAN MOUNTAIN CLIMBER PROGRESS TRACK) -->
+            <div class="relative w-full rounded-2xl bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent dark:from-slate-800/60 dark:via-indigo-950/30 dark:to-slate-900/60 border border-sky-200/50 dark:border-indigo-900/50 p-2 sm:p-2.5 mb-2 sm:mb-2.5 overflow-hidden shadow-xs">
+              
+              <!-- Altitude Info Bar -->
+              <div class="flex items-center justify-between text-xs font-bold mb-1 px-1">
+                <div class="flex items-center space-x-1.5 text-slate-700 dark:text-slate-200">
+                  <span class="text-base">🧗</span>
+                  <span class="text-[11px] sm:text-xs text-indigo-700 dark:text-indigo-300 font-extrabold">Độ cao:</span>
+                  <span class="text-xs sm:text-sm font-black text-slate-900 dark:text-white" id="label-progress-count">${this.progressPoints}</span>
+                  <span class="text-slate-400 font-semibold text-[11px]">/ ${this.targetPoints} nấc</span>
+                  <span class="hidden sm:inline-block text-[10px] text-slate-400 px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 font-normal">(${this.words.length} từ • 3 nấc/từ)</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                  <span id="label-mastery-percent" class="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 tracking-tight">
+                    ${progressPercent}%
+                  </span>
+                </div>
+              </div>
+
+              <!-- SVG Mountain Slope Track -->
+              <div class="relative w-full h-[62px] sm:h-[70px] select-none">
+                <svg id="mountain-svg" class="w-full h-full overflow-visible" viewBox="0 0 380 66" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="mountainFaceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.18" />
+                      <stop offset="100%" stop-color="#6366F1" stop-opacity="0.02" />
+                    </linearGradient>
+
+                    <linearGradient id="activeTrailGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#06B6D4" />
+                      <stop offset="50%" stop-color="#10B981" />
+                      <stop offset="100%" stop-color="#F59E0B" />
+                    </linearGradient>
+
+                    <filter id="summitGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <!-- Distant mountain peaks -->
+                  <polygon points="40,58 110,32 180,58" class="fill-slate-200/50 dark:fill-slate-800/40" />
+                  <polygon points="150,58 230,22 310,58" class="fill-slate-200/40 dark:fill-slate-800/30" />
+
+                  <!-- Mountain rock face body -->
+                  <path d="M 24 56 C 110 54, 200 42, 350 14 L 350 66 L 24 66 Z" fill="url(#mountainFaceGrad)" />
+
+                  <!-- Inactive trail (đường mòn đá nét đứt) -->
+                  <path id="mountain-trail-base" 
+                        d="M 24 56 C 110 54, 200 42, 350 14" 
+                        fill="none" 
+                        stroke="#94A3B8" 
+                        stroke-width="2.5" 
+                        stroke-dasharray="4 4" 
+                        stroke-linecap="round" 
+                        class="opacity-40 dark:opacity-30" />
+
+                  <!-- Active climbed trail (vệt sáng leo núi) -->
+                  <path id="mountain-trail-active" 
+                        d="M 24 56 C 110 54, 200 42, 350 14" 
+                        fill="none" 
+                        stroke="url(#activeTrailGrad)" 
+                        stroke-width="3.5" 
+                        stroke-linecap="round" 
+                        style="transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);" />
+
+                  <!-- Summit Peak at (350, 14) với Cờ Đỏ Sao Vàng Việt Nam -->
+                  <g id="summit-flag-element" transform="translate(350, 14)" class="transition-all duration-300">
+                    <polygon points="-10,12 0,0 10,12" fill="#CBD5E1" class="dark:fill-slate-600" />
+                    <polygon points="-6,12 0,2 6,12" fill="#FFFFFF" class="dark:fill-slate-200" />
+                    <line x1="0" y1="2" x2="0" y2="-24" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round" />
+                    <circle cx="0" cy="-24" r="1.6" fill="#F59E0B" />
+
+                    <!-- Lá Cờ Việt Nam Chuẩn Xác (Tỉ lệ 2:3, cờ đỏ tươi #DA251D, sao vàng 5 cánh ở chính giữa) -->
+                    <g class="vn-flag-waving" style="transform-origin: 0px -18px;">
+                      <rect x="0" y="-23.5" width="18" height="12" rx="0.8" fill="#DA251D" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.35))" />
+                      <g transform="translate(9, -17.5)">
+                        <polygon points="0,-3.8 0.85,-1.17 3.61,-1.17 1.38,0.45 2.23,3.07 0,1.45 -2.23,3.07 -1.38,0.45 -3.61,-1.17 -0.85,-1.17" fill="#FFFF00" />
+                      </g>
+                    </g>
+                  </g>
+
+                  <!-- Base Camp Tent at Start (24, 56) -->
+                  <g transform="translate(18, 56)">
+                    <polygon points="-6,4 0,-6 6,4" fill="#3B82F6" class="opacity-80" />
+                    <polygon points="0,-6 6,4 2,4 0,-2" fill="#1D4ED8" />
+                  </g>
+
+                  <!-- STICKMAN CLIMBER (Người Que Leo Núi) -->
+                  <g id="mountain-stickman" style="transform: translate(${initX}px, ${initY}px); transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); will-change: transform;">
+                    <g id="stickman-inner-body" class="text-slate-800 dark:text-white" style="transform-origin: 0px 0px;">
+                      <ellipse cx="0" cy="1" rx="5" ry="1.4" fill="rgba(0,0,0,0.25)" class="dark:fill-black/40" />
+                      <rect x="-6" y="-17" width="4.5" height="6.5" rx="1.5" fill="#F59E0B" stroke="#D97706" stroke-width="0.8" />
+                      <path class="stickman-leg-back" d="M -1 -7 L -5 -2 L -7 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path class="stickman-leg-front" d="M 0 -7 L 3 -3 L 2 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                      <line class="stickman-torso" x1="-0.5" y1="-7" x2="2.5" y2="-17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                      <path class="stickman-arm-back" d="M 1 -15 L -4 -11 L -7 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      <line x1="-8.5" y1="-1" x2="-5.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
+                      <path class="stickman-arm-front" d="M 2.5 -15 L 7 -11 L 8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <line x1="6.5" y1="-1" x2="9.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
+                      <circle class="stickman-head" cx="4" cy="-21" r="3.8" fill="currentColor" />
+                      <path d="M 1.5 -23 L 8 -22 L 5 -20 Z" fill="#EF4444" />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
           </div>
 
-          <!-- GIAO DIỆN LEO NÚI NGƯỜI QUE (STICKMAN MOUNTAIN CLIMBER PROGRESS TRACK) -->
-          <div class="relative w-full rounded-2xl bg-gradient-to-b from-sky-500/10 via-indigo-500/5 to-transparent dark:from-slate-800/60 dark:via-indigo-950/30 dark:to-slate-900/60 border border-sky-200/50 dark:border-indigo-900/50 p-2 sm:p-2.5 mb-2 sm:mb-2.5 overflow-hidden shadow-xs">
-            
-            <!-- Altitude Info Bar -->
-            <div class="flex items-center justify-between text-xs font-bold mb-1 px-1">
-              <div class="flex items-center space-x-1.5 text-slate-700 dark:text-slate-200">
-                <span class="text-base">🧗</span>
-                <span class="text-[11px] sm:text-xs text-indigo-700 dark:text-indigo-300 font-extrabold">Độ cao:</span>
-                <span class="text-xs sm:text-sm font-black text-slate-900 dark:text-white" id="label-progress-count">${this.progressPoints}</span>
-                <span class="text-slate-400 font-semibold text-[11px]">/ ${this.targetPoints} nấc</span>
-                <span class="hidden sm:inline-block text-[10px] text-slate-400 px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-800 font-normal">(${this.words.length} từ • 3 nấc/từ)</span>
+          <!-- Khung Card chứa câu hỏi luyện tập (Bo góc linh hoạt, tự động nâng lên khi bàn phím ảo iPhone bật) -->
+          <div id="practice-card-wrapper" class="flex-1 flex flex-col justify-start sm:justify-center items-center w-full min-h-0 sm:min-h-[480px] my-1 sm:my-auto py-1 sm:py-2 transition-all duration-200">
+            <div id="active-practice-card" class="relative w-full rounded-2xl sm:rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-4 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none transition-all duration-200">
+              
+              <!-- THANH ĐẾM NGƯỢC 20 GIÂY -->
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-200/30 dark:bg-slate-800/30 overflow-hidden">
+                <div id="question-timer-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-[width] duration-75 ease-linear" style="width: 100%"></div>
               </div>
-              <div class="flex items-center space-x-1">
-                <span id="label-mastery-percent" class="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 tracking-tight">
-                  ${progressPercent}%
+
+              <!-- Card Sub-header: Mode Tag + Đồng hồ đếm ngược -->
+              <div class="flex items-center justify-between w-full mb-2 sm:mb-3 pt-0.5 sm:pt-1">
+                <div id="card-mode-badge" class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[10px] sm:text-[11px] font-bold border">
+                  <span>${modeTitle}</span>
+                </div>
+                <span id="timer-text" class="text-[10px] sm:text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
+                  ⏱️ 20s
                 </span>
               </div>
-            </div>
 
-            <!-- SVG Mountain Slope Track -->
-            <div class="relative w-full h-[62px] sm:h-[70px] select-none">
-              <svg id="mountain-svg" class="w-full h-full overflow-visible" viewBox="0 0 380 66" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="mountainFaceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#6366F1" stop-opacity="0.18" />
-                    <stop offset="100%" stop-color="#6366F1" stop-opacity="0.02" />
-                  </linearGradient>
-
-                  <linearGradient id="activeTrailGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#06B6D4" />
-                    <stop offset="50%" stop-color="#10B981" />
-                    <stop offset="100%" stop-color="#F59E0B" />
-                  </linearGradient>
-
-                  <filter id="summitGlow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                </defs>
-
-                <!-- Distant mountain peaks -->
-                <polygon points="40,58 110,32 180,58" class="fill-slate-200/50 dark:fill-slate-800/40" />
-                <polygon points="150,58 230,22 310,58" class="fill-slate-200/40 dark:fill-slate-800/30" />
-
-                <!-- Mountain rock face body -->
-                <path d="M 24 56 C 110 54, 200 42, 350 14 L 350 66 L 24 66 Z" fill="url(#mountainFaceGrad)" />
-
-                <!-- Inactive trail (đường mòn đá nét đứt) -->
-                <path id="mountain-trail-base" 
-                      d="M 24 56 C 110 54, 200 42, 350 14" 
-                      fill="none" 
-                      stroke="#94A3B8" 
-                      stroke-width="2.5" 
-                      stroke-dasharray="4 4" 
-                      stroke-linecap="round" 
-                      class="opacity-40 dark:opacity-30" />
-
-                <!-- Active climbed trail (vệt sáng leo núi) -->
-                <path id="mountain-trail-active" 
-                      d="M 24 56 C 110 54, 200 42, 350 14" 
-                      fill="none" 
-                      stroke="url(#activeTrailGrad)" 
-                      stroke-width="3.5" 
-                      stroke-linecap="round" 
-                      style="transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);" />
-
-                <!-- Summit Peak at (350, 14) -->
-                <g id="summit-flag-element" transform="translate(350, 14)" class="transition-all duration-300">
-                  <polygon points="-8,10 0,0 8,10" fill="#E0E7FF" class="dark:fill-slate-100" />
-                  <polygon points="-5,10 0,2 5,10" fill="#FFFFFF" />
-                  <line x1="0" y1="0" x2="0" y2="-18" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" />
-                  <path d="M 0 -18 C 6 -21 11 -15 17 -18 L 17 -9 C 11 -6 6 -12 0 -9 Z" fill="#EF4444" class="summit-flag-banner origin-left animate-pulse" />
-                  <circle cx="5" cy="-13.5" r="1.2" fill="#FBBF24" />
-                  <circle cx="0" cy="-18" r="1.8" fill="#F59E0B" />
-                </g>
-
-                <!-- Base Camp Tent at Start (24, 56) -->
-                <g transform="translate(18, 56)">
-                  <polygon points="-6,4 0,-6 6,4" fill="#3B82F6" class="opacity-80" />
-                  <polygon points="0,-6 6,4 2,4 0,-2" fill="#1D4ED8" />
-                </g>
-
-                <!-- STICKMAN CLIMBER (Người Que Leo Núi) -->
-                <g id="mountain-stickman" class="stickman-climber text-slate-800 dark:text-white" style="transform: translate(24px, 56px); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);">
-                  <ellipse cx="0" cy="1" rx="5" ry="1.5" fill="rgba(0,0,0,0.25)" class="dark:fill-black/40" />
-                  <rect x="-6" y="-17" width="4.5" height="6.5" rx="1.5" fill="#F59E0B" stroke="#D97706" stroke-width="0.8" />
-                  <path class="stickman-leg-back" d="M -1 -7 L -5 -2 L -7 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <path class="stickman-leg-front" d="M 0 -7 L 3 -3 L 2 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
-                  <line class="stickman-torso" x1="-0.5" y1="-7" x2="2.5" y2="-17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-                  <path class="stickman-arm-back" d="M 1 -15 L -4 -11 L -7 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                  <line x1="-8.5" y1="-1" x2="-5.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
-                  <path class="stickman-arm-front" d="M 2.5 -15 L 7 -11 L 8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  <line x1="6.5" y1="-1" x2="9.5" y2="0" stroke="#94A3B8" stroke-width="1.2" stroke-linecap="round" />
-                  <circle class="stickman-head" cx="4" cy="-21" r="3.8" fill="currentColor" />
-                  <path d="M 1.5 -23 L 7.5 -22 L 5 -20 Z" fill="#EF4444" />
-                </g>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Khung Card chứa câu hỏi luyện tập (Bo góc linh hoạt, tự động nâng lên khi bàn phím ảo iPhone bật) -->
-        <div id="practice-card-wrapper" class="flex-1 flex flex-col justify-start sm:justify-center items-center w-full min-h-0 sm:min-h-[480px] my-1 sm:my-auto py-1 sm:py-2 transition-all duration-200">
-          <div id="active-practice-card" class="relative w-full rounded-2xl sm:rounded-[2rem] bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 p-4 sm:p-6 shadow-xl shadow-slate-900/5 backdrop-blur-xl flex flex-col justify-between overflow-hidden select-none transition-all duration-200">
-            
-            <!-- THANH ĐẾM NGƯỢC 20 GIÂY (Mờ mờ ở mép trên cùng của card, rút ngắn dần) -->
-            <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-200/30 dark:bg-slate-800/30 overflow-hidden">
-              <div id="question-timer-bar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-[width] duration-75 ease-linear" style="width: 100%"></div>
-            </div>
-
-            <!-- Card Sub-header: Mode Tag + Đồng hồ đếm ngược -->
-            <div class="flex items-center justify-between w-full mb-2 sm:mb-3 pt-0.5 sm:pt-1">
-              <div class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[10px] sm:text-[11px] font-bold border">
-                <span>${modeTitle}</span>
+              <!-- Main Question Body Container -->
+              <div id="question-body-container" class="py-0.5 sm:py-1">
+                ${questionBodyHtml}
               </div>
-              <span id="timer-text" class="text-[10px] sm:text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700">
-                ⏱️ 20s
-              </span>
+
+              <!-- Feedback Area (Hiển thị khi trả lời đúng / sai / hết giờ) -->
+              <div id="feedback-area" class="mt-2.5 sm:mt-3 hidden"></div>
+
             </div>
-
-            <!-- Main Question Body -->
-            <div class="py-0.5 sm:py-1">
-              ${questionBodyHtml}
-            </div>
-
-            <!-- Feedback Area (Hiển thị khi trả lời đúng / sai / hết giờ) -->
-            <div id="feedback-area" class="mt-2.5 sm:mt-3 hidden"></div>
-
           </div>
         </div>
-      </div>
-    `;
+      `;
+    } else {
+      // Đã có ngọn núi và người que: Chỉ cập nhật nội dung card mượt mà, KHÔNG gây giật màn hình
+      const cardModeBadge = this.container.querySelector('#card-mode-badge');
+      if (cardModeBadge) {
+        cardModeBadge.className = `inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full ${modeBadgeClass} text-[10px] sm:text-[11px] font-bold border`;
+        cardModeBadge.innerHTML = `<span>${modeTitle}</span>`;
+      }
+
+      const timerBar = this.container.querySelector('#question-timer-bar');
+      if (timerBar) {
+        timerBar.style.width = '100%';
+        timerBar.className = 'h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 transition-[width] duration-75 ease-linear';
+      }
+
+      const timerText = this.container.querySelector('#timer-text');
+      if (timerText) {
+        timerText.textContent = '⏱️ 20s';
+        timerText.className = 'text-[10px] sm:text-[11px] font-bold font-mono px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700';
+      }
+
+      const questionBodyContainer = this.container.querySelector('#question-body-container');
+      if (questionBodyContainer) {
+        questionBodyContainer.innerHTML = questionBodyHtml;
+        questionBodyContainer.classList.remove('animate-fade-in');
+        void questionBodyContainer.offsetWidth;
+        questionBodyContainer.classList.add('animate-fade-in');
+      }
+
+      const feedbackArea = this.container.querySelector('#feedback-area');
+      if (feedbackArea) {
+        feedbackArea.className = 'mt-2.5 sm:mt-3 hidden';
+        feedbackArea.innerHTML = '';
+      }
+    }
 
     this.bindEvents(item);
     this.updateProgressUI();
@@ -668,17 +730,52 @@ export class VocabPracticeEngine {
     `;
   }
 
+  updateAudioButtonUI() {
+    const btn = this.container.querySelector('#btn-toggle-audio-status');
+    if (!btn) return;
+    if (!this.isAudioDisabledForSession) {
+      btn.className = "flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border bg-indigo-50 dark:bg-indigo-950/60 border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-300 transition-all";
+      btn.title = "Đang bật âm thanh (Mẹo iPhone: Nếu không nghe thấy tiếng, hãy kiểm tra cần gạt rung ở cạnh máy)";
+      btn.innerHTML = `
+        <svg class="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+        <span>Âm thanh: Bật</span>
+      `;
+    } else {
+      btn.className = "flex items-center space-x-1 px-2.5 py-1 rounded-xl text-xs font-semibold border bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 transition-all";
+      btn.title = "Bấm để bật âm thanh";
+      btn.innerHTML = `
+        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+        <span>Tắt âm</span>
+      `;
+    }
+  }
+
   bindEvents(item) {
-    this.container.querySelector('#btn-exit-practice')?.addEventListener('click', () => {
-      this.handleExitPrompt();
-    });
+    const exitBtn = this.container.querySelector('#btn-exit-practice');
+    if (exitBtn) {
+      exitBtn.onclick = () => {
+        this.handleExitPrompt();
+      };
+    }
+
+    const toggleAudioStatusBtn = this.container.querySelector('#btn-toggle-audio-status');
+    if (toggleAudioStatusBtn) {
+      toggleAudioStatusBtn.onclick = () => {
+        this.isAudioDisabledForSession = !this.isAudioDisabledForSession;
+        this.updateAudioButtonUI();
+        if (this.isAudioDisabledForSession) {
+          this.handleCantListenNow();
+        } else {
+          this.renderCurrentQuestion();
+        }
+      };
+    }
 
     const inputEl = document.getElementById('vocab-input');
     const submitBtn = document.getElementById('btn-submit-answer');
     const cantListenBtn = document.getElementById('btn-cant-listen-now');
     const playAudioBtn = document.getElementById('btn-play-audio');
     const playWordAudioBtn = document.getElementById('btn-play-word-audio');
-    const toggleAudioStatusBtn = document.getElementById('btn-toggle-audio-status');
 
     if (inputEl) {
       const cardWrapper = document.getElementById('practice-card-wrapper');
@@ -707,7 +804,10 @@ export class VocabPracticeEngine {
 
       // Lắng nghe window.visualViewport trên iOS Safari để nhận biết tức thì khi bàn phím mở
       if (typeof window !== 'undefined' && window.visualViewport) {
-        const handleViewport = () => {
+        if (this.viewportHandler) {
+          window.visualViewport.removeEventListener('resize', this.viewportHandler);
+        }
+        this.viewportHandler = () => {
           const isKeyboard = window.visualViewport.height < window.innerHeight * 0.82;
           if (isKeyboard && document.activeElement === inputEl) {
             cardWrapper?.classList.add('keyboard-open');
@@ -716,7 +816,7 @@ export class VocabPracticeEngine {
             cardWrapper?.classList.remove('keyboard-open');
           }
         };
-        window.visualViewport.addEventListener('resize', handleViewport, { passive: true });
+        window.visualViewport.addEventListener('resize', this.viewportHandler, { passive: true });
       }
 
       inputEl.addEventListener('keydown', (e) => {
@@ -766,17 +866,6 @@ export class VocabPracticeEngine {
       };
       playWordAudioBtn.addEventListener('click', play);
       playWordAudioBtn.addEventListener('touchend', play);
-    }
-
-    if (toggleAudioStatusBtn) {
-      toggleAudioStatusBtn.addEventListener('click', () => {
-        this.isAudioDisabledForSession = !this.isAudioDisabledForSession;
-        if (this.isAudioDisabledForSession) {
-          this.handleCantListenNow();
-        } else {
-          this.renderCurrentQuestion();
-        }
-      });
     }
 
     if (cantListenBtn) {
@@ -1094,8 +1183,6 @@ export class VocabPracticeEngine {
           </div>
           ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
         </div>
-          ${word.ipa ? `<span class="text-[11px] sm:text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 break-words max-w-full text-right">${word.ipa}</span>` : ''}
-        </div>
 
         <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-200">
           <span class="text-slate-500 dark:text-slate-400">Đáp án đúng là:</span>
@@ -1171,6 +1258,10 @@ export class VocabPracticeEngine {
 
   cleanup() {
     this.clearQuestionTimer();
+    if (this.viewportHandler && typeof window !== 'undefined' && window.visualViewport) {
+      window.visualViewport.removeEventListener('resize', this.viewportHandler);
+      this.viewportHandler = null;
+    }
   }
 
   finishSession() {
@@ -1240,7 +1331,7 @@ export class VocabPracticeEngine {
             <span>Ôn tiếp Đợt ${disciplineStatus.currentBatchIndex}/${disciplineStatus.totalBatches} (${disciplineStatus.currentReviewBatch.length} từ)</span>
           </button>
           <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
-            Về Bảng Điều Khiển (Ôn tiếp sau)
+            Về Bảng Điều Khiển
           </button>
         `;
       } else {
