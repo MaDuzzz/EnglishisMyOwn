@@ -312,7 +312,7 @@ class App {
       }
 
       // Đồng bộ dữ liệu Cloud thủ công
-      const syncBtn = e.target.closest('#btn-dropdown-sync-cloud, #btn-analytics-sync-cloud, #btn-analytics-sync-cloud-empty');
+      const syncBtn = e.target.closest('#btn-dropdown-sync-cloud');
       if (syncBtn) {
         if (window.navigator?.vibrate) window.navigator.vibrate(10);
         this.isUserMenuOpen = false;
@@ -3012,15 +3012,8 @@ class App {
               </p>
             </div>
 
-            <!-- Action Controls (Sync & Year Switcher) -->
-            <div class="flex items-center space-x-1.5 sm:space-x-2 self-start sm:self-center shrink-0 flex-wrap gap-y-1.5">
-              <button id="btn-analytics-sync-cloud" type="button" class="cursor-pointer inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 active:scale-95 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-xs font-bold transition-all shadow-xs" title="Đồng bộ dữ liệu học tập mới nhất từ Cloud Firestore">
-                <svg class="w-3.5 h-3.5 sync-spin-target" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                <span>Đồng bộ Cloud</span>
-              </button>
-
+            <!-- Action Controls (Year Switcher) -->
+            <div class="flex items-center space-x-1.5 sm:space-x-2 self-start sm:self-center shrink-0">
               <!-- Year Switcher -->
               <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
                 <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
