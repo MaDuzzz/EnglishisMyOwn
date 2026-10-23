@@ -59,9 +59,6 @@ class App {
   }
 
   async init() {
-    // Kiểm tra và nhập tiến độ nếu người dùng mở qua link đồng bộ (?sync_data=...)
-    const importedCount = this.checkAndImportSyncUrl();
-
     // Khởi tạo Theme
     this.initTheme();
 
@@ -83,12 +80,6 @@ class App {
     this.bindGlobalEvents();
     this.updateHeaderUI();
     this.switchTab("vocab");
-
-    if (importedCount > 0) {
-      setTimeout(() => {
-        this.showToast(`🎉 Đã đồng bộ thành công ${importedCount} từ vựng từ máy tính!`, 4500);
-      }, 500);
-    }
 
     // Khởi tạo Firebase / Local Fallback trong background
     await initFirebase();
