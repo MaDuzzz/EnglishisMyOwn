@@ -364,9 +364,9 @@ export class VocabPracticeEngine {
               <button id="btn-exit-practice" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên luyện tập">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
-              <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border">
-                <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse"></span>
-                <span>${this.mode === 'review' ? 'Ôn tập kỷ luật' : 'Luyện tập phản xạ'}</span>
+              <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border truncate max-w-[190px] sm:max-w-xs">
+                <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse shrink-0"></span>
+                <span class="truncate">${this.mode === 'review' ? 'Ôn tập kỷ luật' : (this.options.batchMeta?.groupName ? this.options.batchMeta.groupName : 'Luyện tập phản xạ')}</span>
               </div>
             </div>
 
@@ -1226,12 +1226,13 @@ export class VocabPracticeEngine {
       // mode === 'new_batch'
       if (isStreakDone) {
         iconEmoji = '🔥';
-        titleHtml = `Chinh Phục Đỉnh Núi & Bảo Toàn Chuỗi Kỷ Luật!`;
-        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Chinh phục đỉnh núi 10 từ mới hôm nay (${this.targetPoints} nấc thực chiến).<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
+        const groupTitle = this.options.batchMeta?.groupName ? ` Chủ Đề "${this.options.batchMeta.groupName}"` : ` 10 Từ Mới`;
+        titleHtml = `Chinh Phục Đỉnh Núi${groupTitle} & Bảo Toàn Chuỗi!`;
+        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Chinh phục đỉnh núi từ mới hôm nay (${this.targetPoints} nấc thực chiến).<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
         actionButtonsHtml = `
           <button id="btn-learn-more-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>✨</span>
-            <span>Học Thêm 10 Từ Mới (+15 XP)</span>
+            <span>${this.options.batchMeta?.groupName ? `Học Tiếp Chủ Đề Này (+15 XP)` : `Học Thêm 10 Từ Mới (+15 XP)`}</span>
           </button>
           <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
             Quay lại Bảng Điều Khiển
@@ -1239,7 +1240,8 @@ export class VocabPracticeEngine {
         `;
       } else {
         iconEmoji = '⚡';
-        titleHtml = `Chinh Phục Đỉnh Núi 10 Từ Mới!`;
+        const groupTitle = this.options.batchMeta?.groupName ? ` Chủ Đề "${this.options.batchMeta.groupName}"` : ` 10 Từ Mới`;
+        titleHtml = `Chinh Phục Đỉnh Núi${groupTitle}!`;
         descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập T-1 để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
         actionButtonsHtml = `
           <button id="btn-do-review-now" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">

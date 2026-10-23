@@ -1794,6 +1794,9 @@ class App {
         const groupWords = g.words || [];
         const learnedInGroup = groupWords.filter(w => learnedWordIds.has(w.id)).length;
         const percentInGroup = groupWords.length ? Math.round((learnedInGroup / groupWords.length) * 100) : 0;
+        const unlearnedInGroup = Math.max(0, groupWords.length - learnedInGroup);
+        const batchSize = Math.min(10, unlearnedInGroup > 0 ? unlearnedInGroup : 10);
+        const isGroupAllLearned = unlearnedInGroup === 0 && groupWords.length > 0;
 
         const sampleWords = groupWords.slice(0, 3).map(w => `<span class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-mono">${w.word}</span>`).join(' ');
 
@@ -1845,8 +1848,8 @@ class App {
                 <button data-group-id="${g.groupId}" class="btn-group-dict px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all" title="Tra cứu trong từ điển">
                   📖 Sổ tay
                 </button>
-                <button data-group-id="${g.groupId}" class="btn-group-practice px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center space-x-1" title="Luyện tập phản xạ">
-                  <span>⚡ Luyện</span>
+                <button data-group-id="${g.groupId}" class="btn-group-learn-batch px-3 py-1.5 rounded-xl ${isGroupAllLearned ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'} text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center space-x-1" title="${isGroupAllLearned ? 'Đã hoàn thành toàn bộ chủ đề này. Bấm để ôn luyện lại 10 từ ngẫu nhiên.' : `Học batch ${batchSize} từ mới thuộc chủ đề ${g.name}`}">
+                  <span>${isGroupAllLearned ? '🔄 Học lại (10 từ)' : `⚡ Học ${batchSize} từ`}</span>
                 </button>
               </div>
             </div>
@@ -1953,20 +1956,29 @@ class App {
         }
       }
 
-      // Gắn sự kiện Luyện tập riêng nhóm này
-      grid.querySelectorAll('.btn-group-practice').forEach(btn => {
+      // Gắn sự kiện Học batch từ mới theo chủ đề chỉ định (Giai đoạn 1 Thẩm thấu -> Giai đoạn 2 Luyện tập phản xạ)
+      grid.querySelectorAll('.btn-group-learn-batch').forEach(btn => {
         btn.addEventListener('click', () => {
           const groupId = btn.getAttribute('data-group-id');
           const grp = groups.find(g => g.groupId === groupId);
-          if (grp && grp.words && grp.words.length > 0) {
-            this.vocabEngine = new VocabPracticeEngine(mainContainer, {
-              mode: "new_batch",
-              words: grp.words,
-              targetPoints: (grp.words.length || 10) * 3,
-              onCompleted: () => this.renderVocabDashboard()
-            });
-            this.vocabEngine.start();
+          if (!grp) return;
+
+          // Kiểm tra kỷ luật: Phải hoàn thành Ôn tập T-1 trước
+          const discipline = appState.calculateDisciplineStatus();
+          if (discipline.needsReview) {
+            this.showToast("⚠️ Quy tắc giữ chuỗi: Bạn cần hoàn thành Bước 1 (Ôn tập từ T-1) trước khi bắt đầu học từ mới!", 4000);
+            const reviewBtn = document.getElementById('btn-start-review');
+            if (reviewBtn) {
+              reviewBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              reviewBtn.classList.add('ring-4', 'ring-amber-400', 'animate-pulse');
+              setTimeout(() => {
+                reviewBtn.classList.remove('ring-4', 'ring-amber-400', 'animate-pulse');
+              }, 2000);
+            }
+            return;
           }
+
+          this.startNewBatchAbsorb(grp.groupId, grp.name);
         });
       });
 
@@ -2106,20 +2118,45 @@ class App {
     });
   }
 
-  // Khởi động Giai đoạn 1: Thẩm thấu & Sàng lọc Batch 10 từ mới
-  startNewBatchAbsorb() {
+  // Khởi động Giai đoạn 1: Thẩm thấu & Sàng lọc Batch 10 từ mới (Hỗ trợ theo Chủ đề chỉ định)
+  startNewBatchAbsorb(targetGroupId = null, groupName = null) {
     const mainContainer = document.getElementById('main-content-area');
+    let candidates = [];
+    let targetCount = 10;
+
+    if (targetGroupId) {
+      candidates = appState.getNewBatchCandidatesForGroup(targetGroupId);
+      if (!groupName) {
+        const grp = appState.getVocabGroups().find(g => g.groupId === targetGroupId);
+        if (grp) groupName = grp.name;
+      }
+      const learnedIds = new Set((appState.state.learnedWords || []).map(w => w.wordId || w.id));
+      const unlearnedCount = candidates.filter(w => !learnedIds.has(w.id)).length;
+      targetCount = Math.min(10, unlearnedCount > 0 ? unlearnedCount : Math.min(10, candidates.length));
+    } else {
+      candidates = appState.getNewBatchCandidates();
+      targetCount = 10;
+    }
+
     this.absorbEngine = new VocabAbsorbEngine(mainContainer, {
+      candidates: candidates,
+      targetCount: targetCount,
+      groupId: targetGroupId,
+      groupName: groupName,
       onCompleted: () => this.renderVocabDashboard(),
       onStartPractice: (acceptedWords, batchMeta) => {
         this.vocabEngine = new VocabPracticeEngine(mainContainer, {
           mode: "new_batch",
           words: acceptedWords,
-          batchMeta: batchMeta,
+          batchMeta: {
+            ...batchMeta,
+            groupId: targetGroupId,
+            groupName: groupName
+          },
           targetPoints: (acceptedWords.length || 10) * 3,
           onCompleted: () => this.renderVocabDashboard(),
           onStartNewBatch: () => {
-            this.startNewBatchAbsorb();
+            this.startNewBatchAbsorb(targetGroupId, groupName);
           },
           onStartReview: () => {
             document.getElementById('btn-start-review')?.click();

@@ -621,7 +621,7 @@ export class StateManager {
   // Lấy danh sách ứng viên từ mới phong phú cho phiên thẩm thấu Giai đoạn 1
   getNewBatchCandidates() {
     const level = this.state.cefrLevel || "A1";
-    const learnedIds = new Set((this.state.learnedWords || []).map(w => w.wordId));
+    const learnedIds = new Set((this.state.learnedWords || []).map(w => w.wordId || w.id));
     
     const unlearned = VOCAB_BANK.filter(w => !learnedIds.has(w.id));
     const primary = unlearned.filter(w => w.level === level);
@@ -629,6 +629,36 @@ export class StateManager {
 
     const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
     return [...shuffle(primary), ...shuffle(secondary)];
+  }
+
+  // Lấy danh sách ứng viên từ mới theo Chủ Đề chỉ định cho phiên thẩm thấu Giai đoạn 1
+  getNewBatchCandidatesForGroup(groupId) {
+    const learnedIds = new Set((this.state.learnedWords || []).map(w => w.wordId || w.id));
+    const groups = this.getVocabGroups();
+    const group = groups.find(g => g.groupId === groupId);
+    if (!group) return [];
+
+    // Gắn metadata nhóm cho từng từ để đảm bảo đầy đủ trường groupName, groupIcon, category
+    const allGroupWords = (group.words || []).map(w => ({
+      ...w,
+      groupId: group.groupId,
+      groupName: group.name,
+      groupIcon: group.icon,
+      category: group.category || "daily"
+    }));
+
+    const unlearned = allGroupWords.filter(w => !learnedIds.has(w.id));
+    const learned = allGroupWords.filter(w => learnedIds.has(w.id));
+
+    const shuffle = (arr) => [...arr].sort(() => 0.5 - Math.random());
+
+    // Nếu còn từ chưa học, ưu tiên các từ chưa học lên trước để học batch mới
+    if (unlearned.length > 0) {
+      return [...unlearned, ...shuffle(learned)];
+    }
+
+    // Nếu đã học xong toàn bộ nhóm, xáo trộn từ đã học để học lại/ôn luyện
+    return shuffle(learned);
   }
 
   // Đánh dấu hoàn thành học Batch 10 từ mới (kèm danh sách từ đã biết bỏ qua)
@@ -657,6 +687,20 @@ export class StateManager {
         status: "known",
         lastReviewedAt: new Date().toISOString()
       }));
+
+    // Cập nhật các từ đã có trong danh sách nếu được học lại
+    this.state.learnedWords = (this.state.learnedWords || []).map(w => {
+      const wid = w.wordId || w.id;
+      if (newWordIds.includes(wid)) {
+        return {
+          ...w,
+          reviewCount: (w.reviewCount || 0) + 1,
+          lastReviewedAt: new Date().toISOString(),
+          lastReviewedDate: today
+        };
+      }
+      return w;
+    });
 
     // Thêm cả 2 nhóm vào danh sách để lên lịch ôn tập T+1 vào ngày mai
     this.state.learnedWords.push(...newItems, ...knownItems);

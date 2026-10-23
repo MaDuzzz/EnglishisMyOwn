@@ -19,6 +19,8 @@ export class VocabAbsorbEngine {
     this.onStartPractice = options.onStartPractice || null;
     this.targetCount = options.targetCount || 10;
     this.candidates = options.candidates || [];
+    this.groupId = options.groupId || null;
+    this.groupName = options.groupName || null;
     this.acceptedWords = [];
     this.skippedWords = [];
     this.currentIndex = 0;
@@ -28,12 +30,21 @@ export class VocabAbsorbEngine {
 
   start() {
     if (!this.candidates || this.candidates.length === 0) {
-      this.candidates = appState.getNewBatchCandidates();
+      if (this.groupId) {
+        this.candidates = appState.getNewBatchCandidatesForGroup(this.groupId);
+      } else {
+        this.candidates = appState.getNewBatchCandidates();
+      }
     }
 
     if (!this.candidates || this.candidates.length === 0) {
       this.renderEmptyState();
       return;
+    }
+
+    // Tự động điều chỉnh targetCount nếu tổng số từ ứng viên ít hơn targetCount
+    if (this.targetCount > this.candidates.length) {
+      this.targetCount = this.candidates.length;
     }
 
     this.acceptedWords = [];
@@ -46,13 +57,20 @@ export class VocabAbsorbEngine {
   }
 
   renderEmptyState() {
+    const isTopic = Boolean(this.groupName);
     this.container.innerHTML = `
       <div class="flex-1 flex flex-col items-center justify-center min-h-[calc(100dvh-230px)] md:min-h-[500px] w-full py-4 animate-fade-in">
         <div class="w-full max-w-lg mx-auto">
           <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-6 sm:p-8 text-center border border-slate-200/90 dark:border-slate-800 shadow-xl">
             <div class="text-4xl mb-4">🏆</div>
-            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Đã Nạp Hết Kho Từ Vựng!</h3>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">Bạn đã thẩm thấu toàn bộ các từ vựng hiện có trong hệ thống. Hãy duy trì chuỗi kỷ luật ôn tập hàng ngày nhé!</p>
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">
+              ${isTopic ? `Đã Hoàn Thành Chủ Đề "${this.groupName}"!` : 'Đã Nạp Hết Kho Từ Vựng!'}
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-6">
+              ${isTopic 
+                ? 'Bạn đã hoàn tất toàn bộ các từ vựng trong chủ đề này. Hãy chọn chủ đề mới hoặc ôn luyện lại nhé!' 
+                : 'Bạn đã thẩm thấu toàn bộ các từ vựng hiện có trong hệ thống. Hãy duy trì chuỗi kỷ luật ôn tập hàng ngày nhé!'}
+            </p>
             <button id="btn-empty-back" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/25">
               Quay lại Bảng Điều Khiển
             </button>
@@ -72,13 +90,13 @@ export class VocabAbsorbEngine {
         <!-- Top Control Header (Hình 2: Đặt ngay sát header chính Hình 1, không nằm trên card) -->
         <div class="w-full pt-0.5 pb-2">
             <div class="flex items-center justify-between mb-2">
-              <div class="flex items-center space-x-2">
-                <button id="btn-exit-absorb" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" title="Thoát phiên học">
+              <div class="flex items-center space-x-2 min-w-0">
+                <button id="btn-exit-absorb" class="p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors shrink-0" title="Thoát phiên học">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
-                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold">
-                  <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                  <span>Thẩm thấu từ mới</span>
+                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-900/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold truncate max-w-[190px] sm:max-w-xs">
+                  <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse shrink-0"></span>
+                  <span class="truncate">${this.groupName ? `Chủ đề: ${this.groupName}` : 'Thẩm thấu từ mới'}</span>
                 </div>
               </div>
 
@@ -590,13 +608,18 @@ export class VocabAbsorbEngine {
 
     const acceptedWords = this.acceptedWords.length > 0 
       ? this.acceptedWords 
-      : this.candidates.slice(0, 10);
+      : this.candidates.slice(0, this.targetCount || 10);
     const acceptedIds = acceptedWords.map(w => w.id);
     const skippedIds = this.skippedWords.map(w => w.id);
 
     // CHÚ Ý QUAN TRỌNG: Không lưu trạng thái đã học ở đây!
-    // Người học phải hoàn thành cả Giai đoạn 2 (Luyện tập phản xạ) thì mới chính thức được tính là đã học xong batch 10 từ.
-    this.startStage2Practice(acceptedWords, { acceptedIds, skippedIds });
+    // Người học phải hoàn thành cả Giai đoạn 2 (Luyện tập phản xạ) thì mới chính thức được tính là đã học xong batch từ.
+    this.startStage2Practice(acceptedWords, { 
+      acceptedIds, 
+      skippedIds,
+      groupId: this.groupId,
+      groupName: this.groupName 
+    });
   }
 
   startStage2Practice(practiceWords, batchMeta = {}) {
@@ -608,7 +631,7 @@ export class VocabAbsorbEngine {
       mode: "new_batch",
       words: practiceWords,
       batchMeta: batchMeta,
-      targetPoints: 30,
+      targetPoints: (practiceWords.length || 10) * 3,
       onCompleted: () => {
         this.onCompleted();
       }
