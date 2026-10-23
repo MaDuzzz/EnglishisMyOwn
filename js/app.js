@@ -59,6 +59,9 @@ class App {
   }
 
   async init() {
+    // Kiểm tra và nhập tiến độ nếu người dùng mở qua link đồng bộ (?sync_data=...)
+    const importedCount = this.checkAndImportSyncUrl();
+
     // Khởi tạo Theme
     this.initTheme();
 
@@ -80,6 +83,12 @@ class App {
     this.bindGlobalEvents();
     this.updateHeaderUI();
     this.switchTab("vocab");
+
+    if (importedCount > 0) {
+      setTimeout(() => {
+        this.showToast(`🎉 Đã đồng bộ thành công ${importedCount} từ vựng từ máy tính!`, 4500);
+      }, 500);
+    }
 
     // Khởi tạo Firebase / Local Fallback trong background
     await initFirebase();
@@ -312,6 +321,24 @@ class App {
         return;
       }
 
+      // Mở Modal QR Chuyển dữ liệu sang Điện thoại
+      const transferBtn = e.target.closest('#btn-open-sync-transfer, #btn-dropdown-qr-transfer');
+      if (transferBtn) {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        this.isUserMenuOpen = false;
+        this.updateHeaderUI();
+        this.openSyncTransferModal();
+        return;
+      }
+
+      // Đăng nhập Google trực tiếp từ Banner thông báo trên điện thoại
+      const loginSyncBtn = e.target.closest('#btn-analytics-login-sync');
+      if (loginSyncBtn) {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        this.handleAuthClick();
+        return;
+      }
+
       // Đăng nhập Google (Header hoặc Call-to-action trên Guest Portal)
       const loginBtn = e.target.closest('#btn-auth-action, #btn-portal-login-cta');
       if (loginBtn) {
@@ -390,18 +417,172 @@ class App {
     }
   }
 
-  async handleManualSync() {
-    if (!appState.state.user || !appState.state.user.uid) {
-      this.showToast("🔒 Vui lòng đăng nhập Google để đồng bộ dữ liệu!");
+  // ==================== QUẢN LÝ ĐỒNG BỘ ĐA THIẾT BỊ ====================
+  generateSyncLink() {
+    const s = appState.state;
+    const payload = {
+      v: 1,
+      u: s.user ? {
+        uid: s.user.uid,
+        displayName: s.user.displayName || '',
+        email: s.user.email || '',
+        photoURL: s.user.photoURL || ''
+      } : null,
+      c: s.cefrLevel || null,
+      x: s.rankXP || 0,
+      s: s.streak || 0,
+      m: s.maxStreak || 0,
+      d: s.completedStreakDates || [],
+      w: (s.learnedWords || []).map(w => [w.wordId || w.id, w.learnedDate || '', w.reviewCount || 0, w.status || 'learning']),
+      l: s.lastActiveDate || null
+    };
+
+    const jsonStr = JSON.stringify(payload);
+    // Base64 encode an toàn UTF-8
+    const b64 = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+    const url = new URL(window.location.href);
+    url.search = `?sync_data=${encodeURIComponent(b64)}`;
+    return url.toString();
+  }
+
+  checkAndImportSyncUrl() {
+    if (typeof window === 'undefined') return 0;
+    const urlParams = new URLSearchParams(window.location.search);
+    const syncData = urlParams.get('sync_data');
+    if (!syncData) return 0;
+
+    try {
+      const decodedStr = decodeURIComponent(Array.prototype.map.call(atob(decodeURIComponent(syncData)), (c) => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      const payload = JSON.parse(decodedStr);
+
+      if (payload && Array.isArray(payload.w)) {
+        const learnedWords = payload.w.map(arr => ({
+          wordId: arr[0],
+          learnedDate: arr[1] || '',
+          reviewCount: arr[2] || 0,
+          status: arr[3] || 'learning'
+        }));
+
+        if (payload.u && payload.u.uid) {
+          appState.setCachedUser(payload.u);
+          appState.state.user = payload.u;
+        }
+        if (payload.c) appState.state.cefrLevel = payload.c;
+        if (payload.x !== undefined) appState.state.rankXP = payload.x;
+        if (payload.s !== undefined) appState.state.streak = payload.s;
+        if (payload.m !== undefined) appState.state.maxStreak = payload.m;
+        if (Array.isArray(payload.d)) appState.state.completedStreakDates = payload.d;
+        appState.state.learnedWords = learnedWords;
+        if (payload.l) appState.state.lastActiveDate = payload.l;
+
+        // Lưu vào LocalStorage cache
+        appState.setCachedProfile(appState.state);
+        appState.notify();
+
+        // Xóa query param trên URL để link sạch sẽ
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        return learnedWords.length;
+      }
+    } catch (e) {
+      console.error("Lỗi khi giải mã sync_data:", e);
+    }
+    return 0;
+  }
+
+  openSyncTransferModal() {
+    const s = appState.state;
+    const learnedCount = (s.learnedWords || []).length;
+    if (learnedCount === 0) {
+      this.showToast("⚠️ Chưa có dữ liệu từ vựng để chuyển thiết bị!");
       return;
     }
-    if (!isFirebaseLive) {
+
+    const syncUrl = this.generateSyncLink();
+    const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=10&data=${encodeURIComponent(syncUrl)}`;
+
+    let modal = document.getElementById('sync-transfer-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'sync-transfer-modal';
+      document.body.appendChild(modal);
+    }
+
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in';
+    modal.innerHTML = `
+      <div class="relative w-full max-w-sm rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-2xl text-center space-y-4">
+        <button id="btn-close-sync-modal" type="button" class="cursor-pointer absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mx-auto flex items-center justify-center text-2xl">
+          📱
+        </div>
+
+        <div>
+          <h3 class="text-base font-black text-slate-900 dark:text-white">Chuyển sang Điện thoại</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Chuyển ngay <b class="text-indigo-600 dark:text-indigo-400">${learnedCount} từ vựng</b> & Chuỗi 🔥 <b class="text-amber-500">${s.streak} ngày</b>
+          </p>
+        </div>
+
+        <!-- QR Code -->
+        <div class="p-3 bg-white rounded-2xl border border-slate-200 shadow-inner inline-block mx-auto">
+          <img src="${qrImgUrl}" alt="QR Sync" class="w-48 h-48 mx-auto rounded-lg">
+        </div>
+
+        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+          Bật <b>Camera</b> trên điện thoại để quét mã QR trên màn hình này, hoặc bấm sao chép link gửi qua Zalo/iMessage:
+        </p>
+
+        <div class="flex items-center space-x-2 pt-1">
+          <button id="btn-copy-sync-link" type="button" class="cursor-pointer flex-1 py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs shadow-md shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span id="btn-copy-sync-text">Sao chép Link đồng bộ</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('btn-close-sync-modal')?.addEventListener('click', () => {
+      modal.remove();
+    });
+
+    document.getElementById('btn-copy-sync-link')?.addEventListener('click', () => {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(syncUrl).then(() => {
+          const textEl = document.getElementById('btn-copy-sync-text');
+          if (textEl) textEl.textContent = "✅ Đã sao chép Link!";
+          this.showToast("📋 Đã sao chép link đồng bộ! Dán vào Safari trên điện thoại để nhận dữ liệu ngay.");
+        }).catch(() => {
+          prompt("Sao chép link dưới đây để mở trên điện thoại:", syncUrl);
+        });
+      } else {
+        prompt("Sao chép link dưới đây để mở trên điện thoại:", syncUrl);
+      }
+    });
+  }
+
+  async handleManualSync() {
+    if (!isFirebaseLive || !authInstance) {
       this.showToast("🔄 Đang kết nối Cloud Firestore...", 2000);
       await initFirebase();
-      if (!isFirebaseLive) {
-        this.showToast("❌ Không thể kết nối Cloud Firestore. Vui lòng kiểm tra mạng.");
-        return;
-      }
+    }
+
+    // Nếu thiết bị này chưa có phiên đăng nhập Firebase Auth thực tế (chỉ có session cache)
+    if (isFirebaseLive && authInstance && !authInstance.currentUser) {
+      this.showToast("🔑 Đang mở đăng nhập Google để xác thực và tải 51 từ vựng Cloud...", 3000);
+      await this.handleAuthClick();
+      return;
+    }
+
+    const uid = authInstance?.currentUser?.uid || appState.state.user?.uid;
+    if (!uid) {
+      this.showToast("🔒 Vui lòng đăng nhập Google để đồng bộ dữ liệu!");
+      return;
     }
 
     this.showToast("🔄 Đang đồng bộ dữ liệu từ Cloud Firestore...", 3000);
@@ -409,7 +590,7 @@ class App {
     syncIcons.forEach(el => el.classList.add('animate-spin'));
 
     try {
-      const success = await appState.loadUserFromFirestore(appState.state.user.uid);
+      const success = await appState.loadUserFromFirestore(uid);
       syncIcons.forEach(el => el.classList.remove('animate-spin'));
 
       if (success) {
@@ -424,7 +605,13 @@ class App {
           this.renderVocabDashboard();
         }
       } else {
-        this.showToast("⚠️ Chưa tải được dữ liệu mới. Hãy kiểm tra xem bạn đã đăng nhập đúng tài khoản chưa hoặc thử Đăng xuất rồi Đăng nhập lại.", 5000);
+        const err = appState.lastSyncError;
+        if (err && err.code === 'permission-denied') {
+          this.showToast("🔒 Cần xác thực tài khoản Google trên máy này. Đang mở đăng nhập...", 3500);
+          await this.handleAuthClick();
+        } else {
+          this.showToast("⚠️ Chưa tải được dữ liệu: " + (err?.message || "Vui lòng thử lại sau"), 5000);
+        }
       }
     } catch (e) {
       syncIcons.forEach(el => el.classList.remove('animate-spin'));
@@ -528,14 +715,29 @@ class App {
                     <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate">${user.displayName || "Học viên"}</p>
                     <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">${user.email || ""}</p>
                     <div class="flex items-center space-x-1.5 mt-1">
-                      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Cloud Firestore (${(appState.state.learnedWords || []).length} từ đã nạp)</span>
+                      <span class="inline-block w-2 h-2 rounded-full ${authInstance?.currentUser ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}"></span>
+                      <span class="text-[10px] font-semibold ${authInstance?.currentUser ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}">
+                        ${authInstance?.currentUser ? `Cloud Firestore (${(appState.state.learnedWords || []).length} từ đã nạp)` : `Bộ nhớ máy (${(appState.state.learnedWords || []).length} từ) • Chưa kết nối Google`}
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Dropdown Actions -->
                 <div class="p-1.5 space-y-1">
+                  ${(appState.state.learnedWords || []).length > 0 ? `
+                    <!-- Direct QR Transfer Button -->
+                    <button id="btn-dropdown-qr-transfer" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-left transition-colors group">
+                      <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                      </div>
+                      <div class="min-w-0 flex-1">
+                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Chuyển sang Điện thoại</p>
+                        <p class="text-[10px] text-slate-400">Mã QR hoặc Link chuyển tức thì</p>
+                      </div>
+                    </button>
+                  ` : ''}
+
                   <!-- Manual Cloud Sync Button -->
                   <button id="btn-dropdown-sync-cloud" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-left transition-colors group">
                     <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
@@ -544,8 +746,8 @@ class App {
                       </svg>
                     </div>
                     <div class="min-w-0 flex-1">
-                      <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Đồng bộ đám mây</p>
-                      <p class="text-[10px] text-slate-400">Tải dữ liệu mới nhất từ laptop/máy khác</p>
+                      <p class="text-xs font-bold text-slate-800 dark:text-slate-200">${authInstance?.currentUser ? 'Đồng bộ Cloud' : 'Đăng nhập Google để đồng bộ'}</p>
+                      <p class="text-[10px] text-slate-400">${authInstance?.currentUser ? 'Tải dữ liệu mới nhất từ laptop/máy khác' : 'Xác thực để tải 51 từ vựng Cloud'}</p>
                     </div>
                   </button>
 
@@ -2944,8 +3146,14 @@ class App {
               </p>
             </div>
 
-            <!-- Action Controls (Sync & Year Switcher) -->
-            <div class="flex items-center space-x-2 self-start sm:self-center shrink-0">
+            <!-- Action Controls (Sync & Transfer & Year Switcher) -->
+            <div class="flex items-center space-x-1.5 sm:space-x-2 self-start sm:self-center shrink-0 flex-wrap gap-y-1.5">
+              ${(appState.state.learnedWords || []).length > 0 ? `
+                <button id="btn-open-sync-transfer" type="button" class="cursor-pointer inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 active:scale-95 border border-indigo-500/40 text-indigo-300 hover:text-white text-xs font-bold transition-all shadow-xs" title="Chuyển dữ liệu sang Điện thoại bằng mã QR hoặc link">
+                  <span>📲 Chuyển sang ĐT</span>
+                </button>
+              ` : ''}
+
               <button id="btn-analytics-sync-cloud" type="button" class="cursor-pointer inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 active:scale-95 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-xs font-bold transition-all shadow-xs" title="Đồng bộ dữ liệu học tập mới nhất từ Cloud Firestore">
                 <svg class="w-3.5 h-3.5 sync-spin-target" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -2965,23 +3173,31 @@ class App {
 
         <!-- Cảnh báo chưa có dữ liệu trên thiết bị -->
         ${(totalActiveDaysInYear === 0 && (appState.state.learnedWords || []).length === 0) ? `
-          <div class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-blue-500/10 border border-amber-500/30 dark:border-amber-400/20 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-slate-800 dark:text-slate-200">
+          <div class="rounded-2xl p-4 bg-gradient-to-r from-amber-500/15 via-indigo-500/15 to-blue-500/15 border border-amber-500/35 dark:border-amber-400/30 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-slate-800 dark:text-slate-200">
             <div class="flex items-start space-x-3">
-              <span class="text-2xl shrink-0">📱💻</span>
+              <span class="text-3xl shrink-0">📱🔒</span>
               <div class="text-xs space-y-1">
-                <p class="font-bold text-amber-700 dark:text-amber-400">Chưa thấy lịch sử học tập trên điện thoại?</p>
-                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Tài khoản đang đăng nhập: <span class="font-bold text-slate-900 dark:text-white">${appState.state.user.email || appState.state.user.displayName || "Google"}</span>.
-                  Nếu bạn đã học từ mới trên laptop, hãy bấm nút dưới đây để đồng bộ ngay toàn bộ từ vựng về điện thoại.
+                <p class="font-bold text-sm text-amber-700 dark:text-amber-400">Chưa tải được dữ liệu học tập về điện thoại?</p>
+                <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Tài khoản: <b class="text-slate-900 dark:text-white">${appState.state.user.email || appState.state.user.displayName || "Google"}</b>.
+                  Do chính sách bảo mật, Cloud Firestore yêu cầu xác thực Google trên thiết bị này để mở khóa <b>51 từ vựng</b> bạn đã nạp từ máy tính.
+                </p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">
+                  💡 <i>Cách 1: Bấm nút <b>Đăng nhập Google</b> bên cạnh. Hoặc Cách 2: Trên máy tính bấm <b>"📲 Chuyển sang ĐT"</b> để quét mã QR nhận dữ liệu ngay!</i>
                 </p>
               </div>
             </div>
-            <button id="btn-analytics-sync-cloud-empty" type="button" class="cursor-pointer shrink-0 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
-              <svg class="w-4 h-4 sync-spin-target" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              <span>Đồng bộ từ Cloud ngay</span>
-            </button>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+              <button id="btn-analytics-login-sync" type="button" class="cursor-pointer px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 text-white font-bold text-xs shadow-md shadow-indigo-500/30 transition-all flex items-center justify-center space-x-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Đăng nhập Google để đồng bộ</span>
+              </button>
+            </div>
           </div>
         ` : ''}
 

@@ -232,6 +232,7 @@ export class StateManager {
       }
     } catch (err) {
       console.error("❌ Lỗi khi tải dữ liệu từ Firestore:", err);
+      this.lastSyncError = err;
       return false;
     }
   }
