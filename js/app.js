@@ -89,6 +89,24 @@ class App {
       this.updateNavigationVisibility();
       this.switchTab(this.currentTab || "vocab");
     } else {
+      // ĐỒNG BỘ NỀN TỨC THÌ: Nếu đã có user cached trong máy, chủ động kéo Firestore ngay
+      if (appState.state.user && appState.state.user.uid) {
+        appState.loadUserFromFirestore(appState.state.user.uid).then((success) => {
+          if (success) {
+            console.log("✅ Đã đồng bộ tức thì dữ liệu Firestore khi khởi động app.");
+            this.updateHeaderUI();
+            this.updateNavigationVisibility();
+            if (this.currentTab === "analytics") {
+              const mainContainer = document.getElementById('main-content-area');
+              if (mainContainer) this.renderAnalyticsPage(mainContainer);
+            } else if (this.currentTab === "vocab") {
+              this.renderVocabDashboard();
+            }
+          }
+        }).catch(err => {
+          console.warn("⚠️ Đồng bộ Firestore khởi động nền:", err);
+        });
+      }
       this.setupAuthListener();
     }
 
@@ -178,6 +196,21 @@ class App {
             this.switchTab("vocab");
           } else {
             console.log("ℹ️ Phiên đăng nhập người dùng được bảo toàn từ LocalStorage Cache.");
+            // Chủ động kéo dữ liệu mới nhất từ Firestore bằng UID đã cache:
+            if (appState.state.user.uid) {
+              appState.loadUserFromFirestore(appState.state.user.uid).then((success) => {
+                if (success) {
+                  this.updateHeaderUI();
+                  this.updateNavigationVisibility();
+                  if (this.currentTab === "analytics") {
+                    const mainContainer = document.getElementById('main-content-area');
+                    if (mainContainer) this.renderAnalyticsPage(mainContainer);
+                  }
+                }
+              }).catch(err => {
+                console.warn("Lỗi sync cached session Firestore:", err);
+              });
+            }
           }
         }
       });
@@ -269,6 +302,16 @@ class App {
         return;
       }
 
+      // Đồng bộ dữ liệu Cloud thủ công
+      const syncBtn = e.target.closest('#btn-dropdown-sync-cloud, #btn-analytics-sync-cloud, #btn-analytics-sync-cloud-empty');
+      if (syncBtn) {
+        if (window.navigator?.vibrate) window.navigator.vibrate(10);
+        this.isUserMenuOpen = false;
+        this.updateHeaderUI();
+        this.handleManualSync();
+        return;
+      }
+
       // Đăng nhập Google (Header hoặc Call-to-action trên Guest Portal)
       const loginBtn = e.target.closest('#btn-auth-action, #btn-portal-login-cta');
       if (loginBtn) {
@@ -344,6 +387,49 @@ class App {
       }
     } else {
       alert("⚠️ Ứng dụng chưa được cấu hình Firebase Secret trên GitHub Repository!\n\nVui lòng vào GitHub: Settings -> Secrets and variables -> Actions và thêm biến bí mật FIREBASE_CONFIG (hoặc các biến FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN...) để tự động kết nối Cloud Firestore.");
+    }
+  }
+
+  async handleManualSync() {
+    if (!appState.state.user || !appState.state.user.uid) {
+      this.showToast("🔒 Vui lòng đăng nhập Google để đồng bộ dữ liệu!");
+      return;
+    }
+    if (!isFirebaseLive) {
+      this.showToast("🔄 Đang kết nối Cloud Firestore...", 2000);
+      await initFirebase();
+      if (!isFirebaseLive) {
+        this.showToast("❌ Không thể kết nối Cloud Firestore. Vui lòng kiểm tra mạng.");
+        return;
+      }
+    }
+
+    this.showToast("🔄 Đang đồng bộ dữ liệu từ Cloud Firestore...", 3000);
+    const syncIcons = document.querySelectorAll('.sync-spin-target');
+    syncIcons.forEach(el => el.classList.add('animate-spin'));
+
+    try {
+      const success = await appState.loadUserFromFirestore(appState.state.user.uid);
+      syncIcons.forEach(el => el.classList.remove('animate-spin'));
+
+      if (success) {
+        const count = (appState.state.learnedWords || []).length;
+        this.showToast(`✅ Đã đồng bộ thành công! Hiện có ${count} từ vựng từ Cloud.`, 3500);
+        this.updateHeaderUI();
+        this.updateNavigationVisibility();
+        if (this.currentTab === "analytics") {
+          const mainContainer = document.getElementById('main-content-area');
+          if (mainContainer) this.renderAnalyticsPage(mainContainer);
+        } else if (this.currentTab === "vocab") {
+          this.renderVocabDashboard();
+        }
+      } else {
+        this.showToast("⚠️ Chưa tải được dữ liệu mới. Hãy kiểm tra xem bạn đã đăng nhập đúng tài khoản chưa hoặc thử Đăng xuất rồi Đăng nhập lại.", 5000);
+      }
+    } catch (e) {
+      syncIcons.forEach(el => el.classList.remove('animate-spin'));
+      console.error("Lỗi đồng bộ thủ công:", e);
+      this.showToast("⚠️ Lỗi đồng bộ: " + (e.message || "Vui lòng thử lại sau"), 4000);
     }
   }
 
@@ -443,13 +529,26 @@ class App {
                     <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">${user.email || ""}</p>
                     <div class="flex items-center space-x-1.5 mt-1">
                       <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                      <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Cloud Firestore đồng bộ</span>
+                      <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">Cloud Firestore (${(appState.state.learnedWords || []).length} từ đã nạp)</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Dropdown Actions -->
                 <div class="p-1.5 space-y-1">
+                  <!-- Manual Cloud Sync Button -->
+                  <button id="btn-dropdown-sync-cloud" type="button" class="w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-left transition-colors group">
+                    <div class="w-7 h-7 rounded-lg flex items-center justify-center bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0">
+                      <svg class="w-4 h-4 sync-spin-target group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Đồng bộ đám mây</p>
+                      <p class="text-[10px] text-slate-400">Tải dữ liệu mới nhất từ laptop/máy khác</p>
+                    </div>
+                  </button>
+
                   <!-- Toggle Dark/Light Mode -->
                   <button id="btn-toggle-theme" type="button" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-left group">
                     <div class="flex items-center space-x-2.5">
@@ -2845,14 +2944,46 @@ class App {
               </p>
             </div>
 
-            <!-- Year Switcher -->
-            <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold self-start sm:self-center shrink-0">
-              <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
-              <span class="px-1.5 text-emerald-400 font-black">${year}</span>
-              <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
+            <!-- Action Controls (Sync & Year Switcher) -->
+            <div class="flex items-center space-x-2 self-start sm:self-center shrink-0">
+              <button id="btn-analytics-sync-cloud" type="button" class="cursor-pointer inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 active:scale-95 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 text-xs font-bold transition-all shadow-xs" title="Đồng bộ dữ liệu học tập mới nhất từ Cloud Firestore">
+                <svg class="w-3.5 h-3.5 sync-spin-target" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>Đồng bộ Cloud</span>
+              </button>
+
+              <!-- Year Switcher -->
+              <div class="inline-flex items-center space-x-1 px-2.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold">
+                <button id="btn-heatmap-prev-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm trước">◀</button>
+                <span class="px-1.5 text-emerald-400 font-black">${year}</span>
+                <button id="btn-heatmap-next-year" class="px-1 hover:text-emerald-400 transition-colors" title="Năm sau">▶</button>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Cảnh báo chưa có dữ liệu trên thiết bị -->
+        ${(totalActiveDaysInYear === 0 && (appState.state.learnedWords || []).length === 0) ? `
+          <div class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-blue-500/10 border border-amber-500/30 dark:border-amber-400/20 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-slate-800 dark:text-slate-200">
+            <div class="flex items-start space-x-3">
+              <span class="text-2xl shrink-0">📱💻</span>
+              <div class="text-xs space-y-1">
+                <p class="font-bold text-amber-700 dark:text-amber-400">Chưa thấy lịch sử học tập trên điện thoại?</p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Tài khoản đang đăng nhập: <span class="font-bold text-slate-900 dark:text-white">${appState.state.user.email || appState.state.user.displayName || "Google"}</span>.
+                  Nếu bạn đã học từ mới trên laptop, hãy bấm nút dưới đây để đồng bộ ngay toàn bộ từ vựng về điện thoại.
+                </p>
+              </div>
+            </div>
+            <button id="btn-analytics-sync-cloud-empty" type="button" class="cursor-pointer shrink-0 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+              <svg class="w-4 h-4 sync-spin-target" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span>Đồng bộ từ Cloud ngay</span>
+            </button>
+          </div>
+        ` : ''}
 
         <!-- 2. 4 THẺ CHỈ SỐ KỶ LUẬT & CHUYÊN CẦN -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">

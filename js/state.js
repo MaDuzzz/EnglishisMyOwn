@@ -17,13 +17,20 @@ export class StateManager {
     this.isAuthResolving = true;
     const cachedUser = this.getCachedUser();
     const cachedProfile = this.getCachedProfile();
+    const cachedLearnedWords = this.getCachedLearnedWords();
     const hasFbSession = this.hasFirebaseStoredSession();
 
     if (cachedUser && cachedUser.uid) {
+      // Khôi phục learnedWords từ cache để render tức thì 0ms trên mọi thiết bị
+      const learnedWords = (cachedProfile && Array.isArray(cachedProfile.learnedWords) && cachedProfile.learnedWords.length > 0)
+        ? cachedProfile.learnedWords
+        : (Array.isArray(cachedLearnedWords) ? cachedLearnedWords : []);
+
       // Có sẵn phiên đăng nhập từ cache -> Mở khóa giao diện đã đăng nhập tức thì (0ms)
       this.state = {
         ...this.getDefaultState(cachedUser),
         ...(cachedProfile || {}),
+        learnedWords,
         user: cachedUser
       };
       this.hasCachedSession = true;
@@ -62,6 +69,16 @@ export class StateManager {
     }
   }
 
+  getCachedLearnedWords() {
+    try {
+      if (typeof window === 'undefined' || !window.localStorage) return [];
+      const data = localStorage.getItem('eimo_learned_words');
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   setCachedUser(user) {
     try {
       if (typeof window === 'undefined' || !window.localStorage) return;
@@ -82,11 +99,20 @@ export class StateManager {
     try {
       if (typeof window === 'undefined' || !window.localStorage) return;
       if (profile) {
+        const learnedWords = Array.isArray(profile.learnedWords) ? profile.learnedWords : [];
+        try {
+          localStorage.setItem('eimo_learned_words', JSON.stringify(learnedWords));
+        } catch (e) {
+          console.warn("Lưu eimo_learned_words thất bại:", e);
+        }
         localStorage.setItem('eimo_auth_profile', JSON.stringify({
           cefrLevel: profile.cefrLevel || null,
           rankXP: profile.rankXP || 0,
           streak: profile.streak || 0,
           maxStreak: profile.maxStreak || 0,
+          lastActiveDate: profile.lastActiveDate || null,
+          lastPenaltyCheckDate: profile.lastPenaltyCheckDate || null,
+          lastPenaltyNotice: profile.lastPenaltyNotice || null,
           theme: profile.theme || 'dark',
           dailyReviewDone: profile.dailyReviewDone || false,
           dailyReviewDate: profile.dailyReviewDate || null,
@@ -94,10 +120,12 @@ export class StateManager {
           dailyNewBatchDone: profile.dailyNewBatchDone || false,
           dailyNewBatchDate: profile.dailyNewBatchDate || null,
           todayNewWordsCount: profile.todayNewWordsCount || 0,
-          completedStreakDates: profile.completedStreakDates || []
+          completedStreakDates: profile.completedStreakDates || [],
+          learnedWords: learnedWords
         }));
       } else {
         localStorage.removeItem('eimo_auth_profile');
+        localStorage.removeItem('eimo_learned_words');
       }
     } catch (e) {}
   }
@@ -147,7 +175,7 @@ export class StateManager {
 
   // Tải dữ liệu người dùng từ Cloud Firestore
   async loadUserFromFirestore(uid) {
-    if (!isFirebaseLive || !dbInstance || !uid) return;
+    if (!isFirebaseLive || !dbInstance || !uid) return false;
     try {
       const { doc, getDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
       const userRef = doc(dbInstance, "users", uid);
@@ -166,11 +194,16 @@ export class StateManager {
         if (!Array.isArray(this.state.completedStreakDates)) {
           this.state.completedStreakDates = [];
         }
+        if (!Array.isArray(this.state.learnedWords)) {
+          this.state.learnedWords = [];
+        }
         // Kiểm tra reset ngày mới và hình phạt
         this.applyDailyCheck();
         // Cập nhật lại Firestore nếu có thay đổi từ kiểm tra ngày
         await this.syncToFirestore();
         this.setCachedProfile(this.state);
+        this.notify();
+        return true;
       } else {
         // Tạo profile mới trên Firestore nếu lần đầu đăng nhập
         const initialDoc = {
@@ -178,11 +211,11 @@ export class StateManager {
           email: this.state.user?.email || "",
           photoURL: this.state.user?.photoURL || "",
           createdAt: new Date().toISOString(),
-          cefrLevel: null,
-          rankXP: 0,
-          streak: 0,
-          maxStreak: 0,
-          learnedWords: [],
+          cefrLevel: this.state.cefrLevel || null,
+          rankXP: this.state.rankXP || 0,
+          streak: this.state.streak || 0,
+          maxStreak: this.state.maxStreak || 0,
+          learnedWords: this.state.learnedWords || [],
           dailyReviewDone: false,
           dailyReviewDate: this.getTodayString(),
           dailyReviewedWordIds: [],
@@ -194,10 +227,12 @@ export class StateManager {
         };
         await setDoc(userRef, initialDoc, { merge: true });
         this.setCachedProfile(this.state);
+        this.notify();
+        return true;
       }
-      this.notify();
     } catch (err) {
       console.error("❌ Lỗi khi tải dữ liệu từ Firestore:", err);
+      return false;
     }
   }
 
@@ -832,6 +867,11 @@ export class StateManager {
     this.hasCachedSession = false;
     this.setCachedUser(null);
     this.setCachedProfile(null);
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        localStorage.removeItem('eimo_learned_words');
+      }
+    } catch (e) {}
     if (typeof document !== 'undefined') {
       document.documentElement.classList.remove('user-cached', 'user-authenticated');
     }
