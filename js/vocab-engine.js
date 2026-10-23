@@ -44,6 +44,20 @@ export class VocabPracticeEngine {
     this.isTimerPaused = false;
     this.isAnswerSubmitted = false;
     this.isQuestionTransitioning = false;
+    this.sessionStartTime = Date.now();
+    this.lastActivityTime = Date.now();
+    this.accumulatedActiveSeconds = 0;
+  }
+
+  recordActivity() {
+    const now = Date.now();
+    const delta = (now - this.lastActivityTime) / 1000;
+    if (delta > 0 && delta <= 60) {
+      this.accumulatedActiveSeconds += delta;
+    } else if (delta > 60) {
+      this.accumulatedActiveSeconds += 40;
+    }
+    this.lastActivityTime = now;
   }
 
   start() {
@@ -811,6 +825,7 @@ export class VocabPracticeEngine {
 
   handleTextAnswer(userInput, word) {
     if (this.isAnswerSubmitted || this.isQuestionTransitioning) return;
+    this.recordActivity();
     this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
@@ -923,6 +938,7 @@ export class VocabPracticeEngine {
 
   handleChoiceAnswer(selectedOption, word, clickedBtn) {
     if (this.isAnswerSubmitted || this.isQuestionTransitioning) return;
+    this.recordActivity();
     this.isAnswerSubmitted = true;
     this.clearQuestionTimer();
     this.totalAttempts++;
@@ -1139,6 +1155,10 @@ export class VocabPracticeEngine {
     );
     if (confirmExit) {
       this.cleanup();
+      this.recordActivity();
+      if (this.accumulatedActiveSeconds > 0) {
+        appState.recordStudyTime(this.accumulatedActiveSeconds);
+      }
       this.onCompleted();
     } else {
       // Tiếp tục câu hỏi hiện tại với 20s mới
@@ -1155,8 +1175,23 @@ export class VocabPracticeEngine {
 
   finishSession() {
     this.cleanup();
+    this.recordActivity();
+    if (this.accumulatedActiveSeconds > 0) {
+      appState.recordStudyTime(this.accumulatedActiveSeconds);
+    }
+
     const wordIds = this.words.map(w => w.id);
     const accuracy = Math.round((this.correctCount / Math.max(1, this.totalAttempts)) * 100);
+
+    // Tính toán thời lượng và tốc độ phản xạ của phiên học
+    const totalPracticeSec = Math.round(this.accumulatedActiveSeconds + (this.options.batchMeta?.absorbStudySeconds || 0));
+    const sessionMin = Math.floor(totalPracticeSec / 60);
+    const sessionSec = totalPracticeSec % 60;
+    const sessionTimeFormatted = sessionMin > 0 ? `${sessionMin}p ${sessionSec}s` : `${sessionSec}s`;
+    const speedPerWord = Math.max(1, Math.round(totalPracticeSec / Math.max(1, wordIds.length)));
+    let speedEvaluation = speedPerWord < 45 
+      ? '⚡ Siêu tốc' 
+      : (speedPerWord <= 75 ? '🎯 Chuẩn tối ưu' : '⏳ Cần tập trung hơn');
 
     let hasRemainingReview = false;
     let disciplineStatus = null;
@@ -1272,6 +1307,12 @@ export class VocabPracticeEngine {
             </p>
 
             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 mb-5 text-left">
+              <div class="flex items-center justify-between text-xs sm:text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
+                <span class="text-slate-500">Thời gian & Tốc độ:</span>
+                <span class="font-extrabold text-indigo-600 dark:text-indigo-400 flex items-center space-x-1">
+                  <span>⏱️ ${sessionTimeFormatted} (${speedPerWord}s/từ • ${speedEvaluation})</span>
+                </span>
+              </div>
               <div class="flex items-center justify-between text-xs sm:text-sm py-1.5 border-b border-slate-200 dark:border-slate-700">
                 <span class="text-slate-500">Chuỗi ngày kiên trì (Streak):</span>
                 <span class="font-extrabold text-amber-500 flex items-center space-x-1">

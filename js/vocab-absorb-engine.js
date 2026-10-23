@@ -26,6 +26,20 @@ export class VocabAbsorbEngine {
     this.currentIndex = 0;
     this.isAnimating = false;
     this.autoSpeak = appState.state.audioEnabled ?? true;
+    this.sessionStartTime = Date.now();
+    this.lastActivityTime = Date.now();
+    this.accumulatedActiveSeconds = 0;
+  }
+
+  recordActivity() {
+    const now = Date.now();
+    const delta = (now - this.lastActivityTime) / 1000;
+    if (delta > 0 && delta <= 60) {
+      this.accumulatedActiveSeconds += delta;
+    } else if (delta > 60) {
+      this.accumulatedActiveSeconds += 40;
+    }
+    this.lastActivityTime = now;
   }
 
   start() {
@@ -342,6 +356,7 @@ export class VocabAbsorbEngine {
 
     const onStart = (clientX, clientY) => {
       if (this.isAnimating) return;
+      this.recordActivity();
       speechService.prime(); // Đánh thức audio pipeline ngay khi ngón tay chạm vào thẻ
       isDragging = true;
       startX = clientX;
@@ -599,12 +614,20 @@ export class VocabAbsorbEngine {
 
     if (confirmExit) {
       this.cleanup();
+      this.recordActivity();
+      if (this.accumulatedActiveSeconds > 0) {
+        appState.recordStudyTime(this.accumulatedActiveSeconds);
+      }
       this.onCompleted();
     }
   }
 
   finishSession() {
     this.cleanup();
+    this.recordActivity();
+    if (this.accumulatedActiveSeconds > 0) {
+      appState.recordStudyTime(this.accumulatedActiveSeconds);
+    }
 
     const acceptedWords = this.acceptedWords.length > 0 
       ? this.acceptedWords 
@@ -618,7 +641,8 @@ export class VocabAbsorbEngine {
       acceptedIds, 
       skippedIds,
       groupId: this.groupId,
-      groupName: this.groupName 
+      groupName: this.groupName,
+      absorbStudySeconds: Math.round(this.accumulatedActiveSeconds)
     });
   }
 

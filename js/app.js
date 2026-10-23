@@ -2800,7 +2800,7 @@ class App {
       `;
     }).join('');
 
-    // ==================== 1.5 DỮ LIỆU BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ (LINE CHART) ====================
+    // ==================== 1.5 DỮ LIỆU BIỂU ĐỒ KẾT HỢP (COMBO LINE + BAR CHART) ====================
     const lineRangeMode = this.analyticsLineRangeMode || 'week'; // 'week' (cả tuần này) | 'month' (từ đầu tháng tới giờ)
     const lineDays = [];
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
@@ -2822,6 +2822,8 @@ class App {
         const isFuture = dTime > todayStart;
         const isToday = (dTime === todayStart);
         const count = isFuture ? 0 : (wordCountMap[dStr] || 0);
+        const studySec = isFuture ? 0 : appState.getDailyStudyTime(dStr, count);
+        const studyMin = Math.round((studySec / 60) * 10) / 10;
 
         lineDays.push({
           dateStr: dStr,
@@ -2830,6 +2832,8 @@ class App {
           dayOfWeek: dayNames[d.getDay()],
           shortDay: weekShortLabels[i],
           count: count,
+          studySeconds: studySec,
+          studyMinutes: studyMin,
           isToday: isToday,
           isFuture: isFuture
         });
@@ -2846,6 +2850,8 @@ class App {
         const dTime = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
         const isToday = (dTime === todayStart);
         const count = wordCountMap[dStr] || 0;
+        const studySec = appState.getDailyStudyTime(dStr, count);
+        const studyMin = Math.round((studySec / 60) * 10) / 10;
 
         lineDays.push({
           dateStr: dStr,
@@ -2854,6 +2860,8 @@ class App {
           dayOfWeek: dayNames[d.getDay()],
           shortDay: `${day}/${d.getMonth() + 1}`,
           count: count,
+          studySeconds: studySec,
+          studyMinutes: studyMin,
           isToday: isToday,
           isFuture: false
         });
@@ -2868,11 +2876,60 @@ class App {
     // Để đường biểu đồ có khoảng thở phía trên
     const chartYMax = Math.ceil((maxDayCount * 1.3) / 5) * 5;
 
+    // Tính toán thời gian học tập & hiệu suất
+    const lineTotalStudySeconds = elapsedDays.reduce((acc, cur) => acc + cur.studySeconds, 0);
+    const lineTotalStudyMinutes = Math.round(lineTotalStudySeconds / 60);
+    const maxDayMinutes = Math.max(...elapsedDays.map(d => d.studyMinutes), 15);
+    const chartYTimeMax = Math.max(15, Math.ceil((maxDayMinutes * 1.3) / 5) * 5);
+
+    const avgSpeedPerWord = lineTotalWords > 0 
+      ? Math.round(lineTotalStudySeconds / lineTotalWords) 
+      : 0;
+
+    let overallEfficiency = {
+      rating: "Chưa học",
+      label: "Chưa có dữ liệu",
+      color: "text-slate-400",
+      bg: "bg-slate-50 dark:bg-slate-800/50"
+    };
+
+    if (lineTotalWords > 0) {
+      if (avgSpeedPerWord < 45) {
+        overallEfficiency = {
+          rating: "Xuất sắc",
+          label: "⚡ Siêu tốc & Phản xạ cao",
+          color: "text-emerald-500",
+          bg: "bg-emerald-500/10 border border-emerald-500/25"
+        };
+      } else if (avgSpeedPerWord <= 75) {
+        overallEfficiency = {
+          rating: "Tối ưu",
+          label: "🎯 Chuẩn mực kỷ luật",
+          color: "text-indigo-500 dark:text-indigo-400",
+          bg: "bg-indigo-500/10 border border-indigo-500/25"
+        };
+      } else if (avgSpeedPerWord <= 120) {
+        overallEfficiency = {
+          rating: "Khá",
+          label: "⏳ Cần tăng tốc độ",
+          color: "text-amber-500",
+          bg: "bg-amber-500/10 border border-amber-500/25"
+        };
+      } else {
+        overallEfficiency = {
+          rating: "Xao nhãng",
+          label: "⚠️ Cần tập trung hơn",
+          color: "text-rose-500",
+          bg: "bg-rose-500/10 border border-rose-500/25"
+        };
+      }
+    }
+
     // Kích thước SVG
-    const svgW = 600;
-    const svgH = 175;
+    const svgW = 620;
+    const svgH = 180;
     const padL = 36;
-    const padR = 20;
+    const padR = 38; // Chừa khoảng trống cho trục thời gian (phút) bên phải
     const padT = 22;
     const padB = 28;
     const plotW = svgW - padL - padR;
@@ -2884,14 +2941,28 @@ class App {
       return padL + (index * (plotW / (totalPoints - 1)));
     };
     const getY = (val) => padT + plotH - ((val / chartYMax) * plotH);
-
-    const targetY = getY(10);
+    const getBarHeight = (minVal) => Math.max(0, (minVal / chartYTimeMax) * plotH);
 
     const points = lineDays.map((d, idx) => ({
       x: Math.round(getX(idx) * 10) / 10,
       y: Math.round(getY(d.count) * 10) / 10,
+      barH: Math.round(getBarHeight(d.studyMinutes) * 10) / 10,
       ...d
     }));
+
+    // Cột Bar Chart thời gian
+    const barWidth = lineRangeMode === 'week' ? 24 : Math.max(6, Math.min(14, (plotW / totalPoints) * 0.48));
+    const barsHtml = points.map(p => {
+      if (p.isFuture || p.studyMinutes <= 0) return '';
+      const barX = Math.round((p.x - (barWidth / 2)) * 10) / 10;
+      const barY = Math.round((padT + plotH - p.barH) * 10) / 10;
+      const speedSec = p.count > 0 ? Math.round(p.studySeconds / p.count) : 0;
+      const isSlow = p.count > 0 && speedSec > 120;
+      const fillAttr = isSlow ? 'url(#vocabBarSlowGrad)' : 'url(#vocabBarGrad)';
+      return `
+        <rect x="${barX}" y="${barY}" width="${barWidth}" height="${p.barH}" rx="4" fill="${fillAttr}" class="transition-all duration-300 pointer-events-none opacity-80" />
+      `;
+    }).join('');
 
     let polylineStr = '';
     let areaStr = '';
@@ -2920,6 +2991,15 @@ class App {
       `;
     }).join('');
 
+    // Trục thời gian bên phải (Minutes)
+    const gridTimeValues = [0, Math.round(chartYTimeMax / 2), chartYTimeMax];
+    const rightAxisHtml = gridTimeValues.map(val => {
+      const yPos = getY(0) - ((val / chartYTimeMax) * plotH);
+      return `
+        <text x="${svgW - padR + 6}" y="${yPos + 3.5}" text-anchor="start" font-size="8.5" fill="#818cf8" class="font-bold opacity-80 select-none">${val}p</text>
+      `;
+    }).join('');
+
     const dotsHtml = points.map((p, idx) => {
       const isPassed = p.count >= 10;
       let dotFill = isPassed ? '#10b981' : (p.count > 0 ? '#6366f1' : '#64748b');
@@ -2936,14 +3016,22 @@ class App {
         opacity = '0.45';
       }
 
-      const tooltipText = p.isFuture 
-        ? `${p.dayOfWeek}, ${p.day}/${p.month}: Chưa diễn ra`
-        : `${p.count} từ • ${p.dayOfWeek}, ${p.day}/${p.month}`;
+      let tooltipText = '';
+      if (p.isFuture) {
+        tooltipText = `${p.dayOfWeek}, ${p.day}/${p.month}: Chưa diễn ra`;
+      } else if (p.count === 0 && p.studyMinutes === 0) {
+        tooltipText = `${p.dayOfWeek}, ${p.day}/${p.month}: Chưa có phiên học`;
+      } else {
+        const speedSec = p.count > 0 ? Math.round(p.studySeconds / p.count) : 0;
+        const speedEval = speedSec === 0 ? '' : (speedSec < 45 ? ' • ⚡ Siêu tốc' : (speedSec <= 75 ? ' • 🎯 Tối ưu' : (speedSec <= 120 ? ' • ⏳ Khá' : ' • ⚠️ Xao nhãng')));
+        tooltipText = `${p.dayOfWeek}, ${p.day}/${p.month}: ${p.count} từ • ${p.studyMinutes}p (${speedSec}s/từ${speedEval})`;
+      }
 
+      const touchWidth = Math.max(22, barWidth + 6);
       return `
         <g class="chart-point-group cursor-pointer" data-idx="${idx}" data-x="${p.x}" data-y="${p.y}" data-tooltip="${tooltipText}" opacity="${opacity}">
-          <title>${p.dayOfWeek}, ${p.day}/${p.month}: ${p.isFuture ? 'Chưa diễn ra' : `${p.count} từ ${isPassed ? '✅' : ''}`}</title>
-          <circle cx="${p.x}" cy="${p.y}" r="16" fill="transparent" />
+          <title>${tooltipText}</title>
+          <rect x="${p.x - (touchWidth / 2)}" y="${padT}" width="${touchWidth}" height="${plotH}" fill="transparent" />
           <circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${dotFill}" stroke="${strokeColor}" stroke-width="${strokeW}" class="transition-transform duration-150 pointer-events-none" />
         </g>
       `;
@@ -3072,7 +3160,7 @@ class App {
           </div>
         </div>
 
-        <!-- 2.5 📈 BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ HÀNG NGÀY (LINE CHART) -->
+        <!-- 2.5 📈 BIỂU ĐỒ ĐƯỜNG TIẾN ĐỘ NẠP TỪ & THỜI GIAN HỌC (COMBO CHART) -->
         <div class="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3">
           <!-- Chart Header -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
@@ -3080,15 +3168,23 @@ class App {
               <div class="flex items-center space-x-2">
                 <span class="text-base sm:text-lg">📈</span>
                 <h3 class="text-sm sm:text-base font-black text-slate-800 dark:text-white">
-                  Tiến Độ Nạp Từ Hàng Ngày
+                  Tiến Độ Nạp Từ & Thời Gian Học
                 </h3>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${todayCount >= 10 ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'}">
                   Hôm nay: ${todayCount}/10 từ ${todayCount >= 10 ? '✅' : '⏳'}
                 </span>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                Đường chuẩn 10 từ/ngày giúp duy trì phong độ và phản xạ từ vựng đều đặn
-              </p>
+              <!-- Chú thích 2 trục (Legend) -->
+              <div class="flex flex-wrap items-center gap-x-3.5 gap-y-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+                <span class="inline-flex items-center space-x-1.5">
+                  <span class="w-3.5 h-1 rounded-full bg-emerald-500 inline-block"></span>
+                  <span class="font-medium text-slate-600 dark:text-slate-300">Từ vựng (Trục trái)</span>
+                </span>
+                <span class="inline-flex items-center space-x-1.5">
+                  <span class="w-2.5 h-2.5 rounded-[3px] bg-indigo-500/80 inline-block"></span>
+                  <span class="font-medium text-slate-600 dark:text-slate-300">Thời gian (Trục phải)</span>
+                </span>
+              </div>
             </div>
 
             <!-- Range Filter Buttons (Tuần | Tháng) -->
@@ -3112,10 +3208,26 @@ class App {
                   <stop offset="50%" stop-color="#10b981" />
                   <stop offset="100%" stop-color="#34d399" />
                 </linearGradient>
+                <!-- Gradient cột thời gian học (Soft Indigo) -->
+                <linearGradient id="vocabBarGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#818cf8" stop-opacity="0.85" />
+                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0.3" />
+                </linearGradient>
+                <!-- Gradient cảnh báo thời gian kéo dài / xao nhãng (Amber) -->
+                <linearGradient id="vocabBarSlowGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.85" />
+                  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.3" />
+                </linearGradient>
               </defs>
 
-              <!-- Y Grid Lines -->
+              <!-- Y Grid Lines (Từ vựng - Trục trái) -->
               ${yGridHtml}
+
+              <!-- Y Axis Labels (Thời gian phút - Trục phải) -->
+              ${rightAxisHtml}
+
+              <!-- Bar Chart Cột thời gian học tập -->
+              ${barsHtml}
 
               <!-- Gradient Area under curve -->
               <polygon points="${areaStr}" fill="url(#vocabLineAreaGrad)" />
@@ -3131,26 +3243,30 @@ class App {
 
               <!-- Floating Tooltip on Hover / Touch -->
               <g id="chart-floating-tooltip" class="pointer-events-none opacity-0 transition-opacity duration-150" transform="translate(0, 0)">
-                <rect x="-60" y="-30" width="120" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+                <rect x="-115" y="-30" width="230" height="22" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
                 <polygon points="0,-8 -4,-4 4,-4" fill="#0f172a" />
-                <text id="chart-tooltip-text" x="0" y="-15" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#34d399">20 từ • 17/10</text>
+                <text id="chart-tooltip-text" x="0" y="-15" text-anchor="middle" font-size="9" font-weight="bold" fill="#34d399">20 từ • 17/10</text>
               </g>
             </svg>
           </div>
 
-          <!-- Chart Footer Stats -->
-          <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-white/10 text-center text-[11px]">
-            <div>
-              <span class="text-slate-400">Tổng nạp ${lineRangeMode === 'week' ? 'cả tuần này' : 'từ đầu tháng'}:</span>
-              <strong class="font-black text-slate-700 dark:text-slate-200 ml-1">${lineTotalWords} từ</strong>
+          <!-- Chart Footer Stats: 4 Thẻ Phân Tích Hiệu Suất Học Tập -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 border-t border-slate-100 dark:border-white/10 text-center text-[11px]">
+            <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px]">Tổng nạp từ</span>
+              <strong class="font-black text-emerald-500 text-xs sm:text-sm">${lineTotalWords} từ</strong>
             </div>
-            <div>
-              <span class="text-slate-400">Trung bình:</span>
-              <strong class="font-black text-emerald-500 ml-1">${lineAvgWords} từ/ngày</strong>
+            <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px]">Tổng thời gian</span>
+              <strong class="font-black text-indigo-500 dark:text-indigo-400 text-xs sm:text-sm">${lineTotalStudyMinutes} phút</strong>
             </div>
-            <div>
-              <span class="text-slate-400">Ngày đạt chuẩn:</span>
-              <strong class="font-black text-indigo-500 ml-1">${linePassedDays}/${elapsedDays.length} ngày</strong>
+            <div class="p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+              <span class="text-slate-400 block text-[10px]">Tốc độ phản xạ</span>
+              <strong class="font-black text-slate-700 dark:text-slate-200 text-xs sm:text-sm">${avgSpeedPerWord > 0 ? `${avgSpeedPerWord}s / từ` : '—'}</strong>
+            </div>
+            <div class="p-2 sm:p-2.5 rounded-xl ${overallEfficiency.bg} flex flex-col justify-center">
+              <span class="text-slate-400 block text-[10px]">Đánh giá hiệu suất</span>
+              <strong class="font-black text-[11px] sm:text-xs ${overallEfficiency.color}">${overallEfficiency.label}</strong>
             </div>
           </div>
         </div>
@@ -3284,8 +3400,9 @@ class App {
         const text = grp.getAttribute('data-tooltip');
         if (floatingTooltip && tooltipText) {
           tooltipText.textContent = text;
-          const clampedX = Math.max(65, Math.min(svgW - 65, x));
-          floatingTooltip.setAttribute('transform', `translate(${clampedX}, ${y})`);
+          const clampedX = Math.max(120, Math.min(svgW - 120, x));
+          const clampedY = Math.max(34, y);
+          floatingTooltip.setAttribute('transform', `translate(${clampedX}, ${clampedY})`);
           floatingTooltip.classList.remove('opacity-0');
           floatingTooltip.classList.add('opacity-100');
         }

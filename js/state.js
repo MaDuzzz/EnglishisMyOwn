@@ -167,6 +167,7 @@ export class StateManager {
       dailyNewBatchDate: today,
       todayNewWordsCount: 0, // Số từ mới đã hoàn thành bài luyện tập hôm nay
       completedStreakDates: [], // Danh sách các ngày ("YYYY-MM-DD") đã hoàn thành CẢ 2 nhiệm vụ (Review T-1 + Học 10 từ mới)
+      dailyStudyTimeMap: {}, // Bản đồ thời gian học thực tế "YYYY-MM-DD" -> số giây (seconds)
       audioEnabled: true, // Điều khiển âm thanh toàn cục
       theme: "dark", // "dark" | "light"
       vocabGroups: VOCAB_GROUPS // Danh sách nhóm từ vựng (hỗ trợ sync với Firestore)
@@ -196,6 +197,9 @@ export class StateManager {
         }
         if (!Array.isArray(this.state.learnedWords)) {
           this.state.learnedWords = [];
+        }
+        if (!this.state.dailyStudyTimeMap || typeof this.state.dailyStudyTimeMap !== 'object') {
+          this.state.dailyStudyTimeMap = {};
         }
         // Kiểm tra reset ngày mới và hình phạt
         this.applyDailyCheck();
@@ -319,6 +323,7 @@ export class StateManager {
         dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
         todayNewWordsCount: this.state.todayNewWordsCount || 0,
         completedStreakDates: this.state.completedStreakDates || [],
+        dailyStudyTimeMap: this.state.dailyStudyTimeMap || {},
         audioEnabled: this.state.audioEnabled ?? true,
         theme: this.state.theme || "dark",
         updatedAt: new Date().toISOString()
@@ -326,6 +331,32 @@ export class StateManager {
     } catch (err) {
       console.warn("⚠️ Lỗi khi đồng bộ Firestore:", err);
     }
+  }
+
+  // Ghi nhận thời gian học thực tế (tính theo giây) cho ngày hôm nay
+  recordStudyTime(seconds) {
+    if (!seconds || seconds <= 0) return;
+    const today = this.getTodayString();
+    if (!this.state.dailyStudyTimeMap || typeof this.state.dailyStudyTimeMap !== 'object') {
+      this.state.dailyStudyTimeMap = {};
+    }
+    const current = this.state.dailyStudyTimeMap[today] || 0;
+    this.state.dailyStudyTimeMap[today] = current + Math.round(seconds);
+    this.saveState();
+  }
+
+  // Lấy thời gian học thực tế của một ngày (trả về giây)
+  getDailyStudyTime(dateStr, wordCount = 0) {
+    if (!dateStr) return 0;
+    const map = this.state.dailyStudyTimeMap || {};
+    if (map[dateStr] !== undefined && map[dateStr] > 0) {
+      return map[dateStr];
+    }
+    // Dữ liệu quá khứ trước khi có tính năng bấm giờ: ước tính benchmark hợp lý 45s / từ
+    if (wordCount > 0 && dateStr < this.getTodayString()) {
+      return wordCount * 45;
+    }
+    return 0;
   }
 
   // Lấy danh mục các nhóm từ vựng
