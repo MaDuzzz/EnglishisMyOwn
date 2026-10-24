@@ -971,7 +971,7 @@ class App {
               Chuẩn CEFR A1 - B2
             </h4>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-              Kho 1,000+ từ vựng & cụm từ collocations thực chiến bám sát môi trường công sở, CNTT, marketing, TOEIC 750+ và giao tiếp chuẩn quốc tế.
+              Kho 1,450+ từ vựng & cụm từ collocations thực chiến bám sát môi trường công sở, CNTT, từ loại (N, V, Adj, Adv), marketing, TOEIC 750+ và giao tiếp chuẩn quốc tế.
             </p>
           </div>
         </div>
@@ -1003,7 +1003,7 @@ class App {
             </span>
             <h3 class="text-xl sm:text-2xl font-black tracking-tight">Đăng Nhập Để Mở Khóa Toàn Bộ Nội Dung</h3>
             <p class="text-xs sm:text-sm text-indigo-100 leading-relaxed">
-              Làm bài Test xếp lớp CEFR chuẩn xác, mở khoá 1,000+ từ vựng, hệ thống lộ trình Spaced Repetition T+1 và biểu đồ kỷ luật Heatmap của riêng bạn.
+              Làm bài Test xếp lớp CEFR chuẩn xác, mở khoá 1,450+ từ vựng, hệ thống lộ trình Spaced Repetition T+1 và biểu đồ kỷ luật Heatmap của riêng bạn.
             </p>
             <div class="pt-2">
               <button id="btn-portal-login-cta" type="button" class="cursor-pointer w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-white text-indigo-700 hover:bg-indigo-50 active:scale-95 font-black text-sm shadow-lg shadow-black/10 transition-all inline-flex items-center justify-center space-x-2.5">
@@ -1261,6 +1261,7 @@ class App {
     const learnedWordIds = new Set(appState.state.learnedWords.map(w => w.wordId || w.id));
     const groups = appState.getVocabGroups();
     const countAll = groups.length;
+    const countPos = groups.filter(g => g.category === 'pos').length;
     const countToeic = groups.filter(g => g.category === 'toeic').length;
     const countDaily = groups.filter(g => g.category === 'daily').length;
     const countMarketing = groups.filter(g => g.category === 'marketing').length;
@@ -1511,6 +1512,10 @@ class App {
               <span>Tất cả</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countAll}</span>
             </button>
+            <button data-cat="pos" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'pos' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
+              <span>📖 Từ Loại</span>
+              <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'pos' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countPos}</span>
+            </button>
             <button data-cat="toeic" class="dash-cat-btn shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all active:scale-95 ${this.groupActiveCat === 'toeic' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">
               <span>🎯 TOEIC 750+</span>
               <span class="cat-count px-1.5 py-0.2 rounded-full text-[10px] font-mono ${this.groupActiveCat === 'toeic' ? 'bg-white/20 text-white' : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${countToeic}</span>
@@ -1601,7 +1606,9 @@ class App {
       }
 
       grid.innerHTML = displayedGroups.map((g, idx) => {
-        const catBadge = g.category === "toeic"
+        const catBadge = g.category === "pos"
+          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300">📖 Từ loại</span>`
+          : g.category === "toeic"
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">🎯 TOEIC 750+</span>`
           : g.category === "daily" 
           ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">💬 Đời sống</span>`
@@ -2470,6 +2477,7 @@ class App {
           <!-- Filter Category -->
           <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none touch-pan-x -mx-3 px-3 sm:mx-0 sm:px-0 w-auto" style="-webkit-overflow-scrolling: touch;" id="dict-cat-filters">
             <button data-cat="all" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🌐 Toàn bộ</button>
+            <button data-cat="pos" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'pos' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">📖 Từ Loại (N, V, Adj, Adv)</button>
             <button data-cat="toeic" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'toeic' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">🎯 TOEIC 750+</button>
             <button data-cat="daily" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'daily' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💬 Giao tiếp Hàng ngày</button>
             <button data-cat="work" class="dict-cat-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${catFilter === 'work' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60'}">💼 Công sở & Teamwork</button>

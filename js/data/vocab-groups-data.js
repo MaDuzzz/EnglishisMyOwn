@@ -1,9 +1,9 @@
 // Kho nhóm từ vựng chuẩn hoá phân cấp A1 -> B2
 // TỰ ĐỘNG TẠO BỞI build-vocab.mjs - KHÔNG SỬA TRỰC TIẾP FILE NÀY
 // Để thêm từ mới, hãy tạo file .json hoặc .js mới trong thư mục: data/vocab/
-// Tổng cộng: 36 nhóm chủ đề, 1050 từ vựng và cụm từ.
-// Phân bố chủ đề: {"daily":240,"work":180,"tech":180,"marketing":100,"toeic":350}
-// Phân bố trình độ: {"A2":156,"B1":391,"A1":57,"B2":446}
+// Tổng cộng: 40 nhóm chủ đề, 1450 từ vựng và cụm từ.
+// Phân bố chủ đề: {"daily":240,"work":180,"tech":180,"marketing":100,"toeic":350,"pos":400}
+// Phân bố trình độ: {"A2":216,"B1":591,"A1":57,"B2":586}
 
 export const VOCAB_GROUPS = [
   {
@@ -18220,6 +18220,6846 @@ export const VOCAB_GROUPS = [
           "cài đặt hệ điều hành tại chỗ",
           "thay thế linh kiện bàn phím mới",
           "vệ sinh quạt tản nhiệt máy tính"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "pos_nouns",
+    "name": "100 Danh Từ Trọng Tâm (Nouns Essentials)",
+    "icon": "🏛️",
+    "category": "pos",
+    "level": "B1",
+    "description": "100 danh từ tần suất cao trình độ A2–B2 về đời sống, công việc, tư duy và xã hội.",
+    "words": [
+      {
+        "id": "noun_001",
+        "word": "advantage",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ədˈvɑːn.tɪdʒ/",
+        "meaningVi": "lợi thế, ưu điểm",
+        "collocations": "take advantage of, competitive advantage, major advantage",
+        "example": "Speaking two languages is a huge advantage in today's job market.",
+        "exampleVi": "Biết hai thứ tiếng là một lợi thế rất lớn trên thị trường việc làm hiện nay.",
+        "optionsVi": [
+          "lợi thế, ưu điểm",
+          "sự bất lợi, điểm trừ",
+          "sự phản đối kịch liệt",
+          "chi phí phát sinh"
+        ]
+      },
+      {
+        "id": "noun_002",
+        "word": "advice",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ədˈvaɪs/",
+        "meaningVi": "lời khuyên, ý kiến chỉ dẫn",
+        "collocations": "give advice, seek professional advice, take someone's advice",
+        "example": "My mentor gave me valuable advice about career development.",
+        "exampleVi": "Người cố vấn đã cho tôi lời khuyên quý báu về phát triển sự nghiệp.",
+        "optionsVi": [
+          "lời khuyên, ý kiến chỉ dẫn",
+          "bản báo cáo tài chính",
+          "lời cảnh báo nguy hiểm",
+          "sự trừng phạt"
+        ]
+      },
+      {
+        "id": "noun_003",
+        "word": "choice",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/tʃɔɪs/",
+        "meaningVi": "sự lựa chọn, quyền chọn",
+        "collocations": "make a choice, have no choice, wide choice",
+        "example": "You have the freedom to make your own choice.",
+        "exampleVi": "Bạn có quyền tự do đưa ra sự lựa chọn của riêng mình.",
+        "optionsVi": [
+          "sự lựa chọn, quyền chọn",
+          "nghĩa vụ bắt buộc",
+          "sự do dự kéo dài",
+          "sự ép buộc"
+        ]
+      },
+      {
+        "id": "noun_004",
+        "word": "decision",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/dɪˈsɪʒ.ən/",
+        "meaningVi": "quyết định, sự phán quyết",
+        "collocations": "make a decision, reach a decision, final decision",
+        "example": "We need to make a final decision before Friday.",
+        "exampleVi": "Chúng ta cần đưa ra quyết định cuối cùng trước thứ Sáu.",
+        "optionsVi": [
+          "quyết định, sự phán quyết",
+          "sự thỏa hiệp tạm thời",
+          "kế hoạch dự phòng",
+          "sự trì hoãn"
+        ]
+      },
+      {
+        "id": "noun_005",
+        "word": "difference",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈdɪf.ər.əns/",
+        "meaningVi": "sự khác biệt, điểm khác nhau",
+        "collocations": "make a difference, tell the difference, significant difference",
+        "example": "Regular exercise can make a big difference to your energy levels.",
+        "exampleVi": "Tập thể dục đều đặn có thể tạo ra sự khác biệt lớn cho mức năng lượng của bạn.",
+        "optionsVi": [
+          "sự khác biệt, điểm khác nhau",
+          "sự tương đồng hoàn toàn",
+          "sự nhầm lẫn tai hại",
+          "sự lặp đi lặp lại"
+        ]
+      },
+      {
+        "id": "noun_006",
+        "word": "experience",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ɪkˈspɪə.ri.əns/",
+        "meaningVi": "kinh nghiệm, trải nghiệm thực tế",
+        "collocations": "gain experience, practical experience, lack of experience",
+        "example": "She has five years of practical experience in digital marketing.",
+        "exampleVi": "Cô ấy có năm năm kinh nghiệm thực tế trong lĩnh vực tiếp thị số.",
+        "optionsVi": [
+          "kinh nghiệm, trải nghiệm thực tế",
+          "bằng cấp học thuật",
+          "sự suy đoán lý thuyết",
+          "kỳ nghỉ phép"
+        ]
+      },
+      {
+        "id": "noun_007",
+        "word": "feeling",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈfiː.lɪŋ/",
+        "meaningVi": "cảm giác, cảm xúc",
+        "collocations": "have a feeling, hurt someone's feelings, gut feeling",
+        "example": "I had a strong feeling that our proposal would be accepted.",
+        "exampleVi": "Tôi có một linh cảm mạnh mẽ rằng đề xuất của chúng tôi sẽ được chấp nhận.",
+        "optionsVi": [
+          "cảm giác, cảm xúc",
+          "suy nghĩ logic",
+          "quy tắc đạo đức",
+          "bằng chứng xác thực"
+        ]
+      },
+      {
+        "id": "noun_008",
+        "word": "government",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈɡʌv.ən.mənt/",
+        "meaningVi": "chính phủ, chính quyền",
+        "collocations": "local government, government policy, federal government",
+        "example": "The government introduced new incentives for renewable energy.",
+        "exampleVi": "Chính phủ đã đưa ra các chính sách khuyến khích mới cho năng lượng tái tạo.",
+        "optionsVi": [
+          "chính phủ, chính quyền",
+          "tổ chức phi chính phủ",
+          "doanh nghiệp tư nhân",
+          "hội phụ huynh học sinh"
+        ]
+      },
+      {
+        "id": "noun_009",
+        "word": "information",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌɪn.fəˈmeɪ.ʃən/",
+        "meaningVi": "thông tin, dữ liệu cung cấp",
+        "collocations": "gather information, reliable information, confidential information",
+        "example": "Please verify all information before submitting the application.",
+        "exampleVi": "Vui lòng xác minh mọi thông tin trước khi nộp đơn ứng tuyển.",
+        "optionsVi": [
+          "thông tin, dữ liệu cung cấp",
+          "tin đồn thất thiệt",
+          "lời phán xét cá nhân",
+          "bản nháp sơ bộ"
+        ]
+      },
+      {
+        "id": "noun_010",
+        "word": "knowledge",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈnɒl.ɪdʒ/",
+        "meaningVi": "kiến thức, sự hiểu biết",
+        "collocations": "acquire knowledge, in-depth knowledge, broaden one's knowledge",
+        "example": "Reading books is one of the best ways to broaden your knowledge.",
+        "exampleVi": "Đọc sách là một trong những cách tốt nhất để mở rộng kiến thức của bạn.",
+        "optionsVi": [
+          "kiến thức, sự hiểu biết",
+          "sự thiếu hiểu biết",
+          "sự tưởng tượng viển vông",
+          "linh cảm nhất thời"
+        ]
+      },
+      {
+        "id": "noun_011",
+        "word": "memory",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˈmem.ər.i/",
+        "meaningVi": "trí nhớ, kỷ niệm",
+        "collocations": "fond memory, short-term memory, keep as a memory",
+        "example": "Visiting Da Lat with my best friends is a wonderful memory.",
+        "exampleVi": "Chuyến đi Đà Lạt cùng những người bạn thân là một kỷ niệm tuyệt vời.",
+        "optionsVi": [
+          "trí nhớ, kỷ niệm",
+          "nỗi ám ảnh tương lai",
+          "kế hoạch công tác",
+          "giấc mơ viễn vông"
+        ]
+      },
+      {
+        "id": "noun_012",
+        "word": "opportunity",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌɒp.əˈtʃuː.nə.ti/",
+        "meaningVi": "cơ hội, thời cơ thuận lợi",
+        "collocations": "seize an opportunity, missed opportunity, career opportunity",
+        "example": "This internship offers a golden opportunity to learn from industry experts.",
+        "exampleVi": "Kỳ thực tập này mang đến một cơ hội vàng để học hỏi từ các chuyên gia trong ngành.",
+        "optionsVi": [
+          "cơ hội, thời cơ thuận lợi",
+          "rào cản nan giải",
+          "nguy cơ thất bại",
+          "khoản chi phí ẩn"
+        ]
+      },
+      {
+        "id": "noun_013",
+        "word": "opinion",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/əˈpɪn.jən/",
+        "meaningVi": "ý kiến, quan điểm cá nhân",
+        "collocations": "express an opinion, in my opinion, second opinion",
+        "example": "In my opinion, teamwork is essential for the project's success.",
+        "exampleVi": "Theo quan điểm của tôi, làm việc nhóm là điều thiết yếu cho thành công của dự án.",
+        "optionsVi": [
+          "ý kiến, quan điểm cá nhân",
+          "sự thật hiển nhiên",
+          "chỉ thị cấp trên",
+          "bản hợp đồng kinh tế"
+        ]
+      },
+      {
+        "id": "noun_014",
+        "word": "situation",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/ˌsɪtʃ.uˈeɪ.ʃən/",
+        "meaningVi": "tình huống, hoàn cảnh, tình hình",
+        "collocations": "current situation, handle a situation, win-win situation",
+        "example": "The manager remained calm and handled the difficult situation smoothly.",
+        "exampleVi": "Người quản lý vẫn giữ bình tĩnh và xử lý tình huống khó khăn một cách êm đẹp.",
+        "optionsVi": [
+          "tình huống, hoàn cảnh, tình hình",
+          "địa điểm cố định",
+          "mốc thời gian cụ thể",
+          "kết quả sau cùng"
+        ]
+      },
+      {
+        "id": "noun_015",
+        "word": "society",
+        "level": "A2",
+        "type": "noun",
+        "ipa": "/səˈsaɪ.ə.ti/",
+        "meaningVi": "xã hội, cộng đồng xã hội",
+        "collocations": "modern society, contribution to society, civil society",
+        "example": "Technology is playing an increasingly vital role in modern society.",
+        "exampleVi": "Công nghệ đang đóng một vai trò ngày càng quan trọng trong xã hội hiện đại.",
+        "optionsVi": [
+          "xã hội, cộng đồng xã hội",
+          "doanh nghiệp độc quyền",
+          "gia đình hạt nhân",
+          "hệ thống máy móc"
+        ]
+      },
+      {
+        "id": "noun_016",
+        "word": "achievement",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/əˈtʃiːv.mənt/",
+        "meaningVi": "thành tựu, thành tích đáng nể",
+        "collocations": "remarkable achievement, sense of achievement, academic achievement",
+        "example": "Finishing the marathon was a proud personal achievement for him.",
+        "exampleVi": "Hoàn thành cự ly marathon là một thành tích cá nhân đầy tự hào đối với anh ấy.",
+        "optionsVi": [
+          "thành tựu, thành tích đáng nể",
+          "sự thất bại cay đắng",
+          "lời hứa suông",
+          "gánh nặng trách nhiệm"
+        ]
+      },
+      {
+        "id": "noun_017",
+        "word": "agreement",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/əˈɡriː.mənt/",
+        "meaningVi": "sự thỏa thuận, hợp đồng cam kết",
+        "collocations": "reach an agreement, sign an agreement, mutual agreement",
+        "example": "Both parties reached a mutual agreement after two days of negotiation.",
+        "exampleVi": "Cả hai bên đã đạt được thỏa thuận chung sau hai ngày đàm phán.",
+        "optionsVi": [
+          "sự thỏa thuận, hợp đồng cam kết",
+          "cuộc tranh chấp pháp lý",
+          "sự hiểu lầm kéo dài",
+          "sự từ chối dứt khoát"
+        ]
+      },
+      {
+        "id": "noun_018",
+        "word": "attitude",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈæt.ɪ.tʃuːd/",
+        "meaningVi": "thái độ, thái độ sống",
+        "collocations": "positive attitude, change in attitude, professional attitude",
+        "example": "A positive attitude helps you overcome challenges much faster.",
+        "exampleVi": "Một thái độ tích cực giúp bạn vượt qua những thử thách nhanh hơn nhiều.",
+        "optionsVi": [
+          "thái độ, thái độ sống",
+          "năng lực trí tuệ",
+          "điều kiện vật chất",
+          "vị thế xã hội"
+        ]
+      },
+      {
+        "id": "noun_019",
+        "word": "audience",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɔː.di.əns/",
+        "meaningVi": "khán giả, thính giả, đối tượng độc giả",
+        "collocations": "target audience, capture the audience, live audience",
+        "example": "You should tailor your presentation to the needs of the target audience.",
+        "exampleVi": "Bạn nên điều chỉnh bài thuyết trình theo nhu cầu của khán giả mục tiêu.",
+        "optionsVi": [
+          "khán giả, thính giả, đối tượng độc giả",
+          "đội ngũ diễn giả",
+          "ban tổ chức hội trường",
+          "hội đồng giám khảo"
+        ]
+      },
+      {
+        "id": "noun_020",
+        "word": "behavior",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/bɪˈheɪ.vjər/",
+        "meaningVi": "hành vi, cách ứng xử",
+        "collocations": "consumer behavior, acceptable behavior, pattern of behavior",
+        "example": "Studying consumer behavior helps companies design better products.",
+        "exampleVi": "Nghiên cứu hành vi người tiêu dùng giúp các công ty thiết kế sản phẩm tốt hơn.",
+        "optionsVi": [
+          "hành vi, cách ứng xử",
+          "lý thuyết trừu tượng",
+          "sở thích ngẫu nhiên",
+          "ngoại hình bên ngoài"
+        ]
+      },
+      {
+        "id": "noun_021",
+        "word": "benefit",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈben.ɪ.fɪt/",
+        "meaningVi": "lợi ích, chế độ đãi ngộ",
+        "collocations": "fringe benefits, health benefit, mutual benefit",
+        "example": "The company offers competitive salary along with excellent employee benefits.",
+        "exampleVi": "Công ty đưa ra mức lương cạnh tranh cùng với chế độ đãi ngộ nhân viên tuyệt vời.",
+        "optionsVi": [
+          "lợi ích, chế độ đãi ngộ",
+          "hình phạt kỷ luật",
+          "khoản khấu trừ thuế",
+          "nghĩa vụ pháp lý"
+        ]
+      },
+      {
+        "id": "noun_022",
+        "word": "candidate",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkæn.dɪ.dət/",
+        "meaningVi": "ứng viên, người ứng cử",
+        "collocations": "successful candidate, potential candidate, interview candidates",
+        "example": "We are interviewing five promising candidates for the project manager role.",
+        "exampleVi": "Chúng tôi đang phỏng vấn năm ứng viên triển vọng cho vị trí quản lý dự án.",
+        "optionsVi": [
+          "ứng viên, người ứng cử",
+          "nhà tuyển dụng",
+          "khách hàng tiềm năng",
+          "đối tác chiến lược"
+        ]
+      },
+      {
+        "id": "noun_023",
+        "word": "career",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˈrɪər/",
+        "meaningVi": "sự nghiệp, lộ trình nghề nghiệp",
+        "collocations": "career advancement, pursue a career, career path",
+        "example": "Continuous learning is crucial for long-term career advancement.",
+        "exampleVi": "Học hỏi liên tục là điều then chốt cho sự thăng tiến sự nghiệp lâu dài.",
+        "optionsVi": [
+          "sự nghiệp, lộ trình nghề nghiệp",
+          "công việc tạm thời",
+          "kỳ nghỉ dưỡng",
+          "chuyến công tác ngắn"
+        ]
+      },
+      {
+        "id": "noun_024",
+        "word": "challenge",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈtʃæl.ɪndʒ/",
+        "meaningVi": "thử thách, trở ngại cần vượt qua",
+        "collocations": "face a challenge, overcome a challenge, major challenge",
+        "example": "Adapting to remote work was a major challenge for many organizations.",
+        "exampleVi": "Thích nghi với làm việc từ xa từng là một thử thách lớn đối với nhiều tổ chức.",
+        "optionsVi": [
+          "thử thách, trở ngại cần vượt qua",
+          "sự thuận lợi hiển nhiên",
+          "con đường bằng phẳng",
+          "kết quả dễ dàng"
+        ]
+      },
+      {
+        "id": "noun_025",
+        "word": "circumstance",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈsɜː.kəm.stɑːns/",
+        "meaningVi": "hoàn cảnh, tình thế thực tế",
+        "collocations": "under no circumstances, unforeseen circumstances, financial circumstances",
+        "example": "Due to unforeseen circumstances, the conference had to be postponed.",
+        "exampleVi": "Do hoàn cảnh bất khả kháng ngoài dự kiến, hội nghị đã phải hoãn lại.",
+        "optionsVi": [
+          "hoàn cảnh, tình thế thực tế",
+          "nguyên tắc đạo đức",
+          "mục tiêu định lượng",
+          "lời cam kết chính thức"
+        ]
+      },
+      {
+        "id": "noun_026",
+        "word": "colleague",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkɒl.iːɡ/",
+        "meaningVi": "đồng nghiệp trong cơ quan",
+        "collocations": "close colleague, former colleague, respected colleague",
+        "example": "I always consult with my senior colleagues when making complex decisions.",
+        "exampleVi": "Tôi luôn tham khảo ý kiến các đồng nghiệp thâm niên khi đưa ra các quyết định phức tạp.",
+        "optionsVi": [
+          "đồng nghiệp trong cơ quan",
+          "khách hàng vãng lai",
+          "đối thủ cạnh tranh",
+          "người trung gian"
+        ]
+      },
+      {
+        "id": "noun_027",
+        "word": "combination",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌkɒm.bɪˈneɪ.ʃən/",
+        "meaningVi": "sự kết hợp, sự phối hợp",
+        "collocations": "winning combination, unique combination, combination of factors",
+        "example": "Success comes from a combination of hard work and strategic thinking.",
+        "exampleVi": "Thành công đến từ sự kết hợp giữa nỗ lực chăm chỉ và tư duy chiến lược.",
+        "optionsVi": [
+          "sự kết hợp, sự phối hợp",
+          "sự tách rời cô lập",
+          "sự mâu thuẫn đối kháng",
+          "sự thiếu đồng bộ"
+        ]
+      },
+      {
+        "id": "noun_028",
+        "word": "communication",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˌmjuː.nɪˈkeɪ.ʃən/",
+        "meaningVi": "giao tiếp, sự trao đổi thông tin",
+        "collocations": "effective communication, clear communication, lack of communication",
+        "example": "Effective communication prevents misunderstandings among team members.",
+        "exampleVi": "Giao tiếp hiệu quả giúp ngăn ngừa hiểu lầm giữa các thành viên trong nhóm.",
+        "optionsVi": [
+          "giao tiếp, sự trao đổi thông tin",
+          "sự giữ im lặng",
+          "thông điệp bí mật",
+          "sự bất đồng quan điểm"
+        ]
+      },
+      {
+        "id": "noun_029",
+        "word": "community",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəˈmjuː.nə.ti/",
+        "meaningVi": "cộng đồng, tập thể gắn kết",
+        "collocations": "local community, sense of community, online community",
+        "example": "Our project aims to build a stronger and more supportive community.",
+        "exampleVi": "Dự án của chúng tôi nhằm mục đích xây dựng một cộng đồng vững mạnh và hỗ trợ lẫn nhau hơn.",
+        "optionsVi": [
+          "cộng đồng, tập thể gắn kết",
+          "cá nhân đơn lẻ",
+          "doanh nghiệp độc lập",
+          "tổ chức quân sự"
+        ]
+      },
+      {
+        "id": "noun_030",
+        "word": "competition",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌkɒm.pəˈtɪʃ.ən/",
+        "meaningVi": "sự cạnh tranh, cuộc thi đấu",
+        "collocations": "fierce competition, enter a competition, market competition",
+        "example": "To survive in fierce competition, companies must constantly innovate.",
+        "exampleVi": "Để sinh tồn trong sự cạnh tranh khốc liệt, các công ty buộc phải đổi mới liên tục.",
+        "optionsVi": [
+          "sự cạnh tranh, cuộc thi đấu",
+          "sự nhượng bộ hòa bình",
+          "sự hợp tác độc quyền",
+          "sự tự mãn chủ quan"
+        ]
+      },
+      {
+        "id": "noun_031",
+        "word": "complaint",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kəmˈpleɪnt/",
+        "meaningVi": "lời phàn nàn, sự khiếu nại",
+        "collocations": "file a complaint, resolve a complaint, customer complaint",
+        "example": "The customer service team resolved the complaint within two hours.",
+        "exampleVi": "Bộ phận chăm sóc khách hàng đã giải quyết xong lời khiếu nại trong vòng hai giờ.",
+        "optionsVi": [
+          "lời phàn nàn, sự khiếu nại",
+          "lời khen ngợi chân thành",
+          "hóa đơn thanh toán",
+          "lời cảm ơn sâu sắc"
+        ]
+      },
+      {
+        "id": "noun_032",
+        "word": "conclusion",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/kənˈkluː.ʒən/",
+        "meaningVi": "kết luận, phần kết bài",
+        "collocations": "reach a conclusion, draw a conclusion, in conclusion",
+        "example": "Based on the survey data, we can draw a reliable conclusion.",
+        "exampleVi": "Dựa vào dữ liệu khảo sát, chúng ta có thể rút ra một kết luận đáng tin cậy.",
+        "optionsVi": [
+          "kết luận, phần kết bài",
+          "lời mở đầu sơ lược",
+          "giả thuyết ban đầu",
+          "câu hỏi gợi mở"
+        ]
+      },
+      {
+        "id": "noun_033",
+        "word": "conference",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkɒn.fər.əns/",
+        "meaningVi": "hội nghị, hội thảo chuyên đề",
+        "collocations": "attend a conference, annual conference, press conference",
+        "example": "Over 500 tech leaders gathered at the annual international conference.",
+        "exampleVi": "Hơn 500 nhà lãnh đạo công nghệ đã tề tựu tại hội nghị quốc tế thường niên.",
+        "optionsVi": [
+          "hội nghị, hội thảo chuyên đề",
+          "buổi tiệc gia đình",
+          "cuộc gặp ngẫu nhiên",
+          "buổi phỏng vấn kín"
+        ]
+      },
+      {
+        "id": "noun_034",
+        "word": "confidence",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkɒn.fɪ.dəns/",
+        "meaningVi": "sự tự tin, lòng tin cậy",
+        "collocations": "build confidence, boost confidence, lack of confidence",
+        "example": "Public speaking practice helped him build genuine confidence.",
+        "exampleVi": "Luyện tập nói trước đám đông đã giúp anh ấy xây dựng được sự tự tin thực thụ.",
+        "optionsVi": [
+          "sự tự tin, lòng tin cậy",
+          "nỗi sợ hãi mơ hồ",
+          "tính nhút nhát rụt rè",
+          "sự kiêu ngạo quá mức"
+        ]
+      },
+      {
+        "id": "noun_035",
+        "word": "consequence",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkɒn.sɪ.kwəns/",
+        "meaningVi": "hệ quả, hậu quả sau hành động",
+        "collocations": "face the consequences, unintended consequences, severe consequences",
+        "example": "Every rash decision carries long-term consequences for the business.",
+        "exampleVi": "Mỗi quyết định vội vàng đều mang lại những hệ quả lâu dài cho doanh nghiệp.",
+        "optionsVi": [
+          "hệ quả, hậu quả sau hành động",
+          "nguyên nhân gốc rễ",
+          "kế hoạch dự thảo",
+          "sự may mắn ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "noun_036",
+        "word": "contribution",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌkɒn.trɪˈbjuː.ʃən/",
+        "meaningVi": "sự đóng góp, cống hiến",
+        "collocations": "make a contribution, valuable contribution, significant contribution",
+        "example": "Her innovative ideas made a significant contribution to the project's success.",
+        "exampleVi": "Những ý tưởng đổi mới của cô ấy đã đóng góp to lớn vào thành công của dự án.",
+        "optionsVi": [
+          "sự đóng góp, cống hiến",
+          "sự tiêu hao ngân sách",
+          "sự cản trở tiến độ",
+          "sự bàng quan thờ ơ"
+        ]
+      },
+      {
+        "id": "noun_037",
+        "word": "criticism",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkrɪt.ɪ.sɪ.zəm/",
+        "meaningVi": "sự phê bình, lời chỉ trích",
+        "collocations": "constructive criticism, face criticism, accept criticism",
+        "example": "Constructive criticism from your team helps you refine your working style.",
+        "exampleVi": "Sự phê bình mang tính xây dựng từ đồng đội giúp bạn hoàn thiện phong cách làm việc.",
+        "optionsVi": [
+          "sự phê bình, lời chỉ trích",
+          "lời tán dương ngọt ngào",
+          "sự đồng tình tuyệt đối",
+          "giải thưởng vinh danh"
+        ]
+      },
+      {
+        "id": "noun_038",
+        "word": "culture",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈkʌl.tʃər/",
+        "meaningVi": "văn hóa, bản sắc văn hóa",
+        "collocations": "corporate culture, cultural diversity, preserve culture",
+        "example": "A strong corporate culture motivates employees to perform at their best.",
+        "exampleVi": "Một văn hóa doanh nghiệp vững mạnh sẽ thúc đẩy nhân viên cống hiến hết mình.",
+        "optionsVi": [
+          "văn hóa, bản sắc văn hóa",
+          "cơ sở vật chất",
+          "quy chế xử phạt",
+          "bảng cân đối kế toán"
+        ]
+      },
+      {
+        "id": "noun_039",
+        "word": "curiosity",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌkjʊə.riˈɒs.ə.ti/",
+        "meaningVi": "sự tò mò, tính hiếu kỳ ham học",
+        "collocations": "satisfy curiosity, spark curiosity, out of curiosity",
+        "example": "Intellectual curiosity drives scientific discoveries and personal growth.",
+        "exampleVi": "Sự tò mò về trí tuệ là động lực thúc đẩy các phát minh khoa học và sự phát triển cá nhân.",
+        "optionsVi": [
+          "sự tò mò, tính hiếu kỳ ham học",
+          "tính thờ ơ vô cảm",
+          "sự tự mãn bảo thủ",
+          "nỗi lo lắng thường trực"
+        ]
+      },
+      {
+        "id": "noun_040",
+        "word": "deadline",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈded.laɪn/",
+        "meaningVi": "hạn chót, thời hạn hoàn thành",
+        "collocations": "meet a deadline, miss a deadline, tight deadline",
+        "example": "We worked overtime to meet the tight project deadline.",
+        "exampleVi": "Chúng tôi đã làm thêm giờ để kịp hạn chót dự án rất gấp rút.",
+        "optionsVi": [
+          "hạn chót, thời hạn hoàn thành",
+          "ngày bắt đầu dự án",
+          "khoảng thời gian nghỉ ngơi",
+          "kỳ nghỉ lễ dài ngày"
+        ]
+      },
+      {
+        "id": "noun_041",
+        "word": "demand",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈmɑːnd/",
+        "meaningVi": "nhu cầu thị trường, yêu cầu",
+        "collocations": "meet demand, in high demand, supply and demand",
+        "example": "Skilled data engineers are currently in very high demand worldwide.",
+        "exampleVi": "Kỹ sư dữ liệu có tay nghề hiện đang có nhu cầu tuyển dụng rất cao trên toàn cầu.",
+        "optionsVi": [
+          "nhu cầu thị trường, yêu cầu",
+          "nguồn cung ứng dư thừa",
+          "sự khan hiếm hàng giả",
+          "sự thờ ơ của khách hàng"
+        ]
+      },
+      {
+        "id": "noun_042",
+        "word": "department",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈpɑːt.mənt/",
+        "meaningVi": "phòng ban, bộ phận chuyên môn",
+        "collocations": "marketing department, head of department, finance department",
+        "example": "Please submit your reimbursement request to the accounting department.",
+        "exampleVi": "Vui lòng nộp yêu cầu hoàn tiền cho phòng ban kế toán.",
+        "optionsVi": [
+          "phòng ban, bộ phận chuyên môn",
+          "khách hàng bên ngoài",
+          "chi nhánh đối thủ",
+          "tòa nhà văn phòng"
+        ]
+      },
+      {
+        "id": "noun_043",
+        "word": "description",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈskrɪp.ʃən/",
+        "meaningVi": "bản mô tả, sự miêu tả",
+        "collocations": "job description, accurate description, detailed description",
+        "example": "Read the job description carefully before applying for the position.",
+        "exampleVi": "Hãy đọc kỹ bản mô tả công việc trước khi nộp hồ sơ ứng tuyển.",
+        "optionsVi": [
+          "bản mô tả, sự miêu tả",
+          "bản hợp đồng lao động",
+          "thư mời phỏng vấn",
+          "bảng lương nhân viên"
+        ]
+      },
+      {
+        "id": "noun_044",
+        "word": "development",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈvel.əp.mənt/",
+        "meaningVi": "sự phát triển, bước tiến",
+        "collocations": "professional development, rapid development, sustainable development",
+        "example": "The company invests heavily in the professional development of its staff.",
+        "exampleVi": "Công ty đầu tư rất mạnh vào sự phát triển chuyên môn của đội ngũ nhân sự.",
+        "optionsVi": [
+          "sự phát triển, bước tiến",
+          "sự suy thoái đình trệ",
+          "sự cắt giảm nhân sự",
+          "sự ổn định tĩnh tại"
+        ]
+      },
+      {
+        "id": "noun_045",
+        "word": "difficulty",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈdɪf.ɪ.kəl.ti/",
+        "meaningVi": "sự khó khăn, trở ngại nan giải",
+        "collocations": "face difficulties, overcome difficulties, financial difficulty",
+        "example": "With perseverance, the team overcame all financial difficulties.",
+        "exampleVi": "Bằng sự kiên trì, toàn đội đã vượt qua mọi khó khăn về tài chính.",
+        "optionsVi": [
+          "sự khó khăn, trở ngại nan giải",
+          "sự suôn sẻ may mắn",
+          "kết quả mỹ mãn",
+          "khoản lợi nhuận ròng"
+        ]
+      },
+      {
+        "id": "noun_046",
+        "word": "direction",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/daɪˈrek.ʃən/",
+        "meaningVi": "phương hướng, sự chỉ dẫn",
+        "collocations": "in the right direction, ask for directions, change of direction",
+        "example": "The new CEO set a clear strategic direction for the next five years.",
+        "exampleVi": "Tổng giám đốc mới đã đặt ra phương hướng chiến lược rõ ràng cho 5 năm tới.",
+        "optionsVi": [
+          "phương hướng, sự chỉ dẫn",
+          "sự lạc lối mông lung",
+          "điểm xuất phát ban đầu",
+          "vạch đích cuối cùng"
+        ]
+      },
+      {
+        "id": "noun_047",
+        "word": "discipline",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈdɪs.ə.plɪn/",
+        "meaningVi": "tính kỷ luật, sự tự giác rèn luyện",
+        "collocations": "self-discipline, maintain discipline, strict discipline",
+        "example": "Self-discipline is the bridge between goals and long-term accomplishment.",
+        "exampleVi": "Kỷ luật bản thân là chiếc cầu nối giữa mục tiêu và thành tựu lâu dài.",
+        "optionsVi": [
+          "tính kỷ luật, sự tự giác rèn luyện",
+          "sự ngẫu hứng tùy tiện",
+          "thói quen buông thả",
+          "sự lười biếng trì hoãn"
+        ]
+      },
+      {
+        "id": "noun_048",
+        "word": "discovery",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈskʌv.ər.i/",
+        "meaningVi": "sự phát hiện, khám phá mới",
+        "collocations": "scientific discovery, make a discovery, breakthrough discovery",
+        "example": "The discovery of antibiotics revolutionized modern medicine.",
+        "exampleVi": "Sự phát hiện ra kháng sinh đã cách mạng hóa nền y học hiện đại.",
+        "optionsVi": [
+          "sự phát hiện, khám phá mới",
+          "sự che giấu thông tin",
+          "sai lầm không thể cứu vãn",
+          "sự lặp lại lý thuyết"
+        ]
+      },
+      {
+        "id": "noun_049",
+        "word": "discussion",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/dɪˈskʌʃ.ən/",
+        "meaningVi": "cuộc thảo luận, bàn bạc",
+        "collocations": "open discussion, hold a discussion, fruitful discussion",
+        "example": "We had a fruitful discussion about budget allocation yesterday.",
+        "exampleVi": "Hôm qua chúng tôi đã có một cuộc thảo luận rất hiệu quả về phân bổ ngân sách.",
+        "optionsVi": [
+          "cuộc thảo luận, bàn bạc",
+          "cuộc cãi vã vô ích",
+          "sự ra lệnh một chiều",
+          "sự bỏ phiếu kín"
+        ]
+      },
+      {
+        "id": "noun_050",
+        "word": "economy",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/iˈkɒn.ə.mi/",
+        "meaningVi": "nền kinh tế",
+        "collocations": "global economy, boost the economy, digital economy",
+        "example": "E-commerce is fueling the rapid growth of the digital economy.",
+        "exampleVi": "Thương mại điện tử đang tiếp thêm động lực cho sự tăng trưởng nhanh chóng của nền kinh tế số.",
+        "optionsVi": [
+          "nền kinh tế",
+          "hệ thống chính trị",
+          "phong tục tập quán",
+          "môi trường sinh thái"
+        ]
+      },
+      {
+        "id": "noun_051",
+        "word": "education",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌedʒ.uˈkeɪ.ʃən/",
+        "meaningVi": "nền giáo dục, việc học tập",
+        "collocations": "higher education, quality education, pursue education",
+        "example": "Quality education empowers young people to build brighter futures.",
+        "exampleVi": "Nền giáo dục chất lượng trang bị cho người trẻ năng lực kiến tạo tương lai tươi sáng hơn.",
+        "optionsVi": [
+          "nền giáo dục, việc học tập",
+          "hoạt động giải trí",
+          "ngành công nghiệp nặng",
+          "thị trường chứng khoán"
+        ]
+      },
+      {
+        "id": "noun_052",
+        "word": "emotion",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪˈməʊ.ʃən/",
+        "meaningVi": "cảm xúc, mối xúc động",
+        "collocations": "control one's emotions, express emotions, mixed emotions",
+        "example": "Learning to regulate your emotions under stress is a key leadership trait.",
+        "exampleVi": "Học cách làm chủ cảm xúc khi chịu áp lực là một tố chất lãnh đạo then chốt.",
+        "optionsVi": [
+          "cảm xúc, mối xúc động",
+          "sự tính toán lý trí",
+          "kế hoạch hành động",
+          "quy tắc ứng xử văn bản"
+        ]
+      },
+      {
+        "id": "noun_053",
+        "word": "employee",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪmˈplɔɪ.iː/",
+        "meaningVi": "nhân viên, người lao động",
+        "collocations": "full-time employee, motivate employees, employee retention",
+        "example": "Recognizing high performance is crucial for employee retention.",
+        "exampleVi": "Ghi nhận thành tích xuất sắc là yếu tố quan trọng để giữ chân nhân viên.",
+        "optionsVi": [
+          "nhân viên, người lao động",
+          "chủ sở hữu doanh nghiệp",
+          "nhà đầu tư vốn",
+          "đối tác thương mại"
+        ]
+      },
+      {
+        "id": "noun_054",
+        "word": "employer",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪmˈplɔɪ.ər/",
+        "meaningVi": "người tuyển dụng, người sử dụng lao động",
+        "collocations": "prospective employer, attractive employer, employer branding",
+        "example": "Companies invest in employer branding to attract top talent.",
+        "exampleVi": "Các công ty đầu tư vào thương hiệu nhà tuyển dụng để thu hút nhân tài hàng đầu.",
+        "optionsVi": [
+          "người tuyển dụng, người sử dụng lao động",
+          "thực tập sinh",
+          "người tìm việc",
+          "khách hàng tiêu dùng"
+        ]
+      },
+      {
+        "id": "noun_055",
+        "word": "environment",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪnˈvaɪ.rən.mənt/",
+        "meaningVi": "môi trường tự nhiên hoặc môi trường sống/làm việc",
+        "collocations": "protect the environment, working environment, friendly environment",
+        "example": "A supportive working environment fosters creativity and trust.",
+        "exampleVi": "Một môi trường làm việc hỗ trợ lẫn nhau sẽ nuôi dưỡng tính sáng tạo và lòng tin cậy.",
+        "optionsVi": [
+          "môi trường tự nhiên hoặc môi trường sống/làm việc",
+          "công nghệ phần mềm",
+          "quy trình kiểm toán",
+          "thời khóa biểu"
+        ]
+      },
+      {
+        "id": "noun_056",
+        "word": "equipment",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪˈkwɪp.mənt/",
+        "meaningVi": "trang thiết bị, dụng cụ làm việc",
+        "collocations": "state-of-the-art equipment, office equipment, safety equipment",
+        "example": "The lab was upgraded with state-of-the-art research equipment.",
+        "exampleVi": "Phòng thí nghiệm đã được nâng cấp với các trang thiết bị nghiên cứu hiện đại nhất.",
+        "optionsVi": [
+          "trang thiết bị, dụng cụ làm việc",
+          "tài liệu lý thuyết",
+          "đội ngũ nhân sự",
+          "chính sách nội bộ"
+        ]
+      },
+      {
+        "id": "noun_057",
+        "word": "evidence",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈev.ɪ.dəns/",
+        "meaningVi": "bằng chứng, chứng cứ xác thực",
+        "collocations": "clear evidence, empirical evidence, lack of evidence",
+        "example": "There is clear evidence showing the benefits of regular meditation.",
+        "exampleVi": "Có bằng chứng rõ ràng cho thấy những lợi ích của việc thiền định đều đặn.",
+        "optionsVi": [
+          "bằng chứng, chứng cứ xác thực",
+          "tin đồn vô căn cứ",
+          "cảm nhận chủ quan",
+          "giả định chưa chứng minh"
+        ]
+      },
+      {
+        "id": "noun_058",
+        "word": "explanation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌek.spləˈneɪ.ʃən/",
+        "meaningVi": "lời giải thích, sự làm rõ",
+        "collocations": "detailed explanation, simple explanation, plausible explanation",
+        "example": "The engineer provided a simple explanation of how the algorithm works.",
+        "exampleVi": "Kỹ sư đã đưa ra lời giải thích đơn giản về cách thuật toán vận hành.",
+        "optionsVi": [
+          "lời giải thích, sự làm rõ",
+          "sự bí mật thông tin",
+          "câu hỏi chất vấn",
+          "lời đe dọa xử phạt"
+        ]
+      },
+      {
+        "id": "noun_059",
+        "word": "expression",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪkˈspreʃ.ən/",
+        "meaningVi": "biểu cảm khuôn mặt, cách diễn đạt",
+        "collocations": "facial expression, idiomatic expression, free expression",
+        "example": "Her facial expression showed that she was pleasantly surprised.",
+        "exampleVi": "Biểu cảm khuôn mặt của cô ấy cho thấy cô ấy rất đỗi ngạc nhiên và thích thú.",
+        "optionsVi": [
+          "biểu cảm khuôn mặt, cách diễn đạt",
+          "lối suy nghĩ bảo thủ",
+          "hành động bộc phát",
+          "tư thế ngồi nghiêm nghị"
+        ]
+      },
+      {
+        "id": "noun_060",
+        "word": "failure",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈfeɪ.ljər/",
+        "meaningVi": "sự thất bại, bài học vấp ngã",
+        "collocations": "fear of failure, learn from failure, total failure",
+        "example": "Failure is not the opposite of success; it is part of success.",
+        "exampleVi": "Thất bại không phải điều đối lập với thành công; nó là một phần của thành công.",
+        "optionsVi": [
+          "sự thất bại, bài học vấp ngã",
+          "chiến thắng vang dội",
+          "sự khởi đầu may mắn",
+          "kết quả trọn vẹn"
+        ]
+      },
+      {
+        "id": "noun_061",
+        "word": "feedback",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈfiːd.bæk/",
+        "meaningVi": "phản hồi, ý kiến đóng góp",
+        "collocations": "constructive feedback, receive feedback, customer feedback",
+        "example": "We welcome constructive feedback to improve our application continuously.",
+        "exampleVi": "Chúng tôi hoan nghênh những phản hồi mang tính xây dựng để cải tiến ứng dụng liên tục.",
+        "optionsVi": [
+          "phản hồi, ý kiến đóng góp",
+          "lệnh cấm phát biểu",
+          "khoản thanh toán trễ",
+          "sự phớt lờ ý kiến"
+        ]
+      },
+      {
+        "id": "noun_062",
+        "word": "generation",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˌdʒen.əˈreɪ.ʃən/",
+        "meaningVi": "thế hệ, lứa tuổi",
+        "collocations": "future generations, generation gap, younger generation",
+        "example": "We must preserve our natural resources for future generations.",
+        "exampleVi": "Chúng ta phải bảo tồn các nguồn tài nguyên thiên nhiên cho các thế hệ tương lai.",
+        "optionsVi": [
+          "thế hệ, lứa tuổi",
+          "chu kỳ kinh tế",
+          "đội ngũ quản lý",
+          "thời kỳ suy thoái"
+        ]
+      },
+      {
+        "id": "noun_063",
+        "word": "growth",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɡrəʊθ/",
+        "meaningVi": "sự tăng trưởng, sự phát triển",
+        "collocations": "economic growth, personal growth, rapid growth",
+        "example": "Stepping outside your comfort zone is essential for personal growth.",
+        "exampleVi": "Bước ra khỏi vùng an toàn là điều thiết yếu cho sự phát triển bản thân.",
+        "optionsVi": [
+          "sự tăng trưởng, sự phát triển",
+          "sự suy thoái tụt lùi",
+          "trạng thái giậm chân tại chỗ",
+          "sự thu hẹp quy mô"
+        ]
+      },
+      {
+        "id": "noun_064",
+        "word": "improvement",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ɪmˈpruːv.mənt/",
+        "meaningVi": "sự cải thiện, sự tiến bộ",
+        "collocations": "room for improvement, continuous improvement, noticeable improvement",
+        "example": "Her English pronunciation showed noticeable improvement after three months.",
+        "exampleVi": "Phát âm tiếng Anh của cô ấy đã có sự tiến bộ rõ rệt sau ba tháng.",
+        "optionsVi": [
+          "sự cải thiện, sự tiến bộ",
+          "sự xuống cấp trầm trọng",
+          "sự đình trệ công việc",
+          "sự bảo thủ không đổi"
+        ]
+      },
+      {
+        "id": "noun_065",
+        "word": "influence",
+        "level": "B1",
+        "type": "noun",
+        "ipa": "/ˈɪn.flu.əns/",
+        "meaningVi": "sức ảnh hưởng, tầm tác động",
+        "collocations": "have an influence on, positive influence, exert influence",
+        "example": "Parents have a profound influence on their children's reading habits.",
+        "exampleVi": "Cha mẹ có sức ảnh hưởng sâu sắc đến thói quen đọc sách của con cái.",
+        "optionsVi": [
+          "sức ảnh hưởng, tầm tác động",
+          "sự cô lập cách biệt",
+          "sự yếu ớt nhu nhược",
+          "sự thờ ơ lãnh đạm"
+        ]
+      },
+      {
+        "id": "noun_066",
+        "word": "accommodation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/əˌkɒm.əˈdeɪ.ʃən/",
+        "meaningVi": "chỗ ở, nơi lưu trú tiện nghi",
+        "collocations": "hotel accommodation, temporary accommodation, book accommodation",
+        "example": "The university provides affordable accommodation for international students.",
+        "exampleVi": "Trường đại học cung cấp chỗ ở giá cả phải chăng cho sinh viên quốc tế.",
+        "optionsVi": [
+          "chỗ ở, nơi lưu trú tiện nghi",
+          "phương tiện di chuyển",
+          "vé vào cửa sự kiện",
+          "học phí toàn khóa"
+        ]
+      },
+      {
+        "id": "noun_067",
+        "word": "acquisition",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæk.wɪˈzɪʃ.ən/",
+        "meaningVi": "sự thâu tóm doanh nghiệp, việc tiếp thu kiến thức",
+        "collocations": "language acquisition, merger and acquisition, recent acquisition",
+        "example": "Language acquisition happens naturally when learners are immersed in context.",
+        "exampleVi": "Việc tiếp thu ngôn ngữ diễn ra tự nhiên khi người học được đắm mình vào ngữ cảnh.",
+        "optionsVi": [
+          "sự thâu tóm doanh nghiệp, việc tiếp thu kiến thức",
+          "sự phá sản hoàn toàn",
+          "sự thanh lý tài sản",
+          "sự thoái vốn đầu tư"
+        ]
+      },
+      {
+        "id": "noun_068",
+        "word": "advocacy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈæd.və.kə.si/",
+        "meaningVi": "sự vận động ủng hộ, hành động lên tiếng bảo vệ",
+        "collocations": "advocacy group, public advocacy, policy advocacy",
+        "example": "Her tireless advocacy for mental health awareness inspired thousands of people.",
+        "exampleVi": "Sự vận động không ngừng nghỉ của cô ấy vì nhận thức sức khỏe tinh thần đã truyền cảm hứng cho hàng ngàn người.",
+        "optionsVi": [
+          "sự vận động ủng hộ, hành động lên tiếng bảo vệ",
+          "sự công kích ngầm",
+          "hành vi phỉ báng",
+          "thái độ dửng dưng"
+        ]
+      },
+      {
+        "id": "noun_069",
+        "word": "allocation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæl.əˈkeɪ.ʃən/",
+        "meaningVi": "sự phân bổ nguồn lực, cấp phát ngân sách",
+        "collocations": "resource allocation, budget allocation, efficient allocation",
+        "example": "Optimal resource allocation is critical to delivering the project on time.",
+        "exampleVi": "Phân bổ nguồn lực tối ưu là điều tối quan trọng để bàn giao dự án đúng hạn.",
+        "optionsVi": [
+          "sự phân bổ nguồn lực, cấp phát ngân sách",
+          "sự phung phí tài chính",
+          "sự thắt chặt chi tiêu",
+          "khoản nợ tồn đọng"
+        ]
+      },
+      {
+        "id": "noun_070",
+        "word": "ambiguity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæm.bɪˈɡjuː.ə.ti/",
+        "meaningVi": "sự mơ hồ, tính nước đôi không rõ ràng",
+        "collocations": "resolve ambiguity, potential ambiguity, legal ambiguity",
+        "example": "The contract was rewritten to eliminate any potential ambiguity.",
+        "exampleVi": "Bản hợp đồng đã được viết lại nhằm loại bỏ mọi sự mơ hồ tiềm ẩn.",
+        "optionsVi": [
+          "sự mơ hồ, tính nước đôi không rõ ràng",
+          "sự minh bạch rành mạch",
+          "điều khoản ràng buộc",
+          "cam kết chắc chắn"
+        ]
+      },
+      {
+        "id": "noun_071",
+        "word": "analogy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/əˈnæl.ə.dʒi/",
+        "meaningVi": "phép so sánh loại suy, sự tương tự",
+        "collocations": "draw an analogy, by analogy, striking analogy",
+        "example": "He drew an analogy between the human brain and a complex computer network.",
+        "exampleVi": "Anh ấy đã dùng phép so sánh tương tự giữa bộ não con người và một mạng máy tính phức tạp.",
+        "optionsVi": [
+          "phép so sánh loại suy, sự tương tự",
+          "định nghĩa từ điển",
+          "bằng chứng số liệu",
+          "sự mâu thuẫn hoàn toàn"
+        ]
+      },
+      {
+        "id": "noun_072",
+        "word": "anticipation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ænˌtɪs.ɪˈpeɪ.ʃən/",
+        "meaningVi": "sự dự đoán trước, niềm mong đợi háo hức",
+        "collocations": "in anticipation of, eager anticipation, heightened anticipation",
+        "example": "Extra security was arranged in anticipation of a massive turnout.",
+        "exampleVi": "Lực lượng an ninh bổ sung đã được bố trí để đón đầu lượng người tham dự đông đảo.",
+        "optionsVi": [
+          "sự dự đoán trước, niềm mong đợi háo hức",
+          "sự bất ngờ không kịp chuẩn bị",
+          "nỗi thất vọng tràn trề",
+          "sự hối hận muộn màng"
+        ]
+      },
+      {
+        "id": "noun_073",
+        "word": "apparatus",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌæp.əˈreɪ.təs/",
+        "meaningVi": "bộ máy tổ chức, thiết bị máy móc chuyên dụng",
+        "collocations": "state apparatus, security apparatus, scientific apparatus",
+        "example": "The government overhauled its administrative apparatus to boost public service efficiency.",
+        "exampleVi": "Chính phủ đã cải tổ bộ máy hành chính để nâng cao hiệu quả phục vụ người dân.",
+        "optionsVi": [
+          "bộ máy tổ chức, thiết bị máy móc chuyên dụng",
+          "văn bản thông tư",
+          "kinh phí dự phòng",
+          "kỳ họp quốc hội"
+        ]
+      },
+      {
+        "id": "noun_074",
+        "word": "breakthrough",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈbreɪk.θruː/",
+        "meaningVi": "bước đột phá lớn",
+        "collocations": "major breakthrough, scientific breakthrough, technological breakthrough",
+        "example": "Researchers made a historic breakthrough in cancer treatment.",
+        "exampleVi": "Các nhà nghiên cứu đã tạo ra một bước đột phá lịch sử trong điều trị ung thư.",
+        "optionsVi": [
+          "bước đột phá lớn",
+          "sự bế tắc tạm thời",
+          "bước lùi chiến lược",
+          "quy trình lặp lại"
+        ]
+      },
+      {
+        "id": "noun_075",
+        "word": "collaboration",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kəˌlæb.əˈreɪ.ʃən/",
+        "meaningVi": "sự hợp tác, tinh thần phối hợp đồng đội",
+        "collocations": "close collaboration, cross-functional collaboration, in collaboration with",
+        "example": "Cross-functional collaboration between engineering and design drove the product's success.",
+        "exampleVi": "Sự hợp tác liên phòng ban giữa kỹ thuật và thiết kế đã thúc đẩy thành công của sản phẩm.",
+        "optionsVi": [
+          "sự hợp tác, tinh thần phối hợp đồng đội",
+          "sự tranh chấp nội bộ",
+          "lối làm việc riêng lẻ",
+          "sự can thiệp tiêu cực"
+        ]
+      },
+      {
+        "id": "noun_076",
+        "word": "competence",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkɒm.pɪ.təns/",
+        "meaningVi": "năng lực chuyên môn, sự thành thạo",
+        "collocations": "core competence, professional competence, demonstrate competence",
+        "example": "The interview assessed both technical competence and interpersonal skills.",
+        "exampleVi": "Buổi phỏng vấn đã đánh giá cả năng lực chuyên môn lẫn kỹ năng giao tiếp ứng xử.",
+        "optionsVi": [
+          "năng lực chuyên môn, sự thành thạo",
+          "sự thiếu kinh nghiệm",
+          "thái độ chủ quan",
+          "bằng khen hình thức"
+        ]
+      },
+      {
+        "id": "noun_077",
+        "word": "compromise",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkɒm.prə.maɪz/",
+        "meaningVi": "sự thỏa hiệp, sự nhượng bộ hai bên",
+        "collocations": "reach a compromise, make a compromise, compromise solution",
+        "example": "After extensive negotiations, both sides agreed on a fair compromise.",
+        "exampleVi": "Sau nhiều cuộc đàm phán kéo dài, cả hai bên đã đồng thuận về một sự thỏa hiệp công bằng.",
+        "optionsVi": [
+          "sự thỏa hiệp, sự nhượng bộ hai bên",
+          "chiến thắng áp đảo một phía",
+          "sự đổ vỡ đàm phán",
+          "sự áp đặt mệnh lệnh"
+        ]
+      },
+      {
+        "id": "noun_078",
+        "word": "consensus",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/kənˈsen.səs/",
+        "meaningVi": "sự đồng thuận, sự nhất trí chung",
+        "collocations": "reach a consensus, general consensus, build consensus",
+        "example": "The committee reached a general consensus on adopting the new safety standards.",
+        "exampleVi": "Ủy ban đã đạt được sự đồng thuận chung về việc áp dụng các tiêu chuẩn an toàn mới.",
+        "optionsVi": [
+          "sự đồng thuận, sự nhất trí chung",
+          "sự chia rẽ bè phái",
+          "sự phủ quyết đơn phương",
+          "cuộc tranh cãi nảy lửa"
+        ]
+      },
+      {
+        "id": "noun_079",
+        "word": "contradiction",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌkɒn.trəˈdɪk.ʃən/",
+        "meaningVi": "sự mâu thuẫn, nghịch lý đối chọi",
+        "collocations": "apparent contradiction, glaring contradiction, direct contradiction",
+        "example": "There is an apparent contradiction between his public speech and his private actions.",
+        "exampleVi": "Có một sự mâu thuẫn rõ rệt giữa lời nói trước công chúng và hành động thực tế của anh ta.",
+        "optionsVi": [
+          "sự mâu thuẫn, nghịch lý đối chọi",
+          "sự thống nhất hài hòa",
+          "sự bổ trợ qua lại",
+          "bằng chứng củng cố"
+        ]
+      },
+      {
+        "id": "noun_080",
+        "word": "controversy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈkɒn.trə.vɜː.si/",
+        "meaningVi": "cuộc tranh cãi dư luận, bất đồng gay gắt",
+        "collocations": "spark controversy, cause controversy, ongoing controversy",
+        "example": "The proposed tax reform sparked intense controversy among business owners.",
+        "exampleVi": "Đề xuất cải cách thuế đã làm dấy lên cuộc tranh cãi gay gắt trong giới chủ doanh nghiệp.",
+        "optionsVi": [
+          "cuộc tranh cãi dư luận, bất đồng gay gắt",
+          "sự ủng hộ nhiệt liệt",
+          "sự đồng tình tuyệt đối",
+          "thỏa thuận ngầm"
+        ]
+      },
+      {
+        "id": "noun_081",
+        "word": "credibility",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌkred.əˈbɪl.ə.ti/",
+        "meaningVi": "độ uy tín, tính đáng tin cậy",
+        "collocations": "gain credibility, undermine credibility, establish credibility",
+        "example": "Publishing accurate data established the research institute's credibility.",
+        "exampleVi": "Việc công bố số liệu chuẩn xác đã xác lập độ uy tín của viện nghiên cứu.",
+        "optionsVi": [
+          "độ uy tín, tính đáng tin cậy",
+          "sự gian dối dối trá",
+          "sự nghi ngờ hoài nghi",
+          "lời đồn thổi vô căn cứ"
+        ]
+      },
+      {
+        "id": "noun_082",
+        "word": "deficiency",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈfɪʃ.ən.si/",
+        "meaningVi": "sự thiếu hụt, khiếm khuyết nghiêm trọng",
+        "collocations": "vitamin deficiency, structural deficiency, rectify a deficiency",
+        "example": "The audit revealed several deficiencies in internal financial controls.",
+        "exampleVi": "Đợt kiểm toán đã phát hiện một số khiếm khuyết trong quy trình kiểm soát tài chính nội bộ.",
+        "optionsVi": [
+          "sự thiếu hụt, khiếm khuyết nghiêm trọng",
+          "sự dồi dào sung túc",
+          "nguồn dự trữ phong phú",
+          "kết quả vượt chỉ tiêu"
+        ]
+      },
+      {
+        "id": "noun_083",
+        "word": "discrepancy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈskrep.ən.si/",
+        "meaningVi": "sự sai lệch, độ chênh lệch không khớp",
+        "collocations": "unexplained discrepancy, minor discrepancy, discrepancy between",
+        "example": "The accountant noticed a substantial discrepancy between the two balance sheets.",
+        "exampleVi": "Kế toán viên đã phát hiện một sự sai lệch đáng kể giữa hai bảng cân đối kế toán.",
+        "optionsVi": [
+          "sự sai lệch, độ chênh lệch không khớp",
+          "sự trùng khớp hoàn hảo",
+          "kết quả đối soát khớp",
+          "sự thống nhất tuyệt đối"
+        ]
+      },
+      {
+        "id": "noun_084",
+        "word": "distinction",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/dɪˈstɪŋk.ʃən/",
+        "meaningVi": "nét phân biệt, danh hiệu xuất sắc",
+        "collocations": "draw a distinction, clear distinction, graduate with distinction",
+        "example": "It is crucial to draw a clear distinction between urgent and important tasks.",
+        "exampleVi": "Điều tối quan trọng là phải vạch ra nét phân biệt rõ ràng giữa việc khẩn cấp và việc quan trọng.",
+        "optionsVi": [
+          "nét phân biệt, danh hiệu xuất sắc",
+          "sự đánh đồng mập mờ",
+          "sự hỗn loạn không trật tự",
+          "kết quả trung bình"
+        ]
+      },
+      {
+        "id": "noun_085",
+        "word": "diversity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/daɪˈvɜː.sə.ti/",
+        "meaningVi": "sự đa dạng, tính phong phú",
+        "collocations": "cultural diversity, biological diversity, promote diversity",
+        "example": "Workplace diversity brings varied perspectives and fuels creative problem-solving.",
+        "exampleVi": "Sự đa dạng nơi làm việc mang lại nhiều góc nhìn phong phú và thúc đẩy giải quyết vấn đề sáng tạo.",
+        "optionsVi": [
+          "sự đa dạng, tính phong phú",
+          "sự rập khuôn đơn điệu",
+          "sự đồng nhất tuyệt đối",
+          "tư duy đóng khung"
+        ]
+      },
+      {
+        "id": "noun_086",
+        "word": "feasibility",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌfiː.zəˈbɪl.ə.ti/",
+        "meaningVi": "tính khả thi, khả năng thực thi được",
+        "collocations": "feasibility study, assess the feasibility, economic feasibility",
+        "example": "The engineering team conducted a thorough feasibility study before launching the bridge project.",
+        "exampleVi": "Đội ngũ kỹ sư đã tiến hành nghiên cứu tính khả thi kỹ lưỡng trước khi khởi động dự án xây cầu.",
+        "optionsVi": [
+          "tính khả thi, khả năng thực thi được",
+          "sự bất khả thi viển vông",
+          "nguy cơ đổ vỡ chắc chắn",
+          "sự lãng phí ngân sách"
+        ]
+      },
+      {
+        "id": "noun_087",
+        "word": "framework",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈfreɪm.wɜːk/",
+        "meaningVi": "khuôn khổ cơ cấu, hệ khung sườn",
+        "collocations": "regulatory framework, conceptual framework, within the framework of",
+        "example": "The government established a robust legal framework for fintech operations.",
+        "exampleVi": "Chính phủ đã thiết lập một khuôn khổ pháp lý vững chắc cho hoạt động công nghệ tài chính.",
+        "optionsVi": [
+          "khuôn khổ cơ cấu, hệ khung sườn",
+          "sự ngẫu hứng vô tổ chức",
+          "chi tiết vụn vặt",
+          "kết luận sau cùng"
+        ]
+      },
+      {
+        "id": "noun_088",
+        "word": "hierarchy",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈhaɪə.rɑː.ki/",
+        "meaningVi": "hệ thống cấp bậc thứ tự",
+        "collocations": "corporate hierarchy, organizational hierarchy, strict hierarchy",
+        "example": "Many modern tech companies prefer a flat structure over a rigid corporate hierarchy.",
+        "exampleVi": "Nhiều công ty công nghệ hiện đại ưa chuộng cơ cấu phẳng thay vì hệ thống cấp bậc doanh nghiệp cứng nhắc.",
+        "optionsVi": [
+          "hệ thống cấp bậc thứ tự",
+          "sự bình đẳng ngang hàng",
+          "tập thể tự do",
+          "hội nhóm không lãnh đạo"
+        ]
+      },
+      {
+        "id": "noun_089",
+        "word": "incentive",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈsen.tɪv/",
+        "meaningVi": "sự khuyến khích, động lực thúc đẩy",
+        "collocations": "financial incentive, tax incentive, provide an incentive",
+        "example": "The company offers performance bonuses as an incentive for high productivity.",
+        "exampleVi": "Công ty đưa ra các khoản thưởng hiệu suất như một động lực khuyến khích năng suất cao.",
+        "optionsVi": [
+          "sự khuyến khích, động lực thúc đẩy",
+          "hình phạt răn đe",
+          "mệnh lệnh bắt buộc",
+          "sự áp bức áp đặt"
+        ]
+      },
+      {
+        "id": "noun_090",
+        "word": "infrastructure",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈɪn.frəˌstrʌk.tʃər/",
+        "meaningVi": "cơ sở hạ tầng, nền tảng vật chất kỹ thuật",
+        "collocations": "transport infrastructure, digital infrastructure, invest in infrastructure",
+        "example": "Investing in cloud infrastructure accelerated the startup's expansion abroad.",
+        "exampleVi": "Đầu tư vào cơ sở hạ tầng đám mây đã đẩy nhanh tốc độ mở rộng ra nước ngoài của công ty khởi nghiệp.",
+        "optionsVi": [
+          "cơ sở hạ tầng, nền tảng vật chất kỹ thuật",
+          "chiến lược tiếp thị",
+          "kỹ năng mềm nhân viên",
+          "bản quyền thương hiệu"
+        ]
+      },
+      {
+        "id": "noun_091",
+        "word": "innovation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌɪn.əˈveɪ.ʃən/",
+        "meaningVi": "sự đổi mới, sáng kiến cải tiến",
+        "collocations": "foster innovation, technological innovation, driving force of innovation",
+        "example": "Continuous innovation is the cornerstone of sustainable market leadership.",
+        "exampleVi": "Đổi mới liên tục là nền tảng cốt lõi để duy trì vị thế dẫn đầu thị trường bền vững.",
+        "optionsVi": [
+          "sự đổi mới, sáng kiến cải tiến",
+          "lối mòn bảo thủ",
+          "sự sao chép nguyên mẫu",
+          "sự thụt lùi kỹ thuật"
+        ]
+      },
+      {
+        "id": "noun_092",
+        "word": "insight",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈɪn.saɪt/",
+        "meaningVi": "sự thấu triệt, góc nhìn sâu sắc",
+        "collocations": "valuable insight, customer insight, gain insights into",
+        "example": "Data analytics provides valuable insights into customer purchasing behaviors.",
+        "exampleVi": "Phân tích dữ liệu mang lại những góc nhìn sâu sắc quý giá về hành vi mua sắm của khách hàng.",
+        "optionsVi": [
+          "sự thấu triệt, góc nhìn sâu sắc",
+          "cái nhìn nông cạn bề ngoài",
+          "sự hiểu sai lệch",
+          "tin đồn ngoài lề"
+        ]
+      },
+      {
+        "id": "noun_093",
+        "word": "integrity",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ɪnˈteɡ.rə.ti/",
+        "meaningVi": "tính chính trực, tính toàn vẹn nguyên bản",
+        "collocations": "moral integrity, personal integrity, maintain data integrity",
+        "example": "A leader with moral integrity earns the unconditional trust of the entire organization.",
+        "exampleVi": "Một nhà lãnh đạo có phẩm chất chính trực sẽ nhận được sự tin tưởng vô điều kiện của toàn bộ tổ chức.",
+        "optionsVi": [
+          "tính chính trực, tính toàn vẹn nguyên bản",
+          "sự giả tạo gian lận",
+          "lối sống cơ hội",
+          "sự thỏa hiệp vụ lợi"
+        ]
+      },
+      {
+        "id": "noun_094",
+        "word": "manifestation",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌmæn.ɪ.feˈsteɪ.ʃən/",
+        "meaningVi": "sự biểu hiện rõ rệt, hiện thân cụ thể",
+        "collocations": "clear manifestation, visible manifestation, physical manifestation",
+        "example": "Chronic fatigue is often an early manifestation of excessive workplace burnout.",
+        "exampleVi": "Mệt mỏi kinh niên thường là một biểu hiện sớm của tình trạng kiệt sức quá mức nơi công sở.",
+        "optionsVi": [
+          "sự biểu hiện rõ rệt, hiện thân cụ thể",
+          "nguyên nhân ngầm ẩn",
+          "sự biến mất hoàn toàn",
+          "sự giả định lý thuyết"
+        ]
+      },
+      {
+        "id": "noun_095",
+        "word": "methodology",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌmeθ.əˈdɒl.ə.dʒi/",
+        "meaningVi": "hệ phương pháp luận, phương thức nghiên cứu",
+        "collocations": "research methodology, robust methodology, agile methodology",
+        "example": "Adopting an agile methodology improved our development team's delivery velocity.",
+        "exampleVi": "Áp dụng hệ phương pháp luận linh hoạt (Agile) đã nâng cao tốc độ bàn giao của đội phát triển chúng tôi.",
+        "optionsVi": [
+          "hệ phương pháp luận, phương thức nghiên cứu",
+          "công cụ phần cứng",
+          "ý tưởng bột phát",
+          "bản báo cáo kết luận"
+        ]
+      },
+      {
+        "id": "noun_096",
+        "word": "obstacle",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈɒb.stə.kəl/",
+        "meaningVi": "chướng ngại vật, trở ngại ngáng đường",
+        "collocations": "overcome an obstacle, major obstacle, hurdle obstacle",
+        "example": "Lack of initial capital was the biggest obstacle the young founders had to overcome.",
+        "exampleVi": "Thiếu vốn ban đầu là trở ngại lớn nhất mà các nhà sáng lập trẻ phải vượt qua.",
+        "optionsVi": [
+          "chướng ngại vật, trở ngại ngáng đường",
+          "bàn đạp thuận lợi",
+          "sự trợ giúp đắc lực",
+          "thành công dễ dàng"
+        ]
+      },
+      {
+        "id": "noun_097",
+        "word": "paradigm",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˈpær.ə.daɪm/",
+        "meaningVi": "khuôn mẫu tư duy, mô hình chuẩn",
+        "collocations": "paradigm shift, cultural paradigm, new paradigm",
+        "example": "The emergence of artificial intelligence represents a historic paradigm shift in education.",
+        "exampleVi": "Sự xuất hiện của trí tuệ nhân tạo đại diện cho một bước chuyển biến khuôn mẫu mang tính lịch sử trong giáo dục.",
+        "optionsVi": [
+          "khuôn mẫu tư duy, mô hình chuẩn",
+          "chi tiết vụn vặt",
+          "sự sai sót cá biệt",
+          "thời điểm ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "noun_098",
+        "word": "perspective",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/pəˈspek.tɪv/",
+        "meaningVi": "góc nhìn, quan điểm toàn cảnh",
+        "collocations": "broader perspective, from my perspective, fresh perspective",
+        "example": "Living in another country gave her a broader perspective on cultural differences.",
+        "exampleVi": "Sống ở một quốc gia khác đã mang lại cho cô ấy góc nhìn bao quát hơn về những khác biệt văn hóa.",
+        "optionsVi": [
+          "góc nhìn, quan điểm toàn cảnh",
+          "sự thiên vị định kiến",
+          "tầm nhìn hạn hẹp",
+          "sự bắt buộc tuân theo"
+        ]
+      },
+      {
+        "id": "noun_099",
+        "word": "resilience",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/rɪˈzɪl.jəns/",
+        "meaningVi": "khả năng phục hồi, tính kiên cường bền bỉ",
+        "collocations": "build resilience, emotional resilience, remarkable resilience",
+        "example": "The team showed remarkable resilience in rebounding after the project setback.",
+        "exampleVi": "Cả đội đã thể hiện sự kiên cường đáng nể khi nhanh chóng vực dậy sau sự cố dự án.",
+        "optionsVi": [
+          "khả năng phục hồi, tính kiên cường bền bỉ",
+          "sự suy sụp đầu hàng",
+          "tính dễ tổn thương",
+          "sự buông xuôi bỏ cuộc"
+        ]
+      },
+      {
+        "id": "noun_100",
+        "word": "vulnerability",
+        "level": "B2",
+        "type": "noun",
+        "ipa": "/ˌvʌl.nər.əˈbɪl.ə.ti/",
+        "meaningVi": "tính dễ bị tổn thương, lỗ hổng điểm yếu",
+        "collocations": "security vulnerability, patch a vulnerability, expose vulnerability",
+        "example": "The cybersecurity audit discovered a critical vulnerability in the payment gateway.",
+        "exampleVi": "Đợt kiểm tra an ninh mạng đã phát hiện một lỗ hổng nghiêm trọng trong cổng thanh toán.",
+        "optionsVi": [
+          "tính dễ bị tổn thương, lỗ hổng điểm yếu",
+          "lá chắn bất khả xâm phạm",
+          "sức mạnh tuyệt đối",
+          "hệ thống bảo mật tối tân"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "pos_verbs",
+    "name": "100 Động Từ Hành Động & Phản Xạ (Action Verbs)",
+    "icon": "⚡",
+    "category": "pos",
+    "level": "B1",
+    "description": "100 động từ cốt lõi A2–B2 giúp diễn đạt suy nghĩ, hành động và giải quyết vấn đề linh hoạt.",
+    "words": [
+      {
+        "id": "verb_001",
+        "word": "accept",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əkˈsept/",
+        "meaningVi": "chấp nhận, đồng ý tiếp nhận",
+        "collocations": "accept an offer, accept responsibility, readily accept",
+        "example": "She happily accepted the job offer from the technology company.",
+        "exampleVi": "Cô ấy đã vui vẻ chấp nhận lời mời làm việc từ công ty công nghệ.",
+        "optionsVi": [
+          "chấp nhận, đồng ý tiếp nhận",
+          "từ chối thẳng thừng",
+          "trì hoãn quyết định",
+          "khiếu nại bồi thường"
+        ]
+      },
+      {
+        "id": "verb_002",
+        "word": "achieve",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈtʃiːv/",
+        "meaningVi": "đạt được mục tiêu, hoàn thành",
+        "collocations": "achieve a goal, achieve success, achieve results",
+        "example": "With discipline and persistence, you can achieve any realistic goal.",
+        "exampleVi": "Bằng kỷ luật và sự kiên trì, bạn có thể đạt được bất kỳ mục tiêu thực tế nào.",
+        "optionsVi": [
+          "đạt được mục tiêu, hoàn thành",
+          "từ bỏ giữa chừng",
+          "lãng quên mục tiêu",
+          "gặp phải thất bại"
+        ]
+      },
+      {
+        "id": "verb_003",
+        "word": "agree",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈɡriː/",
+        "meaningVi": "đồng ý, tán thành ý kiến",
+        "collocations": "agree with someone, agree on a plan, completely agree",
+        "example": "I completely agree with your proposal to optimize the workflow.",
+        "exampleVi": "Tôi hoàn toàn đồng ý với đề xuất tối ưu hóa quy trình làm việc của bạn.",
+        "optionsVi": [
+          "đồng ý, tán thành ý kiến",
+          "phản bác gay gắt",
+          "bỏ phiếu chống",
+          "nghi ngờ tính trung thực"
+        ]
+      },
+      {
+        "id": "verb_004",
+        "word": "allow",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈlaʊ/",
+        "meaningVi": "cho phép, tạo điều kiện cho",
+        "collocations": "allow someone to do, allow time for, allow access",
+        "example": "Flexible hours allow employees to balance work and personal life.",
+        "exampleVi": "Giờ giấc linh hoạt cho phép nhân viên cân bằng giữa công việc và đời sống cá nhân.",
+        "optionsVi": [
+          "cho phép, tạo điều kiện cho",
+          "ngăn cấm tuyệt đối",
+          "xử phạt kỷ luật",
+          "bắt buộc thực hiện"
+        ]
+      },
+      {
+        "id": "verb_005",
+        "word": "appear",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈpɪər/",
+        "meaningVi": "xuất hiện, dường như có vẻ",
+        "collocations": "appear to be, suddenly appear, appear on screen",
+        "example": "The problem appears to be much simpler than we initially thought.",
+        "exampleVi": "Vấn đề dường như đơn giản hơn nhiều so với suy nghĩ ban đầu của chúng ta.",
+        "optionsVi": [
+          "xuất hiện, dường như có vẻ",
+          "biến mất không dấu vết",
+          "chứng minh rõ ràng",
+          "bị phá hủy hoàn toàn"
+        ]
+      },
+      {
+        "id": "verb_006",
+        "word": "apply",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈplaɪ/",
+        "meaningVi": "ứng tuyển, áp dụng vào thực tế",
+        "collocations": "apply for a job, apply a method, apply skills",
+        "example": "He applied the techniques learned in the workshop to his daily tasks.",
+        "exampleVi": "Anh ấy đã áp dụng các kỹ thuật học được trong buổi hội thảo vào công việc hàng ngày.",
+        "optionsVi": [
+          "ứng tuyển, áp dụng vào thực tế",
+          "bỏ qua lý thuyết",
+          "rút lui khỏi vị trí",
+          "ngừng học hỏi"
+        ]
+      },
+      {
+        "id": "verb_007",
+        "word": "avoid",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/əˈvɔɪd/",
+        "meaningVi": "tránh né, phòng tránh rủi ro",
+        "collocations": "avoid mistakes, avoid conflicts, avoid rush hour",
+        "example": "Double-checking your work helps you avoid unnecessary errors.",
+        "exampleVi": "Kiểm tra kỹ lại bài làm giúp bạn tránh được những lỗi sai không đáng có.",
+        "optionsVi": [
+          "tránh né, phòng tránh rủi ro",
+          "đối đầu trực tiếp",
+          "cố tình gây ra",
+          "chấp nhận rủi ro"
+        ]
+      },
+      {
+        "id": "verb_008",
+        "word": "belong",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/bɪˈlɒŋ/",
+        "meaningVi": "thuộc về, thuộc quyền sở hữu",
+        "collocations": "belong to, sense of belonging, belong together",
+        "example": "This laptop belongs to the design department.",
+        "exampleVi": "Chiếc máy tính xách tay này thuộc về phòng thiết kế.",
+        "optionsVi": [
+          "thuộc về, thuộc quyền sở hữu",
+          "bị tịch thu tài sản",
+          "cho mượn tạm thời",
+          "bị vứt bỏ"
+        ]
+      },
+      {
+        "id": "verb_009",
+        "word": "compare",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/kəmˈpeər/",
+        "meaningVi": "so sánh, đối chiếu tương quan",
+        "collocations": "compare with, compare prices, compared to",
+        "example": "Always compare prices from multiple vendors before placing a large order.",
+        "exampleVi": "Hãy luôn so sánh giá từ nhiều nhà cung cấp trước khi đặt đơn hàng lớn.",
+        "optionsVi": [
+          "so sánh, đối chiếu tương quan",
+          "chọn bừa ngẫu nhiên",
+          "chấp nhận mức giá đầu",
+          "từ chối mua hàng"
+        ]
+      },
+      {
+        "id": "verb_010",
+        "word": "create",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/kriˈeɪt/",
+        "meaningVi": "tạo ra, sáng tạo nên",
+        "collocations": "create opportunities, create value, create content",
+        "example": "The software update creates a much smoother experience for mobile users.",
+        "exampleVi": "Bản cập nhật phần mềm tạo ra trải nghiệm mượt mà hơn nhiều cho người dùng di động.",
+        "optionsVi": [
+          "tạo ra, sáng tạo nên",
+          "phá hủy hoàn toàn",
+          "sao chép nguyên mẫu",
+          "xóa bỏ dữ liệu"
+        ]
+      },
+      {
+        "id": "verb_011",
+        "word": "decide",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/dɪˈsaɪd/",
+        "meaningVi": "quyết định, định đoạt",
+        "collocations": "decide to do, decide between, decide on a date",
+        "example": "We need to decide on a launch date before preparing promotional materials.",
+        "exampleVi": "Chúng ta cần quyết định ngày ra mắt trước khi chuẩn bị các ấn phẩm quảng bá.",
+        "optionsVi": [
+          "quyết định, định đoạt",
+          "chần chừ do dự",
+          "để mặc số phận",
+          "hủy bỏ cuộc họp"
+        ]
+      },
+      {
+        "id": "verb_012",
+        "word": "describe",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/dɪˈskraɪb/",
+        "meaningVi": "miêu tả, thuật lại chi tiết",
+        "collocations": "describe accurately, describe the process, describe symptoms",
+        "example": "Can you describe the steps you took right before the system crashed?",
+        "exampleVi": "Bạn có thể miêu tả các bước bạn đã làm ngay trước khi hệ thống bị sập không?",
+        "optionsVi": [
+          "miêu tả, thuật lại chi tiết",
+          "giấu nhẹm sự việc",
+          "bóp méo sự thật",
+          "đoán mò nguyên nhân"
+        ]
+      },
+      {
+        "id": "verb_013",
+        "word": "explain",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/ɪkˈspleɪn/",
+        "meaningVi": "giải thích, làm sáng tỏ",
+        "collocations": "explain clearly, explain the reason, explain how it works",
+        "example": "The tutor explained the grammar rule with practical real-life examples.",
+        "exampleVi": "Gia sư đã giải thích quy tắc ngữ pháp bằng những ví dụ thực tế rất dễ hiểu.",
+        "optionsVi": [
+          "giải thích, làm sáng tỏ",
+          "làm rối rắm thêm",
+          "đặt câu hỏi ngược",
+          "từ chối trả lời"
+        ]
+      },
+      {
+        "id": "verb_014",
+        "word": "improve",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/ɪmˈpruːv/",
+        "meaningVi": "cải thiện, nâng cao chất lượng",
+        "collocations": "improve skills, improve performance, dramatically improve",
+        "example": "Practicing English for twenty minutes daily will dramatically improve your fluency.",
+        "exampleVi": "Luyện tiếng Anh hai mươi phút mỗi ngày sẽ cải thiện đáng kể độ trôi chảy của bạn.",
+        "optionsVi": [
+          "cải thiện, nâng cao chất lượng",
+          "làm giảm hiệu suất",
+          "giữ nguyên hiện trạng",
+          "bỏ bê không rèn luyện"
+        ]
+      },
+      {
+        "id": "verb_015",
+        "word": "manage",
+        "level": "A2",
+        "type": "verb",
+        "ipa": "/ˈmæn.ɪdʒ/",
+        "meaningVi": "quản lý, xoay sở hoàn thành",
+        "collocations": "manage time, manage a team, manage to do something",
+        "example": "Despite tight schedules, she managed to complete the report on time.",
+        "exampleVi": "Dù lịch trình dày đặc, cô ấy vẫn xoay sở hoàn thành báo cáo đúng hạn.",
+        "optionsVi": [
+          "quản lý, xoay sở hoàn thành",
+          "bỏ dở công việc",
+          "mất phương hướng hoàn toàn",
+          "đẩy việc cho người khác"
+        ]
+      },
+      {
+        "id": "verb_016",
+        "word": "adapt",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈdæpt/",
+        "meaningVi": "thích nghi, điều chỉnh cho phù hợp",
+        "collocations": "adapt to changes, adapt quickly, adapt a strategy",
+        "example": "Successful organizations adapt quickly to evolving customer demands.",
+        "exampleVi": "Các tổ chức thành công thích nghi rất nhanh với nhu cầu ngày càng phát triển của khách hàng.",
+        "optionsVi": [
+          "thích nghi, điều chỉnh cho phù hợp",
+          "bảo thủ chống đối",
+          "từ chối thay đổi",
+          "phá vỡ quy tắc"
+        ]
+      },
+      {
+        "id": "verb_017",
+        "word": "adjust",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈdʒʌst/",
+        "meaningVi": "điều chỉnh, căn chỉnh thông số/kế hoạch",
+        "collocations": "adjust to, make adjustments, finely adjust",
+        "example": "We adjusted our advertising budget based on the quarterly sales figures.",
+        "exampleVi": "Chúng tôi đã điều chỉnh ngân sách quảng cáo dựa trên số liệu doanh số quý.",
+        "optionsVi": [
+          "điều chỉnh, căn chỉnh thông số/kế hoạch",
+          "cố định vĩnh viễn",
+          "hủy bỏ hoàn toàn",
+          "tăng giá đột ngột"
+        ]
+      },
+      {
+        "id": "verb_018",
+        "word": "admit",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ədˈmɪt/",
+        "meaningVi": "thừa nhận sự thật, nhận lỗi",
+        "collocations": "admit a mistake, admit defeat, openly admit",
+        "example": "A mature professional is never afraid to admit their mistakes and learn from them.",
+        "exampleVi": "Một người đi làm chững chạc không bao giờ ngại thừa nhận lỗi sai của mình và rút kinh nghiệm.",
+        "optionsVi": [
+          "thừa nhận sự thật, nhận lỗi",
+          "đổ lỗi cho người khác",
+          "chối bỏ trách nhiệm",
+          "che giấu khuyết điểm"
+        ]
+      },
+      {
+        "id": "verb_019",
+        "word": "affect",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈfekt/",
+        "meaningVi": "ảnh hưởng, tác động trực tiếp đến",
+        "collocations": "directly affect, adversely affect, affect performance",
+        "example": "Poor sleep quality directly affects your cognitive performance and mood.",
+        "exampleVi": "Chất lượng giấc ngủ kém ảnh hưởng trực tiếp đến hiệu suất tư duy và tâm trạng của bạn.",
+        "optionsVi": [
+          "ảnh hưởng, tác động trực tiếp đến",
+          "không liên quan chút nào",
+          "được miễn trừ hoàn toàn",
+          "cải thiện tức thì"
+        ]
+      },
+      {
+        "id": "verb_020",
+        "word": "analyze",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈæn.əl.aɪz/",
+        "meaningVi": "phân tích số liệu, mổ xẻ vấn đề",
+        "collocations": "analyze data, analyze results, carefully analyze",
+        "example": "The marketing team analyzed customer survey results to refine the campaign.",
+        "exampleVi": "Đội ngũ tiếp thị đã phân tích kết quả khảo sát khách hàng để tinh chỉnh chiến dịch.",
+        "optionsVi": [
+          "phân tích số liệu, mổ xẻ vấn đề",
+          "đoán mò cảm tính",
+          "bỏ qua số liệu",
+          "xóa sạch cơ sở dữ liệu"
+        ]
+      },
+      {
+        "id": "verb_021",
+        "word": "announce",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈnaʊns/",
+        "meaningVi": "thông báo chính thức, công bố",
+        "collocations": "announce a decision, announce results, officially announce",
+        "example": "The board officially announced the appointment of the new managing director.",
+        "exampleVi": "Hội đồng quản trị đã chính thức thông báo việc bổ nhiệm giám đốc điều hành mới.",
+        "optionsVi": [
+          "thông báo chính thức, công bố",
+          "giữ bí mật nội bộ",
+          "phủ nhận tin đồn",
+          "hủy bỏ quyết định"
+        ]
+      },
+      {
+        "id": "verb_022",
+        "word": "appreciate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈpriː.ʃi.eɪt/",
+        "meaningVi": "trân trọng, cảm kích sự giúp đỡ",
+        "collocations": "greatly appreciate, appreciate help, appreciate the feedback",
+        "example": "I greatly appreciate the time and effort you dedicated to our project.",
+        "exampleVi": "Tôi vô cùng cảm kích thời gian và công sức mà bạn đã dành cho dự án của chúng ta.",
+        "optionsVi": [
+          "trân trọng, cảm kích sự giúp đỡ",
+          "xem thường công sức",
+          "đòi hỏi vô lý",
+          "thờ ơ không cảm ơn"
+        ]
+      },
+      {
+        "id": "verb_023",
+        "word": "approach",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈprəʊtʃ/",
+        "meaningVi": "tiếp cận, đến gần đối tượng/vấn đề",
+        "collocations": "approach a problem, approach a client, cautious approach",
+        "example": "We need a fresh way to approach this persistent technical challenge.",
+        "exampleVi": "Chúng ta cần một cách tiếp cận mới mẻ để giải quyết bài toán kỹ thuật nan giải này.",
+        "optionsVi": [
+          "tiếp cận, đến gần đối tượng/vấn đề",
+          "tránh xa né tránh",
+          "từ chối giải quyết",
+          "bỏ qua hoàn toàn"
+        ]
+      },
+      {
+        "id": "verb_024",
+        "word": "arrange",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈreɪndʒ/",
+        "meaningVi": "sắp xếp cuộc hẹn, thu xếp lịch trình",
+        "collocations": "arrange a meeting, arrange travel, neatly arrange",
+        "example": "Please arrange an introductory meeting with the prospective partner next week.",
+        "exampleVi": "Vui lòng thu xếp một cuộc họp giới thiệu với đối tác tiềm năng vào tuần tới.",
+        "optionsVi": [
+          "sắp xếp cuộc hẹn, thu xếp lịch trình",
+          "hủy hẹn đột ngột",
+          "làm xáo trộn lịch",
+          "từ chối gặp gỡ"
+        ]
+      },
+      {
+        "id": "verb_025",
+        "word": "assess",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈses/",
+        "meaningVi": "đánh giá mức độ, thẩm định chất lượng",
+        "collocations": "assess the risk, assess performance, thoroughly assess",
+        "example": "Our risk management team thoroughly assessed all potential security threats.",
+        "exampleVi": "Đội quản trị rủi ro đã thẩm định kỹ lưỡng tất cả các mối đe dọa bảo mật tiềm ẩn.",
+        "optionsVi": [
+          "đánh giá mức độ, thẩm định chất lượng",
+          "định giá sai lệch",
+          "bỏ qua khâu kiểm tra",
+          "khen ngợi mù quáng"
+        ]
+      },
+      {
+        "id": "verb_026",
+        "word": "assume",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈsjuːm/",
+        "meaningVi": "cho rằng, giả định là, đảm nhận",
+        "collocations": "assume responsibility, assume that, safely assume",
+        "example": "Never assume what users want without testing real prototypes first.",
+        "exampleVi": "Đừng bao giờ mặc định những gì người dùng muốn mà không thử nghiệm bản mẫu trước.",
+        "optionsVi": [
+          "cho rằng, giả định là, đảm nhận",
+          "chứng minh bằng số liệu",
+          "khẳng định chắc chắn",
+          "bác bỏ hoàn toàn"
+        ]
+      },
+      {
+        "id": "verb_027",
+        "word": "attract",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əˈtrækt/",
+        "meaningVi": "thu hút, lôi cuốn khách hàng/nhân tài",
+        "collocations": "attract customers, attract investment, attract attention",
+        "example": "Innovative features help our application attract thousands of active learners.",
+        "exampleVi": "Các tính năng đổi mới giúp ứng dụng của chúng tôi thu hút hàng ngàn người học tích cực.",
+        "optionsVi": [
+          "thu hút, lôi cuốn khách hàng/nhân tài",
+          "xua đuổi xa lánh",
+          "làm mất lòng tin",
+          "gây thất vọng lớn"
+        ]
+      },
+      {
+        "id": "verb_028",
+        "word": "broaden",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈbrɔː.dən/",
+        "meaningVi": "mở rộng tầm nhìn, mở rộng phạm vi",
+        "collocations": "broaden horizons, broaden knowledge, broaden perspective",
+        "example": "Studying foreign literature broadens your cultural horizons significantly.",
+        "exampleVi": "Nghiên cứu văn học nước ngoài giúp mở rộng đáng kể chân trời văn hóa của bạn.",
+        "optionsVi": [
+          "mở rộng tầm nhìn, mở rộng phạm vi",
+          "thu hẹp giới hạn",
+          "đóng khung suy nghĩ",
+          "làm hạn chế tầm mắt"
+        ]
+      },
+      {
+        "id": "verb_029",
+        "word": "clarify",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈklær.ɪ.faɪ/",
+        "meaningVi": "làm rõ thông tin, giải nghĩa sáng tỏ",
+        "collocations": "clarify a point, clarify expectations, seek to clarify",
+        "example": "Could you please clarify your question so I can answer more accurately?",
+        "exampleVi": "Bạn có thể làm rõ câu hỏi của mình để tôi trả lời chính xác hơn được không?",
+        "optionsVi": [
+          "làm rõ thông tin, giải nghĩa sáng tỏ",
+          "làm cho mơ hồ thêm",
+          "né tránh câu trả lời",
+          "gây hiểu lầm tai hại"
+        ]
+      },
+      {
+        "id": "verb_030",
+        "word": "combine",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəmˈbaɪn/",
+        "meaningVi": "kết hợp, phối hợp các yếu tố",
+        "collocations": "combine theory and practice, combine efforts, successfully combine",
+        "example": "The course successfully combines solid theory with hands-on practice.",
+        "exampleVi": "Khóa học kết hợp thành công giữa lý thuyết vững chắc với thực hành trực tiếp.",
+        "optionsVi": [
+          "kết hợp, phối hợp các yếu tố",
+          "tách rời riêng rẽ",
+          "loại trừ lẫn nhau",
+          "làm triệt tiêu nhau"
+        ]
+      },
+      {
+        "id": "verb_031",
+        "word": "communicate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəˈmjuː.nɪ.keɪt/",
+        "meaningVi": "giao tiếp, truyền đạt thông điệp",
+        "collocations": "communicate clearly, communicate ideas, effectively communicate",
+        "example": "Leaders must communicate strategic priorities clearly to all team members.",
+        "exampleVi": "Nhà lãnh đạo phải truyền đạt các ưu tiên chiến lược một cách rõ ràng tới mọi thành viên.",
+        "optionsVi": [
+          "giao tiếp, truyền đạt thông điệp",
+          "giữ kín thông tin",
+          "gây cản trở liên lạc",
+          "nói năng ấp úng"
+        ]
+      },
+      {
+        "id": "verb_032",
+        "word": "compete",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kəmˈpiːt/",
+        "meaningVi": "cạnh tranh, thi đua sòng phẳng",
+        "collocations": "compete globally, compete for talent, effectively compete",
+        "example": "Local companies must innovate continuously to compete globally.",
+        "exampleVi": "Các doanh nghiệp địa phương phải đổi mới liên tục để cạnh tranh trên quy mô toàn cầu.",
+        "optionsVi": [
+          "cạnh tranh, thi đua sòng phẳng",
+          "nhượng bộ đầu hàng",
+          "từ bỏ thị trường",
+          "bắt tay độc quyền"
+        ]
+      },
+      {
+        "id": "verb_033",
+        "word": "confirm",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kənˈfɜːm/",
+        "meaningVi": "xác nhận, khẳng định tính chính xác",
+        "collocations": "confirm a booking, confirm details, please confirm",
+        "example": "Please reply to this email to confirm your attendance at the summit.",
+        "exampleVi": "Vui lòng phản hồi email này để xác nhận việc bạn tham dự hội nghị thượng đỉnh.",
+        "optionsVi": [
+          "xác nhận, khẳng định tính chính xác",
+          "phủ nhận sạch trơn",
+          "hủy bỏ lịch hẹn",
+          "nghi ngờ tính chân thật"
+        ]
+      },
+      {
+        "id": "verb_034",
+        "word": "consider",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kənˈsɪd.ər/",
+        "meaningVi": "cân nhắc kỹ, xem xét thấu đáo",
+        "collocations": "consider options, carefully consider, consider the impact",
+        "example": "Take your time to carefully consider all offers before making a choice.",
+        "exampleVi": "Hãy dành thời gian cân nhắc kỹ lưỡng mọi lời đề nghị trước khi đưa ra lựa chọn.",
+        "optionsVi": [
+          "cân nhắc kỹ, xem xét thấu đáo",
+          "quyết định bốc đồng",
+          "gạt bỏ ngay lập tức",
+          "bỏ qua không thèm tính"
+        ]
+      },
+      {
+        "id": "verb_035",
+        "word": "convince",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/kənˈvɪns/",
+        "meaningVi": "thuyết phục ai tin hoặc đồng ý",
+        "collocations": "convince someone of, hard to convince, fully convinced",
+        "example": "Compelling data helped convince the investors to fund our startup.",
+        "exampleVi": "Dữ liệu thuyết phục đã giúp thuyết phục các nhà đầu tư rót vốn cho công ty khởi nghiệp của chúng tôi.",
+        "optionsVi": [
+          "thuyết phục ai tin hoặc đồng ý",
+          "làm mất lòng tin",
+          "gây phản ứng ngược",
+          "áp đặt ép buộc"
+        ]
+      },
+      {
+        "id": "verb_036",
+        "word": "deliver",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/dɪˈlɪv.ər/",
+        "meaningVi": "bàn giao, mang lại kết quả, phát biểu",
+        "collocations": "deliver results, deliver a presentation, deliver on promises",
+        "example": "Our product team delivered outstanding results ahead of schedule.",
+        "exampleVi": "Đội ngũ sản phẩm của chúng tôi đã mang lại những kết quả xuất sắc trước thời hạn.",
+        "optionsVi": [
+          "bàn giao, mang lại kết quả, phát biểu",
+          "thất hứa không làm",
+          "chậm trễ bàn giao",
+          "hủy bỏ cam kết"
+        ]
+      },
+      {
+        "id": "verb_037",
+        "word": "demonstrate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈdem.ən.streɪt/",
+        "meaningVi": "chứng minh bằng thực tế, làm mẫu minh họa",
+        "collocations": "demonstrate competence, clearly demonstrate, demonstrate how to",
+        "example": "The pilot project clearly demonstrated the efficiency of the new system.",
+        "exampleVi": "Dự án thí điểm đã chứng minh rõ ràng tính hiệu quả của hệ thống mới.",
+        "optionsVi": [
+          "chứng minh bằng thực tế, làm mẫu minh họa",
+          "che giấu khuyết điểm",
+          "nói suông không chứng cứ",
+          "bác bỏ sự thật"
+        ]
+      },
+      {
+        "id": "verb_038",
+        "word": "determine",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/dɪˈtɜː.mɪn/",
+        "meaningVi": "xác định rõ, định đoạt kết quả",
+        "collocations": "determine the cause, determine whether, factors that determine",
+        "example": "Thorough testing will determine whether the feature is ready for release.",
+        "exampleVi": "Kiểm thử kỹ lưỡng sẽ xác định xem tính năng đã sẵn sàng để phát hành hay chưa.",
+        "optionsVi": [
+          "xác định rõ, định đoạt kết quả",
+          "đoán mò mơ hồ",
+          "để mặc ngẫu nhiên",
+          "không cần kiểm tra"
+        ]
+      },
+      {
+        "id": "verb_039",
+        "word": "develop",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/dɪˈvel.əp/",
+        "meaningVi": "phát triển, xây dựng từng bước",
+        "collocations": "develop a strategy, develop skills, continuously develop",
+        "example": "Reading diverse genres helps you develop critical thinking skills.",
+        "exampleVi": "Đọc nhiều thể loại sách giúp bạn phát triển kỹ năng tư duy phản biện.",
+        "optionsVi": [
+          "phát triển, xây dựng từng bước",
+          "làm thui chột tài năng",
+          "kìm hãm tiến độ",
+          "bỏ hoang phế"
+        ]
+      },
+      {
+        "id": "verb_040",
+        "word": "encourage",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪnˈkʌr.ɪdʒ/",
+        "meaningVi": "khuyến khích, động viên tinh thần",
+        "collocations": "encourage participation, strongly encourage, encourage innovation",
+        "example": "Great leaders actively encourage team members to share bold new ideas.",
+        "exampleVi": "Những nhà lãnh đạo tuyệt vời luôn chủ động khuyến khích thành viên chia sẻ ý tưởng mới táo bạo.",
+        "optionsVi": [
+          "khuyến khích, động viên tinh thần",
+          "chê bai dập tắt",
+          "đe dọa trừng phạt",
+          "ngăn cản tham gia"
+        ]
+      },
+      {
+        "id": "verb_041",
+        "word": "establish",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪˈstæb.lɪʃ/",
+        "meaningVi": "thiết lập, xác lập mối quan hệ",
+        "collocations": "establish a relationship, establish guidelines, firmly establish",
+        "example": "The agreement established a long-term partnership between both universities.",
+        "exampleVi": "Bản thỏa thuận đã thiết lập mối quan hệ đối tác lâu dài giữa hai trường đại học.",
+        "optionsVi": [
+          "thiết lập, xác lập mối quan hệ",
+          "chấm dứt hợp tác",
+          "phá vỡ cam kết",
+          "cắt đứt liên lạc"
+        ]
+      },
+      {
+        "id": "verb_042",
+        "word": "examine",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪɡˈzæm.ɪn/",
+        "meaningVi": "xem xét kỹ lưỡng, khảo sát tỉ mỉ",
+        "collocations": "examine closely, examine evidence, examine the impact",
+        "example": "We need to examine the customer data closely before changing product prices.",
+        "exampleVi": "Chúng ta cần xem xét dữ liệu khách hàng thật kỹ trước khi thay đổi giá sản phẩm.",
+        "optionsVi": [
+          "xem xét kỹ lưỡng, khảo sát tỉ mỉ",
+          "xem lướt qua loa",
+          "bỏ qua không kiểm",
+          "chấp nhận vội vã"
+        ]
+      },
+      {
+        "id": "verb_043",
+        "word": "expand",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪkˈspænd/",
+        "meaningVi": "mở rộng quy mô, bành trướng thị trường",
+        "collocations": "expand business, expand overseas, rapidly expand",
+        "example": "The startup plans to expand its operations into Southeast Asian markets next year.",
+        "exampleVi": "Công ty khởi nghiệp dự định mở rộng hoạt động sang thị trường Đông Nam Á vào năm tới.",
+        "optionsVi": [
+          "mở rộng quy mô, bành trướng thị trường",
+          "thu hẹp quy mô",
+          "ngừng hoạt động",
+          "cắt giảm chi nhánh"
+        ]
+      },
+      {
+        "id": "verb_044",
+        "word": "explore",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪkˈsplɔːr/",
+        "meaningVi": "khám phá, thăm dò các phương án",
+        "collocations": "explore options, explore opportunities, explore ideas",
+        "example": "Let's explore several alternative solutions before committing to one.",
+        "exampleVi": "Chúng ta hãy thăm dò một vài giải pháp thay thế trước khi chốt một phương án.",
+        "optionsVi": [
+          "khám phá, thăm dò các phương án",
+          "từ chối tìm hiểu",
+          "chấp nhận lối mòn",
+          "khóa chặt các lựa chọn"
+        ]
+      },
+      {
+        "id": "verb_045",
+        "word": "identify",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/aɪˈden.tɪ.faɪ/",
+        "meaningVi": "nhận diện, xác định đúng điểm nút",
+        "collocations": "identify problems, identify risks, easily identify",
+        "example": "Early testing helps engineers identify software bugs before production release.",
+        "exampleVi": "Kiểm thử sớm giúp các kỹ sư nhận diện các lỗi phần mềm trước khi phát hành chính thức.",
+        "optionsVi": [
+          "nhận diện, xác định đúng điểm nút",
+          "nhầm lẫn tai hại",
+          "bỏ sót lỗi sai",
+          "ngó lơ vấn đề"
+        ]
+      },
+      {
+        "id": "verb_046",
+        "word": "ignore",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪɡˈnɔːr/",
+        "meaningVi": "phớt lờ, bỏ ngoài tai",
+        "collocations": "completely ignore, ignore warnings, hard to ignore",
+        "example": "You cannot afford to ignore customer feedback if you want to grow.",
+        "exampleVi": "Bạn không thể phớt lờ phản hồi của khách hàng nếu bạn muốn phát triển.",
+        "optionsVi": [
+          "phớt lờ, bỏ ngoài tai",
+          "lắng nghe chăm chú",
+          "ghi nhận cẩn thận",
+          "phản hồi ngay lập tức"
+        ]
+      },
+      {
+        "id": "verb_047",
+        "word": "indicate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈɪn.dɪ.keɪt/",
+        "meaningVi": "chỉ ra, biểu thị dấu hiệu",
+        "collocations": "clearly indicate, studies indicate, results indicate",
+        "example": "Recent quarterly reports clearly indicate a resurgence in consumer spending.",
+        "exampleVi": "Các báo cáo quý gần đây chỉ ra rõ ràng sự hồi phục trong chi tiêu của người tiêu dùng.",
+        "optionsVi": [
+          "chỉ ra, biểu thị dấu hiệu",
+          "che giấu bằng chứng",
+          "phủ định thực tế",
+          "bóp méo số liệu"
+        ]
+      },
+      {
+        "id": "verb_048",
+        "word": "inspire",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ɪnˈspaɪər/",
+        "meaningVi": "truyền cảm hứng, thôi thúc",
+        "collocations": "inspire others, deeply inspire, inspire confidence",
+        "example": "Her passionate speech inspired many young engineers to pursue clean energy careers.",
+        "exampleVi": "Bài diễn văn đầy nhiệt huyết của cô ấy đã truyền cảm hứng cho nhiều kỹ sư trẻ theo đuổi năng lượng sạch.",
+        "optionsVi": [
+          "truyền cảm hứng, thôi thúc",
+          "làm nhụt chí ngã lòng",
+          "gieo rắc nỗi sợ",
+          "ngăn chặn ước mơ"
+        ]
+      },
+      {
+        "id": "verb_049",
+        "word": "maintain",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/meɪnˈteɪn/",
+        "meaningVi": "duy trì đều đặn, bảo dưỡng",
+        "collocations": "maintain standards, maintain focus, maintain consistency",
+        "example": "Maintaining daily study consistency is far more effective than cramming before exams.",
+        "exampleVi": "Duy trì sự kiên định học mỗi ngày hiệu quả hơn nhiều so với việc nhồi nhét trước kỳ thi.",
+        "optionsVi": [
+          "duy trì đều đặn, bảo dưỡng",
+          "bỏ bê ngắt quãng",
+          "làm gián đoạn",
+          "phá hỏng thói quen"
+        ]
+      },
+      {
+        "id": "verb_050",
+        "word": "measure",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈmeʒ.ər/",
+        "meaningVi": "đo lường, định lượng hiệu quả",
+        "collocations": "measure performance, measure impact, accurately measure",
+        "example": "Clear key performance indicators allow managers to measure project impact accurately.",
+        "exampleVi": "Các chỉ số hiệu suất rõ ràng cho phép người quản lý đo lường tác động của dự án một cách chuẩn xác.",
+        "optionsVi": [
+          "đo lường, định lượng hiệu quả",
+          "ước lượng áng chừng",
+          "bỏ qua số liệu",
+          "xuyên tạc kết quả"
+        ]
+      },
+      {
+        "id": "verb_051",
+        "word": "motivate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈməʊ.tɪ.veɪt/",
+        "meaningVi": "tạo động lực, khích lệ hành động",
+        "collocations": "motivate employees, highly motivated, motivate oneself",
+        "example": "Clear recognition and constructive rewards motivate employees to excel.",
+        "exampleVi": "Sự ghi nhận rõ ràng và phần thưởng xứng đáng sẽ tạo động lực cho nhân viên bứt phá.",
+        "optionsVi": [
+          "tạo động lực, khích lệ hành động",
+          "làm mất tinh thần",
+          "trừng phạt hà khắc",
+          "gây chán nản thất vọng"
+        ]
+      },
+      {
+        "id": "verb_052",
+        "word": "negotiate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/nəˈɡəʊ.ʃi.eɪt/",
+        "meaningVi": "đàm phán, thương lượng điều khoản",
+        "collocations": "negotiate terms, negotiate a deal, successfully negotiate",
+        "example": "The procurement director successfully negotiated a fifteen percent discount on supplies.",
+        "exampleVi": "Giám đốc mua sắm đã thương lượng thành công mức giảm giá mười lăm phần trăm cho nguồn vật tư.",
+        "optionsVi": [
+          "đàm phán, thương lượng điều khoản",
+          "chấp nhận vô điều kiện",
+          "tự ý đơn phương quyết định",
+          "phá vỡ hợp đồng"
+        ]
+      },
+      {
+        "id": "verb_053",
+        "word": "observe",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/əbˈzɜːv/",
+        "meaningVi": "quan sát cẩn thận, tuân thủ quy tắc",
+        "collocations": "observe behavior, observe safety rules, closely observe",
+        "example": "Scientists closely observed the animals' behavioral reactions in their natural habitat.",
+        "exampleVi": "Các nhà khoa học đã quan sát kỹ lưỡng phản ứng hành vi của loài động vật trong môi trường sống tự nhiên.",
+        "optionsVi": [
+          "quan sát cẩn thận, tuân thủ quy tắc",
+          "nhắm mắt làm ngơ",
+          "vi phạm quy định",
+          "phá vỡ trật tự"
+        ]
+      },
+      {
+        "id": "verb_054",
+        "word": "organize",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˈɔː.ɡən.aɪz/",
+        "meaningVi": "tổ chức sắp đặt, điều phối sự kiện",
+        "collocations": "organize an event, neatly organize, organize thoughts",
+        "example": "She organized an insightful workshop on artificial intelligence for the faculty.",
+        "exampleVi": "Cô ấy đã tổ chức một buổi workshop sâu sắc về trí tuệ nhân tạo cho toàn khoa.",
+        "optionsVi": [
+          "tổ chức sắp đặt, điều phối sự kiện",
+          "làm hỗn loạn rối tung",
+          "hủy bỏ đột ngột",
+          "để mặc bề bộn"
+        ]
+      },
+      {
+        "id": "verb_055",
+        "word": "participate",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/pɑːˈtɪs.ɪ.peɪt/",
+        "meaningVi": "tham gia đóng góp, hòa mình vào",
+        "collocations": "participate actively, participate in discussions, invite to participate",
+        "example": "Every student was encouraged to participate actively in the group discussion.",
+        "exampleVi": "Mỗi sinh viên đều được khuyến khích tham gia tích cực vào cuộc thảo luận nhóm.",
+        "optionsVi": [
+          "tham gia đóng góp, hòa mình vào",
+          "đứng ngoài thờ ơ",
+          "từ chối tham dự",
+          "rút lui im lặng"
+        ]
+      },
+      {
+        "id": "verb_056",
+        "word": "perform",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/pəˈfɔːm/",
+        "meaningVi": "thực hiện nhiệm vụ, biểu diễn",
+        "collocations": "perform well, perform duties, perform an operation",
+        "example": "The software performs remarkably well even on low-end hardware devices.",
+        "exampleVi": "Phần mềm hoạt động cực kỳ mượt mà ngay cả trên các thiết bị phần cứng đời cũ.",
+        "optionsVi": [
+          "thực hiện nhiệm vụ, biểu diễn",
+          "ngừng hoạt động bị đơ",
+          "bỏ bê nhiệm vụ",
+          "thất bại hoàn toàn"
+        ]
+      },
+      {
+        "id": "verb_057",
+        "word": "persuade",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/pəˈsweɪd/",
+        "meaningVi": "thuyết phục ai làm điều gì",
+        "collocations": "persuade someone to, try to persuade, successfully persuade",
+        "example": "She persuaded her colleagues to test the new agile project management framework.",
+        "exampleVi": "Cô ấy đã thuyết phục các đồng nghiệp thử nghiệm khuôn khổ quản lý dự án linh hoạt mới.",
+        "optionsVi": [
+          "thuyết phục ai làm điều gì",
+          "ép buộc mệnh lệnh",
+          "bị bác bỏ ý kiến",
+          "từ bỏ ý định"
+        ]
+      },
+      {
+        "id": "verb_058",
+        "word": "predict",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/prɪˈdɪkt/",
+        "meaningVi": "dự đoán, tiên đoán trước",
+        "collocations": "predict future trends, accurately predict, hard to predict",
+        "example": "Machine learning algorithms can predict equipment failures before they happen.",
+        "exampleVi": "Các thuật toán học máy có thể dự đoán sự cố máy móc trước khi chúng thực sự xảy ra.",
+        "optionsVi": [
+          "dự đoán, tiên đoán trước",
+          "xảy ra bất ngờ",
+          "ghi lại quá khứ",
+          "quên mất diễn biến"
+        ]
+      },
+      {
+        "id": "verb_059",
+        "word": "prevent",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/prɪˈvent/",
+        "meaningVi": "ngăn chặn, phòng ngừa rủi ro",
+        "collocations": "prevent accidents, prevent from happening, take steps to prevent",
+        "example": "Regular maintenance prevents expensive machine breakdowns later on.",
+        "exampleVi": "Bảo dưỡng định kỳ giúp ngăn chặn những hỏng hóc máy móc tốn kém về sau.",
+        "optionsVi": [
+          "ngăn chặn, phòng ngừa rủi ro",
+          "tạo điều kiện xảy ra",
+          "cố tình dung túng",
+          "bỏ qua cảnh báo"
+        ]
+      },
+      {
+        "id": "verb_060",
+        "word": "promote",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/prəˈməʊt/",
+        "meaningVi": "thúc đẩy, quảng bá, thăng chức",
+        "collocations": "promote a product, promote healthy habits, get promoted",
+        "example": "He was promoted to senior engineer after delivering three successful projects.",
+        "exampleVi": "Anh ấy đã được thăng chức lên kỹ sư cao cấp sau khi bàn giao thành công ba dự án.",
+        "optionsVi": [
+          "thúc đẩy, quảng bá, thăng chức",
+          "giáng chức cách chức",
+          "kìm hãm phát triển",
+          "chê bai dập tắt"
+        ]
+      },
+      {
+        "id": "verb_061",
+        "word": "provide",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/prəˈvaɪd/",
+        "meaningVi": "cung cấp, mang lại thông tin/dịch vụ",
+        "collocations": "provide information, provide support, provide services",
+        "example": "Our support center provides twenty-four-seven assistance to all customers.",
+        "exampleVi": "Trung tâm hỗ trợ của chúng tôi cung cấp sự trợ giúp hai mươi tư trên bảy cho mọi khách hàng.",
+        "optionsVi": [
+          "cung cấp, mang lại thông tin/dịch vụ",
+          "cắt đứt nguồn cung",
+          "tước đoạt quyền lợi",
+          "giữ kín thông tin"
+        ]
+      },
+      {
+        "id": "verb_062",
+        "word": "recommend",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/ˌrek.əˈmend/",
+        "meaningVi": "khuyên dùng, đề xuất gợi ý",
+        "collocations": "highly recommend, recommend a solution, doctor recommends",
+        "example": "I highly recommend reading this book for anyone interested in behavioral economics.",
+        "exampleVi": "Tôi đặc biệt khuyên đọc cuốn sách này cho bất kỳ ai quan tâm đến kinh tế học hành vi.",
+        "optionsVi": [
+          "khuyên dùng, đề xuất gợi ý",
+          "can ngăn cảnh báo",
+          "cấm tiệt không dùng",
+          "chê bai thậm tệ"
+        ]
+      },
+      {
+        "id": "verb_063",
+        "word": "recover",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈkʌv.ər/",
+        "meaningVi": "hồi phục sức khỏe/kinh tế, lấy lại",
+        "collocations": "recover from illness, recover data, quickly recover",
+        "example": "The company quickly recovered from the supply chain disruption thanks to backup suppliers.",
+        "exampleVi": "Công ty nhanh chóng hồi phục sau đợt gián đoạn chuỗi cung ứng nhờ các nhà cung cấp dự phòng.",
+        "optionsVi": [
+          "hồi phục sức khỏe/kinh tế, lấy lại",
+          "suy sụp lụn bại",
+          "mất trắng toàn bộ",
+          "chìm sâu vào khủng hoảng"
+        ]
+      },
+      {
+        "id": "verb_064",
+        "word": "reduce",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈdʒuːs/",
+        "meaningVi": "cắt giảm chi phí/thời gian, thu nhỏ",
+        "collocations": "reduce costs, reduce stress, significantly reduce",
+        "example": "Automation significantly reduces manual errors and processing time.",
+        "exampleVi": "Tự động hóa giúp cắt giảm đáng kể các sai sót thủ công và thời gian xử lý.",
+        "optionsVi": [
+          "cắt giảm chi phí/thời gian, thu nhỏ",
+          "gia tăng đột biến",
+          "nhân đôi chi phí",
+          "kéo dài lê thê"
+        ]
+      },
+      {
+        "id": "verb_065",
+        "word": "resolve",
+        "level": "B1",
+        "type": "verb",
+        "ipa": "/rɪˈzɒlv/",
+        "meaningVi": "giải quyết triệt để vấn đề/mâu thuẫn",
+        "collocations": "resolve an issue, resolve conflicts, quickly resolve",
+        "example": "Direct communication is often the most effective way to resolve workplace conflicts.",
+        "exampleVi": "Giao tiếp trực diện thường là cách hiệu quả nhất để giải quyết triệt để các mâu thuẫn nơi làm việc.",
+        "optionsVi": [
+          "giải quyết triệt để vấn đề/mâu thuẫn",
+          "làm trầm trọng thêm",
+          "né tránh không xử lý",
+          "đổ thêm dầu vào lửa"
+        ]
+      },
+      {
+        "id": "verb_066",
+        "word": "accelerate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əkˈsel.ə.reɪt/",
+        "meaningVi": "đẩy nhanh tiến độ, gia tốc quá trình",
+        "collocations": "accelerate growth, accelerate progress, significantly accelerate",
+        "example": "Cloud computing tools significantly accelerate software deployment cycles.",
+        "exampleVi": "Các công cụ điện toán đám mây đẩy nhanh đáng kể chu kỳ triển khai phần mềm.",
+        "optionsVi": [
+          "đẩy nhanh tiến độ, gia tốc quá trình",
+          "kìm hãm trì trệ",
+          "dừng khẩn cấp",
+          "làm chậm tiến độ"
+        ]
+      },
+      {
+        "id": "verb_067",
+        "word": "accommodate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əˈkɒm.ə.deɪt/",
+        "meaningVi": "đáp ứng nhu cầu, chứa được số lượng",
+        "collocations": "accommodate requests, accommodate needs, accommodate guests",
+        "example": "The conference venue can accommodate up to one thousand attendees comfortably.",
+        "exampleVi": "Địa điểm tổ chức hội nghị có thể đáp ứng chỗ ngồi thoải mái cho tới một ngàn khách tham dự.",
+        "optionsVi": [
+          "đáp ứng nhu cầu, chứa được số lượng",
+          "từ chối tiếp nhận",
+          "quá tải từ chối",
+          "không đủ sức chứa"
+        ]
+      },
+      {
+        "id": "verb_068",
+        "word": "acknowledge",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əkˈnɒl.ɪdʒ/",
+        "meaningVi": "công nhận sự thật, ghi nhận đóng góp",
+        "collocations": "acknowledge receipt, acknowledge contribution, publicly acknowledge",
+        "example": "The director publicly acknowledged the dedication and ingenuity of the research team.",
+        "exampleVi": "Vị giám đốc đã công khai ghi nhận sự tận tụy và tài trí của đội ngũ nghiên cứu.",
+        "optionsVi": [
+          "công nhận sự thật, ghi nhận đóng góp",
+          "phủ nhận công lao",
+          "ngó lơ thành tích",
+          "xóa sạch dấu vết"
+        ]
+      },
+      {
+        "id": "verb_069",
+        "word": "advocate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈæd.və.keɪt/",
+        "meaningVi": "công khai ủng hộ chính sách/quan điểm",
+        "collocations": "strongly advocate, advocate for reform, advocate change",
+        "example": "Many environmental scientists strongly advocate for stricter emissions limits.",
+        "exampleVi": "Nhiều nhà khoa học môi trường công khai ủng hộ việc áp đặt các giới hạn khí thải nghiêm ngặt hơn.",
+        "optionsVi": [
+          "công khai ủng hộ chính sách/quan điểm",
+          "chống đối kịch liệt",
+          "phê phán chỉ trích",
+          "cấm đoán gắt gao"
+        ]
+      },
+      {
+        "id": "verb_070",
+        "word": "alleviate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/əˈliː.vi.eɪt/",
+        "meaningVi": "làm dịu bớt nỗi đau, xoa dịu áp lực",
+        "collocations": "alleviate poverty, alleviate symptoms, alleviate stress",
+        "example": "The new highway expansion is expected to alleviate severe traffic congestion.",
+        "exampleVi": "Việc mở rộng đường cao tốc mới được kỳ vọng sẽ làm dịu bớt tình trạng ùn tắc giao thông nghiêm trọng.",
+        "optionsVi": [
+          "làm dịu bớt nỗi đau, xoa dịu áp lực",
+          "làm trầm trọng thêm",
+          "châm ngòi căng thẳng",
+          "gia tăng gánh nặng"
+        ]
+      },
+      {
+        "id": "verb_071",
+        "word": "allocate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈæl.ə.keɪt/",
+        "meaningVi": "phân bổ ngân sách, cấp phát tài nguyên",
+        "collocations": "allocate funds, allocate resources, allocate time",
+        "example": "Management allocated additional funds to research and development this quarter.",
+        "exampleVi": "Ban quản lý đã phân bổ thêm ngân sách cho nghiên cứu và phát triển trong quý này.",
+        "optionsVi": [
+          "phân bổ ngân sách, cấp phát tài nguyên",
+          "thắt chặt chi tiêu",
+          "cắt giảm toàn bộ",
+          "chi tiêu bừa bãi"
+        ]
+      },
+      {
+        "id": "verb_072",
+        "word": "anticipate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ænˈtɪs.ɪ.peɪt/",
+        "meaningVi": "lường trước tình huống, dự đoán trước",
+        "collocations": "anticipate problems, anticipate changes, eagerly anticipate",
+        "example": "Experienced project managers always anticipate potential roadblocks early.",
+        "exampleVi": "Các nhà quản lý dự án giàu kinh nghiệm luôn lường trước các trở ngại tiềm ẩn từ sớm.",
+        "optionsVi": [
+          "lường trước tình huống, dự đoán trước",
+          "bị động bất ngờ",
+          "không hay biết gì",
+          "hối hận muộn màng"
+        ]
+      },
+      {
+        "id": "verb_073",
+        "word": "articulate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɑːˈtɪk.jə.leɪt/",
+        "meaningVi": "diễn đạt rành mạch, trình bày gãy gọn",
+        "collocations": "articulate a vision, clearly articulate, articulate thoughts",
+        "example": "The founder articulated a compelling vision that inspired investors and employees alike.",
+        "exampleVi": "Nhà sáng lập đã diễn đạt một tầm nhìn đầy thuyết phục truyền cảm hứng cho cả nhà đầu tư lẫn nhân viên.",
+        "optionsVi": [
+          "diễn đạt rành mạch, trình bày gãy gọn",
+          "nói năng ấp úng ngắc ngứ",
+          "gây mơ hồ khó hiểu",
+          "giữ im lặng"
+        ]
+      },
+      {
+        "id": "verb_074",
+        "word": "collaborate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/kəˈlæb.ə.reɪt/",
+        "meaningVi": "cộng tác chặt chẽ, phối hợp cùng làm",
+        "collocations": "collaborate closely, collaborate on a project, collaborate with partners",
+        "example": "Engineers and product designers collaborate closely throughout the sprint.",
+        "exampleVi": "Các kỹ sư và nhà thiết kế sản phẩm cộng tác chặt chẽ với nhau trong suốt đợt sprint.",
+        "optionsVi": [
+          "cộng tác chặt chẽ, phối hợp cùng làm",
+          "làm việc riêng lẻ tách biệt",
+          "tranh giành ảnh hưởng",
+          "cản trở công việc"
+        ]
+      },
+      {
+        "id": "verb_075",
+        "word": "compensate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈkɒm.pən.seɪt/",
+        "meaningVi": "bồi thường thiệt hại, bù đắp khuyết điểm",
+        "collocations": "compensate for loss, adequately compensate, compensate victims",
+        "example": "The airline agreed to compensate passengers for the canceled flight delays.",
+        "exampleVi": "Hãng hàng không đã đồng ý bồi thường cho hành khách vì sự cố hủy chuyến bay chậm trễ.",
+        "optionsVi": [
+          "bồi thường thiệt hại, bù đắp khuyết điểm",
+          "chối bỏ trách nhiệm",
+          "thu thêm phụ phí",
+          "phạt ngược khách hàng"
+        ]
+      },
+      {
+        "id": "verb_076",
+        "word": "comprehend",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˌkɒm.prɪˈhend/",
+        "meaningVi": "lĩnh hội thấu đáo, hiểu tường tận",
+        "collocations": "fully comprehend, fail to comprehend, comprehend the meaning",
+        "example": "It took years of rigorous study to fully comprehend advanced quantum physics.",
+        "exampleVi": "Phải mất nhiều năm nghiên cứu khắt khe mới có thể lĩnh hội thấu đáo vật lý lượng tử nâng cao.",
+        "optionsVi": [
+          "lĩnh hội thấu đáo, hiểu tường tận",
+          "hiểu sai lệch hoàn toàn",
+          "học vẹt bề ngoài",
+          "mù tịt không hiểu"
+        ]
+      },
+      {
+        "id": "verb_077",
+        "word": "consolidate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/kənˈsɒl.ɪ.deɪt/",
+        "meaningVi": "củng cố vị thế, hợp nhất dữ liệu/nguồn lực",
+        "collocations": "consolidate market position, consolidate debt, consolidate gains",
+        "example": "The acquisition helped the corporation consolidate its position as the market leader.",
+        "exampleVi": "Thương vụ thâu tóm đã giúp tập đoàn củng cố vững chắc vị thế dẫn đầu thị trường của mình.",
+        "optionsVi": [
+          "củng cố vị thế, hợp nhất dữ liệu/nguồn lực",
+          "làm suy yếu phân mảnh",
+          "chia rẽ nội bộ",
+          "đánh mất thị phần"
+        ]
+      },
+      {
+        "id": "verb_078",
+        "word": "cultivate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈkʌl.tɪ.veɪt/",
+        "meaningVi": "trau dồi bồi dưỡng, vun đắp mối quan hệ",
+        "collocations": "cultivate relationships, cultivate habits, cultivate an environment",
+        "example": "Successful entrepreneurs cultivate strong networks and long-term client relationships.",
+        "exampleVi": "Các doanh nhân thành công luôn vun đắp mạng lưới quan hệ vững chắc và gắn kết lâu dài với khách hàng.",
+        "optionsVi": [
+          "trau dồi bồi dưỡng, vun đắp mối quan hệ",
+          "phá hoại lòng tin",
+          "lơ là không chăm sóc",
+          "đốt cháy giai đoạn"
+        ]
+      },
+      {
+        "id": "verb_079",
+        "word": "differentiate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˌdɪf.əˈren.ʃi.eɪt/",
+        "meaningVi": "tạo điểm khác biệt, phân biệt rạch ròi",
+        "collocations": "differentiate from competitors, clearly differentiate, differentiate between",
+        "example": "Exceptional customer service differentiates our brand from ordinary competitors.",
+        "exampleVi": "Dịch vụ chăm sóc khách hàng vượt trội tạo nên điểm khác biệt của thương hiệu chúng tôi so với đối thủ.",
+        "optionsVi": [
+          "tạo điểm khác biệt, phân biệt rạch ròi",
+          "sao chép y hệt đối thủ",
+          "hòa lẫn đại trà",
+          "đánh đồng như nhau"
+        ]
+      },
+      {
+        "id": "verb_080",
+        "word": "diminish",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪˈmɪn.ɪʃ/",
+        "meaningVi": "suy giảm về lượng/giá trị, thu nhỏ",
+        "collocations": "diminish value, diminish credibility, gradually diminish",
+        "example": "Failing to deliver on promises will rapidly diminish customer trust.",
+        "exampleVi": "Không thực hiện đúng cam kết sẽ nhanh chóng làm suy giảm niềm tin của khách hàng.",
+        "optionsVi": [
+          "suy giảm về lượng/giá trị, thu nhỏ",
+          "gia tăng vùn vụt",
+          "nâng tầm uy tín",
+          "củng cố vững chắc"
+        ]
+      },
+      {
+        "id": "verb_081",
+        "word": "disrupt",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/dɪsˈrʌpt/",
+        "meaningVi": "gây gián đoạn, phá vỡ cấu trúc truyền thống",
+        "collocations": "disrupt the market, disrupt the supply chain, severely disrupt",
+        "example": "Digital banking platforms severely disrupted traditional financial services.",
+        "exampleVi": "Các nền tảng ngân hàng số đã làm thay đổi hoàn toàn và phá vỡ cấu trúc dịch vụ tài chính truyền thống.",
+        "optionsVi": [
+          "gây gián đoạn, phá vỡ cấu trúc truyền thống",
+          "bảo toàn nguyên vẹn",
+          "duy trì trật tự cũ",
+          "hồi phục lại trạng thái"
+        ]
+      },
+      {
+        "id": "verb_082",
+        "word": "eliminate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/iˈlɪm.ɪ.neɪt/",
+        "meaningVi": "loại trừ hoàn toàn, triệt tiêu rủi ro",
+        "collocations": "eliminate waste, eliminate errors, completely eliminate",
+        "example": "Lean manufacturing methods aim to completely eliminate unnecessary production waste.",
+        "exampleVi": "Các phương pháp sản xuất tinh gọn hướng tới việc loại trừ hoàn toàn các lãng phí sản xuất không cần thiết.",
+        "optionsVi": [
+          "loại trừ hoàn toàn, triệt tiêu rủi ro",
+          "tích tụ thêm rác thải",
+          "gia tăng tỷ lệ lỗi",
+          "duy trì sự lãng phí"
+        ]
+      },
+      {
+        "id": "verb_083",
+        "word": "emphasize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈem.fə.saɪz/",
+        "meaningVi": "nhấn mạnh tầm quan trọng, làm nổi bật",
+        "collocations": "emphasize the importance of, strongly emphasize, re-emphasize",
+        "example": "The speaker strongly emphasized the need for digital literacy in modern schools.",
+        "exampleVi": "Diễn giả đã đặc biệt nhấn mạnh sự cần thiết của kỹ năng công nghệ số trong trường học hiện đại.",
+        "optionsVi": [
+          "nhấn mạnh tầm quan trọng, làm nổi bật",
+          "xem nhẹ bỏ qua",
+          "giảm thiểu giá trị",
+          "không đả động tới"
+        ]
+      },
+      {
+        "id": "verb_084",
+        "word": "enhance",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɪnˈhɑːns/",
+        "meaningVi": "nâng cao chất lượng, gia tăng giá trị",
+        "collocations": "enhance performance, enhance security, enhance user experience",
+        "example": "The latest update significantly enhances user data privacy and security.",
+        "exampleVi": "Bản cập nhật mới nhất nâng cao đáng kể tính riêng tư và bảo mật dữ liệu của người dùng.",
+        "optionsVi": [
+          "nâng cao chất lượng, gia tăng giá trị",
+          "làm xuống cấp chất lượng",
+          "gây nguy cơ bảo mật",
+          "phá hỏng trải nghiệm"
+        ]
+      },
+      {
+        "id": "verb_085",
+        "word": "execute",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈek.sɪ.kjuːt/",
+        "meaningVi": "thi hành lệnh, triển khai thực thi kế hoạch",
+        "collocations": "execute a plan, execute a strategy, flawlessly execute",
+        "example": "A great strategy is worthless unless the team can flawlessly execute it.",
+        "exampleVi": "Một chiến lược tuyệt vời cũng vô giá trị trừ phi đội ngũ có thể thực thi nó một cách hoàn hảo.",
+        "optionsVi": [
+          "thi hành lệnh, triển khai thực thi kế hoạch",
+          "để dự án trên giấy",
+          "hủy bỏ kế hoạch",
+          "trì hoãn vô thời hạn"
+        ]
+      },
+      {
+        "id": "verb_086",
+        "word": "facilitate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/fəˈsɪl.ɪ.teɪt/",
+        "meaningVi": "tạo điều kiện thuận lợi, hỗ trợ tiến trình",
+        "collocations": "facilitate discussions, facilitate growth, facilitate learning",
+        "example": "Modern collaboration platforms facilitate remote team communication across time zones.",
+        "exampleVi": "Các nền tảng cộng tác hiện đại tạo điều kiện thuận lợi cho giao tiếp nhóm từ xa xuyên múi giờ.",
+        "optionsVi": [
+          "tạo điều kiện thuận lợi, hỗ trợ tiến trình",
+          "gây cản trở khó khăn",
+          "làm tắc nghẽn liên lạc",
+          "ngăn chặn phát triển"
+        ]
+      },
+      {
+        "id": "verb_087",
+        "word": "foster",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈfɒs.tər/",
+        "meaningVi": "nuôi dưỡng, ấp ủ phát triển, thúc đẩy",
+        "collocations": "foster innovation, foster collaboration, foster trust",
+        "example": "An open workplace culture fosters mutual trust and genuine innovation.",
+        "exampleVi": "Văn hóa công sở cởi mở sẽ nuôi dưỡng lòng tin cậy lẫn nhau và sự đổi mới thực thụ.",
+        "optionsVi": [
+          "nuôi dưỡng, ấp ủ phát triển, thúc đẩy",
+          "bóp nghẹt sáng kiến",
+          "phá vỡ sự tin tưởng",
+          "dập tắt ý tưởng mới"
+        ]
+      },
+      {
+        "id": "verb_088",
+        "word": "generate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈdʒen.ə.reɪt/",
+        "meaningVi": "tạo ra doanh thu/năng lượng, làm phát sinh",
+        "collocations": "generate revenue, generate leads, generate electricity",
+        "example": "The new digital campaign generated over five thousand qualified customer leads.",
+        "exampleVi": "Chiến dịch kỹ thuật số mới đã tạo ra hơn năm ngàn khách hàng tiềm năng chất lượng cao.",
+        "optionsVi": [
+          "tạo ra doanh thu/năng lượng, làm phát sinh",
+          "tiêu hao cạn kiệt",
+          "làm bốc hơi lợi nhuận",
+          "làm mất khách hàng"
+        ]
+      },
+      {
+        "id": "verb_089",
+        "word": "implement",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈɪm.plɪ.ment/",
+        "meaningVi": "áp dụng vào thực tế, triển khai hệ thống",
+        "collocations": "implement changes, implement policy, successfully implement",
+        "example": "The hospital successfully implemented a digital patient record management system.",
+        "exampleVi": "Bệnh viện đã triển khai thành công hệ thống quản lý hồ sơ bệnh án kỹ thuật số.",
+        "optionsVi": [
+          "áp dụng vào thực tế, triển khai hệ thống",
+          "bãi bỏ quy định",
+          "từ chối chuyển đổi",
+          "chỉ nói trên lý thuyết"
+        ]
+      },
+      {
+        "id": "verb_090",
+        "word": "incorporate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɪnˈkɔː.pər.eɪt/",
+        "meaningVi": "tích hợp vào tổng thể, kết hợp đưa vào",
+        "collocations": "incorporate feedback, incorporate features, seamlessly incorporate",
+        "example": "We incorporated user feedback into the latest design sprint.",
+        "exampleVi": "Chúng tôi đã tích hợp phản hồi của người dùng vào đợt chạy nước rút thiết kế mới nhất.",
+        "optionsVi": [
+          "tích hợp vào tổng thể, kết hợp đưa vào",
+          "loại trừ ra ngoài",
+          "phớt lờ góp ý",
+          "tách biệt cô lập"
+        ]
+      },
+      {
+        "id": "verb_091",
+        "word": "initiate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ɪˈnɪʃ.i.eɪt/",
+        "meaningVi": "khởi xướng dự án, bắt đầu quy trình",
+        "collocations": "initiate a project, initiate contact, initiate reform",
+        "example": "The leadership team initiated comprehensive operational reforms across all branches.",
+        "exampleVi": "Ban lãnh đạo đã khởi xướng những cuộc cải tổ vận hành toàn diện trên tất cả các chi nhánh.",
+        "optionsVi": [
+          "khởi xướng dự án, bắt đầu quy trình",
+          "kết thúc đóng lại",
+          "trì hoãn không làm",
+          "chấm dứt hợp đồng"
+        ]
+      },
+      {
+        "id": "verb_092",
+        "word": "integrate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈɪn.tɪ.ɡreɪt/",
+        "meaningVi": "tích hợp liên thông, hòa nhập hệ thống",
+        "collocations": "integrate with, seamlessly integrate, integrate systems",
+        "example": "The new payment gateway integrates seamlessly with our existing mobile application.",
+        "exampleVi": "Cổng thanh toán mới tích hợp liền mạch với ứng dụng di động hiện có của chúng tôi.",
+        "optionsVi": [
+          "tích hợp liên thông, hòa nhập hệ thống",
+          "xung đột không tương thích",
+          "hoạt động rời rạc",
+          "ngắt kết nối hệ thống"
+        ]
+      },
+      {
+        "id": "verb_093",
+        "word": "leverage",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈliː.vər.ɪdʒ/",
+        "meaningVi": "tận dụng đòn bẩy, khai thác tối đa lợi thế",
+        "collocations": "leverage technology, leverage strengths, leverage data",
+        "example": "Startups leverage modern cloud tools to compete effectively with established giants.",
+        "exampleVi": "Các công ty khởi nghiệp tận dụng các công cụ đám mây hiện đại để cạnh tranh hiệu quả với các ông lớn lâu đời.",
+        "optionsVi": [
+          "tận dụng đòn bẩy, khai thác tối đa lợi thế",
+          "bỏ phí tài nguyên",
+          "không biết dùng ưu thế",
+          "lệ thuộc thụ động"
+        ]
+      },
+      {
+        "id": "verb_094",
+        "word": "mitigate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈmɪt.ɪ.ɡeɪt/",
+        "meaningVi": "giảm thiểu rủi ro, làm dịu bớt hậu quả",
+        "collocations": "mitigate risk, mitigate the impact, mitigate losses",
+        "example": "Diversifying investment portfolios helps mitigate potential financial losses.",
+        "exampleVi": "Đa dạng hóa danh mục đầu tư giúp giảm thiểu những tổn thất tài chính tiềm ẩn.",
+        "optionsVi": [
+          "giảm thiểu rủi ro, làm dịu bớt hậu quả",
+          "làm tăng nguy cơ rủi ro",
+          "đổ thêm dầu vào lửa",
+          "bỏ mặc số phận"
+        ]
+      },
+      {
+        "id": "verb_095",
+        "word": "optimize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈɒp.tɪ.maɪz/",
+        "meaningVi": "tối ưu hóa quy trình/hiệu suất",
+        "collocations": "optimize performance, optimize resources, optimize workflow",
+        "example": "The engineering team optimized database queries to cut page loading time in half.",
+        "exampleVi": "Đội ngũ kỹ thuật đã tối ưu hóa các truy vấn cơ sở dữ liệu để giảm một nửa thời gian tải trang.",
+        "optionsVi": [
+          "tối ưu hóa quy trình/hiệu suất",
+          "làm chậm chạp nặng nề",
+          "tiêu tốn tài nguyên",
+          "làm giảm hiệu năng"
+        ]
+      },
+      {
+        "id": "verb_096",
+        "word": "prioritize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/praɪˈɒr.ɪ.taɪz/",
+        "meaningVi": "ưu tiên xử lý trước, đặt lên hàng đầu",
+        "collocations": "prioritize tasks, prioritize health, set priorities",
+        "example": "Effective professionals prioritize high-impact tasks early in their workday.",
+        "exampleVi": "Những người làm việc hiệu quả luôn ưu tiên xử lý các đầu việc có tác động lớn vào đầu ngày làm việc.",
+        "optionsVi": [
+          "ưu tiên xử lý trước, đặt lên hàng đầu",
+          "xao nhãng việc vặt",
+          "trì hoãn việc gấp",
+          "đánh đồng thứ tự"
+        ]
+      },
+      {
+        "id": "verb_097",
+        "word": "reconcile",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈrek.ən.saɪl/",
+        "meaningVi": "dung hòa hai quan điểm, đối soát tài chính",
+        "collocations": "reconcile differences, reconcile accounts, reconcile data",
+        "example": "The mediator helped both sides reconcile their differences and draft a fair contract.",
+        "exampleVi": "Người hòa giải đã giúp hai bên dung hòa những bất đồng và soạn thảo một bản hợp đồng công bằng.",
+        "optionsVi": [
+          "dung hòa hai quan điểm, đối soát tài chính",
+          "khoét sâu mâu thuẫn",
+          "đẩy xung đột lên cao",
+          "làm sai lệch sổ sách"
+        ]
+      },
+      {
+        "id": "verb_098",
+        "word": "scrutinize",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/ˈskruː.tɪ.naɪz/",
+        "meaningVi": "soi xét kỹ lưỡng, kiểm tra gắt gao",
+        "collocations": "scrutinize details, closely scrutinize, scrutinize financial records",
+        "example": "Regulatory authorities scrutinized the company's financial records for tax compliance.",
+        "exampleVi": "Cơ quan quản lý đã soi xét kỹ lưỡng hồ sơ tài chính của công ty về việc tuân thủ thuế.",
+        "optionsVi": [
+          "soi xét kỹ lưỡng, kiểm tra gắt gao",
+          "kiểm tra qua loa đại khái",
+          "bỏ qua không rà soát",
+          "nhắm mắt cho qua"
+        ]
+      },
+      {
+        "id": "verb_099",
+        "word": "substantiate",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/səbˈstæn.ʃi.eɪt/",
+        "meaningVi": "chứng minh bằng chứng cứ xác thực",
+        "collocations": "substantiate claims, substantiate with evidence, fail to substantiate",
+        "example": "The plaintiff failed to substantiate their claims with concrete documentary evidence.",
+        "exampleVi": "Nguyên đơn đã không thể chứng minh các cáo buộc của mình bằng các bằng chứng tài liệu cụ thể.",
+        "optionsVi": [
+          "chứng minh bằng chứng cứ xác thực",
+          "nói suông vô căn cứ",
+          "bịa đặt lời khai",
+          "phủ nhận cáo buộc"
+        ]
+      },
+      {
+        "id": "verb_100",
+        "word": "transform",
+        "level": "B2",
+        "type": "verb",
+        "ipa": "/trænsˈfɔːm/",
+        "meaningVi": "chuyển đổi toàn diện, lột xác",
+        "collocations": "transform business, digital transformation, transform lives",
+        "example": "Adopting artificial intelligence transformed their customer service operations completely.",
+        "exampleVi": "Ứng dụng trí tuệ nhân tạo đã chuyển đổi toàn diện hoạt động chăm sóc khách hàng của họ.",
+        "optionsVi": [
+          "chuyển đổi toàn diện, lột xác",
+          "giữ nguyên lối cũ",
+          "thụt lùi thoái hóa",
+          "phục hồi cái cũ"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "pos_adjectives",
+    "name": "100 Tính Từ Miêu Tả & Đánh Giá (Core Adjectives)",
+    "icon": "✨",
+    "category": "pos",
+    "level": "B1",
+    "description": "100 tính từ sắc nét A2–B2 miêu tả tính cách, trạng thái, chất lượng và góc nhìn đánh giá.",
+    "words": [
+      {
+        "id": "adj_001",
+        "word": "available",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/əˈveɪ.lə.bəl/",
+        "meaningVi": "có sẵn, rảnh rỗi có thể liên lạc",
+        "collocations": "readily available, publicly available, available for consultation",
+        "example": "The customer support team is available twenty-four hours a day.",
+        "exampleVi": "Đội ngũ hỗ trợ khách hàng luôn có sẵn hai mươi tư giờ mỗi ngày.",
+        "optionsVi": [
+          "có sẵn, rảnh rỗi có thể liên lạc",
+          "hết hàng vĩnh viễn",
+          "bận rộn không thể gặp",
+          "bị hạn chế nghiêm ngặt"
+        ]
+      },
+      {
+        "id": "adj_002",
+        "word": "careful",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈkeə.fəl/",
+        "meaningVi": "cẩn thận, kỹ lưỡng chu đáo",
+        "collocations": "careful planning, be careful with, careful consideration",
+        "example": "Careful planning at the beginning prevents costly mistakes later on.",
+        "exampleVi": "Lên kế hoạch cẩn thận ngay từ đầu giúp ngăn ngừa những sai sót tốn kém về sau.",
+        "optionsVi": [
+          "cẩn thận, kỹ lưỡng chu đáo",
+          "bất cẩn cẩu thả",
+          "vội vàng hấp tấp",
+          "liều lĩnh nguy hiểm"
+        ]
+      },
+      {
+        "id": "adj_003",
+        "word": "comfortable",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈkʌm.fə.tə.bəl/",
+        "meaningVi": "thoải mái, dễ chịu, tự tin",
+        "collocations": "comfortable atmosphere, feel comfortable, comfortable shoes",
+        "example": "Our open office creates a friendly and comfortable atmosphere for everyone.",
+        "exampleVi": "Văn phòng mở của chúng tôi tạo ra một bầu không khí thân thiện và thoải mái cho tất cả mọi người.",
+        "optionsVi": [
+          "thoải mái, dễ chịu, tự tin",
+          "gò bó khó chịu",
+          "ngột ngạt căng thẳng",
+          "bất an lo lắng"
+        ]
+      },
+      {
+        "id": "adj_004",
+        "word": "convenient",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/kənˈviː.ni.ənt/",
+        "meaningVi": "thuận tiện, tiện lợi cho việc sử dụng",
+        "collocations": "convenient location, convenient time, extremely convenient",
+        "example": "Mobile banking makes sending money overseas extremely convenient.",
+        "exampleVi": "Ngân hàng di động giúp việc chuyển tiền ra nước ngoài trở nên cực kỳ thuận tiện.",
+        "optionsVi": [
+          "thuận tiện, tiện lợi cho việc sử dụng",
+          "bất tiện phiền toái",
+          "phức tạp rườm rà",
+          "tốn kém thời gian"
+        ]
+      },
+      {
+        "id": "adj_005",
+        "word": "dangerous",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈdeɪn.dʒər.əs/",
+        "meaningVi": "nguy hiểm, có nguy cơ gây hại",
+        "collocations": "highly dangerous, dangerous situation, dangerous driving",
+        "example": "It is extremely dangerous to operate heavy machinery without proper training.",
+        "exampleVi": "Cực kỳ nguy hiểm khi vận hành máy móc hạng nặng mà không qua đào tạo bài bản.",
+        "optionsVi": [
+          "nguy hiểm, có nguy cơ gây hại",
+          "an toàn tuyệt đối",
+          "vô hại lành tính",
+          "thuận buồm xuôi gió"
+        ]
+      },
+      {
+        "id": "adj_006",
+        "word": "difficult",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈdɪf.ɪ.kəlt/",
+        "meaningVi": "khó khăn, nan giải phức tạp",
+        "collocations": "difficult decision, difficult task, cope with difficult situations",
+        "example": "Making budget cuts was the most difficult decision the management had to face.",
+        "exampleVi": "Cắt giảm ngân sách là quyết định khó khăn nhất mà ban quản lý phải đối mặt.",
+        "optionsVi": [
+          "khó khăn, nan giải phức tạp",
+          "dễ dàng đơn giản",
+          "thuận lợi trôi chảy",
+          "hiển nhiên rõ ràng"
+        ]
+      },
+      {
+        "id": "adj_007",
+        "word": "famous",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈfeɪ.məs/",
+        "meaningVi": "nổi tiếng, được nhiều người biết đến",
+        "collocations": "world famous, famous for, become famous",
+        "example": "Da Nang is famous for its breathtaking coastal beaches and delicious cuisine.",
+        "exampleVi": "Đà Nẵng nổi tiếng với những bãi biển tuyệt đẹp và nền ẩm thực phong phú.",
+        "optionsVi": [
+          "nổi tiếng, được nhiều người biết đến",
+          "vô danh ít ai biết",
+          "tai tiếng xấu xa",
+          "bị lãng quên"
+        ]
+      },
+      {
+        "id": "adj_008",
+        "word": "healthy",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈhel.θi/",
+        "meaningVi": "khỏe mạnh, lành mạnh tốt cho sức khỏe",
+        "collocations": "healthy lifestyle, healthy diet, healthy competition",
+        "example": "Maintaining a balanced healthy diet boosts productivity and long-term energy.",
+        "exampleVi": "Duy trì chế độ ăn uống lành mạnh cân bằng giúp tăng năng suất và năng lượng lâu dài.",
+        "optionsVi": [
+          "khỏe mạnh, lành mạnh tốt cho sức khỏe",
+          "độc hại có hại",
+          "ốm yếu bệnh tật",
+          "suy dinh dưỡng"
+        ]
+      },
+      {
+        "id": "adj_009",
+        "word": "important",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ɪmˈpɔː.tənt/",
+        "meaningVi": "quan trọng, mang tính cốt yếu",
+        "collocations": "play an important role, critically important, important milestone",
+        "example": "Patience and practice play an important role in mastering any language.",
+        "exampleVi": "Kiên nhẫn và luyện tập đóng một vai trò quan trọng trong việc làm chủ bất kỳ ngôn ngữ nào.",
+        "optionsVi": [
+          "quan trọng, mang tính cốt yếu",
+          "vụn vặt không đáng kể",
+          "thứ yếu phụ trợ",
+          "thừa thãi vô dụng"
+        ]
+      },
+      {
+        "id": "adj_010",
+        "word": "necessary",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈnes.ə.ser.i/",
+        "meaningVi": "cần thiết, không thể thiếu",
+        "collocations": "absolutely necessary, necessary steps, if necessary",
+        "example": "A passport is strictly necessary when traveling outside your home country.",
+        "exampleVi": "Hộ chiếu là điều kiện hoàn toàn cần thiết khi đi du lịch ra nước ngoài.",
+        "optionsVi": [
+          "cần thiết, không thể thiếu",
+          "không cần thiết tùy chọn",
+          "thừa thãi lãng phí",
+          "bị cấm mang theo"
+        ]
+      },
+      {
+        "id": "adj_011",
+        "word": "popular",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈpɒp.jə.lər/",
+        "meaningVi": "phổ biến, được ưa chuộng rộng rãi",
+        "collocations": "widely popular, popular choice, increasingly popular",
+        "example": "Podcasts have become an increasingly popular way to learn on the go.",
+        "exampleVi": "Podcast đã trở thành một cách học tập ngày càng phổ biến khi đang di chuyển.",
+        "optionsVi": [
+          "phổ biến, được ưa chuộng rộng rãi",
+          "bị xa lánh ghẻ lạnh",
+          "lỗi thời không ai dùng",
+          "kén người sử dụng"
+        ]
+      },
+      {
+        "id": "adj_012",
+        "word": "possible",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈpɒs.ə.bəl/",
+        "meaningVi": "có thể thực hiện được, khả thi",
+        "collocations": "as soon as possible, make it possible, every possible effort",
+        "example": "Cloud computing makes it possible to collaborate with international teams in real time.",
+        "exampleVi": "Điện toán đám mây giúp việc cộng tác với các đội ngũ quốc tế theo thời gian thực trở nên khả thi.",
+        "optionsVi": [
+          "có thể thực hiện được, khả thi",
+          "hoàn toàn bất khả thi",
+          "không tưởng viển vông",
+          "vô vọng bế tắc"
+        ]
+      },
+      {
+        "id": "adj_013",
+        "word": "similar",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈsɪm.ɪ.lər/",
+        "meaningVi": "tương tự, có nét giống nhau",
+        "collocations": "similar to, strikingly similar, similar background",
+        "example": "Both companies share a very similar vision regarding customer data privacy.",
+        "exampleVi": "Cả hai công ty đều chia sẻ một tầm nhìn rất tương đồng về bảo mật dữ liệu khách hàng.",
+        "optionsVi": [
+          "tương tự, có nét giống nhau",
+          "khác biệt hoàn toàn",
+          "đối lập trái ngược",
+          "xa lạ dị biệt"
+        ]
+      },
+      {
+        "id": "adj_014",
+        "word": "successful",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/səkˈses.fəl/",
+        "meaningVi": "thành công, đạt kết quả mong đợi",
+        "collocations": "highly successful, successful career, successful launch",
+        "example": "The marketing team celebrated the highly successful launch of the new product.",
+        "exampleVi": "Đội ngũ tiếp thị đã ăn mừng sự ra mắt hết sức thành công của sản phẩm mới.",
+        "optionsVi": [
+          "thành công, đạt kết quả mong đợi",
+          "thất bại cay đắng",
+          "đổ vỡ giữa chừng",
+          "kém hiệu quả"
+        ]
+      },
+      {
+        "id": "adj_015",
+        "word": "useful",
+        "level": "A2",
+        "type": "adjective",
+        "ipa": "/ˈjuːs.fəl/",
+        "meaningVi": "hữu ích, có giá trị sử dụng cao",
+        "collocations": "useful tool, extremely useful, useful advice",
+        "example": "This English flashcard app is an extremely useful tool for busy professionals.",
+        "exampleVi": "Ứng dụng flashcard tiếng Anh này là một công cụ cực kỳ hữu ích cho người đi làm bận rộn.",
+        "optionsVi": [
+          "hữu ích, có giá trị sử dụng cao",
+          "vô dụng vô bổ",
+          "gây phiền toái",
+          "lãng phí bộ nhớ"
+        ]
+      },
+      {
+        "id": "adj_016",
+        "word": "accurate",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈæk.jə.rət/",
+        "meaningVi": "chính xác, chuẩn xác từng chi tiết",
+        "collocations": "accurate information, highly accurate, accurate forecast",
+        "example": "Weather forecasts have become remarkably accurate thanks to satellite data.",
+        "exampleVi": "Dự báo thời tiết đã trở nên cực kỳ chính xác nhờ dữ liệu vệ tinh.",
+        "optionsVi": [
+          "chính xác, chuẩn xác từng chi tiết",
+          "sai lệch mơ hồ",
+          "ước chừng đại khái",
+          "sai sót trầm trọng"
+        ]
+      },
+      {
+        "id": "adj_017",
+        "word": "adequate",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈæd.ə.kwət/",
+        "meaningVi": "đầy đủ, thỏa đáng, vừa đủ dùng",
+        "collocations": "adequate resources, adequate preparation, fully adequate",
+        "example": "Ensure you give yourself adequate time to review your presentation slides.",
+        "exampleVi": "Hãy đảm bảo bạn dành cho mình đủ thời gian thỏa đáng để xem lại các slide thuyết trình.",
+        "optionsVi": [
+          "đầy đủ, thỏa đáng, vừa đủ dùng",
+          "thiếu thốn trầm trọng",
+          "không đủ tiêu chuẩn",
+          "quá tải nghẽn mạng"
+        ]
+      },
+      {
+        "id": "adj_018",
+        "word": "anxious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈæŋk.ʃəs/",
+        "meaningVi": "lo lắng, bồn chồn sốt ruột",
+        "collocations": "feel anxious, anxious about, anxious to please",
+        "example": "Many candidates feel anxious before taking an important job interview.",
+        "exampleVi": "Nhiều ứng viên cảm thấy lo lắng bồn chồn trước khi bước vào buổi phỏng vấn quan trọng.",
+        "optionsVi": [
+          "lo lắng, bồn chồn sốt ruột",
+          "bình thản tự tin",
+          "thờ ơ không quan tâm",
+          "hồ hởi phấn khởi"
+        ]
+      },
+      {
+        "id": "adj_019",
+        "word": "appropriate",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/əˈprəʊ.pri.ət/",
+        "meaningVi": "phù hợp, thích đáng trong hoàn cảnh",
+        "collocations": "appropriate behavior, appropriate time, deemed appropriate",
+        "example": "Wearing formal business attire is deemed appropriate for court hearings.",
+        "exampleVi": "Mặc trang phục công sở trang trọng được coi là phù hợp cho các phiên tòa.",
+        "optionsVi": [
+          "phù hợp, thích đáng trong hoàn cảnh",
+          "lệch lạc khiếm nhã",
+          "lố lăng không hợp",
+          "bị cấm đoán"
+        ]
+      },
+      {
+        "id": "adj_020",
+        "word": "attractive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/əˈtræk.tɪv/",
+        "meaningVi": "hấp dẫn, lôi cuốn, có sức hút",
+        "collocations": "attractive offer, highly attractive, attractive design",
+        "example": "The company offered an attractive package including stock options and bonuses.",
+        "exampleVi": "Công ty đã đưa ra gói đãi ngộ hấp dẫn bao gồm quyền mua cổ phiếu và tiền thưởng.",
+        "optionsVi": [
+          "hấp dẫn, lôi cuốn, có sức hút",
+          "nhàm chán tệ hại",
+          "kém cỏi không ai nhận",
+          "đầy rẫy rủi ro"
+        ]
+      },
+      {
+        "id": "adj_021",
+        "word": "automatic",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌɔː.təˈmæt.ɪk/",
+        "meaningVi": "tự động hóa, không cần can thiệp",
+        "collocations": "automatic backup, automatic response, fully automatic",
+        "example": "Enabling automatic cloud backups ensures your study data is never lost.",
+        "exampleVi": "Bật sao lưu đám mây tự động đảm bảo dữ liệu học tập của bạn không bao giờ bị mất.",
+        "optionsVi": [
+          "tự động hóa, không cần can thiệp",
+          "thủ công bằng tay",
+          "phức tạp chậm chạp",
+          "dễ bị lỗi người dùng"
+        ]
+      },
+      {
+        "id": "adj_022",
+        "word": "aware",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/əˈweər/",
+        "meaningVi": "có nhận thức, ý thức rõ về điều gì",
+        "collocations": "well aware of, raise awareness, become aware",
+        "example": "Software developers must be acutely aware of cybersecurity vulnerabilities.",
+        "exampleVi": "Các kỹ sư phần mềm phải ý thức sâu sắc về các lỗ hổng an ninh mạng.",
+        "optionsVi": [
+          "có nhận thức, ý thức rõ về điều gì",
+          "mù mờ không biết gì",
+          "thờ ơ vô cảm",
+          "lảng tránh sự thật"
+        ]
+      },
+      {
+        "id": "adj_023",
+        "word": "beneficial",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌben.ɪˈfɪʃ.əl/",
+        "meaningVi": "có lợi, mang lại kết quả tốt",
+        "collocations": "mutually beneficial, highly beneficial, beneficial effect",
+        "example": "Both organizations signed a mutually beneficial long-term partnership agreement.",
+        "exampleVi": "Cả hai tổ chức đã ký kết thỏa thuận hợp tác lâu dài đôi bên cùng có lợi.",
+        "optionsVi": [
+          "có lợi, mang lại kết quả tốt",
+          "gây thiệt hại nặng nề",
+          "độc hại nguy hiểm",
+          "vô ích lãng phí"
+        ]
+      },
+      {
+        "id": "adj_024",
+        "word": "capable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈkeɪ.pə.bəl/",
+        "meaningVi": "có năng lực, đủ khả năng gánh vác",
+        "collocations": "capable of doing, highly capable, perfectly capable",
+        "example": "She is a highly capable engineer who can resolve intricate system bugs.",
+        "exampleVi": "Cô ấy là một kỹ sư hết sức có năng lực, có thể xử lý các lỗi hệ thống phức tạp.",
+        "optionsVi": [
+          "có năng lực, đủ khả năng gánh vác",
+          "bất tài thiếu kỹ năng",
+          "yếu ớt không tự chủ",
+          "vụng về lúng túng"
+        ]
+      },
+      {
+        "id": "adj_025",
+        "word": "competitive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/kəmˈpet.ɪ.tɪv/",
+        "meaningVi": "có tính cạnh tranh, giá tốt",
+        "collocations": "competitive advantage, competitive salary, highly competitive",
+        "example": "We offer top-tier products at very competitive prices in the region.",
+        "exampleVi": "Chúng tôi cung cấp các sản phẩm hàng đầu với mức giá rất cạnh tranh trong khu vực.",
+        "optionsVi": [
+          "có tính cạnh tranh, giá tốt",
+          "đắt đỏ vô lý",
+          "thua kém đối thủ",
+          "độc quyền bắt chẹt"
+        ]
+      },
+      {
+        "id": "adj_026",
+        "word": "confident",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈkɒn.fɪ.dənt/",
+        "meaningVi": "tự tin, chắc chắn vào năng lực",
+        "collocations": "feel confident, confident about, quietly confident",
+        "example": "Consistent daily review makes students feel confident walking into the exam room.",
+        "exampleVi": "Ôn tập đều đặn mỗi ngày giúp học viên cảm thấy tự tin khi bước vào phòng thi.",
+        "optionsVi": [
+          "tự tin, chắc chắn vào năng lực",
+          "nhút nhát sợ sệt",
+          "hoang mang lo sợ",
+          "tự ti mặc cảm"
+        ]
+      },
+      {
+        "id": "adj_027",
+        "word": "conscious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈkɒn.ʃəs/",
+        "meaningVi": "có ý thức tỉnh táo, chú tâm",
+        "collocations": "cost conscious, environmentally conscious, make a conscious effort",
+        "example": "Modern consumers are becoming far more environmentally conscious with their purchases.",
+        "exampleVi": "Người tiêu dùng hiện đại đang trở nên có ý thức bảo vệ môi trường hơn nhiều trong mua sắm.",
+        "optionsVi": [
+          "có ý thức tỉnh táo, chú tâm",
+          "mất kiểm soát lú lẫn",
+          "vô tâm cẩu thả",
+          "mê muội thiếu hiểu biết"
+        ]
+      },
+      {
+        "id": "adj_028",
+        "word": "consistent",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/kənˈsɪs.tənt/",
+        "meaningVi": "nhất quán, kiên định không đổi",
+        "collocations": "consistent quality, consistent effort, highly consistent",
+        "example": "Consistent daily study delivers vastly superior results compared to erratic cramming.",
+        "exampleVi": "Học tập kiên định mỗi ngày mang lại kết quả vượt trội hơn hẳn so với việc học dồn thất thường.",
+        "optionsVi": [
+          "nhất quán, kiên định không đổi",
+          "thất thường nay đây mai đó",
+          "mâu thuẫn tiền hậu bất nhất",
+          "chập chờn ngắt quãng"
+        ]
+      },
+      {
+        "id": "adj_029",
+        "word": "creative",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/kriˈeɪ.tɪv/",
+        "meaningVi": "sáng tạo, giàu tính đổi mới",
+        "collocations": "creative thinking, creative solution, highly creative",
+        "example": "The marketing team devised a creative solution that doubled organic user signups.",
+        "exampleVi": "Đội ngũ tiếp thị đã nghĩ ra một giải pháp sáng tạo giúp tăng gấp đôi lượng đăng ký tự nhiên.",
+        "optionsVi": [
+          "sáng tạo, giàu tính đổi mới",
+          "rập khuôn sáo rỗng",
+          "nhàm chán lối mòn",
+          "sao chép nguyên văn"
+        ]
+      },
+      {
+        "id": "adj_030",
+        "word": "critical",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈkrɪt.ɪ.kəl/",
+        "meaningVi": "then chốt, mang tính phê phán phản biện",
+        "collocations": "critical thinking, play a critical role, critical factor",
+        "example": "Developing critical thinking skills enables learners to evaluate facts objectively.",
+        "exampleVi": "Phát triển kỹ năng tư duy phản biện cho phép người học đánh giá sự thật một cách khách quan.",
+        "optionsVi": [
+          "then chốt, mang tính phê phán phản biện",
+          "tầm thường không quan trọng",
+          "tin theo mù quáng",
+          "hời hợt nông cạn"
+        ]
+      },
+      {
+        "id": "adj_031",
+        "word": "curious",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈkjʊə.ri.əs/",
+        "meaningVi": "tò mò ham học hỏi, hiếu kỳ",
+        "collocations": "curious mind, naturally curious, curious about",
+        "example": "Curious learners explore unfamiliar topics without fear of making mistakes.",
+        "exampleVi": "Những người học ham hiểu biết luôn khám phá các chủ đề mới lạ mà không sợ mắc sai lầm.",
+        "optionsVi": [
+          "tò mò ham học hỏi, hiếu kỳ",
+          "thờ ơ vô cảm",
+          "bảo thủ chống đối",
+          "tự mãn không cần học"
+        ]
+      },
+      {
+        "id": "adj_032",
+        "word": "decisive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/dɪˈsaɪ.sɪv/",
+        "meaningVi": "quyết đoán, mang tính dứt khoát định đoạt",
+        "collocations": "decisive action, decisive factor, decisive role",
+        "example": "The captain's decisive action during the storm saved the entire ship.",
+        "exampleVi": "Hành động quyết đoán của thuyền trưởng trong cơn bão đã cứu sống cả con tàu.",
+        "optionsVi": [
+          "quyết đoán, mang tính dứt khoát định đoạt",
+          "chần chừ do dự",
+          "lúng túng nửa vời",
+          "nhu nhược yếu đuối"
+        ]
+      },
+      {
+        "id": "adj_033",
+        "word": "efficient",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪˈfɪʃ.ənt/",
+        "meaningVi": "hiệu quả cao, tiết kiệm thời gian công sức",
+        "collocations": "energy efficient, highly efficient, efficient workflow",
+        "example": "Automating routine tasks makes the whole workflow far more efficient.",
+        "exampleVi": "Tự động hóa các tác vụ lặp lại làm cho toàn bộ quy trình làm việc hiệu quả hơn rất nhiều.",
+        "optionsVi": [
+          "hiệu quả cao, tiết kiệm thời gian công sức",
+          "lãng phí rườm rà",
+          "chậm chạp trì trệ",
+          "tốn kém nhân lực"
+        ]
+      },
+      {
+        "id": "adj_034",
+        "word": "emotional",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪˈməʊ.ʃən.əl/",
+        "meaningVi": "thuộc về cảm xúc, dễ xúc động",
+        "collocations": "emotional intelligence, emotional support, emotional response",
+        "example": "High emotional intelligence helps managers resolve workplace misunderstandings diplomatically.",
+        "exampleVi": "Trí tuệ cảm xúc cao giúp người quản lý tháo gỡ những hiểu lầm nơi công sở một cách khéo léo.",
+        "optionsVi": [
+          "thuộc về cảm xúc, dễ xúc động",
+          "lạnh lùng vô cảm",
+          "lý trí khô khan",
+          "máy móc rập khuôn"
+        ]
+      },
+      {
+        "id": "adj_035",
+        "word": "enthusiastic",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪnˌθjuː.ziˈæs.tɪk/",
+        "meaningVi": "nhiệt huyết, hào hứng đón nhận",
+        "collocations": "enthusiastic about, highly enthusiastic, enthusiastic reception",
+        "example": "The product received an enthusiastic reception from early beta testers.",
+        "exampleVi": "Sản phẩm đã nhận được sự đón nhận hết sức hào hứng từ những người dùng thử nghiệm ban đầu.",
+        "optionsVi": [
+          "nhiệt huyết, hào hứng đón nhận",
+          "thờ ơ lãnh đạm",
+          "chê bai gay gắt",
+          "ngại ngùng tránh né"
+        ]
+      },
+      {
+        "id": "adj_036",
+        "word": "essential",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪˈsen.ʃəl/",
+        "meaningVi": "thiết yếu, cốt lõi không thể thiếu",
+        "collocations": "essential skills, absolutely essential, play an essential role",
+        "example": "Active recall is essential for transferring new vocabulary into long-term memory.",
+        "exampleVi": "Chủ động gợi nhớ (Active recall) là yếu tố thiết yếu để đưa từ mới vào trí nhớ dài hạn.",
+        "optionsVi": [
+          "thiết yếu, cốt lõi không thể thiếu",
+          "không cần thiết phụ thuộc",
+          "thừa thãi bỏ đi",
+          "tùy ý không bắt buộc"
+        ]
+      },
+      {
+        "id": "adj_037",
+        "word": "flexible",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈflek.sə.bəl/",
+        "meaningVi": "linh hoạt, dễ uốn nắn thích ứng",
+        "collocations": "flexible working hours, flexible approach, highly flexible",
+        "example": "A flexible approach allows developers to pivot quickly when requirements evolve.",
+        "exampleVi": "Cách tiếp cận linh hoạt cho phép lập trình viên xoay chuyển nhanh khi yêu cầu thay đổi.",
+        "optionsVi": [
+          "linh hoạt, dễ uốn nắn thích ứng",
+          "cứng nhắc bảo thủ",
+          "đóng khung cố định",
+          "khó thay đổi"
+        ]
+      },
+      {
+        "id": "adj_038",
+        "word": "frequent",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈfriː.kwənt/",
+        "meaningVi": "thường xuyên, hay lặp lại",
+        "collocations": "frequent updates, frequent traveler, frequent contact",
+        "example": "Frequent small review sessions yield far better retention than rare cramming marathons.",
+        "exampleVi": "Các phiên ôn tập ngắn nhưng thường xuyên mang lại khả năng ghi nhớ tốt hơn nhiều so với việc cày cuốc thỉnh thoảng.",
+        "optionsVi": [
+          "thường xuyên, hay lặp lại",
+          "hiếm hoi ít khi",
+          "bất thường ngẫu nhiên",
+          "chỉ xảy ra một lần"
+        ]
+      },
+      {
+        "id": "adj_039",
+        "word": "generous",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈdʒen.ər.əs/",
+        "meaningVi": "hào phóng, rộng lượng cởi mở",
+        "collocations": "generous donation, generous offer, generous support",
+        "example": "The foundation made a generous donation to build computer labs for rural schools.",
+        "exampleVi": "Tổ chức này đã quyên góp một khoản tài trợ hào phóng để xây phòng máy tính cho các trường vùng sâu.",
+        "optionsVi": [
+          "hào phóng, rộng lượng cởi mở",
+          "keo kiệt bủn xỉn",
+          "hẹp hòi ích kỷ",
+          "tính toán chi li"
+        ]
+      },
+      {
+        "id": "adj_040",
+        "word": "genuine",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈdʒen.ju.ɪn/",
+        "meaningVi": "chân thật, chính hãng không giả mạo",
+        "collocations": "genuine leather, genuine interest, genuine concern",
+        "example": "She showed a genuine interest in understanding the needs of her students.",
+        "exampleVi": "Cô ấy thể hiện một sự quan tâm chân thật trong việc thấu hiểu nhu cầu của học trò.",
+        "optionsVi": [
+          "chân thật, chính hãng không giả mạo",
+          "hàng nhái giả tạo",
+          "giả dối đóng kịch",
+          "lừa đảo gian xảo"
+        ]
+      },
+      {
+        "id": "adj_041",
+        "word": "grateful",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈɡreɪt.fəl/",
+        "meaningVi": "biết ơn, cảm kích sâu sắc",
+        "collocations": "deeply grateful, grateful for, forever grateful",
+        "example": "I am deeply grateful for the unwavering guidance my mentors provided.",
+        "exampleVi": "Tôi vô cùng biết ơn sự hướng dẫn tận tình không ngừng nghỉ của các cố vấn.",
+        "optionsVi": [
+          "biết ơn, cảm kích sâu sắc",
+          "vong ân bội nghĩa",
+          "vô ơn bạc bẽo",
+          "thờ ơ không nhớ ơn"
+        ]
+      },
+      {
+        "id": "adj_042",
+        "word": "hesitant",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈhez.ɪ.tənt/",
+        "meaningVi": "do dự, ngập ngừng phân vân",
+        "collocations": "hesitant to speak, feel hesitant, hesitant response",
+        "example": "Do not feel hesitant to ask questions whenever a grammar point is unclear.",
+        "exampleVi": "Đừng ngập ngừng đặt câu hỏi bất cứ khi nào một điểm ngữ pháp chưa được rõ ràng.",
+        "optionsVi": [
+          "do dự, ngập ngừng phân vân",
+          "dứt khoát nhanh nhẹn",
+          "táo bạo liều lĩnh",
+          "tự tin không đắn đo"
+        ]
+      },
+      {
+        "id": "adj_043",
+        "word": "impressive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪmˈpres.ɪv/",
+        "meaningVi": "ấn tượng sâu sắc, đáng nể phục",
+        "collocations": "impressive results, highly impressive, impressive record",
+        "example": "The startup demonstrated an impressive growth rate of two hundred percent year-over-year.",
+        "exampleVi": "Công ty khởi nghiệp đã chứng minh một tốc độ tăng trưởng đáng nể hai trăm phần trăm so với cùng kỳ.",
+        "optionsVi": [
+          "ấn tượng sâu sắc, đáng nể phục",
+          "mờ nhạt tầm thường",
+          "đáng thất vọng",
+          "kém cỏi tệ hại"
+        ]
+      },
+      {
+        "id": "adj_044",
+        "word": "independent",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌɪn.dɪˈpen.dənt/",
+        "meaningVi": "độc lập, tự chủ tự lực",
+        "collocations": "independent thinking, independent study, financially independent",
+        "example": "Self-paced applications cultivate independent study habits in adult learners.",
+        "exampleVi": "Các ứng dụng tự học theo nhịp độ cá nhân nuôi dưỡng thói quen tự học độc lập ở người lớn.",
+        "optionsVi": [
+          "độc lập, tự chủ tự lực",
+          "lệ thuộc phụ thuộc",
+          "bị chi phối điều khiển",
+          "dựa dẫm ỷ lại"
+        ]
+      },
+      {
+        "id": "adj_045",
+        "word": "inevitable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ɪnˈev.ɪ.tə.bəl/",
+        "meaningVi": "tất yếu, không thể tránh khỏi",
+        "collocations": "inevitable outcome, almost inevitable, accept the inevitable",
+        "example": "Occasional mistakes are an inevitable and valuable part of learning any new skill.",
+        "exampleVi": "Những sai sót thỉnh thoảng là phần tất yếu và có giá trị trong việc học bất kỳ kỹ năng mới nào.",
+        "optionsVi": [
+          "tất yếu, không thể tránh khỏi",
+          "hoàn toàn ngăn chặn được",
+          "có thể né tránh",
+          "tình cờ ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "adj_046",
+        "word": "logical",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈlɒdʒ.ɪ.kəl/",
+        "meaningVi": "hợp logic, có lý lẽ chặt chẽ",
+        "collocations": "logical conclusion, logical reasoning, logical step",
+        "example": "Presenting arguments in a logical order makes your essay vastly more persuasive.",
+        "exampleVi": "Trình bày luận điểm theo một thứ tự logic giúp bài luận của bạn thuyết phục hơn nhiều.",
+        "optionsVi": [
+          "hợp logic, có lý lẽ chặt chẽ",
+          "vô lý phi lý",
+          "hỗn loạn rời rạc",
+          "cảm tính bốc đồng"
+        ]
+      },
+      {
+        "id": "adj_047",
+        "word": "loyal",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈlɔɪ.əl/",
+        "meaningVi": "trung thành, gắn bó dài lâu",
+        "collocations": "loyal customer, remain loyal, fiercely loyal",
+        "example": "Rewarding loyal customers with exclusive perks strengthens brand retention.",
+        "exampleVi": "Tặng thưởng cho những khách hàng trung thành bằng các đặc quyền độc quyền giúp củng cố tỷ lệ gắn bó.",
+        "optionsVi": [
+          "trung thành, gắn bó dài lâu",
+          "phản bội tráo trở",
+          "thay lòng đổi dạ",
+          "rời bỏ hàng ngũ"
+        ]
+      },
+      {
+        "id": "adj_048",
+        "word": "memorable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈmem.ər.ə.bəl/",
+        "meaningVi": "đáng nhớ, để lại ấn tượng khó phai",
+        "collocations": "memorable experience, highly memorable, memorable occasion",
+        "example": "Studying abroad provided her with many unforgettable and memorable experiences.",
+        "exampleVi": "Du học đã mang lại cho cô ấy nhiều trải nghiệm đáng nhớ và không thể nào quên.",
+        "optionsVi": [
+          "đáng nhớ, để lại ấn tượng khó phai",
+          "nhạt nhẽo dễ quên",
+          "tầm thường trôi tuột",
+          "đáng quên lãng"
+        ]
+      },
+      {
+        "id": "adj_049",
+        "word": "negative",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈneɡ.ə.tɪv/",
+        "meaningVi": "tiêu cực, có chiều hướng xấu",
+        "collocations": "negative impact, negative feedback, negative attitude",
+        "example": "Chronic stress has a demonstrably negative impact on physical health.",
+        "exampleVi": "Căng thẳng kéo dài gây ra tác động tiêu cực rõ ràng đối với sức khỏe thể chất.",
+        "optionsVi": [
+          "tiêu cực, có chiều hướng xấu",
+          "tích cực lạc quan",
+          "thuận lợi tốt đẹp",
+          "hữu ích phát triển"
+        ]
+      },
+      {
+        "id": "adj_050",
+        "word": "objective",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/əbˈdʒek.tɪv/",
+        "meaningVi": "khách quan, dựa trên dữ liệu không thiên vị",
+        "collocations": "objective assessment, remain objective, objective criteria",
+        "example": "Judges must set aside personal bias and remain completely objective.",
+        "exampleVi": "Các thẩm phán phải gạt bỏ định kiến cá nhân và giữ thái độ hoàn toàn khách quan.",
+        "optionsVi": [
+          "khách quan, dựa trên dữ liệu không thiên vị",
+          "chủ quan thiên vị",
+          "đầy định kiến cá nhân",
+          "bất công cảm tính"
+        ]
+      },
+      {
+        "id": "adj_051",
+        "word": "patient",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈpeɪ.ʃənt/",
+        "meaningVi": "kiên nhẫn, nhẫn nại bền bỉ",
+        "collocations": "be patient with, infinitely patient, patient teacher",
+        "example": "Learning a new language takes time; be patient with yourself during the journey.",
+        "exampleVi": "Học một ngôn ngữ mới cần có thời gian; hãy kiên nhẫn với chính mình trong suốt chặng đường.",
+        "optionsVi": [
+          "kiên nhẫn, nhẫn nại bền bỉ",
+          "nóng nảy sốt ruột",
+          "vội vàng hấp tấp",
+          "dễ nản lòng buông xuôi"
+        ]
+      },
+      {
+        "id": "adj_052",
+        "word": "permanent",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈpɜː.mə.nənt/",
+        "meaningVi": "vĩnh viễn, lâu dài cố định",
+        "collocations": "permanent position, permanent resident, permanent damage",
+        "example": "After six months of probation, he was offered a permanent full-time position.",
+        "exampleVi": "Sau sáu tháng thử việc, anh ấy đã được trao hợp đồng chính thức lâu dài.",
+        "optionsVi": [
+          "vĩnh viễn, lâu dài cố định",
+          "tạm thời ngắn hạn",
+          "thời vụ chớp nhoáng",
+          "bấp bênh không ổn định"
+        ]
+      },
+      {
+        "id": "adj_053",
+        "word": "practical",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈpræk.tɪ.kəl/",
+        "meaningVi": "thực tế, có tính ứng dụng cao",
+        "collocations": "practical experience, practical advice, practical solution",
+        "example": "The workshop focused on delivering practical tips that attendees could use immediately.",
+        "exampleVi": "Buổi hội thảo tập trung vào việc mang lại những lời khuyên thực tế mà người tham dự có thể dùng ngay.",
+        "optionsVi": [
+          "thực tế, có tính ứng dụng cao",
+          "lý thuyết viển vông",
+          "xa rời thực tế",
+          "không dùng được"
+        ]
+      },
+      {
+        "id": "adj_054",
+        "word": "precise",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/prɪˈsaɪs/",
+        "meaningVi": "chính xác đến từng chi tiết, tỉ mỉ",
+        "collocations": "precise measurements, at the precise moment, precise instructions",
+        "example": "The lab technician followed the precise experimental instructions diligently.",
+        "exampleVi": "Kỹ thuật viên phòng lab đã tuân thủ tỉ mỉ từng chỉ dẫn thí nghiệm chính xác.",
+        "optionsVi": [
+          "chính xác đến từng chi tiết, tỉ mỉ",
+          "ước lượng áng chừng",
+          "sai số lớn",
+          "cẩu thả sơ sài"
+        ]
+      },
+      {
+        "id": "adj_055",
+        "word": "productive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/prəˈdʌk.tɪv/",
+        "meaningVi": "năng suất cao, sinh lợi hiệu quả",
+        "collocations": "productive meeting, highly productive, productive day",
+        "example": "Eliminating digital distractions led to an exceptionally productive working session.",
+        "exampleVi": "Loại bỏ những yếu tố xao nhãng kỹ thuật số đã mang lại một buổi làm việc cực kỳ năng suất.",
+        "optionsVi": [
+          "năng suất cao, sinh lợi hiệu quả",
+          "lãng phí thời gian",
+          "đình trệ không ra việc",
+          "vô bổ không kết quả"
+        ]
+      },
+      {
+        "id": "adj_056",
+        "word": "reasonable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈriː.zən.ə.bəl/",
+        "meaningVi": "hợp lý, vừa phải phải chăng",
+        "collocations": "reasonable price, reasonable doubt, perfectly reasonable",
+        "example": "The restaurant serves delicious food at very reasonable prices.",
+        "exampleVi": "Nhà hàng phục vụ đồ ăn ngon miệng với mức giá rất hợp lý phải chăng.",
+        "optionsVi": [
+          "hợp lý, vừa phải phải chăng",
+          "vô lý đắt đỏ",
+          "cắt cổ vô căn cứ",
+          "bất công quá đáng"
+        ]
+      },
+      {
+        "id": "adj_057",
+        "word": "reliable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/rɪˈlaɪ.ə.bəl/",
+        "meaningVi": "đáng tin cậy, vận hành ổn định",
+        "collocations": "reliable source, highly reliable, reliable service",
+        "example": "Always cross-check news against multiple reliable journalistic sources.",
+        "exampleVi": "Hãy luôn đối chiếu tin tức với nhiều nguồn báo chí đáng tin cậy.",
+        "optionsVi": [
+          "đáng tin cậy, vận hành ổn định",
+          "không đáng tin",
+          "chập chờn hay hỏng",
+          "đầy rẫy hoài nghi"
+        ]
+      },
+      {
+        "id": "adj_058",
+        "word": "remarkable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/rɪˈmɑː.kə.bəl/",
+        "meaningVi": "đáng chú ý, xuất sắc phi thường",
+        "collocations": "remarkable achievement, truly remarkable, remarkable progress",
+        "example": "The team achieved remarkable progress within just three sprints.",
+        "exampleVi": "Toàn đội đã đạt được sự tiến bộ xuất sắc đáng nể chỉ trong vòng ba đợt sprint.",
+        "optionsVi": [
+          "đáng chú ý, xuất sắc phi thường",
+          "tầm thường mờ nhạt",
+          "không có gì đặc sắc",
+          "tệ hại đáng thất vọng"
+        ]
+      },
+      {
+        "id": "adj_059",
+        "word": "responsible",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/rɪˈspɒn.sə.bəl/",
+        "meaningVi": "có tinh thần trách nhiệm, chịu trách nhiệm",
+        "collocations": "socially responsible, hold responsible, responsible behavior",
+        "example": "A mature professional acts as a responsible team player at all times.",
+        "exampleVi": "Một người đi làm chững chạc luôn hành xử như một thành viên nhóm đầy trách nhiệm.",
+        "optionsVi": [
+          "có tinh thần trách nhiệm, chịu trách nhiệm",
+          "vô trách nhiệm chối bỏ",
+          "đùn đẩy đổ lỗi",
+          "bỏ mặc nhiệm vụ"
+        ]
+      },
+      {
+        "id": "adj_060",
+        "word": "sensitive",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈsen.sɪ.tɪv/",
+        "meaningVi": "nhạy cảm, bảo mật nhạy bén",
+        "collocations": "sensitive data, highly sensitive, sensitive issue",
+        "example": "Handle all customer personal and financial data with extreme care.",
+        "exampleVi": "Hãy xử lý tất cả dữ liệu cá nhân và tài chính nhạy cảm của khách hàng với sự cẩn trọng tối đa.",
+        "optionsVi": [
+          "nhạy cảm, bảo mật nhạy bén",
+          "công khai đại trà",
+          "vô cảm trơ lỳ",
+          "không cần bảo vệ"
+        ]
+      },
+      {
+        "id": "adj_061",
+        "word": "significant",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/sɪɡˈnɪf.ɪ.kənt/",
+        "meaningVi": "có ý nghĩa quan trọng, đáng kể",
+        "collocations": "significant difference, significant increase, statistically significant",
+        "example": "The new feature drove a significant increase in daily active user engagements.",
+        "exampleVi": "Tính năng mới đã tạo ra một mức tăng đáng kể trong sự tương tác của người dùng hàng ngày.",
+        "optionsVi": [
+          "có ý nghĩa quan trọng, đáng kể",
+          "nhỏ nhặt không đáng kể",
+          "vô nghĩa không ai quan tâm",
+          "hầu như không thay đổi"
+        ]
+      },
+      {
+        "id": "adj_062",
+        "word": "straightforward",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˌstreɪtˈfɔː.wəd/",
+        "meaningVi": "thẳng thắn, đơn giản dễ hiểu",
+        "collocations": "straightforward process, relatively straightforward, straightforward answer",
+        "example": "The software installation procedure is straightforward and takes less than a minute.",
+        "exampleVi": "Quy trình cài đặt phần mềm rất đơn giản dễ hiểu và chỉ mất chưa đầy một phút.",
+        "optionsVi": [
+          "thẳng thắn, đơn giản dễ hiểu",
+          "quanh co phức tạp",
+          "rối rắm khó hiểu",
+          "đánh đố người dùng"
+        ]
+      },
+      {
+        "id": "adj_063",
+        "word": "sufficient",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/səˈfɪʃ.ənt/",
+        "meaningVi": "vừa đủ, thỏa đáng nhu cầu",
+        "collocations": "sufficient time, sufficient evidence, more than sufficient",
+        "example": "Two weeks is sufficient time to prepare thoroughly for the presentation.",
+        "exampleVi": "Hai tuần là khoảng thời gian vừa đủ để chuẩn bị thật kỹ lưỡng cho buổi thuyết trình.",
+        "optionsVi": [
+          "vừa đủ, thỏa đáng nhu cầu",
+          "thiếu thốn thiếu hụt",
+          "quá ít không đủ",
+          "dư thừa lãng phí"
+        ]
+      },
+      {
+        "id": "adj_064",
+        "word": "temporary",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈtem.pər.ər.i/",
+        "meaningVi": "tạm thời, có tính thời vụ",
+        "collocations": "temporary solution, temporary position, temporary setback",
+        "example": "This workaround is only a temporary solution until the patch is deployed.",
+        "exampleVi": "Phương án khắc phục này chỉ là giải pháp tạm thời cho đến khi bản vá được triển khai.",
+        "optionsVi": [
+          "tạm thời, có tính thời vụ",
+          "vĩnh viễn cố định",
+          "lâu dài bền bỉ",
+          "bất biến không đổi"
+        ]
+      },
+      {
+        "id": "adj_065",
+        "word": "valuable",
+        "level": "B1",
+        "type": "adjective",
+        "ipa": "/ˈvæl.jə.bəl/",
+        "meaningVi": "quý giá, mang lại giá trị cao",
+        "collocations": "valuable lesson, valuable insight, valuable contribution",
+        "example": "Every mistake you make and reflect upon is a valuable lesson for growth.",
+        "exampleVi": "Mỗi lỗi lầm bạn mắc phải và đúc rút lại đều là một bài học quý giá cho sự trưởng thành.",
+        "optionsVi": [
+          "quý giá, mang lại giá trị cao",
+          "vô giá trị rác rưởi",
+          "vô bổ tầm thường",
+          "không ai cần đến"
+        ]
+      },
+      {
+        "id": "adj_066",
+        "word": "ambiguous",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/æmˈbɪɡ.ju.əs/",
+        "meaningVi": "mơ hồ, đa nghĩa khó đoán",
+        "collocations": "deliberately ambiguous, ambiguous wording, highly ambiguous",
+        "example": "The contract clause was too ambiguous, leading to prolonged legal disputes.",
+        "exampleVi": "Điều khoản hợp đồng quá mơ hồ, dẫn đến các tranh chấp pháp lý kéo dài.",
+        "optionsVi": [
+          "mơ hồ, đa nghĩa khó đoán",
+          "rõ ràng rành mạch",
+          "minh bạch dứt khoát",
+          "hiển nhiên dễ hiểu"
+        ]
+      },
+      {
+        "id": "adj_067",
+        "word": "authentic",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɔːˈθen.tɪk/",
+        "meaningVi": "đích thực, nguyên bản không lai tạp",
+        "collocations": "authentic experience, authentic flavor, authentic leadership",
+        "example": "Authentic leaders inspire genuine trust because their words match their daily actions.",
+        "exampleVi": "Những nhà lãnh đạo chân chính tạo dựng được niềm tin thực thụ bởi lời nói luôn đi đôi với hành động hàng ngày.",
+        "optionsVi": [
+          "đích thực, nguyên bản không lai tạp",
+          "hàng nhái sao chép",
+          "giả tạo đóng kịch",
+          "lai căng pha tạp"
+        ]
+      },
+      {
+        "id": "adj_068",
+        "word": "coherent",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kəʊˈhɪə.rənt/",
+        "meaningVi": "mạch lạc, liên kết chặt chẽ logic",
+        "collocations": "coherent argument, coherent strategy, highly coherent",
+        "example": "The report presented a coherent and persuasive case for adopting clean energy.",
+        "exampleVi": "Bản báo cáo đã đưa ra một luận điểm mạch lạc và đầy tính thuyết phục cho việc áp dụng năng lượng sạch.",
+        "optionsVi": [
+          "mạch lạc, liên kết chặt chẽ logic",
+          "rời rạc lộn xộn",
+          "mâu thuẫn đá nhau",
+          "lan man không đầu đuôi"
+        ]
+      },
+      {
+        "id": "adj_069",
+        "word": "comprehensive",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌkɒm.prɪˈhen.sɪv/",
+        "meaningVi": "toàn diện, bao quát mọi góc độ",
+        "collocations": "comprehensive review, comprehensive guide, comprehensive insurance",
+        "example": "The onboarding program offers a comprehensive guide to company tools and processes.",
+        "exampleVi": "Chương trình hòa nhập cung cấp một tài liệu hướng dẫn toàn diện về các công cụ và quy trình của công ty.",
+        "optionsVi": [
+          "toàn diện, bao quát mọi góc độ",
+          "chắp vá sơ sài",
+          "phiến diện một chiều",
+          "bỏ sót nhiều mảng"
+        ]
+      },
+      {
+        "id": "adj_070",
+        "word": "compulsory",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kəmˈpʌl.sər.i/",
+        "meaningVi": "bắt buộc phải tuân thủ",
+        "collocations": "compulsory education, compulsory attendance, compulsory military service",
+        "example": "Wearing safety goggles is strictly compulsory in the chemical laboratory.",
+        "exampleVi": "Đeo kính bảo hộ là quy định bắt buộc tuyệt đối trong phòng thí nghiệm hóa chất.",
+        "optionsVi": [
+          "bắt buộc phải tuân thủ",
+          "tùy ý tự nguyện",
+          "không bắt buộc",
+          "khuyến khích không ép"
+        ]
+      },
+      {
+        "id": "adj_071",
+        "word": "confidential",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌkɒn.fɪˈden.ʃəl/",
+        "meaningVi": "bảo mật, tuyệt mật nghiêm ngặt",
+        "collocations": "strictly confidential, confidential information, confidential report",
+        "example": "All customer transaction histories are treated as strictly confidential data.",
+        "exampleVi": "Mọi lịch sử giao dịch của khách hàng đều được xử lý như dữ liệu tuyệt mật nghiêm ngặt.",
+        "optionsVi": [
+          "bảo mật, tuyệt mật nghiêm ngặt",
+          "công khai đại chúng",
+          "tiết lộ tự do",
+          "phát tán rộng rãi"
+        ]
+      },
+      {
+        "id": "adj_072",
+        "word": "consecutive",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kənˈsek.jə.tɪv/",
+        "meaningVi": "liên tiếp, không ngắt quãng",
+        "collocations": "consecutive days, consecutive years, for three consecutive months",
+        "example": "He maintained a streak of forty consecutive days of English vocabulary practice.",
+        "exampleVi": "Anh ấy đã duy trì chuỗi bốn mươi ngày liên tiếp luyện tập từ vựng tiếng Anh.",
+        "optionsVi": [
+          "liên tiếp, không ngắt quãng",
+          "ngắt quãng chắp vá",
+          "thỉnh thoảng ngẫu nhiên",
+          "rời rạc từng đợt"
+        ]
+      },
+      {
+        "id": "adj_073",
+        "word": "considerable",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kənˈsɪd.ər.ə.bəl/",
+        "meaningVi": "đáng kể, to lớn có trọng lượng",
+        "collocations": "considerable amount, considerable impact, considerable effort",
+        "example": "The team invested a considerable amount of effort into optimizing mobile app performance.",
+        "exampleVi": "Toàn đội đã đầu tư một lượng công sức đáng kể vào việc tối ưu hóa hiệu năng ứng dụng di động.",
+        "optionsVi": [
+          "đáng kể, to lớn có trọng lượng",
+          "ít ỏi không đáng kể",
+          "tầm thường vụn vặt",
+          "nhỏ nhoi tượng trưng"
+        ]
+      },
+      {
+        "id": "adj_074",
+        "word": "constructive",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/kənˈstrʌk.tɪv/",
+        "meaningVi": "mang tính xây dựng tích cực",
+        "collocations": "constructive feedback, constructive dialogue, constructive criticism",
+        "example": "Providing constructive feedback helps your peers grow without feeling discouraged.",
+        "exampleVi": "Đưa ra phản hồi mang tính xây dựng giúp đồng nghiệp tiến bộ mà không cảm thấy nản lòng.",
+        "optionsVi": [
+          "mang tính xây dựng tích cực",
+          "phá hoại tiêu cực",
+          "chỉ trích vùi dập",
+          "công kích ác ý"
+        ]
+      },
+      {
+        "id": "adj_075",
+        "word": "crucial",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈkruː.ʃəl/",
+        "meaningVi": "tối quan trọng, mang tính quyết định",
+        "collocations": "crucial role, crucial factor, of crucial importance",
+        "example": "Securing initial funding was crucial for building the technical prototype.",
+        "exampleVi": "Đảm bảo nguồn vốn ban đầu là điều tối quan trọng để xây dựng bản mẫu kỹ thuật.",
+        "optionsVi": [
+          "tối quan trọng, mang tính quyết định",
+          "thứ yếu ngoài lề",
+          "tầm thường không cần",
+          "bỏ qua cũng được"
+        ]
+      },
+      {
+        "id": "adj_076",
+        "word": "detrimental",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌdet.rɪˈmen.təl/",
+        "meaningVi": "gây hại, phương hại nghiêm trọng",
+        "collocations": "detrimental effect, detrimental to health, highly detrimental",
+        "example": "Excessive screen time before bed has a detrimental effect on sleep quality.",
+        "exampleVi": "Dùng màn hình quá nhiều trước khi ngủ gây tác hại nghiêm trọng đến chất lượng giấc ngủ.",
+        "optionsVi": [
+          "gây hại, phương hại nghiêm trọng",
+          "có lợi bổ ích",
+          "nâng cao thể lực",
+          "an toàn tuyệt đối"
+        ]
+      },
+      {
+        "id": "adj_077",
+        "word": "distinctive",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/dɪˈstɪŋk.tɪv/",
+        "meaningVi": "đặc sắc, dễ nhận diện riêng biệt",
+        "collocations": "distinctive feature, distinctive style, distinctive brand identity",
+        "example": "Minimalist design is the most distinctive feature of the new product line.",
+        "exampleVi": "Thiết kế tối giản là nét đặc sắc dễ nhận diện nhất của dòng sản phẩm mới.",
+        "optionsVi": [
+          "đặc sắc, dễ nhận diện riêng biệt",
+          "đại trà nhạt nhòa",
+          "sao chép phổ thông",
+          "không có điểm nhấn"
+        ]
+      },
+      {
+        "id": "adj_078",
+        "word": "drastic",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈdræs.tɪk/",
+        "meaningVi": "quyết liệt, mạnh mẽ sâu sắc",
+        "collocations": "drastic measures, drastic change, take drastic action",
+        "example": "The company took drastic measures to cut operational overhead during the recession.",
+        "exampleVi": "Công ty đã thực hiện những biện pháp quyết liệt để cắt giảm chi phí vận hành trong thời kỳ suy thoái.",
+        "optionsVi": [
+          "quyết liệt, mạnh mẽ sâu sắc",
+          "nhẹ nhàng nửa vời",
+          "không đáng kể",
+          "thỏa hiệp mềm mỏng"
+        ]
+      },
+      {
+        "id": "adj_079",
+        "word": "elaborate",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/iˈlæb.ər.ət/",
+        "meaningVi": "công phu, tỉ mỉ phức tạp",
+        "collocations": "elaborate plan, elaborate design, elaborate scheme",
+        "example": "The event team prepared an elaborate stage design for the annual gala.",
+        "exampleVi": "Đội sự kiện đã chuẩn bị một thiết kế sân khấu hết sức công phu cho đêm gala thường niên.",
+        "optionsVi": [
+          "công phu, tỉ mỉ phức tạp",
+          "sơ sài đơn giản",
+          "qua loa đại khái",
+          "nhạt nhẽo cẩu thả"
+        ]
+      },
+      {
+        "id": "adj_080",
+        "word": "exceptional",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɪkˈsep.ʃən.əl/",
+        "meaningVi": "xuất chúng, phi thường kiệt xuất",
+        "collocations": "exceptional talent, exceptional performance, exceptional quality",
+        "example": "She demonstrated exceptional leadership skills throughout the crisis.",
+        "exampleVi": "Cô ấy đã thể hiện kỹ năng lãnh đạo xuất chúng trong suốt cuộc khủng hoảng.",
+        "optionsVi": [
+          "xuất chúng, phi thường kiệt xuất",
+          "tầm thường trung bình",
+          "kém cỏi yếu kém",
+          "không có gì nổi bật"
+        ]
+      },
+      {
+        "id": "adj_081",
+        "word": "exhaustive",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɪɡˈzɔː.stɪv/",
+        "meaningVi": "thấu đáo, triệt để đến cùng",
+        "collocations": "exhaustive search, exhaustive list, exhaustive investigation",
+        "example": "The engineers conducted an exhaustive investigation into the root cause of the outage.",
+        "exampleVi": "Các kỹ sư đã tiến hành một cuộc điều tra thấu đáo về nguyên nhân gốc rễ của sự cố sập mạng.",
+        "optionsVi": [
+          "thấu đáo, triệt để đến cùng",
+          "xem lướt bề ngoài",
+          "nông cạn qua loa",
+          "bỏ qua nửa chừng"
+        ]
+      },
+      {
+        "id": "adj_082",
+        "word": "feasible",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈfiː.zə.bəl/",
+        "meaningVi": "khả thi, có thể đưa vào thực tế",
+        "collocations": "technically feasible, commercially feasible, economically feasible",
+        "example": "With current battery advancements, electric aviation is becoming commercially feasible.",
+        "exampleVi": "Với những tiến bộ pin hiện tại, hàng không điện đang dần trở nên khả thi về mặt thương mại.",
+        "optionsVi": [
+          "khả thi, có thể đưa vào thực tế",
+          "bất khả thi viển vông",
+          "không thể làm được",
+          "ảo tưởng xa rời"
+        ]
+      },
+      {
+        "id": "adj_083",
+        "word": "formidable",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/fɔːˈmɪd.ə.bəl/",
+        "meaningVi": "đáng gờm, ghê gớm khó đánh bại",
+        "collocations": "formidable opponent, formidable challenge, formidable obstacle",
+        "example": "Entering the global market proved to be a formidable but rewarding challenge.",
+        "exampleVi": "Thâm nhập thị trường toàn cầu đã chứng tỏ là một thử thách đáng gờm nhưng rất xứng đáng.",
+        "optionsVi": [
+          "đáng gờm, ghê gớm khó đánh bại",
+          "yếu ớt dễ bắt nạt",
+          "tầm thường vô hại",
+          "không đáng bận tâm"
+        ]
+      },
+      {
+        "id": "adj_084",
+        "word": "fundamental",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌfʌn.dəˈmen.təl/",
+        "meaningVi": "nền tảng, căn bản cốt lõi",
+        "collocations": "fundamental difference, fundamental principles, fundamental change",
+        "example": "Understanding grammar fundamentals is crucial before building complex conversational fluency.",
+        "exampleVi": "Nắm vững các nguyên tắc ngữ pháp căn bản là điều tối quan trọng trước khi rèn độ lưu loát đàm thoại phức tạp.",
+        "optionsVi": [
+          "nền tảng, căn bản cốt lõi",
+          "chi tiết ngoài lề",
+          "phù phiếm bề mặt",
+          "không đóng vai trò gì"
+        ]
+      },
+      {
+        "id": "adj_085",
+        "word": "imperative",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɪmˈper.ə.tɪv/",
+        "meaningVi": "cấp bách, tối khẩn thiết phải làm",
+        "collocations": "vitally imperative, become imperative, imperative that",
+        "example": "It is vitally imperative that all servers are patched against the security exploit immediately.",
+        "exampleVi": "Điều tối khẩn thiết là tất cả các máy chủ phải được cập nhật bản vá chống lỗ hổng bảo mật ngay lập tức.",
+        "optionsVi": [
+          "cấp bách, tối khẩn thiết phải làm",
+          "trì hoãn cũng được",
+          "không quan trọng",
+          "tùy ý muốn làm hay không"
+        ]
+      },
+      {
+        "id": "adj_086",
+        "word": "implicit",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɪmˈplɪs.ɪt/",
+        "meaningVi": "ngầm hiểu, hàm ẩn không nói thẳng",
+        "collocations": "implicit trust, implicit assumption, implicit meaning",
+        "example": "There was an implicit understanding between the two partners without signing extra papers.",
+        "exampleVi": "Đã có một sự thấu hiểu ngầm giữa hai đối tác mà không cần phải ký thêm giấy tờ phụ.",
+        "optionsVi": [
+          "ngầm hiểu, hàm ẩn không nói thẳng",
+          "nói toạc móng heo",
+          "văn bản rành mạch",
+          "tuyên bố công khai"
+        ]
+      },
+      {
+        "id": "adj_087",
+        "word": "incompatible",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌɪn.kəmˈpæt.ə.bəl/",
+        "meaningVi": "xung khắc, không tương thích",
+        "collocations": "incompatible with, mutually incompatible, fundamentally incompatible",
+        "example": "The legacy software was completely incompatible with the newly installed operating system.",
+        "exampleVi": "Phần mềm cũ hoàn toàn không tương thích với hệ điều hành mới được cài đặt.",
+        "optionsVi": [
+          "xung khắc, không tương thích",
+          "hoàn toàn đồng bộ",
+          "kết nối ăn khớp",
+          "tương thích mượt mà"
+        ]
+      },
+      {
+        "id": "adj_088",
+        "word": "indispensable",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˌɪn.dɪˈspen.sə.bəl/",
+        "meaningVi": "không thể thiếu được, tối cần thiết",
+        "collocations": "indispensable tool, become indispensable, prove indispensable",
+        "example": "Version control systems have become indispensable tools for modern software development teams.",
+        "exampleVi": "Các hệ thống quản lý phiên bản (Git) đã trở thành công cụ không thể thiếu đối với các đội phát triển phần mềm hiện đại.",
+        "optionsVi": [
+          "không thể thiếu được, tối cần thiết",
+          "thừa thãi bỏ đi",
+          "không dùng cũng được",
+          "dễ dàng thay thế"
+        ]
+      },
+      {
+        "id": "adj_089",
+        "word": "ingenious",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ɪnˈdʒiː.ni.əs/",
+        "meaningVi": "tài tình, khéo léo thông minh xuất sắc",
+        "collocations": "ingenious solution, ingenious design, truly ingenious",
+        "example": "The engineer devised an ingenious solution that reduced power consumption by forty percent.",
+        "exampleVi": "Kỹ sư đã nghĩ ra một giải pháp tài tình giúp giảm lượng tiêu thụ điện năng tới bốn mươi phần trăm.",
+        "optionsVi": [
+          "tài tình, khéo léo thông minh xuất sắc",
+          "vụng về ngô nghê",
+          "ngớ ngẩn sáo rỗng",
+          "lạc hậu thô sơ"
+        ]
+      },
+      {
+        "id": "adj_090",
+        "word": "lucrative",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈluː.krə.tɪv/",
+        "meaningVi": "sinh lời cao, mang lại lợi nhuận béo bở",
+        "collocations": "lucrative business, lucrative contract, highly lucrative",
+        "example": "The startup secured a highly lucrative contract with a multinational telecommunications firm.",
+        "exampleVi": "Công ty khởi nghiệp đã giành được một hợp đồng sinh lời rất cao với tập đoàn viễn thông đa quốc gia.",
+        "optionsVi": [
+          "sinh lời cao, mang lại lợi nhuận béo bở",
+          "thua lỗ triền miên",
+          "không có lãi",
+          "lợi nhuận bèo bọt"
+        ]
+      },
+      {
+        "id": "adj_091",
+        "word": "mandatory",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈmæn.də.tər.i/",
+        "meaningVi": "có tính bắt buộc thi hành theo luật",
+        "collocations": "mandatory requirement, mandatory training, make mandatory",
+        "example": "Data privacy training is strictly mandatory for all newly hired banking staff.",
+        "exampleVi": "Đào tạo bảo mật dữ liệu là bắt buộc nghiêm ngặt đối với tất cả nhân viên ngân hàng mới tuyển dụng.",
+        "optionsVi": [
+          "có tính bắt buộc thi hành theo luật",
+          "tùy chọn tự ý",
+          "không ép buộc",
+          "khuyến khích tự nguyện"
+        ]
+      },
+      {
+        "id": "adj_092",
+        "word": "meticulous",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/məˈtɪk.jə.ləs/",
+        "meaningVi": "tỉ mỉ, cẩn thận từng chi tiết nhỏ",
+        "collocations": "meticulous attention to detail, meticulous planning, highly meticulous",
+        "example": "Her meticulous attention to detail ensured the research paper was published without corrections.",
+        "exampleVi": "Sự chú ý tỉ mỉ đến từng chi tiết của cô ấy đã giúp bài báo khoa học được xuất bản mà không cần chỉnh sửa.",
+        "optionsVi": [
+          "tỉ mỉ, cẩn thận từng chi tiết nhỏ",
+          "cẩu thả qua loa",
+          "bừa bãi luộm thuộm",
+          "xem thường chi tiết"
+        ]
+      },
+      {
+        "id": "adj_093",
+        "word": "paramount",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈpær.ə.maʊnt/",
+        "meaningVi": "tối quan trọng, đứng hàng đầu",
+        "collocations": "of paramount importance, paramount concern, paramount priority",
+        "example": "Passenger safety is of paramount importance in the design of high-speed rail systems.",
+        "exampleVi": "Sự an toàn của hành khách là điều tối quan trọng hàng đầu trong thiết kế hệ thống đường sắt cao tốc.",
+        "optionsVi": [
+          "tối quan trọng, đứng hàng đầu",
+          "thứ cấp mờ nhạt",
+          "xếp hàng cuối cùng",
+          "không đáng để ý"
+        ]
+      },
+      {
+        "id": "adj_094",
+        "word": "plausible",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈplɔː.zə.bəl/",
+        "meaningVi": "hợp lý, có cơ sở đáng tin",
+        "collocations": "plausible explanation, perfectly plausible, plausible scenario",
+        "example": "The detective presented a perfectly plausible scenario of how the break-in occurred.",
+        "exampleVi": "Vị thám tử đã đưa ra một kịch bản hoàn toàn có cơ sở hợp lý về cách vụ đột nhập đã diễn ra.",
+        "optionsVi": [
+          "hợp lý, có cơ sở đáng tin",
+          "phi lý không tưởng",
+          "hoang đường bịa đặt",
+          "không có căn cứ"
+        ]
+      },
+      {
+        "id": "adj_095",
+        "word": "profound",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/prəˈfaʊnd/",
+        "meaningVi": "sâu sắc, mang ý nghĩa thâm thúy",
+        "collocations": "profound impact, profound insight, profound understanding",
+        "example": "The mentor's advice had a profound impact on his approach to problem-solving.",
+        "exampleVi": "Lời khuyên của người cố vấn đã có tác động sâu sắc đến cách tiếp cận giải quyết vấn đề của anh ấy.",
+        "optionsVi": [
+          "sâu sắc, mang ý nghĩa thâm thúy",
+          "hời hợt nông cạn",
+          "tầm thường vô bổ",
+          "nông nổi bồng bột"
+        ]
+      },
+      {
+        "id": "adj_096",
+        "word": "redundant",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/rɪˈdʌn.dənt/",
+        "meaningVi": "dư thừa, không cần thiết phải giữ",
+        "collocations": "redundant data, become redundant, make redundant",
+        "example": "Modern cloud migration made several old on-premise hardware servers redundant.",
+        "exampleVi": "Việc chuyển đổi lên đám mây hiện đại đã khiến nhiều máy chủ phần cứng tại chỗ cũ trở nên dư thừa.",
+        "optionsVi": [
+          "dư thừa, không cần thiết phải giữ",
+          "tối cần thiết phải có",
+          "quý giá khan hiếm",
+          "đang được trọng dụng"
+        ]
+      },
+      {
+        "id": "adj_097",
+        "word": "resilient",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/rɪˈzɪl.i.ənt/",
+        "meaningVi": "kiên cường, nhanh chóng phục hồi",
+        "collocations": "resilient economy, highly resilient, resilient infrastructure",
+        "example": "Building a resilient software architecture ensures zero downtime during traffic spikes.",
+        "exampleVi": "Xây dựng kiến trúc phần mềm kiên cường đảm bảo hệ thống không bị sập khi lưu lượng truy cập tăng vọt.",
+        "optionsVi": [
+          "kiên cường, nhanh chóng phục hồi",
+          "mong manh dễ vỡ",
+          "dễ sụp đổ tê liệt",
+          "yếu ớt đầu hàng"
+        ]
+      },
+      {
+        "id": "adj_098",
+        "word": "stringent",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈstrɪn.dʒənt/",
+        "meaningVi": "nghiêm ngặt, thắt chặt khắt khe",
+        "collocations": "stringent regulations, stringent requirements, stringent measures",
+        "example": "Pharmaceutical products must undergo stringent safety testing before clinical approval.",
+        "exampleVi": "Các sản phẩm dược phẩm phải trải qua các đợt kiểm tra an toàn nghiêm ngặt trước khi được cấp phép lâm sàng.",
+        "optionsVi": [
+          "nghiêm ngặt, thắt chặt khắt khe",
+          "lỏng lẻo buông lỏng",
+          "dễ dãi tùy tiện",
+          "không có kiểm soát"
+        ]
+      },
+      {
+        "id": "adj_099",
+        "word": "subtle",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈsʌt.əl/",
+        "meaningVi": "tinh tế, vi tế khó nhận biết",
+        "collocations": "subtle difference, subtle change, subtle hint",
+        "example": "There is a subtle difference in nuance between these two advanced English synonyms.",
+        "exampleVi": "Có một sự khác biệt tinh tế về sắc thái giữa hai từ đồng nghĩa tiếng Anh nâng cao này.",
+        "optionsVi": [
+          "tinh tế, vi tế khó nhận biết",
+          "thô thiển lộ liễu",
+          "đập ngay vào mắt",
+          "rõ ràng quá mức"
+        ]
+      },
+      {
+        "id": "adj_100",
+        "word": "vulnerable",
+        "level": "B2",
+        "type": "adjective",
+        "ipa": "/ˈvʌl.nər.ə.bəl/",
+        "meaningVi": "dễ bị tổn thương, có điểm yếu",
+        "collocations": "vulnerable to attack, vulnerable population, highly vulnerable",
+        "example": "Outdated software versions leave systems highly vulnerable to automated cyber attacks.",
+        "exampleVi": "Các phiên bản phần mềm lỗi thời khiến hệ thống rất dễ bị tổn thương trước các cuộc tấn công mạng tự động.",
+        "optionsVi": [
+          "dễ bị tổn thương, có điểm yếu",
+          "bất khả xâm phạm",
+          "vững như bàn thạch",
+          "được bảo vệ tuyệt đối"
+        ]
+      }
+    ]
+  },
+  {
+    "groupId": "pos_adverbs",
+    "name": "100 Trạng Từ Bổ Trợ Ngữ Cảnh (Core Adverbs)",
+    "icon": "🎯",
+    "category": "pos",
+    "level": "B1",
+    "description": "100 trạng từ then chốt A2–B2 biểu thị mức độ, tần suất, thái độ và liên kết ý chặt chẽ.",
+    "words": [
+      {
+        "id": "adv_001",
+        "word": "actually",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈæk.tʃu.ə.li/",
+        "meaningVi": "thực ra, thực sự là",
+        "collocations": "actually happen, actually mean, not actually true",
+        "example": "I didn't think I would enjoy the workshop, but it was actually very informative.",
+        "exampleVi": "Tôi từng nghĩ mình sẽ không thích buổi hội thảo, nhưng thực ra nó rất nhiều thông tin bổ ích.",
+        "optionsVi": [
+          "thực ra, thực sự là",
+          "chắc chắn trong tương lai",
+          "chỉ là tạm thời",
+          "hoàn toàn ngẫu nhiên"
+        ]
+      },
+      {
+        "id": "adv_002",
+        "word": "already",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ɔːlˈred.i/",
+        "meaningVi": "đã, rồi (sớm hơn dự kiến)",
+        "collocations": "already know, already done, have already seen",
+        "example": "We have already submitted the project report ahead of the deadline.",
+        "exampleVi": "Chúng tôi đã nộp báo cáo dự án trước thời hạn quy định.",
+        "optionsVi": [
+          "đã, rồi (sớm hơn dự kiến)",
+          "chưa từng bao giờ",
+          "sắp sửa bắt đầu",
+          "rất hiếm khi xảy ra"
+        ]
+      },
+      {
+        "id": "adv_003",
+        "word": "clearly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈklɪə.li/",
+        "meaningVi": "rõ ràng, rành mạch",
+        "collocations": "state clearly, clearly understand, see clearly",
+        "example": "Please state your requirements clearly so that we can assist you properly.",
+        "exampleVi": "Vui lòng nêu rõ các yêu cầu của bạn một cách rõ ràng để chúng tôi hỗ trợ đúng cách.",
+        "optionsVi": [
+          "rõ ràng, rành mạch",
+          "mơ hồ khó hiểu",
+          "lúng túng ngập ngừng",
+          "hoàn toàn bí mật"
+        ]
+      },
+      {
+        "id": "adv_004",
+        "word": "completely",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/kəmˈpliːt.li/",
+        "meaningVi": "hoàn toàn, trọn vẹn",
+        "collocations": "completely agree, completely different, completely free",
+        "example": "The new operating system is completely different from the previous version.",
+        "exampleVi": "Hệ điều hành mới hoàn toàn khác biệt so với phiên bản trước đó.",
+        "optionsVi": [
+          "hoàn toàn, trọn vẹn",
+          "chỉ một phần nhỏ",
+          "tạm thời gián đoạn",
+          "hầu như không có"
+        ]
+      },
+      {
+        "id": "adv_005",
+        "word": "especially",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ɪˈspeʃ.əl.i/",
+        "meaningVi": "đặc biệt là, nhất là",
+        "collocations": "especially important, especially useful, especially for beginners",
+        "example": "Consistent practice is especially important when learning a new language.",
+        "exampleVi": "Luyện tập đều đặn là đặc biệt quan trọng khi học một ngôn ngữ mới.",
+        "optionsVi": [
+          "đặc biệt là, nhất là",
+          "nhìn chung đại khái",
+          "hoàn toàn bình thường",
+          "không quan trọng lắm"
+        ]
+      },
+      {
+        "id": "adv_006",
+        "word": "finally",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈfaɪ.nəl.i/",
+        "meaningVi": "cuối cùng, rốt cuộc",
+        "collocations": "finally arrive, finally decide, finally agree",
+        "example": "After weeks of negotiations, both parties finally reached an agreement.",
+        "exampleVi": "Sau nhiều tuần đàm phán, cả hai bên cuối cùng đã đạt được thỏa thuận.",
+        "optionsVi": [
+          "cuối cùng, rốt cuộc",
+          "ngay từ lúc đầu",
+          "thỉnh thoảng đôi khi",
+          "không bao giờ xong"
+        ]
+      },
+      {
+        "id": "adv_007",
+        "word": "hardly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈhɑːd.li/",
+        "meaningVi": "hầu như không, hiếm khi",
+        "collocations": "hardly ever, hardly notice, hardly believe",
+        "example": "He was so tired that he could hardly keep his eyes open during the lecture.",
+        "exampleVi": "Anh ấy mệt đến mức hầu như không thể mở nổi mắt trong suốt bài giảng.",
+        "optionsVi": [
+          "hầu như không, hiếm khi",
+          "rất thường xuyên",
+          "chắc chắn làm được",
+          "liên tục không ngừng"
+        ]
+      },
+      {
+        "id": "adv_008",
+        "word": "nearly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈnɪə.li/",
+        "meaningVi": "gần như, suýt nữa",
+        "collocations": "nearly finished, nearly everyone, nearly double",
+        "example": "The construction project is nearly finished and ready for inspection.",
+        "exampleVi": "Dự án xây dựng đã gần như hoàn thành và sẵn sàng cho việc nghiệm thu.",
+        "optionsVi": [
+          "gần như, suýt nữa",
+          "chưa bắt đầu",
+          "chắc chắn xa vời",
+          "hoàn toàn thất bại"
+        ]
+      },
+      {
+        "id": "adv_009",
+        "word": "probably",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈprɒb.ə.bli/",
+        "meaningVi": "có lẽ, có khả năng cao",
+        "collocations": "most probably, probably right, will probably happen",
+        "example": "The train will probably arrive late due to the heavy snowfall.",
+        "exampleVi": "Chuyến tàu có lẽ sẽ đến muộn do đợt tuyết rơi dày đặc.",
+        "optionsVi": [
+          "có lẽ, có khả năng cao",
+          "chắc chắn không bao giờ",
+          "tuyệt đối trăm phần trăm",
+          "hoàn toàn ngẫu hứng"
+        ]
+      },
+      {
+        "id": "adv_010",
+        "word": "quickly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈkwɪk.li/",
+        "meaningVi": "nhanh chóng, mau lẹ",
+        "collocations": "respond quickly, adapt quickly, learn quickly",
+        "example": "Our support agents responded quickly to resolve the customer's issue.",
+        "exampleVi": "Các nhân viên hỗ trợ của chúng tôi đã phản hồi nhanh chóng để giải quyết vấn đề của khách hàng.",
+        "optionsVi": [
+          "nhanh chóng, mau lẹ",
+          "chậm chạp lề mề",
+          "ngập ngừng do dự",
+          "từ từ từng bước"
+        ]
+      },
+      {
+        "id": "adv_011",
+        "word": "quietly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈkwaɪət.li/",
+        "meaningVi": "lặng lẽ, yên tĩnh, khẽ khàng",
+        "collocations": "speak quietly, sit quietly, work quietly",
+        "example": "Please work quietly in the library so you do not disturb others.",
+        "exampleVi": "Vui lòng làm việc yên tĩnh trong thư viện để không làm phiền người khác.",
+        "optionsVi": [
+          "lặng lẽ, yên tĩnh, khẽ khàng",
+          "ồn ào huyên náo",
+          "la hét ầm ĩ",
+          "phô trương rầm rộ"
+        ]
+      },
+      {
+        "id": "adv_012",
+        "word": "really",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈrɪə.li/",
+        "meaningVi": "thực sự, rất",
+        "collocations": "really appreciate, really want, really helpful",
+        "example": "We really appreciate your constructive feedback on our software update.",
+        "exampleVi": "Chúng tôi thực sự trân trọng những phản hồi mang tính xây dựng của bạn về bản cập nhật phần mềm.",
+        "optionsVi": [
+          "thực sự, rất",
+          "giả tạo đóng kịch",
+          "hời hợt qua loa",
+          "hầu như chẳng quan tâm"
+        ]
+      },
+      {
+        "id": "adv_013",
+        "word": "recently",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈriː.sənt.li/",
+        "meaningVi": "gần đây, mới đây",
+        "collocations": "until recently, have recently published, recently discovered",
+        "example": "The firm has recently expanded its offices to three international cities.",
+        "exampleVi": "Công ty gần đây đã mở rộng văn phòng tới ba thành phố quốc tế.",
+        "optionsVi": [
+          "gần đây, mới đây",
+          "từ thời cổ đại",
+          "trong tương lai xa",
+          "rất lâu về trước"
+        ]
+      },
+      {
+        "id": "adv_014",
+        "word": "suddenly",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈsʌd.ən.li/",
+        "meaningVi": "đột nhiên, bất ngờ",
+        "collocations": "suddenly realize, suddenly change, stop suddenly",
+        "example": "The weather changed suddenly from bright sunshine to a heavy downpour.",
+        "exampleVi": "Thời tiết đột nhiên chuyển từ nắng chói chang sang mưa rào xối xả.",
+        "optionsVi": [
+          "đột nhiên, bất ngờ",
+          "từ từ theo lịch hẹn",
+          "được báo trước",
+          "theo kế hoạch tuần tự"
+        ]
+      },
+      {
+        "id": "adv_015",
+        "word": "usually",
+        "level": "A2",
+        "type": "adverb",
+        "ipa": "/ˈjuː.ʒu.ə.li/",
+        "meaningVi": "thông thường, thường lệ",
+        "collocations": "as usually happens, usually take, usually work",
+        "example": "The team usually conducts a brief stand-up meeting every morning at nine.",
+        "exampleVi": "Cả nhóm thường tổ chức một cuộc họp nhanh mỗi buổi sáng lúc chín giờ.",
+        "optionsVi": [
+          "thông thường, thường lệ",
+          "chưa từng xảy ra",
+          "hiếm khi ngoại lệ",
+          "chỉ một lần duy nhất"
+        ]
+      },
+      {
+        "id": "adv_016",
+        "word": "absolutely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈæb.sə.luːt.li/",
+        "meaningVi": "tuyệt đối, hoàn toàn chắc chắn",
+        "collocations": "absolutely necessary, absolutely essential, agree absolutely",
+        "example": "Accurate financial bookkeeping is absolutely essential for tax compliance.",
+        "exampleVi": "Sổ sách kế toán tài chính chính xác là điều tuyệt đối cần thiết để tuân thủ thuế.",
+        "optionsVi": [
+          "tuyệt đối, hoàn toàn chắc chắn",
+          "tương đối sơ sài",
+          "nửa vời mơ hồ",
+          "không đáng tin cậy"
+        ]
+      },
+      {
+        "id": "adv_017",
+        "word": "accurately",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈæk.jə.rət.li/",
+        "meaningVi": "chính xác, đúng đắn",
+        "collocations": "measure accurately, record accurately, reflect accurately",
+        "example": "The financial model accurately reflects market changes under inflation.",
+        "exampleVi": "Mô hình tài chính phản ánh chính xác các biến động thị trường dưới tác động lạm phát.",
+        "optionsVi": [
+          "chính xác, đúng đắn",
+          "ước chừng đại khái",
+          "sai lệch trầm trọng",
+          "mông lung không chuẩn"
+        ]
+      },
+      {
+        "id": "adv_018",
+        "word": "actively",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈæk.tɪv.li/",
+        "meaningVi": "chủ động, tích cực tham gia",
+        "collocations": "actively participate, actively seek, actively listen",
+        "example": "Employees are encouraged to actively participate in company strategy sessions.",
+        "exampleVi": "Nhân viên được khuyến khích tích cực tham gia vào các phiên họp chiến lược công ty.",
+        "optionsVi": [
+          "chủ động, tích cực tham gia",
+          "thụ động ngồi xem",
+          "thờ ơ bỏ bê",
+          "miễn cưỡng làm theo"
+        ]
+      },
+      {
+        "id": "adv_019",
+        "word": "adequately",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈæd.ə.kwət.li/",
+        "meaningVi": "đầy đủ, thỏa đáng, vừa đủ",
+        "collocations": "adequately prepared, adequately address, adequately funded",
+        "example": "The department must ensure all staff are adequately trained before launch.",
+        "exampleVi": "Phòng ban phải đảm bảo tất cả nhân viên được đào tạo thỏa đáng trước khi khởi động.",
+        "optionsVi": [
+          "đầy đủ, thỏa đáng, vừa đủ",
+          "thiếu hụt nghiêm trọng",
+          "quá mức dư thừa",
+          "sơ sài cẩu thả"
+        ]
+      },
+      {
+        "id": "adv_020",
+        "word": "anxiously",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈæŋk.ʃəs.li/",
+        "meaningVi": "bồn chồn, lo âu, thắc thỏm",
+        "collocations": "wait anxiously, anxiously look at, anxiously anticipate",
+        "example": "Investors waited anxiously for the central bank's announcement on interest rates.",
+        "exampleVi": "Các nhà đầu tư thắc thỏm chờ đợi thông báo của ngân hàng trung ương về lãi suất.",
+        "optionsVi": [
+          "bồn chồn, lo âu, thắc thỏm",
+          "bình thản ung dung",
+          "vui mừng hớn hở",
+          "lãnh đạm dửng dưng"
+        ]
+      },
+      {
+        "id": "adv_021",
+        "word": "apparently",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/əˈpær.ənt.li/",
+        "meaningVi": "hình như, dường như, theo bề ngoài",
+        "collocations": "apparently simple, apparently satisfied, apparently unaware",
+        "example": "The technical issue was apparently caused by an unverified server update.",
+        "exampleVi": "Vấn đề kỹ thuật dường như bắt nguồn từ một bản cập nhật máy chủ chưa được kiểm định.",
+        "optionsVi": [
+          "hình như, dường như, theo bề ngoài",
+          "chắc chắn xác thực",
+          "hoàn toàn vô lý",
+          "được chứng minh khoa học"
+        ]
+      },
+      {
+        "id": "adv_022",
+        "word": "appropriately",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/əˈprəʊ.pri.ət.li/",
+        "meaningVi": "thích hợp, đúng mực, thỏa đáng",
+        "collocations": "dress appropriately, respond appropriately, allocate appropriately",
+        "example": "Candidates should dress appropriately when attending in-person interviews.",
+        "exampleVi": "Ứng viên nên ăn mặc lịch sự phù hợp khi tham dự các buổi phỏng vấn trực tiếp.",
+        "optionsVi": [
+          "thích hợp, đúng mực, thỏa đáng",
+          "khiếm nhã lệch chuẩn",
+          "kỳ quặc lố lăng",
+          "tùy tiện cẩu thả"
+        ]
+      },
+      {
+        "id": "adv_023",
+        "word": "briefly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈbriːf.li/",
+        "meaningVi": "ngắn gọn, tóm tắt, trong chốc lát",
+        "collocations": "speak briefly, mention briefly, describe briefly",
+        "example": "The CEO briefly outlined the third-quarter financial achievements.",
+        "exampleVi": "Tổng giám đốc đã phác thảo ngắn gọn các thành tựu tài chính quý ba.",
+        "optionsVi": [
+          "ngắn gọn, tóm tắt, trong chốc lát",
+          "dài dòng lê thê",
+          "chi tiết tỉ mỉ cả ngày",
+          "vĩnh viễn không dứt"
+        ]
+      },
+      {
+        "id": "adv_024",
+        "word": "certainly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈsɜː.tən.li/",
+        "meaningVi": "chắc chắn, dĩ nhiên",
+        "collocations": "almost certainly, certainly agree, will certainly help",
+        "example": "Adopting automation will certainly increase operational speed across departments.",
+        "exampleVi": "Áp dụng tự động hóa chắc chắn sẽ gia tăng tốc độ vận hành trên khắp các phòng ban.",
+        "optionsVi": [
+          "chắc chắn, dĩ nhiên",
+          "nghi ngờ bỏ ngỏ",
+          "không có khả năng",
+          "chỉ là tin đồn"
+        ]
+      },
+      {
+        "id": "adv_025",
+        "word": "closely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈkləʊs.li/",
+        "meaningVi": "chặt chẽ, sát sao, tỉ mỉ",
+        "collocations": "work closely, monitor closely, examine closely",
+        "example": "Our engineers worked closely with the design team to refine the interface.",
+        "exampleVi": "Các kỹ sư của chúng tôi đã làm việc chặt chẽ với đội thiết kế để tinh chỉnh giao diện.",
+        "optionsVi": [
+          "chặt chẽ, sát sao, tỉ mỉ",
+          "xa cách rời rạc",
+          "hời hợt qua loa",
+          "bỏ mặc hoàn toàn"
+        ]
+      },
+      {
+        "id": "adv_026",
+        "word": "commonly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈkɒm.ən.li/",
+        "meaningVi": "thông thường, phổ biến rộng rãi",
+        "collocations": "commonly used, commonly known, commonly found",
+        "example": "Python is commonly used for data analysis and machine learning workflows.",
+        "exampleVi": "Python được sử dụng phổ biến cho phân tích dữ liệu và quy trình học máy.",
+        "optionsVi": [
+          "thông thường, phổ biến rộng rãi",
+          "hiếm khi thấy",
+          "độc quyền bí mật",
+          "bị cấm sử dụng"
+        ]
+      },
+      {
+        "id": "adv_027",
+        "word": "constantly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈkɒn.stənt.li/",
+        "meaningVi": "liên tục, không ngừng nghỉ",
+        "collocations": "constantly changing, constantly update, constantly monitor",
+        "example": "Consumer preferences are constantly changing in this digital marketplace.",
+        "exampleVi": "Thị hiếu của người tiêu dùng liên tục thay đổi trong thị trường số này.",
+        "optionsVi": [
+          "liên tục, không ngừng nghỉ",
+          "ngắt quãng gián đoạn",
+          "cố định bất biến",
+          "thỉnh thoảng đôi lúc"
+        ]
+      },
+      {
+        "id": "adv_028",
+        "word": "correctly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/kəˈrekt.li/",
+        "meaningVi": "đúng đắn, chuẩn xác",
+        "collocations": "answer correctly, install correctly, behave correctly",
+        "example": "Make sure all electrical components are installed correctly before turning on the power.",
+        "exampleVi": "Đảm bảo tất cả linh kiện điện được lắp đặt đúng cách trước khi bật nguồn điện.",
+        "optionsVi": [
+          "đúng đắn, chuẩn xác",
+          "lộn xộn sai lệch",
+          "tùy tiện ngẫu nhiên",
+          "ngược lại hoàn toàn"
+        ]
+      },
+      {
+        "id": "adv_029",
+        "word": "deeply",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈdiːp.li/",
+        "meaningVi": "sâu sắc, hết sức, tận đáy lòng",
+        "collocations": "deeply concerned, deeply regret, deeply rooted",
+        "example": "The board members are deeply concerned about the rising cost of raw materials.",
+        "exampleVi": "Các thành viên hội đồng quản trị hết sức quan ngại về chi phí nguyên vật liệu đang tăng cao.",
+        "optionsVi": [
+          "sâu sắc, hết sức, tận đáy lòng",
+          "nông cạn hời hợt",
+          "bình thản vô cảm",
+          "chỉ là nói đùa"
+        ]
+      },
+      {
+        "id": "adv_030",
+        "word": "definitely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈdef.ɪ.nət.li/",
+        "meaningVi": "chắc chắn, dứt khoát không nghi ngờ",
+        "collocations": "definitely agree, definitely recommend, will definitely attend",
+        "example": "I would definitely recommend this cloud storage solution to any growing business.",
+        "exampleVi": "Tôi chắc chắn sẽ giới thiệu giải pháp lưu trữ đám mây này cho bất kỳ doanh nghiệp đang phát triển nào.",
+        "optionsVi": [
+          "chắc chắn, dứt khoát không nghi ngờ",
+          "lưỡng lự đắn đo",
+          "chưa chắc đã đúng",
+          "hoàn toàn từ chối"
+        ]
+      },
+      {
+        "id": "adv_031",
+        "word": "deliberately",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/dɪˈlɪb.ər.ət.li/",
+        "meaningVi": "cố ý, có chủ đích, thận trọng",
+        "collocations": "deliberately choose, deliberately mislead, act deliberately",
+        "example": "The firm deliberately chose a quiet launch to gather authentic user feedback first.",
+        "exampleVi": "Công ty đã có chủ đích chọn ra mắt êm ắng để thu thập phản hồi người dùng thực tế trước.",
+        "optionsVi": [
+          "cố ý, có chủ đích, thận trọng",
+          "vô tình vô ý",
+          "bất ngờ ngẫu nhiên",
+          "lơ đễnh vụng về"
+        ]
+      },
+      {
+        "id": "adv_032",
+        "word": "directly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/daɪˈrekt.li/",
+        "meaningVi": "trực tiếp, thẳng thừng, ngay tức thì",
+        "collocations": "directly relate, communicate directly, deal directly with",
+        "example": "Customers can communicate directly with support engineers via live chat.",
+        "exampleVi": "Khách hàng có thể trao đổi trực tiếp với kỹ sư hỗ trợ thông qua chat trực tiếp.",
+        "optionsVi": [
+          "trực tiếp, thẳng thừng, ngay tức thì",
+          "gián tiếp qua trung gian",
+          "vòng vo tam quốc",
+          "hoãn lại vô thời hạn"
+        ]
+      },
+      {
+        "id": "adv_033",
+        "word": "easily",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈiː.zəl.i/",
+        "meaningVi": "dễ dàng, không khó khăn, hiển nhiên",
+        "collocations": "easily accessible, easily solve, easily understand",
+        "example": "The new mobile interface can be easily navigated even by first-time users.",
+        "exampleVi": "Giao diện di động mới có thể được điều hướng dễ dàng ngay cả bởi người dùng lần đầu.",
+        "optionsVi": [
+          "dễ dàng, không khó khăn, hiển nhiên",
+          "chật vật gian khổ",
+          "bế tắc phức tạp",
+          "bất khả thi"
+        ]
+      },
+      {
+        "id": "adv_034",
+        "word": "effectively",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪˈfek.tɪv.li/",
+        "meaningVi": "hiệu quả, trên thực tế",
+        "collocations": "communicate effectively, manage effectively, work effectively",
+        "example": "Good leaders know how to communicate effectively with diverse teams.",
+        "exampleVi": "Những nhà lãnh đạo giỏi biết cách giao tiếp hiệu quả với các nhóm nhân sự đa dạng.",
+        "optionsVi": [
+          "hiệu quả, trên thực tế",
+          "vô ích lãng phí",
+          "kém cỏi lúng túng",
+          "không có tác dụng"
+        ]
+      },
+      {
+        "id": "adv_035",
+        "word": "efficiently",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪˈfɪʃ.ənt.li/",
+        "meaningVi": "năng suất, tiết kiệm nguồn lực, hiệu suất cao",
+        "collocations": "run efficiently, operate efficiently, complete efficiently",
+        "example": "The warehouse operations were restructured to process shipments more efficiently.",
+        "exampleVi": "Hoạt động kho bãi đã được tái cấu trúc để xử lý các lô hàng một cách năng suất hơn.",
+        "optionsVi": [
+          "năng suất, tiết kiệm nguồn lực, hiệu suất cao",
+          "lãng phí rườm rà",
+          "chậm trễ đội chi phí",
+          "tốn thời gian công sức"
+        ]
+      },
+      {
+        "id": "adv_036",
+        "word": "entirely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪnˈtaɪə.li/",
+        "meaningVi": "trọn vẹn, hoàn toàn toàn bộ",
+        "collocations": "entirely new, entirely agree, entirely dedicated",
+        "example": "The research team developed an entirely new algorithm for audio compression.",
+        "exampleVi": "Nhóm nghiên cứu đã phát triển một thuật toán hoàn toàn mới cho việc nén âm thanh.",
+        "optionsVi": [
+          "trọn vẹn, hoàn toàn toàn bộ",
+          "chỉ một phần nhỏ",
+          "chắp vá tạm bợ",
+          "gần như bằng không"
+        ]
+      },
+      {
+        "id": "adv_037",
+        "word": "equally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈiː.kwə.li/",
+        "meaningVi": "bình đẳng, ngang bằng nhau, như nhau",
+        "collocations": "equally important, treat equally, share equally",
+        "example": "Both quality and customer support are equally important for brand loyalty.",
+        "exampleVi": "Cả chất lượng và dịch vụ chăm sóc khách hàng đều quan trọng như nhau đối với lòng trung thành thương hiệu.",
+        "optionsVi": [
+          "bình đẳng, ngang bằng nhau, như nhau",
+          "thiên vị bất công",
+          "chênh lệch một trời một vực",
+          "bất bình đẳng tuyệt đối"
+        ]
+      },
+      {
+        "id": "adv_038",
+        "word": "eventually",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪˈven.tʃu.ə.li/",
+        "meaningVi": "rốt cuộc, cuối cùng thì (sau nỗ lực)",
+        "collocations": "eventually succeed, eventually become, will eventually happen",
+        "example": "With continuous dedication and focus, her startup eventually turned profitable.",
+        "exampleVi": "Với sự cống hiến và tập trung liên tục, công ty khởi nghiệp của cô rốt cuộc đã sinh lời.",
+        "optionsVi": [
+          "rốt cuộc, cuối cùng thì (sau nỗ lực)",
+          "ngay tức khắc",
+          "bỏ cuộc giữa chừng",
+          "chưa từng nỗ lực"
+        ]
+      },
+      {
+        "id": "adv_039",
+        "word": "frequently",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈfriː.kwənt.li/",
+        "meaningVi": "thường xuyên, lặp lại nhiều lần",
+        "collocations": "frequently asked, update frequently, travel frequently",
+        "example": "Our support page includes answers to the most frequently asked questions.",
+        "exampleVi": "Trang hỗ trợ của chúng tôi bao gồm câu trả lời cho các câu hỏi thường gặp nhất.",
+        "optionsVi": [
+          "thường xuyên, lặp lại nhiều lần",
+          "hiếm hoi hàng năm",
+          "chỉ xảy ra một lần",
+          "hoàn toàn bặt vô âm tín"
+        ]
+      },
+      {
+        "id": "adv_040",
+        "word": "generally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈdʒen.ər.əl.i/",
+        "meaningVi": "nhìn chung, đại thể, nói chung",
+        "collocations": "generally accepted, generally speaking, generally agree",
+        "example": "Generally speaking, remote work has boosted productivity for technical staff.",
+        "exampleVi": "Nói chung, làm việc từ xa đã thúc đẩy năng suất cho các nhân viên kỹ thuật.",
+        "optionsVi": [
+          "nhìn chung, đại thể, nói chung",
+          "cá biệt riêng rẽ",
+          "chi tiết đến từng milimet",
+          "hoàn toàn ngoại lệ"
+        ]
+      },
+      {
+        "id": "adv_041",
+        "word": "gradually",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈɡrædʒ.u.əl.i/",
+        "meaningVi": "dần dần, từ từ từng bước",
+        "collocations": "gradually increase, gradually improve, become gradually easier",
+        "example": "Your listening comprehension will gradually improve with daily practice.",
+        "exampleVi": "Khả năng nghe hiểu của bạn sẽ dần dần tiến bộ nhờ việc luyện tập mỗi ngày.",
+        "optionsVi": [
+          "dần dần, từ từ từng bước",
+          "đột ngột tức thì",
+          "giậm chân tại chỗ",
+          "thụt lùi nhanh chóng"
+        ]
+      },
+      {
+        "id": "adv_042",
+        "word": "greatly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈɡreɪt.li/",
+        "meaningVi": "rất nhiều, to lớn, đáng kể",
+        "collocations": "greatly appreciate, greatly reduce, greatly influence",
+        "example": "Adopting code reviews has greatly reduced production bugs this quarter.",
+        "exampleVi": "Việc áp dụng đánh giá mã nguồn đã giảm thiểu rất nhiều lỗi trên môi trường thực tế quý này.",
+        "optionsVi": [
+          "rất nhiều, to lớn, đáng kể",
+          "không đáng kể chút nào",
+          "hầu như bằng không",
+          "giảm nhẹ tạm thời"
+        ]
+      },
+      {
+        "id": "adv_043",
+        "word": "highly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈhaɪ.li/",
+        "meaningVi": "rất, ở mức độ cao, hết sức",
+        "collocations": "highly recommended, highly qualified, highly competitive",
+        "example": "The course is highly recommended for professionals seeking cloud certifications.",
+        "exampleVi": "Khóa học được đánh giá rất cao dành cho các chuyên gia tìm kiếm chứng chỉ điện toán đám mây.",
+        "optionsVi": [
+          "rất, ở mức độ cao, hết sức",
+          "kém cỏi thấp kém",
+          "tầm thường không nổi bật",
+          "bị chê bai nặng nề"
+        ]
+      },
+      {
+        "id": "adv_044",
+        "word": "honestly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈɒn.ɪst.li/",
+        "meaningVi": "thành thật, chân thành, thật lòng",
+        "collocations": "honestly speak, honestly believe, act honestly",
+        "example": "Honestly speaking, we need more testing before releasing this version.",
+        "exampleVi": "Thành thật mà nói, chúng ta cần thử nghiệm nhiều hơn trước khi phát hành phiên bản này.",
+        "optionsVi": [
+          "thành thật, chân thành, thật lòng",
+          "dối trá lừa lọc",
+          "xã giao giả tạo",
+          "mập mờ giấu giếm"
+        ]
+      },
+      {
+        "id": "adv_045",
+        "word": "hopefully",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈhəʊp.fəl.i/",
+        "meaningVi": "hy vọng rằng, đầy triển vọng",
+        "collocations": "hopefully arrive, hopefully resolve, look hopefully",
+        "example": "Hopefully, the server maintenance will be concluded before business hours begin.",
+        "exampleVi": "Hy vọng rằng việc bảo trì máy chủ sẽ được hoàn tất trước khi giờ làm việc bắt đầu.",
+        "optionsVi": [
+          "hy vọng rằng, đầy triển vọng",
+          "tuyệt vọng bế tắc",
+          "chắc chắn thất bại",
+          "không mong đợi gì"
+        ]
+      },
+      {
+        "id": "adv_046",
+        "word": "immediately",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪˈmiː.di.ət.li/",
+        "meaningVi": "ngay lập tức, tức thì",
+        "collocations": "immediately respond, take action immediately, effective immediately",
+        "example": "Please report any suspicious login attempts immediately to IT security.",
+        "exampleVi": "Vui lòng báo cáo bất kỳ nỗ lực đăng nhập đáng ngờ nào ngay lập tức cho bộ phận an ninh mạng.",
+        "optionsVi": [
+          "ngay lập tức, tức thì",
+          "trì hoãn chần chừ",
+          "đợi dịp khác",
+          "từ từ năm sau"
+        ]
+      },
+      {
+        "id": "adv_047",
+        "word": "increasingly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪnˈkriː.sɪŋ.li/",
+        "meaningVi": "ngày càng nhiều, tăng dần theo thời gian",
+        "collocations": "increasingly important, increasingly difficult, become increasingly popular",
+        "example": "Data privacy regulations are becoming increasingly strict across all countries.",
+        "exampleVi": "Các quy định về quyền riêng tư dữ liệu đang ngày càng trở nên nghiêm ngặt ở tất cả các quốc gia.",
+        "optionsVi": [
+          "ngày càng nhiều, tăng dần theo thời gian",
+          "ngày càng suy giảm",
+          "giữ nguyên bất động",
+          "biến mất hoàn toàn"
+        ]
+      },
+      {
+        "id": "adv_048",
+        "word": "initially",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ɪˈnɪʃ.əl.i/",
+        "meaningVi": "ban đầu, lúc khởi đầu",
+        "collocations": "initially planned, initially hesitant, initially thought",
+        "example": "The software was initially planned as an internal tool before being commercialized.",
+        "exampleVi": "Phần mềm ban đầu được lên kế hoạch làm công cụ nội bộ trước khi được thương mại hóa.",
+        "optionsVi": [
+          "ban đầu, lúc khởi đầu",
+          "ở giai đoạn kết thúc",
+          "mãi về sau này",
+          "chưa từng dự tính"
+        ]
+      },
+      {
+        "id": "adv_049",
+        "word": "largely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈlɑːdʒ.li/",
+        "meaningVi": "phần lớn, chủ yếu",
+        "collocations": "largely due to, largely responsible, largely based on",
+        "example": "Our product's quick market adoption is largely due to positive word of mouth.",
+        "exampleVi": "Sự đón nhận nhanh chóng của thị trường đối với sản phẩm chủ yếu nhờ vào truyền miệng tích cực.",
+        "optionsVi": [
+          "phần lớn, chủ yếu",
+          "chỉ là phần nhỏ thứ yếu",
+          "hoàn toàn không liên quan",
+          "ngẫu nhiên tình cờ"
+        ]
+      },
+      {
+        "id": "adv_050",
+        "word": "naturally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈnætʃ.ər.əl.i/",
+        "meaningVi": "tự nhiên, đương nhiên, vốn dĩ",
+        "collocations": "come naturally, naturally occur, speak naturally",
+        "example": "Good communication skills come naturally to some people, but others can learn them.",
+        "exampleVi": "Kỹ năng giao tiếp tốt đến một cách tự nhiên với một số người, nhưng những người khác hoàn toàn có thể học được.",
+        "optionsVi": [
+          "tự nhiên, đương nhiên, vốn dĩ",
+          "nhân tạo gượng gạo",
+          "bắt ép khiên cưỡng",
+          "hoàn toàn trái tự nhiên"
+        ]
+      },
+      {
+        "id": "adv_051",
+        "word": "necessarily",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˌnes.əˈser.əl.i/",
+        "meaningVi": "nhất thiết, tất yếu",
+        "collocations": "not necessarily true, not necessarily mean, necessarily follow",
+        "example": "A higher price tag does not necessarily guarantee better build quality.",
+        "exampleVi": "Mức giá cao hơn không nhất thiết đảm bảo chất lượng hoàn thiện tốt hơn.",
+        "optionsVi": [
+          "nhất thiết, tất yếu",
+          "tùy ý ngẫu hứng",
+          "vô cớ bất chợt",
+          "không có nguyên nhân"
+        ]
+      },
+      {
+        "id": "adv_052",
+        "word": "normally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈnɔː.məl.i/",
+        "meaningVi": "bình thường, như thông lệ",
+        "collocations": "function normally, normally take, under normal conditions",
+        "example": "The database operates normally under peak traffic conditions without latency.",
+        "exampleVi": "Cơ sở dữ liệu hoạt động bình thường dưới điều kiện lưu lượng cao điểm mà không bị trễ.",
+        "optionsVi": [
+          "bình thường, như thông lệ",
+          "bất thường kỳ lạ",
+          "gặp trục trặc hư hỏng",
+          "ngoại lệ hiếm thấy"
+        ]
+      },
+      {
+        "id": "adv_053",
+        "word": "obviously",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈɒb.vi.əs.li/",
+        "meaningVi": "rõ ràng là, hiển nhiên là",
+        "collocations": "obviously wrong, obviously true, state the obvious",
+        "example": "The prototype obviously needs further refinements before mass production.",
+        "exampleVi": "Bản mẫu rõ ràng là cần được tinh chỉnh thêm trước khi đưa vào sản xuất hàng loạt.",
+        "optionsVi": [
+          "rõ ràng là, hiển nhiên là",
+          "mơ hồ khó đoán",
+          "bí ẩn che giấu",
+          "hoàn toàn mù mờ"
+        ]
+      },
+      {
+        "id": "adv_054",
+        "word": "occasionally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/əˈkeɪ.ʒən.əl.i/",
+        "meaningVi": "thỉnh thoảng, đôi khi",
+        "collocations": "occasionally visit, occur occasionally, check occasionally",
+        "example": "We occasionally organize team building outings to strengthen team bonding.",
+        "exampleVi": "Chúng tôi thỉnh thoảng tổ chức các chuyến dã ngoại gắn kết để củng cố tinh thần đồng đội.",
+        "optionsVi": [
+          "thỉnh thoảng, đôi khi",
+          "liên tục từng giây",
+          "không bao giờ diễn ra",
+          "luôn luôn cố định"
+        ]
+      },
+      {
+        "id": "adv_055",
+        "word": "partially",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈpɑː.ʃəl.i/",
+        "meaningVi": "một phần, cục bộ, chưa trọn vẹn",
+        "collocations": "partially completed, partially true, partially blind",
+        "example": "The project roadmap was partially revised after the client submitted new requirements.",
+        "exampleVi": "Lộ trình dự án đã được sửa đổi một phần sau khi khách hàng gửi thêm các yêu cầu mới.",
+        "optionsVi": [
+          "một phần, cục bộ, chưa trọn vẹn",
+          "toàn diện một trăm phần trăm",
+          "triệt để từ gốc tới ngọn",
+          "hoàn tất không tì vết"
+        ]
+      },
+      {
+        "id": "adv_056",
+        "word": "personally",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈpɜː.sən.əl.i/",
+        "meaningVi": "theo cá nhân tôi, đích thân",
+        "collocations": "personally believe, take personally, thank personally",
+        "example": "The director personally thanked every member of the engineering team.",
+        "exampleVi": "Giám đốc đã đích thân cảm ơn từng thành viên trong nhóm kỹ thuật.",
+        "optionsVi": [
+          "theo cá nhân tôi, đích thân",
+          "ủy quyền qua người khác",
+          "nhờ vả trung gian",
+          "theo ý kiến tập thể"
+        ]
+      },
+      {
+        "id": "adv_057",
+        "word": "politely",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/pəˈlaɪt.li/",
+        "meaningVi": "lịch sự, nhã nhặn, lễ phép",
+        "collocations": "ask politely, decline politely, listen politely",
+        "example": "The receptionist politely guided the visitors to the executive meeting room.",
+        "exampleVi": "Nhân viên lễ tân đã lịch sự dẫn khách vào phòng họp ban điều hành.",
+        "optionsVi": [
+          "lịch sự, nhã nhặn, lễ phép",
+          "thô lỗ cộc lốc",
+          "hống hách ngạo mạn",
+          "vô lễ xấc xược"
+        ]
+      },
+      {
+        "id": "adv_058",
+        "word": "potentially",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/pəˈten.ʃəl.i/",
+        "meaningVi": "tiềm ẩn, có tiềm năng, có thể",
+        "collocations": "potentially dangerous, potentially profitable, potentially useful",
+        "example": "This newly patented manufacturing process is potentially revolutionary for renewable energy.",
+        "exampleVi": "Quy trình sản xuất mới được cấp bằng sáng chế này có tiềm năng mang tính cách mạng cho năng lượng tái tạo.",
+        "optionsVi": [
+          "tiềm ẩn, có tiềm năng, có thể",
+          "chắc chắn thất bại",
+          "không có hy vọng",
+          "hoàn toàn vô dụng"
+        ]
+      },
+      {
+        "id": "adv_059",
+        "word": "primarily",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/praɪˈmer.əl.i/",
+        "meaningVi": "chủ yếu, trước hết, trên hết",
+        "collocations": "primarily focus on, primarily responsible, primarily used for",
+        "example": "The enterprise platform is designed primarily for large multinational corporations.",
+        "exampleVi": "Nền tảng doanh nghiệp này được thiết kế chủ yếu dành cho các tập đoàn đa quốc gia lớn.",
+        "optionsVi": [
+          "chủ yếu, trước hết, trên hết",
+          "chỉ là phụ họa",
+          "không liên quan trực tiếp",
+          "thứ yếu bên lề"
+        ]
+      },
+      {
+        "id": "adv_060",
+        "word": "properly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈprɒp.əl.i/",
+        "meaningVi": "đúng cách, chỉnh chu, hợp thức",
+        "collocations": "function properly, work properly, dispose properly",
+        "example": "Make sure all confidential documents are properly shredded before disposal.",
+        "exampleVi": "Đảm bảo rằng tất cả các tài liệu mật được tiêu hủy đúng cách trước khi xử lý rác thải.",
+        "optionsVi": [
+          "đúng cách, chỉnh chu, hợp thức",
+          "ẩu đả sai quy trình",
+          "cẩu thả qua loa",
+          "vứt bừa bãi trái phép"
+        ]
+      },
+      {
+        "id": "adv_061",
+        "word": "rapidly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈræp.ɪd.li/",
+        "meaningVi": "nhanh chóng, mau lẹ, tốc độ cao",
+        "collocations": "grow rapidly, expand rapidly, change rapidly",
+        "example": "The e-commerce market expanded rapidly throughout the past decade.",
+        "exampleVi": "Thị trường thương mại điện tử đã mở rộng nhanh chóng trong suốt thập kỷ qua.",
+        "optionsVi": [
+          "nhanh chóng, mau lẹ, tốc độ cao",
+          "trì trệ chậm chạp",
+          "đóng băng đứng yên",
+          "thụt lùi từng bước"
+        ]
+      },
+      {
+        "id": "adv_062",
+        "word": "regularly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈreɡ.jə.lə.li/",
+        "meaningVi": "đều đặn, định kỳ theo lịch",
+        "collocations": "exercise regularly, update regularly, meet regularly",
+        "example": "Security patches must be applied regularly to protect servers from vulnerabilities.",
+        "exampleVi": "Các bản vá bảo mật phải được áp dụng đều đặn định kỳ để bảo vệ máy chủ khỏi lỗ hổng.",
+        "optionsVi": [
+          "đều đặn, định kỳ theo lịch",
+          "thất thường tùy hứng",
+          "bỏ quên hàng tháng",
+          "chưa từng lặp lại"
+        ]
+      },
+      {
+        "id": "adv_063",
+        "word": "seriously",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/ˈsɪə.ri.əs.li/",
+        "meaningVi": "nghiêm túc, trầm trọng",
+        "collocations": "take seriously, seriously injured, seriously consider",
+        "example": "The management team takes employee health and workplace safety very seriously.",
+        "exampleVi": "Ban quản lý rất coi trọng nghiêm túc sức khỏe và an toàn nơi làm việc của nhân viên.",
+        "optionsVi": [
+          "nghiêm túc, trầm trọng",
+          "đùa cợt cợt nhả",
+          "xem nhẹ coi thường",
+          "hời hợt thờ ơ"
+        ]
+      },
+      {
+        "id": "adv_064",
+        "word": "significantly",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/sɪɡˈnɪf.ɪ.kənt.li/",
+        "meaningVi": "đáng kể, có ý nghĩa lớn",
+        "collocations": "increase significantly, reduce significantly, differ significantly",
+        "example": "Migrating to microservices significantly improved application response times.",
+        "exampleVi": "Việc chuyển đổi sang kiến trúc dịch vụ vi mô đã cải thiện đáng kể thời gian phản hồi của ứng dụng.",
+        "optionsVi": [
+          "đáng kể, có ý nghĩa lớn",
+          "nhỏ nhặt không đáng kể",
+          "giữ nguyên mức cũ",
+          "vô thưởng vô phạt"
+        ]
+      },
+      {
+        "id": "adv_065",
+        "word": "specifically",
+        "level": "B1",
+        "type": "adverb",
+        "ipa": "/spəˈsɪf.ɪ.kəl.i/",
+        "meaningVi": "cụ thể là, đặc thù, riêng biệt",
+        "collocations": "specifically designed, state specifically, specifically mention",
+        "example": "This ergonomics chair was specifically designed to reduce lower back strain.",
+        "exampleVi": "Chiếc ghế công thái học này được thiết kế riêng biệt nhằm giảm áp lực lên vùng thắt lưng.",
+        "optionsVi": [
+          "cụ thể là, đặc thù, riêng biệt",
+          "chung chung đại khái",
+          "mơ hồ không mục đích",
+          "áp dụng bừa bãi"
+        ]
+      },
+      {
+        "id": "adv_066",
+        "word": "arguably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈɑːɡ.ju.ə.bli/",
+        "meaningVi": "có thể coi là, được cho là",
+        "collocations": "arguably the best, arguably the most important, arguably true",
+        "example": "Clean energy is arguably the most critical industry of the twenty-first century.",
+        "exampleVi": "Năng lượng sạch có thể coi là ngành công nghiệp quan trọng nhất của thế kỷ hai mươi mốt.",
+        "optionsVi": [
+          "có thể coi là, được cho là",
+          "hoàn toàn vô căn cứ",
+          "chắc chắn sai lầm",
+          "không ai thừa nhận"
+        ]
+      },
+      {
+        "id": "adv_067",
+        "word": "coincidentally",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/kəʊˌɪn.sɪˈden.təl.i/",
+        "meaningVi": "trùng hợp ngẫu nhiên",
+        "collocations": "coincidentally happen, coincidentally meet, coincidentally share",
+        "example": "Coincidentally, both research teams published their breakthrough papers on the exact same day.",
+        "exampleVi": "Trùng hợp ngẫu nhiên là cả hai nhóm nghiên cứu đều công bố các bài báo đột phá vào đúng cùng một ngày.",
+        "optionsVi": [
+          "trùng hợp ngẫu nhiên",
+          "có sắp đặt trước",
+          "được dàn dựng công phu",
+          "theo kịch bản sẵn có"
+        ]
+      },
+      {
+        "id": "adv_068",
+        "word": "comparatively",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/kəmˈpær.ə.tɪv.li/",
+        "meaningVi": "tương đối, so với những cái khác",
+        "collocations": "comparatively low, comparatively easy, comparatively small",
+        "example": "The initial installation cost is comparatively low compared to traditional gas furnaces.",
+        "exampleVi": "Chi phí lắp đặt ban đầu là tương đối thấp khi so sánh với các lò sưởi đốt gas truyền thống.",
+        "optionsVi": [
+          "tương đối, so với những cái khác",
+          "tuyệt đối độc nhất",
+          "cực kỳ đắt đỏ vô địch",
+          "không thể so sánh"
+        ]
+      },
+      {
+        "id": "adv_069",
+        "word": "consequently",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈkɒn.sɪ.kwənt.li/",
+        "meaningVi": "do đó, hệ quả là, vì vậy",
+        "collocations": "consequently lead to, consequently suffer, consequently decide",
+        "example": "The supplier faced component shortages; consequently, shipment dates had to be postponed.",
+        "exampleVi": "Nhà cung cấp đối mặt với tình trạng thiếu hụt linh kiện; do đó, ngày giao hàng đã phải hoãn lại.",
+        "optionsVi": [
+          "do đó, hệ quả là, vì vậy",
+          "mặc dù vậy",
+          "trước đó rất lâu",
+          "bất chấp điều đó"
+        ]
+      },
+      {
+        "id": "adv_070",
+        "word": "considerably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/kənˈsɪd.ər.ə.bli/",
+        "meaningVi": "đáng kể, nhiều, ở mức độ lớn",
+        "collocations": "considerably higher, reduce considerably, vary considerably",
+        "example": "Operating expenses decreased considerably after moving our data center to the cloud.",
+        "exampleVi": "Chi phí vận hành đã giảm đáng kể sau khi chuyển trung tâm dữ liệu của chúng tôi lên đám mây.",
+        "optionsVi": [
+          "đáng kể, nhiều, ở mức độ lớn",
+          "chút ít không đáng để ý",
+          "chẳng thay đổi gì",
+          "tăng nhẹ tượng trưng"
+        ]
+      },
+      {
+        "id": "adv_071",
+        "word": "consistently",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/kənˈsɪs.tənt.li/",
+        "meaningVi": "kiên định, trước sau như một",
+        "collocations": "consistently deliver, perform consistently, consistently rank",
+        "example": "Our QA team has consistently delivered defect-free releases over the past two years.",
+        "exampleVi": "Nhóm đảm bảo chất lượng của chúng tôi luôn kiên định mang lại các bản phát hành không lỗi trong hai năm qua.",
+        "optionsVi": [
+          "kiên định, trước sau như một",
+          "thất thường trồi sụt",
+          "sớm nắng chiều mưa",
+          "bấp bênh không ổn định"
+        ]
+      },
+      {
+        "id": "adv_072",
+        "word": "drastically",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈdræs.tɪ.kəl.i/",
+        "meaningVi": "quyết liệt, mạnh mẽ sâu sắc, triệt để",
+        "collocations": "drastically cut, change drastically, drastically reduce",
+        "example": "The airline drastically cut ticket prices to stimulate international travel demand.",
+        "exampleVi": "Hãng hàng không đã quyết liệt cắt giảm giá vé để kích cầu du lịch quốc tế.",
+        "optionsVi": [
+          "quyết liệt, mạnh mẽ sâu sắc, triệt để",
+          "nhẹ nhàng cầm chừng",
+          "dè dặt từng chút một",
+          "không có tác động gì"
+        ]
+      },
+      {
+        "id": "adv_073",
+        "word": "exclusively",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ɪkˈskluː.sɪv.li/",
+        "meaningVi": "độc quyền, duy nhất, dành riêng",
+        "collocations": "exclusively available, cater exclusively, deal exclusively with",
+        "example": "This premium analytics feature is exclusively available to enterprise tier subscribers.",
+        "exampleVi": "Tính năng phân tích cao cấp này độc quyền dành riêng cho các thuê bao gói doanh nghiệp.",
+        "optionsVi": [
+          "độc quyền, duy nhất, dành riêng",
+          "phổ thông đại trà cho tất cả",
+          "chia sẻ công khai tự do",
+          "tạm thời mở rộng"
+        ]
+      },
+      {
+        "id": "adv_074",
+        "word": "fundamentally",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˌfʌn.dəˈmen.təl.i/",
+        "meaningVi": "về cơ bản, từ gốc rễ, bản chất cốt lõi",
+        "collocations": "fundamentally flawed, fundamentally different, fundamentally alter",
+        "example": "Artificial intelligence will fundamentally alter how businesses interpret customer feedback.",
+        "exampleVi": "Trí tuệ nhân tạo sẽ thay đổi căn bản từ gốc rễ cách các doanh nghiệp diễn giải phản hồi khách hàng.",
+        "optionsVi": [
+          "về cơ bản, từ gốc rễ, bản chất cốt lõi",
+          "bên ngoài hình thức bề mặt",
+          "chỉ là tiểu tiết phụ trợ",
+          "tạm thời chắp vá"
+        ]
+      },
+      {
+        "id": "adv_075",
+        "word": "implicitly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ɪmˈplɪs.ɪt.li/",
+        "meaningVi": "ngầm hiểu, ngấm ngầm, không nói ra lời",
+        "collocations": "implicitly acknowledge, trust implicitly, implicitly assume",
+        "example": "By clicking accept, users implicitly agree to the updated terms of service.",
+        "exampleVi": "Bằng việc bấm chấp nhận, người dùng ngầm đồng ý với các điều khoản dịch vụ cập nhật.",
+        "optionsVi": [
+          "ngầm hiểu, ngấm ngầm, không nói ra lời",
+          "tuyên bố công khai bằng văn bản",
+          "phủ nhận dứt khoát",
+          "thông báo rầm rộ"
+        ]
+      },
+      {
+        "id": "adv_076",
+        "word": "inevitably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ɪnˈev.ɪ.tə.bli/",
+        "meaningVi": "chắc chắn xảy ra, không thể tránh khỏi",
+        "collocations": "inevitably lead to, inevitably result in, inevitably happen",
+        "example": "Rapid urban growth inevitably leads to higher demand for public transportation.",
+        "exampleVi": "Sự tăng trưởng đô thị nhanh chóng chắc chắn không tránh khỏi dẫn đến nhu cầu cao hơn về giao thông công cộng.",
+        "optionsVi": [
+          "chắc chắn xảy ra, không thể tránh khỏi",
+          "hoàn toàn có thể phòng ngừa",
+          "xác suất cực thấp",
+          "ảo tưởng xa vời"
+        ]
+      },
+      {
+        "id": "adv_077",
+        "word": "inherently",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ɪnˈhɪə.rənt.li/",
+        "meaningVi": "vốn dĩ, vốn có từ bản chất sinh ra",
+        "collocations": "inherently risky, inherently flawed, inherently valuable",
+        "example": "Investing in early-stage startups is inherently risky but offers substantial potential returns.",
+        "exampleVi": "Đầu tư vào các công ty khởi nghiệp giai đoạn đầu vốn dĩ tiềm ẩn rủi ro nhưng mang lại lợi nhuận tiềm năng lớn.",
+        "optionsVi": [
+          "vốn dĩ, vốn có từ bản chất sinh ra",
+          "do tác động nhân tạo",
+          "ngẫu nhiên vay mượn từ ngoài",
+          "tạm thời phát sinh"
+        ]
+      },
+      {
+        "id": "adv_078",
+        "word": "invariably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ɪnˈveə.ri.ə.bli/",
+        "meaningVi": "luôn luôn như vậy, không bao giờ thay đổi",
+        "collocations": "invariably lead to, invariably true, almost invariably",
+        "example": "Rushing a code deployment without unit testing invariably leads to preventable production outages.",
+        "exampleVi": "Hấp tấp triển khai mã mà không kiểm thử đơn vị luôn luôn dẫn đến các sự cố gián đoạn có thể phòng ngừa.",
+        "optionsVi": [
+          "luôn luôn như vậy, không bao giờ thay đổi",
+          "chỉ thỉnh thoảng mới bị",
+          "có lúc này lúc khác",
+          "hiếm hoi vô cùng"
+        ]
+      },
+      {
+        "id": "adv_079",
+        "word": "ironically",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/aɪˈrɒn.ɪ.kəl.i/",
+        "meaningVi": "trớ trêu thay, mỉa mai thay",
+        "collocations": "ironically enough, ironically note, ironically prove",
+        "example": "Ironically, the software update intended to fix stability issues caused an unexpected server crash.",
+        "exampleVi": "Trớ trêu thay, bản cập nhật phần mềm nhằm sửa các lỗi ổn định lại gây ra sự cố sập máy chủ bất ngờ.",
+        "optionsVi": [
+          "trớ trêu thay, mỉa mai thay",
+          "đúng như kỳ vọng",
+          "hợp lý một cách hoàn hảo",
+          "theo đúng ý nguyện"
+        ]
+      },
+      {
+        "id": "adv_080",
+        "word": "markedly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈmɑː.kɪd.li/",
+        "meaningVi": "rõ rệt, thấy rõ, đáng chú ý",
+        "collocations": "markedly different, improve markedly, increase markedly",
+        "example": "Customer satisfaction scores improved markedly after the support team reduced waiting times.",
+        "exampleVi": "Điểm hài lòng của khách hàng đã cải thiện rõ rệt sau khi đội hỗ trợ giảm bớt thời gian chờ đợi.",
+        "optionsVi": [
+          "rõ rệt, thấy rõ, đáng chú ý",
+          "mập mờ khó thấy",
+          "chẳng thay đổi mảy may",
+          "suy giảm lùi bước"
+        ]
+      },
+      {
+        "id": "adv_081",
+        "word": "meticulously",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/məˈtɪk.jə.ləs.li/",
+        "meaningVi": "tỉ mỉ, kỹ càng từng chi tiết nhỏ nhất",
+        "collocations": "meticulously planned, meticulously document, verify meticulously",
+        "example": "Every security protocol was meticulously documented before the regulatory compliance audit.",
+        "exampleVi": "Mọi quy trình an ninh đều được ghi chép tỉ mỉ trước cuộc kiểm toán tuân thủ quy định.",
+        "optionsVi": [
+          "tỉ mỉ, kỹ càng từng chi tiết nhỏ nhất",
+          "cẩu thả đại khái",
+          "qua loa cho xong chuyện",
+          "bỏ qua chi tiết quan trọng"
+        ]
+      },
+      {
+        "id": "adv_082",
+        "word": "mutually",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈmjuː.tʃu.ə.li/",
+        "meaningVi": "lẫn nhau, cùng nhau, cả đôi bên",
+        "collocations": "mutually beneficial, mutually exclusive, mutually agreed",
+        "example": "Both companies negotiated a mutually beneficial partnership to expand global market distribution.",
+        "exampleVi": "Cả hai công ty đã đàm phán một mối quan hệ đối tác cùng có lợi cho cả đôi bên để mở rộng phân phối toàn cầu.",
+        "optionsVi": [
+          "lẫn nhau, cùng nhau, cả đôi bên",
+          "đơn phương một phía",
+          "áp đặt ép buộc",
+          "bất lợi cho đối phương"
+        ]
+      },
+      {
+        "id": "adv_083",
+        "word": "notably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈnəʊ.tə.bli/",
+        "meaningVi": "đáng chú ý là, đặc biệt là",
+        "collocations": "most notably, notably absent, notably successful",
+        "example": "Several key executives were notably absent from the quarterly earnings conference.",
+        "exampleVi": "Một vài giám đốc điều hành chủ chốt đã vắng mặt đáng chú ý khỏi hội nghị báo cáo lợi nhuận hàng quý.",
+        "optionsVi": [
+          "đáng chú ý là, đặc biệt là",
+          "bình thường không ai để ý",
+          "chẳng có gì nổi bật",
+          "hoàn toàn mờ nhạt"
+        ]
+      },
+      {
+        "id": "adv_084",
+        "word": "overwhelmingly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˌəʊ.vəˈwel.mɪŋ.li/",
+        "meaningVi": "áp đảo, một cách choáng ngợp, vượt trội",
+        "collocations": "overwhelmingly positive, vote overwhelmingly, overwhelmingly support",
+        "example": "The community gave overwhelmingly positive feedback on the new open-source developer tools.",
+        "exampleVi": "Cộng đồng đã đưa ra những phản hồi tích cực áp đảo về bộ công cụ nhà phát triển mã nguồn mở mới.",
+        "optionsVi": [
+          "áp đảo, một cách choáng ngợp, vượt trội",
+          "thiểu số ít ỏi",
+          "lưỡng lự nửa vời",
+          "bị bác bỏ hoàn toàn"
+        ]
+      },
+      {
+        "id": "adv_085",
+        "word": "paradoxically",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˌpær.əˈdɒk.sɪ.kəl.i/",
+        "meaningVi": "nghịch lý là, trớ trêu ngược đời",
+        "collocations": "paradoxically enough, paradoxically result in, seem paradoxically",
+        "example": "Paradoxically, lowering subscription prices actually increased overall revenue through broader adoption.",
+        "exampleVi": "Nghịch lý là, việc hạ giá gói thuê bao thực chất lại gia tăng tổng doanh thu nhờ số lượng người dùng đông đảo hơn.",
+        "optionsVi": [
+          "nghịch lý là, trớ trêu ngược đời",
+          "dễ hiểu hiển nhiên",
+          "theo lẽ tự nhiên thông thường",
+          "đúng như sách giáo khoa"
+        ]
+      },
+      {
+        "id": "adv_086",
+        "word": "predominantly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/prɪˈdɒm.ɪ.nənt.li/",
+        "meaningVi": "chiếm ưu thế, phần lớn, áp đảo",
+        "collocations": "predominantly used, predominantly female, predominantly rural",
+        "example": "The mobile app audience is predominantly young working professionals aged twenty-five to thirty-five.",
+        "exampleVi": "Khán giả sử dụng ứng dụng di động phần lớn chiếm ưu thế là những chuyên gia trẻ đi làm từ 25 đến 35 tuổi.",
+        "optionsVi": [
+          "chiếm ưu thế, phần lớn, áp đảo",
+          "chiếm tỷ lệ nhỏ giọt",
+          "phân bổ rải rác đồng đều",
+          "hoàn toàn vắng bóng"
+        ]
+      },
+      {
+        "id": "adv_087",
+        "word": "presumably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/prɪˈzjuː.mə.bli/",
+        "meaningVi": "có lẽ là, phỏng đoán là, có thể giả định rằng",
+        "collocations": "presumably because, presumably intended, will presumably continue",
+        "example": "The package was presumably delivered to the reception desk while we were at lunch.",
+        "exampleVi": "Gói hàng có lẽ đã được giao tới bàn lễ tân trong lúc chúng tôi đang đi ăn trưa.",
+        "optionsVi": [
+          "có lẽ là, phỏng đoán là, có thể giả định rằng",
+          "đã được chứng thực bằng giấy tờ",
+          "chắc chắn một trăm phần trăm",
+          "chắc chắn bị hủy"
+        ]
+      },
+      {
+        "id": "adv_088",
+        "word": "proactively",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/prəʊˈæk.tɪv.li/",
+        "meaningVi": "chủ động đón đầu, tiên phong ngăn chặn",
+        "collocations": "proactively address, manage proactively, identify proactively",
+        "example": "Our support team proactively contacts customers whenever system telemetry detects recurring errors.",
+        "exampleVi": "Đội hỗ trợ của chúng tôi chủ động liên hệ với khách hàng bất cứ khi nào hệ thống phát hiện lỗi lặp lại.",
+        "optionsVi": [
+          "chủ động đón đầu, tiên phong ngăn chặn",
+          "nước đến chân mới nhảy",
+          "chờ người khác nhắc nhở",
+          "thờ ơ mặc kệ"
+        ]
+      },
+      {
+        "id": "adv_089",
+        "word": "profoundly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/prəˈfaʊnd.li/",
+        "meaningVi": "sâu sắc, thâm thúy, mức độ cực kỳ sâu",
+        "collocations": "profoundly affect, profoundly grateful, profoundly impact",
+        "example": "The mentor's practical career advice profoundly influenced her long-term professional development.",
+        "exampleVi": "Lời khuyên nghề nghiệp thực tế của người cố vấn đã ảnh hưởng sâu sắc đến sự phát triển sự nghiệp lâu dài của cô.",
+        "optionsVi": [
+          "sâu sắc, thâm thúy, mức độ cực kỳ sâu",
+          "hời hợt thoảng qua",
+          "vô hại không tác động",
+          "nhạt nhòa dễ quên"
+        ]
+      },
+      {
+        "id": "adv_090",
+        "word": "relentlessly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/rɪˈlent.ləs.li/",
+        "meaningVi": "không ngừng nghỉ, dai dẳng kiên quyết",
+        "collocations": "work relentlessly, pursue relentlessly, push relentlessly",
+        "example": "The research lab worked relentlessly for six months to synthesize the breakthrough compound.",
+        "exampleVi": "Phòng thí nghiệm nghiên cứu đã làm việc không ngừng nghỉ suốt sáu tháng để tổng hợp hợp chất đột phá.",
+        "optionsVi": [
+          "không ngừng nghỉ, dai dẳng kiên quyết",
+          "chóng vánh nản lòng",
+          "bỏ cuộc giữa chừng",
+          "lười nhác chần chừ"
+        ]
+      },
+      {
+        "id": "adv_091",
+        "word": "remarkably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/rɪˈmɑː.kə.bli/",
+        "meaningVi": "đáng kinh ngạc, phi thường, nổi bật lạ kỳ",
+        "collocations": "remarkably resilient, remarkably similar, remarkably successful",
+        "example": "The local economy proved remarkably resilient despite unexpected macroeconomic headwinds.",
+        "exampleVi": "Nền kinh tế địa phương đã chứng minh khả năng phục hồi phi thường đáng kinh ngạc bất chấp các cơn gió ngược kinh tế vĩ mô.",
+        "optionsVi": [
+          "đáng kinh ngạc, phi thường, nổi bật lạ kỳ",
+          "tầm thường xoàng xĩnh",
+          "đúng như thông thường",
+          "yếu ớt sụp đổ nhanh"
+        ]
+      },
+      {
+        "id": "adv_092",
+        "word": "rigorously",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈrɪɡ.ər.əs.li/",
+        "meaningVi": "nghiêm ngặt, khắt khe, chặt chẽ đúng chuẩn",
+        "collocations": "rigorously tested, enforce rigorously, screen rigorously",
+        "example": "All medical sensors are rigorously tested to ensure accurate patient vitals monitoring.",
+        "exampleVi": "Tất cả các cảm biến y tế đều được kiểm định nghiêm ngặt để đảm bảo theo dõi chính xác các dấu hiệu sinh tồn của bệnh nhân.",
+        "optionsVi": [
+          "nghiêm ngặt, khắt khe, chặt chẽ đúng chuẩn",
+          "lỏng lẻo tùy tiện",
+          "đại khái bừa bãi",
+          "bỏ qua các bước thẩm định"
+        ]
+      },
+      {
+        "id": "adv_093",
+        "word": "seamlessly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈsiːm.ləs.li/",
+        "meaningVi": "liền mạch, trơn tru mượt mà, không kẽ hở",
+        "collocations": "integrate seamlessly, work seamlessly, blend seamlessly",
+        "example": "The payment gateway integrates seamlessly with our existing shopping cart infrastructure.",
+        "exampleVi": "Cổng thanh toán tích hợp liền mạch mượt mà với cơ sở hạ tầng giỏ hàng hiện tại của chúng tôi.",
+        "optionsVi": [
+          "liền mạch, trơn tru mượt mà, không kẽ hở",
+          "chắp vá xung đột",
+          "ngắt quãng gián đoạn",
+          "lỗi thời không tương thích"
+        ]
+      },
+      {
+        "id": "adv_094",
+        "word": "simultaneously",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˌsɪm.əlˈteɪ.ni.əs.li/",
+        "meaningVi": "đồng thời, cùng một lúc",
+        "collocations": "occur simultaneously, operate simultaneously, broadcast simultaneously",
+        "example": "The hybrid cloud system can process thousands of financial transactions simultaneously.",
+        "exampleVi": "Hệ thống đám mây lai có thể xử lý hàng ngàn giao dịch tài chính đồng thời cùng một lúc.",
+        "optionsVi": [
+          "đồng thời, cùng một lúc",
+          "tuần tự từng bước",
+          "ngắt quãng rời rạc",
+          "cách nhau nhiều năm"
+        ]
+      },
+      {
+        "id": "adv_095",
+        "word": "substantially",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/səbˈstæn.ʃəl.i/",
+        "meaningVi": "đáng kể, về căn bản, cốt lõi",
+        "collocations": "substantially higher, contribute substantially, vary substantially",
+        "example": "Automated warehouse logistics substantially lowered order fulfillment overhead.",
+        "exampleVi": "Hậu cần kho bãi tự động đã cắt giảm đáng kể chi phí vận hành xử lý đơn hàng.",
+        "optionsVi": [
+          "đáng kể, về căn bản, cốt lõi",
+          "không đáng một xu",
+          "chỉ mang tính tượng trưng",
+          "dậm chân tại chỗ"
+        ]
+      },
+      {
+        "id": "adv_096",
+        "word": "subtly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈsʌt.li/",
+        "meaningVi": "tinh tế, khéo léo, khó nhận biết trực tiếp",
+        "collocations": "subtly different, change subtly, subtly hint",
+        "example": "The website's typography was subtly adjusted to improve long-form reading comfort.",
+        "exampleVi": "Phông chữ của trang web đã được tinh chỉnh tinh tế khéo léo để tăng cảm giác thoải mái khi đọc bài dài.",
+        "optionsVi": [
+          "tinh tế, khéo léo, khó nhận biết trực tiếp",
+          "lộ liễu thô thiển",
+          "phô trương đập vào mắt",
+          "vụng về vụng dại"
+        ]
+      },
+      {
+        "id": "adv_097",
+        "word": "systematically",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˌsɪs.təˈmæt.ɪ.kəl.i/",
+        "meaningVi": "có hệ thống, theo bài bản phương pháp",
+        "collocations": "systematically analyze, review systematically, eliminate systematically",
+        "example": "The security team systematically audited every endpoint to isolate the intrusion.",
+        "exampleVi": "Nhóm an ninh mạng đã kiểm tra có hệ thống từng điểm cuối để cô lập vụ xâm nhập.",
+        "optionsVi": [
+          "có hệ thống, theo bài bản phương pháp",
+          "lộn xộn ngẫu hứng",
+          "tùy tiện không bài bản",
+          "mò mẫm vu vơ"
+        ]
+      },
+      {
+        "id": "adv_098",
+        "word": "thoroughly",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ˈθʌr.ə.li/",
+        "meaningVi": "cẩn thận từ đầu đến cuối, thấu đáo triệt để",
+        "collocations": "thoroughly investigate, clean thoroughly, understand thoroughly",
+        "example": "Inspectors thoroughly examined the structural integrity of the bridge before reopening traffic.",
+        "exampleVi": "Các thanh tra viên đã kiểm tra thấu đáo triệt để độ toàn vẹn cấu trúc của cây cầu trước khi mở lại giao thông.",
+        "optionsVi": [
+          "cẩn thận từ đầu đến cuối, thấu đáo triệt để",
+          "cưỡi ngựa xem hoa",
+          "sơ sài qua loa",
+          "bỏ qua nửa chừng"
+        ]
+      },
+      {
+        "id": "adv_099",
+        "word": "unanimously",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/juːˈnæn.ɪ.məs.li/",
+        "meaningVi": "nhất trí, đồng lòng một trăm phần trăm",
+        "collocations": "unanimously agreed, voted unanimously, unanimously elected",
+        "example": "The committee unanimously voted to approve the sustainable building initiative.",
+        "exampleVi": "Ủy ban đã nhất trí bỏ phiếu một trăm phần trăm thông qua sáng kiến xây dựng bền vững.",
+        "optionsVi": [
+          "nhất trí, đồng lòng một trăm phần trăm",
+          "bất đồng sâu sắc",
+          "chia rẽ phe phái",
+          "đa số phản đối"
+        ]
+      },
+      {
+        "id": "adv_100",
+        "word": "unquestionably",
+        "level": "B2",
+        "type": "adverb",
+        "ipa": "/ʌnˈkwes.tʃə.nə.bli/",
+        "meaningVi": "không thể nghi ngờ, chắc chắn đúng đắn",
+        "collocations": "unquestionably true, unquestionably the best, prove unquestionably",
+        "example": "Her exceptional leadership skills make her unquestionably the best candidate for CEO.",
+        "exampleVi": "Kỹ năng lãnh đạo xuất sắc của cô khiến cô chắc chắn không thể nghi ngờ là ứng viên tốt nhất cho vị trí CEO.",
+        "optionsVi": [
+          "không thể nghi ngờ, chắc chắn đúng đắn",
+          "đầy rẫy nghi vấn",
+          "hoài nghi mơ hồ",
+          "không đáng tin cậy"
         ]
       }
     ]
