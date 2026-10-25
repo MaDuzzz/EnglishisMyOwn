@@ -1,9 +1,9 @@
 // Trình điều khiển Khoá học Tiếng Anh Giao Tiếp Qua Phim & TV Shows (Cinema Shadowing Lab)
 // Phương pháp Đa Giác Quan: Nhắm mắt nghe ngấm ➔ Xem phụ đề ➔ Mổ xẻ ngữ cảnh ➔ Shadowing nhại cảm xúc ➔ Quizz đục lỗ
 
-import { COURSES_DATA } from './data/courses-data.js?v=7.2';
-import { appState } from './state.js?v=7.2';
-import { celebrationEngine } from './celebration.js?v=7.2';
+import { COURSES_DATA } from './data/courses-data.js?v=7.3';
+import { appState } from './state.js?v=7.3';
+import { celebrationEngine } from './celebration.js?v=7.3';
 
 // Helper bóc tách Google Drive File ID từ bất kỳ dạng link nào
 export function extractDriveFileId(urlOrId) {
@@ -29,7 +29,7 @@ export class CoursesEngine {
     
     // Trạng thái Stepper 5 bước trong phòng học phim
     this.currentStep = 1; // 1: Nhắm mắt nghe, 2: Xem & Bắt từ, 3: Mổ xẻ câu, 4: Luyện nhại giọng, 5: Quizz đục lỗ
-    this.isBlindCurtainOpen = false; // Ở Bước 1: Màn che hạ xuống mặc định
+    this.isBlindCurtainActive = false; // Mặc định mở video để người dùng bấm Play thoải mái
     this.blindListenCount = 0; // Đếm số lần nghe nhắm mắt
     this.subtitleMode = "bilingual"; // "bilingual" | "en" | "vi"
     
@@ -193,7 +193,7 @@ export class CoursesEngine {
         const course = COURSES_DATA.find(c => c.id === this.selectedCourseId) || COURSES_DATA[0];
         this.selectedLessonId = course.modules[0].lessons[0].id;
         this.currentStep = 1;
-        this.isBlindCurtainOpen = false;
+        this.isBlindCurtainActive = false;
         this.blindListenCount = 0;
         this.quizState = { currentIndex: 0, userAnswers: [], isFinished: false };
         this.renderLesson();
@@ -227,11 +227,11 @@ export class CoursesEngine {
     const isCompleted = appState.isCourseLessonComplete(currentLesson.id);
 
     this.container.innerHTML = `
-      <div class="space-y-5 animate-fade-in max-w-5xl mx-auto w-full pb-16">
+      <div class="space-y-6 animate-fade-in max-w-5xl mx-auto w-full pb-20">
         <!-- 1. TOP HEADER & BREADCRUMB -->
-        <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div class="flex items-center space-x-2 min-w-0">
-            <button id="btn-back-to-catalog" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center space-x-1 transition-all active:scale-95">
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div class="flex items-center space-x-3 min-w-0">
+            <button id="btn-back-to-catalog" class="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center space-x-1.5 transition-all active:scale-95 shrink-0">
               <span>‹</span>
               <span>Danh mục phim</span>
             </button>
@@ -240,8 +240,9 @@ export class CoursesEngine {
               <div class="flex items-center space-x-2">
                 <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 truncate">${course.shortTitle}</span>
                 <span class="text-[10px] text-slate-400">• ${currentLesson.episode}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">Full HD 1080p</span>
               </div>
-              <h2 class="text-sm sm:text-base font-black text-slate-900 dark:text-white truncate">
+              <h2 class="text-sm sm:text-lg font-black text-slate-900 dark:text-white truncate">
                 ${currentLesson.title}
               </h2>
             </div>
@@ -249,46 +250,29 @@ export class CoursesEngine {
 
           <div class="flex items-center space-x-2 shrink-0">
             ${isCompleted ? `
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center space-x-1">
+              <span class="px-3 py-1.5 rounded-full text-xs font-black bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center space-x-1">
                 <span>✓</span>
                 <span>Đã Hoàn Thành (+25 XP)</span>
               </span>
             ` : `
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+              <span class="px-3 py-1.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
                 ⏳ Đang Học
               </span>
             `}
 
             <!-- Nút đổi link Google Drive cá nhân -->
-            <button id="btn-toggle-custom-drive" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center space-x-1" title="Nhập link Google Drive cá nhân của bạn">
+            <button id="btn-toggle-custom-drive" class="px-3 py-1.5 rounded-2xl text-xs font-semibold text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center space-x-1" title="Đổi nguồn video Google Drive">
               <span>🔗</span>
               <span class="hidden sm:inline">Đổi link Drive</span>
             </button>
           </div>
         </div>
 
-        <!-- Quick Switcher Bar for Lessons in this Series -->
-        <div class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar">
-          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0 mr-1">Chọn trích đoạn:</span>
-          ${course.modules[0].lessons.map((les, idx) => {
-            const isCur = les.id === this.selectedLessonId;
-            const hasRealVideo = les.videoDriveId && les.videoDriveId !== "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms";
-            return `
-              <button 
-                data-lesson-id="${les.id}"
-                class="btn-switch-lesson shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${isCur ? 'bg-indigo-600 text-white shadow-md ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
-                <span>Trích đoạn ${idx + 1}</span>
-                ${hasRealVideo ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold border border-emerald-400/30">1080p</span>' : ''}
-              </button>
-            `;
-          }).join('')}
-        </div>
-
         <!-- Custom Drive Link Modal / Input Box (Hidden by default) -->
-        <div id="custom-drive-input-box" class="hidden bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-2xl border border-indigo-200 dark:border-indigo-800 text-xs animate-fade-in space-y-2">
+        <div id="custom-drive-input-box" class="hidden bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-3xl border border-indigo-200 dark:border-indigo-800 text-xs animate-fade-in space-y-2">
           <div class="flex items-center justify-between">
             <strong class="font-bold text-indigo-950 dark:text-indigo-200">🔗 Nhúng Video Từ Google Drive Cá Nhân</strong>
-            <span class="text-[10px] text-indigo-600 dark:text-indigo-400">Yêu cầu: Quyền xem "Bất kỳ ai có đường liên kết"</span>
+            <span class="text-[10px] text-indigo-600 dark:text-indigo-400">Yêu cầu quyền xem: "Bất kỳ ai có đường liên kết"</span>
           </div>
           <div class="flex items-center gap-2">
             <input 
@@ -296,170 +280,100 @@ export class CoursesEngine {
               type="text" 
               placeholder="Dán link Google Drive (https://drive.google.com/file/d/...)" 
               value="${effectiveDriveLink !== currentLesson.videoDriveUrl ? effectiveDriveLink : ''}"
-              class="flex-1 px-3 py-2 rounded-xl border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button id="btn-save-custom-drive" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold rounded-xl text-xs shadow-md transition-all shrink-0">
+              class="flex-1 px-3 py-2 rounded-2xl border border-indigo-200 dark:border-indigo-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button id="btn-save-custom-drive" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold rounded-2xl text-xs shadow-md transition-all shrink-0">
               Lưu & Phát
             </button>
-            <button id="btn-reset-custom-drive" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl text-xs transition-all shrink-0">
+            <button id="btn-reset-custom-drive" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-2xl text-xs transition-all shrink-0">
               Mặc định
             </button>
           </div>
         </div>
 
-        <!-- 2. GUIDED 5-STEP STEPPER TABS -->
-        <div class="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none no-scrollbar w-full" id="cinema-stepper-tabs">
-          <button data-step="1" class="cinema-step-btn shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 1 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+        <!-- 2. CINEMA FULL-WIDTH VIDEO THEATER (100% WIDTH, BOLD & LARGE) -->
+        <div class="space-y-3">
+          <div class="relative bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl aspect-video w-full flex items-center justify-center group ring-1 ring-white/10">
+            <!-- Video Frame Google Drive (Always accessible to click play) -->
+            ${driveFileId ? `
+              <iframe 
+                id="drive-video-frame"
+                src="https://drive.google.com/file/d/${driveFileId}/preview" 
+                class="w-full h-full border-0 absolute inset-0" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen>
+              </iframe>
+            ` : `
+              <div class="text-center p-8 text-slate-400 text-xs">
+                Chưa có link video Google Drive. Bấm "Đổi link Drive" ở trên để gắn link của bạn.
+              </div>
+            `}
+
+            <!-- OPTIONAL Blackout Blind Listening Curtain Overlay (Only active when toggled) -->
+            <div id="blind-listening-curtain" class="${(this.currentStep === 1 && this.isBlindCurtainActive) ? 'flex' : 'hidden'} pointer-events-none absolute inset-0 bg-slate-950/95 backdrop-blur-md z-20 flex-col items-center justify-center p-6 text-center text-white space-y-3 transition-all duration-300">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-500 text-white flex items-center justify-center text-3xl shadow-xl shadow-indigo-500/20 animate-pulse">
+                🎧
+              </div>
+              <div class="space-y-1 max-w-md">
+                <h4 class="text-base sm:text-lg font-black text-amber-300">
+                  Chế Độ Màn Tối (Tập Trung Thính Giác)
+                </h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Màn hình đã được phủ tối để bạn thả lỏng thị giác và tập trung lắng nghe ngữ điệu của nhân vật.
+                </p>
+              </div>
+              <!-- Soundwave Visualizer -->
+              <div class="flex items-center space-x-1.5 h-8 py-1">
+                <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-4"></span>
+                <span class="w-1 bg-amber-400 rounded-full animate-pulse h-7" style="animation-delay: 150ms"></span>
+                <span class="w-1 bg-rose-400 rounded-full animate-pulse h-5" style="animation-delay: 300ms"></span>
+                <span class="w-1 bg-emerald-400 rounded-full animate-pulse h-8" style="animation-delay: 100ms"></span>
+                <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-6" style="animation-delay: 200ms"></span>
+                <span class="w-1 bg-amber-400 rounded-full animate-pulse h-3" style="animation-delay: 250ms"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Sub-bar: Context Preview & Blind Curtain Toggle -->
+          <div class="flex flex-wrap items-center justify-between gap-3 px-2 text-xs">
+            <div class="flex items-center space-x-2 text-slate-600 dark:text-slate-400 min-w-0">
+              <span class="font-bold text-amber-600 dark:text-amber-400 shrink-0">💡 Bối cảnh:</span>
+              <span class="truncate">${currentLesson.context}</span>
+            </div>
+            ${this.currentStep === 1 ? `
+              <button id="btn-toggle-blackout" class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 active:scale-95 ${this.isBlindCurtainActive ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'}">
+                <span>${this.isBlindCurtainActive ? '👁️ Mở lại màn hình' : '🌙 Che màn hình (Tắt video)'}</span>
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- 3. GUIDED 5-STEP STEPPER TABS -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar w-full" id="cinema-stepper-tabs">
+          <button data-step="1" class="cinema-step-btn shrink-0 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 1 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}">
             <span>🙈</span>
             <span>1. Nhắm Mắt Nghe</span>
           </button>
-          <button data-step="2" class="cinema-step-btn shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 2 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+          <button data-step="2" class="cinema-step-btn shrink-0 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 2 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}">
             <span>🎬</span>
             <span>2. Xem & Bắt Từ</span>
           </button>
-          <button data-step="3" class="cinema-step-btn shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 3 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+          <button data-step="3" class="cinema-step-btn shrink-0 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 3 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}">
             <span>🔍</span>
             <span>3. Mổ Xẻ Câu</span>
           </button>
-          <button data-step="4" class="cinema-step-btn shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 4 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+          <button data-step="4" class="cinema-step-btn shrink-0 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 4 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}">
             <span>🎙️</span>
             <span>4. Luyện Nhại Giọng</span>
           </button>
-          <button data-step="5" class="cinema-step-btn shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 5 ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+          <button data-step="5" class="cinema-step-btn shrink-0 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${this.currentStep === 5 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}">
             <span>📝</span>
             <span>5. Quizz Đục Lỗ</span>
           </button>
         </div>
 
-        <!-- 3. MAIN CINEMA PLAYER & STEP CONTENT -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          
-          <!-- Cột Trái: VIDEO PLAYER & MÀN CHE NHẮM MẮT (2 Cột) -->
-          <div class="lg:col-span-2 space-y-4">
-            <div class="relative bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 shadow-2xl aspect-video w-full flex items-center justify-center group">
-              <!-- Video Frame Google Drive -->
-              ${(driveFileId && driveFileId !== "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms") ? `
-                <iframe 
-                  id="drive-video-frame"
-                  src="https://drive.google.com/file/d/${driveFileId}/preview" 
-                  class="w-full h-full border-0 absolute inset-0" 
-                  allow="autoplay; encrypted-media; fullscreen" 
-                  allowfullscreen>
-                </iframe>
-              ` : `
-                <div class="text-center p-6 text-slate-300 max-w-sm space-y-3 z-10 flex flex-col items-center justify-center">
-                  <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-2xl">🎬</div>
-                  <div class="font-bold text-white text-sm">Chưa có video cho trích đoạn này</div>
-                  <p class="text-xs text-slate-400 leading-relaxed">
-                    Trích đoạn 1 ("Joey's Bad Birthday Gift") đã có sẵn video Full HD 1080p từ Google Drive. Bạn hãy bấm chọn Trích đoạn 1 để bắt đầu học ngay!
-                  </p>
-                  <button data-lesson-id="friends-01-birthday-gift" class="btn-switch-lesson px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition-all active:scale-95">
-                    Sang Trích đoạn 1 (Có 1080p) ➔
-                  </button>
-                </div>
-              `}
-
-              <!-- 🙈 BLACKOUT BLIND LISTENING CURTAIN OVERLAY -->
-              <div id="blind-listening-curtain" class="${(this.currentStep === 1 && !this.isBlindCurtainOpen) ? 'flex' : 'hidden'} absolute inset-0 bg-slate-950/98 backdrop-blur-md z-20 flex-col items-center justify-center p-6 text-center text-white space-y-4 transition-all duration-300">
-                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-500 text-white flex items-center justify-center text-3xl shadow-xl shadow-indigo-500/20 animate-pulse">
-                  🎧
-                </div>
-                
-                <div class="space-y-1 max-w-md">
-                  <h4 class="text-base sm:text-lg font-black text-amber-300">
-                    Đang Trong Chế Độ Nhắm Mắt Nghe Ngấm
-                  </h4>
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Hãy nhắm mắt lại! Bấm Play trên video, lắng nghe trọn vẹn ngữ điệu, chỗ ngắt nghỉ, tiếng thở dài và cảm xúc bùng nổ của nhân vật.
-                  </p>
-                </div>
-
-                <!-- Fake Soundwave Visualizer -->
-                <div class="flex items-center space-x-1.5 h-8 py-1">
-                  <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-4"></span>
-                  <span class="w-1 bg-amber-400 rounded-full animate-pulse h-7" style="animation-delay: 150ms"></span>
-                  <span class="w-1 bg-rose-400 rounded-full animate-pulse h-5" style="animation-delay: 300ms"></span>
-                  <span class="w-1 bg-emerald-400 rounded-full animate-pulse h-8" style="animation-delay: 100ms"></span>
-                  <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-6" style="animation-delay: 200ms"></span>
-                  <span class="w-1 bg-amber-400 rounded-full animate-pulse h-3" style="animation-delay: 250ms"></span>
-                </div>
-
-                <div class="flex flex-wrap items-center justify-center gap-2.5 pt-2">
-                  <button id="btn-count-listen" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 text-xs font-bold transition-all active:scale-95 flex items-center space-x-1">
-                    <span>👂 Đã nghe:</span>
-                    <span id="label-listen-count" class="font-mono text-white">${this.blindListenCount}/2 lượt</span>
-                  </button>
-
-                  <button id="btn-toggle-eye" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-all active:scale-95 flex items-center space-x-1">
-                    <span>👁️</span>
-                    <span>Tạm mở mắt xem</span>
-                  </button>
-
-                  <button id="btn-proceed-step-2" class="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md transition-all active:scale-95 flex items-center space-x-1">
-                    <span>Sang Bước 2 (Xem Phụ Đề)</span>
-                    <span>➔</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Nút kéo màn che lại nếu đang ở Bước 1 và đã mở mắt -->
-              ${this.currentStep === 1 && this.isBlindCurtainOpen ? `
-                <button id="btn-reclose-eye" class="absolute top-3 right-3 z-30 px-3 py-1.5 bg-black/80 text-amber-300 rounded-xl text-xs font-bold backdrop-blur-md border border-amber-500/30 hover:bg-black transition-all flex items-center space-x-1">
-                  <span>🙈</span>
-                  <span>Hạ Màn Che Lại</span>
-                </button>
-              ` : ''}
-            </div>
-
-            <!-- Bối cảnh trích đoạn phim (Context Card) -->
-            <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
-              <div class="flex items-center space-x-2 text-xs font-bold text-amber-600 dark:text-amber-400">
-                <span>💡</span>
-                <span>Bối Cảnh Trích Đoạn (Context)</span>
-              </div>
-              <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                ${currentLesson.context}
-              </p>
-            </div>
-          </div>
-
-          <!-- Cột Phải: NỘI DUNG TƯƠNG TÁC TỪNG BƯỚC (1 Cột) -->
-          <div class="space-y-4">
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
-              ${this.renderStepContent(currentLesson)}
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. DANH SÁCH BÀI HỌC CÙNG SERIES (DRAWER/LIST BÊN DƯỚI) -->
-        <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-          <h3 class="text-sm font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span>📑</span>
-            <span>Các Trích Đoạn Trong Series "${course.shortTitle}"</span>
-          </h3>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            ${course.modules[0].lessons.map((les, idx) => {
-              const isLesDone = appState.isCourseLessonComplete(les.id);
-              const isCurrent = les.id === this.selectedLessonId;
-
-              return `
-                <button 
-                  data-lesson-id="${les.id}"
-                  class="btn-switch-lesson p-3.5 rounded-2xl text-left transition-all border flex items-center justify-between ${isCurrent ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-300 dark:border-indigo-700 text-indigo-950 dark:text-indigo-200 font-bold' : 'bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100'}">
-                  <div class="flex items-center space-x-3 min-w-0 pr-2">
-                    <span class="w-6 h-6 rounded-lg ${isCurrent ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'} text-xs font-mono font-bold flex items-center justify-center shrink-0">
-                      ${idx + 1}
-                    </span>
-                    <div class="min-w-0">
-                      <div class="text-xs truncate">${les.title}</div>
-                      <div class="text-[10px] text-slate-400">${les.duration} • ${les.episode}</div>
-                    </div>
-                  </div>
-                  ${isLesDone ? '<span class="text-emerald-500 font-bold text-xs shrink-0">✓ Xong</span>' : '<span class="text-xs text-slate-400 shrink-0">Chưa học</span>'}
-                </button>
-              `;
-            }).join('')}
-          </div>
+        <!-- 4. STEP INTERACTIVE WORKBENCH (FULL WIDTH) -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          ${this.renderStepContent(currentLesson)}
         </div>
       </div>
     `;
@@ -490,33 +404,52 @@ export class CoursesEngine {
   // BƯỚC 1: NHẮM MẮT NGHE NGẤM
   renderStep1Blind(currentLesson) {
     return `
-      <div class="space-y-4 animate-fade-in">
-        <div class="flex items-center space-x-2 text-indigo-600 dark:text-indigo-400 font-bold text-xs">
-          <span>🎧 BƯỚC 1: LUYỆN TAI THUẦN TÚY</span>
+      <div class="space-y-6 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">🎧 BƯỚC 1: LUYỆN THÍNH GIÁC THUẦN TÚY</span>
+            <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-0.5">
+              Nhắm Mắt Nghe Full 1 - 2 Lần
+            </h3>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button id="btn-count-listen" class="px-4 py-2 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-400/30 text-xs font-bold transition-all active:scale-95 flex items-center space-x-2" title="Bấm để đếm số lượt bạn đã nghe">
+              <span>👂 Lượt nghe:</span>
+              <span id="label-listen-count" class="font-mono text-sm font-black">${this.blindListenCount}/2</span>
+              <span class="text-[10px] bg-amber-400/20 px-1.5 py-0.5 rounded-lg">+1</span>
+            </button>
+          </div>
         </div>
 
-        <h3 class="text-base font-black text-slate-900 dark:text-white">
-          Nhắm Mắt Nghe Full 1 - 2 Lần
-        </h3>
-
-        <div class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-          <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80">
-            <strong class="text-slate-900 dark:text-white block mb-1">🎯 Mục tiêu bước này:</strong>
-            Không nhìn hình, không đọc chữ. Hãy để bộ não tập trung hoàn toàn vào tần số âm thanh, ngữ điệu vui buồn, cao trào và tiếng cười của nhân vật.
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 sm:p-5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+            <div class="flex items-center space-x-2 text-indigo-700 dark:text-indigo-300 font-bold text-xs">
+              <span>🎯</span>
+              <span>Hướng Dẫn Luyện Nghe</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              👉 Bấm nút <strong>Play</strong> trên màn hình video ở trên để bắt đầu phát, sau đó nhắm mắt lại. Không nhìn hình, không đọc chữ. Hãy để bộ não tập trung hoàn toàn vào tần số âm thanh, ngữ điệu vui buồn, cao trào và tiếng cười của nhân vật.
+            </p>
           </div>
 
-          <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800/60 text-amber-900 dark:text-amber-200">
-            <strong class="block mb-1">💡 Câu hỏi thử thách gợi ý:</strong>
-            <ul class="list-disc list-inside space-y-1">
+          <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/60 dark:bg-amber-950/40 border border-amber-200/60 dark:border-amber-800/60 space-y-2">
+            <div class="flex items-center space-x-2 text-amber-700 dark:text-amber-300 font-bold text-xs">
+              <span>💡</span>
+              <span>Thử Thách Lắng Nghe</span>
+            </div>
+            <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1.5 list-disc list-inside leading-relaxed">
               <li>Bạn nghe thấy mấy người đang nói chuyện với nhau?</li>
-              <li>Tâm trạng nhân vật lúc này là gì: tức giận, đùa cợt hay cuống cuồng?</li>
-              <li>Từ hoặc câu nào được lặp đi lặp lại to nhất trong clip?</li>
+              <li>Tâm trạng nhân vật lúc này là gì: bực tức, tự hào hay mỉa mai?</li>
+              <li>Từ hoặc cụm từ nào được lặp đi lặp lại hoặc nói to nhất trong clip?</li>
             </ul>
           </div>
         </div>
 
-        <div class="pt-2">
-          <button id="btn-next-to-step2" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-1.5">
+        <div class="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800">
+          <span class="text-xs text-slate-400">
+            ${this.blindListenCount >= 2 ? '✅ Bạn đã hoàn thành 2 lượt nghe ngấm!' : '💡 Khuyên khích nghe từ 1 - 2 lần trước khi xem phụ đề'}
+          </span>
+          <button id="btn-next-to-step2" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-all flex items-center space-x-2">
             <span>Tôi Đã Nghe Xong ➔ Xem Phụ Đề</span>
             <span>➔</span>
           </button>
@@ -528,54 +461,73 @@ export class CoursesEngine {
   // BƯỚC 2: XEM & BẮT TỪ MỚI (SUBTITLE WATCH)
   renderStep2Subtitles(currentLesson) {
     return `
-      <div class="space-y-4 animate-fade-in">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-1.5 text-indigo-600 dark:text-indigo-400 font-bold text-xs">
-            <span>🎬 BƯỚC 2: XEM CÙNG PHỤ ĐỀ</span>
+      <div class="space-y-6 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">🎬 BƯỚC 2: XEM CÙNG PHỤ ĐỀ</span>
+            <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-0.5">
+              Bắt Trọn Từ Vựng & Lời Thoại
+            </h3>
           </div>
 
           <!-- Toggle Subtitle Mode -->
-          <div class="flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-[10px] font-bold">
-            <button data-sub="bilingual" class="sub-toggle-btn px-2 py-1 rounded-lg ${this.subtitleMode === 'bilingual' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-xs' : 'text-slate-500'}">Song ngữ</button>
-            <button data-sub="en" class="sub-toggle-btn px-2 py-1 rounded-lg ${this.subtitleMode === 'en' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-xs' : 'text-slate-500'}">EN</button>
-            <button data-sub="vi" class="sub-toggle-btn px-2 py-1 rounded-lg ${this.subtitleMode === 'vi' ? 'bg-white dark:bg-slate-700 text-indigo-600 shadow-xs' : 'text-slate-500'}">VI</button>
+          <div class="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-slate-800 text-xs font-bold">
+            <button data-sub="bilingual" class="sub-toggle-btn px-3 py-1.5 rounded-xl transition-all ${this.subtitleMode === 'bilingual' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}">Song ngữ</button>
+            <button data-sub="en" class="sub-toggle-btn px-3 py-1.5 rounded-xl transition-all ${this.subtitleMode === 'en' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}">Chỉ English</button>
+            <button data-sub="vi" class="sub-toggle-btn px-3 py-1.5 rounded-xl transition-all ${this.subtitleMode === 'vi' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}">Chỉ Tiếng Việt</button>
           </div>
         </div>
 
-        <h3 class="text-base font-black text-slate-900 dark:text-white">
-          Từ Mới & Cụm Hay Trong Clip
-        </h3>
-
-        <!-- Danh sách từ vựng hay được trích xuất -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          ${currentLesson.keyVocabulary.map(v => `
-            <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 text-xs">
-              <div class="flex items-center justify-between">
-                <strong class="text-indigo-600 dark:text-indigo-400 font-bold text-sm">${v.word}</strong>
-                <span class="text-[10px] font-mono text-slate-400">${v.ipa}</span>
-              </div>
-              <div class="text-slate-700 dark:text-slate-300 mt-0.5">${v.meaningVi}</div>
-              <div class="text-[10px] text-amber-600 dark:text-amber-400 mt-1 italic font-medium">"${v.exampleInClip}"</div>
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Hộp phụ đề cuộn xem toàn bộ câu thoại -->
-        <div class="space-y-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-          <div class="text-xs font-bold text-slate-700 dark:text-slate-300">Lời thoại toàn bài (${currentLesson.dialogue.length} câu):</div>
-          <div class="max-h-56 overflow-y-auto pr-1 space-y-2 scrollbar-thin text-xs">
-            ${currentLesson.dialogue.map(d => `
-              <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                <span class="font-bold text-indigo-600 dark:text-indigo-400">${d.speaker}:</span>
-                ${(this.subtitleMode === 'bilingual' || this.subtitleMode === 'en') ? `<div class="text-slate-900 dark:text-white font-medium mt-0.5">${d.en}</div>` : ''}
-                ${(this.subtitleMode === 'bilingual' || this.subtitleMode === 'vi') ? `<div class="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">${d.vi}</div>` : ''}
+        <!-- 4 Thẻ từ vựng trọng tâm trích xuất từ clip -->
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Từ Vựng Trọng Tâm Cần Nhớ:</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            ${currentLesson.keyVocabulary.map(v => `
+              <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 flex flex-col justify-between space-y-2">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <strong class="text-indigo-600 dark:text-indigo-400 font-black text-sm">${v.word}</strong>
+                    <span class="text-[10px] font-mono text-slate-400">${v.ipa}</span>
+                  </div>
+                  <div class="text-xs text-slate-700 dark:text-slate-200 font-medium mt-1">${v.meaningVi}</div>
+                </div>
+                <div class="text-[11px] text-amber-600 dark:text-amber-400 italic pt-1 border-t border-slate-200/50 dark:border-slate-700/50">
+                  "${v.exampleInClip}"
+                </div>
               </div>
             `).join('')}
           </div>
         </div>
 
-        <div class="pt-2">
-          <button id="btn-next-to-step3" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-1.5">
+        <!-- Hộp phụ đề cuộn xem toàn bộ câu thoại -->
+        <div class="space-y-3 pt-2">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-300">
+            <span>Toàn Bộ Lời Thoại (${currentLesson.dialogue.length} lượt thoại):</span>
+            <span class="text-[11px] text-slate-400 font-normal">Cuộn để đọc theo video</span>
+          </div>
+          <div class="max-h-80 overflow-y-auto pr-2 space-y-2.5 scrollbar-thin text-xs sm:text-sm">
+            ${currentLesson.dialogue.map(d => `
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-start justify-between gap-3">
+                <div class="min-w-0 space-y-1">
+                  <span class="inline-block px-2 py-0.5 rounded-lg text-[10px] font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
+                    ${d.speaker}
+                  </span>
+                  ${(this.subtitleMode === 'bilingual' || this.subtitleMode === 'en') ? `<div class="text-slate-900 dark:text-white font-semibold leading-relaxed">${d.en}</div>` : ''}
+                  ${(this.subtitleMode === 'bilingual' || this.subtitleMode === 'vi') ? `<div class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">${d.vi}</div>` : ''}
+                </div>
+                <button 
+                  data-speak-text="${encodeURIComponent(d.en)}"
+                  class="btn-speak-line p-2 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shrink-0 active:scale-95"
+                  title="Nghe phát âm chuẩn">
+                  🔊
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end border-t border-slate-100 dark:border-slate-800">
+          <button id="btn-next-to-step3" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl text-xs sm:text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-all flex items-center space-x-2">
             <span>Tiếp Tục: Mổ Xẻ Từng Câu & Ngữ Cảnh</span>
             <span>➔</span>
           </button>
@@ -894,27 +846,18 @@ export class CoursesEngine {
       });
     });
 
-    // 3. Sự kiện Màn che nhắm mắt (Bước 1)
+    // 3. Sự kiện Màn che nhắm mắt & Đếm lượt nghe (Bước 1)
     document.getElementById('btn-count-listen')?.addEventListener('click', () => {
       this.blindListenCount = Math.min(2, this.blindListenCount + 1);
       const label = document.getElementById('label-listen-count');
-      if (label) label.textContent = `${this.blindListenCount}/2 lượt`;
+      if (label) label.textContent = `${this.blindListenCount}/2`;
+      if (this.blindListenCount >= 2) {
+        this.renderLesson();
+      }
     });
 
-    document.getElementById('btn-toggle-eye')?.addEventListener('click', () => {
-      this.isBlindCurtainOpen = true;
-      const curtain = document.getElementById('blind-listening-curtain');
-      if (curtain) curtain.classList.add('hidden');
-      this.renderLesson();
-    });
-
-    document.getElementById('btn-reclose-eye')?.addEventListener('click', () => {
-      this.isBlindCurtainOpen = false;
-      this.renderLesson();
-    });
-
-    document.getElementById('btn-proceed-step-2')?.addEventListener('click', () => {
-      this.currentStep = 2;
+    document.getElementById('btn-toggle-blackout')?.addEventListener('click', () => {
+      this.isBlindCurtainActive = !this.isBlindCurtainActive;
       this.renderLesson();
     });
 
@@ -1041,7 +984,7 @@ export class CoursesEngine {
       btn.addEventListener('click', () => {
         this.selectedLessonId = btn.getAttribute('data-lesson-id');
         this.currentStep = 1;
-        this.isBlindCurtainOpen = false;
+        this.isBlindCurtainActive = false;
         this.blindListenCount = 0;
         this.quizState = { currentIndex: 0, userAnswers: [], isFinished: false };
         this.renderLesson();
