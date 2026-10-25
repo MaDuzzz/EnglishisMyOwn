@@ -1,9 +1,9 @@
 // Trình điều khiển Khoá học Tiếng Anh Giao Tiếp Qua Phim & TV Shows (Cinema Shadowing Lab)
 // Phương pháp Đa Giác Quan: Nhắm mắt nghe ngấm ➔ Xem phụ đề ➔ Mổ xẻ ngữ cảnh ➔ Shadowing nhại cảm xúc ➔ Quizz đục lỗ
 
-import { COURSES_DATA } from './data/courses-data.js?v=7.1';
-import { appState } from './state.js?v=7.1';
-import { celebrationEngine } from './celebration.js?v=7.1';
+import { COURSES_DATA } from './data/courses-data.js?v=7.2';
+import { appState } from './state.js?v=7.2';
+import { celebrationEngine } from './celebration.js?v=7.2';
 
 // Helper bóc tách Google Drive File ID từ bất kỳ dạng link nào
 export function extractDriveFileId(urlOrId) {
@@ -267,6 +267,23 @@ export class CoursesEngine {
           </div>
         </div>
 
+        <!-- Quick Switcher Bar for Lessons in this Series -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar">
+          <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 shrink-0 mr-1">Chọn trích đoạn:</span>
+          ${course.modules[0].lessons.map((les, idx) => {
+            const isCur = les.id === this.selectedLessonId;
+            const hasRealVideo = les.videoDriveId && les.videoDriveId !== "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms";
+            return `
+              <button 
+                data-lesson-id="${les.id}"
+                class="btn-switch-lesson shrink-0 px-3.5 py-2 rounded-2xl text-xs font-bold transition-all flex items-center space-x-1.5 ${isCur ? 'bg-indigo-600 text-white shadow-md ring-2 ring-indigo-400/40' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100'}">
+                <span>Trích đoạn ${idx + 1}</span>
+                ${hasRealVideo ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold border border-emerald-400/30">1080p</span>' : ''}
+              </button>
+            `;
+          }).join('')}
+        </div>
+
         <!-- Custom Drive Link Modal / Input Box (Hidden by default) -->
         <div id="custom-drive-input-box" class="hidden bg-indigo-50 dark:bg-indigo-950/50 p-4 rounded-2xl border border-indigo-200 dark:border-indigo-800 text-xs animate-fade-in space-y-2">
           <div class="flex items-center justify-between">
@@ -320,7 +337,7 @@ export class CoursesEngine {
           <div class="lg:col-span-2 space-y-4">
             <div class="relative bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 shadow-2xl aspect-video w-full flex items-center justify-center group">
               <!-- Video Frame Google Drive -->
-              ${driveFileId ? `
+              ${(driveFileId && driveFileId !== "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms") ? `
                 <iframe 
                   id="drive-video-frame"
                   src="https://drive.google.com/file/d/${driveFileId}/preview" 
@@ -329,8 +346,15 @@ export class CoursesEngine {
                   allowfullscreen>
                 </iframe>
               ` : `
-                <div class="text-center p-6 text-slate-400 text-xs">
-                  Chưa có link video Google Drive. Bấm "Đổi link Drive" ở trên để gắn link của bạn.
+                <div class="text-center p-6 text-slate-300 max-w-sm space-y-3 z-10 flex flex-col items-center justify-center">
+                  <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-2xl">🎬</div>
+                  <div class="font-bold text-white text-sm">Chưa có video cho trích đoạn này</div>
+                  <p class="text-xs text-slate-400 leading-relaxed">
+                    Trích đoạn 1 ("Joey's Bad Birthday Gift") đã có sẵn video Full HD 1080p từ Google Drive. Bạn hãy bấm chọn Trích đoạn 1 để bắt đầu học ngay!
+                  </p>
+                  <button data-lesson-id="friends-01-birthday-gift" class="btn-switch-lesson px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md transition-all active:scale-95">
+                    Sang Trích đoạn 1 (Có 1080p) ➔
+                  </button>
                 </div>
               `}
 
