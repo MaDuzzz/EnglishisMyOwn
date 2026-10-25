@@ -18,8 +18,172 @@ export const COURSES_DATA = [
         title: "Phần 1: Những Tình Huống Dở Khóc Dở Cười Đời Thường",
         lessons: [
           {
-            id: "friends-01-pivot",
-            title: "Trích đoạn 1: Ross khiêng sofa và câu thoại bất hủ 'Pivot!'",
+            id: "friends-01-birthday-gift",
+            title: "Trích đoạn 1: Quà sinh nhật thảm họa của Joey (Joey's Bad Birthday Gift)",
+            episode: "Season 4 - Episode 6",
+            duration: "02:23",
+            videoDriveUrl: "https://drive.google.com/file/d/1NopDA2H8JFJrYfkgo_8N2tKtPCxsIjgN/preview",
+            videoDriveId: "1NopDA2H8JFJrYfkgo_8N2tKtPCxsIjgN",
+            description: "Joey khổ sở vì không biết mua quà sinh nhật cho bạn gái Kathy. Chiếc bút kiêm đồng hồ văn phòng phẩm của anh khiến Chandler phải ra tay cứu nguy.",
+            context: "Joey bước vào căn hộ của Monica & Rachel với vẻ mặt mệt mỏi vì việc chọn quà cho bạn gái. Joey tự hào khoe món quà 'hai trong một' là chiếc bút kiêm đồng hồ mua vội ở tiệm OfficeMax. Chandler bàng hoàng và quyết định đích thân đi săn lùng một món quà ý nghĩa hơn.",
+            keyVocabulary: [
+              { word: "shop for", ipa: "/ʃɒp fɔːr/", meaningVi: "đi lùng mua quà/đồ cho ai đó", exampleInClip: "It is so hard to shop for girls." },
+              { word: "two gifts in one", ipa: "/tuː ɡɪfts ɪn wʌn/", meaningVi: "hai món quà trong một (tích hợp đa năng)", exampleInClip: "It's two gifts in one." },
+              { word: "while you're at it", ipa: "/waɪl jɔːr æt ɪt/", meaningVi: "tiện thể, nhân tiện đang làm việc đó", exampleInClip: "While you're at it, could you get her a card?" },
+              { word: "owe you one", ipa: "/oʊ juː wʌn/", meaningVi: "nợ một ân huệ, mang ơn", exampleInClip: "Thanks man, I owe you one." }
+            ],
+            dialogue: [
+              {
+                id: "f0_1",
+                speaker: "Joey",
+                en: "Man, it is so hard to shop for girls.",
+                vi: "Trời ạ, đi mua quà cho con gái khó không tưởng nổi.",
+                tone: "Than thở, mệt mỏi, bất lực",
+                pronunciationTip: "Nối âm nhanh 'it is' -> /ɪt ɪz/, nhấn mạnh từ cảm thán 'Man' và 'so hard'.",
+                contextNote: "Joey là chàng trai đào hoa nhưng rất vụng về trong việc thấu hiểu tâm lý phụ nữ khi tặng quà."
+              },
+              {
+                id: "f0_2",
+                speaker: "Chandler",
+                en: "Yes, it is... at OfficeMax.",
+                vi: "Chuẩn luôn... nhất là khi chú đi mua ở tiệm văn phòng phẩm OfficeMax.",
+                tone: "Châm chọc, mỉa mai đặc trưng của Chandler",
+                pronunciationTip: "Ngắt nhẹ sau 'Yes, it is' rồi nhấn mạnh tên cửa hàng 'OfficeMax' với ngữ điệu trêu đùa.",
+                contextNote: "Chandler nhìn thấy túi đồ văn phòng phẩm liền đoán ngay Joey lại mua đồ lặt vặt rẻ tiền làm quà sinh nhật."
+              },
+              {
+                id: "f0_3",
+                speaker: "Rachel",
+                en: "What did you get her?",
+                vi: "Anh đã mua tặng cô ấy cái gì thế?",
+                tone: "Tò mò, hơi e ngại",
+                pronunciationTip: "Lướt âm nhẹ: 'What did you' đọc nhanh thành /wʌ dɪdʒə/.",
+                contextNote: "Rachel là chuyên gia thời trang nên rất tò mò Joey đã chọn món gì."
+              },
+              {
+                id: "f0_4",
+                speaker: "Joey",
+                en: "A pen. It's two gifts in one. It's a pen that's also a clock! Huh?",
+                vi: "Một cái bút! Một món quà được tận hai chức năng nhé: vừa là bút viết lại vừa là đồng hồ! Đỉnh chưa?",
+                tone: "Hớn hở, tự hào như vừa phát minh ra kỳ tích",
+                pronunciationTip: "Nhấn mạnh cụm 'two gifts in one' và kết thúc bằng tiếng cười 'Huh?' đòi hỏi sự đồng tình.",
+                contextNote: "Joey ngây thơ nghĩ rằng phụ nữ sẽ thích những món đồ công nghệ mini đa năng kiểu trẻ con."
+              },
+              {
+                id: "f0_5",
+                speaker: "Chandler",
+                en: "Huh-huh! You can't give her that.",
+                vi: "Ha-ha! Chú không thể tặng cô ấy món đồ đó được đâu.",
+                tone: "Cười trừ, lắc đầu dập tắt hy vọng",
+                pronunciationTip: "Nhấn mạnh từ 'can't' với âm /æ/ căng và bật âm /t/ dứt khoát.",
+                contextNote: "Chandler là bạn thân nhất của Joey và nhận ra ngay món quà này sẽ phá hỏng buổi sinh nhật."
+              },
+              {
+                id: "f0_6",
+                speaker: "Chandler",
+                en: "Because she's not eleven! And it's not the seventh night of Hanukkah!",
+                vi: "Bởi vì cô ấy đâu phải đứa bé 11 tuổi! Và hôm nay cũng chẳng phải đêm thứ 7 của lễ Hanukkah!",
+                tone: "Gay gắt, hài hước, ví von châm biếm",
+                pronunciationTip: "Nhấn mạnh vào số tuổi 'eleven' và đêm 'seventh night'.",
+                contextNote: "Hanukkah là lễ hội Do Thái kéo dài 8 đêm, các đêm cuối mọi người thường chỉ tặng những món quà nhỏ linh tinh cho trẻ em."
+              },
+              {
+                id: "f0_7",
+                speaker: "Joey",
+                en: "Sure it is! She needs a pen for work. She's writing, she turns it over... 'Whoa! It's time for my date with Joey!'",
+                vi: "Tặng tốt chứ sao! Cô ấy cần bút đi làm này. Đang viết dở, lật ngược lại xem giờ... 'Ái chà, đến giờ hẹn hò với anh Joey rồi!'",
+                tone: "Diễn tả điệu bộ siêu tự tin, ngây thơ hài hước",
+                pronunciationTip: "Giọng Joey giả vờ làm bạn gái với tông giọng cao, hào hứng ở câu cuối.",
+                contextNote: "Joey cố gắng hợp lý hóa món quà bằng một kịch bản tưởng tượng không tưởng."
+              },
+              {
+                id: "f0_8",
+                speaker: "Chandler",
+                en: "For three years!?",
+                vi: "Hẹn hò suốt 3 năm trời mà không có sinh nhật nào á!?",
+                tone: "Mắt tròn xoe thảng thốt, không tin nổi vào tai mình",
+                pronunciationTip: "Lên giọng cực mạnh ở cuối câu hỏi cảm thán: 'For three years!?'.",
+                contextNote: "Joey thú nhận cô bạn gái cũ Angela Delvecchio trong 3 năm quen nhau chưa từng có sinh nhật vì anh chẳng bao giờ nhớ."
+              },
+              {
+                id: "f0_9",
+                speaker: "Joey",
+                en: "Thanks, man. And oh, while you're at it, could you get her a card?",
+                vi: "Cảm ơn bạn hiền! À tiện thể thì mua hộ tao tấm thiệp luôn nhé?",
+                tone: "Thản nhiên nhờ vả, tranh thủ lợi dụng lòng tốt của bạn",
+                pronunciationTip: "Nối âm nhanh: 'while you're at it' -> /waɪl jɔːr æt ɪt/.",
+                contextNote: "Cụm từ siêu phổ biến trong giao tiếp hàng ngày khi muốn nhờ ai làm thêm việc gì tiện đường."
+              },
+              {
+                id: "f0_10",
+                speaker: "Joey",
+                en: "A book? Is it a book that's also a safe?",
+                vi: "Sách á? Có phải loại sách rỗng ruột kiêm két sắt giấu tiền không?",
+                tone: "Háo hức, vẫn ám ảnh với tư duy đồ dùng đa năng",
+                pronunciationTip: "Lên giọng ở từ 'safe' thể hiện sự tò mò.",
+                contextNote: "Khi Chandler mang về cuốn sách kinh điển The Velveteen Rabbit, Joey vẫn nghĩ nó là đồ chơi giấu đồ."
+              },
+              {
+                id: "f0_11",
+                speaker: "Joey",
+                en: "You got it. Thanks man. Thanks for doing this, I owe you one.",
+                vi: "Nhất trí luôn. Cảm ơn chú em nhé, tao nợ chú một lần này đấy!",
+                tone: "Chân thành, ấm áp, biết ơn",
+                pronunciationTip: "Cụm 'I owe you one' nói liền mạch: /aɪ oʊ juː wʌn/.",
+                contextNote: "Cách nói cảm ơn phổ biến nhất của người Mỹ khi bạn bè giúp đỡ mình việc quan trọng."
+              }
+            ],
+            goldenPhrases: [
+              {
+                phrase: "Two gifts in one!",
+                meaning: "Hai trong một! (Một công đôi việc)",
+                usageTip: "Dùng để mô tả đồ dùng hoặc giải pháp đa năng, tiện lợi."
+              },
+              {
+                phrase: "While you're at it, could you...?",
+                meaning: "Tiện thể lúc đang làm việc đó thì làm hộ tôi... nhé?",
+                usageTip: "Mẫu câu nhờ vả tự nhiên và lịch sự bậc nhất trong giao tiếp đời thường."
+              },
+              {
+                phrase: "I owe you one.",
+                meaning: "Tôi nợ bạn một lần nhé! (Tôi sẽ đền đáp ân huệ này)",
+                usageTip: "Dùng khi bạn bè hoặc đồng nghiệp ra tay gánh vác việc khó giúp bạn."
+              }
+            ],
+            quizzes: [
+              {
+                type: "cloze",
+                question: "Joey giải thích với mọi người về món quà chiếc bút kiêm đồng hồ:",
+                sentence: "A pen. It's two gifts in ______! It's a pen that's also a clock!",
+                options: ["one", "two", "all", "half"],
+                correctIndex: 0,
+                explanation: "Cụm từ 'two gifts in one' nghĩa là 2 món quà trong một sản phẩm duy nhất."
+              },
+              {
+                type: "cloze",
+                question: "Điền cụm từ nhờ vả tự nhiên của Joey khi nhờ Chandler mua hộ tấm thiệp:",
+                sentence: "Thanks, man. And oh, ______ you're at it, could you get her a card?",
+                options: ["while", "since", "because", "until"],
+                correctIndex: 0,
+                explanation: "'While you're at it' là thành ngữ chỉ việc nhân tiện lúc đang đi/đang làm thì làm thêm việc gì đó."
+              },
+              {
+                type: "vocab",
+                question: "Câu nói 'I owe you one' của Joey dành cho Chandler mang ý nghĩa gì?",
+                options: [
+                  "Tôi nợ bạn một ân huệ / Lần sau tôi sẽ đền đáp bạn",
+                  "Tôi nợ bạn một đô la tiền mặt",
+                  "Tôi sẽ đòi lại một món nợ cũ",
+                  "Bạn phải trả lại đồ cho tôi"
+                ],
+                correctIndex: 0,
+                explanation: "'I owe you one' (I owe you a favor) là câu nói cảm ơn quen thuộc khi ai đó giúp bạn việc lớn."
+              }
+            ]
+          },
+          {
+            id: "friends-02-pivot",
+            title: "Trích đoạn 2: Ross khiêng sofa và câu thoại bất hủ 'Pivot!'",
             episode: "Season 5 - Episode 11",
             duration: "02:30",
             videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",
@@ -123,8 +287,8 @@ export const COURSES_DATA = [
             ]
           },
           {
-            id: "friends-02-joey-food",
-            title: "Trích đoạn 2: Joey không bao giờ chia đồ ăn 'Joey doesn't share food!'",
+            id: "friends-03-joey-food",
+            title: "Trích đoạn 3: Joey không bao giờ chia đồ ăn 'Joey doesn't share food!'",
             episode: "Season 10 - Episode 9",
             duration: "02:15",
             videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",

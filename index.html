@@ -204,7 +204,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=95')
+        navigator.serviceWorker.register('./sw.js?v=96')
           .then(reg => {
             reg.update();
             console.log('✅ ServiceWorker đã sẵn sàng:', reg.scope);
@@ -223,6 +223,6 @@
   </script>
 
   <!-- ES Modules Entrypoint -->
-  <script type="module" src="./js/app.js?v=7.0"></script>
+  <script type="module" src="./js/app.js?v=7.1"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@ import {
 import { PlacementTestEngine } from './placement-test.js';
 import { VocabPracticeEngine } from './vocab-engine.js';
 import { VocabAbsorbEngine } from './vocab-absorb-engine.js';
-import { CoursesEngine } from './courses-engine.js?v=7.0';
+import { CoursesEngine } from './courses-engine.js?v=7.1';
 import { VOCAB_BANK, VOCAB_GROUPS } from './data/vocab-bank.js';
 import { speechService } from './speech.js';
 const ICON_FALLBACK_MAP = {

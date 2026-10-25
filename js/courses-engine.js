@@ -1,9 +1,9 @@
 // Trình điều khiển Khoá học Tiếng Anh Giao Tiếp Qua Phim & TV Shows (Cinema Shadowing Lab)
 // Phương pháp Đa Giác Quan: Nhắm mắt nghe ngấm ➔ Xem phụ đề ➔ Mổ xẻ ngữ cảnh ➔ Shadowing nhại cảm xúc ➔ Quizz đục lỗ
 
-import { COURSES_DATA } from './data/courses-data.js?v=7.0';
-import { appState } from './state.js?v=7.0';
-import { celebrationEngine } from './celebration.js?v=7.0';
+import { COURSES_DATA } from './data/courses-data.js?v=7.1';
+import { appState } from './state.js?v=7.1';
+import { celebrationEngine } from './celebration.js?v=7.1';
 
 // Helper bóc tách Google Drive File ID từ bất kỳ dạng link nào
 export function extractDriveFileId(urlOrId) {
