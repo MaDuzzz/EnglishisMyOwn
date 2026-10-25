@@ -1324,7 +1324,7 @@ export class VocabPracticeEngine {
       if (hasRemainingReview) {
         iconEmoji = '🧗';
         titleHtml = `Hoàn Thành Đợt ${this.options.batchMeta?.currentBatchIndex || 1}/${this.options.batchMeta?.totalBatches || 1}!`;
-        descHtml = `Bạn đã chinh phục thành công toàn bộ ${this.targetPoints} nấc thử thách của đợt này (${wordIds.length} từ x 3 kỹ năng).<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập kỷ luật (T-1 & ngày cũ).`;
+        descHtml = `Bạn đã chinh phục thành công toàn bộ ${this.targetPoints} nấc thử thách của đợt này (${wordIds.length} từ x 3 kỹ năng).<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập kỷ luật.`;
         actionButtonsHtml = `
           <button id="btn-next-review-batch" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>
@@ -1368,7 +1368,7 @@ export class VocabPracticeEngine {
         iconEmoji = '⚡';
         const groupTitle = this.options.batchMeta?.groupName ? ` Chủ Đề "${this.options.batchMeta.groupName}"` : ` 10 Từ Mới`;
         titleHtml = `Chinh Phục Đỉnh Núi${groupTitle}!`;
-        descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập kỷ luật (T-1 & ngày cũ) để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
+        descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập kỷ luật để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
         actionButtonsHtml = `
           <button id="btn-do-review-now" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>
