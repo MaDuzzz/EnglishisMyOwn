@@ -1346,7 +1346,7 @@ class App {
               <span class="text-2xl shrink-0">🔥</span>
               <div class="min-w-0">
                 <h4 class="font-extrabold text-xs sm:text-sm text-emerald-800 dark:text-emerald-300">Nhiệm vụ hôm nay đã hoàn tất 100%!</h4>
-                <p class="text-[11px] sm:text-xs text-emerald-700/90 dark:text-emerald-300/90 mt-0.5 truncate sm:whitespace-normal">Bạn đã hoàn thành Ôn tập T-1 và Học từ mới. Chuỗi kiên trì <strong class="font-black text-amber-500">🔥 ${appState.state.streak} ngày</strong> được bảo toàn an toàn!</p>
+                <p class="text-[11px] sm:text-xs text-emerald-700/90 dark:text-emerald-300/90 mt-0.5 truncate sm:whitespace-normal">Bạn đã hoàn thành Ôn tập kỷ luật và Học từ mới. Chuỗi kiên trì <strong class="font-black text-amber-500">🔥 ${appState.state.streak} ngày</strong> được bảo toàn an toàn!</p>
               </div>
             </div>
             <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-600 text-white shrink-0 shadow-xs tracking-wider uppercase">ĐẠT CHUẨN</span>
@@ -1357,7 +1357,7 @@ class App {
               <span class="text-2xl shrink-0">⚡</span>
               <div class="min-w-0">
                 <h4 class="font-extrabold text-xs sm:text-sm text-amber-800 dark:text-amber-300">Bảo toàn chuỗi 🔥 ${appState.state.streak} ngày trước 23:59</h4>
-                <p class="text-[11px] sm:text-xs text-amber-700/90 dark:text-amber-300/90 mt-0.5 truncate sm:whitespace-normal">Quy tắc giữ chuỗi: Cần hoàn tất <strong class="underline">CẢ HAI</strong> nhiệm vụ (Ôn tập T-1 + Học ít nhất 10 từ mới) để không bị đứt chuỗi!</p>
+                <p class="text-[11px] sm:text-xs text-amber-700/90 dark:text-amber-300/90 mt-0.5 truncate sm:whitespace-normal">Quy tắc giữ chuỗi: Cần hoàn tất <strong class="underline">CẢ HAI</strong> nhiệm vụ (Ôn tập kỷ luật + Học ít nhất 10 từ mới) để không bị đứt chuỗi!</p>
               </div>
             </div>
             <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-600 text-white shrink-0 shadow-xs tracking-wider uppercase">CẦN HỌC</span>
@@ -1368,7 +1368,7 @@ class App {
               <span class="text-2xl shrink-0">🎯</span>
               <div class="min-w-0">
                 <h4 class="font-extrabold text-xs sm:text-sm text-indigo-800 dark:text-indigo-300">Bắt đầu thiết lập chuỗi ngày học mới hôm nay</h4>
-                <p class="text-[11px] sm:text-xs text-indigo-700/90 dark:text-indigo-300/90 mt-0.5 truncate sm:whitespace-normal">Hoàn thành cả Ôn tập T-1 và Học 10 từ mới hôm nay để khởi động lại ngọn lửa chuỗi Streak 🔥!</p>
+                <p class="text-[11px] sm:text-xs text-indigo-700/90 dark:text-indigo-300/90 mt-0.5 truncate sm:whitespace-normal">Hoàn thành cả Ôn tập kỷ luật và Học 10 từ mới hôm nay để khởi động lại ngọn lửa chuỗi Streak 🔥!</p>
               </div>
             </div>
             <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-indigo-600 text-white shrink-0 shadow-xs tracking-wider uppercase">MỤC TIÊU</span>
@@ -1393,7 +1393,7 @@ class App {
               </div>
 
               <h4 class="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center justify-between">
-                <span>Ôn Tập Kỷ Luật (Day T-1)</span>
+                <span>Ôn Tập Kỷ Luật (T-1 & Ngày Cũ)</span>
                 ${discipline.needsReview && discipline.totalBatches > 1 ? `<span class="text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">${discipline.completedReviewCount}/${discipline.totalReviewCount} từ</span>` : ''}
               </h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 ${discipline.needsReview ? 'line-clamp-2 leading-relaxed' : 'line-clamp-1'}">
@@ -1402,9 +1402,27 @@ class App {
                       ? `Đợt ${discipline.currentBatchIndex}/${discipline.totalBatches}: Luyện <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.currentReviewBatch.length} từ</strong> (còn ${discipline.remainingReviewCount} từ cần ôn tiếp để mở khóa Bước 2).`
                       : `Có <strong class="text-amber-600 dark:text-amber-400 font-bold">${discipline.remainingReviewCount} từ</strong> cần củng cố qua 3 chế độ (Dịch - Nghe chính tả - Phản xạ nhanh).`)
                   : (discipline.totalReviewCount > 0 
-                      ? `Xuất sắc! Toàn bộ ${discipline.totalReviewCount} từ ngày hôm qua đã được ôn tập trọn vẹn.`
+                      ? `Xuất sắc! Toàn bộ ${discipline.totalReviewCount} từ ôn tập (T-1: ${discipline.tMinus1Date}${discipline.randomPastDate ? ` & T-n: ${discipline.randomPastDate}` : ''}) đã được hoàn tất trọn vẹn.`
                       : 'Nhiệm vụ ôn tập hôm nay đã xong! Trí nhớ dài hạn được bảo toàn vững chắc.')}
               </p>
+
+              <!-- Chi tiết nguồn ngày ôn tập (T-1 & Ngày quá khứ ngẫu nhiên) -->
+              ${discipline.needsReview && discipline.totalReviewCount > 0 ? `
+                <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60" title="Từ học ở phiên gần nhất">
+                    <span>📅 T-1:</span>
+                    <span class="font-mono">${discipline.tMinus1Date}</span>
+                    <span class="font-bold">(${discipline.tMinus1Count || 0} từ)</span>
+                  </span>
+                  ${discipline.randomPastDate ? `
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-violet-50 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 border border-violet-200/60 dark:border-violet-800/60" title="Từ chọn ngẫu nhiên từ quá khứ để nhắc lại ngắt quãng">
+                      <span>🎲 T-n:</span>
+                      <span class="font-mono">${discipline.randomPastDate}</span>
+                      <span class="font-bold">(${discipline.randomPastCount || 0} từ)</span>
+                    </span>
+                  ` : ''}
+                </div>
+              ` : ''}
 
               ${discipline.needsReview && discipline.totalBatches > 1 ? `
                 <div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 mt-2.5 overflow-hidden">
@@ -1448,7 +1466,7 @@ class App {
               </h4>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
                 ${discipline.needsReview 
-                  ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập toàn bộ từ T-1) để hệ thống mở khóa 10 từ mới.'
+                  ? 'Quy tắc kỷ luật: Bạn phải hoàn thành Bước 1 (Ôn tập toàn bộ từ T-1 & ngày cũ) để hệ thống mở khóa 10 từ mới.'
                   : (appState.state.dailyNewBatchDone 
                       ? `Đã nạp thành công ${appState.state.todayNewWordsCount || 10} từ mới hôm nay! Bạn có thể học thêm batch tiếp theo nếu muốn bứt phá vốn từ.`
                       : 'Quy tắc giữ chuỗi: Hoàn thành ít nhất 1 batch 10 từ mới hôm nay qua 2 giai đoạn (Thẩm thấu ➔ Luyện tập thực chiến 3 kỹ năng).')}
@@ -1790,10 +1808,10 @@ class App {
           const grp = groups.find(g => g.groupId === groupId);
           if (!grp) return;
 
-          // Kiểm tra kỷ luật: Phải hoàn thành Ôn tập T-1 trước
+          // Kiểm tra kỷ luật: Phải hoàn thành Ôn tập kỷ luật (T-1 & ngày cũ) trước
           const discipline = appState.calculateDisciplineStatus();
           if (discipline.needsReview) {
-            this.showToast("⚠️ Quy tắc giữ chuỗi: Bạn cần hoàn thành Bước 1 (Ôn tập từ T-1) trước khi bắt đầu học từ mới!", 4000);
+            this.showToast("⚠️ Quy tắc giữ chuỗi: Bạn cần hoàn thành Bước 1 (Ôn tập từ T-1 & ngày cũ) trước khi bắt đầu học từ mới!", 4000);
             const reviewBtn = document.getElementById('btn-start-review');
             if (reviewBtn) {
               reviewBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });

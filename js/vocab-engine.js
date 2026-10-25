@@ -400,7 +400,7 @@ export class VocabPracticeEngine {
                 </button>
                 <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full ${this.mode === 'review' ? 'bg-amber-50 dark:bg-amber-950/60 border-amber-200/60 dark:border-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200/60 dark:border-emerald-900/60 text-emerald-700 dark:text-emerald-300'} text-xs font-bold border truncate max-w-[190px] sm:max-w-xs">
                   <span class="w-2 h-2 rounded-full ${this.mode === 'review' ? 'bg-amber-500' : 'bg-emerald-500'} animate-pulse shrink-0"></span>
-                  <span class="truncate">${this.mode === 'review' ? 'Ôn tập kỷ luật' : (this.options.batchMeta?.groupName ? this.options.batchMeta.groupName : 'Luyện tập phản xạ')}</span>
+                  <span class="truncate">${this.mode === 'review' ? (this.options.batchMeta?.totalBatches > 1 ? `Ôn tập (Đợt ${this.options.batchMeta.currentBatchIndex}/${this.options.batchMeta.totalBatches})` : 'Ôn tập kỷ luật') : (this.options.batchMeta?.groupName ? this.options.batchMeta.groupName : 'Luyện tập phản xạ')}</span>
                 </div>
               </div>
 
@@ -1324,7 +1324,7 @@ export class VocabPracticeEngine {
       if (hasRemainingReview) {
         iconEmoji = '🧗';
         titleHtml = `Hoàn Thành Đợt ${this.options.batchMeta?.currentBatchIndex || 1}/${this.options.batchMeta?.totalBatches || 1}!`;
-        descHtml = `Bạn đã chinh phục thành công toàn bộ ${this.targetPoints} nấc thử thách của đợt này (${wordIds.length} từ x 3 kỹ năng).<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập T-1.`;
+        descHtml = `Bạn đã chinh phục thành công toàn bộ ${this.targetPoints} nấc thử thách của đợt này (${wordIds.length} từ x 3 kỹ năng).<br/>Còn <strong class="text-amber-500 font-bold">${disciplineStatus.remainingReviewCount} từ</strong> nữa để hoàn tất toàn bộ bài ôn tập kỷ luật (T-1 & ngày cũ).`;
         actionButtonsHtml = `
           <button id="btn-next-review-batch" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>
@@ -1354,7 +1354,7 @@ export class VocabPracticeEngine {
         iconEmoji = '🔥';
         const groupTitle = this.options.batchMeta?.groupName ? ` Chủ Đề "${this.options.batchMeta.groupName}"` : ` 10 Từ Mới`;
         titleHtml = `Chinh Phục Đỉnh Núi${groupTitle} & Bảo Toàn Chuỗi!`;
-        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập T-1 và Chinh phục đỉnh núi từ mới hôm nay (${this.targetPoints} nấc thực chiến).<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
+        descHtml = `Bạn đã hoàn tất cả 2 nhiệm vụ: Ôn tập kỷ luật và Chinh phục đỉnh núi từ mới hôm nay (${this.targetPoints} nấc thực chiến).<br/>Chuỗi liên tục của bạn đã được bảo toàn ở mốc <strong class="text-amber-500 font-extrabold text-base">🔥 ${appState.state.streak} ngày</strong>!`;
         actionButtonsHtml = `
           <button id="btn-learn-more-batch" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>✨</span>
@@ -1368,11 +1368,11 @@ export class VocabPracticeEngine {
         iconEmoji = '⚡';
         const groupTitle = this.options.batchMeta?.groupName ? ` Chủ Đề "${this.options.batchMeta.groupName}"` : ` 10 Từ Mới`;
         titleHtml = `Chinh Phục Đỉnh Núi${groupTitle}!`;
-        descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập T-1 để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
+        descHtml = `Bạn đã xuất sắc chinh phục ${this.targetPoints} nấc thử thách (3 kỹ năng phản xạ thực chiến)!<br/><strong class="text-amber-600 dark:text-amber-400">⚠️ Bạn cần hoàn thành bài Ôn tập kỷ luật (T-1 & ngày cũ) để chính thức được tính giữ chuỗi Streak hôm nay!</strong>`;
         actionButtonsHtml = `
           <button id="btn-do-review-now" class="w-full py-3.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-xl shadow-lg shadow-orange-500/25 transition-all text-xs sm:text-sm flex items-center justify-center space-x-2">
             <span>🚀</span>
-            <span>Ôn tập T-1 để giữ chuỗi</span>
+            <span>Ôn tập kỷ luật để giữ chuỗi</span>
           </button>
           <button id="btn-complete-session" class="w-full mt-2.5 py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl transition-all text-xs">
             Quay lại Bảng Điều Khiển

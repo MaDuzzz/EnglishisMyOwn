@@ -117,6 +117,7 @@ export class StateManager {
           dailyReviewDone: profile.dailyReviewDone || false,
           dailyReviewDate: profile.dailyReviewDate || null,
           dailyReviewedWordIds: profile.dailyReviewedWordIds || [],
+          dailyReviewPastDate: profile.dailyReviewPastDate || null,
           dailyNewBatchDone: profile.dailyNewBatchDone || false,
           dailyNewBatchDate: profile.dailyNewBatchDate || null,
           todayNewWordsCount: profile.todayNewWordsCount || 0,
@@ -163,6 +164,7 @@ export class StateManager {
       dailyReviewDone: false,
       dailyReviewDate: today,
       dailyReviewedWordIds: [], // Danh sách wordId đã được ôn tập hôm nay
+      dailyReviewPastDate: null, // Ngày quá khứ (T-n, khác T-1) được chọn ngẫu nhiên cho buổi ôn tập hôm nay
       dailyNewBatchDone: false,
       dailyNewBatchDate: today,
       todayNewWordsCount: 0, // Số từ mới đã hoàn thành bài luyện tập hôm nay
@@ -250,6 +252,7 @@ export class StateManager {
       this.state.dailyReviewDone = false;
       this.state.dailyReviewDate = today;
       this.state.dailyReviewedWordIds = [];
+      this.state.dailyReviewPastDate = null;
     }
     if (this.state.dailyNewBatchDate !== today) {
       this.state.dailyNewBatchDone = false;
@@ -319,6 +322,7 @@ export class StateManager {
         dailyReviewDone: this.state.dailyReviewDone || false,
         dailyReviewDate: this.state.dailyReviewDate || this.getTodayString(),
         dailyReviewedWordIds: this.state.dailyReviewedWordIds || [],
+        dailyReviewPastDate: this.state.dailyReviewPastDate || null,
         dailyNewBatchDone: this.state.dailyNewBatchDone || false,
         dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
         todayNewWordsCount: this.state.todayNewWordsCount || 0,
@@ -447,7 +451,8 @@ export class StateManager {
     return `${year}-${month}-${day}`;
   }
 
-  // Phân tích trạng thái kỷ luật & Chia đợt ôn tập (10 từ/đợt) & Cơ chế Phạt (Penalty System)
+  // Phân tích trạng thái kỷ luật & Chia đợt ôn tập (10 từ/đợt)
+  // Cơ chế mới: Ôn toàn bộ từ T-1 + Chọn ngẫu nhiên 1 ngày trong quá khứ (T-2, T-3, ..., T-n khác T-1)
   calculateDisciplineStatus() {
     const today = this.getTodayString();
     const yesterday = this.getYesterdayString();
@@ -459,6 +464,9 @@ export class StateManager {
         isPenalized: false,
         missedDays: 0,
         tMinus1Date: null,
+        randomPastDate: null,
+        tMinus1Count: 0,
+        randomPastCount: 0,
         totalReviewCount: 0,
         completedReviewCount: 0,
         remainingReviewCount: 0,
@@ -471,7 +479,7 @@ export class StateManager {
       };
     }
 
-    // 2. Tìm ngày học gần nhất trước hôm nay (T-1)
+    // 2. Tìm tất cả các ngày đã học trong quá khứ trước hôm nay (< today)
     const pastLearningDates = Array.from(new Set(
       this.state.learnedWords
         .map(w => w.learnedDate)
@@ -485,6 +493,9 @@ export class StateManager {
         isPenalized: false,
         missedDays: 0,
         tMinus1Date: null,
+        randomPastDate: null,
+        tMinus1Count: 0,
+        randomPastCount: 0,
         totalReviewCount: 0,
         completedReviewCount: 0,
         remainingReviewCount: 0,
@@ -497,7 +508,11 @@ export class StateManager {
       };
     }
 
+    // Ngày học gần nhất trước hôm nay (T-1)
     const tMinus1Date = pastLearningDates[pastLearningDates.length - 1];
+
+    // Các ngày cũ hơn T-1 (T-2, T-3, ..., T-n)
+    const olderDates = pastLearningDates.slice(0, pastLearningDates.length - 1);
 
     // Xác định số ngày bỏ quên giữa tMinus1Date và today
     let missedDays = 0;
@@ -507,26 +522,48 @@ export class StateManager {
       const diffTime = Math.abs(todayDateObj - lastDateObj);
       missedDays = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)) - 1);
     }
+    const isPenalized = missedDays > 0;
 
-    // Gom danh sách toàn bộ từ cần review cho chu kỳ hôm nay
-    let allReviewWords = [];
-    let isPenalized = missedDays > 0;
-
-    if (isPenalized) {
-      // Phạt = Toàn bộ từ học ở phiên T-1 + 10 từ ngẫu nhiên trong lịch sử trước T-1
-      const tMinus1Words = this.state.learnedWords.filter(w => w.learnedDate === tMinus1Date);
-      const historicalPool = this.state.learnedWords.filter(w => w.learnedDate && w.learnedDate < tMinus1Date);
-      const shuffled = [...historicalPool].sort(() => 0.5 - Math.random());
-      const penaltyWords = shuffled.slice(0, 10);
-      allReviewWords = [...tMinus1Words, ...penaltyWords];
+    // 3. Xác định ngày quá khứ ngẫu nhiên T-n (khác T-1) nếu lịch sử có từ 2 ngày học trở lên
+    let randomPastDate = null;
+    if (olderDates.length > 0) {
+      // Nếu hôm nay đã chọn 1 ngày quá khứ và ngày đó vẫn hợp lệ trong olderDates
+      if (this.state.dailyReviewPastDate && olderDates.includes(this.state.dailyReviewPastDate)) {
+        randomPastDate = this.state.dailyReviewPastDate;
+      } else {
+        // Chọn ngẫu nhiên 1 ngày từ olderDates và cố định cho cả ngày hôm nay
+        const randIdx = Math.floor(Math.random() * olderDates.length);
+        randomPastDate = olderDates[randIdx];
+        this.state.dailyReviewPastDate = randomPastDate;
+        this.setCachedProfile(this.state);
+      }
     } else {
-      // Học đều đặn: Toàn bộ từ học từ phiên gần nhất T-1
-      allReviewWords = this.state.learnedWords.filter(w => w.learnedDate === tMinus1Date);
-      if (allReviewWords.length === 0) {
-        allReviewWords = [...this.state.learnedWords]
+      this.state.dailyReviewPastDate = null;
+    }
+
+    // 4. Gom danh sách từ cần review cho hôm nay:
+    // a) Toàn bộ từ học ở phiên gần nhất T-1
+    const tMinus1Words = this.state.learnedWords.filter(w => w.learnedDate === tMinus1Date);
+
+    // b) Từ học ở phiên ngẫu nhiên T-n (khác T-1)
+    let randomPastWords = [];
+    if (randomPastDate) {
+      const candidates = this.state.learnedWords.filter(w => w.learnedDate === randomPastDate);
+      if (candidates.length <= 10) {
+        randomPastWords = candidates;
+      } else {
+        // Nếu ngày đó học > 10 từ: ưu tiên lấy 10 từ có reviewCount thấp nhất (hoặc ôn cách đây lâu nhất)
+        randomPastWords = [...candidates]
           .sort((a, b) => (a.reviewCount || 0) - (b.reviewCount || 0))
           .slice(0, 10);
       }
+    }
+
+    let allReviewWords = [...tMinus1Words, ...randomPastWords];
+    if (allReviewWords.length === 0) {
+      allReviewWords = [...this.state.learnedWords]
+        .sort((a, b) => (a.reviewCount || 0) - (b.reviewCount || 0))
+        .slice(0, 10);
     }
 
     // Khử trùng lặp ID
@@ -570,6 +607,9 @@ export class StateManager {
       isPenalized,
       missedDays,
       tMinus1Date,
+      randomPastDate,
+      tMinus1Count: tMinus1Words.length,
+      randomPastCount: randomPastWords.length,
       totalReviewCount,
       completedReviewCount,
       remainingReviewCount,
@@ -579,9 +619,9 @@ export class StateManager {
       allReviewWords: pool,
       reviewWords: currentReviewBatch, // Tương thích ngược với các thành phần cũ
       reason: isPenalized 
-        ? `⚠️ Bạn đã bỏ quên ${missedDays} ngày! Hệ thống áp dụng hình phạt: Ôn lại ${totalReviewCount} từ (gồm từ ngày ${tMinus1Date} + 10 từ cũ ngẫu nhiên) chia làm ${totalBatches} đợt (10 từ/đợt).`
-        : totalBatches > 1
-          ? `Bạn có ${totalReviewCount} từ cần ôn tập từ ngày ${tMinus1Date}. Hệ thống chia thành ${totalBatches} đợt (10 từ/lần review) để bạn luyện tập hiệu quả nhất.`
+        ? `⚠️ Bạn đã bỏ quên ${missedDays} ngày! Hệ thống yêu cầu ôn tập ${totalReviewCount} từ (${tMinus1Words.length} từ ngày ${tMinus1Date}${randomPastDate ? ` + ${randomPastWords.length} từ ngày cũ ${randomPastDate}` : ''}) chia làm ${totalBatches} đợt (10 từ/đợt) để khôi phục chuỗi.`
+        : randomPastDate
+          ? `Bạn có ${totalReviewCount} từ cần ôn tập (${tMinus1Words.length} từ ngày ${tMinus1Date} + ${randomPastWords.length} từ ngày cũ ${randomPastDate}). Hệ thống chia thành ${totalBatches} đợt (10 từ/lần review) để bạn củng cố trí nhớ dài hạn.`
           : `Bạn có ${totalReviewCount} từ cần ôn tập lại từ phiên ngày ${tMinus1Date} trước khi mở khoá 10 từ mới.`
     };
   }
