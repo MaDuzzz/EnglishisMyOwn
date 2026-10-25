@@ -1,9 +1,9 @@
 // Trình điều khiển Khoá học Tiếng Anh Giao Tiếp Qua Phim & TV Shows (Cinema Shadowing Lab)
 // Phương pháp Đa Giác Quan: Nhắm mắt nghe ngấm ➔ Xem phụ đề ➔ Mổ xẻ ngữ cảnh ➔ Shadowing nhại cảm xúc ➔ Quizz đục lỗ
 
-import { COURSES_DATA } from './data/courses-data.js?v=7.3';
-import { appState } from './state.js?v=7.3';
-import { celebrationEngine } from './celebration.js?v=7.3';
+import { COURSES_DATA } from './data/courses-data.js?v=7.4';
+import { appState } from './state.js?v=7.4';
+import { celebrationEngine } from './celebration.js?v=7.4';
 
 // Helper bóc tách Google Drive File ID từ bất kỳ dạng link nào
 export function extractDriveFileId(urlOrId) {
@@ -29,7 +29,7 @@ export class CoursesEngine {
     
     // Trạng thái Stepper 5 bước trong phòng học phim
     this.currentStep = 1; // 1: Nhắm mắt nghe, 2: Xem & Bắt từ, 3: Mổ xẻ câu, 4: Luyện nhại giọng, 5: Quizz đục lỗ
-    this.isBlindCurtainActive = false; // Mặc định mở video để người dùng bấm Play thoải mái
+    this.isBlindPlaying = false; // Trạng thái phát âm thanh khi nhắm mắt nghe
     this.blindListenCount = 0; // Đếm số lần nghe nhắm mắt
     this.subtitleMode = "bilingual"; // "bilingual" | "en" | "vi"
     
@@ -193,7 +193,7 @@ export class CoursesEngine {
         const course = COURSES_DATA.find(c => c.id === this.selectedCourseId) || COURSES_DATA[0];
         this.selectedLessonId = course.modules[0].lessons[0].id;
         this.currentStep = 1;
-        this.isBlindCurtainActive = false;
+        this.isBlindPlaying = false;
         this.blindListenCount = 0;
         this.quizState = { currentIndex: 0, userAnswers: [], isFinished: false };
         this.renderLesson();
@@ -292,7 +292,7 @@ export class CoursesEngine {
 
         <!-- 2. CINEMA FULL-WIDTH VIDEO THEATER (100% WIDTH, BOLD & LARGE) -->
         <div class="space-y-3">
-          <div class="relative bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl aspect-video w-full flex items-center justify-center group ring-1 ring-white/10">
+          <div id="cinema-video-container" class="relative bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl aspect-video w-full flex items-center justify-center group ring-1 ring-white/10 cursor-pointer">
             <!-- Video Frame Google Drive (Always accessible to click play) -->
             ${driveFileId ? `
               <iframe 
@@ -308,41 +308,55 @@ export class CoursesEngine {
               </div>
             `}
 
-            <!-- OPTIONAL Blackout Blind Listening Curtain Overlay (Only active when toggled) -->
-            <div id="blind-listening-curtain" class="${(this.currentStep === 1 && this.isBlindCurtainActive) ? 'flex' : 'hidden'} pointer-events-none absolute inset-0 bg-slate-950/95 backdrop-blur-md z-20 flex-col items-center justify-center p-6 text-center text-white space-y-3 transition-all duration-300">
-              <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-500 text-white flex items-center justify-center text-3xl shadow-xl shadow-indigo-500/20 animate-pulse">
-                🎧
+            <!-- Blackout Blind Listening Curtain Overlay (BẮT BUỘC Ở BƯỚC 1: NHẮM MẮT NGHE) -->
+            <div id="blind-listening-curtain" class="${this.currentStep === 1 ? 'flex' : 'hidden'} pointer-events-none absolute inset-0 bg-slate-950/98 backdrop-blur-md z-20 flex-col items-center justify-center p-6 text-center text-white space-y-4 transition-all duration-300 select-none">
+              
+              <!-- Nút tròn Start / Stop (Play / Pause) ở trung tâm -->
+              <div class="relative flex items-center justify-center">
+                <div id="blind-play-ping" class="${this.isBlindPlaying ? 'hidden' : 'block'} absolute w-24 h-24 rounded-full bg-indigo-500/30 animate-ping"></div>
+
+                <div 
+                  id="blind-play-btn-circle" 
+                  class="w-20 h-20 sm:w-24 sm:h-24 rounded-full ${this.isBlindPlaying ? 'bg-gradient-to-tr from-emerald-500 to-teal-600 shadow-emerald-500/40' : 'bg-gradient-to-tr from-indigo-500 to-rose-600 shadow-indigo-500/40'} text-white flex items-center justify-center text-3xl sm:text-4xl shadow-2xl transition-all duration-300 ring-4 ring-white/20">
+                  <span id="blind-play-icon" class="${this.isBlindPlaying ? '' : 'pl-1'}">${this.isBlindPlaying ? '⏸' : '▶'}</span>
+                </div>
               </div>
-              <div class="space-y-1 max-w-md">
-                <h4 class="text-base sm:text-lg font-black text-amber-300">
-                  Chế Độ Màn Tối (Tập Trung Thính Giác)
+
+              <!-- Tiêu đề & Trạng thái hướng dẫn -->
+              <div class="space-y-1.5 max-w-md">
+                <h4 class="text-base sm:text-lg font-black text-amber-300 flex items-center justify-center space-x-2">
+                  <span>🌙</span>
+                  <span>Chế Độ Màn Tối (Tập Trung Thính Giác)</span>
                 </h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Màn hình đã được phủ tối để bạn thả lỏng thị giác và tập trung lắng nghe ngữ điệu của nhân vật.
-                </p>
+                
+                <div id="blind-play-status-pill" class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full ${this.isBlindPlaying ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'} border text-xs font-bold transition-all">
+                  <span class="w-2 h-2 rounded-full ${this.isBlindPlaying ? 'bg-emerald-400 animate-pulse' : 'bg-indigo-400'}"></span>
+                  <span id="blind-play-status-text">${this.isBlindPlaying ? 'Đang phát âm thanh • Bấm để TẠM DỪNG' : 'Bấm vào nút tròn ở trên để BẮT ĐẦU NGHE'}</span>
+                </div>
               </div>
-              <!-- Soundwave Visualizer -->
-              <div class="flex items-center space-x-1.5 h-8 py-1">
-                <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-4"></span>
-                <span class="w-1 bg-amber-400 rounded-full animate-pulse h-7" style="animation-delay: 150ms"></span>
-                <span class="w-1 bg-rose-400 rounded-full animate-pulse h-5" style="animation-delay: 300ms"></span>
-                <span class="w-1 bg-emerald-400 rounded-full animate-pulse h-8" style="animation-delay: 100ms"></span>
-                <span class="w-1 bg-indigo-400 rounded-full animate-pulse h-6" style="animation-delay: 200ms"></span>
-                <span class="w-1 bg-amber-400 rounded-full animate-pulse h-3" style="animation-delay: 250ms"></span>
+
+              <!-- Soundwave Visualizer hiệu ứng sóng âm -->
+              <div id="blind-soundwave-box" class="flex items-center space-x-1.5 h-8 py-1 ${this.isBlindPlaying ? 'opacity-100' : 'opacity-40'} transition-opacity">
+                <span class="w-1.5 bg-indigo-400 rounded-full h-4 ${this.isBlindPlaying ? 'animate-pulse' : ''}"></span>
+                <span class="w-1.5 bg-amber-400 rounded-full h-7 ${this.isBlindPlaying ? 'animate-pulse' : ''}" style="animation-delay: 150ms"></span>
+                <span class="w-1.5 bg-rose-400 rounded-full h-5 ${this.isBlindPlaying ? 'animate-pulse' : ''}" style="animation-delay: 300ms"></span>
+                <span class="w-1.5 bg-emerald-400 rounded-full h-8 ${this.isBlindPlaying ? 'animate-pulse' : ''}" style="animation-delay: 100ms"></span>
+                <span class="w-1.5 bg-indigo-400 rounded-full h-6 ${this.isBlindPlaying ? 'animate-pulse' : ''}" style="animation-delay: 200ms"></span>
+                <span class="w-1.5 bg-amber-400 rounded-full h-3 ${this.isBlindPlaying ? 'animate-pulse' : ''}" style="animation-delay: 250ms"></span>
               </div>
             </div>
           </div>
 
-          <!-- Video Sub-bar: Context Preview & Blind Curtain Toggle -->
+          <!-- Video Sub-bar: Bối cảnh -->
           <div class="flex flex-wrap items-center justify-between gap-3 px-2 text-xs">
             <div class="flex items-center space-x-2 text-slate-600 dark:text-slate-400 min-w-0">
               <span class="font-bold text-amber-600 dark:text-amber-400 shrink-0">💡 Bối cảnh:</span>
               <span class="truncate">${currentLesson.context}</span>
             </div>
             ${this.currentStep === 1 ? `
-              <button id="btn-toggle-blackout" class="shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 active:scale-95 ${this.isBlindCurtainActive ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'}">
-                <span>${this.isBlindCurtainActive ? '👁️ Mở lại màn hình' : '🌙 Che màn hình (Tắt video)'}</span>
-              </button>
+              <div class="flex items-center space-x-2 text-[11px] text-slate-400 dark:text-slate-500">
+                <span>🔒 Màn hình tự động tối để bạn thả lỏng thị giác</span>
+              </div>
             ` : ''}
           </div>
         </div>
@@ -428,7 +442,7 @@ export class CoursesEngine {
               <span>Hướng Dẫn Luyện Nghe</span>
             </div>
             <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-              👉 Bấm nút <strong>Play</strong> trên màn hình video ở trên để bắt đầu phát, sau đó nhắm mắt lại. Không nhìn hình, không đọc chữ. Hãy để bộ não tập trung hoàn toàn vào tần số âm thanh, ngữ điệu vui buồn, cao trào và tiếng cười của nhân vật.
+              👉 Bấm nút <strong>Bắt đầu nghe (▶)</strong> ở giữa màn hình tối phía trên để phát âm thanh. Nhắm mắt lại và để bộ não tập trung hoàn toàn vào tần số âm thanh, ngữ điệu vui buồn, cao trào và tiếng cười của nhân vật (bấm lại nút để tạm dừng ⏸ bất cứ lúc nào).
             </p>
           </div>
 
@@ -829,11 +843,77 @@ export class CoursesEngine {
   }
 
   // ==========================================
+  // CẬP NHẬT GIAO DIỆN NÚT START/STOP BƯỚC 1 (KHÔNG LOAD LẠI IFRAME)
+  // ==========================================
+  updateBlindPlayUI() {
+    const ping = document.getElementById('blind-play-ping');
+    const circle = document.getElementById('blind-play-btn-circle');
+    const icon = document.getElementById('blind-play-icon');
+    const pill = document.getElementById('blind-play-status-pill');
+    const text = document.getElementById('blind-play-status-text');
+    const soundwave = document.getElementById('blind-soundwave-box');
+
+    if (this.isBlindPlaying) {
+      if (ping) ping.className = 'hidden';
+      if (circle) {
+        circle.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-2xl shadow-emerald-500/40 transition-all duration-300 ring-4 ring-white/20';
+      }
+      if (icon) {
+        icon.className = '';
+        icon.textContent = '⏸';
+      }
+      if (pill) {
+        pill.className = 'inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-xs font-bold transition-all';
+      }
+      if (text) {
+        text.textContent = 'Đang phát âm thanh • Bấm để TẠM DỪNG';
+      }
+      if (soundwave) {
+        soundwave.classList.remove('opacity-40');
+        soundwave.classList.add('opacity-100');
+        soundwave.querySelectorAll('span').forEach(s => s.classList.add('animate-pulse'));
+      }
+    } else {
+      if (ping) ping.className = 'absolute w-24 h-24 rounded-full bg-indigo-500/30 animate-ping';
+      if (circle) {
+        circle.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-600 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-2xl shadow-indigo-500/40 transition-all duration-300 ring-4 ring-white/20';
+      }
+      if (icon) {
+        icon.className = 'pl-1';
+        icon.textContent = '▶';
+      }
+      if (pill) {
+        pill.className = 'inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 border-indigo-500/40 text-xs font-bold transition-all';
+      }
+      if (text) {
+        text.textContent = 'Bấm vào nút tròn ở trên để BẮT ĐẦU NGHE';
+      }
+      if (soundwave) {
+        soundwave.classList.remove('opacity-100');
+        soundwave.classList.add('opacity-40');
+        soundwave.querySelectorAll('span').forEach(s => s.classList.remove('animate-pulse'));
+      }
+    }
+  }
+
+  // ==========================================
   // XỬ LÝ SỰ KIỆN TRONG PHÒNG HỌC PHIM
   // ==========================================
   bindLessonEvents(currentLesson) {
+    // Dọn dẹp listener và interval cũ nếu có
+    if (this._iframeFocusInterval) {
+      clearInterval(this._iframeFocusInterval);
+      this._iframeFocusInterval = null;
+    }
+    if (this._onWindowBlur) {
+      window.removeEventListener('blur', this._onWindowBlur);
+      this._onWindowBlur = null;
+    }
+
     // 1. Nút quay lại Catalog
     document.getElementById('btn-back-to-catalog')?.addEventListener('click', () => {
+      if (this._iframeFocusInterval) clearInterval(this._iframeFocusInterval);
+      if (this._onWindowBlur) window.removeEventListener('blur', this._onWindowBlur);
       this.renderCatalog();
     });
 
@@ -842,6 +922,7 @@ export class CoursesEngine {
       btn.addEventListener('click', () => {
         const step = parseInt(btn.getAttribute('data-step'), 10);
         this.currentStep = step;
+        this.isBlindPlaying = false;
         this.renderLesson();
       });
     });
@@ -856,28 +937,57 @@ export class CoursesEngine {
       }
     });
 
-    document.getElementById('btn-toggle-blackout')?.addEventListener('click', () => {
-      this.isBlindCurtainActive = !this.isBlindCurtainActive;
-      this.renderLesson();
-    });
+    // Xử lý tương tác Start/Stop video ở Bước 1 (Màn hình tối)
+    const videoContainer = document.getElementById('cinema-video-container');
+    let isHoveringVideo = false;
+    if (videoContainer) {
+      videoContainer.addEventListener('mouseenter', () => { isHoveringVideo = true; });
+      videoContainer.addEventListener('mouseleave', () => { isHoveringVideo = false; });
+      videoContainer.addEventListener('touchstart', () => { isHoveringVideo = true; }, { passive: true });
+    }
+
+    this._onWindowBlur = () => {
+      if (isHoveringVideo && this.currentStep === 1) {
+        this.isBlindPlaying = !this.isBlindPlaying;
+        this.updateBlindPlayUI();
+        setTimeout(() => {
+          window.focus();
+        }, 200);
+      }
+    };
+    window.addEventListener('blur', this._onWindowBlur);
+
+    this._iframeFocusInterval = setInterval(() => {
+      if (this.currentStep === 1) {
+        const frame = document.getElementById('drive-video-frame');
+        if (frame && document.activeElement === frame) {
+          frame.blur();
+          window.focus();
+        }
+      }
+    }, 250);
 
     document.getElementById('btn-next-to-step2')?.addEventListener('click', () => {
       this.currentStep = 2;
+      this.isBlindPlaying = false;
       this.renderLesson();
     });
 
     document.getElementById('btn-next-to-step3')?.addEventListener('click', () => {
       this.currentStep = 3;
+      this.isBlindPlaying = false;
       this.renderLesson();
     });
 
     document.getElementById('btn-next-to-step4')?.addEventListener('click', () => {
       this.currentStep = 4;
+      this.isBlindPlaying = false;
       this.renderLesson();
     });
 
     document.getElementById('btn-next-to-step5')?.addEventListener('click', () => {
       this.currentStep = 5;
+      this.isBlindPlaying = false;
       this.renderLesson();
     });
 
@@ -984,7 +1094,7 @@ export class CoursesEngine {
       btn.addEventListener('click', () => {
         this.selectedLessonId = btn.getAttribute('data-lesson-id');
         this.currentStep = 1;
-        this.isBlindCurtainActive = false;
+        this.isBlindPlaying = false;
         this.blindListenCount = 0;
         this.quizState = { currentIndex: 0, userAnswers: [], isFinished: false };
         this.renderLesson();
@@ -993,6 +1103,8 @@ export class CoursesEngine {
 
     // Nút hoàn tất trở về Catalog
     document.getElementById('btn-finish-to-catalog')?.addEventListener('click', () => {
+      if (this._iframeFocusInterval) clearInterval(this._iframeFocusInterval);
+      if (this._onWindowBlur) window.removeEventListener('blur', this._onWindowBlur);
       this.renderCatalog();
     });
 
