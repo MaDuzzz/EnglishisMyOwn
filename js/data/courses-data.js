@@ -1,234 +1,212 @@
-// Dữ liệu các Khoá học (Tiếng Anh giao tiếp công việc IT + AWS + CNCF)
+// Khoá học Tiếng Anh Giao Tiếp Qua Phim Kinh Điển & TV Shows (Cinema Shadowing Lab)
+// Phương pháp: Nhắm mắt nghe ngấm ➔ Xem có phụ đề ➔ Mổ xẻ ngữ cảnh ➔ Shadowing nhại cảm xúc ➔ Quizz đục lỗ
+
 export const COURSES_DATA = [
   {
-    id: "eng-it-comm",
-    title: "Tiếng Anh Giao Tiếp Cho Dân Kỹ Thuật (IT Communication)",
-    badge: "English Focus",
-    color: "from-blue-600 to-indigo-700",
-    description: "Giáo trình thực chiến giúp kỹ sư tự tin nói chuyện trong Daily Standup, Sprint Planning, báo cáo sự cố và thảo luận kiến trúc.",
+    id: "course-friends",
+    title: "Tiếng Anh Giao Tiếp Qua Phim Friends (New York Sitcom)",
+    shortTitle: "Friends (Sitcom)",
+    badge: "Phim Kinh Điển",
+    color: "from-amber-500 via-orange-600 to-rose-600",
+    icon: "☕",
+    level: "A2 - B2",
+    description: "Làm chủ ngữ điệu tự nhiên, tiếng lóng đời thường và sự hài hước hóm hỉnh của nhóm bạn 6 người nổi tiếng nhất lịch sử truyền hình New York.",
+    bannerText: "Học qua những trích đoạn cười ra nước mắt của Ross, Rachel, Chandler, Joey, Monica và Phoebe.",
     modules: [
       {
-        id: "mod-1",
-        title: "Module 1: Daily Standup & Báo cáo tiến độ",
+        id: "mod-friends-1",
+        title: "Phần 1: Những Tình Huống Dở Khóc Dở Cười Đời Thường",
         lessons: [
           {
-            id: "eng-les-01",
-            title: "Bài 1: Present Perfect vs. Past Simple trong báo cáo công việc",
-            duration: "25 phút",
-            videoDriveId: "1p_e_m-P_L_E_D_R_I_V_E_I_D_1", // ID Google Drive mẫu
-            notes: "Tập trung phân biệt rõ: Khi nào dùng thì Quá khứ đơn (mốc thời gian cụ thể: yesterday, 2 hours ago) và Hiện tại hoàn thành (kết quả còn liên quan đến hiện tại: have deployed, has fixed).",
-            aiPrompt: `You are a friendly, patient English speaking tutor practicing with an IT engineer.
-I want to build confidence speaking in daily standups and work discussions.
-
-[CURRENT LESSON CONTEXT]
-- Topic: Daily work tasks, bug fixing & sprint updates
-- Target Grammar: Present Perfect (have/has + V3) vs. Past Simple (V2/ed).
-
-[SPECIAL INSTRUCTION FOR SPEECH-TO-TEXT & PRONUNCIATION]
-Because I am speaking via voice-to-text, my pronunciation might be imperfect or missing ending sounds (like -s, -ed, -t, -d), causing misheard words:
-1. IF MY SENTENCE SOUNDS UNCLEAR, UNNATURAL, OR HAS NONSENSICAL WORDS:
-   - DO NOT pretend you understood and DO NOT guess blindly.
-   - Politely ask for clarification by offering 2 options of what you think I meant.
-   - Example: "I might have misheard you. Did you say: (A) 'I have fixed the bug' or (B) 'I fixed the bug'?"
-2. IF I MISS CRITICAL ENDING SOUNDS (e.g. saying 'work' instead of 'worked'):
-   - Point it out gently: "Did you mean 'worked'? Remember to pronounce the /t/ ending sound!"
-
-[SESSION CONVERSATION RULES]
-1. Length: Exactly 6 conversational turns. Keep each response short (2-3 sentences max).
-2. Flow: Ask ONLY ONE question at a time. Guide me to describe my tasks, what I finished yesterday, and what I have accomplished today.
-3. Sandwich Feedback: Acknowledge my idea -> Briefly correct any grammar/word error (1 sentence) -> Ask the next question.
-4. Support: If I say "hint" or seem stuck, give me a sentence starter template.
-5. Wrap-up (Turn 6): End with a brief summary: 2 things I did well and 2 specific pronunciation/grammar points to improve.
-
-Start by greeting me warmly in 1 sentence and ask your first question.`,
+            id: "friends-01-pivot",
+            title: "Trích đoạn 1: Ross khiêng sofa và câu thoại bất hủ 'Pivot!'",
+            episode: "Season 5 - Episode 11",
+            duration: "02:30",
+            videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",
+            videoDriveId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms",
+            description: "Ross kiên quyết không trả 4$ phí vận chuyển sofa và nhờ Chandler cùng Rachel khiêng lên tầng qua lối cầu thang hẹp.",
+            context: "Ross vừa mua chiếc sofa đắt tiền và vẽ sẵn sơ đồ hình học để khiêng lên cầu thang. Tuy nhiên thực tế chiếc ghế bị kẹt cứng giữa cầu thang hẹp. Ross liên tục chỉ đạo trong hoảng loạn trong khi Chandler và Rachel kiệt sức.",
+            keyVocabulary: [
+              { word: "pivot", ipa: "/ˈpɪv.ət/", meaningVi: "xoay quanh một trục cố định", exampleInClip: "Pivot! Pivot! Pivot!" },
+              { word: "turn it up", ipa: "/tɜːn ɪt ʌp/", meaningVi: "dựng đứng lên (hoặc vặn to lên)", exampleInClip: "Okay, turn it up. Turn it!" },
+              { word: "stuck", ipa: "/stʌk/", meaningVi: "bị kẹt cứng, không nhúc nhích được", exampleInClip: "I think it's stuck!" },
+              { word: "unbend", ipa: "/ʌnˈbend/", meaningVi: "duỗi thẳng ra, không gập lại nữa", exampleInClip: "My arm doesn't unbend that way!" }
+            ],
+            dialogue: [
+              {
+                id: "f1_1",
+                speaker: "Ross",
+                en: "Come on, Chandler! Just lift it straight up and turn it!",
+                vi: "Nhanh lên Chandler! Chỉ cần nhấc bổng thẳng lên rồi xoay thôi mà!",
+                tone: "Hối hả, mất kiên nhẫn, ra vẻ hiểu biết",
+                pronunciationTip: "Nối âm nhanh: 'lift it straight up' -> /lɪft ɪt streɪ tʌp/.",
+                contextNote: "Ross luôn cho rằng bản thân có tư duy toán học chuẩn xác nên đưa ra chỉ dẫn như một kỹ sư."
+              },
+              {
+                id: "f1_2",
+                speaker: "Chandler",
+                en: "I am lifting! I'm pretty sure my spine is about to snap!",
+                vi: "Tôi đang nhấc đây thây! Tôi dám chắc cái cột sống của tôi sắp gãy đôi rồi!",
+                tone: "Châm biếm, mỉa mai, gồng mình vì quá nặng",
+                pronunciationTip: "Nhấn mạnh cực mạnh vào từ 'am' trong 'I AM lifting' để phản bác lại sự nghi ngờ của Ross.",
+                contextNote: "Phong cách đặc trưng của Chandler: dùng cách nói cường điệu (hyperbole) để thể hiện sự bất lực."
+              },
+              {
+                id: "f1_3",
+                speaker: "Ross",
+                en: "Okay, now pivot! Pivot! Pivooot!",
+                vi: "Được rồi, giờ xoay góc đi! Xoay! Xoaayyy!",
+                tone: "Gào thét cuống cuồng, âm vực cao dần đến nghẹt thở",
+                pronunciationTip: "Âm /ɪ/ ngắn và bật âm /t/ dứt khoát. Ross kéo dài nguyên âm ở lần thứ 3 tạo hiệu ứng hài kịch.",
+                contextNote: "Câu thoại nổi tiếng nhất trong lịch sử phim sitcom truyền hình Mỹ."
+              },
+              {
+                id: "f1_4",
+                speaker: "Chandler",
+                en: "Shut up! Shut up! Shut up!",
+                vi: "Im đi! Câm mồm đi! Im ngay đi!",
+                tone: "Bực tức bùng nổ, gào lên đáp trả",
+                pronunciationTip: "Nối âm kinh điển: 'Shut up' đọc là /ʃʌ tʌp/ với âm 't' mềm kiểu Mỹ.",
+                contextNote: "Chandler không thể chịu nổi việc Ross cứ đứng hét một từ vô nghĩa trong khi ghế thì kẹt cứng."
+              },
+              {
+                id: "f1_5",
+                speaker: "Rachel",
+                en: "I don't think it's going to pivot anymore, Ross.",
+                vi: "Em nghĩ là nó không thể nào xoay thêm được phân nào nữa đâu Ross.",
+                tone: "Bình thản, mệt mỏi nhưng chấp nhận thực tế",
+                pronunciationTip: "Ngắt nhẹ sau 'anymore' và hạ giọng nhẹ nhàng ở tên 'Ross'.",
+                contextNote: "Rachel là tiếng nói của lý trí kéo hai anh chàng về thực tại chiếc ghế đã kẹt thành hình chữ V."
+              }
+            ],
+            goldenPhrases: [
+              {
+                phrase: "Pivot! Pivot! Pivot!",
+                meaning: "Xoay góc đi! / Chuyển hướng gấp!",
+                usageTip: "Dùng để đùa vui khi cả nhóm đang gặp bế tắc và cần xoay sở hướng giải quyết mới."
+              },
+              {
+                phrase: "I'm pretty sure my spine is about to snap!",
+                meaning: "Tôi dám chắc lưng/cột sống tôi sắp gãy đôi rồi!",
+                usageTip: "Cách nói cường điệu hài hước khi bạn phải khiêng vác hoặc làm việc gì đó quá sức."
+              }
+            ],
             quizzes: [
               {
-                id: 1,
-                question: "Yesterday afternoon, I ______ the pull request for the authentication service.",
-                options: ["merged", "have merged", "was merged", "merging"],
+                type: "cloze",
+                question: "Điền từ đúng vào câu thoại kinh điển của Ross khi chỉ đạo khiêng sofa lên cầu thang:",
+                sentence: "Okay, now ______! ______! Pivooot!",
+                options: ["Pivot", "Push", "Rotate", "Turn"],
                 correctIndex: 0,
-                explanation: "Có mốc thời gian xác định trong quá khứ ('Yesterday afternoon') nên bắt buộc dùng thì Quá khứ đơn ('merged')."
+                explanation: "Ross liên tục hét từ 'Pivot' (Xoay quanh trục) tạo nên cảnh quay hài kịch huyền thoại của Friends."
               },
               {
-                id: 2,
-                question: "Up until now, our team ______ three major sprints on this project.",
-                options: ["completed", "has completed", "is completing", "completes"],
-                correctIndex: 1,
-                explanation: "'Up until now' (Cho đến tận bây giờ) là dấu hiệu kinh điển của thì Hiện tại hoàn thành ('has completed')."
-              },
-              {
-                id: 3,
-                question: "We ______ any critical bugs since the v2.4 release on Monday.",
-                options: ["didn't find", "haven't found", "don't find", "hadn't found"],
-                correctIndex: 1,
-                explanation: "Mệnh đề có 'since + mốc thời gian' ('since the release') thì mệnh đề chính chia ở Hiện tại hoàn thành: 'haven't found'."
-              },
-              {
-                id: 4,
-                question: "Two hours ago, the monitoring alarm ______ due to a memory spike.",
-                options: ["went off", "has gone off", "goes off", "is going off"],
+                type: "cloze",
+                question: "Chandler phản bác lại sự chỉ đạo phiền toái của Ross bằng câu nói nào?",
+                sentence: "______ up! ______ up! ______ up!",
+                options: ["Shut", "Stand", "Lift", "Hold"],
                 correctIndex: 0,
-                explanation: "'Two hours ago' là thời điểm xác định trong quá khứ -> dùng Quá khứ đơn ('went off' = reo chuông/kích hoạt)."
+                explanation: "Chandler hét lên 'Shut up! Shut up! Shut up!' vì không thể chịu nổi tiếng thét lặp đi lặp lại của Ross."
               },
               {
-                id: 5,
-                question: "I ______ the staging database, so you can test your APIs now.",
-                options: ["already reset", "have already reset", "was resetting", "am reset"],
-                correctIndex: 1,
-                explanation: "Hành động đã hoàn tất trong quá khứ nhưng để lại kết quả ảnh hưởng trực tiếp đến hiện tại ('you can test now') -> dùng Hiện tại hoàn thành."
-              },
-              {
-                id: 6,
-                question: "Which question is grammatically CORRECT for a daily standup?",
+                type: "vocab",
+                question: "Cụm từ 'turn it up' trong ngữ cảnh khiêng vác đồ đạc có nghĩa là gì?",
                 options: [
-                  "Did you deployed the patch yesterday?",
-                  "Have you deployed the patch yet?",
-                  "Did you have deployed the patch?",
-                  "Are you deploy the patch yesterday?"
-                ],
-                correctIndex: 1,
-                explanation: "Câu đúng là: 'Have you deployed the patch yet?'. Phương án A sai vì sau trợ động từ 'Did' phải dùng động từ nguyên mẫu ('deploy')."
-              },
-              {
-                id: 7,
-                question: "Last week, we ______ our cloud infrastructure from AWS to GCP.",
-                options: ["have migrated", "migrated", "are migrating", "migrate"],
-                correctIndex: 1,
-                explanation: "'Last week' chỉ thời gian đã chấm dứt hoàn toàn trong quá khứ -> dùng Quá khứ đơn ('migrated')."
-              },
-              {
-                id: 8,
-                question: "The QA team ______ the test results yet, so we cannot proceed.",
-                options: ["hasn't approved", "didn't approve", "doesn't approve", "isn't approving"],
-                correctIndex: 0,
-                explanation: "Có trạng từ 'yet' ở cuối câu phủ định -> dấu hiệu đặc trưng của Hiện tại hoàn thành ('hasn't approved')."
-              },
-              {
-                id: 9,
-                question: "When ______ that new microservice framework?",
-                options: [
-                  "did you implement",
-                  "have you implemented",
-                  "did you implemented",
-                  "are you implement"
+                  "Dựng đứng cạnh ghế lên",
+                  "Vặn âm lượng loa to lên",
+                  "Bỏ chiếc ghế xuống đất",
+                  "Đẩy chiếc ghế về phía trước"
                 ],
                 correctIndex: 0,
-                explanation: "Khi hỏi về thời điểm xảy ra sự việc với từ để hỏi 'When', tiếng Anh chuẩn luôn dùng Quá khứ đơn: 'When did you implement...?'. Không dùng 'When have you...'"
-              },
-              {
-                id: 10,
-                question: "I ______ with Docker for over four years, but I just started learning Kubernetes last month.",
-                options: ["worked", "have worked", "was working", "work"],
-                correctIndex: 1,
-                explanation: "Diễn tả kinh nghiệm làm việc tích lũy từ quá khứ đến hiện tại ('for over four years') -> dùng Hiện tại hoàn thành ('have worked')."
-              },
-              {
-                id: 11,
-                question: "Look at the status dashboard! The server ______!",
-                options: ["crashed", "has crashed", "was crashing", "crashes"],
-                correctIndex: 1,
-                explanation: "Diễn tả sự việc vừa mới xảy ra và để lại kết quả đập ngay vào mắt ở hiện tại ('Look at the status dashboard!') -> dùng Hiện tại hoàn thành ('has crashed')."
-              },
-              {
-                id: 12,
-                question: "In 2023, our engineering department ______ into three autonomous squads.",
-                options: ["has reorganized", "reorganized", "was reorganizing", "is reorganized"],
-                correctIndex: 1,
-                explanation: "Năm 2023 là mốc thời gian cụ thể trong quá khứ -> Quá khứ đơn ('reorganized')."
-              },
-              {
-                id: 13,
-                question: "She ______ out of the office for ten minutes, but she is back at her desk now.",
-                options: ["has been", "was", "is", "had been"],
-                correctIndex: 1,
-                explanation: "Hành động đã kết thúc hoàn toàn trong quá khứ (hiện tại cô ấy đã quay lại bàn: 'she is back') -> dùng Quá khứ đơn ('was')."
-              },
-              {
-                id: 14,
-                question: "How many customer tickets ______ today?",
-                options: ["did you resolve", "have you resolved", "were you resolved", "are you resolving"],
-                correctIndex: 1,
-                explanation: "'Today' là khoảng thời gian chưa kết thúc (ngày hôm nay vẫn đang tiếp diễn) -> dùng Hiện tại hoàn thành ('have you resolved')."
-              },
-              {
-                id: 15,
-                question: "I can't access the database because someone ______ the root credentials.",
-                options: ["changed", "has changed", "was changed", "is changing"],
-                correctIndex: 1,
-                explanation: "Hành động đổi mật khẩu xảy ra lúc nào không rõ, nhưng hậu quả trực tiếp ở hiện tại là tôi không truy cập được ('I can't access') -> Hiện tại hoàn thành ('has changed')."
-              },
-              {
-                id: 16,
-                question: "Find the MISTAKE: 'Yesterday I have pushed three commits to the repository.'",
-                options: [
-                  "'Yesterday' nên đổi thành 'Tomorrow'",
-                  "'have pushed' sai, phải sửa thành 'pushed'",
-                  "'three commits' sai, phải là 'three commit'",
-                  "'to the repository' sai giới từ"
-                ],
-                correctIndex: 1,
-                explanation: "Có 'Yesterday' thì không được dùng thì Hiện tại hoàn thành ('have pushed'), phải sửa thành Quá khứ đơn ('pushed')."
-              },
-              {
-                id: 17,
-                question: "Our DevOps engineer ______ the SSL certificate just 5 minutes ago.",
-                options: ["renewed", "has renewed", "is renewing", "renews"],
-                correctIndex: 0,
-                explanation: "'5 minutes ago' là mốc thời gian quá khứ rõ ràng -> dùng Quá khứ đơn ('renewed')."
-              },
-              {
-                id: 18,
-                question: "We ______ this API endpoint multiple times, and it always behaves consistently.",
-                options: ["tested", "have tested", "are tested", "were testing"],
-                correctIndex: 1,
-                explanation: "Diễn tả hành động đã làm nhiều lần (kinh nghiệm lặp lại: 'multiple times') tính đến thời điểm hiện tại -> Hiện tại hoàn thành ('have tested')."
+                explanation: "Trong không gian hẹp của cầu thang, 'turn it up' có nghĩa là dựng đứng chiều dài chiếc ghế lên để lách qua khúc cua."
               }
             ]
           },
           {
-            id: "eng-les-02",
-            title: "Bài 2: Trình bày nguyên nhân trục trặc và giải pháp (Root Cause Analysis)",
-            duration: "20 phút",
-            videoDriveId: "1p_e_m-P_L_E_D_R_I_V_E_I_D_2",
-            notes: "Học các liên từ chỉ nguyên nhân - kết quả: due to, as a result of, lead to, consequently trong buổi Post-Mortem họp rút kinh nghiệm.",
-            aiPrompt: `You are a Senior Tech Lead conducting a post-mortem meeting with me.
-I want to practice explaining the root cause of an outage and the preventive steps we took.
-
-[LESSON CONTEXT]
-- Topic: System incident report & root cause analysis (RCA)
-- Target Grammar: Cause and Effect structures (due to, caused by, as a result of, therefore, in order to).
-
-[SPECIAL INSTRUCTION FOR SPEECH-TO-TEXT & PRONUNCIATION]
-If my speech is unclear or transcribed with weird words:
-- Politely clarify: "Did you mean (A) [...] or (B) [...]?"
-- Point out any dropped ending sounds gently.
-
-[RULES]
-1. 6 conversational turns.
-2. Ask 1 question at a time.
-3. Sandwich feedback: acknowledge -> correct -> ask next question.
-4. Conclude at turn 6 with constructive tips.`,
+            id: "friends-02-joey-food",
+            title: "Trích đoạn 2: Joey không bao giờ chia đồ ăn 'Joey doesn't share food!'",
+            episode: "Season 10 - Episode 9",
+            duration: "02:15",
+            videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",
+            videoDriveId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms",
+            description: "Joey đi hẹn hò với một cô gái xinh đẹp nhưng tức giận vì cô ấy với tay lấy vài cọng khoai tây chiên trên đĩa của anh.",
+            context: "Phoebe mai mối một cô gái cho Joey. Mọi chuyện diễn ra rất lãng mạn cho đến khi cô gái tự ý lấy khoai tây chiên của anh. Joey về nhà tâm sự với Phoebe với vẻ mặt cực kỳ nghiêm túc.",
+            keyVocabulary: [
+              { word: "share", ipa: "/ʃeər/", meaningVi: "chia sẻ, dùng chung", exampleInClip: "Joey doesn't share food!" },
+              { word: "plate", ipa: "/pleɪt/", meaningVi: "đĩa thức ăn", exampleInClip: "Right off my plate!" },
+              { word: "stuffing", ipa: "/ˈstʌf.ɪŋ/", meaningVi: "nhồi nhét, ăn ngấu nghiến", exampleInClip: "Stuffing her face!" },
+              { word: "deal breaker", ipa: "/ˈdiːlˌbreɪ.kər/", meaningVi: "yếu tố làm hỏng thỏa thuận/mối quan hệ", exampleInClip: "Is that a deal breaker for you?" }
+            ],
+            dialogue: [
+              {
+                id: "f2_1",
+                speaker: "Phoebe",
+                en: "So how was your date with Sarah last night?",
+                vi: "Thế buổi hẹn tối qua của cậu với Sarah thế nào rồi?",
+                tone: "Tò mò, vui vẻ, mong đợi tin tốt",
+                pronunciationTip: "Nối âm: 'how was your' -> /haʊ wəzjər/.",
+                contextNote: "Phoebe là người đứng ra sắp xếp buổi hẹn hò này cho Joey."
+              },
+              {
+                id: "f2_2",
+                speaker: "Joey",
+                en: "It was good... until she reached over and took some of my fries!",
+                vi: "Mọi thứ đều ổn... cho đến khi cô ấy với tay sang và lấy mất mấy cọng khoai chiên của tớ!",
+                tone: "Nghiêm trọng hóa vấn đề, đau khổ như vừa bị phản bội",
+                pronunciationTip: "Nhấn mạnh từ 'my fries' với ánh mắt sửng sốt.",
+                contextNote: "Đối với Joey Tribbiani, đồ ăn là nguyên tắc thiêng liêng số một, bất khả xâm phạm."
+              },
+              {
+                id: "f2_3",
+                speaker: "Phoebe",
+                en: "Oh, come on! She took a couple of fries? That's not a crime!",
+                vi: "Thôi nào! Cô ấy chỉ lấy có hai ba cọng khoai tây thôi mà? Đâu phải là phạm tội ác tày trời đâu!",
+                tone: "Bật cười, coi đó là chuyện vặt vãnh",
+                pronunciationTip: "Cụm 'come on' nối âm nhẹ, giọng điệu nâng lên thể hiện sự khó hiểu.",
+                contextNote: "Mọi người bình thường đều thấy việc chia sẻ một ít khoai chiên trong buổi hẹn là rất dễ thương."
+              },
+              {
+                id: "f2_4",
+                speaker: "Joey",
+                en: "Look, Phoebe, JOEY DOESN'T SHARE FOOD!",
+                vi: "Nghe này Phoebe, JOEY KHÔNG BAO GIỜ CHIA SẺ ĐỒ ĂN!",
+                tone: "Dứt khoát, tự xưng tên ở ngôi thứ 3, tuyên ngôn như một đạo luật",
+                pronunciationTip: "Nói to từng từ một cách rành rọt, nhấn mạnh trọng âm vào 'JOEY' và 'SHARE FOOD'.",
+                contextNote: "Joey nói về bản thân ở ngôi thứ ba như một cách khẳng định bản năng nguyên thủy không thể thay đổi."
+              }
+            ],
+            goldenPhrases: [
+              {
+                phrase: "Joey doesn't share food!",
+                meaning: "Tôi không bao giờ chia đồ ăn cho ai cả!",
+                usageTip: "Câu nói đùa kinh điển khi bạn bè xin ăn ké đồ ăn của bạn tại nhà hàng hoặc rạp chiếu phim."
+              },
+              {
+                phrase: "That's a deal breaker!",
+                meaning: "Đó là điều tối kỵ không thể chấp nhận được!",
+                usageTip: "Dùng khi một khuyết điểm nhỏ của đối phương khiến bạn quyết định dừng mối quan hệ."
+              }
+            ],
             quizzes: [
               {
-                id: 1,
-                question: "The API latency increased dramatically ______ a sudden surge in traffic.",
-                options: ["due to", "because", "lead to", "consequently"],
+                type: "cloze",
+                question: "Điền câu tuyên ngôn bảo vệ đĩa thức ăn nổi tiếng của Joey Tribbiani:",
+                sentence: "Look, Phoebe, Joey doesn't ______ food!",
+                options: ["share", "give", "like", "cook"],
                 correctIndex: 0,
-                explanation: "'Due to' đi với cụm danh từ ('a sudden surge in traffic'). 'Because' phải đi với mệnh đề (S + V)."
+                explanation: "Câu nói kinh điển là: 'Joey doesn't share food!' (Joey không bao giờ chia sẻ đồ ăn)."
               },
               {
-                id: 2,
-                question: "We implemented automatic rate limiting ______ prevent future DDoS attacks.",
-                options: ["in order to", "so that", "because of", "owing to"],
+                type: "vocab",
+                question: "Trong tiếng Anh giao tiếp và hẹn hò, 'deal breaker' mang ý nghĩa là gì?",
+                options: [
+                  "Điều tối kỵ khiến bạn quyết định chấm dứt mối quan hệ",
+                  "Một món quà đắt tiền trong buổi hẹn đầu tiên",
+                  "Một trò chơi mạo hiểm phá vỡ sự im lặng",
+                  "Hành động trả tiền hóa đơn cho đối phương"
+                ],
                 correctIndex: 0,
-                explanation: "'In order to' đi với động từ nguyên mẫu ('prevent'). 'So that' đi với mệnh đề."
-              },
-              {
-                id: 3,
-                question: "The database cluster ran out of storage; ______, write operations failed.",
-                options: ["however", "consequently", "although", "despite"],
-                correctIndex: 1,
-                explanation: "'Consequently' (Do đó / Hậu quả là) diễn tả mối quan hệ nhân quả logic giữa 2 vế câu."
+                explanation: "'Deal breaker' là một yếu tố hoặc thói quen xấu của đối phương khiến bạn không thể tiếp tục tiến xa."
               }
             ]
           }
@@ -237,40 +215,105 @@ If my speech is unclear or transcribed with weird words:
     ]
   },
   {
-    id: "aws-saa",
-    title: "Luyện Thi Chứng Chỉ AWS Certified Solutions Architect (SAA-C03)",
-    badge: "Cloud IT",
-    color: "from-amber-500 to-orange-600",
-    description: "Hệ thống bài giảng video thiết kế kiến trúc chuẩn AWS (Well-Architected Framework), VPC, EC2, S3, RDS, DynamoDB và bảo mật IAM.",
+    id: "course-himym",
+    title: "Tiếng Anh Hẹn Hò & Tự Tin Qua How I Met Your Mother",
+    shortTitle: "HIMYM (Giao Tiếp)",
+    badge: "Hiện Đại & Hài Hước",
+    color: "from-blue-600 via-indigo-600 to-violet-700",
+    icon: "🍸",
+    level: "B1 - B2",
+    description: "Học cách nói chuyện lôi cuốn, xây dựng sự tự tin đỉnh cao và kỹ năng kể chuyện (storytelling) cuốn hút cùng Barney Stinson & Ted Mosby.",
+    bannerText: "Học các câu châm ngôn hài hước, phản xạ bắt chuyện ở quán bar, công sở và nghệ thuật giữ bầu không khí náo nhiệt.",
     modules: [
       {
-        id: "aws-mod-1",
-        title: "Module 1: Mạng VPC & Cấu trúc phân vùng mạng (VPC & Subnets)",
+        id: "mod-himym-1",
+        title: "Phần 1: Nghệ Thuật Tự Tin & Bắt Chuyện Tự Nhiên",
         lessons: [
           {
-            id: "aws-les-01",
-            title: "Bài 1: Thiết kế Multi-AZ VPC với Public & Private Subnets",
-            duration: "35 phút",
-            videoDriveId: "1p_e_m-P_L_E_D_R_I_V_E_I_D_AWS1",
-            notes: "Hiểu sâu về Internet Gateway (IGW), NAT Gateway, Route Tables và Network ACLs.",
-            aiPrompt: `You are an AWS Solutions Architect Interviewer.
-Test my knowledge on AWS VPC architecture in English.
-Ask me 1 question at a time about why we place databases in private subnets and how NAT Gateways work.
-Clarify if speech-to-text gets confusing. Keep it to 6 turns.`,
-            quizzes: [
+            id: "himym-01-suit-up",
+            title: "Trích đoạn 1: Barney Stinson: 'Suit up!' & Triết lý sống Legendary",
+            episode: "Season 1 - Episode 1",
+            duration: "02:20",
+            videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",
+            videoDriveId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms",
+            description: "Barney thuyết phục Ted thay chiếc áo phông xuề xòa để diện bộ vest sang trọng trước khi bước chân ra quán bar McLaren's.",
+            context: "Ted đang rầu rĩ vì mãi chưa tìm thấy người bạn đời lý tưởng. Barney bước vào với phong thái hào hoa, yêu cầu Ted phải 'mặc vest' để thay đổi toàn bộ năng lượng và sẵn sàng cho một đêm huyền thoại.",
+            keyVocabulary: [
+              { word: "suit up", ipa: "/suːt ʌp/", meaningVi: "mặc vest lịch lãm vào", exampleInClip: "Ted, suit up!" },
+              { word: "legendary", ipa: "/ˈledʒ.ən.dri/", meaningVi: "huyền thoại, đỉnh cao xuất sắc", exampleInClip: "It's gonna be legen... wait for it... dary!" },
+              { word: "wingman", ipa: "/ˈwɪŋ.mæn/", meaningVi: "bạn đồng hành hỗ trợ cưa cẩm", exampleInClip: "I'm your wingman tonight." },
+              { word: "have you met Ted", ipa: "/hæv juː met ted/", meaningVi: "câu mồi bắt chuyện kinh điển", exampleInClip: "Haaaaave you met Ted?" }
+            ],
+            dialogue: [
               {
-                id: 1,
-                question: "Which component allows instances in a private subnet to connect to the internet while preventing incoming traffic?",
-                options: ["Internet Gateway (IGW)", "NAT Gateway", "Virtual Private Gateway", "VPC Peering Connection"],
-                correctIndex: 1,
-                explanation: "NAT Gateway cho phép máy chủ trong Private Subnet gọi ra ngoài internet (để tải bản vá, gọi API) nhưng ngăn chặn hoàn toàn kết nối từ internet đi ngược vào."
+                id: "h1_1",
+                speaker: "Barney",
+                en: "Ted, what are you wearing? Where is your suit?",
+                vi: "Ted, cậu đang mặc cái thứ gì trên người thế kia? Bộ vest của cậu đâu rồi?",
+                tone: "Sốc, thất vọng một cách kịch tính",
+                pronunciationTip: "Nhấn mạnh vào 'What' và 'Where' để biểu lộ sự ngạc nhiên tột độ.",
+                contextNote: "Barney coi việc mặc vest (suit) là tôn chỉ hàng đầu của người đàn ông thành đạt và tự tin."
               },
               {
-                id: 2,
-                question: "Security Groups are ______ while Network ACLs are ______.",
-                options: ["stateless / stateful", "stateful / stateless", "public / private", "dynamic / static"],
-                correctIndex: 1,
-                explanation: "Security Groups là stateful (tự động cho phép traffic phản hồi đi ngược ra), trong khi NACLs là stateless (phải cấu hình cả inbound và outbound rule)."
+                id: "h1_2",
+                speaker: "Ted",
+                en: "I'm not wearing a suit to go down to the bar, Barney.",
+                vi: "Tớ không có mặc vest chỉ để bước xuống quán rượu dưới nhà đâu Barney.",
+                tone: "Mệt mỏi, phản đối, thấy sự việc không cần thiết",
+                pronunciationTip: "Hạ thấp âm điệu ở cuối câu 'Barney' để thể hiện sự ngán ngẩm.",
+                contextNote: "Ted chỉ muốn xuống quán bar quen thuộc dưới nhà uống bia bình dân."
+              },
+              {
+                id: "h1_3",
+                speaker: "Barney",
+                en: "Suit up! Tonight will be legen... wait for it... dary! Legendary!",
+                vi: "Mặc vest vào ngay! Đêm nay sẽ là một huyền... đợi một chút nào... thoại! Huyền thoại!",
+                tone: "Năng lượng bùng nổ, truyền cảm hứng mạnh mẽ, tự tin 100%",
+                pronunciationTip: "Ngắt nghỉ có chủ đích ở cụm 'wait for it' để tạo sự hồi hộp cho người nghe trước khi kết thúc bằng 'dary'.",
+                contextNote: "Cụm catchphrase tạo nên thương hiệu của nhân vật Barney Stinson trong suốt 9 mùa phim."
+              },
+              {
+                id: "h1_4",
+                speaker: "Barney",
+                en: "Because your best friend is about to teach you how to live!",
+                vi: "Bởi vì người bạn thân nhất của cậu sắp dạy cho cậu biết thế nào mới là tận hưởng cuộc sống!",
+                tone: "Kiêu hãnh, tự mãn nhưng vô cùng ấm áp và chân thành",
+                pronunciationTip: "Nối âm: 'teach you how to' -> /tiːtʃ juː haʊ tə/.",
+                contextNote: "Dù nói năng có phần ngạo mạn nhưng Barney thực sự muốn Ted vui vẻ và thoát khỏi sự ủ rũ."
+              }
+            ],
+            goldenPhrases: [
+              {
+                phrase: "Suit up!",
+                meaning: "Mặc vest chỉnh chu vào! / Chuẩn bị chiến thôi!",
+                usageTip: "Dùng để kích hoạt tinh thần anh em trước một sự kiện quan trọng hoặc buổi tiệc tùng lớn."
+              },
+              {
+                phrase: "Legen... wait for it... dary!",
+                meaning: "Đỉnh của chóp / Huyền thoại!",
+                usageTip: "Cách nói tạo sự kịch tính và thu hút toàn bộ sự chú ý của mọi người vào câu chuyện bạn sắp kể."
+              }
+            ],
+            quizzes: [
+              {
+                type: "cloze",
+                question: "Điền cụm từ tạo kịch tính kinh điển của Barney khi miêu tả về một đêm tiệc:",
+                sentence: "Tonight will be legen... ______ for it... dary!",
+                options: ["wait", "look", "listen", "stay"],
+                correctIndex: 0,
+                explanation: "Barney luôn ngắt từ 'legendary' ra làm đôi và chèn thêm câu 'wait for it' (hãy chờ xem) ở giữa."
+              },
+              {
+                type: "vocab",
+                question: "Trong văn hóa hội thoại tiếng Anh, từ 'Wingman' nghĩa là gì?",
+                options: [
+                  "Người bạn đi cùng để hỗ trợ, giúp bạn bắt chuyện và tạo ấn tượng tốt",
+                  "Một phi công lái máy bay quân sự",
+                  "Người bảo vệ đứng gác cửa quán bar",
+                  "Người tài xế lái xe đưa cả nhóm về nhà"
+                ],
+                correctIndex: 0,
+                explanation: "'Wingman' là tiếng lóng chỉ người bạn đồng hành cực kỳ tin cậy, sẵn sàng hỗ trợ bạn trong các cuộc trò chuyện xã giao."
               }
             ]
           }
@@ -279,33 +322,105 @@ Clarify if speech-to-text gets confusing. Keep it to 6 turns.`,
     ]
   },
   {
-    id: "cncf-cka",
-    title: "Chứng Chỉ Kubernetes Administrator (CKA / CNCF)",
-    badge: "Cloud Native",
-    color: "from-sky-500 to-blue-700",
-    description: "Thực hành triển khai, quản trị cụm Kubernetes, Pods, Deployments, Services, Ingress, RBAC và troubleshooting sự cố thực tế.",
+    id: "course-masterchef",
+    title: "Tiếng Anh Áp Lực & Quyết Đoán Cùng MasterChef Global",
+    shortTitle: "MasterChef (Leadership)",
+    badge: "Phản Xạ Nhanh",
+    color: "from-emerald-600 via-teal-600 to-cyan-700",
+    icon: "🔪",
+    level: "B1 - B2",
+    description: "Học cách giao tiếp dứt khoát dưới áp lực khủng khiếp, cách ra lệnh, phản hồi nhanh và kỹ năng lãnh đạo đội nhóm cùng Gordon Ramsay.",
+    bannerText: "Rèn giũa khả năng lắng nghe và nói tiếng Anh với tốc độ 120-150 từ/phút trong môi trường nhà bếp chuyên nghiệp.",
     modules: [
       {
-        id: "cka-mod-1",
-        title: "Module 1: Kubernetes Core Architecture",
+        id: "mod-mc-1",
+        title: "Phần 1: Giao Tiếp & Điều Phối Dưới Áp Lực Thời Gian",
         lessons: [
           {
-            id: "cka-les-01",
-            title: "Bài 1: Control Plane Components (kube-apiserver, etcd, scheduler, controller-manager)",
-            duration: "30 phút",
-            videoDriveId: "1p_e_m-P_L_E_D_R_I_V_E_I_D_CKA1",
-            notes: "Vai trò của từng thành phần trong Master Node và luồng tạo Pod từ khi chạy lệnh kubectl apply.",
-            aiPrompt: `You are a Kubernetes CKA Expert.
-Discuss Kubernetes architecture with me in English.
-Ask me to describe how kube-apiserver communicates with etcd and kube-scheduler.
-Clarify any unclear pronunciation politely. Keep to 6 turns.`,
+            id: "mc-01-kitchen-rush",
+            title: "Trích đoạn 1: Gordon Ramsay điều phối phòng bếp: 'Yes, Chef!'",
+            episode: "MasterChef Global - Restaurant Takeover",
+            duration: "02:40",
+            videoDriveUrl: "https://drive.google.com/file/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms/preview",
+            videoDriveId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptgms",
+            description: "Bếp trưởng Gordon Ramsay kiểm tra các món ăn trước khi đưa ra cho khách và yêu cầu toàn bộ đội ngũ phải giao tiếp rõ ràng từng giây.",
+            context: "Nhà hàng bước vào giờ cao điểm với hàng chục đơn hàng dồn dập. Đội trưởng bối rối và các thành viên nấu chậm trễ. Gordon Ramsay bước vào chấn chỉnh văn hóa giao tiếp và yêu cầu sự dứt khoát tuyệt đối.",
+            keyVocabulary: [
+              { word: "on the fly", ipa: "/ɒn ðə flaɪ/", meaningVi: "ngay lập tức, làm gấp rút", exampleInClip: "I need two risottos on the fly!" },
+              { word: "raw", ipa: "/rɔː/", meaningVi: "sống, chưa chín", exampleInClip: "It's completely raw in the middle!" },
+              { word: "communicate", ipa: "/kəˈmjuː.nɪ.keɪt/", meaningVi: "giao tiếp, thông báo cho nhau", exampleInClip: "You have to communicate with each other!" },
+              { word: "yes chef", ipa: "/jes ʃef/", meaningVi: "rõ thưa bếp trưởng (xác nhận quân lệnh)", exampleInClip: "Yes, Chef!" }
+            ],
+            dialogue: [
+              {
+                id: "mc1_1",
+                speaker: "Gordon Ramsay",
+                en: "Listen to me! Table four, two scallops, two beef wellingtons. How long on the beef?",
+                vi: "Nghe tôi nói đây! Bàn số bốn, hai đĩa sò điệp, hai phần bò wellington. Món bò còn bao nhiêu phút nữa?",
+                tone: "Đanh thép, dứt khoát, âm lượng lớn, kiểm soát hoàn toàn căn bếp",
+                pronunciationTip: "Rút gọn 'How long on the beef?' thay vì hỏi dài dòng 'How much time do you need for the beef?'.",
+                contextNote: "Trong môi trường làm việc tốc độ cao, câu hỏi ngắn gọn trực tiếp giúp tiết kiệm từng giây quý giá."
+              },
+              {
+                id: "mc1_2",
+                speaker: "Team Captain",
+                en: "Uh... about... maybe three to four minutes, Chef?",
+                vi: "Dạ... khoảng... chắc là ba đến bốn phút nữa thưa Bếp trưởng?",
+                tone: "Ngập ngừng, thiếu tự tin, giọng điệu nâng lên ở cuối câu như một câu hỏi",
+                pronunciationTip: "Chứa nhiều từ đệm 'Uh', 'maybe' thể hiện sự lúng túng và mất kiểm soát thời gian.",
+                contextNote: "Cách trả lời tối kỵ trong công việc: người quản lý cần một con số chính xác chứ không phải sự phỏng đoán mông lung."
+              },
+              {
+                id: "mc1_3",
+                speaker: "Gordon Ramsay",
+                en: "Maybe? Don't tell me 'maybe'! Is it three minutes or four minutes? Be precise!",
+                vi: "Chắc là à? Đừng có nói với tôi từ 'chắc là'! Ba phút hay là bốn phút? Phải chính xác vào!",
+                tone: "Gay gắt, chuẩn xác, không khoan nhượng với sự đại khái",
+                pronunciationTip: "Nhấn mạnh đặc biệt vào từ 'precise' /prɪˈsaɪs/ với âm /s/ đuôi sắc lẹm.",
+                contextNote: "Ramsay dạy bài học cốt lõi: Trong công việc đòi hỏi chất lượng đỉnh cao, sự mơ hồ sẽ kéo theo sự sụp đổ của cả dây chuyền."
+              },
+              {
+                id: "mc1_4",
+                speaker: "Team Captain",
+                en: "Three minutes, Chef! Ready in three minutes!",
+                vi: "Ba phút nữa thưa Bếp trưởng! Sẵn sàng ra đĩa trong ba phút nữa!",
+                tone: "Dứt khoát, to, rõ ràng, mắt nhìn thẳng",
+                pronunciationTip: "Nói với tốc độ nhanh nhưng âm tiết dứt khoát, không còn ngắc ngứ.",
+                contextNote: "Thí sinh đã lấy lại sự tự tin và xác lập cam kết rõ ràng với người dẫn dắt."
+              }
+            ],
+            goldenPhrases: [
+              {
+                phrase: "Be precise!",
+                meaning: "Hãy chính xác vào! (Đừng nói chung chung)",
+                usageTip: "Dùng khi quản lý dự án yêu cầu cấp dưới báo cáo deadline hoặc dữ liệu số liệu cụ thể."
+              },
+              {
+                phrase: "On the fly!",
+                meaning: "Làm ngay lập tức không chậm trễ!",
+                usageTip: "Tiếng lóng trong công việc khi cần xử lý gấp một việc phát sinh ngoài dự kiến."
+              }
+            ],
             quizzes: [
               {
-                id: 1,
-                question: "Which Control Plane component is the ONLY one that interacts directly with etcd?",
-                options: ["kube-scheduler", "kube-controller-manager", "kube-apiserver", "kubelet"],
-                correctIndex: 2,
-                explanation: "kube-apiserver là thành phần duy nhất trong cụm K8s giao tiếp trực tiếp với etcd để đọc/ghi dữ liệu trạng thái cụm."
+                type: "cloze",
+                question: "Gordon Ramsay đòi hỏi các đầu bếp phải trả lời thời gian cụ thể bằng câu nói nào?",
+                sentence: "Don't tell me 'maybe'! Be ______!",
+                options: ["precise", "fast", "silent", "gentle"],
+                correctIndex: 0,
+                explanation: "Ramsay yêu cầu 'Be precise!' (Phải chính xác vào!) thay vì trả lời nước đôi 3 hay 4 phút."
+              },
+              {
+                type: "vocab",
+                question: "Cụm thành ngữ 'on the fly' trong môi trường làm việc nhà hàng/công nghệ có nghĩa là gì?",
+                options: [
+                  "Làm ngay tức khắc trong lúc đang di chuyển/vận hành",
+                  "Bắt một con ruồi đang bay",
+                  "Trì hoãn công việc sang ngày hôm sau",
+                  "Giao việc cho người khác làm hộ"
+                ],
+                correctIndex: 0,
+                explanation: "'On the fly' nghĩa là làm nhanh chóng ngay lập tức trong tình huống gấp gáp mà không cần chuẩn bị trước nhiều."
               }
             ]
           }

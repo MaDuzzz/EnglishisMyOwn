@@ -122,6 +122,8 @@ export class StateManager {
           dailyNewBatchDate: profile.dailyNewBatchDate || null,
           todayNewWordsCount: profile.todayNewWordsCount || 0,
           completedStreakDates: profile.completedStreakDates || [],
+          completedCourseLessons: profile.completedCourseLessons || [],
+          customLessonDriveLinks: profile.customLessonDriveLinks || {},
           learnedWords: learnedWords
         }));
       } else {
@@ -169,6 +171,8 @@ export class StateManager {
       dailyNewBatchDate: today,
       todayNewWordsCount: 0, // Số từ mới đã hoàn thành bài luyện tập hôm nay
       completedStreakDates: [], // Danh sách các ngày ("YYYY-MM-DD") đã hoàn thành CẢ 2 nhiệm vụ (Review T-1 + Học 10 từ mới)
+      completedCourseLessons: [], // Danh sách ID bài học phim đã hoàn thành
+      customLessonDriveLinks: {}, // Bản đồ lessonId -> link Google Drive do người dùng tự cấu hình
       dailyStudyTimeMap: {}, // Bản đồ thời gian học thực tế "YYYY-MM-DD" -> số giây (seconds)
       audioEnabled: true, // Điều khiển âm thanh toàn cục
       theme: "dark", // "dark" | "light"
@@ -196,6 +200,12 @@ export class StateManager {
         }
         if (!Array.isArray(this.state.completedStreakDates)) {
           this.state.completedStreakDates = [];
+        }
+        if (!Array.isArray(this.state.completedCourseLessons)) {
+          this.state.completedCourseLessons = [];
+        }
+        if (!this.state.customLessonDriveLinks || typeof this.state.customLessonDriveLinks !== 'object') {
+          this.state.customLessonDriveLinks = {};
         }
         if (!Array.isArray(this.state.learnedWords)) {
           this.state.learnedWords = [];
@@ -327,6 +337,8 @@ export class StateManager {
         dailyNewBatchDate: this.state.dailyNewBatchDate || this.getTodayString(),
         todayNewWordsCount: this.state.todayNewWordsCount || 0,
         completedStreakDates: this.state.completedStreakDates || [],
+        completedCourseLessons: this.state.completedCourseLessons || [],
+        customLessonDriveLinks: this.state.customLessonDriveLinks || {},
         dailyStudyTimeMap: this.state.dailyStudyTimeMap || {},
         audioEnabled: this.state.audioEnabled ?? true,
         theme: this.state.theme || "dark",
@@ -1011,6 +1023,38 @@ export class StateManager {
   setTheme(theme) {
     this.state.theme = theme;
     this.saveState();
+  }
+
+  // Quản lý tiến độ học phim & Khóa học
+  markCourseLessonComplete(lessonId) {
+    if (!lessonId) return;
+    const completedSet = new Set(this.state.completedCourseLessons || []);
+    const isFirstTime = !completedSet.has(lessonId);
+    completedSet.add(lessonId);
+    this.state.completedCourseLessons = Array.from(completedSet);
+    if (isFirstTime) {
+      this.addXP(25); // Thưởng +25 XP khi hoàn thành bài học phim
+    }
+    this.saveState();
+  }
+
+  isCourseLessonComplete(lessonId) {
+    if (!lessonId) return false;
+    return (this.state.completedCourseLessons || []).includes(lessonId);
+  }
+
+  setCustomLessonDriveLink(lessonId, url) {
+    if (!lessonId) return;
+    if (!this.state.customLessonDriveLinks || typeof this.state.customLessonDriveLinks !== 'object') {
+      this.state.customLessonDriveLinks = {};
+    }
+    this.state.customLessonDriveLinks[lessonId] = (url || "").trim();
+    this.saveState();
+  }
+
+  getLessonDriveLink(lesson) {
+    if (!lesson) return "";
+    return this.state.customLessonDriveLinks?.[lesson.id] || lesson.videoDriveUrl || lesson.videoDriveId || "";
   }
 }
 
